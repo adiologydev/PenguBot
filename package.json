@@ -1,0 +1,49 @@
+{
+  "name": "pengubot",
+  "version": "3.0.0",
+  "description": "PenguBot is a discord server for PenguBot is a Multi-Purpose Discord Bot which is filled with features ranging from Moderation, Fun, Utilities, Music and more. It is developed in NodeJS and uses many different technologies such as MySQL, MariaDB, Linux, etc. It contains over 100 features and is expanding at a rapid rate with over 6,200 guilds and 150,000+ users at the time of this being written.",
+  "main": "main.js",
+  "scripts": {
+    "start": "node sharding.js",
+    "test": "eslint .",
+    "lint": "eslint --fix ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdityaTD/PenguBot.git"
+  },
+  "keywords": [
+    "Discord",
+    "DiscordAPP",
+    "Discord",
+    "Bot",
+    "discord.js",
+    "Pengu",
+    "PenguBot"
+  ],
+  "author": "AdityaTD",
+  "license": "MIT",
+  "homepage": "http://pengu.ml",
+  "private": true,
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "discord.js": "^11.3.0",
+    "discord.js-commando": "github:discordjs/commando#11.2",
+    "fast-html-parser": "^1.0.1",
+    "goo.gl": "^0.1.4",
+    "moment": "^2.20.1",
+    "moment-duration-format": "^2.2.0",
+    "mysql2": "^1.5.1",
+    "node-opus": "^0.2.7",
+    "simple-youtube-api": "^5.0.1",
+    "snekfetch": "^3.6.1",
+    "ytdl-core": "^0.20.1"
+  },
+  "devDependencies": {
+    "eslint": "^4.16.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "ffmpeg-binaries": "^3.2.2",
+    "nodemon": "^1.14.11"
+  }
+}
