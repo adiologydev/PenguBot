@@ -39,12 +39,6 @@ module.exports = class ExampleCommand extends Command {
 };
 ```
 
-## License
-MIT
-
-## Author
-**AdityaTD**
-
 ## Contributor(s)
 [**Jacz**](https://github.com/MrJacz)
 
