@@ -1,4 +1,5 @@
 // const timeout = new Set();
+const { post } = require("snekfetch");
 
 module.exports = async (client, message) => {
     if (message.author.bot) return;
@@ -18,6 +19,28 @@ module.exports = async (client, message) => {
                 message.channel.send(`**${mentioned.username}** is currently AFK for: ${message.guild.settings.get(`${mentioned.id}.afk`)}`);
             }
         }
+    }
+
+    // Cleverbot
+    if (message.content.startsWith("<@303181184718995457>")) {
+        const fWord = message.content.split("<@303181184718995457>");
+        if (client.registry.commands.exists("name", fWord[1])) return;
+        const clvrConv = message.content.slice(21).trim().split(/<@303181184718995457>/g);
+
+        try {
+            const opts = {
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                data: {
+                    user: "MvNq9akgC1tWyssI",
+                    key: client.config.CLVRToken,
+                    nick: "PenguBotDiscord",
+                    text: clvrConv
+                }
+            };
+            message.channel.startTyping();
+            const { body } = await post("https://cleverbot.io/1.0/ask", opts).then(message.channel.stopTyping());
+            message.channel.send(`<@${message.author.id}>, ${body.response}`);
+        } catch (e) { console.log(` | CLEVERBOT ERROR |\ne`); message.channel.stopTyping(); }
     }
 
 // Profile Functions Disabled Due to Database having issues in saving them.

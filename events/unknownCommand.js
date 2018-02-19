@@ -1,4 +1,5 @@
 // Custom command loader for Custom commads/ todo: add server name and other variables
+
 const talkedRecently = new Set();
 module.exports = async (client, message) => {
     if (!message.guild) return;
@@ -8,8 +9,6 @@ module.exports = async (client, message) => {
     if (talkedRecently.has(message.author.id)) return;
     if (guild.settings.get(`cmd.${cmd}`)) {
         message.channel.send(guild.settings.get(`cmd.${cmd.toString()}`));
-        client.ccmdCount = 0;
-        client.ccmdCount++;
         talkedRecently.add(message.author.id);
         setTimeout(() => talkedRecently.delete(message.author.id), 15000);
     }
