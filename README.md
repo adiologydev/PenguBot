@@ -52,5 +52,7 @@ MIT
 This project contains some code from the following:
 
 [**Commando**](https://github.com/WeebDev/Commando) by [**WeebDev**](https://github.com/WeebDev)
+
 [**Lyrics Scraper (Lyricist)**](https://github.com/scf4/lyricist)
+
 [**Komada Pieces**](https://github.com/dirigeants/komada-pieces)
