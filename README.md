@@ -44,11 +44,15 @@ MIT
 
 ## Author
 **AdityaTD**
+
 ## Contributor(s)
 **Jacz**
 
 ## Acknowledgement
 This project contains some code from the following:
+
 Commando by WeebDev (https://github.com/WeebDev/Commando)
+
 Lyrics Scraper (Lyricist) from https://github.com/scf4/lyricist
+
 Modified Codes From Komada Pieces (https://github.com/dirigeants/komada-pieces/)
