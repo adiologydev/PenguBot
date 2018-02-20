@@ -50,3 +50,5 @@ This project contains some code from the following:
 [**Lyrics Scraper (Lyricist)**](https://github.com/scf4/lyricist)
 
 [**Komada Pieces**](https://github.com/dirigeants/komada-pieces)
+
+[**Insult Generator**](https://github.com/YorkAARGH)
