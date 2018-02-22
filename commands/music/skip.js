@@ -18,7 +18,7 @@ module.exports = class SkipSongCommand extends Command {
             guildOnly: true,
             throttling: {
                 usages: 1,
-                duration: 10
+                duration: 30
             }
         });
 
@@ -26,23 +26,27 @@ module.exports = class SkipSongCommand extends Command {
     }
 
     async run(msg, args) {
-        if (msg.guild && !msg.channel.permissionsFor(msg.guild.me).has(["SEND_MESSAGES", "VIEW_CHANNEL"])) return;
-        const queue = this.queue.get(msg.guild.id);
-        if (!msg.member.voiceChannel) return msg.channel.send("You are not in a voice channel!");
-        if (!queue) return msg.reply(":x: There are no songs being played right now.");
-        if (!queue.voiceChannel.members.has(msg.author.id)) return msg.reply(":x: You're not in the voice channel.");
-        if (!queue.songs) return msg.reply(`No songs in queue`);
+        // DISABLED FOR NOW BECAUSE IT IS HAVING TROUBLE SKIPPING MORE THAN 2 SONGS, IF SOMEONE CAN HELP, PLEASE DO!
+        return msg.reply(":x: | The skip command is currently not working properly, I'm very sorry but try again in the future please.");
 
-        const threshold = Math.ceil((queue.voiceChannel.members.size - 1) / 3);
+        // eslint-disable-all
+        if (msg.guild && !msg.channel.permissionsFor(msg.guild.me).has(["SEND_MESSAGES", "VIEW_CHANNEL"])) return;
+        const queue = this.client.queue.get(msg.guild.id);
+        if (!msg.member.voiceChannel) return msg.channel.send(":x: | You are not in a voice channel.");
+        if (!queue) return msg.reply(":x: | There are no songs being played right now.");
+        if (!queue.voice.members.has(msg.author.id)) return msg.reply(":x: | You're not in a voice channel.");
+        if (!queue.songs) return msg.reply(`:x: | No songs in queue.`);
+
+        const threshold = Math.ceil((queue.voice.members.size - 1) / 3);
         const force = threshold <= 1 ||
-    queue.voiceChannel.members.size < threshold ||
+    queue.voice.members.size < threshold ||
     (msg.member.hasPermission("MANAGE_MESSAGES") &&
     args.toLowerCase() === "force");
         if (force) return msg.reply(this.skip(msg.guild, queue));
 
         const vote = this.votes.get(msg.guild.id);
         if (vote && vote.count >= 1) {
-            if (vote.users.some(user => user === msg.author.id)) return msg.reply("you've already voted to skip this song.");
+            if (vote.users.some(user => user === msg.author.id)) return msg.reply(":x: | You've already voted to skip this song.");
 
             vote.count++;
             vote.users.push(msg.author.id);
@@ -77,8 +81,8 @@ module.exports = class SkipSongCommand extends Command {
         }
 
         const song = queue.songs[0];
-        if (!song) return `No song in queue`;
-        queue.dispatcher.end("Skip command used");
+        if (!song) return `No songs in queue`;
+        queue.connection.disconnect();
         return `✅ Skipped: **${song.title}**`;
     }
 
@@ -87,15 +91,10 @@ module.exports = class SkipSongCommand extends Command {
         clearTimeout(vote.timeout);
         vote.timeout = setTimeout(() => {
             this.votes.delete(vote.guild);
-            vote.queue.textChannel.send("✅ The vote to skip the current song has ended.");
+            vote.queue.text.send("✅ | The vote to skip the current song has ended.");
         }, time);
 
         return Math.round(time / 1000);
-    }
-
-    get queue() {
-        if (!this._queue) this._queue = this.client.registry.resolveCommand("music:play").queue;
-        return this._queue;
     }
 
 };

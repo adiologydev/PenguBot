@@ -40,7 +40,7 @@ module.exports = async (client, message) => {
             message.channel.startTyping();
             const { body } = await post("https://cleverbot.io/1.0/ask", opts).then(message.channel.stopTyping());
             message.channel.send(`<@${message.author.id}>, ${body.response}`);
-        } catch (e) { console.log(` | CLEVERBOT ERROR |\ne`); message.channel.stopTyping(); }
+        } catch (e) { console.log(` | CLEVERBOT ERROR |\n${e}`); message.channel.stopTyping(); }
     }
 
 // Profile Functions Disabled Due to Database having issues in saving them.

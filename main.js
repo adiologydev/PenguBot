@@ -11,6 +11,8 @@ class PenguClient extends CommandoClient { //eslint-disable-line
         this.config = require("./config.json");
         this.Util = new (require("./util/Util"));
         this.cmdRun = {};
+        this.player = null;
+        this.queue = new Map();
     }
 
 }
