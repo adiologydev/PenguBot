@@ -1,7 +1,7 @@
 const timeString = (ms) => new Date(ms).toISOString().slice(11, -1).slice(0, 8);
 
 const validURL = (str) => {
-    const regexp = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
+    const regexp = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/; // eslint-disable-line
     if (!regexp.test(str)) {
         return false;
     } else { return true; }
