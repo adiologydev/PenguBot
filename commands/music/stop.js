@@ -16,24 +16,22 @@ module.exports = class StopMusicCommand extends Command {
                 duration: 3
             }
         });
+        this.queue = this.client.queue;
     }
-
     hasPermission(msg) {
         return this.client.isOwner(msg.author) || msg.member.hasPermission("MANAGE_MESSAGES") || this.client.functions.isDJ(msg);
     }
 
     async run(msg) {
-        if (msg.guild && !msg.channel.permissionsFor(msg.guild.me).has(["SEND_MESSAGES", "VIEW_CHANNEL"])) return;
-        if (!msg.member.voiceChannel) return msg.channel.send("You are not in a voice channel!");
         const queue = this.queue.get(msg.guild.id);
-        if (!queue) return msg.reply("❌ No music is being played currently.");
+        if (msg.guild && !msg.channel.permissionsFor(msg.guild.me).has(["SEND_MESSAGES", "VIEW_CHANNEL"])) return;
+        if (!msg.member.voiceChannel) return msg.channel.send("❌ | You are not in a voice channel!");
+        if (!queue || !queue.songs[0]) return msg.reply("❌ | No music is being played currently.");
         queue.songs = [];
-        queue.dispatcher.end("Stop command has been used!");
-    }
-
-    get queue() {
-        if (!this._queue) this._queue = this.client.registry.resolveCommand("music:play").queue;
-        return this._queue;
+        queue.connection.disconnect();
+        this.client.player.leave(msg.guild.id);
+        this.client.queue.delete(msg.guild.id);
+        msg.channel.send("⏹ | **Stopped:** Cleared The Queue and Stopped The Music.");
     }
 
 };

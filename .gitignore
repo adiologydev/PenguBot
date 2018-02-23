@@ -57,7 +57,7 @@ typings/
 # dotenv environment variables file
 .env
 
-# config file
+# random
 config.json
-
+yarn.lock
 package-lock.json
