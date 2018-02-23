@@ -33,7 +33,7 @@ module.exports = class ResumeSongCommand extends Command {
             return msg.reply(`:x: This command is Patron only. Why not consider becoming one? <https://patreon.com/PenguBot>`);
         }
 
-        queue.connection.resume();
+        queue.connection.pause(false);
         queue.playing = true;
         return msg.reply("✅ Resumed the paused music.");
     }

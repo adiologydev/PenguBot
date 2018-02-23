@@ -1,5 +1,5 @@
 // const timeout = new Set();
-const { post } = require("snekfetch");
+// const { post } = require("snekfetch");
 
 module.exports = async (client, message) => {
     if (message.author.bot) return;
@@ -21,7 +21,7 @@ module.exports = async (client, message) => {
         }
     }
 
-    // Cleverbot
+    /* Cleverbot - DISABLED BECAUSE CLEVERBOT.IO IS APPARENTLY ABANDONED
     if (message.content.startsWith("<@303181184718995457>")) {
         const fWord = message.content.split("<@303181184718995457>");
         if (client.registry.commands.exists("name", fWord[1])) return;
@@ -41,7 +41,7 @@ module.exports = async (client, message) => {
             const { body } = await post("https://cleverbot.io/1.0/ask", opts).then(message.channel.stopTyping());
             message.channel.send(`<@${message.author.id}>, ${body.response}`);
         } catch (e) { console.log(` | CLEVERBOT ERROR |\n${e}`); message.channel.stopTyping(); }
-    }
+    } */
 
 // Profile Functions Disabled Due to Database having issues in saving them.
 

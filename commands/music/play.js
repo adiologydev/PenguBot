@@ -14,7 +14,7 @@ module.exports = class PlaySongCommand extends Command {
             guildOnly: true,
             throttling: {
                 usages: 1,
-                duration: 3
+                duration: 5
             },
             args: [{
                 key: "song",
@@ -41,11 +41,11 @@ module.exports = class PlaySongCommand extends Command {
             if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
                 const statusMsg = await msg.reply("🔄 | Loading your playlist, please wait...");
                 const playlist = await this.youtube.getPlaylist(url);
-                // Make it so Patreons can add more then 50
+                // Make it so Patreons can add more then 25
                 const videos = await playlist.getVideos();
                 for (const video of Object.values(videos)) {
-                    if (Object.values(videos).length > 50) {
-                        if (!this.client.isOwner(msg.author) || !await this.client.functions.isPatreon(msg)) return statusMsg.edit(`:x: | ${msg.author}, You can only play playlists up to 50 songs. Remove this restriction by becoming a Patron at <https://www.patreon.com/PenguBot>`); //eslint-disable-line
+                    if (Object.values(videos).length > 25) {
+                        if (!this.client.isOwner(msg.author) || !await this.client.functions.isPatreon(msg)) return statusMsg.edit(`:x: | ${msg.author}, You can only play playlists of up to 25 songs. Remove this restriction by becoming a Patron at <https://www.patreon.com/PenguBot>`); //eslint-disable-line
                     }
                     const video2 = await this.getLLTrack(`https://www.youtube.com/watch?v=${video.id}`); // eslint-disable-line no-await-in-loop
                     await this.musicHandler(msg.guild, msg, video2, channel, true); // eslint-disable-line no-await-in-loop
@@ -121,12 +121,17 @@ ${videos.map(video2 => `➡ \`${++index}\` ${video2.title} - ${video2.channel.ti
                         channel: voiceChannel.id,
                         host: "localhost"
                     });
+                    player.on("end", () => {
+                        queueConst.songs.shift();
+                        setTimeout(() => this.play(guild, queueConst.songs[0]), 500);
+                    });
                     queueConst.connection = player;
                     this.play(guild, song);
                 } catch (e) {
                     this.queue.delete(msg.guild.id);
                     queueConst.connection.disconnect();
                     this.client.player.leave(msg.guild.id);
+                    console.log(`| MUSIC ERROR |\n${e}`);
                     return msg.channel.send(`❌ | Pengu Tripped On A Wire!\n\`\`\`${e.message}\`\`\``);
                 }
             } else {
@@ -136,7 +141,8 @@ ${videos.map(video2 => `➡ \`${++index}\` ${video2.title} - ${video2.channel.ti
             }
             return undefined;
         } catch (e) {
-            msg.channel.send(":x: | Video/Playlist is blocked in Pengu's country, please retry with a different video/playlist.");
+            console.log(`| MUSIC ERROR (Handler) |\n${e}`);
+            if (!playlist) return msg.channel.send(":x: | Video is blocked in Pengu's country, please retry with a different video.");
             return undefined;
         }
     }
@@ -145,7 +151,7 @@ ${videos.map(video2 => `➡ \`${++index}\` ${video2.title} - ${video2.channel.ti
         const queue = this.queue.get(guild.id);
         if (!song) {
             setTimeout(async () => {
-                await queue.connection.disconnect();
+                if (queue) return await queue.connection.disconnect();
                 await this.client.player.leave(guild.id);
                 this.queue.delete(guild.id);
                 return;
@@ -154,10 +160,10 @@ ${videos.map(video2 => `➡ \`${++index}\` ${video2.title} - ${video2.channel.ti
         }
 
         await queue.connection.play(song.track);
-        queue.connection.on("end", () => {
+        /* queue.connection.on("end", () => {
             queue.songs.shift();
             setTimeout(() => this.play(guild, queue.songs[0]), 500);
-        });
+        });*/
         queue.connection.on("error", async (error) => {
             queue.songs = [];
             console.log(`| MUSIC ERROR |\n${error}`);

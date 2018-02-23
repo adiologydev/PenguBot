@@ -27,7 +27,7 @@ module.exports = class SkipSongCommand extends Command {
 
     async run(msg, args) {
         // DISABLED FOR NOW BECAUSE IT IS HAVING TROUBLE SKIPPING MORE THAN 2 SONGS, IF SOMEONE CAN HELP, PLEASE DO!
-        return msg.reply(":x: | The skip command is currently not working properly, I'm very sorry but try again in the future please.");
+        // return msg.reply(":x: | The skip command is currently not working properly, I'm very sorry but try again in the future please.");
 
         // eslint-disable-all
         if (msg.guild && !msg.channel.permissionsFor(msg.guild.me).has(["SEND_MESSAGES", "VIEW_CHANNEL"])) return;
