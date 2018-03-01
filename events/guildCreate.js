@@ -17,12 +17,12 @@ Hey, I'm PenguBot a friendly multi-purpose bot, now that you know who I am let's
 
 \`-\` **Core Commands:** \`p!help\` will list all commands that are usable to you, \`p!music\` will list all the music commands with details.
 \`-\` **Useful Commands:** \`p!prefix\` will show the current prefix if no prefix is provided but you can do \`p!prefix new prefix\` to change the prefix.
-\`-\` **Support:** In case you need any help you can also join the support server at [**discord.gg/NQCTdEc**](https://discord.gg/NQCTdEc).
-\`-\` **Agreement:** By inviting PenguBot and using PenguBot in your guild (Server) you and your guild (Server) members agree that PenguBot may collect End User Data.
+\`-\` **Support:** In case you need any help you can also join the support server at [**discord.gg/u8WYw5r**](https://discord.gg/u8WYw5r).
+\`-\` **Agreement:** By using PenguBot in your guild (Server) you and your guild members agree that PenguBot may collect End User Data.
 
-\`-\` **Website:** [**PenguBot.com**](https://pengubot.com)
-\`-\` **Developers:** [**Jacz#9536**](https://jaczaus.me) & [**AdityaTD#5346**](https://adityatd.me/)
-\`-\` **Support Server:** [**discord.gg/NQCTdEc**](https://discord.gg/NQCTdEc)
+\`-\` **Website:** [**PenguBot.cc**](https://www.PenguBot.cc)
+\`-\` **Author:** [**AdityaTD#5346**](https://adityatd.me/)
+\`-\` **Support Server:** [**discord.gg/u8WYw5r**](https://discord.gg/u8WYw5r)
 `)
         .setThumbnail(client.user.displayAvatarURL);
     channel.send({ embed });

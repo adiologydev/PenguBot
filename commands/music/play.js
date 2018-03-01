@@ -121,20 +121,56 @@ ${videos.map(video2 => `➡ \`${++index}\` ${video2.title} - ${video2.channel.ti
                         channel: voiceChannel.id,
                         host: "localhost"
                     });
-                    player.on("end", () => {
-                        queueConst.songs.shift();
-                        setTimeout(() => this.play(guild, queueConst.songs[0]), 500);
+                    player.on("end", e => {
+                        // Skip Event
+                        if (e.reason === "REPLACED") {
+                            const songa = queueConst.songs[0];
+                            queueConst.text.send(`⏯ | **Now Playing:** ${songa.title} (${songa.readTime}) by ${songa.author} - (<${songa.url}>) | Requested by ${songa.requester.user.tag}`);
+                        }
+                        // Finished Event
+                        if (e.reason === "FINISHED") {
+                            if (!song) {
+                                setTimeout(async () => {
+                                    if (queueConst) return await queueConst.connection.disconnect();
+                                    await this.client.player.leave(guild.id);
+                                    return this.queue.delete(guild.id);
+                                }, 2500);
+                                queueConst.playing = true;
+                                return queueConst.text.send("🎵 | **Music:** Finished playing the current queue. Enjoyed what you heard? Why not support us on Patreon at <https://www.Patreon.com/PenguBot>");
+                            }
+                            queueConst.songs.shift();
+                            setTimeout(() => {
+                                const songb = queueConst.songs[0];
+                                queueConst.playing = true;
+                                player.play(songb.track);
+                                return queueConst.text.send(`⏯ | **Now Playing:** ${songb.title} (${songb.readTime}) by ${songb.author} - (<${songb.url}>) | Requested by ${songb.requester.user.tag}`);
+                            }, 500);
+                        }
                     });
+                    // Error Event
+                    player.on("error", async (error) => {
+                        queue.songs = [];
+                        console.log(`| MUSIC ERROR |\n${error}`);
+                        await queue.connection.disconnect();
+                        await this.client.player.leave(guild.id);
+                        queue.text.send(`❌ | There was an error playing that song, please trying again or report it to the developer.`);
+                        this.client.queue.delete(guild.id);
+                    });
+
+                    // Play Intiial Event
                     queueConst.connection = player;
-                    this.play(guild, song);
+                    player.play(song.track);
+                    queueConst.playing = true;
+                    queueConst.text.send(`⏯ | **Now Playing:** ${song.title} (${song.readTime}) by ${song.author} - (<${song.url}>) | Requested by ${song.requester.user.tag}`);
                 } catch (e) {
-                    this.queue.delete(msg.guild.id);
                     queueConst.connection.disconnect();
+                    this.queue.delete(msg.guild.id);
                     this.client.player.leave(msg.guild.id);
                     console.log(`| MUSIC ERROR |\n${e}`);
                     return msg.channel.send(`❌ | Pengu Tripped On A Wire!\n\`\`\`${e.message}\`\`\``);
                 }
             } else {
+                // Add Songs To Queue
                 queue.songs.push(song);
                 if (playlist) return undefined;
                 return msg.channel.send(`📰 | **Queue:** ${song.title} (${song.readTime}) by ${song.author} has been added to the queue.`);
@@ -147,35 +183,7 @@ ${videos.map(video2 => `➡ \`${++index}\` ${video2.title} - ${video2.channel.ti
         }
     }
 
-    async play(guild, song) {
-        const queue = this.queue.get(guild.id);
-        if (!song) {
-            setTimeout(async () => {
-                if (queue) return await queue.connection.disconnect();
-                await this.client.player.leave(guild.id);
-                this.queue.delete(guild.id);
-                return;
-            }, 2500);
-            return queue.text.send("🎵 | **Music:** Finished playing the current queue. Enjoyed what you heard? Why not support us on Patreon at <https://www.Patreon.com/PenguBot>");
-        }
-
-        await queue.connection.play(song.track);
-        /* queue.connection.on("end", () => {
-            queue.songs.shift();
-            setTimeout(() => this.play(guild, queue.songs[0]), 500);
-        });*/
-        queue.connection.on("error", async (error) => {
-            queue.songs = [];
-            console.log(`| MUSIC ERROR |\n${error}`);
-            await queue.connection.disconnect();
-            await this.client.player.leave(guild.id);
-            queue.text.send(`❌ | There was an error playing that song, please trying again or report it to the developer.`);
-            this.client.queue.delete(guild.id);
-        });
-        queue.playing = true;
-        queue.text.send(`⏯ | **Now Playing:** ${song.title} (${song.readTime}) by ${song.author} - (<${song.url}>) | Requested by ${song.requester.user.tag}`);
-    }
-
+    // Resolve Tracks
     async getLLTrack(song) {
         const data = await get(`http://localhost:2333/loadtracks?identifier=${encodeURIComponent(song)}`)
             .set("Authorization", this.client.config.music.RESTPass)

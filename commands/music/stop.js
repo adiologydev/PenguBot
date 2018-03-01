@@ -28,7 +28,6 @@ module.exports = class StopMusicCommand extends Command {
         if (!msg.member.voiceChannel) return msg.channel.send("❌ | You are not in a voice channel!");
         if (!queue || !queue.songs[0]) return msg.reply("❌ | No music is being played currently.");
         queue.songs = [];
-        queue.connection.disconnect();
         this.client.player.leave(msg.guild.id);
         this.client.queue.delete(msg.guild.id);
         msg.channel.send("⏹ | **Stopped:** Cleared The Queue and Stopped The Music.");

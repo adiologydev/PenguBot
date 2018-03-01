@@ -80,9 +80,17 @@ module.exports = class SkipSongCommand extends Command {
             this.votes.delete(guild.id);
         }
 
+        queue.songs.shift();
         const song = queue.songs[0];
-        if (!song) return `No songs in queue`;
-        queue.connection.disconnect();
+        if (!song) {
+            setTimeout(async () => {
+                await this.client.player.leave(guild.id);
+                return this.client.queue.delete(guild.id);
+            }, 500);
+            return queue.text.send("🎵 | **Music:** Finished playing the current queue. Enjoyed what you heard? Why not support us on Patreon at <https://www.Patreon.com/PenguBot>");
+        }
+
+        queue.connection.play(song.track);
         return `✅ Skipped: **${song.title}**`;
     }
 
