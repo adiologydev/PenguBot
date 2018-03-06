@@ -124,26 +124,22 @@ ${videos.map(video2 => `➡ \`${++index}\` ${video2.title} - ${video2.channel.ti
                     player.on("end", e => {
                         // Skip Event
                         if (e.reason === "REPLACED") {
-                            const songa = queueConst.songs[0];
-                            queueConst.text.send(`⏯ | **Now Playing:** ${songa.title} (${songa.readTime}) by ${songa.author} - (<${songa.url}>) | Requested by ${songa.requester.user.tag}`);
+                            const songa = this.queue.get(msg.guild.id).songs[0];
+                            return queueConst.text.send(`⏯ | **Now Playing:** ${songa.title} (${songa.readTime}) by ${songa.author} - (<${songa.url}>) | Requested by ${songa.requester.user.tag}`);
                         }
                         // Finished Event
-                        if (e.reason === "FINISHED") {
-                            if (!song) {
-                                setTimeout(async () => {
-                                    if (queueConst) return await queueConst.connection.disconnect();
-                                    await this.client.player.leave(guild.id);
-                                    return this.queue.delete(guild.id);
-                                }, 2500);
-                                queueConst.playing = true;
-                                return queueConst.text.send("🎵 | **Music:** Finished playing the current queue. Enjoyed what you heard? Why not support us on Patreon at <https://www.Patreon.com/PenguBot>");
-                            }
-                            queueConst.songs.shift();
-                            setTimeout(() => {
-                                const songb = queueConst.songs[0];
-                                queueConst.playing = true;
-                                player.play(songb.track);
-                                return queueConst.text.send(`⏯ | **Now Playing:** ${songb.title} (${songb.readTime}) by ${songb.author} - (<${songb.url}>) | Requested by ${songb.requester.user.tag}`);
+                        if (e.reason === "FINISHED" || e.reason === "STOPPED") {
+                            setTimeout(async () => {
+                                queueConst.songs.shift();
+                                if (queueConst.songs.length === 0) {
+                                    this.client.player.leave(guild.id);
+                                    this.queue.delete(guild.id);
+                                    return queueConst.text.send("🎵 | **Music:** Finished playing the current queue. Enjoyed what you heard? Why not support us on Patreon at <https://www.Patreon.com/PenguBot>");
+                                } else {
+                                    const songa = queueConst.songs[0];
+                                    await queueConst.connection.play(queueConst.songs[0].track);
+                                    return queueConst.text.send(`⏯ | **Now Playing:** ${songa.title} (${songa.readTime}) by ${songa.author} - (<${songa.url}>) | Requested by ${songa.requester.user.tag}`);
+                                }
                             }, 500);
                         }
                     });

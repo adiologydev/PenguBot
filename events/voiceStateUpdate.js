@@ -14,5 +14,5 @@ module.exports = async (client, oldMem, newMem) => {
                 console.log(`| VoiceStateUpdate |\n${e}`);
             }
         }
-    }, 30000);
+    }, 5000);
 };

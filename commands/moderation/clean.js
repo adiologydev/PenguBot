@@ -46,7 +46,7 @@ module.exports = class CleanCommand extends Command {
     }
 
     hasPermission(msg) {
-        return msg.member.hasPermission("MANAGE_MESSAGES") || msg.member.hasPermission("ADMINISTRATOR") || this.client.functions.isAdmin(msg);
+        return msg.member.hasPermission("ADMINISTRATOR") || this.client.functions.isAdmin(msg);
     }
 
     async run(msg, { limit, filter, member }) {
@@ -54,7 +54,7 @@ module.exports = class CleanCommand extends Command {
         const botMember = await msg.guild.fetchMember(msg.client.user);
 
         const BotNoPerm = new Discord.RichEmbed()
-            .addField("Insufficient Permissions", 'I don\'t have "Manage Roles" permission. Please give me that before using this command.')
+            .addField("Insufficient Permissions", 'I don\'t have "Manage Messages" permission. Please give me that before using this command.')
             .setColor("#ff1b1b")
             .setFooter("© PenguBot")
             .setTimestamp();
@@ -71,7 +71,7 @@ module.exports = class CleanCommand extends Command {
             .setFooter("© PenguBot")
             .setTimestamp();
 
-        if (!botMember.hasPermission("MANAGE_ROLES_OR_PERMISSIONS")) return msg.embed(BotNoPerm);
+        if (!botMember.hasPermission("MANAGE_MESSAGES")) return msg.embed(BotNoPerm);
         limit = limit === 100 ? 99 : limit;
         filter = filter.toLowerCase();
         let messageFilter;
@@ -88,25 +88,28 @@ module.exports = class CleanCommand extends Command {
                 }
             } else if (filter === "bots") {
                 messageFilter = message => message.author.bot;
-            } else if (filter === "you") {
+            } else if (filter === "you" || filter === "me") {
                 messageFilter = message => message.author.id === message.client.user.id;
-            } else if (filter === "upload") {
+            } else if (filter === "upload" || filter === "images" || filter === "media") {
                 messageFilter = message => message.attachments.size !== 0;
             } else if (filter === "links") {
                 messageFilter = message => message.content.search(/https?:\/\/[^ \/\.]+\.[^ \/\.]+/) !== -1; // eslint-disable-line no-useless-escape
             } else {
                 return msg.embed(InvalidFilter);
             }
+
+            /* eslint-disable no-unused-vars, handle-callback-err */
+            const messages = await msg.channel.fetchMessages({ limit }).catch(err => null);
+            const messagesToDelete = messages.filter(messageFilter);
+            msg.channel.bulkDelete(messagesToDelete.array().reverse()).catch(err => null);
+
+            return null;
         }
 
-        if (!filter) {
-            const messagesToDelete = await msg.channel.fetchMessages({ limit: limit + 1 }).catch(() => null);
-            msg.channel.bulkDelete(messagesToDelete.array().reverse()).catch(() => null);
-        } else {
-            const messages = await msg.channel.fetchMessages({ limit: limit + 1 }).catch(() => null);
-            const messagesToDelete = messages.filter(messageFilter);
-            msg.channel.bulkDelete(messagesToDelete.array().reverse()).catch(() => null);
-        }
+        const messagesToDelete = await msg.channel.fetchMessages({ limit }).catch(err => null);
+        msg.channel.bulkDelete(messagesToDelete.array().reverse()).catch(err => null);
+
+        return null;
     }
 
 };
