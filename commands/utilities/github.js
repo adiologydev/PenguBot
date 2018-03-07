@@ -52,7 +52,7 @@ module.exports = class GitHubCMD extends Command {
                     });
                 }).catch(err => {
                     console.log(err);
-                    search.edit("❌ | There was an error, please try again later. ${err.message}");
+                    search.edit(`❌ | An error has occured! \`${err.name}: ${err.message}\`\nTry again later.`);
                 });
         }
     }
