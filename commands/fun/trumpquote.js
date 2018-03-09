@@ -20,7 +20,7 @@ module.exports = class TrumpQuoteCMD extends Command {
 
     async run(msg) {
         if (msg.guild && !msg.channel.permissionsFor(msg.guild.me).has(["SEND_MESSAGES", "VIEW_CHANNEL"])) return;
-        const { body } = await get(`https://api.whatdoestrumpthink.com/api/v1/quotes/personalized?q=${msg.author.username}`).catch(() => msg.say("There was an error, I think a cat has cut the wire off, dogs don't do that."));
+        const { body } = await get(`https://api.whatdoestrumpthink.com/api/v1/quotes/personalized?q=${msg.author.username}`).catch(() => msg.say(`There was an error, I think a cat has cut the wire off, dogs don't do that.`)); // eslint-disable-line
         return msg.reply(`🎺 **Trump Says:** ${body.message}`);
     }
 
