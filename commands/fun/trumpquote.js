@@ -9,7 +9,7 @@ module.exports = class TrumpQuoteCMD extends Command {
             group: "fun",
             aliases: ["trump", "trumpsays"],
             memberName: "trumpquote",
-            description: Let's see, what Trump has to say about you!",
+            description: "Lets see, what Trump has to say about you!",
             throttling: {
                 usages: 1,
                 duration: 3
