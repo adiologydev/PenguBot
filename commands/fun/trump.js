@@ -5,16 +5,16 @@ module.exports = class TrumpQuoteCMD extends Command {
 
     constructor(client) {
         super(client, {
-            name: "trumpquote",
+            name: "trump",
             group: "fun",
-            aliases: ["trump", "trumpsays"],
-            memberName: "trumpquote",
+            aliases: ["trumpquote", "trumpsays"],
+            memberName: "trump",
             description: "Lets see, what Trump has to say about you!",
             throttling: {
                 usages: 1,
                 duration: 3
             },
-            usage: ["<prefix>trumpquote"]
+            usage: ["<prefix>trump"]
         });
     }
 
