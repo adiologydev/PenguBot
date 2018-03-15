@@ -13,6 +13,7 @@ class PenguClient extends CommandoClient { //eslint-disable-line
         this.cmdRun = {};
         this.player = null;
         this.queue = new Map();
+        this.db = null;
     }
 
 }
