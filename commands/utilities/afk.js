@@ -8,7 +8,7 @@ module.exports = class AfkCmd extends Command {
             aliases: ["awayfromkeyboard"],
             group: "utilities",
             memberName: "afk",
-            description: "Set yourself Away From Keyboarde.",
+            description: "Set yourself Away From Keyboard.",
             examples: ["<prefix>afk [reason]"],
             guildOnly: true,
             throttling: {
