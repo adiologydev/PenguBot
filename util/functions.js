@@ -11,7 +11,7 @@ const ServerStats = (client) => {
             shard_count: client.shard.count
         }).catch(console.log);
     post(`https://bots.discord.pw/api/bots/${client.user.id}/stats`)
-        .set("Authorization", config.DBL)
+        .set("Authorization", config.DBPW)
         .send({
             server_count: client.guilds.size,
             shard_id: client.shard.id,
