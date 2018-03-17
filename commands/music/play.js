@@ -190,13 +190,20 @@ ${videos.map(video2 => `➡ \`${++index}\` ${video2.title} - ${video2.channel.ti
     }
 
     async isPatreon(msg) {
-        const role = msg.client.guilds.find("id", "303195322514014210").roles.find("id", "381824166615056395");
-        if (role.members.exists("id", msg.author.id)) {
-            return true;
+        const supportGuild = this.client.guilds.has("303195322514014210") && this.client.guilds.get("303195322514014210") || false; // eslint-disable-line
+        if (supportGuild) {
+            const member = supportGuild.members.has(msg.author.id) && supportGuild.members.get(msg.author.id) || false; // eslint-disable-line
+            if (member) {
+                return member.roles.has("381824166615056395");
+            } else {
+                const [rows] = await this.client.db.query(`SELECT * FROM patreons WHERE id = '${msg.author.id}'`);
+                if (!rows || !Object.values(rows).length) return false;
+                return true;
+            }
         } else {
-            const [rows] = await msg.client.db.query(`SELECT * FROM patreons WHERE id = '${msg.author.id}'`);
-            if (!rows || !rows.length) return false;
-            return rows[0].id === msg.author.id;
+            const [rows] = await this.client.db.query(`SELECT * FROM patreons WHERE id = '${msg.author.id}'`);
+            if (!rows || !Object.values(rows).length) return false;
+            return true;
         }
     }
 
