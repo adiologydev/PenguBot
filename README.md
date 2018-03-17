@@ -52,3 +52,6 @@ This project contains some code from the following:
 [**Komada Pieces**](https://github.com/dirigeants/komada-pieces)
 
 [**Insult Generator**](https://github.com/YorkAARGH)
+
+## Vote on DiscordBots
+[![Discord Bots](https://discordbots.org/api/widget/303181184718995457.svg)](https://discordbots.org/bot/303181184718995457/vote)
