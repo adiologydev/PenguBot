@@ -10,6 +10,13 @@ const ServerStats = (client) => {
             shard_id: client.shard.id,
             shard_count: client.shard.count
         }).catch(console.log);
+    post(`https://bots.discord.pw/api/bots/${client.user.id}/stats`)
+        .set("Authorization", config.DBL)
+        .send({
+            server_count: client.guilds.size,
+            shard_id: client.shard.id,
+            shard_count: client.shard.count
+        }).catch(console.log);
 };
 
 const isDJ = (msg) => {
@@ -21,9 +28,14 @@ const isDJ = (msg) => {
 };
 
 const isPatreon = async (msg) => {
-    const [rows] = await msg.client.db.query(`SELECT * FROM patreons WHERE id = '${msg.author.id}'`);
-    if (!rows || !rows.length) return false;
-    return rows[0].id === msg.author.id;
+    const role = msg.client.guilds.find("id", "303195322514014210").roles.find("id", "381824166615056395");
+    if (role.members.exists("id", msg.author.id)) {
+        return true;
+    } else {
+        const [rows] = await msg.client.db.query(`SELECT * FROM patreons WHERE id = '${msg.author.id}'`);
+        if (!rows || !rows.length) return false;
+        return rows[0].id === msg.author.id;
+    }
 };
 
 const isUpvoter = (id) => new Promise((resolve, reject) => {

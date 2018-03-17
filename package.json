@@ -27,12 +27,12 @@
   "private": true,
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
-    "discord.js": "^11.3.0",
+    "discord.js": "^11.3.2",
     "discord.js-commando": "github:discordjs/commando#11.2",
     "discord.js-lavalink": "github:mrjacz/discord.js-lavalink",
     "fast-html-parser": "^1.0.1",
     "goo.gl": "^0.1.4",
-    "moment": "^2.20.1",
+    "moment": "^2.21.0",
     "moment-duration-format": "^2.2.0",
     "mysql2": "^1.5.1",
     "node-opus": "^0.2.7",
@@ -41,10 +41,10 @@
     "ytdl-core": "^0.20.1"
   },
   "devDependencies": {
-    "eslint": "^4.16.0",
+    "eslint": "^4.19.0",
     "eslint-plugin-node": "^5.2.1",
-    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-promise": "^3.7.0",
     "ffmpeg-binaries": "^3.2.2",
-    "nodemon": "^1.14.11"
+    "nodemon": "^1.17.2"
   }
 }

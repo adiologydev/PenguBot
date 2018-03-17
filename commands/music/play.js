@@ -45,7 +45,7 @@ module.exports = class PlaySongCommand extends Command {
                 const videos = await playlist.getVideos();
                 for (const video of Object.values(videos)) {
                     if (Object.values(videos).length > 25) {
-                        if (!this.client.isOwner(msg.author) || !await this.client.functions.isPatreon(msg)) return statusMsg.edit(`:x: | ${msg.author}, You can only play playlists of up to 25 songs. Remove this restriction by becoming a Patron at <https://www.patreon.com/PenguBot>`); //eslint-disable-line
+                        if (!await this.isPatreon(msg)) return statusMsg.edit(`:x: | ${msg.author}, You can only play playlists of up to 25 songs. Remove this restriction by becoming a Patron at <https://www.patreon.com/PenguBot>`); //eslint-disable-line
                     }
                     const video2 = await this.getLLTrack(`https://www.youtube.com/watch?v=${video.id}`); // eslint-disable-line no-await-in-loop
                     await this.musicHandler(msg.guild, msg, video2, channel, true); // eslint-disable-line no-await-in-loop
@@ -187,6 +187,17 @@ ${videos.map(video2 => `➡ \`${++index}\` ${video2.title} - ${video2.channel.ti
 
         if (!data) return null;
         return data.body[0];
+    }
+
+    async isPatreon(msg) {
+        const role = msg.client.guilds.find("id", "303195322514014210").roles.find("id", "381824166615056395");
+        if (role.members.exists("id", msg.author.id)) {
+            return true;
+        } else {
+            const [rows] = await msg.client.db.query(`SELECT * FROM patreons WHERE id = '${msg.author.id}'`);
+            if (!rows || !rows.length) return false;
+            return rows[0].id === msg.author.id;
+        }
     }
 
 };
