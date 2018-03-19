@@ -28,7 +28,7 @@ const isDJ = (msg) => {
 };
 
 const isPatreon = async (msg) => {
-    const supportGuild = this.client.guilds.has("303195322514014210") && this.client.guilds.get("303195322514014210") || false; // eslint-disable-line
+    const supportGuild = msg.client.guilds.has("303195322514014210") && msg.client.guilds.get("303195322514014210") || false; // eslint-disable-line
     if (supportGuild) {
             const member = supportGuild.members.has(msg.author.id) && supportGuild.members.get(msg.author.id) || false; // eslint-disable-line
         if (member) {
