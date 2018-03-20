@@ -18,7 +18,7 @@ module.exports = class ExampleCommand extends Command {
             memberName: '', // Name of command.
             description: '', // Command's description.
             examples: [""], // How the command should be executed.
-            guildOnly: true, // Execute in Guild Only
+            guildOnly: true, // Execute in Guild Only.
             throttling: {
                 usages: 1, // Total Usage in the duration below.
                 duration: 3 // Cooldown in Seconds.
