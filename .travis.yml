@@ -1,0 +1,13 @@
+language: node_js
+notifications:
+  email: false
+node_js:
+  - "8"
+install: npm install
+jobs:
+  include:
+    - stage: test
+      script: touch config.json && npm test
+cache:
+  directories:
+    - node_modules
