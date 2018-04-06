@@ -155,8 +155,14 @@ module.exports = class extends Language {
             COMMAND_STATS_DESCRIPTION: "Provides some details about the bot and stats.",
             MESSAGE_PROMPT_TIMEOUT: "The prompt has timed out.",
 
+
             // Pengu's Sentences
-            MESSAGE_PREFIX_SET: "Successfully updated the guild's prefix to:"
+            MESSAGE_PREFIX_SET: "Successfully updated the guild's prefix to:",
+            MESSAGE_KICKED: "was kicked!",
+            MESSAGE_PENGU: "here you go!",
+
+            // Pengu's Commands
+            COMMAND_KICK_DESCRIPTION: "Allows moderators to kick users."
         };
     }
 

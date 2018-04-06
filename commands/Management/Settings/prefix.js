@@ -20,7 +20,7 @@ module.exports = class extends Command {
 
     async run(msg, [prefix]) {
         msg.guild.configs.update({ prefix: prefix });
-        msg.channel.send(`✅ | ${msg.language.get("MESSAGE_PREFIX_SET")} **${prefix}**`);
+        msg.channel.send(`<:penguCheck1:431440099675209738> ${msg.language.get("MESSAGE_PREFIX_SET")} **${prefix}**`);
     }
 
 };
