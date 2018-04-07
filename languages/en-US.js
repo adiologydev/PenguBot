@@ -158,7 +158,9 @@ module.exports = class extends Language {
 
             // Pengu's Sentences
             MESSAGE_PREFIX_SET: "Successfully updated the guild's prefix to:",
+            MESSAGE_CURRENT_PREFIX: "Guild's current prefix is:",
             MESSAGE_KICKED: "was kicked!",
+            MESSAGE_KICK_NO_REASON: "No Reason Specified.",
             MESSAGE_PENGU: "here you go!",
 
             // Pengu's Commands
