@@ -159,12 +159,25 @@ module.exports = class extends Language {
             // Pengu's Sentences
             MESSAGE_PREFIX_SET: "Successfully updated the guild's prefix to:",
             MESSAGE_CURRENT_PREFIX: "Guild's current prefix is:",
-            MESSAGE_KICKED: "was kicked!",
-            MESSAGE_KICK_NO_REASON: "No Reason Specified.",
             MESSAGE_PENGU: "here you go!",
 
+            // Kick Messages
+            MESSAGE_KICKED: "was kicked!",
+            MESSAGE_KICK_YOURSELF: "You can not kick yourself.",
+            MESSAGE_KICK_PENGU: "Why would you want to kick me?",
+            MESSAGE_KICK_HIGH_ROLE: "That user has a higher role than you do, can't be kicked.",
+            MESSAGE_KICK_CANT: "This user can't be kicked.",
+
+            // Ban Messages
+            MESSAGE_BANNED: "was banned!",
+            MESSAGE_BAN_YOURSELF: "You can not ban yourself.",
+            MESSAGE_BAN_PENGU: "Why would you want to ban me?",
+            MESSAGE_BAN_HIGH_ROLE: "That user has a higher role than you do, can't be banned.",
+            MESSAGE_BAN_CANT: "This user can't be banned.",
+
             // Pengu's Commands
-            COMMAND_KICK_DESCRIPTION: "Allows moderators to kick users."
+            COMMAND_KICK_DESCRIPTION: "Allows moderators and above to kick users.",
+            COMMAND_BAN_DESCRIPTION: "Allows moderators and above to ban users."
         };
     }
 

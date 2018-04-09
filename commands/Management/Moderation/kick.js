@@ -20,7 +20,13 @@ module.exports = class extends Command {
 
     async run(msg, [member, ...reason]) {
         const user = msg.guild.members.get(member.id);
-        reason = reason ? reason.join(" ") : msg.language.get("MESSAGE_KICK_NO_REASON");
+
+        if (user.id === msg.author.id) return msg.reply(`<:penguCross:432966551746904071> ***${msg.language.get("MESSAGE_KICK_YOURSELF")}***`);
+        if (user.id === this.client.user.id) return msg.reply(`<:penguCross:432966551746904071> ***${msg.language.get("MESSAGE_KICK_PENGU")}***`);
+        if (user.highestRole.position >= msg.member.highestRole.position) return msg.reply(`<:penguCross:432966551746904071> ***${msg.language.get("MESSAGE_KICK_HIGH_ROLE")}***`);
+        if (user.kickable === false) return msg.reply(`<:penguCross:432966551746904071> ***${msg.language.get("MESSAGE_KICK_CANT")}***`);
+
+        reason = reason.length > 0 ? reason.join(" ") : "No reason specified.";
         await user.kick(reason).then(() => {
             msg.channel.send(`<:penguCheck1:431440099675209738> ***${member.tag} ${msg.language.get("MESSAGE_KICKED")}***`);
         });
