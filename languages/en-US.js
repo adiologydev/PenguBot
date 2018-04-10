@@ -8,7 +8,6 @@ module.exports = class extends Language {
             // Klasa's Default Sentences.
             DEFAULT: (key) => `${key} has not been localized for en-US yet.`,
             DEFAULT_LANGUAGE: "Default Language",
-            PREFIX_REMINDER: (prefix) => `The prefix in this guild is set to: ${Array.isArray(prefix) ? prefix.map(pre => `\`${pre}\``).join(", ") : `\`${prefix}\``}`,
             SETTING_GATEWAY_EXPECTS_GUILD: "The parameter <Guild> expects either a Guild or a Guild Object.",
             SETTING_GATEWAY_VALUE_FOR_KEY_NOEXT: (data, key) => `The value ${data} for the key ${key} does not exist.`,
             SETTING_GATEWAY_VALUE_FOR_KEY_ALREXT: (data, key) => `The value ${data} for the key ${key} already exists.`,
@@ -175,9 +174,22 @@ module.exports = class extends Language {
             MESSAGE_BAN_HIGH_ROLE: "That user has a higher role than you do, can't be banned.",
             MESSAGE_BAN_CANT: "This user can't be banned.",
 
+            // Make Admin and Mod Messages
+            MESSAGE_ADMIN_ADD: "is now a Pengu Admin.",
+            MESSAGE_ADMIN_REMOVE: "is no longer a Pengu Admin.",
+            MESSAGE_MOD_ADD: "is now a Pengu Moderator.",
+            MESSAGE_MOD_REMOVE: "is no longer a Pengu Moderator.",
+
+            // Mute Command
+            MESSAGE_MUTED: "was muted!",
+            MESSAGE_UNMUTED: "was un-muted!",
+
             // Pengu's Commands
             COMMAND_KICK_DESCRIPTION: "Allows moderators and above to kick users.",
-            COMMAND_BAN_DESCRIPTION: "Allows moderators and above to ban users."
+            COMMAND_BAN_DESCRIPTION: "Allows moderators and above to ban users.",
+            COMMAND_MAKE_ADMIN_DESCRIPTION: "Allows guild managers, admins and pengu admins to add new pengu admins.",
+            COMMAND_MAKE_MOD_DESCRIPTION: "Allows guild managers, admins and pengu admins to add new pengu mods.",
+            COMMAND_MUTE_DESCRIPTION: "Allows Pengu Moderators and above to Mute people."
         };
     }
 
