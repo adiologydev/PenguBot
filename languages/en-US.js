@@ -75,20 +75,20 @@ module.exports = class extends Language {
             COMMAND_EVAL_OUTPUT: (time, output, type) => `**Output**:${output}\n**Type**:${type}\n${time}`,
             COMMAND_EVAL_SENDFILE: (time, type) => `Output was too long... sent the result as a file.\n**Type**:${type}\n${time}`,
             COMMAND_EVAL_SENDCONSOLE: (time, type) => `Output was too long... sent the result to console.\n**Type**:${type}\n${time}`,
-            COMMAND_UNLOAD: (type, name) => `✅ Unloaded ${type}: ${name}`,
+            COMMAND_UNLOAD: (type, name) => `<:penguCheck1:431440099675209738> Unloaded ${type}: ${name}`,
             COMMAND_UNLOAD_DESCRIPTION: "Unloads the klasa piece.",
-            COMMAND_TRANSFER_ERROR: "❌ That file has been transfered already or never existed.",
-            COMMAND_TRANSFER_SUCCESS: (type, name) => `✅ Successfully transferred ${type}: ${name}`,
+            COMMAND_TRANSFER_ERROR: "<:penguCross:432966551746904071> That file has been transfered already or never existed.",
+            COMMAND_TRANSFER_SUCCESS: (type, name) => `<:penguCheck1:431440099675209738> Successfully transferred ${type}: ${name}`,
             COMMAND_TRANSFER_FAILED: (type, name) => `Transfer of ${type}: ${name} to Client has failed. Please check your Console.`,
             COMMAND_TRANSFER_DESCRIPTION: "Transfers a core piece to its respective folder",
-            COMMAND_RELOAD: (type, name) => `✅ Reloaded ${type}: ${name}`,
-            COMMAND_RELOAD_ALL: (type) => `✅ Reloaded all ${type}.`,
+            COMMAND_RELOAD: (type, name) => `<:penguCheck1:431440099675209738> Reloaded ${type}: ${name}`,
+            COMMAND_RELOAD_ALL: (type) => `<:penguCheck1:431440099675209738> Reloaded all ${type}.`,
             COMMAND_RELOAD_DESCRIPTION: "Reloads a klasa piece, or all pieces of a klasa store.",
             COMMAND_REBOOT: "Rebooting...",
             COMMAND_REBOOT_DESCRIPTION: "Reboots the bot.",
-            COMMAND_LOAD: (time, type, name) => `✅ Successfully loaded ${type}: ${name}. (Took: ${time})`,
+            COMMAND_LOAD: (time, type, name) => `<:penguCheck1:431440099675209738> Successfully loaded ${type}: ${name}. (Took: ${time})`,
             COMMAND_LOAD_FAIL: "The file does not exist, or an error occurred while loading your file. Please check your console.",
-            COMMAND_LOAD_ERROR: (type, name, error) => `❌ Failed to load ${type}: ${name}. Reason:${util.codeBlock("js", error)}`,
+            COMMAND_LOAD_ERROR: (type, name, error) => `<:penguCross:432966551746904071> Failed to load ${type}: ${name}. Reason:${util.codeBlock("js", error)}`,
             COMMAND_LOAD_DESCRIPTION: "Load a piece from your bot.",
             COMMAND_PING: "Ping?",
             COMMAND_PING_DESCRIPTION: "Runs a connection test to Discord.",
@@ -116,7 +116,7 @@ module.exports = class extends Language {
             COMMAND_HELP_DESCRIPTION: "Display help for a command.",
             COMMAND_HELP_NO_EXTENDED: "No extended help available.",
             COMMAND_HELP_DM: "📥 | The list of commands you have access to has been sent to your DMs.",
-            COMMAND_HELP_NODM: "❌ | You have DMs disabled, I couldn't send you the commands in DMs.",
+            COMMAND_HELP_NODM: "<:penguCross:432966551746904071> | You have DMs disabled, I couldn't send you the commands in DMs.",
             COMMAND_HELP_USAGE: (usage) => `usage :: ${usage}`,
             COMMAND_HELP_EXTENDED: "Extended Help ::",
             COMMAND_ENABLE: (type, name) => `+ Successfully enabled ${type}: ${name}`,
@@ -179,12 +179,20 @@ module.exports = class extends Language {
             MESSAGE_MOD_ADD: "is now a Pengu Moderator!",
             MESSAGE_MOD_REMOVE: "is no longer a Pengu Moderator!",
 
-            // Mute Command
+            // Mute Command Messages
             MESSAGE_MUTED: "was muted!",
             MESSAGE_UNMUTED: "was un-muted!",
 
-            // Other Mod Commands
+            // Other Mod Commands Messages
             MESSAGE_PRUNE_DELETED: "message(s) were deleted!",
+
+            // Custom Commands Messages
+            MESSAGE_CMD_ADDED: "command was added by",
+            MESSAGE_CMD_REMOVED: "command was removed by",
+            MESSAGE_CMD_NOTFOUND: "command was not found!",
+            MESSAGE_CMD_EXISTS: "command already exists!",
+            MESSAGE_NO_CMDS: "Your guild has no custom commands, ask an admin or above to make one!",
+            MESSAGE_LIST_CMDS: "Custom Commands for",
 
             // Pengu's Commands
             COMMAND_KICK_DESCRIPTION: "Allows moderators and above to kick users.",
@@ -193,7 +201,8 @@ module.exports = class extends Language {
             COMMAND_MAKE_ADMIN_DESCRIPTION: "Allows guild managers, admins and pengu admins to add new pengu admins.",
             COMMAND_MAKE_MOD_DESCRIPTION: "Allows guild managers, admins and pengu admins to add new pengu mods.",
             COMMAND_MUTE_DESCRIPTION: "Allows Pengu Moderators and above to Mute people.",
-            COMMAND_SAY_DESCRIPTION: "Allows Pengu Moderators and above to make Pengu say stuff."
+            COMMAND_SAY_DESCRIPTION: "Allows Pengu Moderators and above to make Pengu say stuff.",
+            COMMAND_ADD_CMD_DESCRIPTION: "Allows Pengu Administrators and above to add custom commands to the guild."
         };
     }
 
