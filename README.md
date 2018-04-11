@@ -33,7 +33,10 @@ module.exports = class extends Command {
 ## Contributor(s)
 [**Jacz**](https://github.com/MrJacz)
 
-## Vote on DiscordBots
+## Acknowledgement(s)
+[**Klasa Pieces** - Prune Command](https://github.com/dirigeants/klasa-pieces/)
+
+## Vote on DiscordBots to Support
 [![Discord Bots](https://discordbots.org/api/widget/303181184718995457.svg)](https://discordbots.org/bot/303181184718995457/vote)
 
 ## License

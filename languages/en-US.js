@@ -162,27 +162,30 @@ module.exports = class extends Language {
 
             // Kick Messages
             MESSAGE_KICKED: "was kicked!",
-            MESSAGE_KICK_YOURSELF: "You can not kick yourself.",
+            MESSAGE_KICK_YOURSELF: "You can not kick yourself!",
             MESSAGE_KICK_PENGU: "Why would you want to kick me?",
             MESSAGE_KICK_HIGH_ROLE: "That user has a higher role than you do, can't be kicked.",
             MESSAGE_KICK_CANT: "This user can't be kicked.",
 
             // Ban Messages
             MESSAGE_BANNED: "was banned!",
-            MESSAGE_BAN_YOURSELF: "You can not ban yourself.",
+            MESSAGE_BAN_YOURSELF: "You can not ban yourself!",
             MESSAGE_BAN_PENGU: "Why would you want to ban me?",
-            MESSAGE_BAN_HIGH_ROLE: "That user has a higher role than you do, can't be banned.",
-            MESSAGE_BAN_CANT: "This user can't be banned.",
+            MESSAGE_BAN_HIGH_ROLE: "That user has a higher role than you do, can't be banned!",
+            MESSAGE_BAN_CANT: "This user can't be banned!",
 
             // Make Admin and Mod Messages
-            MESSAGE_ADMIN_ADD: "is now a Pengu Admin.",
-            MESSAGE_ADMIN_REMOVE: "is no longer a Pengu Admin.",
-            MESSAGE_MOD_ADD: "is now a Pengu Moderator.",
-            MESSAGE_MOD_REMOVE: "is no longer a Pengu Moderator.",
+            MESSAGE_ADMIN_ADD: "is now a Pengu Admin!",
+            MESSAGE_ADMIN_REMOVE: "is no longer a Pengu Admin!",
+            MESSAGE_MOD_ADD: "is now a Pengu Moderator!",
+            MESSAGE_MOD_REMOVE: "is no longer a Pengu Moderator!",
 
             // Mute Command
             MESSAGE_MUTED: "was muted!",
             MESSAGE_UNMUTED: "was un-muted!",
+
+            // Other Mod Commands
+            MESSAGE_PRUNE_DELETED: "message(s) were deleted!",
 
             // Pengu's Commands
             COMMAND_KICK_DESCRIPTION: "Allows moderators and above to kick users.",
