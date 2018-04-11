@@ -164,14 +164,13 @@ module.exports = class extends Language {
             MESSAGE_KICKED: "was kicked!",
             MESSAGE_KICK_YOURSELF: "You can not kick yourself!",
             MESSAGE_KICK_PENGU: "Why would you want to kick me?",
-            MESSAGE_KICK_HIGH_ROLE: "That user has a higher role than you do, can't be kicked.",
             MESSAGE_KICK_CANT: "This user can't be kicked.",
 
             // Ban Messages
             MESSAGE_BANNED: "was banned!",
+            MESSAGE_SOFTBANNED: "was soft banned!",
             MESSAGE_BAN_YOURSELF: "You can not ban yourself!",
             MESSAGE_BAN_PENGU: "Why would you want to ban me?",
-            MESSAGE_BAN_HIGH_ROLE: "That user has a higher role than you do, can't be banned!",
             MESSAGE_BAN_CANT: "This user can't be banned!",
 
             // Make Admin and Mod Messages
@@ -190,9 +189,11 @@ module.exports = class extends Language {
             // Pengu's Commands
             COMMAND_KICK_DESCRIPTION: "Allows moderators and above to kick users.",
             COMMAND_BAN_DESCRIPTION: "Allows moderators and above to ban users.",
+            COMMAND_SOFTBAN_DESCRIPTION: "Allows moderators and above to softban users.",
             COMMAND_MAKE_ADMIN_DESCRIPTION: "Allows guild managers, admins and pengu admins to add new pengu admins.",
             COMMAND_MAKE_MOD_DESCRIPTION: "Allows guild managers, admins and pengu admins to add new pengu mods.",
-            COMMAND_MUTE_DESCRIPTION: "Allows Pengu Moderators and above to Mute people."
+            COMMAND_MUTE_DESCRIPTION: "Allows Pengu Moderators and above to Mute people.",
+            COMMAND_SAY_DESCRIPTION: "Allows Pengu Moderators and above to make Pengu say stuff."
         };
     }
 

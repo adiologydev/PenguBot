@@ -6,19 +6,18 @@ module.exports = class extends Command {
         super(...args, {
             runIn: ["text"],
             cooldown: 10,
-            bucket: 1,
-            aliases: ["banmember"],
+            aliases: ["softbanmember"],
             permLevel: 5,
             botPerms: ["SEND_MESSAGES", "USE_EXTERNAL_EMOJIS", "BAN_MEMBERS"],
-            description: (msg) => msg.language.get("COMMAND_BAN_DESCRIPTION"),
+            description: (msg) => msg.language.get("COMMAND_SOFTBAN_DESCRIPTION"),
             quotedStringSupport: false,
-            usage: "<member:user> [reason:string] [...]",
+            usage: "<member:user> [days:int{1,7}] [reason:string] [...]",
             usageDelim: " ",
             extendedHelp: "No extended help available."
         });
     }
 
-    async run(msg, [member, ...reason]) {
+    async run(msg, [member, days = 1, ...reason]) {
         const user = msg.guild.members.get(member.id);
 
         if (user.id === msg.author.id) return msg.reply(`<:penguCross:432966551746904071> ***${msg.language.get("MESSAGE_BAN_YOURSELF")}***`);
@@ -26,8 +25,9 @@ module.exports = class extends Command {
         if (user.bannable === false) return msg.reply(`<:penguCross:432966551746904071> ***${msg.language.get("MESSAGE_BAN_CANT")}***`);
 
         reason = reason.length > 0 ? reason.join(" ") : "No reason specified.";
-        await user.ban({ reason: reason });
-        return msg.channel.send(`<:penguCheck1:431440099675209738> ***${member.tag} ${msg.language.get("MESSAGE_BANNED")}***`);
+        await user.ban({ days: days, reason: reason });
+        msg.guild.members.unban(user.id);
+        return msg.channel.send(`<:penguCheck1:431440099675209738> ***${member.tag} ${msg.language.get("MESSAGE_SOFTBANNED")}***`);
     }
 
 };
