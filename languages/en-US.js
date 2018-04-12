@@ -196,6 +196,16 @@ module.exports = class extends Language {
             MESSAGE_COMMAND_CUSTOM_ENABLED: "Custom Commands are now Enabled!",
             MESSAGE_COMMAND_CUSTOM_DISABLED: "Custom Commands are now Disabled!",
 
+            // Welcome & Leave messages
+            MESSAGE_WLCM_ENABLED: "Welcome Messages are now Enabeld!",
+            MESSAGE_WLCM_DISABLED: "Welcome Messages are now Disabled!",
+            MESSAGE_LEAVE_ENABLED: "Leave Messages are now Enabeld!",
+            MESSAGE_LEAVE_DISABLED: "Leave Messages are now Disabled!",
+            MESSAGE_WELCOME_SET: "Welcome message has now been set!",
+            MESSAGE_LEAVE_SET: "Leave message has now been set!",
+            MESSAGE_WELCOME_CHANNEL_SET: "Welcome messages channel has now been set!",
+            MESSAGE_LEAVE_CHANNEL_SET: "Leave messages channel has now been set!",
+
             // Pengu's Commands
             COMMAND_KICK_DESCRIPTION: "Allows moderators and above to kick users.",
             COMMAND_BAN_DESCRIPTION: "Allows moderators and above to ban users.",
@@ -205,7 +215,13 @@ module.exports = class extends Language {
             COMMAND_MUTE_DESCRIPTION: "Allows Pengu Moderators and above to Mute people.",
             COMMAND_SAY_DESCRIPTION: "Allows Pengu Moderators and above to make Pengu say stuff.",
             COMMAND_ADD_CMD_DESCRIPTION: "Allows Pengu Administrators and above to add custom commands to the guild.",
-            COMMAND_TOGGLE_CUSTOM_DESCRIPTION: "Allows Pengu Administrators and above to enable or disable custom commands in the guild."
+            COMMAND_TOGGLE_CUSTOM_DESCRIPTION: "Allows Pengu Administrators and above to enable or disable custom commands in the guild.",
+            COMMAND_TOGGLE_WELCOME_DESCRPTION: "Allows Pengu Administrators and above to enable or disable welcome messages in the guild.",
+            COMMAND_TOGGLE_LEAVE_DESCRPTION: "Allows Pengu Administrators and above to enable or disable welcome messages in the guild.",
+            COMMAND_SET_WELCOME_DESCRPTION: "Allows Pengu Administrators and above set welcome messages in the guild.",
+            COMMAND_SET_LEAVE_DESCRPTION: "Allows Pengu Administrators and above set leave messages in the guild.",
+            COMMAND_CHANNEL_WELCOME_DESCRPTION: "Allows Pengu Administrators and above set welcome messages channel in the guild.",
+            COMMAND_CHANNEL_LEAVE_DESCRPTION: "Allows Pengu Administrators and above set leave messages channel in the guild."
         };
     }
 
