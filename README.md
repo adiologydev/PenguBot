@@ -1,4 +1,4 @@
-# PenguBot [![Build Status](https://travis-ci.org/AdityaTD/PenguBot.svg?branch=master)](https://travis-ci.org/AdityaTD/PenguBot) [![Discord](https://discordapp.com/api/guilds/303195322514014210/embed.png)](https://discord.gg/u8WYw5r) [![Greenkeeper badge](https://badges.greenkeeper.io/AdityaTD/PenguBot.svg)](https://greenkeeper.io/)
+# PenguBot [![Build Status](https://travis-ci.org/AdityaTD/PenguBot.svg?branch=master)](https://travis-ci.org/AdityaTD/PenguBot) [![Discord](https://discordapp.com/api/guilds/303195322514014210/embed.png)](https://discord.gg/u8WYw5r) [![Greenkeeper badge](https://badges.greenkeeper.io/AdityaTD/PenguBot.svg)](https://greenkeeper.io/) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/112e816149814ef1a83d9a376cf566b5)](https://www.codacy.com/app/adityatripathidelhi/PenguBot?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AdityaTD/PenguBot&amp;utm_campaign=Badge_Grade)
 
 PenguBot is a community developed Discord Bot with over 15,000 guilds.
 Join Discord for Support and Development https://discord.gg/u8WYw5r
