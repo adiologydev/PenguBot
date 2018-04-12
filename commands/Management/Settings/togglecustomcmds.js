@@ -1,0 +1,37 @@
+const { Command } = require("klasa");
+
+module.exports = class extends Command {
+
+    constructor(...args) {
+        super(...args, {
+            runIn: ["text"],
+            cooldown: 10,
+            bucket: 1,
+            aliases: ["tccmd", "togglecustom", "tcmd", "togglecustomcommands"],
+            permLevel: 6,
+            botPerms: ["SEND_MESSAGES", "USE_EXTERNAL_EMOJIS"],
+            requiredConfigs: ["custom-commands"],
+            description: (msg) => msg.language.get("COMMAND_TOGGLE_CUSTOM_DESCRPTION"),
+            extendedHelp: "No extended help available."
+        });
+    }
+
+    async run(msg) {
+        if (msg.guild.configs.get("custom-commands") === false) {
+            return msg.guild.configs.update("custom-commands", true).then(() => {
+                msg.channel.send(`<:penguCheck1:431440099675209738> ***${msg.language.get("MESSAGE_COMMAND_CUSTOM_ENABLED")}***`);
+            });
+        } else {
+            return msg.guild.configs.update("custom-commands", false).then(() => {
+                msg.channel.send(`<:penguCross:432966551746904071> ***${msg.language.get("MESSAGE_COMMAND_CUSTOM_DISABLED")}***`);
+            });
+        }
+    }
+
+    async init() {
+        if (!this.client.gateways.guilds.schema.has("custom-commands")) {
+            this.client.gateways.guilds.schema.add("custom-commands", { type: "boolean", default: true });
+        }
+    }
+
+};

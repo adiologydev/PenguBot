@@ -18,6 +18,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [name, ...content]) {
+        if (this.client.commands.has(name)) return msg.reply(`<:penguCross:432966551746904071> ***\`${name}\` ${msg.language.get("MESSAGE_CMD_EXISTS")}***`);
         const cmd = msg.guild.configs.customcmds.find(c => c.name === name);
         if (cmd) return msg.reply(`<:penguCross:432966551746904071> ***\`${name}\` ${msg.language.get("MESSAGE_CMD_EXISTS")}***`);
         await msg.guild.configs.update("customcmds", { content: content.join(" "), name: name });

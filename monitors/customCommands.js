@@ -11,6 +11,7 @@ module.exports = class extends Monitor {
         if (!msg.guild) return;
         if (!msg.guild.configs.get("customcmds")) return;
         if (cooldown.has(msg.author.id)) return;
+        if (msg.guild.configs.get("custom-commands") === false) return;
 
         const base = msg.content.split(msg.guild.configs.get("prefix"));
         const cmdName = base[1];

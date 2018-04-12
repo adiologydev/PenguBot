@@ -193,6 +193,8 @@ module.exports = class extends Language {
             MESSAGE_CMD_EXISTS: "command already exists!",
             MESSAGE_NO_CMDS: "Your guild has no custom commands, ask an admin or above to make one!",
             MESSAGE_LIST_CMDS: "Custom Commands for",
+            MESSAGE_COMMAND_CUSTOM_ENABLED: "Custom Commands are now Enabled!",
+            MESSAGE_COMMAND_CUSTOM_DISABLED: "Custom Commands are now Disabled!",
 
             // Pengu's Commands
             COMMAND_KICK_DESCRIPTION: "Allows moderators and above to kick users.",
@@ -202,7 +204,8 @@ module.exports = class extends Language {
             COMMAND_MAKE_MOD_DESCRIPTION: "Allows guild managers, admins and pengu admins to add new pengu mods.",
             COMMAND_MUTE_DESCRIPTION: "Allows Pengu Moderators and above to Mute people.",
             COMMAND_SAY_DESCRIPTION: "Allows Pengu Moderators and above to make Pengu say stuff.",
-            COMMAND_ADD_CMD_DESCRIPTION: "Allows Pengu Administrators and above to add custom commands to the guild."
+            COMMAND_ADD_CMD_DESCRIPTION: "Allows Pengu Administrators and above to add custom commands to the guild.",
+            COMMAND_TOGGLE_CUSTOM_DESCRIPTION: "Allows Pengu Administrators and above to enable or disable custom commands in the guild."
         };
     }
 

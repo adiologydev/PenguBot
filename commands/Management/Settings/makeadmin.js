@@ -19,12 +19,12 @@ module.exports = class extends Command {
     }
 
     async run(msg, [member]) {
-        if (await msg.guild.configs.get("staff-admins").indexOf(member.id) !== -1) {
+        if (msg.guild.configs.get("staff-admins").indexOf(member.id) !== -1) {
             await msg.guild.configs.update("staff-admins", member.id, { action: "remove" });
-            msg.channel.send(`<:penguCross:432966551746904071> ***${member.tag} ${msg.language.get("MESSAGE_ADMIN_REMOVE")}***`);
+            return msg.channel.send(`<:penguCross:432966551746904071> ***${member.tag} ${msg.language.get("MESSAGE_ADMIN_REMOVE")}***`);
         } else {
             await msg.guild.configs.update("staff-admins", member.id, { action: "add" });
-            msg.channel.send(`<:penguCheck1:431440099675209738> ***${member.tag} ${msg.language.get("MESSAGE_ADMIN_ADD")}***`);
+            return msg.channel.send(`<:penguCheck1:431440099675209738> ***${member.tag} ${msg.language.get("MESSAGE_ADMIN_ADD")}***`);
         }
     }
 
