@@ -158,7 +158,6 @@
         "promise/no-native": "off",
         "promise/no-nesting": "warn",
         "promise/no-promise-in-callback": "warn",
-        "promise/no-callback-in-promise": "warn",
         "promise/no-return-in-finally": "warn",
         "node/no-missing-require": "error",
         "node/no-unpublished-bin": "error",
