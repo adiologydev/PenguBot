@@ -1,4 +1,6 @@
 # PenguBot [![Build Status](https://travis-ci.org/AdityaTD/PenguBot.svg?branch=master)](https://travis-ci.org/AdityaTD/PenguBot) [![Discord](https://discordapp.com/api/guilds/303195322514014210/embed.png)](https://discord.gg/u8WYw5r)
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/AdityaTD/PenguBot.svg)](https://greenkeeper.io/)
 PenguBot is a community developed Discord Bot with over 12,000 guilds.
 Join Discord: https://discord.gg/u8WYw5r
 
