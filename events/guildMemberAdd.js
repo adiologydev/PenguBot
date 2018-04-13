@@ -16,7 +16,7 @@ module.exports = class extends Event {
             if (!guild.channels.exists("id", guild.configs.get("welcome-channel"))) return;
             const channel = guild.channels.find("id", guild.configs.get("welcome-channel"));
 
-            if (!member.guild.configs.get("welcome-text")) { member.guild.configs.update("welcome-text", "Welcome {MENTION} to {GUILD_NAME}, we hope you enjoy your stay!"); }
+            if (member.guild.configs.get("welcome-text") === null) { member.guild.configs.update("welcome-text", "Welcome {MENTION} to {GUILD_NAME}, we hope you enjoy your stay!"); }
             try {
                 channel.send(this.replace(guild.configs.get("welcome-text"), member));
             } catch (e) {

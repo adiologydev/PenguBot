@@ -41,7 +41,8 @@ const client = new PenguClient({
     provider: { default: "mongodb" },
     gateways: {
         guilds: { provider: "mongodb" },
-        users: { provider: "mongodb" }
+        users: { provider: "mongodb" },
+        clientStorage: { provider: "mongodb" }
     },
     readyMessage: (c) => `${c.user.tag}, Ready to serve ${c.guilds.size} guilds and ${c.users.size} users.`
 });

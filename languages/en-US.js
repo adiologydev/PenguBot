@@ -212,6 +212,9 @@ module.exports = class extends Language {
             MESSAGE_AUTOROLE_REMOVED: "role was removed from the Auto Roles!",
             MESSAGE_AUTOROLE_ADDED: "role was added in the Auto Roles!",
 
+            // Remind Messages
+            MESSAGE_NEW_REMINDER: "New Reminder has been created with ID:",
+
             // Pengu's Commands
             COMMAND_KICK_DESCRIPTION: "Allows moderators and above to kick users.",
             COMMAND_BAN_DESCRIPTION: "Allows moderators and above to ban users.",
@@ -229,7 +232,8 @@ module.exports = class extends Language {
             COMMAND_CHANNEL_WELCOME_DESCRPTION: "Allows Pengu Administrators and above set welcome messages channel in the guild.",
             COMMAND_CHANNEL_LEAVE_DESCRPTION: "Allows Pengu Administrators and above set leave messages channel in the guild.",
             COMMAND_TOGGLE_ROLES_DESCRPTION: "Allows Pengu Administrators and above to enable or disable Auto Roles.",
-            COMMAND_ADD_ROLES_DESCRPTION: "Allows Pengu Administrators and above to add new Auto Roles."
+            COMMAND_ADD_ROLES_DESCRPTION: "Allows Pengu Administrators and above to add new Auto Roles.",
+            COMMAND_REMIND_DESCRPTION: "Make Pengu remind you things so you don't forget."
         };
     }
 

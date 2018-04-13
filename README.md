@@ -32,10 +32,12 @@ module.exports = class extends Command {
 ```
 
 ## Contributor(s)
-[**Jacz**](https://github.com/MrJacz)
+-
 
 ## Acknowledgement(s)
-[**Klasa Pieces** - Prune Command](https://github.com/dirigeants/klasa-pieces/)
+[**Klasa Pieces**](https://github.com/dirigeants/klasa-pieces/)
+
+[**Jacz**](https://github.com/MrJacz) for Commando Version Contributions
 
 ## Vote on DiscordBots to Support
 [![Discord Bots](https://discordbots.org/api/widget/303181184718995457.svg)](https://discordbots.org/bot/303181184718995457/vote)

@@ -19,7 +19,7 @@ module.exports = class extends Command {
     async run(msg) {
         if (msg.guild.configs.get("leave-messages") === false) {
             if (!msg.guild.channels.exists("id", msg.guild.configs.get("leave-channel"))) { msg.guild.configs.update("leave-channel", msg.channel.id); }
-            if (!msg.guild.configs.get("leave-text")) { msg.guild.configs.update("leave-text", "It's sad to see you leave {USERNAME}, hope to see you again."); }
+            if (msg.guild.configs.get("leave-text") === null) { msg.guild.configs.update("leave-text", "It's sad to see you leave {USERNAME}, hope to see you again.", { action: "add" }); }
             return msg.guild.configs.update("leave-messages", true).then(() => {
                 msg.channel.send(`<:penguCheck1:431440099675209738> ***${msg.language.get("MESSAGE_LEAVE_ENABLED")}***`);
             });
