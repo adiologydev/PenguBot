@@ -206,6 +206,12 @@ module.exports = class extends Language {
             MESSAGE_WELCOME_CHANNEL_SET: "Welcome messages channel has now been set!",
             MESSAGE_LEAVE_CHANNEL_SET: "Leave messages channel has now been set!",
 
+            // Autoroles Messages
+            MESSAGE_AUTOROLES_ENABLED: "Auto Roles have been enabled in this guild!",
+            MESSAGE_AUTOROLES_DISABLED: "Auto Roles have been disabled in this guild!",
+            MESSAGE_AUTOROLE_REMOVED: "role was removed from the Auto Roles!",
+            MESSAGE_AUTOROLE_ADDED: "role was added in the Auto Roles!",
+
             // Pengu's Commands
             COMMAND_KICK_DESCRIPTION: "Allows moderators and above to kick users.",
             COMMAND_BAN_DESCRIPTION: "Allows moderators and above to ban users.",
@@ -221,7 +227,9 @@ module.exports = class extends Language {
             COMMAND_SET_WELCOME_DESCRPTION: "Allows Pengu Administrators and above set welcome messages in the guild.",
             COMMAND_SET_LEAVE_DESCRPTION: "Allows Pengu Administrators and above set leave messages in the guild.",
             COMMAND_CHANNEL_WELCOME_DESCRPTION: "Allows Pengu Administrators and above set welcome messages channel in the guild.",
-            COMMAND_CHANNEL_LEAVE_DESCRPTION: "Allows Pengu Administrators and above set leave messages channel in the guild."
+            COMMAND_CHANNEL_LEAVE_DESCRPTION: "Allows Pengu Administrators and above set leave messages channel in the guild.",
+            COMMAND_TOGGLE_ROLES_DESCRPTION: "Allows Pengu Administrators and above to enable or disable Auto Roles.",
+            COMMAND_ADD_ROLES_DESCRPTION: "Allows Pengu Administrators and above to add new Auto Roles."
         };
     }
 
