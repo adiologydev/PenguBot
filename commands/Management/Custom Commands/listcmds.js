@@ -22,9 +22,9 @@ module.exports = class extends Command {
         const prefix = msg.guild.configs.get("prefix");
         const names = [];
         msg.guild.configs.customcmds.forEach(a => {
-            names.push(a.name);
+            names.push(`c.${a.name}`);
         });
-        const list = names.join(", ").replace(" ", prefix);
+        const list = names.join(",").replace(/c./g, prefix);
         return msg.channel.send(`<:penguCheck1:431440099675209738> ***${msg.language.get("MESSAGE_LIST_CMDS")} ${msg.guild.name}***:\n**⟹** ${prefix}${list.replace(/,/g, "\n**⟹** ")}`);
     }
 

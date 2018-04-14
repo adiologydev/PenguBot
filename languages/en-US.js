@@ -188,9 +188,10 @@ module.exports = class extends Language {
 
             // Custom Commands Messages
             MESSAGE_CMD_ADDED: "command was added by",
+            MESSAGE_CMD_UPDATED: "command was updated by",
             MESSAGE_CMD_REMOVED: "command was removed by",
             MESSAGE_CMD_NOTFOUND: "command was not found!",
-            MESSAGE_CMD_EXISTS: "command already exists!",
+            MESSAGE_CMD_EXISTS: "command with this name already exists in Pengu as a default or custom command!",
             MESSAGE_NO_CMDS: "Your guild has no custom commands, ask an admin or above to make one!",
             MESSAGE_LIST_CMDS: "Custom Commands for",
             MESSAGE_COMMAND_CUSTOM_ENABLED: "Custom Commands are now Enabled!",
@@ -212,10 +213,12 @@ module.exports = class extends Language {
             MESSAGE_AUTOROLE_REMOVED: "role was removed from the Auto Roles!",
             MESSAGE_AUTOROLE_ADDED: "role was added in the Auto Roles!",
 
-            // Remind Messages
+            // Utilities Messages
             MESSAGE_NEW_REMINDER: "New Reminder has been created with ID:",
+            MESSAGE_LINK_SHORTEN: "Here's your Short URL:",
+            MESSAGE_AVATAR: "Here's the avatar of",
 
-            // Pengu's Commands
+            // Pengu's Commands Descriptions
             COMMAND_KICK_DESCRIPTION: "Allows moderators and above to kick users.",
             COMMAND_BAN_DESCRIPTION: "Allows moderators and above to ban users.",
             COMMAND_SOFTBAN_DESCRIPTION: "Allows moderators and above to softban users.",
@@ -233,7 +236,8 @@ module.exports = class extends Language {
             COMMAND_CHANNEL_LEAVE_DESCRPTION: "Allows Pengu Administrators and above set leave messages channel in the guild.",
             COMMAND_TOGGLE_ROLES_DESCRPTION: "Allows Pengu Administrators and above to enable or disable Auto Roles.",
             COMMAND_ADD_ROLES_DESCRPTION: "Allows Pengu Administrators and above to add new Auto Roles.",
-            COMMAND_REMIND_DESCRPTION: "Make Pengu remind you things so you don't forget."
+            COMMAND_REMIND_DESCRPTION: "Make Pengu remind you things so you don't forget.",
+            COMMAND_SHORTEN_DESCRIPTION: "Let Pengu shorten your Long URLs in one simple command."
         };
     }
 
