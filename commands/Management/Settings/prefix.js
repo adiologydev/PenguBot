@@ -12,15 +12,17 @@ module.exports = class extends Command {
             botPerms: ["SEND_MESSAGES", "USE_EXTERNAL_EMOJIS"],
             description: (msg) => msg.language.get("COMMAND_PREFIX_DESCRIPTION"),
             quotedStringSupport: false,
-            usage: "<prefix:string>",
+            usage: "[prefix:string]",
             usageDelim: undefined,
             extendedHelp: "No extended help available."
         });
     }
 
     async run(msg, [prefix]) {
-        msg.guild.configs.update({ prefix: prefix });
-        msg.channel.send(`<:penguCheck1:431440099675209738> ${msg.language.get("MESSAGE_PREFIX_SET")} **${prefix}**`);
+        if (!prefix) return msg.channel.send(`👉 ***${msg.language.get("MESSAGE_CURRENT_PREFIX")}*** ${msg.guild.configs.get("prefix")}`);
+        await msg.guild.configs.update({ prefix: prefix }).then(() => {
+            msg.channel.send(`<:penguCheck1:431440099675209738> ***${msg.language.get("MESSAGE_PREFIX_SET")}*** ${prefix}`);
+        });
     }
 
 };

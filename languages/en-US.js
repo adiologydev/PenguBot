@@ -8,7 +8,6 @@ module.exports = class extends Language {
             // Klasa's Default Sentences.
             DEFAULT: (key) => `${key} has not been localized for en-US yet.`,
             DEFAULT_LANGUAGE: "Default Language",
-            PREFIX_REMINDER: (prefix) => `The prefix in this guild is set to: ${Array.isArray(prefix) ? prefix.map(pre => `\`${pre}\``).join(", ") : `\`${prefix}\``}`,
             SETTING_GATEWAY_EXPECTS_GUILD: "The parameter <Guild> expects either a Guild or a Guild Object.",
             SETTING_GATEWAY_VALUE_FOR_KEY_NOEXT: (data, key) => `The value ${data} for the key ${key} does not exist.`,
             SETTING_GATEWAY_VALUE_FOR_KEY_ALREXT: (data, key) => `The value ${data} for the key ${key} already exists.`,
@@ -76,20 +75,20 @@ module.exports = class extends Language {
             COMMAND_EVAL_OUTPUT: (time, output, type) => `**Output**:${output}\n**Type**:${type}\n${time}`,
             COMMAND_EVAL_SENDFILE: (time, type) => `Output was too long... sent the result as a file.\n**Type**:${type}\n${time}`,
             COMMAND_EVAL_SENDCONSOLE: (time, type) => `Output was too long... sent the result to console.\n**Type**:${type}\n${time}`,
-            COMMAND_UNLOAD: (type, name) => `✅ Unloaded ${type}: ${name}`,
+            COMMAND_UNLOAD: (type, name) => `<:penguCheck1:431440099675209738> Unloaded ${type}: ${name}`,
             COMMAND_UNLOAD_DESCRIPTION: "Unloads the klasa piece.",
-            COMMAND_TRANSFER_ERROR: "❌ That file has been transfered already or never existed.",
-            COMMAND_TRANSFER_SUCCESS: (type, name) => `✅ Successfully transferred ${type}: ${name}`,
+            COMMAND_TRANSFER_ERROR: "<:penguCross:432966551746904071> That file has been transfered already or never existed.",
+            COMMAND_TRANSFER_SUCCESS: (type, name) => `<:penguCheck1:431440099675209738> Successfully transferred ${type}: ${name}`,
             COMMAND_TRANSFER_FAILED: (type, name) => `Transfer of ${type}: ${name} to Client has failed. Please check your Console.`,
             COMMAND_TRANSFER_DESCRIPTION: "Transfers a core piece to its respective folder",
-            COMMAND_RELOAD: (type, name) => `✅ Reloaded ${type}: ${name}`,
-            COMMAND_RELOAD_ALL: (type) => `✅ Reloaded all ${type}.`,
+            COMMAND_RELOAD: (type, name) => `<:penguCheck1:431440099675209738> Reloaded ${type}: ${name}`,
+            COMMAND_RELOAD_ALL: (type) => `<:penguCheck1:431440099675209738> Reloaded all ${type}.`,
             COMMAND_RELOAD_DESCRIPTION: "Reloads a klasa piece, or all pieces of a klasa store.",
             COMMAND_REBOOT: "Rebooting...",
             COMMAND_REBOOT_DESCRIPTION: "Reboots the bot.",
-            COMMAND_LOAD: (time, type, name) => `✅ Successfully loaded ${type}: ${name}. (Took: ${time})`,
+            COMMAND_LOAD: (time, type, name) => `<:penguCheck1:431440099675209738> Successfully loaded ${type}: ${name}. (Took: ${time})`,
             COMMAND_LOAD_FAIL: "The file does not exist, or an error occurred while loading your file. Please check your console.",
-            COMMAND_LOAD_ERROR: (type, name, error) => `❌ Failed to load ${type}: ${name}. Reason:${util.codeBlock("js", error)}`,
+            COMMAND_LOAD_ERROR: (type, name, error) => `<:penguCross:432966551746904071> Failed to load ${type}: ${name}. Reason:${util.codeBlock("js", error)}`,
             COMMAND_LOAD_DESCRIPTION: "Load a piece from your bot.",
             COMMAND_PING: "Ping?",
             COMMAND_PING_DESCRIPTION: "Runs a connection test to Discord.",
@@ -117,7 +116,7 @@ module.exports = class extends Language {
             COMMAND_HELP_DESCRIPTION: "Display help for a command.",
             COMMAND_HELP_NO_EXTENDED: "No extended help available.",
             COMMAND_HELP_DM: "📥 | The list of commands you have access to has been sent to your DMs.",
-            COMMAND_HELP_NODM: "❌ | You have DMs disabled, I couldn't send you the commands in DMs.",
+            COMMAND_HELP_NODM: "<:penguCross:432966551746904071> | You have DMs disabled, I couldn't send you the commands in DMs.",
             COMMAND_HELP_USAGE: (usage) => `usage :: ${usage}`,
             COMMAND_HELP_EXTENDED: "Extended Help ::",
             COMMAND_ENABLE: (type, name) => `+ Successfully enabled ${type}: ${name}`,
@@ -158,11 +157,92 @@ module.exports = class extends Language {
 
             // Pengu's Sentences
             MESSAGE_PREFIX_SET: "Successfully updated the guild's prefix to:",
-            MESSAGE_KICKED: "was kicked!",
+            MESSAGE_CURRENT_PREFIX: "Guild's current prefix is:",
             MESSAGE_PENGU: "here you go!",
 
-            // Pengu's Commands
-            COMMAND_KICK_DESCRIPTION: "Allows moderators to kick users."
+            // Kick Messages
+            MESSAGE_KICKED: "was kicked!",
+            MESSAGE_KICK_YOURSELF: "You can not kick yourself!",
+            MESSAGE_KICK_PENGU: "Why would you want to kick me?",
+            MESSAGE_KICK_CANT: "This user can't be kicked.",
+
+            // Ban Messages
+            MESSAGE_BANNED: "was banned!",
+            MESSAGE_SOFTBANNED: "was soft banned!",
+            MESSAGE_BAN_YOURSELF: "You can not ban yourself!",
+            MESSAGE_BAN_PENGU: "Why would you want to ban me?",
+            MESSAGE_BAN_CANT: "This user can't be banned!",
+
+            // Make Admin and Mod Messages
+            MESSAGE_ADMIN_ADD: "is now a Pengu Admin!",
+            MESSAGE_ADMIN_REMOVE: "is no longer a Pengu Admin!",
+            MESSAGE_MOD_ADD: "is now a Pengu Moderator!",
+            MESSAGE_MOD_REMOVE: "is no longer a Pengu Moderator!",
+
+            // Mute Command Messages
+            MESSAGE_MUTED: "was muted!",
+            MESSAGE_UNMUTED: "was un-muted!",
+
+            // Other Mod Commands Messages
+            MESSAGE_PRUNE_DELETED: "message(s) were deleted!",
+
+            // Custom Commands Messages
+            MESSAGE_CMD_ADDED: "command was added by",
+            MESSAGE_CMD_UPDATED: "command was updated by",
+            MESSAGE_CMD_REMOVED: "command was removed by",
+            MESSAGE_CMD_NOTFOUND: "command was not found!",
+            MESSAGE_CMD_EXISTS: "command with this name already exists in Pengu as a default or custom command!",
+            MESSAGE_NO_CMDS: "Your guild has no custom commands, ask an admin or above to make one!",
+            MESSAGE_LIST_CMDS: "Custom Commands for",
+            MESSAGE_COMMAND_CUSTOM_ENABLED: "Custom Commands are now Enabled!",
+            MESSAGE_COMMAND_CUSTOM_DISABLED: "Custom Commands are now Disabled!",
+
+            // Welcome & Leave messages
+            MESSAGE_WLCM_ENABLED: "Welcome Messages are now Enabeld!",
+            MESSAGE_WLCM_DISABLED: "Welcome Messages are now Disabled!",
+            MESSAGE_LEAVE_ENABLED: "Leave Messages are now Enabeld!",
+            MESSAGE_LEAVE_DISABLED: "Leave Messages are now Disabled!",
+            MESSAGE_WELCOME_SET: "Welcome message has now been set!",
+            MESSAGE_LEAVE_SET: "Leave message has now been set!",
+            MESSAGE_WELCOME_CHANNEL_SET: "Welcome messages channel has now been set!",
+            MESSAGE_LEAVE_CHANNEL_SET: "Leave messages channel has now been set!",
+
+            // Autoroles Messages
+            MESSAGE_AUTOROLES_ENABLED: "Auto Roles have been enabled in this guild!",
+            MESSAGE_AUTOROLES_DISABLED: "Auto Roles have been disabled in this guild!",
+            MESSAGE_AUTOROLE_REMOVED: "role was removed from the Auto Roles!",
+            MESSAGE_AUTOROLE_ADDED: "role was added in the Auto Roles!",
+
+            // Utilities Messages
+            MESSAGE_NEW_REMINDER: "New Reminder has been created with ID:",
+            MESSAGE_LINK_SHORTEN: "Here's your Short URL:",
+            MESSAGE_AVATAR: "Here's the avatar of",
+            MESSAGE_AFK_TRUE: "Set your status to Aaway From Keyboard!",
+            MESSAGE_AFK_FALSE: "Set your status to no longer Aaway From Keyboard!",
+            MESSAGE_IS_AFK: "is currently AFK for:",
+            MESSAGE_AFK_REMOVED: "was removed from the AFK status!",
+
+            // Pengu's Commands Descriptions
+            COMMAND_KICK_DESCRIPTION: "Allows moderators and above to kick users.",
+            COMMAND_BAN_DESCRIPTION: "Allows moderators and above to ban users.",
+            COMMAND_SOFTBAN_DESCRIPTION: "Allows moderators and above to softban users.",
+            COMMAND_MAKE_ADMIN_DESCRIPTION: "Allows guild managers, admins and pengu admins to add new pengu admins.",
+            COMMAND_MAKE_MOD_DESCRIPTION: "Allows guild managers, admins and pengu admins to add new pengu mods.",
+            COMMAND_MUTE_DESCRIPTION: "Allows Pengu Moderators and above to Mute people.",
+            COMMAND_SAY_DESCRIPTION: "Allows Pengu Moderators and above to make Pengu say stuff.",
+            COMMAND_ADD_CMD_DESCRIPTION: "Allows Pengu Administrators and above to add custom commands to the guild.",
+            COMMAND_TOGGLE_CUSTOM_DESCRIPTION: "Allows Pengu Administrators and above to enable or disable custom commands in the guild.",
+            COMMAND_TOGGLE_WELCOME_DESCRPTION: "Allows Pengu Administrators and above to enable or disable welcome messages in the guild.",
+            COMMAND_TOGGLE_LEAVE_DESCRPTION: "Allows Pengu Administrators and above to enable or disable welcome messages in the guild.",
+            COMMAND_SET_WELCOME_DESCRPTION: "Allows Pengu Administrators and above set welcome messages in the guild.",
+            COMMAND_SET_LEAVE_DESCRPTION: "Allows Pengu Administrators and above set leave messages in the guild.",
+            COMMAND_CHANNEL_WELCOME_DESCRPTION: "Allows Pengu Administrators and above set welcome messages channel in the guild.",
+            COMMAND_CHANNEL_LEAVE_DESCRPTION: "Allows Pengu Administrators and above set leave messages channel in the guild.",
+            COMMAND_TOGGLE_ROLES_DESCRPTION: "Allows Pengu Administrators and above to enable or disable Auto Roles.",
+            COMMAND_ADD_ROLES_DESCRPTION: "Allows Pengu Administrators and above to add new Auto Roles.",
+            COMMAND_REMIND_DESCRIPTION: "Make Pengu remind you things so you don't forget.",
+            COMMAND_SHORTEN_DESCRIPTION: "Let Pengu shorten your Long URLs in one simple command.",
+            COMMAND_AFK_DESCRIPTION: "Set yourself AFK with a reason so other's know!"
         };
     }
 
