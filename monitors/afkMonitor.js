@@ -21,7 +21,7 @@ module.exports = class extends Monitor {
                     msg.author.configs.update("afk-reason", null);
                 });
                 const m = await msg.channel.send(`<:penguCross:432966551746904071> ***${msg.author.tag} ${msg.language.get("MESSAGE_AFK_REMOVED")}***`);
-                m.delete({ timeout: 5000 });
+                m.delete({ timeout: 10000 });
             }
         }
     }
