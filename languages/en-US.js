@@ -217,6 +217,10 @@ module.exports = class extends Language {
             MESSAGE_NEW_REMINDER: "New Reminder has been created with ID:",
             MESSAGE_LINK_SHORTEN: "Here's your Short URL:",
             MESSAGE_AVATAR: "Here's the avatar of",
+            MESSAGE_AFK_TRUE: "Set your status to Aaway From Keyboard!",
+            MESSAGE_AFK_FALSE: "Set your status to no longer Aaway From Keyboard!",
+            MESSAGE_IS_AFK: "is currently AFK for:",
+            MESSAGE_AFK_REMOVED: "was removed from the AFK status!",
 
             // Pengu's Commands Descriptions
             COMMAND_KICK_DESCRIPTION: "Allows moderators and above to kick users.",
@@ -237,7 +241,8 @@ module.exports = class extends Language {
             COMMAND_TOGGLE_ROLES_DESCRPTION: "Allows Pengu Administrators and above to enable or disable Auto Roles.",
             COMMAND_ADD_ROLES_DESCRPTION: "Allows Pengu Administrators and above to add new Auto Roles.",
             COMMAND_REMIND_DESCRPTION: "Make Pengu remind you things so you don't forget.",
-            COMMAND_SHORTEN_DESCRIPTION: "Let Pengu shorten your Long URLs in one simple command."
+            COMMAND_SHORTEN_DESCRIPTION: "Let Pengu shorten your Long URLs in one simple command.",
+            COMMAND_AFK_DESCRIPTION: "Set yourself AFK with a reason so other's know!"
         };
     }
 
