@@ -31,7 +31,7 @@ module.exports = class extends Command {
 
     async init() {
         if (!this.client.gateways.guilds.schema.has("auto-roles")) {
-            this.client.gateways.guilds.schema.add("auto-roles", { type: "role", array: true });
+            this.client.gateways.guilds.schema.add("auto-roles", { type: "role", array: true, configurable: false });
         }
     }
 

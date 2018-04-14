@@ -240,7 +240,7 @@ module.exports = class extends Language {
             COMMAND_CHANNEL_LEAVE_DESCRPTION: "Allows Pengu Administrators and above set leave messages channel in the guild.",
             COMMAND_TOGGLE_ROLES_DESCRPTION: "Allows Pengu Administrators and above to enable or disable Auto Roles.",
             COMMAND_ADD_ROLES_DESCRPTION: "Allows Pengu Administrators and above to add new Auto Roles.",
-            COMMAND_REMIND_DESCRPTION: "Make Pengu remind you things so you don't forget.",
+            COMMAND_REMIND_DESCRIPTION: "Make Pengu remind you things so you don't forget.",
             COMMAND_SHORTEN_DESCRIPTION: "Let Pengu shorten your Long URLs in one simple command.",
             COMMAND_AFK_DESCRIPTION: "Set yourself AFK with a reason so other's know!"
         };

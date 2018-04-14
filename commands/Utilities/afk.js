@@ -37,10 +37,10 @@ module.exports = class extends Command {
 
     async init() {
         if (!this.client.gateways.users.schema.has("afk")) {
-            this.client.gateways.users.schema.add("afk", { type: "boolean", default: false });
+            this.client.gateways.users.schema.add("afk", { type: "boolean", default: false, configurable: false });
         }
         if (!this.client.gateways.users.schema.has("afk-reason")) {
-            this.client.gateways.users.schema.add("afk-reason", { type: "string" });
+            this.client.gateways.users.schema.add("afk-reason", { type: "string", configurable: false });
         }
     }
 

@@ -32,10 +32,10 @@ module.exports = class extends Command {
 
     async init() {
         if (!this.client.gateways.guilds.schema.has("staff-admins")) {
-            this.client.gateways.guilds.schema.add("staff-admins", { type: "User", array: true });
+            this.client.gateways.guilds.schema.add("staff-admins", { type: "User", array: true, configurable: false });
         }
         if (!this.client.gateways.guilds.schema.has("staff-mods")) {
-            this.client.gateways.guilds.schema.add("staff-mods", { type: "User", array: true });
+            this.client.gateways.guilds.schema.add("staff-mods", { type: "User", array: true, configurable: false });
         }
     }
 

@@ -30,10 +30,4 @@ module.exports = class extends Command {
         }
     }
 
-    async init() {
-        if (!this.client.gateways.guilds.schema.has("customcmds")) {
-            this.client.gateways.guilds.schema.add("customcmds", { type: "any", array: true });
-        }
-    }
-
 };
