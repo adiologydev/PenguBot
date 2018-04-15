@@ -242,7 +242,18 @@ module.exports = class extends Language {
             COMMAND_ADD_ROLES_DESCRPTION: "Allows Pengu Administrators and above to add new Auto Roles.",
             COMMAND_REMIND_DESCRIPTION: "Make Pengu remind you things so you don't forget.",
             COMMAND_SHORTEN_DESCRIPTION: "Let Pengu shorten your Long URLs in one simple command.",
-            COMMAND_AFK_DESCRIPTION: "Set yourself AFK with a reason so other's know!"
+            COMMAND_AFK_DESCRIPTION: "Set yourself AFK with a reason so other's know!",
+
+            // Fun Commands Descriptions
+            COMMAND_CAT_DESCRIPTION: "Cute Cat Photos and Facts with Pengu!",
+            COMMAND_CHUCK_DESCRIPTION: "Chuck Norris Jokes just a command away!",
+            COMMAND_COMPLIMENT_DESCRIPTION: "Be nice and compliment some people out there with Pengu!",
+            COMMAND_COOKIE_DESCRIPTION: "Mouth watering Cookie pictures to make you even more hungry!",
+            COMMAND_DADJOKE_DESCRIPTION: "Everyone loves jokes but what about some Dad Jokes?",
+            COMMAND_DOG_DESCRIPTION: "Cute Doggo Pictures to make your day!",
+            COMMAND_FML_DESCRIPTION: "Things which has made people say FML!",
+            COMMAND_HUG_DESCRIPTION: "Someone needs a hug? Why wait, just give it!",
+            COMMAND_PENGU_DESCRIPTION: "The Cute OG Pengu Pictures!"
         };
     }
 
