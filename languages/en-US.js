@@ -243,6 +243,14 @@ module.exports = class extends Language {
             COMMAND_REMIND_DESCRIPTION: "Make Pengu remind you things so you don't forget.",
             COMMAND_SHORTEN_DESCRIPTION: "Let Pengu shorten your Long URLs in one simple command.",
             COMMAND_AFK_DESCRIPTION: "Set yourself AFK with a reason so other's know!",
+            COMMAND_DEL_CMD_DESCRIPTION: "Allows Pengu Administrators and above to delete a custom command made previously.",
+            COMMAND_LIST_CMDS_DESCRIPTION: "List all custom commands made in a guild.",
+            COMMAND_TOGGLE_CUSTOM_DESCRPTION: "Allows Pengu Administrators and above to enable or disable custom commands in a guild.",
+            COMMAND_MUTE_DESCRPTION: "Allows Pengu Moderators and above to Mute a person in the guild",
+            COMMAND_PRUNE_DESCRIPTION: "Allows Pengu Moderators and above to Bulk Delete messages in a guild with filters.",
+            COMMAND_MAKE_ADMIN_DESCRPTION: "Allows Administrators and Guild Owners to create new Pengu Admins.",
+            COMMAND_MAKE_MODS_DESCRPTION: "Allows Pengu Admins and above to create new Pengu Mods.",
+            COMMAND_PREFIX_DESCRIPTION: "Allows Pengu Admins and above to change a guild's prefix for PenguBot.",
 
             // Fun Commands Descriptions
             COMMAND_CAT_DESCRIPTION: "Cute Cat Photos and Facts with Pengu!",
