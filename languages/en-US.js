@@ -253,7 +253,18 @@ module.exports = class extends Language {
             COMMAND_DOG_DESCRIPTION: "Cute Doggo Pictures to make your day!",
             COMMAND_FML_DESCRIPTION: "Things which has made people say FML!",
             COMMAND_HUG_DESCRIPTION: "Someone needs a hug? Why wait, just give it!",
-            COMMAND_PENGU_DESCRIPTION: "The Cute OG Pengu Pictures!"
+            COMMAND_PENGU_DESCRIPTION: "The Cute OG Pengu Pictures!",
+            COMMAND_8BALL_DESCRIPTION: "Ask the magical 8ball your questions!",
+            COMMAND_DICE_DESCRIPTION: "Roll a dice and get an outcome with Pengu!",
+            COMMAND_INSULT_DESCRIPTION: "Don't be nice and insult a fellow guild member!",
+            COMMAND_KISS_DESCRIPTION: "Get naughty and just kiss the person!",
+            COMMAND_PUNCH_DESCRIPTION: "Someone's being naughty? Give them a strong punch!",
+            COMMAND_COMIC_DESCRIPTION: "The OG Kids would still remember comics, it's for them!",
+            COMMAND_FACT_DESCRIPTION: "Educate Yourself with Pengu!",
+            COMMAND_RPS_DESCRIPTION: "Ever wanted to compete against Pengu in Rock, Paper, Scissors, the greatest eSport of all time? Now you can!",
+            COMMAND_SLOTS_DESCRIPTION: "I don't promote gambling but you can if you want because I can!",
+            COMMAND_TRUMP_DESCRIPTION: "Get Trumped by Trump Insults!",
+            COMMAND_MOMMA_DESCRIPTION: "Still not tired of Yo Momma jokes? We got more, don't you worry!"
         };
     }
 

@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/AdityaTD/PenguBot#readme",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
     "discord.js": "github:discordjs/discord.js",
     "erlpack": "github:discordapp/erlpack",
     "fast-html-parser": "^1.0.1",

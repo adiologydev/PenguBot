@@ -31,12 +31,9 @@ module.exports = class extends Command {
 };
 ```
 
-## Contributor(s)
--
-
 ## Acknowledgement(s)
 [**Klasa Pieces**](https://github.com/dirigeants/klasa-pieces/)
-
+[**Dragonfire535**](https://github.com/dragonfire535)
 [**Jacz**](https://github.com/MrJacz) for Commando Version Contributions
 
 ## Vote on DiscordBots to Support

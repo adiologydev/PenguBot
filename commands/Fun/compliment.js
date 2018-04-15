@@ -29,7 +29,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [user]) {
-        return msg.channel.send(`<@${user.id}>, ***you know what? ${Compliments[Math.floor(Math.random() * Compliments.length)]}***`);
+        return msg.channel.send(`${user}, ***you know what? ${Compliments[Math.floor(Math.random() * Compliments.length)]}***`);
     }
 
 };
