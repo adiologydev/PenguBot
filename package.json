@@ -27,7 +27,10 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
     "discord.js": "github:discordjs/discord.js",
+<<<<<<< Updated upstream
     "fast-html-parser": "^1.0.1",
+=======
+>>>>>>> Stashed changes
     "klasa": "github:dirigeants/klasa",
     "mongodb": "^3.0.5",
     "uws": "^9.14.0",
