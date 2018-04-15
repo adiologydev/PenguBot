@@ -105,6 +105,7 @@ module.exports = class extends Language {
                 "Moderation, Fun, Utilities and more. It is developed in NodeJS using many different",
                 "technologies such as MongoDB, JavaScript and Linux.",
                 "",
+                "**__General Information__**",
                 `• **Version:** ${this.client.config.main.version}`,
                 "• **Website:** <https://www.PenguBot.cc>",
                 "• **Patreon:** <https://www.Patreon.com/PenguBot>",

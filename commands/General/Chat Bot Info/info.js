@@ -12,7 +12,10 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        return msg.sendMessage(msg.language.get("COMMAND_INFO"));
+        const embed = new this.client.methods.Embed()
+            .setDescription(msg.language.get("COMMAND_INFO"))
+            .setColor("RANDOM");
+        return msg.sendEmbed(embed);
     }
 
 };
