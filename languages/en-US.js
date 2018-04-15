@@ -98,7 +98,60 @@ module.exports = class extends Language {
                 `**👉 | Invite PenguBot to your Discord Guild:**`,
                 `<${client.invite}>`
             ],
+            COMMAND_8BALL: (q, a) => `My reply to **${q}** is **${a}**`,
+            COMMAND_8BALL_DESCRIPTION: `Ask a question any question.`,
+            COMMAND_COOKIE: (author, user) => `**| ${author} has given ${user} a cookie**`,
+            COMMAND_COOKIE_DESCRIPTION: "Sends a lovely cookie.",
+            COMMAND_DADJOKE: (joke) => `**Dad Joke Alert:** ${joke}`,
+            COMMAND_DADJOKE_DESCRIPTION: "Tells the stupidest dad joke.",
+            COMMAND_DICE: (sides, num) => `I rolled you a 🎲 of **${sides}** side(s) and got **${num}** as the outcome.`,
+            COMMAND_DICE_DESCRIPTION: "Rolls a custom sided die to give a random outcome.",
             COMMAND_INVITE_DESCRIPTION: "Displays the join server link of the bot.",
+            COMMAND_FML: (fml) => `Here is your FML Joke: ${fml}`,
+            COMMAND_FML_DESCRIPTION: "Grabs a random FML Joke for you.",
+            COMMAND_HUG: (huggedUser, hugger) => `${huggedUser}, You got a hug from ${hugger.tag} ❤`,
+            COMMAND_HUG_DESCRIPTION: "Hugs a user.",
+            COMMAND_INSULT: (user, start, middle, end) => `${user}, you know what? you're nothing but ${start[Math.floor(Math.random() * start.length)]} ${middle[Math.floor(Math.random() * middle.length)]} ${end[Math.floor(Math.random() * end.length)]}.`,
+            COMMAND_INSULT_DESCRIPTION: "Insults a person mentioned.",
+            COMMAND_KISS: (kissedUser, kisser) => `${kissedUser}, You got a kiss from ${kisser.tag} ❤`,
+            COMMAND_KISS_DESCRIPTION: "Kiss a user",
+            COMMAND_MCA_GET: "Achievement Get!",
+            COMMAND_MCA_DESCRIPTION: "Send a Minecraft Achievement image to the channel",
+            COMMAND_MCA_MAX_LENGTH_REACHED: "Max length: 22 characters. Soz",
+            COMMAND_MCA_ERROR: ":x: There was an error, please try again and if the problem continuous then please do `p!invite` and join the support server.",
+            COMMAND_PUNCH: (puncher, punchedUser) => `**| ${puncher} hits ${punchedUser} with a strong punch.**`,
+            COMMAND_PUNCH_DESCRIPTION: "Punches a user on this server. Ouch.",
+            COMMAND_RC: "Here's a Random Comic For You! :)",
+            COMMAND_RC_DESCRIPTION: "Grab a random comic picture.",
+            COMMAND_RC_ERROR: "There was an error, I think a cat has cut the wire off, dogs don't do that.",
+            COMMAND_RF: (fact) => `Random fact: ${fact}`,
+            COMMAND_RF_DESCRIPTION: "Grabs a random amazing fact for you.",
+            COMMAND_RF_ERROR: "There was an error, I think a cat has cut the wire off, dogs don't do that.",
+            COMMAND_RPS_ROCK: (choice1, choice2) => `You chose **${choice1}**,\n\nI chose **${choice2}**. Rock wins!`,
+            COMMAND_RPS_SCISSORS: (choice1, choice2) => `You chose **${choice1}**,\n\nI chose **${choice2}**. Scissors win!`,
+            COMMAND_RPS_PAPER: (choice1, choice2) => `You chose **${choice1}**,\n\nI chose **${choice2}**. Paper wins!`,
+            COMMAND_RPS_TIE: (choice1, choice2) => `You chose **${choice1}**,\n\nI chose **${choice2}**. It's a tie!`,
+            COMMAND_RPS_INVALID_MOVE: (move) => `A move must be \`Rock\`, \`Paper\`, or \`Scissors\` not **${move}**`,
+            COMMAND_RPS_DESCRIPTION: "Play rock-paper-scissors with the bot.",
+            COMMAND_SLOTS_NO_WINNINGS: (user, roll) => `
+**${user.username}**, you rolled:
+
+${roll}
+
+**You lost Better luck next time!**
+            `,
+            COMMAND_SLOTS_WINNINGS: (user, roll) => `
+**${user.username}, you rolled:**
+
+${roll}
+            `,
+            COMMAND_SLOTS_DESCRIPTION: "Play Slots Game and Earn Snowflakes.",
+            COMMAND_TRUMP: (thingTrumpSaid) => `**Trump Says:** ${thingTrumpSaid}`,
+            COMMAND_TRUMP_DESCRIPTION: "Lets see, what Trump has to say about you!",
+            COMMAND_YESORNO: (question, resp) => `My reply to \`${question}\` is ${resp}`,
+            COMMAND_YESORNO_DESCRIPTION: "Ask a question and get Yes or No in reply to help you make up your decision.",
+            COMMAND_YOMAMA: (joke) => `**Yomomma joke:** *${joke}*`,
+            COMMAND_YOMAMA_DESCRIPTION: "Tells a random YoMomma joke.",
             COMMAND_INFO: [
                 "**__PenguBot Information__**",
                 "PenguBot is a Multi-Purpose Discord Bot which is filled with features ranging from",
