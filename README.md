@@ -34,7 +34,9 @@ module.exports = class extends Command {
 ## Acknowledgement
 [**Klasa Pieces**](https://github.com/dirigeants/klasa-pieces/)
 
-[**Dragonfire535**](https://github.com/dragonfire535)
+[**Dragonfire535 - Xiao**](https://github.com/dragonfire535)
+
+[**WeebDev - Commando**](https://github.com/WeebDev/Commando)
 
 [**Jacz**](https://github.com/MrJacz)
 
