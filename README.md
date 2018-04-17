@@ -31,10 +31,12 @@ module.exports = class extends Command {
 };
 ```
 
-## Acknowledgement(s)
+## Acknowledgement
 [**Klasa Pieces**](https://github.com/dirigeants/klasa-pieces/)
+
 [**Dragonfire535**](https://github.com/dragonfire535)
-[**Jacz**](https://github.com/MrJacz) for Commando Version Contributions
+
+[**Jacz**](https://github.com/MrJacz)
 
 ## Vote on DiscordBots to Support
 [![Discord Bots](https://discordbots.org/api/widget/303181184718995457.svg)](https://discordbots.org/bot/303181184718995457/vote)
