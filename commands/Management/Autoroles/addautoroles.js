@@ -20,11 +20,11 @@ module.exports = class extends Command {
     async run(msg, [role]) {
         if (msg.guild.configs.get("auto-roles").indexOf(role.id) !== -1) {
             return msg.guild.configs.update("auto-roles", role).then(() => {
-                msg.channel.send(`<:penguCross:432966551746904071> ***${role.name} ${msg.language.get("MESSAGE_AUTOROLE_REMOVED")}***`);
+                msg.channel.send(`<:penguError:435712890884849664> ***${role.name} ${msg.language.get("MESSAGE_AUTOROLE_REMOVED")}***`);
             });
         } else {
             return msg.guild.configs.update("auto-roles", role).then(() => {
-                msg.channel.send(`<:penguCheck1:431440099675209738> ***${role.name} ${msg.language.get("MESSAGE_AUTOROLE_ADDED")}***`);
+                msg.channel.send(`<:penguSuccess:435712876506775553> ***${role.name} ${msg.language.get("MESSAGE_AUTOROLE_ADDED")}***`);
             });
         }
     }

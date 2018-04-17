@@ -18,7 +18,7 @@ module.exports = class extends Command {
 
     async run(msg, [link]) {
         const { body } = await get(`https://api-ssl.bitly.com/v3/shorten?access_token=${this.client.config.keys.bitly}&longUrl=${encodeURIComponent(link)}`);
-        return msg.channel.send(`<:penguCheck1:431440099675209738> ***${msg.language.get("MESSAGE_LINK_SHORTEN")}*** ${body.data.url}`);
+        return msg.channel.send(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_LINK_SHORTEN")}*** ${body.data.url}`);
     }
 
 };

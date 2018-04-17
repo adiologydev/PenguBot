@@ -20,7 +20,7 @@ module.exports = class extends Command {
 
     async run(msg, [...message]) {
         return msg.guild.configs.update("welcome-text", message.join(" ")).then(() => {
-            msg.channel.send(`<:penguCheck1:431440099675209738> ***${msg.language.get("MESSAGE_WELCOME_SET")}***`);
+            msg.channel.send(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_WELCOME_SET")}***`);
         });
     }
 

@@ -31,6 +31,7 @@ module.exports = class extends Command {
             return msg.channel.send(`***${msg.member.user} You just won! Good job!***`, { embed: embed });
         }
         const embed = new this.client.methods.Embed()
+            .setFooter("© PenguBot.cc")
             .setDescription(`${Tone} | ${Ttwo} | ${Tthree}\n${Mone} | ${Mtwo} | ${Mthree}\n${Bone} | ${Btwo} | ${Bthree}`)
             .setColor("RANDOM");
         return msg.channel.send(`***${msg.member.user} You lost! Better luck next time!***`, { embed: embed });

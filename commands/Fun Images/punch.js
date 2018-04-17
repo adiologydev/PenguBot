@@ -22,6 +22,7 @@ module.exports = class extends Command {
 
     async run(msg, [user]) {
         const embed = new this.client.methods.Embed()
+            .setFooter("© PenguBot.cc")
             .setImage(punches[Math.floor(Math.random() * punches.length)])
             .setColor("RANDOM");
         return msg.channel.send(`👊 | ***${user}, you just got punched by ${msg.member.user}!***`, { embed: embed });

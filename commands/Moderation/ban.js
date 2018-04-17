@@ -21,13 +21,13 @@ module.exports = class extends Command {
     async run(msg, [member, ...reason]) {
         const user = msg.guild.members.get(member.id);
 
-        if (user.id === msg.author.id) return msg.reply(`<:penguCross:432966551746904071> ***${msg.language.get("MESSAGE_BAN_YOURSELF")}***`);
-        if (user.id === this.client.user.id) return msg.reply(`<:penguCross:432966551746904071> ***${msg.language.get("MESSAGE_BAN_PENGU")}***`);
-        if (user.bannable === false) return msg.reply(`<:penguCross:432966551746904071> ***${msg.language.get("MESSAGE_BAN_CANT")}***`);
+        if (user.id === msg.author.id) return msg.reply(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_BAN_YOURSELF")}***`);
+        if (user.id === this.client.user.id) return msg.reply(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_BAN_PENGU")}***`);
+        if (user.bannable === false) return msg.reply(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_BAN_CANT")}***`);
 
         reason = reason.length > 0 ? reason.join(" ") : "No reason specified.";
         await user.ban({ reason: reason });
-        return msg.channel.send(`<:penguCheck1:431440099675209738> ***${member.tag} ${msg.language.get("MESSAGE_BANNED")}***`);
+        return msg.channel.send(`<:penguSuccess:435712876506775553> ***${member.tag} ${msg.language.get("MESSAGE_BANNED")}***`);
     }
 
 };

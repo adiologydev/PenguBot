@@ -21,11 +21,11 @@ module.exports = class extends Command {
             if (!msg.guild.channels.exists("id", msg.guild.configs.get("welcome-channel"))) { msg.guild.configs.update("welcome-channel", msg.channel.id); }
             if (msg.guild.configs.get("welcome-text") === null) { msg.guild.configs.update("welcome-text", "Welcome {MENTION} to {GUILD_NAME}, we hope you enjoy your stay!", { action: "add" }); }
             return msg.guild.configs.update("welcome-messages", true).then(() => {
-                msg.channel.send(`<:penguCheck1:431440099675209738> ***${msg.language.get("MESSAGE_WLCM_ENABLED")}***`);
+                msg.channel.send(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_WLCM_ENABLED")}***`);
             });
         } else {
             return msg.guild.configs.update("welcome-messages", false).then(() => {
-                msg.channel.send(`<:penguCross:432966551746904071> ***${msg.language.get("MESSAGE_WLCM_DISABLED")}***`);
+                msg.channel.send(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_WLCM_DISABLED")}***`);
             });
         }
     }

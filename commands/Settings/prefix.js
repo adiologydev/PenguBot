@@ -21,7 +21,7 @@ module.exports = class extends Command {
     async run(msg, [prefix]) {
         if (!prefix) return msg.channel.send(`👉 ***${msg.language.get("MESSAGE_CURRENT_PREFIX")}*** ${msg.guild.configs.get("prefix")}`);
         await msg.guild.configs.update({ prefix: prefix }).then(() => {
-            msg.channel.send(`<:penguCheck1:431440099675209738> ***${msg.language.get("MESSAGE_PREFIX_SET")}*** ${prefix}`);
+            msg.channel.send(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_PREFIX_SET")}*** ${prefix}`);
         });
     }
 

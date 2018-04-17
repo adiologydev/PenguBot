@@ -18,15 +18,15 @@ module.exports = class extends Command {
     }
 
     async run(msg, [name, ...content]) {
-        if (this.client.commands.has(name)) return msg.reply(`<:penguCross:432966551746904071> ***\`${name}\` ${msg.language.get("MESSAGE_CMD_EXISTS")}***`);
+        if (this.client.commands.has(name)) return msg.reply(`<:penguError:435712890884849664> ***\`${name}\` ${msg.language.get("MESSAGE_CMD_EXISTS")}***`);
         const cmd = msg.guild.configs.customcmds.find(c => c.name === name);
         if (cmd) {
             await msg.guild.configs.update("customcmds", cmd, { action: "remove" }).then(() => {
                 msg.guild.configs.update("customcmds", { content: content.join(" "), name: cmd.name }, { action: "add" });
             });
-            return msg.channel.send(`<:penguCheck1:431440099675209738> ***\`${name}\` ${msg.language.get("MESSAGE_CMD_UPDATED")} ${msg.author.tag}!***`);
+            return msg.channel.send(`<:penguSuccess:435712876506775553> ***\`${name}\` ${msg.language.get("MESSAGE_CMD_UPDATED")} ${msg.author.tag}!***`);
         } else {
-            return msg.reply(`<:penguCross:432966551746904071> ***\`${name}\` ${msg.language.get("MESSAGE_CMD_NOTFOUND")}***`);
+            return msg.reply(`<:penguError:435712890884849664> ***\`${name}\` ${msg.language.get("MESSAGE_CMD_NOTFOUND")}***`);
         }
     }
 

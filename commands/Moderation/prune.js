@@ -28,7 +28,7 @@ module.exports = class extends Command {
 
         messages = messages.array().slice(0, limit);
         await msg.channel.bulkDelete(messages);
-        const m = await msg.channel.send(`<:penguCheck1:431440099675209738> ***${messages.length} ${msg.language.get("MESSAGE_PRUNE_DELETED")}***`);
+        const m = await msg.channel.send(`<:penguSuccess:435712876506775553> ***${messages.length} ${msg.language.get("MESSAGE_PRUNE_DELETED")}***`);
         m.delete({ timeout: 5000 });
     }
 

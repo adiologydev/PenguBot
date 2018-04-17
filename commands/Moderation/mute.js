@@ -41,7 +41,7 @@ module.exports = class extends Command {
                     reason: "Mute Command was executed."
                 });
             });
-            return msg.channel.send(`<:penguCheck1:431440099675209738> ***${member.tag} ${msg.language.get("MESSAGE_UNMUTED")}***`);
+            return msg.channel.send(`<:penguSuccess:435712876506775553> ***${member.tag} ${msg.language.get("MESSAGE_UNMUTED")}***`);
         } else {
             await user.roles.add(role).catch(console.error);
             msg.guild.channels.forEach(async c => {
@@ -53,7 +53,7 @@ module.exports = class extends Command {
                     reason: "Mute Command was executed."
                 });
             });
-            return msg.channel.send(`<:penguCheck1:431440099675209738> ***${member.tag} ${msg.language.get("MESSAGE_MUTED")}***`);
+            return msg.channel.send(`<:penguSuccess:435712876506775553> ***${member.tag} ${msg.language.get("MESSAGE_MUTED")}***`);
         }
     }
 

@@ -18,11 +18,11 @@ module.exports = class extends Command {
     }
 
     async run(msg, [name, ...content]) {
-        if (this.client.commands.has(name)) return msg.reply(`<:penguCross:432966551746904071> ***\`${name}\` ${msg.language.get("MESSAGE_CMD_EXISTS")}***`);
+        if (this.client.commands.has(name)) return msg.reply(`<:penguError:435712890884849664> ***\`${name}\` ${msg.language.get("MESSAGE_CMD_EXISTS")}***`);
         const cmd = msg.guild.configs.customcmds.find(c => c.name === name);
-        if (cmd) return msg.reply(`<:penguCross:432966551746904071> ***\`${name}\` ${msg.language.get("MESSAGE_CMD_EXISTS")}***`);
+        if (cmd) return msg.reply(`<:penguError:435712890884849664> ***\`${name}\` ${msg.language.get("MESSAGE_CMD_EXISTS")}***`);
         await msg.guild.configs.update("customcmds", { content: content.join(" "), name: name });
-        return msg.channel.send(`<:penguCheck1:431440099675209738> ***\`${name}\` ${msg.language.get("MESSAGE_CMD_ADDED")} ${msg.author.tag}!***`);
+        return msg.channel.send(`<:penguSuccess:435712876506775553> ***\`${name}\` ${msg.language.get("MESSAGE_CMD_ADDED")} ${msg.author.tag}!***`);
     }
 
     async init() {

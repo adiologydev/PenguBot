@@ -19,6 +19,7 @@ module.exports = class extends Command {
         const $ = cheerio.load(text);
 
         const embed = new this.client.methods.Embed()
+            .setFooter("© PenguBot.cc")
             .setColor("RANDOM")
             .setDescription(`**Random Comic**`)
             .setImage(`http:${$("#rcg-comic").first().find("img").first().attr("src").replace(/\\/g, "/")}`);

@@ -21,11 +21,11 @@ module.exports = class extends Command {
             if (!msg.guild.channels.exists("id", msg.guild.configs.get("leave-channel"))) { msg.guild.configs.update("leave-channel", msg.channel.id); }
             if (msg.guild.configs.get("leave-text") === null) { msg.guild.configs.update("leave-text", "It's sad to see you leave {USERNAME}, hope to see you again.", { action: "add" }); }
             return msg.guild.configs.update("leave-messages", true).then(() => {
-                msg.channel.send(`<:penguCheck1:431440099675209738> ***${msg.language.get("MESSAGE_LEAVE_ENABLED")}***`);
+                msg.channel.send(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_LEAVE_ENABLED")}***`);
             });
         } else {
             return msg.guild.configs.update("leave-messages", false).then(() => {
-                msg.channel.send(`<:penguCross:432966551746904071> ***${msg.language.get("MESSAGE_LEAVE_DISABLED")}***`);
+                msg.channel.send(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_LEAVE_DISABLED")}***`);
             });
         }
     }

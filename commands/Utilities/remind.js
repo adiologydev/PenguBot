@@ -24,7 +24,7 @@ module.exports = class extends Command {
                 text: message.join(" ")
             }
         });
-        return msg.reply(`<:penguCheck1:431440099675209738> ***${msg.language.get("MESSAGE_NEW_REMINDER")} \`${r.id}\`***`);
+        return msg.reply(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_NEW_REMINDER")} \`${r.id}\`***`);
     }
 
 };
