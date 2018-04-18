@@ -17,6 +17,7 @@ module.exports = class extends Command {
         const { body } = await get("https://randomfox.ca/floof/");
         const embed = new this.client.methods.Embed()
             .setFooter("© PenguBot.cc")
+            .setTimestamp()
             .setColor("RANDOM")
             .setDescription(`**Fox Picture**`)
             .setImage(body.image);

@@ -21,7 +21,7 @@ module.exports = class extends Command {
         const locationURI = encodeURIComponent(location.join(" ").replace(/ /g, "+"));
         const a = await get(`https://maps.googleapis.com/maps/api/geocode/json?address=${locationURI}&key=${this.client.config.keys.weather.google}`);
         const res = a.body;
-        if (!res.results.length === 0) return msg.reply("<:penguError:435712890884849664> Could not find that location! Please try again with a different one.");
+        if (!res.results.length === 0) return msg.reply("<:penguError:435712890884849664> I Could not find that location! Please try again with a different one.");
 
         const geocodelocation = res.results[0].formatted_address;
         const params = `${res.results[0].geometry.location.lat},${res.results[0].geometry.location.lng}`;

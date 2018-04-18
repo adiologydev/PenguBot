@@ -17,6 +17,7 @@ module.exports = class extends Command {
         const { body } = await get("https://catfact.ninja/fact");
         const embed = new this.client.methods.Embed()
             .setFooter("© PenguBot.cc")
+            .setTimestamp()
             .setColor("RANDOM")
             .setDescription(`**Cat Image & Fact**\n${body.fact}`)
             .setImage(`http://thecatapi.com/api/images/get?format=src&type=jpg&size=med&${Date.now()}`);

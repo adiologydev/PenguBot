@@ -17,6 +17,7 @@ module.exports = class extends Command {
         const { body } = await get("http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=false");
         const embed = new this.client.methods.Embed()
             .setFooter("© PenguBot.cc")
+            .setTimestamp()
             .setColor("RANDOM")
             .setDescription(`**Dog Picture**`)
             .setImage(body[0]);

@@ -17,6 +17,7 @@ module.exports = class extends Command {
     async run(msg, [user = msg.member]) {
         const embed = new this.client.methods.Embed()
             .setColor(user.displayHexColor)
+            .setTimestamp()
             .setFooter("© PenguBot.cc")
             .setThumbnail(user.user.displayAvatarURL())
             .addField("❯ Name", user.user.tag, true)

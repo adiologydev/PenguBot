@@ -23,6 +23,7 @@ module.exports = class extends Command {
     async run(msg, [user]) {
         const embed = new this.client.methods.Embed()
             .setFooter("© PenguBot.cc")
+            .setTimestamp()
             .setImage(cookies[Math.floor(Math.random() * cookies.length)])
             .setColor("RANDOM");
         return msg.channel.send(`***<@${user.id}>, you've been given a cookie by <@${msg.author.id}>!***`, { embed: embed });

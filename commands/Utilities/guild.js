@@ -18,6 +18,7 @@ module.exports = class extends Command {
     async run(msg) {
         const embed = new this.client.methods.Embed()
             .setColor("RANDOM")
+            .setTimestamp()
             .setFooter("© PenguBot.cc")
             .setThumbnail(msg.guild.iconURL())
             .addField("❯ Name", msg.guild.name, true)

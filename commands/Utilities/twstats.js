@@ -1,0 +1,38 @@
+const { Command } = require("klasa");
+const { get } = require("snekfetch");
+
+module.exports = class extends Command {
+
+    constructor(...args) {
+        super(...args, {
+            runIn: ["text", "dm"],
+            aliases: ["twitchstats"],
+            cooldown: 5,
+            botPerms: ["SEND_MESSAGES", "EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
+            description: (msg) => msg.language.get("COMMAND_TWSTATS_DESCRIPTION"),
+            usage: "<name:string> [...]",
+            extendedHelp: "No extended help available."
+        });
+    }
+
+    async run(msg, [...name]) {
+        const { body } = await get(`https://api.twitch.tv/kraken/channels/${name.join(" ")}?client_id=${this.client.config.keys.music.twitch}`)
+            .catch(() => msg.reply(`<:penguError:435712890884849664> I couldn't find your channel while searching it on Twitch, please try again!`));
+
+        const embed = new this.client.methods.Embed()
+            .setColor(6570406)
+            .setAuthor("Twitch Channel Statistics", "https://i.imgur.com/krTbTeD.png")
+            .setTimestamp()
+            .setFooter("© PenguBot.cc")
+            .setThumbnail(body.logo)
+            .setDescription(`❯ **Channel Name:** ${body.display_name}
+❯ **Channel Status:** ${body.status}
+❯ **Partnered:** ${body.partner}\n
+❯ **Followers Count:** ${parseInt(body.followers).toLocaleString()}
+❯ **Total Views:** ${parseInt(body.views).toLocaleString()}
+❯ **Channel Created:** ${new Date(body.created_at).toDateString()}\n
+❯ **Link:** ${body.url}`);
+        return msg.sendEmbed(embed);
+    }
+
+};

@@ -18,6 +18,7 @@ module.exports = class extends Command {
         const { body } = await get("https://nekos.life/api/v2/img/kiss");
         const embed = new this.client.methods.Embed()
             .setFooter("© PenguBot.cc")
+            .setTimestamp()
             .setImage(body.url)
             .setColor("RANDOM");
         return msg.channel.send(`💋 | ***${user}, you just recieved a kiss from ${msg.member.user}!***`, { embed: embed });

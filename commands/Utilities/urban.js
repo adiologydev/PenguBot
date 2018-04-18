@@ -22,6 +22,7 @@ module.exports = class extends Command {
         if (!result) return msg.reply("<:penguError:435712890884849664> That word could not be found on Urban Dictionary.");
         const embed = new this.client.methods.Embed()
             .setColor("RANDOM")
+            .setTimestamp()
             .setFooter("© PenguBot.cc")
             .setTitle("Urban Dictionary")
             .setThumbnail("https://i.imgur.com/roNW5D3.png")

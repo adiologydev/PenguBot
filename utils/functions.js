@@ -33,6 +33,12 @@ const postStats = (client) => {
         }).catch(console.error);
 };
 
+const isPatron = (client, guild) => {
+    if (client.configs.pGuilds.find(g => g === guild.id)) return true;
+    return false;
+};
+
 module.exports.haste = haste;
 module.exports.isUpvoter = isUpvoter;
 module.exports.postStats = postStats;
+module.exports.isPatron = isPatron;

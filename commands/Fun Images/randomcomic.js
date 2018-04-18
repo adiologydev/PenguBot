@@ -20,6 +20,7 @@ module.exports = class extends Command {
 
         const embed = new this.client.methods.Embed()
             .setFooter("© PenguBot.cc")
+            .setTimestamp()
             .setColor("RANDOM")
             .setDescription(`**Random Comic**`)
             .setImage(`http:${$("#rcg-comic").first().find("img").first().attr("src").replace(/\\/g, "/")}`);
