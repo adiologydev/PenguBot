@@ -254,6 +254,7 @@ module.exports = class extends Language {
             COMMAND_MAKE_ADMIN_DESCRPTION: "Allows Administrators and Guild Owners to create new Pengu Admins.",
             COMMAND_MAKE_MODS_DESCRPTION: "Allows Pengu Admins and above to create new Pengu Mods.",
             COMMAND_PREFIX_DESCRIPTION: "Allows Pengu Admins and above to change a guild's prefix for PenguBot.",
+            COMMAND_SHARDS_DESCRIPTION: "Check all the detailed shards information of PenguBot.",
 
             // Fun Commands Descriptions
             COMMAND_CAT_DESCRIPTION: "Cute Cat Photos and Facts with Pengu!",
@@ -275,7 +276,26 @@ module.exports = class extends Language {
             COMMAND_RPS_DESCRIPTION: "Ever wanted to compete against Pengu in Rock, Paper, Scissors, the greatest eSport of all time? Now you can!",
             COMMAND_SLOTS_DESCRIPTION: "I don't promote gambling but you can if you want because I can!",
             COMMAND_TRUMP_DESCRIPTION: "Get Trumped by Trump Insults!",
-            COMMAND_MOMMA_DESCRIPTION: "Still not tired of Yo Momma jokes? We got more, don't you worry!"
+            COMMAND_MOMMA_DESCRIPTION: "Still not tired of Yo Momma jokes? We got more, don't you worry!",
+            COMMAND_FOX_DESCRIPTION: "Love foxes? Me too! Here's a picture of a fox.",
+            COMMAND_ILLEGAL_DESCRIPTION: "Let's make things illegal by making trump sign the bills for it.",
+            COMMAND_MCA_DESCRIPTION: "Generate yourself a Minecraft Achievement image because My Craft...",
+
+            // NSFW Commands
+            COMMAND_ANAL_DESCRIPTION: "-NOT SAFE FOR WORK- Anal images.",
+            COMMAND_BOOBS_DESCRIPTION: "-NOT SAFE FOR WORK- Boobs images.",
+            COMMAND_BOOTY_DESCRIPTION: "-NOT SAFE FOR WORK- Booty images.",
+            COMMAND_PUSSY_DESCRIPTION: "-NOT SAFE FOR WORK- Pussy images.",
+            COMMAND_TEEN_DESCRIPTION: "-NOT SAFE FOR WORK- Teen images.",
+            COMMAND_SNAP_DESCRIPTION: "-NOT SAFE FOR WORK- Snapchat Images.",
+
+            // Utilities Commands
+            COMMAND_GUILDINFO_DESCRIPTION: "Get brief information about a guild with this command.",
+            COMMAND_TWSTATS_DESCRIPTION: "Check Twitch Statistics live on the go.",
+            COMMAND_URBAN_DESCRIPTION: "Find meanings of words on Urban Dictionary.",
+            COMMAND_USERINFO_DESCRIPTION: "Get brief user information in a single command.",
+            COMMAND_WEATHER_DESCRIPTION: "Get weather of your area easily and in a fun way.",
+            COMMAND_YTSTATS_DESCRIPTION: "Check YouTube Statistics live on the go."
         };
     }
 
