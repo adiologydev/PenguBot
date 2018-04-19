@@ -115,6 +115,15 @@ module.exports = class extends Language {
                 "• **GitHub:** <https://www.github.com/AdityaTD/PenguBot>",
                 "• **Database:** MongoDB"
             ],
+            COMMAND_DONATE: [
+                "**__Support PenguBot__**",
+                "PenguBot runs on multipe servers rented out across the globe and that requires the",
+                "rent.If you'd like to support PenguBot and it's financial costs please visit the following:",
+                "",
+                "• **Patreon:** https://www.patreon.com/PenguBot",
+                "• **Crypto Donations:** https://1upcoin.com/donate/adityatd",
+                "• **PenguBot's Donation Page:** https://www.PenguBot.cc/donate"
+            ],
             COMMAND_INFO_DESCRIPTION: "Provides some information about this bot.",
             COMMAND_HELP_DESCRIPTION: "Display help for a command.",
             COMMAND_HELP_NO_EXTENDED: "No extended help available.",
