@@ -10,7 +10,7 @@ module.exports = class extends Command {
             requiredConfigs: ["level-ups"],
             permLevel: 4,
             botPerms: ["SEND_MESSAGES", "USE_EXTERNAL_EMOJIS", "BAN_MEMBERS"],
-            description: (msg) => msg.language.get("COMMAND_ADBLOCK_DESCRIPTION"),
+            description: (msg) => msg.language.get("COMMAND_LEVELUP_DESCRIPTION"),
             quotedStringSupport: false,
             extendedHelp: "No extended help available."
         });

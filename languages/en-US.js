@@ -302,6 +302,11 @@ module.exports = class extends Language {
             COMMAND_PUSSY_DESCRIPTION: "-NOT SAFE FOR WORK- Pussy images.",
             COMMAND_TEEN_DESCRIPTION: "-NOT SAFE FOR WORK- Teen images.",
             COMMAND_SNAP_DESCRIPTION: "-NOT SAFE FOR WORK- Snapchat Images.",
+            COMMAND_AMETEUR_DESCRIPTION: "-NOT SAFE FOR WORK- Ameteur Images.",
+            COMMAND_GIFS_DESCRIPTION: "-NOT SAFE FOR WORK- Animated Gifs.",
+            COMMAND_GWNSFW_DESCRIPTION: "-NOT SAFE FOR WORK- Gone Wild Images.",
+            COMMAND_LESB_DESCRIPTION: "-NOT SAFE FOR WORK- Lesbian Images.",
+            COMMAND_MILF_DESCRIPTION: "-NOT SAFE FOR WORK- MILF images.",
 
             // Utilities Commands
             COMMAND_GUILDINFO_DESCRIPTION: "Get brief information about a guild with this command.",
@@ -309,7 +314,11 @@ module.exports = class extends Language {
             COMMAND_URBAN_DESCRIPTION: "Find meanings of words on Urban Dictionary.",
             COMMAND_USERINFO_DESCRIPTION: "Get brief user information in a single command.",
             COMMAND_WEATHER_DESCRIPTION: "Get weather of your area easily and in a fun way.",
-            COMMAND_YTSTATS_DESCRIPTION: "Check YouTube Statistics live on the go."
+            COMMAND_YTSTATS_DESCRIPTION: "Check YouTube Statistics live on the go.",
+            COMMAND_ADBLOCK_DESCRIPTION: "Enable/Disable Auto Deletion of Invite Links. Pengu Mods and above can bypass this.",
+
+            // Profile Commands
+            COMMAND_LEVELUP_DESCRIPTION: "Enable/Disable Level Up Announcements of Users in your guild."
         };
     }
 

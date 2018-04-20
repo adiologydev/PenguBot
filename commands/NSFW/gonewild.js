@@ -9,7 +9,7 @@ module.exports = class extends Command {
             cooldown: 8,
             aliases: ["gwnsfw"],
             botPerms: ["SEND_MESSAGES", "ATTACH_IMAGES", "EMBED_LINKS"],
-            description: (msg) => msg.language.get("COMMAND_TEEN_DESCRIPTION"),
+            description: (msg) => msg.language.get("COMMAND_GWNSFW_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
     }
