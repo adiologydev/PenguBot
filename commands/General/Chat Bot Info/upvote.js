@@ -4,17 +4,16 @@ module.exports = class extends Command {
 
     constructor(...args) {
         super(...args, {
-            aliases: ["patreon", "patron"],
             guarded: true,
             botPerms: ["SEND_MESSAGES", "EMBED_LINKS", "ATTACH_IMAGES"],
-            description: (msg) => msg.language.get("COMMAND_DONATE_DESCRIPTION")
+            description: (msg) => msg.language.get("COMMAND_UPVOTE_DESCRIPTION")
         });
     }
 
     async run(msg) {
         const embed = new this.client.methods.Embed()
-            .setDescription(msg.language.get("COMMAND_DONATE"))
-            .setThumbnail("https://i.imgur.com/bSOBK4s.png")
+            .setDescription(msg.language.get("COMMAND_UPVOTE"))
+            .setThumbnail("https://i.imgur.com/YxmvOHj.png")
             .setColor("RANDOM");
         return msg.sendEmbed(embed);
     }

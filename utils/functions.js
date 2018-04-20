@@ -38,7 +38,14 @@ const isPatron = (client, guild) => {
     return false;
 };
 
+const randomNumber = (min, max) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;
+};
+
 module.exports.haste = haste;
 module.exports.isUpvoter = isUpvoter;
 module.exports.postStats = postStats;
 module.exports.isPatron = isPatron;
+module.exports.randomNumber = randomNumber;

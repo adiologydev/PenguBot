@@ -150,22 +150,25 @@ module.exports = class extends Language {
             COMMAND_CONF_USER_DESCRIPTION: "Define per-user configuration.",
             COMMAND_CONF_USER: (key, list) => `**User Configuration${key}**\n${list}`,
             COMMAND_STATS: (memUsage, uptime, users, servers, channels, klasaVersion, discordVersion, processVersion, msg) => [
-                "= PenguBot Statistics =",
+                "**__PenguBot Statistics__**",
                 "",
-                `• Memory Usage           :: ${memUsage} MB`,
-                `• Uptime                 :: ${uptime}`,
-                `• Users (Shard)          :: ${users}`,
-                `• Servers/Guilds (Shard) :: ${servers}`,
-                `• Channels (Shard)       :: ${channels}`,
-                `• Discord.js Version     :: v${discordVersion}`,
-                `• Node.js Version        :: ${processVersion}`,
-                this.client.options.shardCount ? `• Shard                  :: ${((msg.guild ? msg.guild.shardID : msg.channel.shardID) || this.client.options.shardId) + 1} / ${this.client.options.shardCount}` : "",
-                "",
-                "= www.PenguBot.cc ="
+                `• **Memory Usage:** ${memUsage} MB`,
+                `• **Uptime:** ${uptime}`,
+                `• **Users (Shard):** ${users}`,
+                `• **Servers/Guilds (Shard):** ${servers}`,
+                `• **Channels (Shard):** ${channels}`,
+                `• **Discord.js Version:** v${discordVersion}`,
+                `• **Node.js Version:** ${processVersion}`,
+                this.client.options.shardCount ? `• **Shard:** ${((msg.guild ? msg.guild.shardID : msg.channel.shardID) || this.client.options.shardId) + 1} / ${this.client.options.shardCount}` : ""
             ],
             COMMAND_STATS_DESCRIPTION: "Provides some details about the bot and stats.",
             MESSAGE_PROMPT_TIMEOUT: "The prompt has timed out.",
-
+            COMMAND_UPVOTE: ["**__Vote for PenguBot__**",
+                "Want PenguBot to become bigger and be available in more guilds you visit?",
+                "Then vote for PenguBot via the link below and also unlock access to",
+                "limited features that only upvoters can have access to!",
+                "",
+                "• **Vote:** https://discordbots.org/bot/PenguBot/vote"],
 
             // Pengu's Sentences
             MESSAGE_PREFIX_SET: "Successfully updated the guild's prefix to:",
@@ -264,6 +267,8 @@ module.exports = class extends Language {
             COMMAND_MAKE_MODS_DESCRPTION: "Allows Pengu Admins and above to create new Pengu Mods.",
             COMMAND_PREFIX_DESCRIPTION: "Allows Pengu Admins and above to change a guild's prefix for PenguBot.",
             COMMAND_SHARDS_DESCRIPTION: "Check all the detailed shards information of PenguBot.",
+            COMMAND_LMGTFY_DESCRIPTION: "Feeling lazy to google something? Let me google it for you.",
+            COMMAND_UPVOTE_DESCRIPTION: "Vote for PenguBot on DBL and gain access to limited features in a second.",
 
             // Fun Commands Descriptions
             COMMAND_CAT_DESCRIPTION: "Cute Cat Photos and Facts with Pengu!",
