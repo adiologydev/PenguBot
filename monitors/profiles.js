@@ -29,7 +29,7 @@ module.exports = class extends Monitor {
         await msg.author.configs.update(["xp", "level", "snowflakes"], [newXP, newLvl, randomSnowflakes]);
 
         timeout.add(msg.author.id);
-        setTimeout(() => timeout.delete(msg.author.id), 60000);
+        setTimeout(() => timeout.delete(msg.author.id), 30000);
 
         // Generate Level Up Images on Level Up
         if (oldLvl !== newLvl) {

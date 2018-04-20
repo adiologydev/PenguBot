@@ -17,7 +17,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [user]) {
-        return msg.channel.send(`${user}, you know what? you're nothing but ${start[Math.floor(Math.random() * start.length)]} ${middle[Math.floor(Math.random() * middle.length)]} ${end[Math.floor(Math.random() * end.length)]}.`);
+        return msg.channel.send(`${user}, ***you know what? you're nothing but ${start[Math.floor(Math.random() * start.length)]} ${middle[Math.floor(Math.random() * middle.length)]} ${end[Math.floor(Math.random() * end.length)]}.***`);
     }
 
 };

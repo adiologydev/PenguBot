@@ -1,15 +1,15 @@
 const { Command } = require("klasa");
 const randomPuppy = require("random-puppy");
-const subReddits = ["pussy", "rearpussy", "simps", "vagina", "MoundofVenus", "PerfectPussies", "spreading"];
+const subReddits = ["lesbians", "StraightGirlsPlaying", "girlskissing", "mmgirls", "dykesgonewild"];
 
 module.exports = class extends Command {
 
     constructor(...args) {
         super(...args, {
             cooldown: 8,
-            aliases: ["pussies"],
+            aliases: ["lesbians"],
             botPerms: ["SEND_MESSAGES", "ATTACH_IMAGES", "EMBED_LINKS"],
-            description: (msg) => msg.language.get("COMMAND_PUSSY_DESCRIPTION"),
+            description: (msg) => msg.language.get("COMMAND_TEEN_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
     }

@@ -17,6 +17,7 @@ module.exports = class extends Command {
         if (!msg.channel.nsfw) return msg.channel.send(`<:penguError:435712890884849664> ***This channel is not NSFW so I can't send it here...***`);
         if (!this.client.functions.isUpvoter(msg.author.id)) return msg.channel.send(`<:penguError:435712890884849664> ***You are not an up-voter of PenguBot, please visit <https://discordbots.org/bot/PenguBot/vote> to vote now and get access!***`);
         let img = await randomPuppy(subReddits[Math.floor(Math.random() * subReddits.length)]);
+        if (!img) return msg.channel.send(`Too fast, too furious, try again!`);
         if (img.indexOf(".mp4")) {
             img = await randomPuppy(subReddits[Math.floor(Math.random() * subReddits.length)]);
         }

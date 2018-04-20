@@ -16,7 +16,7 @@ module.exports = class extends Command {
         const { body } = await get("http://api.chucknorris.io/jokes/random");
         const embed = new this.client.methods.Embed()
             .setColor("RANDOM")
-            .setDescription(`**Chuck Norris Joke**\n${body.value}`)
+            .setDescription(`**Chuck Norris Joke**\n\n${body.value}`)
             .setThumbnail("https://i.imgur.com/3wIvF42.png");
         return msg.sendEmbed(embed);
     }

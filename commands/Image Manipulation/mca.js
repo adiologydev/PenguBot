@@ -27,6 +27,7 @@ module.exports = class extends Command {
             if (title.length > 22 || contents.length > 22) return msg.channel.send("Max Length: 22 Characters. Sorry!");
             const embed = new this.client.methods.Embed()
                 .setFooter("© PenguBot.cc")
+                .setTimestamp()
                 .setColor("#2391e7")
                 .setImage(`https://www.minecraftskinstealer.com/achievement/a.php?i=${rnd}&h=${encodeURIComponent(title)}&t=${encodeURIComponent(contents)}`);
             return msg.channel.send({ embed: embed });
