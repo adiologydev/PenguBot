@@ -20,7 +20,7 @@ module.exports = class extends Monitor {
         if (!msg.guild) return;
         if (timeout.has(msg.author.id)) return;
 
-        const randomXP = this.client.functions.randomNumber(1, 10);
+        const randomXP = this.client.functions.randomNumber(1, 8);
         const randomSnowflakes = this.client.functions.randomNumber(1, 8);
         const newSnowflakes = msg.author.configs.get("snowflakes") + randomSnowflakes;
         const newXP = await msg.author.configs.get("xp") + randomXP;

@@ -26,8 +26,7 @@ module.exports = class extends Command {
         const lvl = await user.configs.get("level");
         const snowflakes = await user.configs.get("snowflakes");
         const reps = await user.configs.get("reps");
-        const til = await user.configs.get("title");
-        const title = til !== undefined ? title : "No Title Set";
+        const title = await user.configs.get("title");
 
         const oldLvl = Math.floor((lvl / 0.2) ** 2);
         const nextLvl = Math.floor(((lvl + 1) / 0.2) ** 2);
