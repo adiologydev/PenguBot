@@ -1,7 +1,7 @@
 const { Monitor } = require("klasa");
 const { Canvas } = require("canvas-constructor");
 const fs = require("fs-nextra");
-const fetch = require("node-fetch");
+const { get } = require("snekfetch");
 
 const timeout = new Set();
 
@@ -21,12 +21,12 @@ module.exports = class extends Monitor {
         if (timeout.has(msg.author.id)) return;
 
         const randomXP = this.client.functions.randomNumber(1, 10);
-        const randomSnowflakes = this.client.functions.randomNumber(1, 20);
-
+        const randomSnowflakes = this.client.functions.randomNumber(1, 8);
+        const newSnowflakes = msg.author.configs.get("snowflakes") + randomSnowflakes;
         const newXP = await msg.author.configs.get("xp") + randomXP;
         const oldLvl = await msg.author.configs.get("level");
         const newLvl = Math.floor(0.2 * Math.sqrt(newXP));
-        await msg.author.configs.update(["xp", "level", "snowflakes"], [newXP, newLvl, randomSnowflakes]);
+        await msg.author.configs.update(["xp", "level", "snowflakes"], [newXP, newLvl, newSnowflakes]);
 
         timeout.add(msg.author.id);
         setTimeout(() => timeout.delete(msg.author.id), 30000);
@@ -35,7 +35,7 @@ module.exports = class extends Monitor {
         if (oldLvl !== newLvl) {
             if (msg.guild.configs.get("level-ups") === true) {
                 const levelBG = await fs.readFile(`${process.cwd()}/assets/profiles/levelup.png`);
-                const avatar = await fetch(msg.author.displayAvatarURL({ format: "png", size: 128 })).then(res => res.buffer());
+                const avatar = await get(msg.author.displayAvatarURL({ format: "png", size: 128 })).then(res => res.body);
                 const img = await new Canvas(100, 100)
                     .addImage(levelBG, 0, 0, 100, 100)
                     .addImage(avatar, 22, 22, 57, 57)
