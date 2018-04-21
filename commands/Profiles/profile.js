@@ -10,7 +10,7 @@ module.exports = class extends Command {
             runIn: ["text"],
             cooldown: 30,
             permLevel: 0,
-            botPerms: ["SEND_MESSAGES", "USE_EXTERNAL_EMOJIS", "BAN_MEMBERS"],
+            botPerms: ["SEND_MESSAGES", "USE_EXTERNAL_EMOJIS", "ATTACH_FILES"],
             description: (msg) => msg.language.get("COMMAND_PROFILE_DESCRIPTION"),
             usage: "[user:user]",
             extendedHelp: "No extended help available."
@@ -69,9 +69,6 @@ module.exports = class extends Command {
     async init() {
         if (!this.client.gateways.users.schema.has("profile-bg")) {
             this.client.gateways.users.schema.add("profile-bg", { type: "string", default: "default", configurable: false });
-        }
-        if (!this.client.gateways.users.schema.has("reps")) {
-            this.client.gateways.users.schema.add("reps", { type: "integer", default: 0, configurable: false });
         }
     }
 
