@@ -29,6 +29,7 @@
     "canvas-constructor": "^1.0.0",
     "cheerio": "^1.0.0-rc.2",
     "discord.js": "github:discordjs/discord.js",
+    "discord.js-lavalink": "github:mrjacz/discord.js-lavalink",
     "erlpack": "github:discordapp/erlpack",
     "fast-html-parser": "^1.0.1",
     "klasa": "github:dirigeants/klasa",

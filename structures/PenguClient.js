@@ -6,6 +6,7 @@ class PenguClient extends Client {
         super(options);
         this.config = require("../config.json");
         this.functions = require("../utils/functions.js");
+        this.lavalink = null;
     }
 
 }

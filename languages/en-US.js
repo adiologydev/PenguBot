@@ -99,6 +99,7 @@ module.exports = class extends Language {
                 `**👉 | Invite PenguBot to your Discord Guild:**`,
                 `<${client.invite}>`
             ],
+            COMMAND_SUPPORT: `**__PenguBot Support Guild__**\n• **Invite Link:** https://discord.gg/u8WYw5r`,
             COMMAND_INVITE_DESCRIPTION: "Displays the join server link of the bot.",
             COMMAND_INFO: [
                 "**__PenguBot Information__**",
@@ -171,6 +172,8 @@ module.exports = class extends Language {
                 "",
                 "• **Vote:** https://discordbots.org/bot/PenguBot/vote"],
             COMMAND_TOGGLE_GROUP_DESCRPTION: "Disable/Enable Command Categories.",
+            COMMAND_TOGGLE_COMMAND_DESCRPTION: "Disable/Enable Commands in your guild.",
+            COMMAND_SUPPORT_DESCRIPTION: "Link to join PenguBot's Support Guild.",
 
             // Pengu's Sentences
             MESSAGE_PREFIX_SET: "Successfully updated the guild's prefix to:",

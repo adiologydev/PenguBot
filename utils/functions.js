@@ -44,8 +44,21 @@ const randomNumber = (min, max) => {
     return Math.floor(Math.random() * (max - min)) + min;
 };
 
+async function getSongs(string) {
+    const res = await get(`http://${config.nodes.uswest.ip}2333/loadtracks?identifier=${string}`)
+        .set("Authorization", config.nodes.uswest.password)
+        .catch(err => {
+            console.error(err);
+            return null;
+        });
+    if (!res) throw "There was an error, try again";
+    if (!res.body.length) throw "No tracks found";
+    return res.body;
+}
+
 module.exports.haste = haste;
 module.exports.isUpvoter = isUpvoter;
 module.exports.postStats = postStats;
 module.exports.isPatron = isPatron;
 module.exports.randomNumber = randomNumber;
+module.exports.getSongs = getSongs;
