@@ -7,9 +7,9 @@ module.exports = class extends Command {
             runIn: ["text"],
             cooldown: 10,
             permLevel: 0,
-            aliases: ["reps", "giverep", "givereputation", "reputation"],
+            aliases: ["dailies"],
             botPerms: ["SEND_MESSAGES", "USE_EXTERNAL_EMOJIS"],
-            description: (msg) => msg.language.get("COMMAND_REP_DESCRIPTION"),
+            description: (msg) => msg.language.get("COMMAND_DAILY_DESCRIPTION"),
             usage: "[user:user]",
             extendedHelp: "No extended help available."
         });
@@ -35,7 +35,7 @@ module.exports = class extends Command {
                 user.configs.update("daily-cooldown", Date.now());
                 return msg.reply(`❄ | ***You have claimed your 100 Snowflakes for today!***`);
             } else {
-                return msg.channel.send(`❄ | ***You can give another reputation point in ${timeLeft}!***`);
+                return msg.channel.send(`❄ | ***You can claim your daily Snowflakes in ${timeLeft}!***`);
             }
         } else {
             user.configs.update("snowflakes", user.configs.snowflakes + 100);

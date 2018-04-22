@@ -318,7 +318,17 @@ module.exports = class extends Language {
             COMMAND_ADBLOCK_DESCRIPTION: "Enable/Disable Auto Deletion of Invite Links. Pengu Mods and above can bypass this.",
 
             // Profile Commands
-            COMMAND_LEVELUP_DESCRIPTION: "Enable/Disable Level Up Announcements of Users in your guild."
+            COMMAND_LEVELUP_DESCRIPTION: "Enable/Disable Level Up Announcements of Users in your guild.",
+            COMMAND_REP_DESCRIPTION: "Give your valuable rep point to someone to make them feel special.",
+            COMMAND_PROFILE_DESCRIPTION: "Check yours or other users fancy profiles!",
+            COMMAND_DAILY_DESCRIPTION: "Claim your daily 100 Snowflakes which you can use to buy cosmetics.",
+            COMMAND_TITLE_DESCRIPTION: "Set your title which will be visible in your profile.",
+            COMMAND_SNOWFLAKES_DESCRIPTION: "Check your Snowflakes or send your Snowflakes to others.",
+
+            // Dev Commands
+            COMMAND_EXEC_DESCRIPTION: "-BOT OWNER ONLY-",
+            COMMAND_SG_DESCRIPTION: "-BOT OWNER ONLY-",
+            COMMAND_TPG_DESCRIPTION: "-BOT OWNER ONLY-"
         };
     }
 
