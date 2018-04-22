@@ -34,6 +34,7 @@ const client = new PenguClient({
         fetchAllMembers: false,
         ownerID: "136549806079344640"
     },
+    presence: { activity: { name: "PenguBot.cc | v2.0 | p!help", type: "WATCHING" } },
     prefix: "p!",
     cmdEditing: true,
     typing: true,
