@@ -8,7 +8,7 @@ module.exports = class extends Command {
             cooldown: 10,
             aliases: ["softbanmember"],
             permLevel: 5,
-            botPerms: ["SEND_MESSAGES", "USE_EXTERNAL_EMOJIS", "BAN_MEMBERS"],
+            botPerms: ["USE_EXTERNAL_EMOJIS", "BAN_MEMBERS"],
             description: (msg) => msg.language.get("COMMAND_SOFTBAN_DESCRIPTION"),
             quotedStringSupport: false,
             usage: "<member:user> [days:int{1,7}] [reason:string] [...]",

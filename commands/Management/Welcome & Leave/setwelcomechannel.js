@@ -9,7 +9,7 @@ module.exports = class extends Command {
             bucket: 1,
             aliases: ["swc", "setwelcomechan"],
             permLevel: 6,
-            botPerms: ["SEND_MESSAGES", "USE_EXTERNAL_EMOJIS"],
+            botPerms: ["USE_EXTERNAL_EMOJIS"],
             requiredConfigs: ["welcome-channel"],
             usage: "[channel:channel]",
             usageDelim: "",

@@ -8,7 +8,7 @@ module.exports = class extends Command {
             cooldown: 10,
             aliases: ["clean", "purge"],
             permLevel: 4,
-            botPerms: ["MANAGE_MESSAGES", "SEND_MESSAGES", "USE_EXTERNAL_EMOJIS"],
+            botPerms: ["MANAGE_MESSAGES", "USE_EXTERNAL_EMOJIS"],
             description: (msg) => msg.language.get("COMMAND_PRUNE_DESCRIPTION"),
             usage: "[limit:integer] [link|links|invite|invites|bots|pengu|me|upload|uploads|user:user]",
             usageDelim: " ",

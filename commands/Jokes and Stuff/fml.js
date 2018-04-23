@@ -8,14 +8,14 @@ module.exports = class extends Command {
         super(...args, {
             cooldown: 8,
             aliases: ["fuckmylife"],
-            botPerms: ["SEND_MESSAGES", "ATTACH_IMAGES", "EMBED_LINKS"],
+            botPerms: ["ATTACH_IMAGES", "EMBED_LINKS"],
             description: (msg) => msg.language.get("COMMAND_FML_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
     }
 
     async run(msg) {
-        if (msg.guild && !msg.channel.permissionsFor(msg.guild.me).has(["SEND_MESSAGES", "VIEW_CHANNEL"])) return;
+        if (msg.guild && !msg.channel.permissionsFor(msg.guild.me).has(["VIEW_CHANNEL"])) return;
         const { text: html } = await get("http://www.fmylife.com/random");
         const root = parse(html);
         const article = root.querySelector(".block a");

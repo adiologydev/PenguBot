@@ -9,7 +9,7 @@ module.exports = class extends Command {
             bucket: 1,
             aliases: ["toggleautorole", "enableautoroles", "disableautoroles"],
             permLevel: 6,
-            botPerms: ["SEND_MESSAGES", "USE_EXTERNAL_EMOJIS"],
+            botPerms: ["USE_EXTERNAL_EMOJIS"],
             requiredConfigs: ["autoroles"],
             description: (msg) => msg.language.get("COMMAND_TOGGLE_ROLES_DESCRPTION"),
             extendedHelp: "No extended help available."

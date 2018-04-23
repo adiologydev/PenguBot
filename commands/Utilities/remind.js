@@ -8,7 +8,7 @@ module.exports = class extends Command {
             cooldown: 10,
             permLevel: 0,
             aliases: ["remindme", "setreminder", "remindmein"],
-            botPerms: ["SEND_MESSAGES", "MANAGE_MESSAGES", "USE_EXTERNAL_EMOJIS"],
+            botPerms: ["MANAGE_MESSAGES", "USE_EXTERNAL_EMOJIS"],
             description: (msg) => msg.language.get("COMMAND_REMIND_DESCRIPTION"),
             usage: "<time:time> <message:string> [...]",
             usageDelim: " ",

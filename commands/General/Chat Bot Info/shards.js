@@ -10,7 +10,6 @@ module.exports = class extends Command {
         super(...args, {
             guarded: true,
             aliases: ["shard"],
-            botPerms: ["SEND_MESSAGES"],
             description: (msg) => msg.language.get("COMMAND_SHARDS_DESCRIPTION")
         });
     }

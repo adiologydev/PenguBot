@@ -9,7 +9,7 @@ module.exports = class extends Command {
             bucket: 1,
             aliases: ["banmember"],
             permLevel: 5,
-            botPerms: ["SEND_MESSAGES", "USE_EXTERNAL_EMOJIS", "BAN_MEMBERS"],
+            botPerms: ["USE_EXTERNAL_EMOJIS", "BAN_MEMBERS"],
             description: (msg) => msg.language.get("COMMAND_BAN_DESCRIPTION"),
             quotedStringSupport: false,
             usage: "<member:user> [reason:string] [...]",

@@ -5,7 +5,7 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             guarded: true,
-            botPerms: ["SEND_MESSAGES", "EMBED_LINKS", "ATTACH_IMAGES"],
+            botPerms: ["EMBED_LINKS", "ATTACH_IMAGES"],
             description: (msg) => msg.language.get("COMMAND_UPVOTE_DESCRIPTION")
         });
     }

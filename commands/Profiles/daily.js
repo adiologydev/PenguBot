@@ -8,7 +8,7 @@ module.exports = class extends Command {
             cooldown: 10,
             permLevel: 0,
             aliases: ["dailies"],
-            botPerms: ["SEND_MESSAGES", "USE_EXTERNAL_EMOJIS"],
+            botPerms: ["USE_EXTERNAL_EMOJIS"],
             description: (msg) => msg.language.get("COMMAND_DAILY_DESCRIPTION"),
             usage: "[user:user]",
             extendedHelp: "No extended help available."

@@ -9,7 +9,7 @@ module.exports = class extends Command {
             bucket: 1,
             aliases: ["twm", "togglewelcomemessages"],
             permLevel: 6,
-            botPerms: ["SEND_MESSAGES", "USE_EXTERNAL_EMOJIS"],
+            botPerms: ["USE_EXTERNAL_EMOJIS"],
             requiredConfigs: ["welcome-messages"],
             description: (msg) => msg.language.get("COMMAND_TOGGLE_WELCOME_DESCRPTION"),
             extendedHelp: "No extended help available."

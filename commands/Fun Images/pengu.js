@@ -16,7 +16,7 @@ module.exports = class extends Command {
         super(...args, {
             cooldown: 8,
             aliases: ["pingu", "penguin"],
-            botPerms: ["ATTACH_FILES", "SEND_MESSAGES", "USE_EXTERNAL_EMOJIS"],
+            botPerms: ["ATTACH_FILES", "USE_EXTERNAL_EMOJIS"],
             description: (msg) => msg.language.get("COMMAND_PENGU_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });

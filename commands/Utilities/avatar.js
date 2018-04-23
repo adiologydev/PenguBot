@@ -8,7 +8,7 @@ module.exports = class extends Command {
             cooldown: 5,
             aliases: ["pp", "profilepicture"],
             permLevel: 0,
-            botPerms: ["SEND_MESSAGES", "EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
+            botPerms: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
             description: (msg) => msg.language.get("COMMAND_SAY_DESCRIPTION"),
             usage: "[person:member]",
             extendedHelp: "No extended help available."

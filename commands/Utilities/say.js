@@ -7,7 +7,7 @@ module.exports = class extends Command {
             runIn: ["text"],
             cooldown: 5,
             permLevel: 4,
-            botPerms: ["SEND_MESSAGES", "MANAGE_MESSAGES", "USE_EXTERNAL_EMOJIS"],
+            botPerms: ["MANAGE_MESSAGES", "USE_EXTERNAL_EMOJIS"],
             description: (msg) => msg.language.get("COMMAND_SAY_DESCRIPTION"),
             usage: "<message:string> [...]",
             extendedHelp: "No extended help available."

@@ -8,7 +8,7 @@ module.exports = class extends Command {
             cooldown: 10,
             aliases: ["togglemute", "unmute"],
             permLevel: 4,
-            botPerms: ["MANAGE_ROLES", "SEND_MESSAGES", "USE_EXTERNAL_EMOJIS"],
+            botPerms: ["MANAGE_ROLES", "USE_EXTERNAL_EMOJIS"],
             description: (msg) => msg.language.get("COMMAND_MUTE_DESCRPTION"),
             usage: "<member:user>",
             usageDelim: undefined,
@@ -36,7 +36,7 @@ module.exports = class extends Command {
                 await c.overwritePermissions({
                     overwrites: [{
                         id: role.id,
-                        denied: ["SEND_MESSAGES", "ADD_REACTIONS", "CONNECT"]
+                        denied: ["ADD_REACTIONS", "CONNECT"]
                     }],
                     reason: "Mute Command was executed."
                 });
@@ -48,7 +48,7 @@ module.exports = class extends Command {
                 await c.overwritePermissions({
                     overwrites: [{
                         id: role.id,
-                        denied: ["SEND_MESSAGES", "ADD_REACTIONS", "CONNECT"]
+                        denied: ["ADD_REACTIONS", "CONNECT"]
                     }],
                     reason: "Mute Command was executed."
                 });

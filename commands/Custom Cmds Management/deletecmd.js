@@ -8,7 +8,7 @@ module.exports = class extends Command {
             cooldown: 10,
             aliases: ["delcmd", "removecmd"],
             permLevel: 6,
-            botPerms: ["SEND_MESSAGES", "USE_EXTERNAL_EMOJIS"],
+            botPerms: ["USE_EXTERNAL_EMOJIS"],
             requiredConfigs: ["customcmds"],
             description: (msg) => msg.language.get("COMMAND_DEL_CMD_DESCRIPTION"),
             usage: "<name:string>",

@@ -9,7 +9,7 @@ module.exports = class extends Command {
             bucket: 1,
             aliases: ["setprefix"],
             permLevel: 6,
-            botPerms: ["SEND_MESSAGES", "USE_EXTERNAL_EMOJIS"],
+            botPerms: ["USE_EXTERNAL_EMOJIS"],
             description: (msg) => msg.language.get("COMMAND_PREFIX_DESCRIPTION"),
             quotedStringSupport: false,
             usage: "[prefix:string]",

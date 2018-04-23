@@ -5,7 +5,6 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             aliases: ["sg"],
-            botPerms: ["SEND_MESSAGES"],
             permLevel: 10,
             usage: "<game:string> [...]",
             usageDelim: " ",

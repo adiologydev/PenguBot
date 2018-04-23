@@ -21,7 +21,6 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             cooldown: 8,
-            botPerms: ["SEND_MESSAGES"],
             description: (msg) => msg.language.get("COMMAND_COMPLIMENT_DESCRIPTION"),
             extendedHelp: "No extended help available.",
             usage: "<user:user>"

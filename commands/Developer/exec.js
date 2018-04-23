@@ -5,7 +5,6 @@ module.exports = class extends Command {
 
     constructor(...args) {
         super(...args, {
-            botPerms: ["SEND_MESSAGES"],
             permLevel: 10,
             usage: "<str:string> [...]",
             usageDelim: " ",

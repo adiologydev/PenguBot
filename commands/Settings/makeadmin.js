@@ -9,7 +9,7 @@ module.exports = class extends Command {
             bucket: 1,
             aliases: ["setadmin", "addadmin", "deladmin", "removeadmin", "toggleadmin"],
             permLevel: 6,
-            botPerms: ["SEND_MESSAGES", "USE_EXTERNAL_EMOJIS"],
+            botPerms: ["USE_EXTERNAL_EMOJIS"],
             requiredConfigs: ["staff-admins"],
             description: (msg) => msg.language.get("COMMAND_MAKE_ADMIN_DESCRPTION"),
             usage: "<member:user>",

@@ -9,7 +9,7 @@ module.exports = class extends Command {
             cooldown: 10,
             aliases: ["shortener", "shortlink"],
             permLevel: 0,
-            botPerms: ["SEND_MESSAGES", "EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
+            botPerms: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
             description: (msg) => msg.language.get("COMMAND_SHORTEN_DESCRIPTION"),
             usage: "<link:url>",
             extendedHelp: "No extended help available."

@@ -7,7 +7,7 @@ module.exports = class extends Command {
         super(...args, {
             cooldown: 8,
             aliases: ["slotsroll"],
-            botPerms: ["SEND_MESSAGES", "USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
+            botPerms: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
             description: (msg) => msg.language.get("COMMAND_SLOTS_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });

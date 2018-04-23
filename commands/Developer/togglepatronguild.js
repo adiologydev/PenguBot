@@ -5,7 +5,6 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             aliases: ["tpg"],
-            botPerms: ["SEND_MESSAGES"],
             permLevel: 10,
             usage: "<guild:guild>",
             description: (msg) => msg.language.get("COMMAND_TPG_DESCRIPTION")

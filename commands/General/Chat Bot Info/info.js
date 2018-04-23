@@ -6,7 +6,7 @@ module.exports = class extends Command {
         super(...args, {
             aliases: ["details", "what"],
             guarded: true,
-            botPerms: ["SEND_MESSAGES", "EMBED_LINKS"],
+            botPerms: ["EMBED_LINKS"],
             description: (msg) => msg.language.get("COMMAND_INFO_DESCRIPTION")
         });
     }

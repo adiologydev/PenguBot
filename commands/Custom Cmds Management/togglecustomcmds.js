@@ -9,7 +9,7 @@ module.exports = class extends Command {
             bucket: 1,
             aliases: ["tccmd", "togglecustom", "tcmd", "togglecustomcommands"],
             permLevel: 6,
-            botPerms: ["SEND_MESSAGES", "USE_EXTERNAL_EMOJIS"],
+            botPerms: ["USE_EXTERNAL_EMOJIS"],
             requiredConfigs: ["custom-commands"],
             description: (msg) => msg.language.get("COMMAND_TOGGLE_CUSTOM_DESCRPTION"),
             extendedHelp: "No extended help available."

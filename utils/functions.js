@@ -45,8 +45,8 @@ const randomNumber = (min, max) => {
 };
 
 async function getSongs(string) {
-    const res = await get(`http://${config.nodes.uswest.ip}2333/loadtracks?identifier=${string}`)
-        .set("Authorization", config.nodes.uswest.password)
+    const res = await get(`http://${config.keys.music.host}:2333/loadtracks?identifier=${string}`)
+        .set("Authorization", config.keys.music.password)
         .catch(err => {
             console.error(err);
             return null;
@@ -56,9 +56,22 @@ async function getSongs(string) {
     return res.body;
 }
 
+const friendlyTime = (duration) => {
+    let seconds = parseInt((duration / 1000) % 60);
+    let minutes = parseInt((duration / (1000 * 60)) % 60);
+    let hours = parseInt((duration / (1000 * 60 * 60)) % 24);
+
+    hours = hours < 10 ? `0${hours}` : hours;
+    minutes = minutes < 10 ? `0${minutes}` : minutes;
+    seconds = seconds < 10 ? `0${seconds}` : seconds;
+
+    return `${hours}:${minutes}:${seconds}`;
+};
+
 module.exports.haste = haste;
 module.exports.isUpvoter = isUpvoter;
 module.exports.postStats = postStats;
 module.exports.isPatron = isPatron;
 module.exports.randomNumber = randomNumber;
 module.exports.getSongs = getSongs;
+module.exports.friendlyTime = friendlyTime;

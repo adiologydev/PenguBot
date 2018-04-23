@@ -9,7 +9,7 @@ module.exports = class extends Command {
             guarded: true,
             aliases: ["enablegroup", "disablecommandgroup", "enablecommandgroup", "disablecommandcategory", "enablecommandcategory"],
             permLevel: 6,
-            botPerms: ["SEND_MESSAGES", "USE_EXTERNAL_EMOJIS"],
+            botPerms: ["USE_EXTERNAL_EMOJIS"],
             requiredConfigs: ["disabledCommands"],
             description: (msg) => msg.language.get("COMMAND_TOGGLE_GROUP_DESCRPTION"),
             usage: "<command:cmd>",

@@ -9,7 +9,7 @@ module.exports = class extends Command {
             bucket: 1,
             aliases: ["setmod", "addmod", "delmod", "removemod", "togglemod"],
             permLevel: 6,
-            botPerms: ["SEND_MESSAGES", "USE_EXTERNAL_EMOJIS"],
+            botPerms: ["USE_EXTERNAL_EMOJIS"],
             requiredConfigs: ["staff-mods"],
             description: (msg) => msg.language.get("COMMAND_MAKE_MODS_DESCRPTION"),
             usage: "<member:user>",

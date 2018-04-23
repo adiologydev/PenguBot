@@ -8,7 +8,7 @@ module.exports = class extends Command {
             runIn: ["text", "dm"],
             aliases: ["urband", "urbandictionary"],
             cooldown: 10,
-            botPerms: ["SEND_MESSAGES", "EMBED_LINKS", "ATTACH_FILES"],
+            botPerms: ["EMBED_LINKS", "ATTACH_FILES"],
             description: (msg) => msg.language.get("COMMAND_URBAN_DESCRIPTION"),
             usage: "<word:string> [...]",
             extendedHelp: "No extended help available."

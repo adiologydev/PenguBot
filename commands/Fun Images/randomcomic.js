@@ -8,7 +8,7 @@ module.exports = class extends Command {
         super(...args, {
             cooldown: 8,
             aliases: ["comic", "comics"],
-            botPerms: ["ATTACH_FILES", "SEND_MESSAGES", "EMBED_LINKS"],
+            botPerms: ["ATTACH_FILES", "EMBED_LINKS"],
             description: (msg) => msg.language.get("COMMAND_COMIC_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
