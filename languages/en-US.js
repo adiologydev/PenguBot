@@ -237,7 +237,7 @@ module.exports = class extends Language {
             MESSAGE_NEW_REMINDER: "New Reminder has been created with ID:",
             MESSAGE_LINK_SHORTEN: "Here's your Short URL:",
             MESSAGE_AVATAR: "Here's the avatar of",
-            MESSAGE_AFK_TRUE: "Set your status to Aaway From Keyboard!",
+            MESSAGE_AFK_TRUE: "Set your status to Away From Keyboard!",
             MESSAGE_AFK_FALSE: "Set your status to no longer Aaway From Keyboard!",
             MESSAGE_IS_AFK: "is currently AFK for:",
             MESSAGE_AFK_REMOVED: "was removed from the AFK status!",

@@ -3,13 +3,17 @@ const { Canvas } = require("canvas-constructor");
 const fs = require("fs-nextra");
 const { get } = require("snekfetch");
 
+Canvas.registerFont(`${process.cwd()}/assets/fonts/Roboto-Regular.ttf`, { family: "Roboto" });
+Canvas.registerFont(`${process.cwd()}/assets/fonts/RobotoCondensed-Regular.ttf`, { family: "Roboto Condensed" });
+Canvas.registerFont(`${process.cwd()}/assets/fonts/RobotoMono-Light.ttf`, { family: "Roboto Mono" });
+
 module.exports = class extends Command {
 
     constructor(...args) {
         super(...args, {
             runIn: ["text", "dm"],
             aliases: ["w", "☁", "⛅", "⛈", "🌤", "🌥", "🌦", "🌧", "🌨", "🌩", "🌪"],
-            cooldown: 10,
+            cooldown: 30,
             botPerms: ["EMBED_LINKS", "ATTACH_FILES"],
             description: (msg) => msg.language.get("COMMAND_WEATHER_DESCRIPTION"),
             usage: "<location:string> [...]",

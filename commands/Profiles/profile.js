@@ -3,6 +3,11 @@ const { Canvas } = require("canvas-constructor");
 const fs = require("fs-nextra");
 const { get } = require("snekfetch");
 
+Canvas.registerFont(`${process.cwd()}/assets/fonts/Roboto-Regular.ttf`, { family: "Roboto" });
+Canvas.registerFont(`${process.cwd()}/assets/fonts/RobotoCondensed-Regular.ttf`, { family: "Roboto Condensed" });
+Canvas.registerFont(`${process.cwd()}/assets/fonts/RobotoMono-Light.ttf`, { family: "Roboto Mono" });
+Canvas.registerFont(`${process.cwd()}/assets/fonts/NotoEmoji-Regular.ttf`, { family: "NotoEmoji" });
+
 module.exports = class extends Command {
 
     constructor(...args) {
@@ -41,13 +46,13 @@ module.exports = class extends Command {
             // Initializing & Avatar
             .addImage(bgImg, 0, 0, 300, 300)
             .addImage(avatar, 27, 57, 87, 87)
-            .setTextFont("20px RobotoRegular")
+            .setTextFont("20px Roboto, NotoEmoji")
             .setColor("#F2F2F2")
             .addResponsiveText(user.tag, 120, 120, 279)
-            .setTextFont("18px RobotoRegular")
+            .setTextFont("18px Roboto")
             .addText(`Level: ${lvl}`, 120, 150)
             // Reps
-            .setTextFont("12px RobotoRegular")
+            .setTextFont("12px Roboto, NotoEmoji")
             .setColor("#0a0a0a")
             .setTextAlign("center")
             .addText(`${reps}rep(s)`, 70, 159)
@@ -59,7 +64,7 @@ module.exports = class extends Command {
             // XP Bar
             .setColor("#459466")
             .addRect(21, 269, xpProg, 15.5)
-            .setTextFont("10px RobotoRegular")
+            .setTextFont("10px Roboto")
             .setColor("#FFFFFF")
             .setTextAlign("center")
             .addText(`XP: ${oldLvl} / ${nextLvl}`, 151, 281)
