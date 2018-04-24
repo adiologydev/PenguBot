@@ -68,6 +68,13 @@ const friendlyTime = (duration) => {
     return `${hours}:${minutes}:${seconds}`;
 };
 
+const validURL = (str) => {
+    const regexp = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/; // eslint-disable-line
+    if (!regexp.test(str)) {
+        return false;
+    } else { return true; }
+};
+
 module.exports.haste = haste;
 module.exports.isUpvoter = isUpvoter;
 module.exports.postStats = postStats;
@@ -75,3 +82,4 @@ module.exports.isPatron = isPatron;
 module.exports.randomNumber = randomNumber;
 module.exports.getSongs = getSongs;
 module.exports.friendlyTime = friendlyTime;
+module.exports.validURL = validURL;
