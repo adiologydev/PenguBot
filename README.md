@@ -44,7 +44,7 @@ module.exports = class ExampleCommand extends Command {
 ```
 
 ## Contributor(s)
-[**Jacz**](https://github.com/MrJacz)
+[**Jacz**](https://github.com/MrJacz)  
 [**viction**](https://github.com/victionn)
 
 ## Acknowledgement
