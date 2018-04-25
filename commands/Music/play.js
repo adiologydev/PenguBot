@@ -57,7 +57,11 @@ module.exports = class extends Command {
                 await this.musicHandler(msg, songsData[vid - 1], msg.guild, msg.member.voiceChannel);
                 return selection.delete();
             } catch (e) {
-                return await selection.edit(`${msg.author}, <:penguError:435712890884849664> No options selected, cancelled request.`);
+                try {
+                    return await selection.edit(`${msg.author}, <:penguError:435712890884849664> No options selected, cancelled request.`);
+                } catch (ea) {
+                    return;
+                }
             }
         }
     }
@@ -66,6 +70,9 @@ module.exports = class extends Command {
     async init() {
         if (!this.client.gateways.guilds.schema.has("musicVolume")) {
             this.client.gateways.guilds.schema.add("musicVolume", { type: "integer", default: 90, configurable: false });
+        }
+        if (!this.client.gateways.guilds.schema.has("pengu-dj")) {
+            this.client.gateways.guilds.schema.add("pengu-dj", { type: "user", array: true });
         }
     }
 
@@ -76,7 +83,7 @@ module.exports = class extends Command {
             track: songData.track,
             name: songData.info.title,
             author: songData.info.author,
-            stream: songData.isStream,
+            stream: songData.info.isStream,
             length: songData.info.length,
             url: songData.info.uri,
             requester: msg.author

@@ -10,8 +10,7 @@ module.exports = class extends Extendable {
         await (embed ? this.send(question, { embed }) : this.send(question));
         return this.channel.awaitMessages(msg => msg.author.id === this.author.id,
             { max: 1, time, errors: ["time"] })
-            .then(msgs => msgs.first().content)
-            .catch(() => false);
+            .then(msgs => msgs.first().content);
     }
 
 };

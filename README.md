@@ -34,6 +34,8 @@ module.exports = class extends Command {
 ## Acknowledgement
 [**Klasa Pieces**](https://github.com/dirigeants/klasa-pieces/)
 
+[**Ice**](https://github.com/iceeMC/)
+
 [**Dragonfire535 - Xiao**](https://github.com/dragonfire535)
 
 [**WeebDev - Commando**](https://github.com/WeebDev/Commando)
