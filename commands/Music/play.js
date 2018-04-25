@@ -1,4 +1,4 @@
-const { Command, RichMenu } = require("klasa");
+const { Command } = require("klasa");
 const { get } = require("snekfetch");
 module.exports = class extends Command {
 
@@ -26,7 +26,7 @@ module.exports = class extends Command {
                 if (!body.items[0]) return msg.channel.send("<:penguError:435712890884849664> ***That youtube playlist could not be found, please try with a different one.***");
                 const songData = await this.client.functions.getSongs(body.items[0].id);
                 if (!songData) return msg.channel.send("<:penguError:435712890884849664> ***That playlist could not be found, please try with a different one.***");
-                let limit; if (this.client.config.main.patreon === false) { limit = 24; } else { limit = 1000; } // eslint-disable-line
+                let limit; if (this.client.config.main.patreon === false || this.client.functions.isPatron(this.client, msg.guild.id) === false) { limit = 24; } else { limit = 1000; } // eslint-disable-line
                 for (let i = 0; i <= limit; i++) {
                     await this.musicHandler(msg, songData[i], msg.guild, msg.member.voiceChannel, true).catch(() => null);
                 }
@@ -50,7 +50,7 @@ module.exports = class extends Command {
             const options = songsData.slice(0, 5);
             let index = 0;
             const selection = await msg.awaitReply([`🎵 | **Select a Song - PenguBot**\n`,
-                `${options.map(o => `➡ \`${++index}\` ${o.info.title} - ${o.info.author}`).join("\n")}`,
+                `${options.map(o => `➡ \`${++index}\` ${o.info.title} - ${o.info.author} (${this.client.functions.friendlyTime(o.info.length)})`).join("\n")}`,
                 `\n${msg.author}, Please select an option by replying from range \`1-5\` to add it to the queue.`], 20000);
             try {
                 const vid = parseInt(selection);
@@ -180,15 +180,6 @@ module.exports = class extends Command {
             .setColor("#d9534f")
             .setDescription([`• **Party Over:** All the songs from the queue have finished playing. Leaving voice channel.`,
                 `• **Support:** If you enjoyed PenguBot and it's features, please consider becoming a Patron at: https://www.Patreon.com/PenguBot`]);
-    }
-
-    async menu() {
-        return new RichMenu(new this.client.methods.Embed()
-            .setColor(0x673AB7)
-            .setAuthor(this.client.user.username, this.client.user.avatarURL())
-            .setTitle("Advanced Commands Help:")
-            .setDescription("Use the arrow reactions to scroll between pages.\nUse number reactions to select an option.")
-        );
     }
 
 };

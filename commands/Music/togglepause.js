@@ -18,6 +18,9 @@ module.exports = class extends Command {
         const player = this.client.lavalink.get(msg.guild.id);
         if (!msg.member.voiceChannel) return msg.channel.send("<:penguError:435712890884849664> You're currently not in a voice channel.");
         if (!player) return msg.channel.send("<:penguError:435712890884849664> There's currently no music playing!");
+
+        if (!this.client.configs.main.patreon || !this.client.functions.isPatron(this.client, msg.guild.id)) return msg.channel.send("<:penguError:435712890884849664> ***You need to be in a Patron Guild in order to use this command.***");
+
         if (player.paused) {
             player.pause(false);
             return msg.channel.send("⏯ | ***PenguBot has Resumed the music!***");
