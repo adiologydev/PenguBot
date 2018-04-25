@@ -198,6 +198,8 @@ module.exports = class extends Language {
             MESSAGE_ADMIN_REMOVE: "is no longer a Pengu Admin!",
             MESSAGE_MOD_ADD: "is now a Pengu Moderator!",
             MESSAGE_MOD_REMOVE: "is no longer a Pengu Moderator!",
+            MESSAGE_DJ_ADD: "is now a Pengu DJ!",
+            MESSAGE_DJ_REMOVE: "is no longer a Pengu DJ!",
 
             // Mute Command Messages
             MESSAGE_MUTED: "was muted!",
@@ -333,7 +335,21 @@ module.exports = class extends Language {
             // Dev Commands
             COMMAND_EXEC_DESCRIPTION: "-BOT OWNER ONLY-",
             COMMAND_SG_DESCRIPTION: "-BOT OWNER ONLY-",
-            COMMAND_TPG_DESCRIPTION: "-BOT OWNER ONLY-"
+            COMMAND_TPG_DESCRIPTION: "-BOT OWNER ONLY-",
+            COMMAND_DONATE_DESCRIPTION: "Donate to PenguBot and help make something awesome!",
+
+            // Music Commands
+            COMMAND_DMSONG_DESCRIPTION: "Make Pengu send you the current song in your DMs.",
+            COMMAND_LOOP_DESCRIPTION: "Loop a song so it repeats when it finishes playing.",
+            COMMAND_LYRICS_DESCRIPTION: "Get a song's lyrics directly with Pengu.",
+            COMMAND_MUSIC_DESCRIPTION: "Detailed information for all Music Commands.",
+            COMMAND_NOWPLAYING_DESCRIPTION: "Know which song is currently playing and what is it's progress.",
+            COMMAND_PLAY_DESCRIPTION: "Play Songs from YouTube/Twitch/SoundCloud/Mixer/Live Streams, etc. with Pengu.",
+            COMMAND_SHUFFLE_DESCRIPTION: "Shuffle songs in the queue to be randomized.",
+            COMMAND_QUEUE_DESCRIPTION: "See the current song queue in an interactive manner",
+            COMMAND_SKIP_DESCRIPTION: "Skip the current song or call a vote skip if there are more than 3 members in the VC.",
+            COMMAND_STOP_DESCRIPTION: "Stop and Clear the queue if you're Pengu-DJ or are the only one listening.",
+            COMMAND_MAKE_DJ_DESCRPTION: "Make a user Pengu DJ if you are Pengu Mod or above."
         };
     }
 
