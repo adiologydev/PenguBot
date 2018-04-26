@@ -15,7 +15,7 @@ module.exports = class extends Command {
 
     async run(msg, [message, language]) {
         translate(message.content || message, { to: `${language}` }).then(res => {
-            msg.send(res.text);
+            msg.send(`📗**Translated Message:** ${res.text}`);
         }).catch(err => {
             console.error(err);
         });
