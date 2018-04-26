@@ -301,6 +301,7 @@ module.exports = class extends Language {
             COMMAND_FOX_DESCRIPTION: "Love foxes? Me too! Here's a picture of a fox.",
             COMMAND_ILLEGAL_DESCRIPTION: "Let's make things illegal by making trump sign the bills for it.",
             COMMAND_MCA_DESCRIPTION: "Generate yourself a Minecraft Achievement image because My Craft...",
+            COMMAND_LIO_DESCRIPTION: "Add yours or other people's face on to the cute lio!",
 
             // NSFW Commands
             COMMAND_ANAL_DESCRIPTION: "-NOT SAFE FOR WORK- Anal images.",
