@@ -3,7 +3,6 @@ notifications:
   email: false
 node_js:
   - "8"
-  - "10"
 before_install: sudo apt-get install libcairo2-dev libjpeg8-dev libpango1.0-dev libgif-dev build-essential g++
 install: npm install
 jobs:

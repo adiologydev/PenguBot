@@ -1,4 +1,4 @@
-const { Command, RichDisplay, Timestamp } = require("klasa");
+const { Command, RichDisplay } = require("klasa");
 
 module.exports = class extends Command {
 
@@ -12,8 +12,6 @@ module.exports = class extends Command {
             description: (msg) => msg.language.get("COMMAND_SHUFFLE_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
-
-        this.songLenght = new Timestamp("HH:mm:ss");
     }
 
     async run(msg) {
@@ -28,11 +26,11 @@ module.exports = class extends Command {
             .setColor("#428bca")
         );
 
-        for (let i = 0, temp = queue.songs.length; i < temp; i++) {
+        for (let i = 0, temp = queue.songs.length; i < temp; i += 5) {
             const curr = queue.songs.slice(i, i + 5);
-            pages.addPage(t => t.setDescription(curr.map(y => `\`-\` [${y.name.replace(/\*/g, "\\*")}](${y.url}) (${this.songLenght.display(y.lenght)})`)));
+            pages.addPage(t => t.setDescription(curr.map(y => `\`-\` [${y.name.replace(/\*/g, "\\*")}](${y.url}) (${this.client.functions.friendlyTime(y.length)})`)));
         }
-        pages.run(await msg.sendMessage("Loading Queue..."), {
+        pages.run(await msg.sendMessage("<a:penguLoad:435712860744581120> Loading Queue..."), {
             time: 120000,
             filter: (reaction, user) => user === msg.author
         });
