@@ -1,7 +1,7 @@
-const { Extendable, util: { regExpEsc } } = require("klasa");
+const { Argument, util: { regExpEsc } } = require("klasa");
 const { Role } = require("discord.js");
 
-const ROLE_REGEXP = new RegExp("^(?:<@&)?(\\d{17,21})>?$");
+const ROLE_REGEXP = Argument.regex.role;
 
 function resolveRole(query, guild) {
     if (query instanceof Role) return guild.roles.has(query.id) ? query : null;
@@ -9,13 +9,9 @@ function resolveRole(query, guild) {
     return null;
 }
 
-module.exports = class extends Extendable {
+module.exports = class extends Argument {
 
-    constructor(...args) {
-        super(...args, ["ArgResolver"], { klasa: true });
-    }
-
-    async extend(arg, possible, msg) {
+    async run(arg, possible, msg) {
         if (!msg.guild) return this.role(arg, possible, msg);
         const resRole = resolveRole(arg, msg.guild);
         if (resRole) return resRole;

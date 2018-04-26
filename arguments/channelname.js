@@ -1,7 +1,7 @@
-const { Extendable, util: { regExpEsc } } = require("klasa");
+const { Argument, util: { regExpEsc } } = require("klasa");
 const { Channel, Message } = require("discord.js");
 
-const CHANNEL_REGEXP = new RegExp("^(?:<#)?(\\d{17,21})>?$");
+const CHANNEL_REGEXP = Argument.regex.channel;
 
 function resolveChannel(query, guild) {
     if (query instanceof Channel) return guild.channels.has(query.id) ? query : null;
@@ -10,13 +10,9 @@ function resolveChannel(query, guild) {
     return null;
 }
 
-module.exports = class extends Extendable {
+module.exports = class extends Argument {
 
-    constructor(...args) {
-        super(...args, ["ArgResolver"], { klasa: true });
-    }
-
-    async extend(arg, possible, msg) {
+    async run(arg, possible, msg) {
         if (!msg.guild) return this.channel(arg, possible, msg);
         const resChannel = resolveChannel(arg, msg.guild);
         if (resChannel) return resChannel;

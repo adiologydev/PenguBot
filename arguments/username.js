@@ -1,7 +1,7 @@
-const { Extendable, util: { regExpEsc } } = require("klasa");
+const { Argument, util: { regExpEsc } } = require("klasa");
 const { GuildMember, User } = require("discord.js");
 
-const USER_REGEXP = new RegExp("^(?:<@!?)?(\\d{17,21})>?$");
+const USER_REGEXP = Argument.regex.userOrMember;
 
 function resolveUser(query, guild) {
     if (query instanceof GuildMember) return query.user;
@@ -16,13 +16,9 @@ function resolveUser(query, guild) {
     return null;
 }
 
-module.exports = class extends Extendable {
+module.exports = class extends Argument {
 
-    constructor(...args) {
-        super(...args, ["ArgResolver"], { klasa: true });
-    }
-
-    async extend(arg, possible, msg) {
+    async run(arg, possible, msg) {
         if (!msg.guild) return this.user(arg, possible, msg);
         const resUser = await resolveUser(arg, msg.guild);
         if (resUser) return resUser;
