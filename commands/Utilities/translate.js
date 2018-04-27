@@ -5,10 +5,9 @@ module.exports = class extends Command {
 
     constructor(...args) {
         super(...args, {
-            name: "translate",
-            runIn: ["text"],
+            runIn: ["text", "dm"],
             description: (msg) => msg.language.get("COMMAND_TRANSLATE_DESCRIPTION"),
-            usageDelim: ", ",
+            usageDelim: "|",
             usage: "<Message:msg|Content:string> <language:str>"
         });
     }
@@ -16,8 +15,8 @@ module.exports = class extends Command {
     async run(msg, [message, language]) {
         translate(message.content || message, { to: `${language}` }).then(res => {
             msg.send(`📗 **Translated Message:** ${res.text}`);
-        }).catch(err => {
-            console.error(err);
+        }).catch(() => {
+            msg.send("<:penguError:435712890884849664> ***That language is not supported, please try again.***");
         });
     }
 

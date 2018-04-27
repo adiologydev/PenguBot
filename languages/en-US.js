@@ -324,6 +324,7 @@ module.exports = class extends Language {
             COMMAND_WEATHER_DESCRIPTION: "Get weather of your area easily and in a fun way.",
             COMMAND_YTSTATS_DESCRIPTION: "Check YouTube Statistics live on the go.",
             COMMAND_ADBLOCK_DESCRIPTION: "Enable/Disable Auto Deletion of Invite Links. Pengu Mods and above can bypass this.",
+            COMMAND_TRANSLATE_DESCRIPTION: "Translate a sentence or message to any selected language.",
 
             // Profile Commands
             COMMAND_LEVELUP_DESCRIPTION: "Enable/Disable Level Up Announcements of Users in your guild.",
