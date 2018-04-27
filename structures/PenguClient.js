@@ -8,6 +8,7 @@ class PenguClient extends Client {
         this.functions = require("../utils/functions.js");
         this.lavalink = null;
         this.queue = new Map();
+        this.log = require("../utils/log.js");
     }
 
 }
