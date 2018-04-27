@@ -40,7 +40,7 @@ module.exports = class extends Monitor {
                     .addImage(levelBG, 0, 0, 100, 100)
                     .addImage(avatar, 22, 22, 57, 57)
                     .toBufferAsync();
-                msg.channel.send(`🆙 | **${msg.member} leveled up to Level ${newLvl}!**`, { files: [{ attachment: img, name: `${msg.author.id}.png` }] });
+                msg.channel.send(`🆙 | **${msg.author.tag} leveled up to Level ${newLvl}!**`, { files: [{ attachment: img, name: `${msg.author.id}.png` }] });
             }
         }
     }

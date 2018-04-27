@@ -32,13 +32,13 @@
     "discord.js-lavalink": "github:mrjacz/discord.js-lavalink",
     "erlpack": "github:discordapp/erlpack",
     "fast-html-parser": "^1.0.1",
+    "google-translate-api": "^2.3.0",
     "klasa": "github:dirigeants/klasa",
     "moment": "^2.22.1",
     "moment-duration-format": "^2.2.2",
     "mongodb": "^3.0.7",
     "random-puppy": "^1.1.0",
     "uws": "^9.148.0",
-    "google-translate-api": "^2.3.0",
     "zlib-sync": "^0.1.4"
   },
   "devDependencies": {

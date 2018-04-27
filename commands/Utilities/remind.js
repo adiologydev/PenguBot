@@ -10,7 +10,7 @@ module.exports = class extends Command {
             aliases: ["remindme", "setreminder", "remindmein"],
             botPerms: ["MANAGE_MESSAGES", "USE_EXTERNAL_EMOJIS"],
             description: (msg) => msg.language.get("COMMAND_REMIND_DESCRIPTION"),
-            usage: "<time:time> <message:string> [...]",
+            usage: "<Time:time> <Message:string> [...]",
             usageDelim: " ",
             extendedHelp: "No extended help available."
         });
@@ -20,7 +20,7 @@ module.exports = class extends Command {
         const r = await this.client.schedule.create("reminder", time, {
             data: {
                 channel: msg.channel.id,
-                user: msg.author.id,
+                user: msg.author,
                 text: message.join(" ")
             }
         });

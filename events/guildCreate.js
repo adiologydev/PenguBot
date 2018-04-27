@@ -19,7 +19,7 @@ module.exports = class extends Event {
         if (!guild.available) return;
         let channel = guild.channels.sort((a, b) => a.calculatedPosition - b.calculatedPosition)
             .find(c => c.type === "text" && c.permissionsFor(guild.me).has(19456));
-        if (!channel) channel = await guild.fetchMember(guild.owner.user);
+        if (!channel) channel = await guild.owner.user;
 
         const embed = new this.client.methods.Embed()
             .setThumbnail(this.client.user.avatarURL())
