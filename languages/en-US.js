@@ -215,7 +215,6 @@ module.exports = class extends Language {
             MESSAGE_CMD_NOTFOUND: "command was not found!",
             MESSAGE_CMD_EXISTS: "command with this name already exists in Pengu as a default or custom command!",
             MESSAGE_NO_CMDS: "Your guild has no custom commands, ask an admin or above to make one!",
-            MESSAGE_LIST_CMDS: "Custom Commands for",
             MESSAGE_COMMAND_CUSTOM_ENABLED: "Custom Commands are now Enabled!",
             MESSAGE_COMMAND_CUSTOM_DISABLED: "Custom Commands are now Disabled!",
 
