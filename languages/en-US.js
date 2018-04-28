@@ -301,6 +301,12 @@ module.exports = class extends Language {
             COMMAND_ILLEGAL_DESCRIPTION: "Let's make things illegal by making trump sign the bills for it.",
             COMMAND_MCA_DESCRIPTION: "Generate yourself a Minecraft Achievement image because My Craft...",
             COMMAND_LIO_DESCRIPTION: "Add yours or other people's face on to the cute lio!",
+            COMMAND_SLAP_DESCRIPTION: "Who's being naughty? Give them a tight slap!",
+            COMMAND_PAT_DESCRIPTION: "Someone did a good job? Give them a pat.",
+            COMMAND_CUDDLE_DESCRIPTION: "Cuddle in, it's time to relax, everything's gonna be fine.",
+            COMMAND_TICKLE_DESCRIPTION: "Who's being tough on surface? Tickle them and make them laugh!",
+            COMMAND_POKE_DESCRIPTION: "Ping someone by poking them!",
+            COMMAND_FEED_DESCRIPTION: "Anyone hungry? Feed them some food.",
 
             // NSFW Commands
             COMMAND_ANAL_DESCRIPTION: "-NOT SAFE FOR WORK- Anal images.",
@@ -314,6 +320,7 @@ module.exports = class extends Language {
             COMMAND_GWNSFW_DESCRIPTION: "-NOT SAFE FOR WORK- Gone Wild Images.",
             COMMAND_LESB_DESCRIPTION: "-NOT SAFE FOR WORK- Lesbian Images.",
             COMMAND_MILF_DESCRIPTION: "-NOT SAFE FOR WORK- MILF images.",
+            COMMAND_NEKOS_DESCRIPTION: "-NOT SAFE FOR WORK- Nekos Images.",
 
             // Utilities Commands
             COMMAND_GUILDINFO_DESCRIPTION: "Get brief information about a guild with this command.",

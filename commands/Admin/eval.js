@@ -32,14 +32,14 @@ module.exports = class extends Command {
     async handleMessage(msg, options, { success, result, time, footer }) {
         switch (options.sendAs) {
         case "file": {
-            if (msg.channel.attachable) return msg.channel.sendFile(Buffer.from(result), "output.txt", msg.language.get("COMMAND_EVAL_OUTPUT_FILE", time, footer));
+            if (msg.channel.attachable) return msg.channel.sendFile(Buffer.from(result), "output.txt", `Eval File - ${time} |\n${footer}`);
             await this.getTypeOutput(msg, options);
             return this.handleMessage(msg, options, { success, result, time, footer });
         }
         case "haste":
         case "hastebin": {
             if (!options.url) options.url = await this.getHaste(result).catch(() => null);
-            if (options.url) return msg.sendMessage(msg.language.get("COMMAND_EVAL_OUTPUT_HASTEBIN", time, options.url, footer));
+            if (options.url) return msg.sendMessage(`**Hastebin Output:** ${options.url} - ${time} |\n**Type:** ${footer}`);
             options.hastebinUnavailable = true;
             await this.getTypeOutput(msg, options);
             return this.handleMessage(msg, options, { success, result, time, footer });
@@ -47,7 +47,7 @@ module.exports = class extends Command {
         case "console":
         case "log": {
             this.client.emit("log", result);
-            return msg.sendMessage(msg.language.get("COMMAND_EVAL_OUTPUT_CONSOLE", time, footer));
+            return msg.sendMessage(`**Eval Console** - ${time} |\n**Type:** ${footer}`);
         }
         case "none":
             return null;
