@@ -28,14 +28,14 @@ module.exports = class extends Command {
             const now = Date.now();
             const last = msg.author.configs.get("rep-cooldown");
             const diff = now - last;
-            const next = 86400000 - diff;
+            const next = 43200000 - diff;
 
             const hours = Math.floor(next / 3600000);
             const minutes = Math.floor((next / 60000) - (hours * 60));
             const seconds = (next / 1000) - ((hours * 3600) + (minutes * 60));
             const timeLeft = `${hours} hours, ${minutes} minutes and ${Math.round(seconds)} seconds`;
 
-            if (diff >= 86400000) {
+            if (diff >= 43200000) {
                 if (!user) {
                     return msg.channel.send("🏆 | ***You can now give a reputation point!***");
                 } else {

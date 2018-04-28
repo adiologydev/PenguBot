@@ -20,8 +20,8 @@ module.exports = class extends Monitor {
         if (!msg.guild) return;
         if (timeout.has(msg.author.id)) return;
 
-        const randomXP = this.client.functions.randomNumber(1, 8);
-        const randomSnowflakes = this.client.functions.randomNumber(1, 8);
+        const randomXP = this.client.functions.randomNumber(1, 4);
+        const randomSnowflakes = this.client.functions.randomNumber(1, 2);
         const newSnowflakes = msg.author.configs.get("snowflakes") + randomSnowflakes;
         const newXP = await msg.author.configs.get("xp") + randomXP;
         const oldLvl = await msg.author.configs.get("level");
@@ -29,7 +29,7 @@ module.exports = class extends Monitor {
         await msg.author.configs.update(["xp", "level", "snowflakes"], [newXP, newLvl, newSnowflakes]);
 
         timeout.add(msg.author.id);
-        setTimeout(() => timeout.delete(msg.author.id), 30000);
+        setTimeout(() => timeout.delete(msg.author.id), 45000);
 
         // Generate Level Up Images on Level Up
         if (oldLvl !== newLvl) {
@@ -40,7 +40,7 @@ module.exports = class extends Monitor {
                     .addImage(levelBG, 0, 0, 100, 100)
                     .addImage(avatar, 22, 22, 57, 57)
                     .toBufferAsync();
-                msg.channel.send(`🆙 | **${msg.member} leveled up to Level ${newLvl}!**`, { files: [{ attachment: img, name: `${msg.author.id}.png` }] });
+                msg.channel.send(`🆙 | **${msg.author.tag} leveled up to Level ${newLvl}!**`, { files: [{ attachment: img, name: `${msg.author.id}.png` }] });
             }
         }
     }
