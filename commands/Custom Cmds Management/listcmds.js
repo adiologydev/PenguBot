@@ -1,4 +1,4 @@
-const { Command } = require("klasa");
+const { Command, RichDisplay } = require("klasa");
 
 module.exports = class extends Command {
 
@@ -8,11 +8,9 @@ module.exports = class extends Command {
             cooldown: 10,
             aliases: ["listcommands"],
             permLevel: 6,
-            botPerms: ["USE_EXTERNAL_EMOJIS"],
+            botPerms: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
             requiredConfigs: ["customcmds"],
             description: (msg) => msg.language.get("COMMAND_LIST_CMDS_DESCRIPTION"),
-            usage: "",
-            usageDelim: undefined,
             extendedHelp: "No extended help available."
         });
     }
@@ -22,10 +20,25 @@ module.exports = class extends Command {
         const prefix = msg.guild.configs.get("prefix");
         const names = [];
         msg.guild.configs.customcmds.forEach(a => {
-            names.push(`c.${a.name}`);
+            names.push(`${a.name}`);
         });
-        const list = names.join(",").replace(/c./g, prefix);
-        return msg.channel.send(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_LIST_CMDS")} ${msg.guild.name}***:\n**⟹** ${prefix}${list.replace(/,/g, "\n**⟹** ")}`);
+
+        const cmds = new RichDisplay(new this.client.methods.Embed()
+            .setTitle("Use the reactions to change pages, select a page or stop viewing the commands.")
+            .setAuthor("Custom Commands - PenguBot", "https://i.imgur.com/DOuCQlY.png")
+            .setDescription("Scroll between pages to see the custom commands list.")
+            .setColor("#F75F4E")
+        );
+
+        for (let i = 0, temp = names.length; i < temp; i += 5) {
+            const curr = names.slice(i, i + 5);
+            cmds.addPage(t => t.setDescription(curr.map(c => `• ${prefix}${c}`)));
+        }
+
+        cmds.run(await msg.sendMessage("<a:penguLoad:435712860744581120> Loading Commands..."), {
+            time: 120000,
+            filter: (reaction, user) => user === msg.author
+        });
     }
 
 };
