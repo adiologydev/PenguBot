@@ -357,7 +357,10 @@ module.exports = class extends Language {
             COMMAND_QUEUE_DESCRIPTION: "See the current song queue in an interactive manner",
             COMMAND_SKIP_DESCRIPTION: "Skip the current song or call a vote skip if there are more than 3 members in the VC.",
             COMMAND_STOP_DESCRIPTION: "Stop and Clear the queue if you're Pengu-DJ or are the only one listening.",
-            COMMAND_MAKE_DJ_DESCRPTION: "Make a user Pengu DJ if you are Pengu Mod or above."
+            COMMAND_MAKE_DJ_DESCRPTION: "Make a user Pengu DJ if you are Pengu Mod or above.",
+
+            // Game Stats
+            COMMAND_FORTNITE_DESCRIPTION: "Get Fortnite Game Statistics within Discord."
         };
     }
 
