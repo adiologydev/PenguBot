@@ -228,6 +228,9 @@ module.exports = class extends Language {
             MESSAGE_WELCOME_CHANNEL_SET: "Welcome messages channel has now been set!",
             MESSAGE_LEAVE_CHANNEL_SET: "Leave messages channel has now been set!",
 
+            // Logging
+            MESSAGE_LOGCHAN_SET: "Logging channel has now been set!",
+
             // Autoroles Messages
             MESSAGE_AUTOROLES_ENABLED: "Auto Roles have been enabled in this guild!",
             MESSAGE_AUTOROLES_DISABLED: "Auto Roles have been disabled in this guild!",
