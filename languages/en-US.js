@@ -228,6 +228,9 @@ module.exports = class extends Language {
             MESSAGE_WELCOME_CHANNEL_SET: "Welcome messages channel has now been set!",
             MESSAGE_LEAVE_CHANNEL_SET: "Leave messages channel has now been set!",
 
+            // Logging
+            MESSAGE_LOGCHAN_SET: "Logging channel has now been set!",
+
             // Autoroles Messages
             MESSAGE_AUTOROLES_ENABLED: "Auto Roles have been enabled in this guild!",
             MESSAGE_AUTOROLES_DISABLED: "Auto Roles have been disabled in this guild!",
@@ -301,6 +304,12 @@ module.exports = class extends Language {
             COMMAND_ILLEGAL_DESCRIPTION: "Let's make things illegal by making trump sign the bills for it.",
             COMMAND_MCA_DESCRIPTION: "Generate yourself a Minecraft Achievement image because My Craft...",
             COMMAND_LIO_DESCRIPTION: "Add yours or other people's face on to the cute lio!",
+            COMMAND_SLAP_DESCRIPTION: "Who's being naughty? Give them a tight slap!",
+            COMMAND_PAT_DESCRIPTION: "Someone did a good job? Give them a pat.",
+            COMMAND_CUDDLE_DESCRIPTION: "Cuddle in, it's time to relax, everything's gonna be fine.",
+            COMMAND_TICKLE_DESCRIPTION: "Who's being tough on surface? Tickle them and make them laugh!",
+            COMMAND_POKE_DESCRIPTION: "Ping someone by poking them!",
+            COMMAND_FEED_DESCRIPTION: "Anyone hungry? Feed them some food.",
 
             // NSFW Commands
             COMMAND_ANAL_DESCRIPTION: "-NOT SAFE FOR WORK- Anal images.",
@@ -314,6 +323,7 @@ module.exports = class extends Language {
             COMMAND_GWNSFW_DESCRIPTION: "-NOT SAFE FOR WORK- Gone Wild Images.",
             COMMAND_LESB_DESCRIPTION: "-NOT SAFE FOR WORK- Lesbian Images.",
             COMMAND_MILF_DESCRIPTION: "-NOT SAFE FOR WORK- MILF images.",
+            COMMAND_NEKOS_DESCRIPTION: "-NOT SAFE FOR WORK- Nekos Images.",
 
             // Utilities Commands
             COMMAND_GUILDINFO_DESCRIPTION: "Get brief information about a guild with this command.",
@@ -350,7 +360,10 @@ module.exports = class extends Language {
             COMMAND_QUEUE_DESCRIPTION: "See the current song queue in an interactive manner",
             COMMAND_SKIP_DESCRIPTION: "Skip the current song or call a vote skip if there are more than 3 members in the VC.",
             COMMAND_STOP_DESCRIPTION: "Stop and Clear the queue if you're Pengu-DJ or are the only one listening.",
-            COMMAND_MAKE_DJ_DESCRPTION: "Make a user Pengu DJ if you are Pengu Mod or above."
+            COMMAND_MAKE_DJ_DESCRPTION: "Make a user Pengu DJ if you are Pengu Mod or above.",
+
+            // Game Stats
+            COMMAND_FORTNITE_DESCRIPTION: "Get Fortnite Game Statistics within Discord."
         };
     }
 

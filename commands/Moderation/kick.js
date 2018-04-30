@@ -25,7 +25,7 @@ module.exports = class extends Command {
         if (user.id === this.client.user.id) return msg.reply(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_KICK_PENGU")}***`);
         if (user.kickable === false) return msg.reply(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_KICK_CANT")}***`);
 
-        reason = reason.length > 0 ? reason.join(" ") : "No reason specified.";
+        reason = reason.length > 0 ? `${reason.join(" ")}\nBanned By: ${msg.author.tag}` : `No reason specified.\nBanned By: ${msg.author.tag}`;
         await user.kick(reason);
         return msg.channel.send(`<:penguSuccess:435712876506775553> ***${member.tag} ${msg.language.get("MESSAGE_KICKED")}***`);
     }

@@ -1,7 +1,7 @@
 const { RichEmbed } = require("discord.js");
 
 const ban = (client, banner, banee, reason) => {
-    if (!canPost(client, banner.guild, "ban")) return;
+    if (!canPost(client, banner.guild, "moderations")) return;
     const channel = banner.guild.configs.logChannel;
     const embed = new RichEmbed()
         .setColor("#1C2331")
@@ -10,7 +10,7 @@ const ban = (client, banner, banee, reason) => {
 };
 
 const softban = (client, banner, banee, reason) => {
-    if (!canPost(client, banner.guild, "ban")) return;
+    if (!canPost(client, banner.guild, "moderations")) return;
     const channel = banner.guild.configs.logChannel;
     const embed = new RichEmbed()
         .setColor("#1C2331")
@@ -19,7 +19,7 @@ const softban = (client, banner, banee, reason) => {
 };
 
 const kick = (client, kicker, kickee, reason) => {
-    if (!canPost(client, kicker.guild, "kick")) return;
+    if (!canPost(client, kicker.guild, "moderations")) return;
     const channel = kicker.guild.configs.logChannel;
     const embed = new RichEmbed()
         .setColor("#3F729B")
@@ -32,7 +32,7 @@ const canPost = (client, guild, key) => {
     if (!guild.configs.get(`logs.${key}`)) return false;
     const channel = guild.configs.logChannel;
     if (!channel) return false;
-    if (channel.permissionsFor(client.user).missing(19456)) return false;
+    if (!guild.channels.get(channel).postable) return false;
     return true;
 };
 
