@@ -11,15 +11,16 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        let [users, guilds, channels, memory] = [0, 0, 0, 0];
+        let [users, guilds, channels, memory, vc] = [0, 0, 0, 0, 0];
 
         if (this.client.shard) {
-            const results = await this.client.shard.broadcastEval(`[this.users.size, this.guilds.size, this.channels.size, (process.memoryUsage().heapUsed / 1024 / 1024)]`);
+            const results = await this.client.shard.broadcastEval(`[this.users.size, this.guilds.size, this.channels.size, (process.memoryUsage().heapUsed / 1024 / 1024), this.lavalink.size]`);
             for (const result of results) {
                 users += result[0];
                 guilds += result[1];
                 channels += result[2];
                 memory += result[3];
+                vc += result[4];
             }
         }
 
@@ -33,6 +34,7 @@ module.exports = class extends Command {
                 (users || this.client.users.size).toLocaleString(),
                 (guilds || this.client.guilds.size).toLocaleString(),
                 (channels || this.client.channels.size).toLocaleString(),
+                (vc || this.client.lavalink.size).toLocaleString(),
                 klasaVersion, discordVersion, process.version, msg
             ));
 

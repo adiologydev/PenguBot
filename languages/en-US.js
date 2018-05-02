@@ -151,17 +151,21 @@ module.exports = class extends Language {
             COMMAND_CONF_SERVER: (key, list) => `**Server Configuration${key}**\n${list}`,
             COMMAND_CONF_USER_DESCRIPTION: "Define per-user configuration.",
             COMMAND_CONF_USER: (key, list) => `**User Configuration${key}**\n${list}`,
-            COMMAND_STATS: (memUsage, uptime, users, servers, channels, klasaVersion, discordVersion, processVersion, msg) => [
+            COMMAND_STATS: (memUsage, uptime, users, servers, channels, vc, klasaVersion, discordVersion, processVersion, msg) => [
                 "**__PenguBot Statistics__**",
                 "",
                 `• **Memory Usage:** ${memUsage} MB`,
                 `• **Uptime:** ${uptime}`,
-                `• **Users (Shard):** ${users}`,
-                `• **Servers/Guilds (Shard):** ${servers}`,
-                `• **Channels (Shard):** ${channels}`,
+                `• **Users:** ${users}`,
+                `• **Servers/Guilds:** ${servers}`,
+                `• **Channels:** ${channels}`,
+                `• **Music Streams:** ${vc}`,
+                " ",
                 `• **Discord.js Version:** v${discordVersion}`,
                 `• **Node.js Version:** ${processVersion}`,
-                this.client.options.shardCount ? `• **Shard:** ${((msg.guild ? msg.guild.shardID : msg.channel.shardID) || this.client.options.shardId) + 1} / ${this.client.options.shardCount}` : ""
+                this.client.options.shardCount ? `• **Shard:** ${((msg.guild ? msg.guild.shardID : msg.channel.shardID) || this.client.options.shardId) + 1} / ${this.client.options.shardCount}` : "",
+                "",
+                "**Website:** [www.PenguBot.cc](https://www.PenguBot.cc)\n**Author:** [AdityaTD#5346](https://www.AdityaTD.me)"
             ],
             COMMAND_STATS_DESCRIPTION: "Provides some details about the bot and stats.",
             MESSAGE_PROMPT_TIMEOUT: "The prompt has timed out.",
@@ -245,6 +249,7 @@ module.exports = class extends Language {
             MESSAGE_AFK_FALSE: "Set your status to no longer Aaway From Keyboard!",
             MESSAGE_IS_AFK: "is currently AFK for:",
             MESSAGE_AFK_REMOVED: "was removed from the AFK status!",
+            MESSAGE_STARCHAN_SET: "Starboard channel has now been set.",
 
             // Pengu's Commands Descriptions
             COMMAND_KICK_DESCRIPTION: "Allows moderators and above to kick users.",
