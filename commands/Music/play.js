@@ -26,11 +26,11 @@ module.exports = class extends Command {
                 if (!body.items[0]) return msg.channel.send("<:penguError:435712890884849664> ***That youtube playlist could not be found, please try with a different one.***");
                 const songData = await this.client.functions.getSongs(body.items[0].id);
                 if (!songData) return msg.channel.send("<:penguError:435712890884849664> ***That playlist could not be found, please try with a different one.***");
-                let limit; if (this.client.config.main.patreon === false || this.client.functions.isPatron(this.client, msg.guild.id) === false) { limit = 24; } else { limit = 1000; } // eslint-disable-line
+                let limit; if (this.client.config.main.patreon === false) { limit = 24; } else { limit = 1000; } // eslint-disable-line
                 for (let i = 0; i <= limit; i++) {
                     await this.musicHandler(msg, songData[i], msg.guild, msg.member.voiceChannel, true).catch(() => null);
                 }
-                if (songData.length >= 25) return msg.channel.send(`🗒 | **${body.items[0].snippet.title}** playlist has been added to the queue. This playlist has more than 25 songs but only 25 were added, to bypass this limit become our Patreon today at https://patreon.com/PenguBot`); // eslint-disable-line
+                if (songData.length >= 25 && this.client.config.main.patreon === false) return msg.channel.send(`🗒 | **${body.items[0].snippet.title}** playlist has been added to the queue. This playlist has more than 25 songs but only 25 were added, to bypass this limit become our Patreon today at https://patreon.com/PenguBot`); // eslint-disable-line
                 return msg.channel.send(`🗒 | **${body.items[0].snippet.title}** playlist has been added to the queue.`);
             } else {
                 // URL Handling

@@ -15,7 +15,7 @@ module.exports = class extends Event {
             user: this.client.user.id,
             shards: this.client.shard.count
         });
-
+        this.client.setMaxListeners(50);
         this.client.lavalink = manager;
     }
 
