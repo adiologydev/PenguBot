@@ -65,3 +65,6 @@ package-lock.json
 
 # VSCode User Data
 .vscode
+
+# yarn lock
+yarn.lock
