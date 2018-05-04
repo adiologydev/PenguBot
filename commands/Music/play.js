@@ -123,6 +123,7 @@ module.exports = class extends Command {
         const queue = this.client.queue.get(guild.id);
         const player = this.client.lavalink.get(guild.id);
         await player.play(song.track);
+        await player.volume(guild.configs.musicVolume);
 
         // Event Handling
         player.on("end", async end => {
@@ -138,6 +139,7 @@ module.exports = class extends Command {
                         return this.client.queue.delete(guild.id);
                     } else {
                         await player.play(queue.songs[0].track);
+                        await player.volume(guild.configs.musicVolume);
                         return queue.tc.send({ embed: await this.playEmbed(queue.songs[0]) });
                     }
                 }, 500);
