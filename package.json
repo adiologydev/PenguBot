@@ -25,9 +25,12 @@
   },
   "homepage": "https://github.com/AdityaTD/PenguBot#readme",
   "dependencies": {
+    "canvas": "github:Automattic/node-canvas#92b192447e9b9ae98da0f801e4e34afdd1dc1ef8",
+    "canvas-constructor": "github:kyranet/canvasConstructor",
     "cheerio": "^1.0.0-rc.2",
     "discord.js": "github:discordjs/discord.js",
     "discord.js-lavalink": "github:mrjacz/discord.js-lavalink",
+    "erlpack": "github:discordapp/erlpack",
     "fast-html-parser": "^1.0.1",
     "google-translate-api": "^2.3.0",
     "klasa": "github:dirigeants/klasa",
@@ -36,7 +39,8 @@
     "mongodb": "^3.0.7",
     "mysql2": "^1.5.3",
     "random-puppy": "^1.1.0",
-    "uws": "^9.148.0"
+    "uws": "^9.148.0",
+    "zlib-sync": "^0.1.4"
   },
   "devDependencies": {
     "eslint": "^4.19.0",
