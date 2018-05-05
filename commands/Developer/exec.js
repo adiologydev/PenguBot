@@ -5,7 +5,7 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             aliases: ["execute"],
-            description: "Execute commands in the terminal, use with EXTREME CAUTION.",
+            description: "-BOT OWNER ONLY-",
             guarded: true,
             permLevel: 10,
             usage: "<expression:string>"

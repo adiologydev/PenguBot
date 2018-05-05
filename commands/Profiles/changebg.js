@@ -9,7 +9,7 @@ module.exports = class extends Command {
             permLevel: 0,
             aliases: ["changebackground", "changeprofilebg"],
             botPerms: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
-            description: (msg) => msg.language.get("COMMAND_BGBUY_DESCRIPTION"),
+            description: (msg) => msg.language.get("COMMAND_CHANGEBG_DESCRIPTION"),
             usage: "[BackgroundID:integer]",
             extendedHelp: "No extended help available."
         });

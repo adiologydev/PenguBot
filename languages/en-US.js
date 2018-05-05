@@ -339,6 +339,8 @@ module.exports = class extends Language {
             COMMAND_YTSTATS_DESCRIPTION: "Check YouTube Statistics live on the go.",
             COMMAND_ADBLOCK_DESCRIPTION: "Enable/Disable Auto Deletion of Invite Links. Pengu Mods and above can bypass this.",
             COMMAND_TRANSLATE_DESCRIPTION: "Translate a sentence or message to any selected language.",
+            COMMAND_POLL_DESCRIPTION: "Create a Strawpoll using PenguBot",
+            COMMAND_LOGCHAN_DESCRPTION: "Select a Channel Where you want to Log Events.",
 
             // Profile Commands
             COMMAND_LEVELUP_DESCRIPTION: "Enable/Disable Level Up Announcements of Users in your guild.",
@@ -347,6 +349,8 @@ module.exports = class extends Language {
             COMMAND_DAILY_DESCRIPTION: "Claim your daily 100 Snowflakes which you can use to buy cosmetics.",
             COMMAND_TITLE_DESCRIPTION: "Set your title which will be visible in your profile.",
             COMMAND_SNOWFLAKES_DESCRIPTION: "Check your Snowflakes or send your Snowflakes to others.",
+            COMMAND_BGBUY_DESCRIPTION: "Buy backgrounds for your Pengu Profile.",
+            COMMAND_CHANGEBG_DESCRIPTION: "Change your Pengu Profile's Background.",
 
             // Dev Commands
             COMMAND_EXEC_DESCRIPTION: "-BOT OWNER ONLY-",
@@ -366,6 +370,9 @@ module.exports = class extends Language {
             COMMAND_SKIP_DESCRIPTION: "Skip the current song or call a vote skip if there are more than 3 members in the VC.",
             COMMAND_STOP_DESCRIPTION: "Stop and Clear the queue if you're Pengu-DJ or are the only one listening.",
             COMMAND_MAKE_DJ_DESCRPTION: "Make a user Pengu DJ if you are Pengu Mod or above.",
+            COMMAND_LEAVE_DESCRIPTION: "Make Pengu forcefully leave your Voice Channel.",
+            COMMAND_PAUSE_DESCRIPTION: "Pause/Resume the currently playing music.",
+            COMMAND_VOLUME_DESCRIPTION: "Change the default volume of Pengu in your guild",
 
             // Game Stats
             COMMAND_FORTNITE_DESCRIPTION: "Get Fortnite Game Statistics within Discord."

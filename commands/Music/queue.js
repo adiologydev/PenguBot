@@ -9,7 +9,7 @@ module.exports = class extends Command {
             aliases: ["stopmusic", "leave"],
             permLevel: 0,
             botPerms: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
-            description: (msg) => msg.language.get("COMMAND_SHUFFLE_DESCRIPTION"),
+            description: (msg) => msg.language.get("COMMAND_QUEUE_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
     }

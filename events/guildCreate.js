@@ -56,7 +56,10 @@ Hey! I'm PenguBot, a friendly multi-purpose Discord bot, now that you know who I
 
         // Patreon Checker
         if (this.client.config.main.patreon === true) {
-            if (!this.client.configs.pGuilds.find(g => g === guild.id)) guild.leave();
+            if (!this.client.configs.pGuilds.find(g => g === guild.id)) {
+                guild.owner.send("<:penguError:435712890884849664> ***You may not add the Patreon Only bot to your guild, to become a Patreon visit: https://www.patreon.com/PenguBot. If you think this is a mistake and you already have Patreon, join our support guild and contact a staff member to gain your access: https://discord.gg/u8WYw5r***"); // eslint-disable-line
+                guild.leave();
+            }
         }
     }
 
