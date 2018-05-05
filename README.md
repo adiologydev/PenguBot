@@ -3,7 +3,7 @@
 PenguBot is a community developed Discord Bot with over 15,000 guilds.
 Join Discord for Support and Development https://discord.gg/u8WYw5r
 
-## Guide on How to Contribute: [Click Here](https://github.com/AdityaTD/PenguBot/CONTRIBUTING.md)
+### Guide on How to Contribute: [Click Here](https://github.com/AdityaTD/PenguBot/blob/rewrite/CONTRIBUTING.md)
 
 ## Contributors
 [**Vlad**](https://github.com/KingDGrizzle) - Help with Migration Script for Database
