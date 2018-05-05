@@ -21,8 +21,8 @@ module.exports = class extends Event {
                         console.log(`| VoiceStateUpdate |\n${e}`);
                     }
                 }
-            }, 55000);
-        }, 5000);
+            }, 3600000);
+        }, 10000);
     }
 
 };

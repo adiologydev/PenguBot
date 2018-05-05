@@ -109,12 +109,11 @@ const migrate = async (client) => {
                 if (enabled && channelid && guild.channels.has(channelid)) guild.configs.update(["leave-messages", "leave-channel"], [true, channelid]);
                 continue;
             }
-            /* Autoroles - Kind of Broken
+            // Autoroles
             if (key === "AutoRole") {
-                guild.configs.update("auto-roles", [value]);
-                guild.configs.update("autoroles", true);
+                guild.configs.update(["auto-roles", "autoroles"], [value, true], guild);
                 continue;
-            } */
+            }
             await guild.configs.update(key, value);
         }
     }
