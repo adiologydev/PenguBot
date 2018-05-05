@@ -53,6 +53,11 @@ Hey! I'm PenguBot, a friendly multi-purpose Discord bot, now that you know who I
 
         // Posting Stats for a new guild being added
         this.client.functions.postStats(this.client);
+
+        // Patreon Checker
+        if (this.client.config.main.patreon === true) {
+            if (!this.client.configs.pGuilds.find(g => g === guild.id)) guild.leave();
+        }
     }
 
 };

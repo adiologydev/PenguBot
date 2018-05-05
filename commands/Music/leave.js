@@ -6,10 +6,10 @@ module.exports = class extends Command {
         super(...args, {
             runIn: ["text"],
             cooldown: 10,
-            aliases: ["stopmusic", "musicstop"],
+            aliases: ["forceleave", "leave"],
             permLevel: 0,
             botPerms: ["USE_EXTERNAL_EMOJIS"],
-            description: (msg) => msg.language.get("COMMAND_STOP_DESCRIPTION"),
+            description: (msg) => msg.language.get("COMMAND_LEAVE_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
     }
@@ -21,9 +21,14 @@ module.exports = class extends Command {
         if (!queue || !player) return msg.channel.send("<:penguError:435712890884849664> ***There's currently no music playing!***");
 
         if (msg.hasAtLeastPermissionLevel(3) || queue.vc.members.size <= 3) {
-            await this.client.lavalink.leave(msg.guild.id);
-            await msg.channel.send("<:penguSuccess:435712876506775553> ***Queue cleared, leaving voice channel.***");
-            return this.client.queue.delete(msg.guild.id);
+            try {
+                this.client.queue.delete(msg.guild.id);
+                await msg.channel.send("<:penguSuccess:435712876506775553> ***Queue cleared, leaving voice channel.***");
+                return this.client.lavalink.leave(msg.guild.id);
+            } catch (e) {
+                await msg.channel.send("<:penguSuccess:435712876506775553> ***Leaving voice channel.***");
+                return this.client.lavalink.leave(msg.guild.id);
+            }
         } else {
             return msg.channel.send("<:penguError:435712890884849664> ***There are members in the VC right now, use skip instead!***");
         }
