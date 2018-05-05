@@ -8,7 +8,7 @@ module.exports = class extends Command {
             cooldown: 10,
             aliases: ["stopmusic", "leave"],
             permLevel: 0,
-            botPerms: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
+            botPerms: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS", "MANAGE_MESSAGES"],
             description: (msg) => msg.language.get("COMMAND_QUEUE_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
