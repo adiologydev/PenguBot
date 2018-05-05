@@ -24,6 +24,7 @@ module.exports = class extends Command {
             // YouTube URLS
             const YTMini = /https:\/\/?(www\.)?youtu\.be\/?(.*)/.exec(song);
             const YTFull = /https:\/\/?(www\.)?youtube\.com\/watch\?v=?(.*)/.exec(song);
+            const scPlaylist = /https:\/\/?soundcloud.com\/.*\/.*\/.*/.exec(song);
             if (playlist) {
                 // Playlist Handling
                 const { body } = await get(`https://www.googleapis.com/youtube/v3/playlists?part=id,snippet&id=${playlist[2]}&key=${this.client.config.keys.music.youtube}`);
@@ -37,6 +38,14 @@ module.exports = class extends Command {
                 if (songData.length >= 25 && this.client.config.main.patreon === false) return msg.channel.send(`🗒 | **${body.items[0].snippet.title}** playlist has been added to the queue. This playlist has more than 25 songs but only 25 were added, to bypass this limit become our Patreon today at https://patreon.com/PenguBot`); // eslint-disable-line
                 return msg.channel.send(`🗒 | **${body.items[0].snippet.title}** playlist has been added to the queue.`);
             } else if (soundCloud) {
+                // Handling SoundCloud
+                if (scPlaylist) {
+                    const tracks = await this.client.functions.getSongs(scPlaylist[0]);
+                    for (let i = 0; i <= tracks.length; i++) {
+                        await this.musicHandler(msg, tracks[i], msg.guild, msg.member.voiceChannel, true).catch(() => null);
+                    }
+                    return msg.channel.send(`🗒 | Soundcloud playlist has been added to the queue.`);
+                }
                 const songData = await this.client.functions.getSongs(soundCloud[0]);
                 if (!songData) return msg.channel.send("<:penguError:435712890884849664> ***That song could not be found, please try with a different one.***");
                 await this.musicHandler(msg, songData[0], msg.guild, msg.member.voiceChannel);
