@@ -62,7 +62,6 @@ config.json
 
 # npm lock file
 package-lock.json
-package.json
 
 # VSCode User Data
 .vscode
