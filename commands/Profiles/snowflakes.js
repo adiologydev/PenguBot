@@ -28,9 +28,14 @@ module.exports = class extends Command {
             if (msg.author.id === user.id) return msg.reply("You can not send Snowflakes to yourself.");
 
             const userSnowflakes = user.configs.snowflakes;
-            msg.author.configs.update("snowflakes", currSnowflakes - amount);
-            user.configs.update("snowflakes", userSnowflakes + amount);
-            return msg.reply(`❄ | **You've sent \`${amount}\` Snowflake(s) to ${user}!**`);
+            const confirm = await msg.awaitReply(`${msg.member}, Please confirm the transfer of ❄ **${amount} Snowflake(s)** to ${user} by typing \`YES\` or \`NO\`.`);
+            if (confirm.toLowerCase() === "yes" || confirm.toLowerCase() === "y") {
+                msg.author.configs.update("snowflakes", currSnowflakes - amount);
+                user.configs.update("snowflakes", userSnowflakes + amount);
+                return msg.reply(`❄ | **You've sent \`${amount}\` Snowflake(s) to ${user}!**`);
+            } else {
+                return msg.reply(`❄ | **You've cancelled the transaction or the input was invalid.**`);
+            }
         }
     }
 
