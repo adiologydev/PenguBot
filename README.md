@@ -10,10 +10,10 @@ Join Discord for Support and Development https://discord.gg/u8WYw5r
 
 [**QuantumlyTangled**](https://github.com/QuantumlyTangled) - Translate Command and Queue Modifications
 
+[**Ice**](https://github.com/iceeMC/) - SoundCloud Support Help
+
 ## Acknowledgement
 [**Klasa Pieces**](https://github.com/dirigeants/klasa-pieces/)
-
-[**Ice**](https://github.com/iceeMC/)
 
 [**Dragonfire535 - Xiao**](https://github.com/dragonfire535)
 

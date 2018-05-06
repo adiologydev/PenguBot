@@ -9,7 +9,7 @@ module.exports = class extends Command {
         super(...args, {
             cooldown: 8,
             aliases: ["lionme"],
-            botPerms: ["ATTACH_FILES", "USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
+            requiredPermissions: ["ATTACH_FILES", "USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
             description: (msg) => msg.language.get("COMMAND_LIO_DESCRIPTION"),
             extendedHelp: "No extended help available.",
             usage: "[user:user]"

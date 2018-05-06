@@ -8,8 +8,8 @@ module.exports = class extends Command {
             runIn: ["text", "dm"],
             cooldown: 10,
             aliases: ["strawpoll", "createpoll"],
-            permLevel: 0,
-            botPerms: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
+            permissionLevel: 0,
+            requiredPermissions: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
             description: (msg) => msg.language.get("COMMAND_POLL_DESCRIPTION"),
             usage: "<Question:string> <Options:string> [...]",
             usageDelim: "|",
@@ -23,7 +23,7 @@ module.exports = class extends Command {
         try {
             const { body } = await post("https://www.strawpoll.me/api/v2/polls")
                 .send({ title: Question, options: Options });
-            return msg.channel.send(`<:penguSuccess:435712876506775553> **Here's the poll you requested:*** https://www.strawpoll.me/${body.id}`);
+            return msg.channel.send(`<:penguSuccess:435712876506775553> ***Here's the poll you requested:*** https://www.strawpoll.me/${body.id}`);
         } catch (e) {
             return msg.channel.send("<:penguError:435712890884849664> ***There was an error trying to create this poll, please try again.***");
         }

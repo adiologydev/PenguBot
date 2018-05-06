@@ -14,7 +14,7 @@ module.exports = class extends Command {
             runIn: ["text", "dm"],
             aliases: ["w", "☁", "⛅", "⛈", "🌤", "🌥", "🌦", "🌧", "🌨", "🌩", "🌪"],
             cooldown: 30,
-            botPerms: ["EMBED_LINKS", "ATTACH_FILES"],
+            requiredPermissions: ["EMBED_LINKS", "ATTACH_FILES"],
             description: (msg) => msg.language.get("COMMAND_WEATHER_DESCRIPTION"),
             usage: "<location:string> [...]",
             extendedHelp: "No extended help available."

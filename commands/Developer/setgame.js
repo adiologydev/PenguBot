@@ -5,7 +5,7 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             aliases: ["sg"],
-            permLevel: 10,
+            permissionLevel: 10,
             usage: "<game:string> [...]",
             usageDelim: " ",
             description: (msg) => msg.language.get("COMMAND_SG_DESCRIPTION")

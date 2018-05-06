@@ -1,4 +1,5 @@
 const { Command } = require("klasa");
+const { MessageEmbed } = require("discord.js");
 
 const pics = ["http://i.imgur.com/Urfp335.png",
     "http://i.imgur.com/gC8v9fp.jpg", "http://i.imgur.com/DZ6YtvT.jpg", "http://i.imgur.com/LdWARAL.jpg",
@@ -16,14 +17,19 @@ module.exports = class extends Command {
         super(...args, {
             cooldown: 8,
             aliases: ["pingu", "penguin"],
-            botPerms: ["ATTACH_FILES", "USE_EXTERNAL_EMOJIS"],
+            requiredPermissions: ["ATTACH_FILES", "USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
             description: (msg) => msg.language.get("COMMAND_PENGU_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
     }
 
     async run(msg) {
-        msg.reply(`<:pengu:383632112323919872> **${msg.language.get("MESSAGE_PENGU")}**`, { files: [{ attachment: pics[Math.floor(Math.random() * pics.length)] }] });
+        const embed = new MessageEmbed()
+            .setFooter("© PenguBot.cc")
+            .setTimestamp()
+            .setImage(pics[Math.floor(Math.random() * pics.length)])
+            .setColor("RANDOM");
+        return msg.channel.send(`<:pengu:383632112323919872> | ***${msg.member}, here's the cute Pengu picture you requested!***`, { embed: embed });
     }
 
 };

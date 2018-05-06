@@ -1,4 +1,5 @@
 const { Command, RichDisplay } = require("klasa");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
 
@@ -7,8 +8,8 @@ module.exports = class extends Command {
             runIn: ["text"],
             cooldown: 10,
             aliases: ["stopmusic", "leave"],
-            permLevel: 0,
-            botPerms: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS", "MANAGE_MESSAGES"],
+            permissionLevel: 0,
+            requiredPermissions: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS", "MANAGE_MESSAGES"],
             description: (msg) => msg.language.get("COMMAND_QUEUE_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
@@ -19,7 +20,7 @@ module.exports = class extends Command {
         const player = this.client.lavalink.get(msg.guild.id);
         if (!queue || !player) return msg.channel.send("<:penguError:435712890884849664> ***There's currently no music playing!***");
 
-        const pages = new RichDisplay(new this.client.methods.Embed()
+        const pages = new RichDisplay(new MessageEmbed()
             .setTitle("Use the reactions to change pages, select a page or stop viewing the queue.")
             .setAuthor("Queue - PenguBot", "https://i.imgur.com/IS8hX4t.png")
             .setDescription("Scroll between pages to see the song queue.")

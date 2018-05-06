@@ -1,14 +1,16 @@
 const { Command } = require("klasa");
 const { get } = require("snekfetch");
+const { MessageEmbed } = require("discord.js");
+
 module.exports = class extends Command {
 
     constructor(...args) {
         super(...args, {
             runIn: ["text"],
             cooldown: 8,
-            permLevel: 0,
+            permissionLevel: 0,
             aliases: ["musicplay"],
-            botPerms: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS", "ATTACH_FILES"],
+            requiredPermissions: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS", "ATTACH_FILES"],
             description: (msg) => msg.language.get("COMMAND_PLAY_DESCRIPTION"),
             usage: "<song:string>",
             extendedHelp: "No extended help available."
@@ -76,11 +78,12 @@ module.exports = class extends Command {
                 `\n${msg.author}, Please select an option by replying from range \`1-5\` to add it to the queue.`], 20000);
             try {
                 const vid = parseInt(selection);
-                selection.delete();
+                if (vid < 1 || vid > 5) return await msg.channel.send(`${msg.author}, <:penguError:435712890884849664> Invalid Option, select from \`1-5\`. Cancelled request.`);
+                // selection.delete();
                 await this.musicHandler(msg, songsData[vid - 1], msg.guild, msg.member.voiceChannel);
             } catch (e) {
                 try {
-                    return await selection.edit(`${msg.author}, <:penguError:435712890884849664> No options selected, cancelled request.`);
+                    return await msg.channel.send(`${msg.author}, <:penguError:435712890884849664> No options selected, cancelled request.`);
                 } catch (ea) {
                     return;
                 }
@@ -171,7 +174,7 @@ module.exports = class extends Command {
     }
 
     async playEmbed(song) {
-        return new this.client.methods.Embed()
+        return new MessageEmbed()
             .setTitle("⏯ | Now Playing - PenguBot")
             .setTimestamp()
             .setFooter("© PenguBot.cc")
@@ -184,7 +187,7 @@ module.exports = class extends Command {
     }
 
     async queueEmbed(song) {
-        return new this.client.methods.Embed()
+        return new MessageEmbed()
             .setTitle("🗒 | Song Queued - PenguBot")
             .setTimestamp()
             .setFooter("© PenguBot.cc")
@@ -197,7 +200,7 @@ module.exports = class extends Command {
     }
 
     async stopEmbed() {
-        return new this.client.methods.Embed()
+        return new MessageEmbed()
             .setTitle("⏹ | Queue Finished - PenguBot")
             .setTimestamp()
             .setFooter("© PenguBot.cc")

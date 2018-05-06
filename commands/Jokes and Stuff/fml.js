@@ -1,6 +1,7 @@
 const { Command } = require("klasa");
 const { get } = require("snekfetch");
 const { parse } = require("fast-html-parser");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
 
@@ -8,7 +9,7 @@ module.exports = class extends Command {
         super(...args, {
             cooldown: 8,
             aliases: ["fuckmylife"],
-            botPerms: ["ATTACH_IMAGES", "EMBED_LINKS"],
+            requiredPermissions: ["ATTACH_IMAGES", "EMBED_LINKS"],
             description: (msg) => msg.language.get("COMMAND_FML_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
@@ -20,7 +21,7 @@ module.exports = class extends Command {
         const root = parse(html);
         const article = root.querySelector(".block a");
 
-        const embed = new this.client.methods.Embed()
+        const embed = new MessageEmbed()
             .setDescription(`**F*ck My Life**\n${article.text}`)
             .setThumbnail("https://i.imgur.com/XW16vXq.png")
             .setColor("RANDOM");

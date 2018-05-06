@@ -2,6 +2,7 @@ const { Event } = require("klasa");
 const { WebhookClient } = require("discord.js");
 const moment = require("moment");
 const config = require("../config");
+const { MessageEmbed } = require("discord.js");
 
 const webhook = new WebhookClient("435500732507226112", config.webhooks.guildEvent);
 
@@ -21,7 +22,7 @@ module.exports = class extends Event {
             .find(c => c.type === "text" && c.permissionsFor(guild.me).has(19456));
         if (!channel) channel = await guild.owner.user;
 
-        const embed = new this.client.methods.Embed()
+        const embed = new MessageEmbed()
             .setThumbnail(this.client.user.avatarURL())
             .setColor("RANDOM")
             .setTimestamp()
@@ -38,7 +39,7 @@ Hey! I'm PenguBot, a friendly multi-purpose Discord bot, now that you know who I
 
         // Logging New Guilds
         const gcount = (await this.client.shard.fetchClientValues("guilds.size")).reduce((prev, val) => prev + val, 0);
-        const guildlog = new this.client.methods.Embed()
+        const guildlog = new MessageEmbed()
             .setAuthor("Added to a New Guild - PenguBot", this.client.user.avatarURL())
             .setColor("#5cb85c")
             .setTimestamp()

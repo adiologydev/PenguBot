@@ -1,4 +1,5 @@
 const { Command } = require("klasa");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
 
@@ -7,8 +8,8 @@ module.exports = class extends Command {
             runIn: ["text"],
             cooldown: 10,
             aliases: ["np", "currentsong", "song"],
-            permLevel: 0,
-            botPerms: ["USE_EXTERNAL_EMOJIS"],
+            permissionLevel: 0,
+            requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: (msg) => msg.language.get("COMMAND_MUSIC_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
@@ -16,7 +17,7 @@ module.exports = class extends Command {
 
     async run(msg) {
         const prefix = msg.guild.configs.get("prefix");
-        const embed = new this.client.methods.Embed()
+        const embed = new MessageEmbed()
             .setColor("#91c3d2")
             .setTitle("🎵 | Music Help - PenguBot")
             .setTimestamp()

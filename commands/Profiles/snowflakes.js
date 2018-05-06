@@ -6,9 +6,9 @@ module.exports = class extends Command {
         super(...args, {
             runIn: ["text"],
             cooldown: 10,
-            permLevel: 0,
+            permissionLevel: 0,
             aliases: ["snowflake", "sendsnowflakes"],
-            botPerms: ["USE_EXTERNAL_EMOJIS"],
+            requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: (msg) => msg.language.get("COMMAND_SNOWFLAKES_DESCRIPTION"),
             usage: "[user:user] [amount:integer]",
             usageDelim: " ",

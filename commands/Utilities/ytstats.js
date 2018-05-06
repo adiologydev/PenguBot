@@ -1,5 +1,6 @@
 const { Command } = require("klasa");
 const { get } = require("snekfetch");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
 
@@ -8,7 +9,7 @@ module.exports = class extends Command {
             runIn: ["text", "dm"],
             aliases: ["youtubestats"],
             cooldown: 5,
-            botPerms: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
+            requiredPermissions: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
             description: (msg) => msg.language.get("COMMAND_YTSTATS_DESCRIPTION"),
             usage: "<name:string> [...]",
             extendedHelp: "No extended help available."
@@ -21,7 +22,7 @@ module.exports = class extends Command {
         const data = await get(`https://www.googleapis.com/youtube/v3/channels?part=snippet,contentDetails,statistics,brandingSettings&id=${snippet.body.items[0].id.channelId}&key=${this.client.config.keys.music.youtube}`)
             .catch(e => msg.reply(`<:penguError:435712890884849664> Your channel was too powerful that I couldn't handle it, try again! Error: ${e}`));
 
-        const embed = new this.client.methods.Embed()
+        const embed = new MessageEmbed()
             .setColor("#ea5655")
             .setAuthor("YouTube Channel Statistics", "https://i.imgur.com/1sLSPUr.png")
             .setTimestamp()

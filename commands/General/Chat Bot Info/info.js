@@ -1,4 +1,5 @@
 const { Command } = require("klasa");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
 
@@ -6,13 +7,13 @@ module.exports = class extends Command {
         super(...args, {
             aliases: ["details", "what"],
             guarded: true,
-            botPerms: ["EMBED_LINKS"],
+            requiredPermissions: ["EMBED_LINKS"],
             description: (msg) => msg.language.get("COMMAND_INFO_DESCRIPTION")
         });
     }
 
     async run(msg) {
-        const embed = new this.client.methods.Embed()
+        const embed = new MessageEmbed()
             .setDescription(msg.language.get("COMMAND_INFO"))
             .setColor("RANDOM");
         return msg.sendEmbed(embed);

@@ -14,8 +14,8 @@ module.exports = class extends Command {
         super(...args, {
             runIn: ["text"],
             cooldown: 30,
-            permLevel: 0,
-            botPerms: ["USE_EXTERNAL_EMOJIS", "ATTACH_FILES"],
+            permissionLevel: 0,
+            requiredPermissions: ["USE_EXTERNAL_EMOJIS", "ATTACH_FILES"],
             description: (msg) => msg.language.get("COMMAND_PROFILE_DESCRIPTION"),
             usage: "[user:user]",
             extendedHelp: "No extended help available."

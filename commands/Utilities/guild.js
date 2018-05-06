@@ -1,6 +1,7 @@
 const { Command } = require("klasa");
 const filterLevels = ["Off", "No Role", "Everyone"];
 const verificationLevels = ["None", "Low", "Medium", "(╯°□°）╯︵ ┻━┻", "┻━┻ ﾐヽ(ಠ益ಠ)ノ彡┻━┻"];
+const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
 
@@ -9,14 +10,14 @@ module.exports = class extends Command {
             runIn: ["text"],
             aliases: ["server"],
             cooldown: 5,
-            botPerms: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
+            requiredPermissions: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
             description: (msg) => msg.language.get("COMMAND_GUILDINFO_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
     }
 
     async run(msg) {
-        const embed = new this.client.methods.Embed()
+        const embed = new MessageEmbed()
             .setColor("RANDOM")
             .setTimestamp()
             .setFooter("© PenguBot.cc")

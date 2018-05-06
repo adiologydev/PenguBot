@@ -1,5 +1,6 @@
 const { Command } = require("klasa");
 const { get } = require("snekfetch");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
 
@@ -8,7 +9,7 @@ module.exports = class extends Command {
             runIn: ["text", "dm"],
             aliases: ["twitchstats"],
             cooldown: 5,
-            botPerms: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
+            requiredPermissions: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
             description: (msg) => msg.language.get("COMMAND_TWSTATS_DESCRIPTION"),
             usage: "<name:string> [...]",
             extendedHelp: "No extended help available."
@@ -19,7 +20,7 @@ module.exports = class extends Command {
         const { body } = await get(`https://api.twitch.tv/kraken/channels/${name.join(" ")}?client_id=${this.client.config.keys.music.twitch}`)
             .catch(() => msg.reply(`<:penguError:435712890884849664> I couldn't find your channel while searching it on Twitch, please try again!`));
 
-        const embed = new this.client.methods.Embed()
+        const embed = new MessageEmbed()
             .setColor(6570406)
             .setAuthor("Twitch Channel Statistics", "https://i.imgur.com/krTbTeD.png")
             .setTimestamp()

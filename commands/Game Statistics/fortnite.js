@@ -1,5 +1,6 @@
 const { Command } = require("klasa");
 const { get } = require("snekfetch");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
 
@@ -7,8 +8,8 @@ module.exports = class extends Command {
         super(...args, {
             cooldown: 15,
             aliases: ["fnbr", "fnbrstats", "fortnitestats"],
-            permLevel: 0,
-            botPerms: ["EMBED_LINKS", "ATTACH_FILES"],
+            permissionLevel: 0,
+            requiredPermissions: ["EMBED_LINKS", "ATTACH_FILES"],
             ddescription: (msg) => msg.language.get("COMMAND_FORTNITE_DESCRIPTION"),
             usage: "<Platform:string> <Username:string>",
             usageDelim: " ",
@@ -34,7 +35,7 @@ module.exports = class extends Command {
         if (!data) return msg.channel.send("<:penguError:435712890884849664> ***Invalid Username or Platform, please retry with either of these platforms: `pc`. `xbox`, `psn`.***");
         if (data.body.error) return msg.channel.send("<:penguError:435712890884849664> ***There was an error in the Tracking API, please try again later.***");
 
-        const embed = new this.client.methods.Embed()
+        const embed = new MessageEmbed()
             .setTitle("Fortnite Battle Royale Statistics - PenguBot")
             .setFooter("© PenguBot.cc")
             .setThumbnail("https://i.imgur.com/EER1jFB.png")

@@ -1,4 +1,5 @@
 const { Command } = require("klasa");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
 
@@ -6,7 +7,7 @@ module.exports = class extends Command {
         super(...args, {
             cooldown: 8,
             aliases: ["minecraftachievement"],
-            botPerms: ["ATTACH_FILES", "USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
+            requiredPermissions: ["ATTACH_FILES", "USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
             description: (msg) => msg.language.get("COMMAND_MCA_DESCRIPTION"),
             extendedHelp: "No extended help available.",
             usage: "<body:string> [...]"
@@ -25,7 +26,7 @@ module.exports = class extends Command {
             if (body.includes("cake")) rnd = 10;
 
             if (title.length > 22 || contents.length > 22) return msg.channel.send("Max Length: 22 Characters. Sorry!");
-            const embed = new this.client.methods.Embed()
+            const embed = new MessageEmbed()
                 .setFooter("© PenguBot.cc")
                 .setTimestamp()
                 .setColor("#2391e7")

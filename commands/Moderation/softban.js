@@ -7,8 +7,8 @@ module.exports = class extends Command {
             runIn: ["text"],
             cooldown: 10,
             aliases: ["softbanmember"],
-            permLevel: 5,
-            botPerms: ["USE_EXTERNAL_EMOJIS", "BAN_MEMBERS"],
+            permissionLevel: 5,
+            requiredPermissions: ["USE_EXTERNAL_EMOJIS", "BAN_MEMBERS"],
             description: (msg) => msg.language.get("COMMAND_SOFTBAN_DESCRIPTION"),
             quotedStringSupport: false,
             usage: "<member:user> [days:int{1,7}] [reason:string] [...]",
@@ -18,6 +18,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [member, days = 1, ...reason]) {
+        if (msg.guild.me.permissions.missing("BAN_MEMBERS")) return msg.reply("<:penguError:435712890884849664> I do not have the permissions to `BAN_MEMBERS`. Please try again.");
         const user = msg.guild.members.get(member.id);
 
         if (user.id === msg.author.id) return msg.reply(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_BAN_YOURSELF")}***`);

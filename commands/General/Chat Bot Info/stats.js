@@ -1,6 +1,5 @@
 const { Command, version: klasaVersion, Duration } = require("klasa");
-const { version: discordVersion } = require("discord.js");
-
+const { version: discordVersion, MessageEmbed } = require("discord.js");
 module.exports = class extends Command {
 
     constructor(...args) {
@@ -24,7 +23,7 @@ module.exports = class extends Command {
             }
         }
 
-        const embed = new this.client.methods.Embed()
+        const embed = new MessageEmbed()
             .setColor("RANDOM")
             .setTimestamp()
             .setThumbnail("https://i.imgur.com/HE0ZOSA.png")

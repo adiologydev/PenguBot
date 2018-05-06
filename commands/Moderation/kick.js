@@ -8,8 +8,8 @@ module.exports = class extends Command {
             cooldown: 10,
             bucket: 1,
             aliases: ["kickmember"],
-            permLevel: 5,
-            botPerms: ["USE_EXTERNAL_EMOJIS", "KICK_MEMBERS"],
+            permissionLevel: 5,
+            requiredPermissions: ["USE_EXTERNAL_EMOJIS", "KICK_MEMBERS"],
             description: (msg) => msg.language.get("COMMAND_KICK_DESCRIPTION"),
             quotedStringSupport: false,
             usage: "<member:user> [reason:string] [...]",
@@ -19,6 +19,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [member, ...reason]) {
+        if (msg.guild.me.permissions.missing("KICK_MEMBERS")) return msg.reply("<:penguError:435712890884849664> I do not have the permissions to `KICK_MEMBERS`. Please try again.");
         const user = msg.guild.members.get(member.id);
 
         if (user.id === msg.author.id) return msg.reply(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_KICK_YOURSELF")}***`);

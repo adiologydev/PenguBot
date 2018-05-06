@@ -1,5 +1,6 @@
 const { Command } = require("klasa");
 const snekfetch = require("snekfetch");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
 
@@ -7,7 +8,7 @@ module.exports = class extends Command {
         super(...args, {
             cooldown: 8,
             aliases: ["isnowillegal", "trumpillegal"],
-            botPerms: ["ATTACH_FILES", "USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
+            requiredPermissions: ["ATTACH_FILES", "USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
             description: (msg) => msg.language.get("COMMAND_ILLEGAL_DESCRIPTION"),
             extendedHelp: "No extended help available.",
             usage: "<name:string> [...]"
@@ -26,7 +27,7 @@ module.exports = class extends Command {
                     if (!gif) return w.edit("<:penguError:435712890884849664> You got Trumped, no bill for you! Try again.");
                     await w.delete();
                 }
-                const embed = new this.client.methods.Embed()
+                const embed = new MessageEmbed()
                     .setColor("RANDOM")
                     .setImage(gif)
                     .setFooter("© PenguBot.cc");

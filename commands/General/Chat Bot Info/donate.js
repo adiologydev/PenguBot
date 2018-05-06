@@ -1,4 +1,5 @@
 const { Command } = require("klasa");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
 
@@ -6,13 +7,13 @@ module.exports = class extends Command {
         super(...args, {
             aliases: ["patreon", "patron"],
             guarded: true,
-            botPerms: ["EMBED_LINKS", "ATTACH_IMAGES"],
+            requiredPermissions: ["EMBED_LINKS", "ATTACH_IMAGES"],
             description: (msg) => msg.language.get("COMMAND_DONATE_DESCRIPTION")
         });
     }
 
     async run(msg) {
-        const embed = new this.client.methods.Embed()
+        const embed = new MessageEmbed()
             .setDescription(msg.language.get("COMMAND_DONATE"))
             .setThumbnail("https://i.imgur.com/bSOBK4s.png")
             .setColor("RANDOM");

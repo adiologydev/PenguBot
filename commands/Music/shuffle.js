@@ -7,8 +7,8 @@ module.exports = class extends Command {
             runIn: ["text"],
             cooldown: 10,
             aliases: ["shufflequeue", "queueshuffle"],
-            permLevel: 0,
-            botPerms: ["USE_EXTERNAL_EMOJIS"],
+            permissionLevel: 0,
+            requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: (msg) => msg.language.get("COMMAND_SHUFFLE_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });

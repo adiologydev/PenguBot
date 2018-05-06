@@ -6,9 +6,9 @@ module.exports = class extends Command {
         super(...args, {
             runIn: ["text"],
             cooldown: 10,
-            permLevel: 0,
+            permissionLevel: 0,
             aliases: ["reps", "giverep", "givereputation", "reputation"],
-            botPerms: ["USE_EXTERNAL_EMOJIS"],
+            requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: (msg) => msg.language.get("COMMAND_REP_DESCRIPTION"),
             usage: "[user:user]",
             extendedHelp: "No extended help available."

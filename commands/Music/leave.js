@@ -7,8 +7,8 @@ module.exports = class extends Command {
             runIn: ["text"],
             cooldown: 10,
             aliases: ["forceleave", "leave"],
-            permLevel: 0,
-            botPerms: ["USE_EXTERNAL_EMOJIS"],
+            permissionLevel: 0,
+            requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: (msg) => msg.language.get("COMMAND_LEAVE_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });

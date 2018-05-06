@@ -1,5 +1,6 @@
 const { Command } = require("klasa");
 const { get } = require("snekfetch");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
 
@@ -7,7 +8,7 @@ module.exports = class extends Command {
         super(...args, {
             cooldown: 8,
             aliases: ["trumpjoke", "trumpinsult"],
-            botPerms: ["ATTACH_IMAGES", "EMBED_LINKS"],
+            requiredPermissions: ["ATTACH_IMAGES", "EMBED_LINKS"],
             description: (msg) => msg.language.get("COMMAND_TRUMP_DESCRIPTION"),
             extendedHelp: "No extended help available.",
             usage: "[user:user]"
@@ -17,7 +18,7 @@ module.exports = class extends Command {
     async run(msg, [user = msg.member.user]) {
         const { body } = await get(`https://api.whatdoestrumpthink.com/api/v1/quotes/personalized?q=${user.username}`).catch(() => msg.channel.send("There was an error, I think a cat has cut the wire off, dogs don't do that."));
 
-        const embed = new this.client.methods.Embed()
+        const embed = new MessageEmbed()
             .setDescription(`**Get Trumped**\n\n${body.message}`)
             .setThumbnail("https://i.imgur.com/lGJbGy6.png")
             .setColor("RANDOM");

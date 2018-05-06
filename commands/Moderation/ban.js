@@ -8,8 +8,8 @@ module.exports = class extends Command {
             cooldown: 10,
             bucket: 1,
             aliases: ["banmember"],
-            permLevel: 5,
-            botPerms: ["USE_EXTERNAL_EMOJIS", "BAN_MEMBERS"],
+            permissionLevel: 5,
+            requiredPermissions: ["USE_EXTERNAL_EMOJIS", "BAN_MEMBERS"],
             description: (msg) => msg.language.get("COMMAND_BAN_DESCRIPTION"),
             quotedStringSupport: false,
             usage: "<member:user> [reason:string] [...]",
@@ -19,6 +19,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [member, ...reason]) {
+        if (msg.guild.me.permissions.missing("BAN_MEMBERS")) return msg.reply("<:penguError:435712890884849664> I do not have the permissions to `BAN_MEMBERS`. Please try again.");
         const user = msg.guild.members.get(member.id);
 
         if (user.id === msg.author.id) return msg.reply(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_BAN_YOURSELF")}***`);

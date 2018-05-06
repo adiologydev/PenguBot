@@ -6,8 +6,8 @@ module.exports = class extends Command {
         super(...args, {
             runIn: ["text", "dm"],
             cooldown: 5,
-            permLevel: 0,
-            botPerms: ["USE_EXTERNAL_EMOJIS"],
+            permissionLevel: 0,
+            requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: (msg) => msg.language.get("COMMAND_AFK_DESCRIPTION"),
             usage: "[reason:string] [...]",
             extendedHelp: "No extended help available."

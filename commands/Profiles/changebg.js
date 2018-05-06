@@ -6,9 +6,9 @@ module.exports = class extends Command {
         super(...args, {
             runIn: ["text"],
             cooldown: 10,
-            permLevel: 0,
+            permissionLevel: 0,
             aliases: ["changebackground", "changeprofilebg"],
-            botPerms: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
+            requiredPermissions: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
             description: (msg) => msg.language.get("COMMAND_CHANGEBG_DESCRIPTION"),
             usage: "[BackgroundID:integer]",
             extendedHelp: "No extended help available."
