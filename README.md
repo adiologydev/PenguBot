@@ -10,7 +10,7 @@ Join Discord for Support and Development https://discord.gg/u8WYw5r
 
 [**QuantumlyTangled**](https://github.com/QuantumlyTangled) - Translate Command and Queue Modifications
 
-[**Ice**](https://github.com/iceeMC/) - SoundCloud Support Help
+[**Ice**](https://github.com/iceeMC/) - SoundCloud support and RegEx help
 
 ## Acknowledgement
 [**Klasa Pieces**](https://github.com/dirigeants/klasa-pieces/)
