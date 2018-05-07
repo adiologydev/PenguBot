@@ -1,6 +1,6 @@
 const { Command } = require("klasa");
 const randomPuppy = require("random-puppy");
-const subReddits = ["gifsgonewild", "NSFW_GIF", "FaceofPain", "anal_gifs", "nsfw_gifs", "porn_hifs", "Hot_Women_Gifs", "GifsOfRemoval", "TittyDrop", "porninfifteenseconds", "CuteModeSlutMode", "60fpsporn", "NSFW_HML5"];
+const subReddits = ["NSFW_GIF", "nsfw_gifs", "porn_gifs", "porninfifteenseconds", "CuteModeSlutMode", "60fpsporn", "NSFW_HTML5"];
 const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {

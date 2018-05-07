@@ -59,7 +59,7 @@ module.exports = class extends Command {
             // Main Content
             .setTextAlign("left")
             .addText(`Title: ${title}`, 30, 196, 193)
-            .addText(`Snowflakes: ${snowflakes}`, 30, 219, 193)
+            .addText(`Snowflakes: ${snowflakes.toLocaleString()}`, 30, 219, 193)
             .addText(`Global Rank: Coming Soon`, 30, 243, 193)
             // XP Bar
             .setColor("#459466")

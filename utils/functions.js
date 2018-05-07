@@ -75,6 +75,15 @@ const validURL = (str) => {
     } else { return true; }
 };
 
+const clearPatrons = (client) => {
+    if (!client.config.main.patreon) return "Not the Patron Bot.";
+    const guilds = client.guilds; // eslint-disable-line
+    for (const guild of guilds) {
+        if (!isPatron(client, guild)) guild.leave();
+        return `Left ${guild.name} (${guild.id}) of ${guild.owner.user.tag} (${guild.owner.user.id})`;
+    }
+};
+
 const mysql = require("mysql2/promise");
 const migrate = async (client) => {
     const con = await mysql.createConnection({ host: "localhost", user: "root", password: "", database: "pengubotv2" });
@@ -127,4 +136,5 @@ module.exports.randomNumber = randomNumber;
 module.exports.getSongs = getSongs;
 module.exports.friendlyTime = friendlyTime;
 module.exports.validURL = validURL;
+module.exports.clearPatrons = clearPatrons;
 module.exports.migrate = migrate;
