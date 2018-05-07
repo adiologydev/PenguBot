@@ -31,7 +31,7 @@ module.exports = class extends Command {
                 // Playlist Handling
                 const { body } = await get(`https://www.googleapis.com/youtube/v3/playlists?part=id,snippet&id=${playlist[2]}&key=${this.client.config.keys.music.youtube}`);
                 if (!body.items[0]) return msg.channel.send("<:penguError:435712890884849664> ***That youtube playlist could not be found, please try with a different one.***");
-                const songData = await this.client.functions.getSongs(body.items[0].id);
+                const songData = await this.client.functions.getSongs(song);
                 if (!songData) return msg.channel.send("<:penguError:435712890884849664> ***That playlist could not be found, please try with a different one.***");
                 let limit; if (this.client.config.main.patreon === false) { limit = 24; } else { limit = 1000; } // eslint-disable-line
                 for (let i = 0; i <= limit; i++) {

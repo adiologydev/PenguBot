@@ -19,7 +19,6 @@ module.exports = class extends Command {
     }
 
     async run(msg, [member, ...reason]) {
-        if (msg.guild.me.permissions.missing("KICK_MEMBERS")) return msg.reply("<:penguError:435712890884849664> I do not have the permissions to `KICK_MEMBERS`. Please try again.");
         const user = msg.guild.members.get(member.id);
 
         if (user.id === msg.author.id) return msg.reply(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_KICK_YOURSELF")}***`);
