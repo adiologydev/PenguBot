@@ -61,6 +61,11 @@ module.exports = class extends Command {
                 const songData = await this.client.functions.getSongs(YTFull[0]);
                 if (!songData) return msg.channel.send("<:penguError:435712890884849664> ***That song could not be found, please try with a different one.***");
                 await this.musicHandler(msg, songData[0], msg.guild, msg.member.voiceChannel);
+            } else {
+                // URL Handling
+                const songData = await this.client.functions.getSongs(`${song}`);
+                if (!songData) return msg.channel.send("<:penguError:435712890884849664> ***That song could not be found, please try with a different one.***");
+                await this.musicHandler(msg, songData[0], msg.guild, msg.member.voiceChannel);
             }
         } else if (song.match(/scsearch:.*/) || song.match(/ytsearch:.*/)) {
             // Wildcard Handling
