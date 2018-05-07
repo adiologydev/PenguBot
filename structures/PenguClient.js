@@ -42,6 +42,7 @@ const client = new PenguClient({
     presence: { activity: { name: "PenguBot.cc | v2.0 | p!help", type: "WATCHING" } },
     prefix: "p!",
     cmdEditing: true,
+    disableEveryone: true,
     typing: true,
     permissionLevels: pLevels,
     provider: { default: "mongodb" },

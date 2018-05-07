@@ -48,7 +48,7 @@ module.exports = class extends Command {
             .addImage(avatar, 27, 57, 87, 87)
             .setTextFont("20px Roboto, NotoEmoji")
             .setColor("#F2F2F2")
-            .addResponsiveText(user.tag, 120, 120, 279)
+            .addResponsiveText(user.tag, 120, 120, 160)
             .setTextFont("18px Roboto")
             .addText(`Level: ${lvl}`, 120, 150)
             // Reps
