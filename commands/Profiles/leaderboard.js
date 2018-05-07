@@ -6,7 +6,7 @@ module.exports = class extends Command {
         super(...args, {
             runIn: ["text"],
             aliases: ["lb", "top"],
-            description: msg => msg.language.get("COMMAND_LEADERBOARD_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_LEADERBOARD_DESCRIPTION")
         });
     }
 
