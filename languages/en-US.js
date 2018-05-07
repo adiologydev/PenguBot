@@ -351,6 +351,7 @@ module.exports = class extends Language {
             COMMAND_SNOWFLAKES_DESCRIPTION: "Check your Snowflakes or send your Snowflakes to others.",
             COMMAND_BGBUY_DESCRIPTION: "Buy backgrounds for your Pengu Profile.",
             COMMAND_CHANGEBG_DESCRIPTION: "Change your Pengu Profile's Background.",
+            COMMAND_LEADERBOARD_DESCRIPTION: "See who is winning the leaderboard for your guild.",
 
             // Dev Commands
             COMMAND_EXEC_DESCRIPTION: "-BOT OWNER ONLY-",
