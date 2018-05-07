@@ -6,7 +6,7 @@ module.exports = class extends Command {
         super(...args, {
             aliases: ["tpg"],
             permissionLevel: 10,
-            usage: "<guild:guild>",
+            usage: "<guild:string>",
             description: (msg) => msg.language.get("COMMAND_TPG_DESCRIPTION")
         });
     }
@@ -23,7 +23,7 @@ module.exports = class extends Command {
 
     async init() {
         if (!this.client.gateways.clientStorage.schema.has("pGuilds")) {
-            this.client.gateways.clientStorage.schema.add("pGuilds", { type: "guild", array: true, configurable: false });
+            this.client.gateways.clientStorage.schema.add("pGuilds", { type: "string", array: true, configurable: false });
         }
     }
 
