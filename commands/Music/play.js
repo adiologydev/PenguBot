@@ -78,7 +78,7 @@ module.exports = class extends Command {
                 `\n${msg.author}, Please select an option by replying from range \`1-5\` to add it to the queue.`], 20000);
             try {
                 const vid = parseInt(selection);
-                if (vid < 1 || vid > 5) return await msg.channel.send(`${msg.author}, <:penguError:435712890884849664> Invalid Option, select from \`1-5\`. Cancelled request.`);
+                if (vid < 0 || vid > 4) return await msg.channel.send(`${msg.author}, <:penguError:435712890884849664> Invalid Option, select from \`1-5\`. Cancelled request.`);
                 // selection.delete();
                 await this.musicHandler(msg, songsData[vid - 1], msg.guild, msg.member.voiceChannel);
             } catch (e) {
