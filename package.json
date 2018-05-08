@@ -36,9 +36,9 @@
     "klasa": "github:dirigeants/klasa",
     "moment": "^2.22.1",
     "moment-duration-format": "^2.2.2",
-    "mongodb": "^3.0.7",
     "mysql2": "^1.5.3",
     "random-puppy": "^1.1.0",
+    "rethinkdbdash": "^2.3.31",
     "uws": "^9.148.0",
     "zlib-sync": "^0.1.4"
   },
