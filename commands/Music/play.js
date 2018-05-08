@@ -138,13 +138,13 @@ module.exports = class extends Command {
                 }, { selfdeaf: true });
                 return this.musicPlay(song, guild);
             } catch (e) {
-                await queueConst.tc.send("<:penguError:435712890884849664> ***There seems to be an error, please try again or seek help at: <https://www.pengubot.cc/invite>.***");
+                await msg.channel.send("<:penguError:435712890884849664> ***There seems to be an error, please try again or seek help at: <https://www.pengubot.cc/invite>.***");
                 return console.error(`-- musicHandler --\n${e}`);
             }
         } else {
             queue.songs.push(song);
             if (playlist === true) return;
-            return queue.tc.send({ embed: await this.queueEmbed(song) });
+            return msg.channel.send({ embed: await this.queueEmbed(song) });
         }
     }
 
@@ -161,6 +161,19 @@ module.exports = class extends Command {
                 return queue.tc.send({ embed: await this.playEmbed(queue.songs[0]) });
             }
             if (end.reason === "FINISHED") {
+                setTimeout(async () => {
+                    if (!queue.loop) queue.songs.shift();
+                    if (queue.songs.length === 0) {
+                        await this.client.lavalink.leave(guild.id);
+                        await queue.tc.send({ embed: await this.stopEmbed() });
+                        return this.client.queue.delete(guild.id);
+                    } else {
+                        await player.play(queue.songs[0].track);
+                        await player.volume(guild.configs.musicVolume);
+                        return queue.tc.send({ embed: await this.playEmbed(queue.songs[0]) });
+                    }
+                }, 500);
+            } else {
                 setTimeout(async () => {
                     if (!queue.loop) queue.songs.shift();
                     if (queue.songs.length === 0) {

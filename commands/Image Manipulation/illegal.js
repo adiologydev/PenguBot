@@ -48,6 +48,7 @@ module.exports = class extends Command {
                 word: text
             });
         await new Promise(resolve => setTimeout(resolve, 5000));
+        if (!body) return null;
         return body;
     }
 
