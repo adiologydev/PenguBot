@@ -11,7 +11,7 @@ We love contributors because they make this project even better with their uniqu
 
 2. Open a console in the repository where you cloned the repository and run `npm install` to install all the required packages to run the bot.
 
-3. Now you would need a few external dependencies to actually run the bot, those dependencies are: MongoDB Server (Guilds, User, Client Settings) and Lavalink Server (Music Node). You can read how to install MongoDB [here](https://docs.mongodb.com/manual/installation/) and Lavalink Server [here](https://github.com/Frederikam/Lavalink#server-configuration).
+3. Now you would need a few external dependencies to actually run the bot, those dependencies are: RethinkDB Server (Guilds, User, Client Settings) and Lavalink Server (Music Node). You can read how to install RethinkDB [here](https://rethinkdb.com/docs/install/) and Lavalink Server [here](https://github.com/Frederikam/Lavalink#server-configuration).
 
 4. Now you can simply create a `config.json` file by following this empty template [here](https://github.com/AdityaTD/PenguBot/wiki/Default-Config-File).
 

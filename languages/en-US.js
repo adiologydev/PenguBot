@@ -105,7 +105,7 @@ module.exports = class extends Language {
                 "**__PenguBot Information__**",
                 "PenguBot is a Multi-Purpose Discord Bot which is filled with features ranging from",
                 "Moderation, Fun, Utilities and more. It is developed in NodeJS using many different",
-                "technologies such as MongoDB, JavaScript and Linux.",
+                "technologies such as RethinkDB, JavaScript and Linux.",
                 "",
                 "• **Author:** [AdityaTD#5346](https://www.AdityaTD.me)",
                 "",
@@ -115,7 +115,7 @@ module.exports = class extends Language {
                 "• **Patreon:** <https://www.Patreon.com/PenguBot>",
                 "• **Discord Guild:** <https://discord.gg/6KpTfqR>",
                 "• **GitHub:** <https://www.github.com/AdityaTD/PenguBot>",
-                "• **Database:** MongoDB"
+                "• **Database:** RethinkDB"
             ],
             COMMAND_DONATE: [
                 "**__Support PenguBot__**",

@@ -28,9 +28,15 @@ module.exports = class extends Monitor {
 
     replace(content, msg) {
         return content
-            .replace(/{MENTION}/g, `<@${msg.author.id}>`)
-            .replace(/{GUILD_NAME}/g, msg.guild.name)
-            .replace(/{USERNAME}/g, msg.author.username);
+            .replace(/{GUILD_NAME}/g, msg.member.guild.name)
+            .replace(/{USERNAME}/g, msg.member.user.username)
+            .replace(/{DISPLAYNAME}/g, msg.member.displayName)
+            .replace(/{ID}/g, msg.member.id)
+            .replace(/{MENTION}/g, msg.member.toString())
+            .replace(/{SERVER}/g, msg.member.guild.name)
+            .replace(/{USER}/g, msg.member.user.tag)
+            .replace(/{TAG}/g, msg.member.user.tag)
+            .replace(/{DISPLAYNAME}/g, msg.member.displayName);
     }
 
 };
