@@ -19,19 +19,20 @@ module.exports = class extends Command {
 
     // Main Command Functions
     async run(msg, [song]) {
+        const url = encodeURIComponent(song);
         if (!msg.member.voiceChannel) return msg.channel.send("<:penguError:435712890884849664> ***You're currently not in a Voice Channel, please join one to use this command.***");
         if (this.client.functions.validURL(song)) {
             const playlist = /(\?|\&)list=(.*)/.exec(song); // eslint-disable-line
-            const soundCloud = /https:\/\/soundcloud\.com\/.*/.exec(song); // eslint-disable-line
+            const soundCloud = /https:\/\/soundcloud\.com\/.*/.exec(url); // eslint-disable-line
             // YouTube URLS
-            const YTMini = /https:\/\/?(www\.)?youtu\.be\/?(.*)/.exec(song);
-            const YTFull = /https:\/\/?(www\.)?youtube\.com\/watch\?v=?(.*)/.exec(song);
+            const YTMini = /https:\/\/?(www\.)?youtu\.be\/?(.*)/.exec(url);
+            const YTFull = /https:\/\/?(www\.)?youtube\.com\/watch\?v=?(.*)/.exec(url);
             const scPlaylist = /https:\/\/?soundcloud.com\/.*\/.*\/.*/.exec(song);
             if (playlist) {
                 // Playlist Handling
                 const { body } = await get(`https://www.googleapis.com/youtube/v3/playlists?part=id,snippet&id=${playlist[2]}&key=${this.client.config.keys.music.youtube}`);
                 if (!body.items[0]) return msg.channel.send("<:penguError:435712890884849664> ***That youtube playlist could not be found, please try with a different one.***");
-                const songData = await this.client.functions.getSongs(song);
+                const songData = await this.client.functions.getSongs(url);
                 if (!songData) return msg.channel.send("<:penguError:435712890884849664> ***That playlist could not be found, please try with a different one.***");
                 let limit; if (this.client.config.main.patreon === false) { limit = 24; } else { limit = 1000; } // eslint-disable-line
                 for (let i = 0; i <= limit; i++) {
@@ -63,7 +64,7 @@ module.exports = class extends Command {
                 await this.musicHandler(msg, songData[0], msg.guild, msg.member.voiceChannel);
             } else {
                 // URL Handling
-                const songData = await this.client.functions.getSongs(`${song}`);
+                const songData = await this.client.functions.getSongs(url);
                 if (!songData) return msg.channel.send("<:penguError:435712890884849664> ***That song could not be found, please try with a different one.***");
                 await this.musicHandler(msg, songData[0], msg.guild, msg.member.voiceChannel);
             }

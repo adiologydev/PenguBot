@@ -13,7 +13,7 @@ module.exports = class extends Command {
             requiredConfigs: ["welcome-text"],
             usage: "<message:string> [...]",
             usageDelim: " ",
-            description: (msg) => msg.language.get("COMMAND_SET_WELCOME_DESCRPTION"),
+            description: (msg) => msg.language.get("COMMAND_SET_LEAVE_DESCRPTION"),
             extendedHelp: "No extended help available."
         });
     }
