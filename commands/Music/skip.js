@@ -62,6 +62,7 @@ module.exports = class extends Command {
             this.votes.delete(guild.id);
         }
 
+        const current = queue.songs[0];
         queue.songs.shift();
         const song = queue.songs[0];
         if (!song) {
@@ -73,7 +74,7 @@ module.exports = class extends Command {
         }
 
         this.client.lavalink.get(guild.id).play(song.track);
-        return `<:penguSuccess:435712876506775553> Skipped: **${song.name}**`;
+        return `<:penguSuccess:435712876506775553> Skipped: **${current.name}**`;
     }
 
     setTimeout(vote) {
