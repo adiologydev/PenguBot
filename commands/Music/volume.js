@@ -11,7 +11,7 @@ module.exports = class extends Command {
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: (msg) => msg.language.get("COMMAND_VOLUME_DESCRIPTION"),
             extendedHelp: "No extended help available.",
-            usage: "<volume:integer>"
+            usage: "[volume:integer]"
         });
     }
 
