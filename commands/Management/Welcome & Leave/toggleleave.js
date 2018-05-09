@@ -8,10 +8,10 @@ module.exports = class extends Command {
             cooldown: 10,
             bucket: 1,
             aliases: ["tlm", "toggleleavemessages"],
-            permLevel: 6,
-            botPerms: ["USE_EXTERNAL_EMOJIS"],
+            permissionLevel: 6,
+            requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             requiredConfigs: ["leave-messages"],
-            description: (msg) => msg.language.get("COMMAND_TOGGLE_WELCOME_DESCRPTION"),
+            description: (msg) => msg.language.get("COMMAND_TOGGLE_LEAVE_DESCRPTION"),
             extendedHelp: "No extended help available."
         });
     }

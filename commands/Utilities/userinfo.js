@@ -1,4 +1,5 @@
 const { Command } = require("klasa");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
 
@@ -7,7 +8,7 @@ module.exports = class extends Command {
             runIn: ["text"],
             aliases: ["uinfo"],
             cooldown: 5,
-            botPerms: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
+            requiredPermissions: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
             description: (msg) => msg.language.get("COMMAND_USERINFO_DESCRIPTION"),
             usage: "[user:member]",
             extendedHelp: "No extended help available."
@@ -15,7 +16,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [user = msg.member]) {
-        const embed = new this.client.methods.Embed()
+        const embed = new MessageEmbed()
             .setColor(user.displayHexColor)
             .setTimestamp()
             .setFooter("© PenguBot.cc")

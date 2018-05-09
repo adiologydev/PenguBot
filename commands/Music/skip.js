@@ -7,9 +7,9 @@ module.exports = class extends Command {
             runIn: ["text"],
             cooldown: 10,
             aliases: ["loopsong", "repeat"],
-            permLevel: 0,
-            botPerms: ["USE_EXTERNAL_EMOJIS"],
-            description: (msg) => msg.language.get("COMMAND_LOOP_DESCRIPTION"),
+            permissionLevel: 0,
+            requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
+            description: (msg) => msg.language.get("COMMAND_SKIP_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
         this.votes = new Map();
@@ -69,7 +69,7 @@ module.exports = class extends Command {
                 await this.client.lavalink.leave(guild.id);
                 return this.client.queue.delete(guild.id);
             }, 500);
-            return queue.tc.send("🎵 | **Music:** Finished playing the current queue. Enjoyed what you heard? Why not support us on Patreon at <https://www.Patreon.com/PenguBot>");
+            return "🎵 | **Music:** Finished playing the current queue. Enjoyed what you heard? Why not support us on Patreon at <https://www.Patreon.com/PenguBot>";
         }
 
         this.client.lavalink.get(guild.id).play(song.track);

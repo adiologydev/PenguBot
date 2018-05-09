@@ -6,10 +6,9 @@ module.exports = class extends Command {
         super(...args, {
             runIn: ["text"],
             cooldown: 10,
-            bucket: 1,
             aliases: ["setprefix"],
-            permLevel: 6,
-            botPerms: ["USE_EXTERNAL_EMOJIS"],
+            permissionLevel: 0,
+            requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: (msg) => msg.language.get("COMMAND_PREFIX_DESCRIPTION"),
             quotedStringSupport: false,
             usage: "[prefix:string]",
@@ -19,6 +18,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [prefix]) {
+        if (!await msg.hasAtLeastPermissionLevel(6)) return msg.channel.send(`👉 ***${msg.language.get("MESSAGE_CURRENT_PREFIX")}*** ${msg.guild.configs.get("prefix")}`);
         if (!prefix) return msg.channel.send(`👉 ***${msg.language.get("MESSAGE_CURRENT_PREFIX")}*** ${msg.guild.configs.get("prefix")}`);
         await msg.guild.configs.update({ prefix: prefix }).then(() => {
             msg.channel.send(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_PREFIX_SET")}*** ${prefix}`);

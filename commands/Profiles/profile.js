@@ -14,8 +14,8 @@ module.exports = class extends Command {
         super(...args, {
             runIn: ["text"],
             cooldown: 30,
-            permLevel: 0,
-            botPerms: ["USE_EXTERNAL_EMOJIS", "ATTACH_FILES"],
+            permissionLevel: 0,
+            requiredPermissions: ["USE_EXTERNAL_EMOJIS", "ATTACH_FILES"],
             description: (msg) => msg.language.get("COMMAND_PROFILE_DESCRIPTION"),
             usage: "[user:user]",
             extendedHelp: "No extended help available."
@@ -48,7 +48,7 @@ module.exports = class extends Command {
             .addImage(avatar, 27, 57, 87, 87)
             .setTextFont("20px Roboto, NotoEmoji")
             .setColor("#F2F2F2")
-            .addResponsiveText(user.tag, 120, 120, 279)
+            .addResponsiveText(user.tag, 120, 120, 160)
             .setTextFont("18px Roboto")
             .addText(`Level: ${lvl}`, 120, 150)
             // Reps
@@ -59,7 +59,7 @@ module.exports = class extends Command {
             // Main Content
             .setTextAlign("left")
             .addText(`Title: ${title}`, 30, 196, 193)
-            .addText(`Snowflakes: ${snowflakes}`, 30, 219, 193)
+            .addText(`Snowflakes: ${snowflakes.toLocaleString()}`, 30, 219, 193)
             .addText(`Global Rank: Coming Soon`, 30, 243, 193)
             // XP Bar
             .setColor("#459466")

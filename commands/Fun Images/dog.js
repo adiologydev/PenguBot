@@ -1,5 +1,6 @@
 const { Command } = require("klasa");
 const { get } = require("snekfetch");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
 
@@ -7,7 +8,7 @@ module.exports = class extends Command {
         super(...args, {
             cooldown: 8,
             aliases: ["doggos", "dogpic"],
-            botPerms: ["ATTACH_FILES", "USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
+            requiredPermissions: ["ATTACH_FILES", "USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
             description: (msg) => msg.language.get("COMMAND_DOG_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
@@ -15,7 +16,7 @@ module.exports = class extends Command {
 
     async run(msg) {
         const { body } = await get("http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=false");
-        const embed = new this.client.methods.Embed()
+        const embed = new MessageEmbed()
             .setFooter("© PenguBot.cc")
             .setTimestamp()
             .setColor("RANDOM")

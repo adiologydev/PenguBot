@@ -8,8 +8,8 @@ module.exports = class extends Command {
             cooldown: 10,
             aliases: ["togglelevelups", "levelups"],
             requiredConfigs: ["level-ups"],
-            permLevel: 4,
-            botPerms: ["USE_EXTERNAL_EMOJIS", "BAN_MEMBERS"],
+            permissionLevel: 4,
+            requiredPermissions: ["USE_EXTERNAL_EMOJIS", "BAN_MEMBERS"],
             description: (msg) => msg.language.get("COMMAND_LEVELUP_DESCRIPTION"),
             quotedStringSupport: false,
             extendedHelp: "No extended help available."

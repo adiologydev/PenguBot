@@ -75,6 +75,59 @@ const validURL = (str) => {
     } else { return true; }
 };
 
+const clearPatrons = (client) => {
+    if (!client.config.main.patreon) return "Not the Patron Bot.";
+    const guilds = client.guilds; // eslint-disable-line
+    for (const guild of guilds) {
+        if (!isPatron(client, guild)) guild.leave();
+        return `Left ${guild.name} (${guild.id}) of ${guild.owner.user.tag} (${guild.owner.user.id})`;
+    }
+};
+
+const mysql = require("mysql2/promise");
+const migrate = async (client) => {
+    const con = await mysql.createConnection({ host: "localhost", user: "root", password: "", database: "pengubotv2" });
+    const [rows] = await con.execute("SELECT * FROM settings");
+    for (const row of rows) {
+        let { guild, settings } = row;
+        if (!(guild = client.guilds.get(guild))) continue;
+        settings = JSON.parse(settings);
+        for (const [key, value] of Object.entries(settings)) {
+            if (key.startsWith("cmd")) {
+                const [, cmdName] = key.split(".");
+                guild.configs.update("customcmds", { name: cmdName, content: value });
+                continue;
+            }
+            if (key === "settings.wlcm-msg") {
+                guild.configs.update("welcome-text", value);
+                continue;
+            }
+            if (key === "settings.leav-msg") {
+                guild.configs.update("leave-text", value);
+                continue;
+            }
+            // Welcome Enabled and Channel ID
+            if (key === "settings.wlcm-main") {
+                const [enabled, channelid] = value.split("|");
+                if (enabled && channelid && guild.channels.has(channelid)) guild.configs.update(["welcome-messages", "welcome-channel"], [true, channelid]);
+                continue;
+            }
+            // Leave Enabled and Channel ID
+            if (key === "settings.leav-main") {
+                const [enabled, channelid] = value.split("|");
+                if (enabled && channelid && guild.channels.has(channelid)) guild.configs.update(["leave-messages", "leave-channel"], [true, channelid]);
+                continue;
+            }
+            // Autoroles
+            if (key === "AutoRole") {
+                guild.configs.update(["auto-roles", "autoroles"], [value, true], guild);
+                continue;
+            }
+            await guild.configs.update(key, value);
+        }
+    }
+};
+
 module.exports.haste = haste;
 module.exports.isUpvoter = isUpvoter;
 module.exports.postStats = postStats;
@@ -83,3 +136,5 @@ module.exports.randomNumber = randomNumber;
 module.exports.getSongs = getSongs;
 module.exports.friendlyTime = friendlyTime;
 module.exports.validURL = validURL;
+module.exports.clearPatrons = clearPatrons;
+module.exports.migrate = migrate;

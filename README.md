@@ -3,38 +3,17 @@
 PenguBot is a community developed Discord Bot with over 15,000 guilds.
 Join Discord for Support and Development https://discord.gg/u8WYw5r
 
-## Contribute
-We use Klasa as our command framework, Discord.JS as our Discord Framework, you must have brief knowledge of those to be able to contribute. Accepting Pull Requests for meaningful additions to the bot.
+### Guide on How to Contribute: [Click Here](https://github.com/AdityaTD/PenguBot/blob/rewrite/CONTRIBUTING.md)
 
-## Basic Empty Command Example
-```js
-const { Command } = require('klasa');
+## Contributors
+[**Vlad**](https://github.com/KingDGrizzle) - Help with Migration Script for Database
 
-module.exports = class extends Command {
+[**QuantumlyTangled**](https://github.com/QuantumlyTangled) - Translate Command and Queue Modifications
 
-    constructor(...args) {
-        super(...args, {
-            runIn: ['text', 'dm', 'group'], // Text = Guild Channel, DM = DM Channel and Group = Group Channel (For Selfbots)
-            cooldown: 0, // Command Throttling in Seconds
-            aliases: [], // Other than the filename, what other words should trigger the command
-            permLevel: 0, // Adding Information On This Soon
-            botPerms: [], // What permissions should the bot have to be able to use this command.
-            description: '', // Command Description, will be visible in help command and website.
-            usage: '', // Define the required, option or semi-required arguments here.
-            extendedHelp: 'No extended help available.' // Extended help on how to use the command.
-        });
-    }
-
-    async run(msg, [...params]) {
-        // This is where you place the code you want to run for your command
-    }
-};
-```
+[**Ice**](https://github.com/iceeMC/) - SoundCloud Playback Support and YouTube RegEx Modification
 
 ## Acknowledgement
 [**Klasa Pieces**](https://github.com/dirigeants/klasa-pieces/)
-
-[**Ice**](https://github.com/iceeMC/)
 
 [**Dragonfire535 - Xiao**](https://github.com/dragonfire535)
 

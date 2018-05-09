@@ -1,4 +1,5 @@
 const { Command } = require("klasa");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
 
@@ -7,8 +8,8 @@ module.exports = class extends Command {
             runIn: ["text"],
             cooldown: 10,
             aliases: ["np", "currentsong", "song"],
-            permLevel: 0,
-            botPerms: ["USE_EXTERNAL_EMOJIS"],
+            permissionLevel: 0,
+            requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: (msg) => msg.language.get("COMMAND_NOWPLAYING_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
@@ -20,7 +21,7 @@ module.exports = class extends Command {
         if (!queue || !player) return msg.channel.send("<:penguError:435712890884849664> ***There's currently no music playing!***");
 
         const song = queue.songs[0];
-        const embed = new this.client.methods.Embed()
+        const embed = new MessageEmbed()
             .setColor("#5bc0de")
             .setTitle("⏯ | Now Playing - PenguBot")
             .setTimestamp()

@@ -1,5 +1,6 @@
 const { Command } = require("klasa");
 const { get } = require("snekfetch");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
 
@@ -8,7 +9,7 @@ module.exports = class extends Command {
             runIn: ["text", "dm"],
             aliases: ["urband", "urbandictionary"],
             cooldown: 10,
-            botPerms: ["EMBED_LINKS", "ATTACH_FILES"],
+            requiredPermissions: ["EMBED_LINKS", "ATTACH_FILES"],
             description: (msg) => msg.language.get("COMMAND_URBAN_DESCRIPTION"),
             usage: "<word:string> [...]",
             extendedHelp: "No extended help available."
@@ -20,7 +21,7 @@ module.exports = class extends Command {
         const result = JSON.parse(text).list[0];
 
         if (!result) return msg.reply("<:penguError:435712890884849664> That word could not be found on Urban Dictionary.");
-        const embed = new this.client.methods.Embed()
+        const embed = new MessageEmbed()
             .setColor("RANDOM")
             .setTimestamp()
             .setFooter("© PenguBot.cc")

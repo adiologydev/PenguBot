@@ -1,4 +1,6 @@
 const { Command } = require("klasa");
+const { MessageEmbed } = require("discord.js");
+
 const cookies = ["http://i.imgur.com/SLwEY66.gif", "http://i.imgur.com/K6VoNp3.gif", "http://i.imgur.com/knVM6Lb.gif",
     "http://i.imgur.com/P1BMly5.gif", "http://i.imgur.com/I8CrTUT.gif", "https://i.imgur.com/0XTueQR.png",
     "https://i.imgur.com/u9k8x4J.png", "https://i.imgur.com/AUtfHnK.png", "https://i.imgur.com/XjTbrKc.png",
@@ -20,7 +22,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [user]) {
-        const embed = new this.client.methods.Embed()
+        const embed = new MessageEmbed()
             .setFooter("© PenguBot.cc")
             .setTimestamp()
             .setImage(cookies[Math.floor(Math.random() * cookies.length)])

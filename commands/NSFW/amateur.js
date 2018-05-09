@@ -1,6 +1,7 @@
 const { Command } = require("klasa");
 const randomPuppy = require("random-puppy");
 const subReddits = ["realgirls", "amateur", "homemadexxx", "AmateurArchives", "dirtypenpals", "FestivalSluts", "CollegeAmateurs", "amateurcumsluts", "nsfw_amateurs", "funwithfriends", "randomsexiness", "amateurporn", "normalnudes"];
+const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
 
@@ -8,7 +9,7 @@ module.exports = class extends Command {
         super(...args, {
             cooldown: 8,
             aliases: ["amateurnsfw"],
-            botPerms: ["ATTACH_IMAGES", "EMBED_LINKS"],
+            requiredPermissions: ["ATTACH_IMAGES", "EMBED_LINKS"],
             description: (msg) => msg.language.get("COMMAND_AMETEUR_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
@@ -24,7 +25,7 @@ module.exports = class extends Command {
             if (img.indexOf(".mp4")) {
                 img = await randomPuppy(subReddits[Math.floor(Math.random() * subReddits.length)]);
             }
-            const embed = new this.client.methods.Embed()
+            const embed = new MessageEmbed()
                 .setFooter("© PenguBot.cc")
                 .setTimestamp()
                 .setImage(img)

@@ -1,6 +1,7 @@
 const { Command } = require("klasa");
 const Lyricist = require("../../utils/lyrics.js");
 const lyrics = new Lyricist();
+const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
 
@@ -9,8 +10,8 @@ module.exports = class extends Command {
             runIn: ["text"],
             cooldown: 10,
             aliases: ["songlyrics", "lyric"],
-            permLevel: 0,
-            botPerms: ["USE_EXTERNAL_EMOJIS"],
+            permissionLevel: 0,
+            requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: (msg) => msg.language.get("COMMAND_LYRICS_DESCRIPTION"),
             extendedHelp: "No extended help available.",
             usage: "<song:string>"
@@ -29,7 +30,7 @@ module.exports = class extends Command {
         const lyricsbody = await lyrics.scrapeLyrics(lyricdata.result.url);
         if (!lyricsbody) return msg.reply("The provided song's lyrics could not be found. Please try again with a different one or contact us at <https://discord.gg/6KpTfqR>.");
 
-        const embed = new this.client.methods.Embed()
+        const embed = new MessageEmbed()
             .setColor("#428bca")
             .setAuthor(`${extendedsong} - ${artist} | Lyrics`, this.client.user.avatarURL, `http://genius.com/${lyricdata.result.path}`)
             .setTimestamp()

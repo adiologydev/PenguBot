@@ -1,4 +1,6 @@
 const { Command } = require("klasa");
+const { MessageEmbed } = require("discord.js");
+
 const punches = ["http://i.imgur.com/aGPHQ3E.gif", "http://i.imgur.com/FxFfdOZ.gif", "http://i.imgur.com/XA7PPiy.gif",
     "http://i.imgur.com/5hcVtGf.gif", "http://i.imgur.com/nwGsg12.gif", "http://i.imgur.com/GZX1COH.gif",
     "https://i.imgur.com/UcycckQ.gif", "https://i.imgur.com/VmdBxgq.gif", "https://i.imgur.com/IputsOi.gif",
@@ -13,7 +15,7 @@ module.exports = class extends Command {
         super(...args, {
             cooldown: 8,
             aliases: ["sendpunch"],
-            botPerms: ["ATTACH_IMAGES", "EMBED_LINKS"],
+            requiredPermissions: ["ATTACH_IMAGES", "EMBED_LINKS"],
             description: (msg) => msg.language.get("COMMAND_PUNCH_DESCRIPTION"),
             extendedHelp: "No extended help available.",
             usage: "<user:user>"
@@ -21,7 +23,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [user]) {
-        const embed = new this.client.methods.Embed()
+        const embed = new MessageEmbed()
             .setFooter("© PenguBot.cc")
             .setTimestamp()
             .setImage(punches[Math.floor(Math.random() * punches.length)])

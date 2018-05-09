@@ -1,5 +1,6 @@
 const { Command } = require("klasa");
 const { get } = require("snekfetch");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
 
@@ -7,7 +8,7 @@ module.exports = class extends Command {
         super(...args, {
             cooldown: 8,
             aliases: ["joke"],
-            botPerms: ["ATTACH_IMAGES", "EMBED_LINKS"],
+            requiredPermissions: ["ATTACH_IMAGES", "EMBED_LINKS"],
             description: (msg) => msg.language.get("COMMAND_DADJOKE_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
@@ -15,7 +16,7 @@ module.exports = class extends Command {
 
     async run(msg) {
         const { text } = await get("https://icanhazdadjoke.com/").set("Accept", "text/plain");
-        const embed = new this.client.methods.Embed()
+        const embed = new MessageEmbed()
             .setDescription(`**Dad Joke Alert**\n\n${text}`)
             .setThumbnail("https://i.imgur.com/IxosIBh.png")
             .setColor("RANDOM");

@@ -1,4 +1,5 @@
 const { Command, RichDisplay } = require("klasa");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
 
@@ -7,8 +8,8 @@ module.exports = class extends Command {
             runIn: ["text"],
             cooldown: 10,
             aliases: ["listcommands"],
-            permLevel: 6,
-            botPerms: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
+            permissionLevel: 6,
+            requiredPermissions: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
             requiredConfigs: ["customcmds"],
             description: (msg) => msg.language.get("COMMAND_LIST_CMDS_DESCRIPTION"),
             extendedHelp: "No extended help available."
@@ -23,7 +24,7 @@ module.exports = class extends Command {
             names.push(`${a.name}`);
         });
 
-        const cmds = new RichDisplay(new this.client.methods.Embed()
+        const cmds = new RichDisplay(new MessageEmbed()
             .setTitle("Use the reactions to change pages, select a page or stop viewing the commands.")
             .setAuthor("Custom Commands - PenguBot", "https://i.imgur.com/DOuCQlY.png")
             .setDescription("Scroll between pages to see the custom commands list.")

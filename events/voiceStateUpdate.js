@@ -11,6 +11,7 @@ module.exports = class extends Event {
             const queue = this.client.queue.get(newMem.guild.id);
             if (!queue) return;
             if (!oldMem.guild.me.voiceChannel) return;
+            if (this.client.config.main.patreon === true) return;
             setTimeout(async () => {
                 if (oldMem.voiceChannel === oldMem.guild.me.voiceChannel && newMem.voiceChannel !== newMem.guild.me.voiceChannel && newMem.guild.me.voiceChannel.members.size === 1) {
                     try {
@@ -21,8 +22,8 @@ module.exports = class extends Event {
                         console.log(`| VoiceStateUpdate |\n${e}`);
                     }
                 }
-            }, 55000);
-        }, 5000);
+            }, 3600000);
+        }, 10000);
     }
 
 };

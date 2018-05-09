@@ -8,12 +8,12 @@ module.exports = class extends Command {
             cooldown: 10,
             bucket: 1,
             aliases: ["slc", "setleavechan"],
-            permLevel: 6,
-            botPerms: ["USE_EXTERNAL_EMOJIS"],
+            permissionLevel: 6,
+            requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             requiredConfigs: ["leave-channel"],
             usage: "[channel:channel]",
             usageDelim: "",
-            description: (msg) => msg.language.get("COMMAND_CHANNEL_WELCOME_DESCRPTION"),
+            description: (msg) => msg.language.get("COMMAND_CHANNEL_LEAVE_DESCRPTION"),
             extendedHelp: "No extended help available."
         });
     }

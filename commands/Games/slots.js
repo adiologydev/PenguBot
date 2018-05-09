@@ -1,5 +1,6 @@
 const { Command } = require("klasa");
 const slots = ["🍇", "🍊", "🍐", "🍒", "🍋", "🥝", "🍔", "🍟", "🌭", "🍕", "🌮", "🍘", "🍫", "🍿", "🍩", "🍪"];
+const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
 
@@ -7,7 +8,7 @@ module.exports = class extends Command {
         super(...args, {
             cooldown: 8,
             aliases: ["slotsroll"],
-            botPerms: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
+            requiredPermissions: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
             description: (msg) => msg.language.get("COMMAND_SLOTS_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
@@ -25,14 +26,14 @@ module.exports = class extends Command {
         const Bthree = slots[Math.floor(Math.random() * slots.length)];
 
         if (Mone === Mtwo && Mone === Mthree) {
-            const embed = new this.client.methods.Embed()
+            const embed = new MessageEmbed()
                 .setFooter("© PenguBot.cc")
                 .setTimestamp()
                 .setDescription(`${Tone} | ${Ttwo} | ${Tthree}\n${Mone} | ${Mtwo} | ${Mthree}\n${Bone} | ${Btwo} | ${Bthree}`)
                 .setColor("RANDOM");
             return msg.channel.send(`***${msg.member.user} You just won! Good job!***`, { embed: embed });
         }
-        const embed = new this.client.methods.Embed()
+        const embed = new MessageEmbed()
             .setFooter("© PenguBot.cc")
             .setTimestamp()
             .setDescription(`${Tone} | ${Ttwo} | ${Tthree}\n${Mone} | ${Mtwo} | ${Mthree}\n${Bone} | ${Btwo} | ${Bthree}`)

@@ -10,7 +10,7 @@ module.exports = class extends Command {
             description: (msg) => msg.language.get("COMMAND_EVAL_DESCRIPTION"),
             extendedHelp: (msg) => msg.language.get("COMMAND_EVAL_EXTENDED"),
             guarded: true,
-            permLevel: 10,
+            permissionLevel: 10,
             usage: "<expression:str>"
         });
     }
@@ -32,14 +32,14 @@ module.exports = class extends Command {
     async handleMessage(msg, options, { success, result, time, footer }) {
         switch (options.sendAs) {
         case "file": {
-            if (msg.channel.attachable) return msg.channel.sendFile(Buffer.from(result), "output.txt", `Eval File - ${time} |\n${footer}`);
+            if (msg.channel.attachable) return msg.channel.sendFile(Buffer.from(result), "output.txt", `**Type:**${footer}\n\n${time}`);
             await this.getTypeOutput(msg, options);
             return this.handleMessage(msg, options, { success, result, time, footer });
         }
         case "haste":
         case "hastebin": {
             if (!options.url) options.url = await this.getHaste(result).catch(() => null);
-            if (options.url) return msg.sendMessage(`**Hastebin Output:** ${options.url} - ${time} |\n**Type:** ${footer}`);
+            if (options.url) return msg.sendMessage(`**Output:**\n${options.url}\n\n**Type:**${footer}\n${time}`);
             options.hastebinUnavailable = true;
             await this.getTypeOutput(msg, options);
             return this.handleMessage(msg, options, { success, result, time, footer });
@@ -47,7 +47,7 @@ module.exports = class extends Command {
         case "console":
         case "log": {
             this.client.emit("log", result);
-            return msg.sendMessage(`**Eval Console** - ${time} |\n**Type:** ${footer}`);
+            return msg.sendMessage(`${footer}\n${time}`);
         }
         case "none":
             return null;
@@ -94,26 +94,26 @@ module.exports = class extends Command {
         try {
             if (msg.flags.async) code = `(async () => {\n${code}\n})();`;
             result = eval(code);
-            syncTime = stopwatch.friendlyDuration;
+            syncTime = stopwatch.toString();
             type = new Type(result);
             if (util.isThenable(result)) {
                 thenable = true;
                 stopwatch.restart();
                 result = await result;
-                asyncTime = stopwatch.friendlyDuration;
+                asyncTime = stopwatch.toString();
             }
             success = true;
         } catch (error) {
-            if (!syncTime) syncTime = stopwatch.friendlyDuration;
-            if (thenable && !asyncTime) asyncTime = stopwatch.friendlyDuration;
-            if (!type) type = new Type(result);
+            if (!syncTime) syncTime = stopwatch.toString();
+            if (thenable && !asyncTime) asyncTime = stopwatch.toString();
+            if (!type) type = new Type(error);
             result = error;
             success = false;
         }
 
         stopwatch.stop();
-        if (success && typeof result !== "string") {
-            result = inspect(result, {
+        if (typeof result !== "string") {
+            result = result instanceof Error ? result.stack : inspect(result, {
                 depth: msg.flags.depth ? parseInt(msg.flags.depth) || 0 : 0,
                 showHidden: Boolean(msg.flags.showHidden)
             });

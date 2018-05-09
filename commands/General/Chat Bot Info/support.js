@@ -5,7 +5,7 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             guarded: true,
-            botPerms: ["EMBED_LINKS"],
+            requiredPermissions: ["EMBED_LINKS"],
             description: (msg) => msg.language.get("COMMAND_SUPPORT_DESCRIPTION")
         });
     }

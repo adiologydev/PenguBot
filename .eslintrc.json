@@ -33,7 +33,6 @@
 
 		"accessor-pairs": "warn",
 		"array-callback-return": "error",
-		"complexity": "warn",
 		"curly": ["error", "multi-line", "consistent"],
 		"dot-location": ["error", "property"],
 		"dot-notation": "error",

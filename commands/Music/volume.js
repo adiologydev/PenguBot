@@ -6,9 +6,9 @@ module.exports = class extends Command {
         super(...args, {
             runIn: ["text"],
             cooldown: 8,
-            aliases: ["pause", "resume"],
-            permLevel: 3,
-            botPerms: ["USE_EXTERNAL_EMOJIS"],
+            aliases: ["changevol", "setvolume"],
+            permissionLevel: 3,
+            requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: (msg) => msg.language.get("COMMAND_VOLUME_DESCRIPTION"),
             extendedHelp: "No extended help available.",
             usage: "<volume:integer>"
