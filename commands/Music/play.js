@@ -174,19 +174,6 @@ module.exports = class extends Command {
                         return queue.tc.send({ embed: await this.playEmbed(queue.songs[0]) });
                     }
                 }, 500);
-            } else {
-                setTimeout(async () => {
-                    if (!queue.loop) queue.songs.shift();
-                    if (queue.songs.length === 0) {
-                        await this.client.lavalink.leave(guild.id);
-                        await queue.tc.send({ embed: await this.stopEmbed() });
-                        return this.client.queue.delete(guild.id);
-                    } else {
-                        await player.play(queue.songs[0].track);
-                        await player.volume(guild.configs.musicVolume);
-                        return queue.tc.send({ embed: await this.playEmbed(queue.songs[0]) });
-                    }
-                }, 500);
             }
         });
         return queue.tc.send({ embed: await this.playEmbed(queue.songs[0]) });
