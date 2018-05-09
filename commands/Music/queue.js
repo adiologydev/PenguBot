@@ -21,7 +21,7 @@ module.exports = class extends Command {
         if (!queue || !player) return msg.channel.send("<:penguError:435712890884849664> ***There's currently no music playing!***");
 
         const pages = new RichDisplay(new MessageEmbed()
-            .setTitle("Use the reactions to change pages, select a page or stop viewing the queue.")
+            .setTitle("Use the reactions to change pages, select a page, or stop viewing the queue")
             .setAuthor("Queue - PenguBot", "https://i.imgur.com/IS8hX4t.png")
             .setDescription("Scroll between pages to see the song queue.")
             .setColor("#428bca")

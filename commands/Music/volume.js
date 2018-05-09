@@ -7,7 +7,7 @@ module.exports = class extends Command {
             runIn: ["text"],
             cooldown: 8,
             aliases: ["changevol", "setvolume"],
-            permissionLevel: 3,
+            permissionLevel: 0,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: (msg) => msg.language.get("COMMAND_VOLUME_DESCRIPTION"),
             extendedHelp: "No extended help available.",
@@ -16,6 +16,8 @@ module.exports = class extends Command {
     }
 
     async run(msg, [volume]) {
+        if (!volume) return msg.sendMessage(`🔈 ***Guild's Current Music Volume is:*** ${msg.guild.configs.musicVolume}`);
+        if (!msg.hasAtLeastPermissionLevel(3)) return msg.reply("<:penguError:435712890884849664> You are not a **Pengu DJ** to change the volume.");
         if (volume <= 100 || volume >= 0) {
             msg.guild.configs.update("musicVolume", volume);
             if (this.client.queue.get(msg.guild.id)) this.client.queue.get(msg.guild.id).volume = volume;
