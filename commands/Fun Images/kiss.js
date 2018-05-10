@@ -22,7 +22,7 @@ module.exports = class extends Command {
             .setTimestamp()
             .setImage(body.url)
             .setColor("RANDOM");
-        return msg.channel.send(`💋 | ***${user}, you just recieved a kiss from ${msg.member.user}!***`, { embed: embed });
+        return msg.sendMessage(`💋 | ***${user}, you just recieved a kiss from ${msg.member.user}!***`, { embed: embed });
     }
 
 };

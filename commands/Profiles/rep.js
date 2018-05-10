@@ -18,10 +18,10 @@ module.exports = class extends Command {
     async run(msg, [user]) {
         if (user) {
             if (user.id === msg.author.id) {
-                return msg.channel.send("🏆 | ***You can not give yourself a reputation point!***");
+                return msg.sendMessage("🏆 | ***You can not give yourself a reputation point!***");
             }
             if (user.bot) {
-                return msg.channel.send("🏆 | ***You can not rep a bot, I know you love bots like me but no!***");
+                return msg.sendMessage("🏆 | ***You can not rep a bot, I know you love bots like me but no!***");
             }
         }
         if (msg.author.configs.get("rep-cooldown") > 0) {
@@ -37,21 +37,21 @@ module.exports = class extends Command {
 
             if (diff >= 43200000) {
                 if (!user) {
-                    return msg.channel.send("🏆 | ***You can now give a reputation point!***");
+                    return msg.sendMessage("🏆 | ***You can now give a reputation point!***");
                 } else {
                     msg.author.configs.update("rep-cooldown", Date.now());
                     user.configs.update("reps", user.configs.get("reps") + 1);
-                    return msg.channel.send(`🏆 | ***You have given a reputation point to ${user}!***`);
+                    return msg.sendMessage(`🏆 | ***You have given a reputation point to ${user}!***`);
                 }
             } else {
-                return msg.channel.send(`🏆 | ***You can give another reputation point in ${timeLeft}!***`);
+                return msg.sendMessage(`🏆 | ***You can give another reputation point in ${timeLeft}!***`);
             }
         } else if (!user) {
-            return msg.channel.send("🏆 | ***You can now give a reputation point!***");
+            return msg.sendMessage("🏆 | ***You can now give a reputation point!***");
         } else {
             msg.author.configs.update("rep-cooldown", Date.now());
             user.configs.update("reps", user.configs.get("reps") + 1);
-            return msg.channel.send(`🏆 | ***You have given a reputation point to ${user}!***`);
+            return msg.sendMessage(`🏆 | ***You have given a reputation point to ${user}!***`);
         }
     }
 

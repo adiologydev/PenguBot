@@ -22,7 +22,7 @@ module.exports = class extends Monitor {
             if (cmd.name === cmdName) {
                 cooldown.add(msg.author.id);
                 setTimeout(() => cooldown.delete(msg.author.id), 10000);
-                return msg.channel.send(this.replace(cmd.content, msg));
+                return msg.sendMessage(this.replace(cmd.content, msg));
             }
         }
     }

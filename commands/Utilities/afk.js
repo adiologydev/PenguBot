@@ -25,12 +25,12 @@ module.exports = class extends Command {
         if (!afk) {
             await msg.author.configs.update("afk", true).then(() => {
                 msg.author.configs.update("afk-reason", reason, { action: "add" });
-                msg.channel.send(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_AFK_TRUE")}***`);
+                msg.sendMessage(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_AFK_TRUE")}***`);
             });
         } else {
             await msg.author.configs.update("afk", false).then(() => {
                 msg.author.configs.update("afk-reason", null);
-                msg.channel.send(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_AFK_FALSE")}***`);
+                msg.sendMessage(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_AFK_FALSE")}***`);
             });
         }
     }

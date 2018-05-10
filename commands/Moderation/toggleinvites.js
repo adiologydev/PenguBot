@@ -19,10 +19,10 @@ module.exports = class extends Command {
     async run(msg) {
         if (msg.guild.configs.get("anti-invite") === true) {
             msg.guild.configs.update("anti-invite", false);
-            return msg.channel.send(`<:penguSuccess:435712876506775553> ***Anti-invites have been Disabled!***`);
+            return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Anti-invites have been Disabled!***`);
         } else {
             msg.guild.configs.update("anti-invite", true);
-            return msg.channel.send(`<:penguSuccess:435712876506775553> ***Anti-invites have been Enabled!***`);
+            return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Anti-invites have been Enabled!***`);
         }
     }
 

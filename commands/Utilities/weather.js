@@ -79,10 +79,10 @@ module.exports = class extends Command {
                 .addText(`${humidity}%`, 353, 100)
                 .addText(`${chanceofrain}%`, 353, 121)
                 .toBufferAsync();
-            return msg.channel.send({ files: [{ attachment: img, name: `${geocodelocation}.png` }] });
+            return msg.sendMessage({ files: [{ attachment: img, name: `${geocodelocation}.png` }] });
         } catch (e) {
             console.error(e);
-            return msg.channel.send(`<:penguError:435712890884849664> ***Oopsies, an error occoured, please try again!***`);
+            return msg.sendMessage(`<:penguError:435712890884849664> ***Oopsies, an error occoured, please try again!***`);
         }
     }
 

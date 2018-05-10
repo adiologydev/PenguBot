@@ -18,9 +18,9 @@ module.exports = class extends Command {
     async run(msg) {
         const queue = this.client.queue.get(msg.guild.id);
         const player = this.client.lavalink.get(msg.guild.id);
-        if (!msg.member.voiceChannel) return msg.channel.send("<:penguError:435712890884849664> You're currently not in a voice channel.");
-        if (!queue) return msg.channel.send("<:penguError:435712890884849664> There's currently no music playing!");
-        if (!player) return msg.channel.send("<:penguError:435712890884849664> There's currently no music playing!");
+        if (!msg.member.voiceChannel) return msg.sendMessage("<:penguError:435712890884849664> You're currently not in a voice channel.");
+        if (!queue) return msg.sendMessage("<:penguError:435712890884849664> There's currently no music playing!");
+        if (!player) return msg.sendMessage("<:penguError:435712890884849664> There's currently no music playing!");
         const threshold = Math.ceil(queue.vc.members.size / 3);
         const force = threshold <= 1 || queue.vc.members.size < threshold || await msg.hasAtLeastPermissionLevel(3);
 
@@ -37,7 +37,7 @@ module.exports = class extends Command {
             const time = this.setTimeout(vote);
             const remaining = threshold - vote.count;
 
-            return msg.channel.send(`${vote.count} vote${vote.count > 1 ? "s" : ""} received so far, ${remaining} more ${remaining > 1 ? "are" : "is"} needed to skip this song. Five more seconds on the :clock1:! The vote will end in ${time} seconds.`); // eslint-disable-line max-len
+            return msg.sendMessage(`${vote.count} vote${vote.count > 1 ? "s" : ""} received so far, ${remaining} more ${remaining > 1 ? "are" : "is"} needed to skip this song. Five more seconds on the :clock1:! The vote will end in ${time} seconds.`); // eslint-disable-line max-len
         } else {
             const newVote = {
                 count: 1,
@@ -52,7 +52,7 @@ module.exports = class extends Command {
             this.votes.set(msg.guild.id, newVote);
             const remaining = threshold - 1;
 
-            return msg.channel.send(`🕐 **Starting a Vote Skip:** ${remaining} more vote${remaining > 1 ? "s are" : " is"} required for this song to be skipped. The vote will end in ${time} seconds.`);
+            return msg.sendMessage(`🕐 **Starting a Vote Skip:** ${remaining} more vote${remaining > 1 ? "s are" : " is"} required for this song to be skipped. The vote will end in ${time} seconds.`);
         }
     }
 

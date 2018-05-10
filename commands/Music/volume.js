@@ -22,9 +22,9 @@ module.exports = class extends Command {
             msg.guild.configs.update("musicVolume", volume);
             if (this.client.queue.get(msg.guild.id)) this.client.queue.get(msg.guild.id).volume = volume;
             if (this.client.lavalink.get(msg.guild.id)) await this.client.lavalink.get(msg.guild.id).volume(volume);
-            return msg.channel.send(`<:penguSuccess:435712876506775553> ***Volume has been set to:*** ${volume}`);
+            return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Volume has been set to:*** ${volume}`);
         } else {
-            return msg.channel.send(`<:penguError:435712890884849664> ***Volume can not be lower than 0 or higher than 100.***`);
+            return msg.sendMessage(`<:penguError:435712890884849664> ***Volume can not be lower than 0 or higher than 100.***`);
         }
     }
 

@@ -16,7 +16,7 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        const { text } = await get("http://randomfactgenerator.net/").catch(() => msg.channel.send("There was an error, I think a cat has cut the wire off, dogs don't do that."));
+        const { text } = await get("http://randomfactgenerator.net/").catch(() => msg.sendMessage("There was an error, I think a cat has cut the wire off, dogs don't do that."));
         const root = parse(text);
         const article = root.querySelector("#z");
 
@@ -24,7 +24,7 @@ module.exports = class extends Command {
             .setDescription(`**Random Fact**\n\n${article.childNodes[0].rawText}`)
             .setThumbnail("https://i.imgur.com/fJiD9Jo.png")
             .setColor("RANDOM");
-        return msg.channel.send({ embed: embed });
+        return msg.sendMessage({ embed: embed });
     }
 
 };

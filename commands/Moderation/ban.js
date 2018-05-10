@@ -27,7 +27,7 @@ module.exports = class extends Command {
 
         reason = reason.length > 0 ? `${reason.join(" ")}\nBanned By: ${msg.author.tag}` : `No reason specified.\nBanned By: ${msg.author.tag}`;
         await user.ban({ reason: reason });
-        return msg.channel.send(`<:penguSuccess:435712876506775553> ***${member.tag} ${msg.language.get("MESSAGE_BANNED")}***`);
+        return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${member.tag} ${msg.language.get("MESSAGE_BANNED")}***`);
     }
 
 };

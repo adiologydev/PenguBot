@@ -19,11 +19,11 @@ module.exports = class extends Command {
     async run(msg) {
         if (msg.guild.configs.get("autoroles") === false) {
             return msg.guild.configs.update("autoroles", true).then(() => {
-                msg.channel.send(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_AUTOROLES_ENABLED")}***`);
+                msg.sendMessage(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_AUTOROLES_ENABLED")}***`);
             });
         } else {
             return msg.guild.configs.update("autoroles", false).then(() => {
-                msg.channel.send(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_AUTOROLES_DISABLED")}***`);
+                msg.sendMessage(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_AUTOROLES_DISABLED")}***`);
             });
         }
     }

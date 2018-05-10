@@ -17,7 +17,7 @@ module.exports = class extends Command {
 
     async run(msg, [user = msg.author]) {
         if (user.bot) {
-            return msg.channel.send("❄ | ***You can not give your daily Snowflakes to a bot!***");
+            return msg.sendMessage("❄ | ***You can not give your daily Snowflakes to a bot!***");
         }
         if (msg.author.configs.get("daily-cooldown") > 0) {
             const now = Date.now();
@@ -35,7 +35,7 @@ module.exports = class extends Command {
                 user.configs.update("daily-cooldown", Date.now());
                 return msg.reply(`❄ | ***You have claimed your 100 Snowflakes for today!***`);
             } else {
-                return msg.channel.send(`❄ | ***You can claim your daily Snowflakes in ${timeLeft}!***`);
+                return msg.sendMessage(`❄ | ***You can claim your daily Snowflakes in ${timeLeft}!***`);
             }
         } else {
             user.configs.update("snowflakes", user.configs.snowflakes + 100);

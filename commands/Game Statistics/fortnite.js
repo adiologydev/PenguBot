@@ -29,11 +29,11 @@ module.exports = class extends Command {
             data = await get(`https://api.fortnitetracker.com/v1/profile/psn/${Username}`)
                 .set("TRN-Api-Key", this.client.config.keys.games.fortnite);
         } else {
-            return msg.channel.send("<:penguError:435712890884849664> ***Invalid Platform, please retry with either of these platforms: `pc`. `xbox`, `psn`.***");
+            return msg.sendMessage("<:penguError:435712890884849664> ***Invalid Platform, please retry with either of these platforms: `pc`. `xbox`, `psn`.***");
         }
 
-        if (!data) return msg.channel.send("<:penguError:435712890884849664> ***Invalid Username or Platform, please retry with either of these platforms: `pc`. `xbox`, `psn`.***");
-        if (data.body.error) return msg.channel.send("<:penguError:435712890884849664> ***There was an error in the Tracking API, please try again later.***");
+        if (!data) return msg.sendMessage("<:penguError:435712890884849664> ***Invalid Username or Platform, please retry with either of these platforms: `pc`. `xbox`, `psn`.***");
+        if (data.body.error) return msg.sendMessage("<:penguError:435712890884849664> ***There was an error in the Tracking API, please try again later.***");
 
         const embed = new MessageEmbed()
             .setTitle("Fortnite Battle Royale Statistics - PenguBot")
@@ -49,7 +49,7 @@ module.exports = class extends Command {
                 `❯ **K/D:** ${data.body.lifeTimeStats.find(a => a.key === "K/d").value}`,
                 `❯ **Top 3:** ${data.body.lifeTimeStats.find(a => a.key === "Top 3").value}`,
                 `❯ **Platform:** ${data.body.platformNameLong}`]);
-        return msg.channel.sendEmbed(embed);
+        return msg.sendMessageEmbed(embed);
     }
 
 };

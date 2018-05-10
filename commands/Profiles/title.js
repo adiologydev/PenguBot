@@ -20,7 +20,7 @@ module.exports = class extends Command {
             return msg.reply("Your title can not be more than 30 characters long, please enter a smaller one.");
         }
         msg.author.configs.update("title", title);
-        return msg.channel.send(`<:penguSuccess:435712876506775553> ***Your profile title has been updated to:*** ${title}`);
+        return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Your profile title has been updated to:*** ${title}`);
     }
     async init() {
         if (!this.client.gateways.users.schema.has("title")) {

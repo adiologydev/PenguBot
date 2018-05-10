@@ -16,7 +16,7 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        const { text } = await get("http://explosm.net/rcg/").catch(() => msg.channel.send("There was an error, I think a cat has cut the wire off, dogs don't do that."));
+        const { text } = await get("http://explosm.net/rcg/").catch(() => msg.sendMessage("There was an error, I think a cat has cut the wire off, dogs don't do that."));
         const $ = cheerio.load(text);
 
         const embed = new MessageEmbed()

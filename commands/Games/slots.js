@@ -31,14 +31,14 @@ module.exports = class extends Command {
                 .setTimestamp()
                 .setDescription(`${Tone} | ${Ttwo} | ${Tthree}\n${Mone} | ${Mtwo} | ${Mthree}\n${Bone} | ${Btwo} | ${Bthree}`)
                 .setColor("RANDOM");
-            return msg.channel.send(`***${msg.member.user} You just won! Good job!***`, { embed: embed });
+            return msg.sendMessage(`***${msg.member.user} You just won! Good job!***`, { embed: embed });
         }
         const embed = new MessageEmbed()
             .setFooter("© PenguBot.cc")
             .setTimestamp()
             .setDescription(`${Tone} | ${Ttwo} | ${Tthree}\n${Mone} | ${Mtwo} | ${Mthree}\n${Bone} | ${Btwo} | ${Bthree}`)
             .setColor("RANDOM");
-        return msg.channel.send(`***${msg.member.user} You lost! Better luck next time!***`, { embed: embed });
+        return msg.sendMessage(`***${msg.member.user} You lost! Better luck next time!***`, { embed: embed });
     }
 
 };

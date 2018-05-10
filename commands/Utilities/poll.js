@@ -18,14 +18,14 @@ module.exports = class extends Command {
     }
 
     async run(msg, [Question, ...Options]) {
-        if (Options.length < 2) return msg.channel.send("<:penguError:435712890884849664> ***Less than two options are not allowed.***");
-        if (Options.length > 30) return msg.channel.send("<:penguError:435712890884849664> ***I only allow 30 or less options.***");
+        if (Options.length < 2) return msg.sendMessage("<:penguError:435712890884849664> ***Less than two options are not allowed.***");
+        if (Options.length > 30) return msg.sendMessage("<:penguError:435712890884849664> ***I only allow 30 or less options.***");
         try {
             const { body } = await post("https://www.strawpoll.me/api/v2/polls")
                 .send({ title: Question, options: Options });
-            return msg.channel.send(`<:penguSuccess:435712876506775553> ***Here's the poll you requested:*** https://www.strawpoll.me/${body.id}`);
+            return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Here's the poll you requested:*** https://www.strawpoll.me/${body.id}`);
         } catch (e) {
-            return msg.channel.send("<:penguError:435712890884849664> ***There was an error trying to create this poll, please try again.***");
+            return msg.sendMessage("<:penguError:435712890884849664> ***There was an error trying to create this poll, please try again.***");
         }
     }
 

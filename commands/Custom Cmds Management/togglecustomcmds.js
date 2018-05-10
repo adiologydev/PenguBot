@@ -19,11 +19,11 @@ module.exports = class extends Command {
     async run(msg) {
         if (msg.guild.configs.get("custom-commands") === false) {
             return msg.guild.configs.update("custom-commands", true).then(() => {
-                msg.channel.send(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_COMMAND_CUSTOM_ENABLED")}***`);
+                msg.sendMessage(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_COMMAND_CUSTOM_ENABLED")}***`);
             });
         } else {
             return msg.guild.configs.update("custom-commands", false).then(() => {
-                msg.channel.send(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_COMMAND_CUSTOM_DISABLED")}***`);
+                msg.sendMessage(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_COMMAND_CUSTOM_DISABLED")}***`);
             });
         }
     }

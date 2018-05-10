@@ -25,7 +25,7 @@ module.exports = class extends Command {
             .setDescription(`**F*ck My Life**\n${article.text}`)
             .setThumbnail("https://i.imgur.com/XW16vXq.png")
             .setColor("RANDOM");
-        return msg.channel.send({ embed: embed });
+        return msg.sendMessage({ embed: embed });
     }
 
 };

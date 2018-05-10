@@ -16,7 +16,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [person = msg.member]) {
-        return msg.channel.send(`<:blobsmilehappy:373821679132213248> | ***${msg.language.get("MESSAGE_AVATAR")} ${person.user.tag}: ${person.user.displayAvatarURL({ size: 512 })}***`);
+        return msg.sendMessage(`<:blobsmilehappy:373821679132213248> | ***${msg.language.get("MESSAGE_AVATAR")} ${person.user.tag}: ${person.user.displayAvatarURL({ size: 512 })}***`);
     }
 
 };
