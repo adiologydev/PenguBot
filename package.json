@@ -39,7 +39,7 @@
     "mysql2": "^1.5.3",
     "random-puppy": "^1.1.0",
     "rethinkdbdash": "^2.3.31",
-    "uws": "^9.148.0",
+    "uws": "^10.148.0",
     "zlib-sync": "^0.1.4"
   },
   "devDependencies": {
