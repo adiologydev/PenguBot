@@ -27,6 +27,11 @@ module.exports = class extends Command {
 
         reason = reason.length > 0 ? `${reason.join(" ")}\nBanned By: ${msg.author.tag}` : `No reason specified.\nBanned By: ${msg.author.tag}`;
         await user.ban({ reason: reason });
+
+        const log = this.client.functions.log("ban", msg.guild, `**${member.tag}** (${member.id}) was \`banned\` by **${msg.author.tag}** (${msg.author.id}) for \`${reason}\``);
+        const logChannel = msg.guild.channels.get(msg.guild.configs.logChannel);
+        if (log) logChannel.sendEmbed(log);
+
         return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${member.tag} ${msg.language.get("MESSAGE_BANNED")}***`);
     }
 

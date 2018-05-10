@@ -16,6 +16,10 @@ module.exports = class extends Event {
         const channel = guild.channels.find("id", guild.configs.get("leave-channel"));
         if (!channel.permissionsFor(guild.me).has(["SEND_MESSAGES", "EMBED_LINKS", "ATTACH_FILES"])) return;
 
+        const log = this.client.functions.log("leave", guild, `**${member.user.tag}** (${member.user.id}) has \`left\` the guild.\n**Total Members:** ${guild.members.size}`);
+        const logChannel = member.guild.channels.get(member.guild.configs.logChannel);
+        if (log) logChannel.sendEmbed(log);
+
         if (member.guild.configs.get("leave-text") === null) { member.guild.configs.update("leave-text", "It's sad to see you leave {USERNAME}, hope to see you again."); }
         try {
             channel.send(this.replace(guild.configs.get("leave-text"), member));

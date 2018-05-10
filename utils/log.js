@@ -1,41 +1,53 @@
-const { RichEmbed } = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 
-const ban = (client, banner, banee, reason) => {
-    if (!canPost(client, banner.guild, "moderations")) return;
-    const channel = banner.guild.configs.logChannel;
-    const embed = new RichEmbed()
-        .setColor("#1C2331")
-        .setDescription(`⏫ | **${banee.tag}** (${banee.id}) was **Banned** for \`${reason}\`\n\nBanned By: ${banner}`);
-    return channel.sendEmbed(embed);
-};
+module.exports = (type, message, guild) => {
+    if (!canPost(guild)) return null;
+    if (!isEnabled(type)) return null;
 
-const softban = (client, banner, banee, reason) => {
-    if (!canPost(client, banner.guild, "moderations")) return;
-    const channel = banner.guild.configs.logChannel;
-    const embed = new RichEmbed()
-        .setColor("#1C2331")
-        .setDescription(`⏫ | **${banee.tag}** (${banee.id}) was **Soft Banned** for \`${reason}\`\n\nBanned By: ${banner}`);
-    return channel.sendEmbed(embed);
-};
-
-const kick = (client, kicker, kickee, reason) => {
-    if (!canPost(client, kicker.guild, "moderations")) return;
-    const channel = kicker.guild.configs.logChannel;
-    const embed = new RichEmbed()
-        .setColor("#3F729B")
-        .setDescription(`⏫ | **${kickee.tag}** (${kickee.id}) was **Kicked** for \`${reason}\`\n\nBanned By: ${kicker}`);
-    return channel.sendEmbed(embed);
+    const embed = new MessageEmbed();
+    if (type === "ban") {
+        embed
+            .setColor("#b71c1c")
+            .setTimestamp()
+            .setDescription(message);
+        return embed;
+    }
+    if (type === "kick") {
+        embed
+            .setColor("#b71c1c")
+            .setTimestamp()
+            .setDescription(message);
+        return embed;
+    }
+    if (type === "mute") {
+        embed
+            .setColor("#b71c1c")
+            .setTimestamp()
+            .setDescription(message);
+        return embed;
+    }
+    if (type === "join") {
+        embed
+            .setColor("#2BBBAD")
+            .setTimestamp()
+            .setDescription(message);
+        return embed;
+    }
+    if (type === "leave") {
+        embed
+            .setColor("#2196f3")
+            .setTimestamp()
+            .setDescription(message);
+        return embed;
+    }
 };
 
 // Method which checks for basic permissions and requirements
-const canPost = (client, guild, key) => {
-    if (!guild.configs.get(`logs.${key}`)) return false;
+const canPost = (guild) => {
     const channel = guild.configs.logChannel;
     if (!channel) return false;
-    if (!guild.channels.get(channel).postable) return false;
+    if (!guild.channels.get(channel).permissionsFor(guild.me).has(["SEND_MESSAGES", "EMBED_LINKS", "ATTACH_FILES"])) return false;
     return true;
 };
 
-module.exports.ban = ban;
-module.exports.softban = softban;
-module.exports.kick = kick;
+const isEnabled = (guild, key) => guild.configs.logs.get(key);
