@@ -21,7 +21,7 @@ module.exports = class extends Command {
         const cmd = msg.guild.configs.customcmds.find(c => c.name === name);
         if (!cmd) return msg.reply(`<:penguError:435712890884849664> ***\`${name}\` ${msg.language.get("MESSAGE_CMD_NOTFOUND")}***`);
         await msg.guild.configs.update("customcmds", cmd, { action: `remove` });
-        return msg.channel.send(`<:penguSuccess:435712876506775553> ***\`${name}\` ${msg.language.get("MESSAGE_CMD_REMOVED")} ${msg.author.tag}!***`);
+        return msg.sendMessage(`<:penguSuccess:435712876506775553> ***\`${name}\` ${msg.language.get("MESSAGE_CMD_REMOVED")} ${msg.author.tag}!***`);
     }
 
 };

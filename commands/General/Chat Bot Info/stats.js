@@ -37,7 +37,7 @@ module.exports = class extends Command {
                 klasaVersion, discordVersion, process.version, msg
             ));
 
-        return msg.channel.send({ embed: embed });
+        return msg.sendMessage({ embed: embed });
     }
 
 };

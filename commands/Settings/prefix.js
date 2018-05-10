@@ -18,10 +18,10 @@ module.exports = class extends Command {
     }
 
     async run(msg, [prefix]) {
-        if (!await msg.hasAtLeastPermissionLevel(6)) return msg.channel.send(`👉 ***${msg.language.get("MESSAGE_CURRENT_PREFIX")}*** ${msg.guild.configs.get("prefix")}`);
-        if (!prefix) return msg.channel.send(`👉 ***${msg.language.get("MESSAGE_CURRENT_PREFIX")}*** ${msg.guild.configs.get("prefix")}`);
+        if (!await msg.hasAtLeastPermissionLevel(6)) return msg.sendMessage(`👉 ***${msg.language.get("MESSAGE_CURRENT_PREFIX")}*** ${msg.guild.configs.get("prefix")}`);
+        if (!prefix) return msg.sendMessage(`👉 ***${msg.language.get("MESSAGE_CURRENT_PREFIX")}*** ${msg.guild.configs.get("prefix")}`);
         await msg.guild.configs.update({ prefix: prefix }).then(() => {
-            msg.channel.send(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_PREFIX_SET")}*** ${prefix}`);
+            msg.sendMessage(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_PREFIX_SET")}*** ${prefix}`);
         });
     }
 

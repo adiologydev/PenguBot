@@ -29,7 +29,7 @@ module.exports = class extends Command {
             .setTimestamp()
             .setImage(pics[Math.floor(Math.random() * pics.length)])
             .setColor("RANDOM");
-        return msg.channel.send(`<:pengu:383632112323919872> | ***${msg.member}, here's the cute Pengu picture you requested!***`, { embed: embed });
+        return msg.sendMessage(`<:pengu:383632112323919872> | ***${msg.member}, here's the cute Pengu picture you requested!***`, { embed: embed });
     }
 
 };

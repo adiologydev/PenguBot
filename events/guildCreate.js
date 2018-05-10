@@ -21,7 +21,7 @@ module.exports = class extends Event {
         let channel = guild.channels.sort((a, b) => a.calculatedPosition - b.calculatedPosition)
             .find(c => c.type === "text" && c.permissionsFor(guild.me).has(19456));
         if (!channel) channel = await guild.owner.user;
-        if (channel.permissionFor(guild.me).missing(["SEND_MESSAGES", "EMBED_LINKS", "ATTACH_FILES"])) return;
+        if (!channel.permissionsFor(guild.me).has(["SEND_MESSAGES", "EMBED_LINKS", "ATTACH_FILES"])) return;
 
         const embed = new MessageEmbed()
             .setThumbnail(this.client.user.avatarURL())

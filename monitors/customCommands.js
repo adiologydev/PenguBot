@@ -9,7 +9,7 @@ module.exports = class extends Monitor {
 
     async run(msg) {
         if (!msg.guild) return;
-        if (msg.channel.permissionFor(msg.guild.me).missing(["SEND_MESSAGES", "EMBED_LINKS", "ATTACH_FILES"])) return;
+        if (!msg.channel.permissionsFor(msg.guild.me).has(["SEND_MESSAGES", "EMBED_LINKS", "ATTACH_FILES"])) return;
         if (!msg.guild.configs.get("customcmds")) return;
         if (cooldown.has(msg.author.id)) return;
         if (msg.guild.configs.get("custom-commands") === false) return;
@@ -22,7 +22,7 @@ module.exports = class extends Monitor {
             if (cmd.name === cmdName) {
                 cooldown.add(msg.author.id);
                 setTimeout(() => cooldown.delete(msg.author.id), 10000);
-                return msg.channel.send(this.replace(cmd.content, msg));
+                return msg.sendMessage(this.replace(cmd.content, msg));
             }
         }
     }

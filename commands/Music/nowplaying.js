@@ -18,7 +18,7 @@ module.exports = class extends Command {
     async run(msg) {
         const queue = this.client.queue.get(msg.guild.id);
         const player = this.client.lavalink.get(msg.guild.id);
-        if (!queue || !player) return msg.channel.send("<:penguError:435712890884849664> ***There's currently no music playing!***");
+        if (!queue || !player) return msg.sendMessage("<:penguError:435712890884849664> ***There's currently no music playing!***");
 
         const song = queue.songs[0];
         const embed = new MessageEmbed()

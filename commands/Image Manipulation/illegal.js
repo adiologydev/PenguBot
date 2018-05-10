@@ -21,7 +21,7 @@ module.exports = class extends Command {
             try {
                 let gif = await this.fetchGIF(text);
                 if (!gif) {
-                    const w = await msg.channel.send("<a:penguLoad:435712860744581120> Hang on tight, let Trump do his job!");
+                    const w = await msg.sendMessage("<a:penguLoad:435712860744581120> Hang on tight, let Trump do his job!");
                     await this.createGIF(text);
                     gif = await this.fetchGIF(text);
                     if (!gif) return w.edit("<:penguError:435712890884849664> You got Trumped, no bill for you! Try again.");
@@ -36,7 +36,7 @@ module.exports = class extends Command {
                 return msg.reply(`<:penguError:435712890884849664> Oh no, an error occurred: \`${err.message}\`. Please try again later!`);
             }
         } else {
-            return msg.channel.send("<:penguError:435712890884849664> Invalid Input, please enter 10 or fewer characters. (A-Z, 0-9)");
+            return msg.sendMessage("<:penguError:435712890884849664> Invalid Input, please enter 10 or fewer characters. (A-Z, 0-9)");
         }
     }
 

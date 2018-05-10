@@ -18,7 +18,7 @@ module.exports = class extends Monitor {
 
     async run(msg) {
         if (!msg.guild) return;
-        if (msg.channel.permissionFor(msg.guild.me).missing(["SEND_MESSAGES", "ATTACH_FILES"])) return;
+        if (!msg.channel.permissionsFor(msg.guild.me).has(["SEND_MESSAGES", "ATTACH_FILES"])) return;
 
         const randomXP = this.client.functions.randomNumber(1, 5);
         const randomSnowflakes = this.client.functions.randomNumber(1, 2);
@@ -41,7 +41,7 @@ module.exports = class extends Monitor {
                     .addImage(bgImg, 0, 0, 530, 530)
                     .addImage(avatar, 22, 22, 57, 57)
                     .toBufferAsync();
-                msg.channel.send(`🆙 | **${msg.author.tag} leveled up to Level ${newLvl}!**`, { files: [{ attachment: img, name: `${msg.author.id}.png` }] });
+                msg.sendMessage(`🆙 | **${msg.author.tag} leveled up to Level ${newLvl}!**`, { files: [{ attachment: img, name: `${msg.author.id}.png` }] });
             }
         }
     }

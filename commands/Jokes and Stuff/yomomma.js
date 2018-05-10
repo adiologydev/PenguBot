@@ -15,13 +15,13 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        const { text } = await get(`http://api.yomomma.info`).catch(() => msg.channel.send("There was an error, I think a cat has cut the wire off, dogs don't do that."));
+        const { text } = await get(`http://api.yomomma.info`).catch(() => msg.sendMessage("There was an error, I think a cat has cut the wire off, dogs don't do that."));
 
         const embed = new MessageEmbed()
             .setDescription(`**Yo Momma Joke**\n\n${JSON.parse(text).joke}`)
             .setThumbnail("https://i.imgur.com/ordRh9e.png")
             .setColor("RANDOM");
-        return msg.channel.send({ embed: embed });
+        return msg.sendMessage({ embed: embed });
     }
 
 };

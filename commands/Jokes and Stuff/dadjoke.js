@@ -20,7 +20,7 @@ module.exports = class extends Command {
             .setDescription(`**Dad Joke Alert**\n\n${text}`)
             .setThumbnail("https://i.imgur.com/IxosIBh.png")
             .setColor("RANDOM");
-        return msg.channel.send({ embed: embed });
+        return msg.sendMessage({ embed: embed });
     }
 
 };

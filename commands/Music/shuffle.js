@@ -16,11 +16,11 @@ module.exports = class extends Command {
 
     async run(msg) {
         const queue = this.client.queue.get(msg.guild.id);
-        if (!msg.member.voiceChannel) return msg.channel.send("<:penguError:435712890884849664> You're currently not in a voice channel.");
-        if (!queue) return msg.channel.send("<:penguError:435712890884849664> There's currently no music playing!");
-        if (queue.songs.length <= 2) return msg.channel.send("<:penguError:435712890884849664> Your queue has less than two songs, add more to shuffle!");
+        if (!msg.member.voiceChannel) return msg.sendMessage("<:penguError:435712890884849664> You're currently not in a voice channel.");
+        if (!queue) return msg.sendMessage("<:penguError:435712890884849664> There's currently no music playing!");
+        if (queue.songs.length <= 2) return msg.sendMessage("<:penguError:435712890884849664> Your queue has less than two songs, add more to shuffle!");
         await this.shuffleArray(queue.songs);
-        return msg.channel.send("<:penguSuccess:435712876506775553> ***Queue has now been shuffled!***");
+        return msg.sendMessage("<:penguSuccess:435712876506775553> ***Queue has now been shuffled!***");
     }
 
     async shuffleArray(array) {

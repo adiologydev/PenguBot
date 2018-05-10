@@ -146,12 +146,12 @@ module.exports = class extends Command {
 
     async updateOwnership(msg, name, price) {
         await msg.author.configs.update(["snowflakes", "backgrounds", "profile-bg"], [msg.author.configs.snowflakes - price, name, name]);
-        return msg.channel.send(`<:penguSuccess:435712876506775553> ***You just bought and set your background to \`${name}\` for ${price} Snowflakes.***`);
+        return msg.sendMessage(`<:penguSuccess:435712876506775553> ***You just bought and set your background to \`${name}\` for ${price} Snowflakes.***`);
     }
 
     async updateBG(msg, name) {
         await msg.author.configs.update("profile-bg", name);
-        return msg.channel.send(`<:penguSuccess:435712876506775553> ***Your Profile Background is now set to: \`${name}\`***`);
+        return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Your Profile Background is now set to: \`${name}\`***`);
     }
 
 };

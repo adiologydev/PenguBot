@@ -14,7 +14,7 @@ module.exports = class extends Command {
 
     async run(msg, [...game]) {
         this.client.shard.broadcastEval(this.client.user.setPresence({ activity: { name: game.join(" "), status: "online" } })
-            .then(msg.channel.send(`**Playing status has been changed to:** ${game.join(" ")}`))
+            .then(msg.sendMessage(`**Playing status has been changed to:** ${game.join(" ")}`))
             .catch(err => { throw err; }));
     }
 

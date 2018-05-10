@@ -24,7 +24,7 @@ module.exports = class extends Command {
             await msg.guild.configs.update("customcmds", cmd, { action: "remove" }).then(() => {
                 msg.guild.configs.update("customcmds", { content: content.join(" "), name: cmd.name }, { action: "add" });
             });
-            return msg.channel.send(`<:penguSuccess:435712876506775553> ***\`${name}\` ${msg.language.get("MESSAGE_CMD_UPDATED")} ${msg.author.tag}!***`);
+            return msg.sendMessage(`<:penguSuccess:435712876506775553> ***\`${name}\` ${msg.language.get("MESSAGE_CMD_UPDATED")} ${msg.author.tag}!***`);
         } else {
             return msg.reply(`<:penguError:435712890884849664> ***\`${name}\` ${msg.language.get("MESSAGE_CMD_NOTFOUND")}***`);
         }

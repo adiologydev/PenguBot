@@ -21,10 +21,10 @@ module.exports = class extends Command {
     async run(msg, [member]) {
         if (msg.guild.configs.get("pengu-dj").indexOf(member.id) !== -1) {
             await msg.guild.configs.update("pengu-dj", member.id, { action: "remove" });
-            return msg.channel.send(`<:penguError:435712890884849664> ***${member.tag} ${msg.language.get("MESSAGE_DJ_REMOVE")}***`);
+            return msg.sendMessage(`<:penguError:435712890884849664> ***${member.tag} ${msg.language.get("MESSAGE_DJ_REMOVE")}***`);
         } else {
             await msg.guild.configs.update("pengu-dj", member.id, { action: "add" });
-            return msg.channel.send(`<:penguSuccess:435712876506775553> ***${member.tag} ${msg.language.get("MESSAGE_DJ_ADD")}***`);
+            return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${member.tag} ${msg.language.get("MESSAGE_DJ_ADD")}***`);
         }
     }
 
