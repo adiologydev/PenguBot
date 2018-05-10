@@ -171,7 +171,8 @@ module.exports = class extends Command {
                     } else {
                         await player.play(queue.songs[0].track);
                         await player.volume(guild.configs.musicVolume);
-                        return queue.tc.send({ embed: await this.playEmbed(queue.songs[0]) });
+                        if (!queue.loop) return queue.tc.send({ embed: await this.playEmbed(queue.songs[0]) });
+                        return;
                     }
                 }, 500);
             }

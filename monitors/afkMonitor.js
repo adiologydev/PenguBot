@@ -8,7 +8,7 @@ module.exports = class extends Monitor {
 
     async run(msg) {
         if (!msg.guild) return;
-        if (msg.channel.permissionFor(msg.guild.me).missing(["SEND_MESSAGES", "EMBED_LINKS", "ATTACH_FILES"])) return;
+        if (!msg.channel.permissionsFor(msg.guild.me).has(["SEND_MESSAGES", "EMBED_LINKS", "ATTACH_FILES"])) return;
 
         if (msg.author.id !== this.client.user.id) {
             if (msg.mentions.users.size) {
