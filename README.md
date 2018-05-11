@@ -21,6 +21,8 @@ Join Discord for Support and Development https://discord.gg/u8WYw5r
 
 [**Jacz**](https://github.com/MrJacz)
 
+[**Kyra**](https://github.com/kyranet)
+
 ## Vote on DiscordBots to Support
 [![Discord Bots](https://discordbots.org/api/widget/303181184718995457.svg)](https://discordbots.org/bot/303181184718995457/vote)
 
