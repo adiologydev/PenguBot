@@ -51,6 +51,12 @@ const client = new PenguClient({
         users: { provider: "rethinkdb" },
         clientStorage: { provider: "rethinkdb" }
     },
+    disabledEvents: ["GUILD_SYNC",
+        "CHANNEL_PINS_UPDATE",
+        "USER_NOTE_UPDATE",
+        "RELATIONSHIP_ADD",
+        "RELATIONSHIP_REMOVE",
+        "USER_SETTINGS_UPDATE"],
     readyMessage: (c) => `${c.user.tag}, Ready to serve ${c.guilds.size} guilds and ${c.users.size} users.`
 });
 

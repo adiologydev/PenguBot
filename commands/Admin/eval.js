@@ -32,7 +32,7 @@ module.exports = class extends Command {
     async handleMessage(msg, options, { success, result, time, footer }) {
         switch (options.sendAs) {
         case "file": {
-            if (msg.channel.attachable) return msg.sendMessageFile(Buffer.from(result), "output.txt", `**Type:**${footer}\n\n${time}`);
+            if (msg.channel.attachable) return msg.sendFile(Buffer.from(result), "output.txt", `**Type:**${footer}\n\n${time}`);
             await this.getTypeOutput(msg, options);
             return this.handleMessage(msg, options, { success, result, time, footer });
         }
