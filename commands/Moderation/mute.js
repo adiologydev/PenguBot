@@ -37,7 +37,7 @@ module.exports = class extends Command {
             msg.guild.channels.forEach(async c => {
                 await c.updateOverwrite(role, { SEND_MESSAGES: false, ADD_REACTIONS: false, CONNECT: false }, `Mute Command Executed By ${msg.author.tag}`);
             });
-            const log = this.client.log("ban", msg.guild, `**${member.tag}** (${member.id}) was \`unmuted\` by **${msg.author.tag}** (${msg.author.id})`);
+            const log = this.client.log("ban", msg.guild, `🔈 **${member.tag}** (${member.id}) was \`unmuted\` by **${msg.author.tag}** (${msg.author.id})`);
             const loggingChannel = msg.guild.channels.get(msg.guild.configs.loggingChannel);
             if (log) loggingChannel.sendEmbed(log);
             return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${member.tag} ${msg.language.get("MESSAGE_UNMUTED")}***`);
@@ -46,7 +46,7 @@ module.exports = class extends Command {
             msg.guild.channels.forEach(async c => {
                 await c.updateOverwrite(role, { SEND_MESSAGES: false, ADD_REACTIONS: false, CONNECT: false }, `Mute Command Executed By ${msg.author.tag}`);
             });
-            const log = this.client.log("ban", msg.guild, `**${member.tag}** (${member.id}) was \`muted\` by **${msg.author.tag}** (${msg.author.id})`);
+            const log = this.client.log("ban", msg.guild, `🔇 **${member.tag}** (${member.id}) was \`muted\` by **${msg.author.tag}** (${msg.author.id})`);
             const loggingChannel = msg.guild.channels.get(msg.guild.configs.loggingChannel);
             if (log) loggingChannel.sendEmbed(log);
             return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${member.tag} ${msg.language.get("MESSAGE_MUTED")}***`);

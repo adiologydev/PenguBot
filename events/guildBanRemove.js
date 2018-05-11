@@ -10,7 +10,7 @@ module.exports = class extends Event {
     }
 
     async run(guild, user) {
-        const log = this.client.log("ban", guild, `**${user.tag}** (${user.id}) was \`unbanned\``);
+        const log = this.client.log("ban", guild, `🔨 **${user.tag}** (${user.id}) was \`unbanned\``);
         const loggingChannel = guild.channels.get(guild.configs.loggingChannel);
         if (!log) return;
         return loggingChannel.sendEmbed(log);

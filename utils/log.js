@@ -47,6 +47,12 @@ module.exports = (type, guild, message) => {
             .setDescription(message);
         return embed;
     }
+    if (type === "message") {
+        embed
+            .setColor("#3F729B")
+            .setTimestamp()
+            .setDescription(message);
+    }
     return null;
 };
 

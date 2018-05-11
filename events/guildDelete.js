@@ -23,12 +23,11 @@ module.exports = class extends Event {
             .setColor("#d9534f")
             .setTimestamp()
             .setFooter(`Total Guilds Count: ${gcount}`)
-            .setThumbnail(guild.iconURL())
             .setDescription(`• **Name (ID):** ${guild.name} (${guild.id})
 • **Owner:** ${guild.owner.user.tag} (${guild.owner.user.id})
 • **Members / Bots / Total:** ${guild.members.filter(m => !m.user.bot).size} / ${guild.members.filter(m => m.user.bot).size} / ${guild.memberCount}
 • **Created At:** ${moment(guild.createdAT).format("dddd, MMMM Do YYYY ")}`);
-
+        if (guild.iconURL()) guildlog.setThumbnail(guild.iconURL());
         webhook.send({ embeds: [guildlog] });
     }
 
