@@ -24,7 +24,7 @@ module.exports = class extends Command {
 
     async run(msg, [user = msg.author]) {
         if (user.bot) return msg.reply("Can not fetch bot profiles.");
-        return msg.sendFile(await this.createImage(user));
+        return msg.channel.sendFile(await this.createImage(user));
     }
 
     async createImage(user) {
