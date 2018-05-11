@@ -23,7 +23,7 @@ module.exports = class extends Command {
             .addImage(lio, 0, 0, 512, 512)
             .addImage(avi, 160, 25.5, 250, 250, { type: "round", radius: 120 })
             .toBufferAsync();
-        return msg.sendMessageFile(img);
+        return msg.channel.sendFile(img);
     }
 
 };
