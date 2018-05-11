@@ -37,19 +37,25 @@ module.exports = class extends Command {
             msg.guild.channels.forEach(async c => {
                 await c.updateOverwrite(role, { SEND_MESSAGES: false, ADD_REACTIONS: false, CONNECT: false }, `Mute Command Executed By ${msg.author.tag}`);
             });
-            const log = this.client.functions.log("ban", msg.guild, `**${member.tag}** (${member.id}) was \`banned\` by **${msg.author.tag}** (${msg.author.id})`);
-            const logChannel = msg.guild.channels.get(msg.guild.configs.logChannel);
-            if (log) logChannel.sendEmbed(log);
+            const log = this.client.log("ban", msg.guild, `**${member.tag}** (${member.id}) was \`unmuted\` by **${msg.author.tag}** (${msg.author.id})`);
+            const loggingChannel = msg.guild.channels.get(msg.guild.configs.loggingChannel);
+            if (log) loggingChannel.sendEmbed(log);
             return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${member.tag} ${msg.language.get("MESSAGE_UNMUTED")}***`);
         } else {
             await user.roles.add(role).catch(console.error);
             msg.guild.channels.forEach(async c => {
                 await c.updateOverwrite(role, { SEND_MESSAGES: false, ADD_REACTIONS: false, CONNECT: false }, `Mute Command Executed By ${msg.author.tag}`);
             });
-            const log = this.client.functions.log("ban", msg.guild, `**${member.tag}** (${member.id}) was \`banned\` by **${msg.author.tag}** (${msg.author.id})`);
-            const logChannel = msg.guild.channels.get(msg.guild.configs.logChannel);
-            if (log) logChannel.sendEmbed(log);
+            const log = this.client.log("ban", msg.guild, `**${member.tag}** (${member.id}) was \`muted\` by **${msg.author.tag}** (${msg.author.id})`);
+            const loggingChannel = msg.guild.channels.get(msg.guild.configs.loggingChannel);
+            if (log) loggingChannel.sendEmbed(log);
             return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${member.tag} ${msg.language.get("MESSAGE_MUTED")}***`);
+        }
+    }
+
+    async init() {
+        if (!this.client.gateways.guilds.schema.logs.has("mute")) {
+            this.client.gateways.guilds.schema.logs.add("mute", { type: "boolean", default: false });
         }
     }
 

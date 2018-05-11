@@ -28,11 +28,6 @@ module.exports = class extends Command {
         }
         if (!this.client.gateways.guilds.schema.has("logs")) {
             this.client.gateways.guilds.schema.add("logs", {});
-            this.client.gateways.guilds.schema.logs.add("ban", { type: "boolean", default: false });
-            this.client.gateways.guilds.schema.logs.add("kick", { type: "boolean", default: false });
-            this.client.gateways.guilds.schema.logs.add("join", { type: "boolean", default: false });
-            this.client.gateways.guilds.schema.logs.add("leave", { type: "boolean", default: false });
-            this.client.gateways.guilds.schema.logs.add("mute", { type: "boolean", default: false });
         }
     }
 

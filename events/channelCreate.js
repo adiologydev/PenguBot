@@ -1,0 +1,26 @@
+const { Event } = require("klasa");
+
+module.exports = class extends Event {
+
+    constructor(...args) {
+        super(...args, {
+            enabled: true,
+            once: false
+        });
+    }
+
+    async run(channel) {
+        if (!channel.type === "text") return;
+        const log = this.client.log("channels", channel.guild, `**#${channel.name}** (${channel.id}) channel was \`created\``);
+        const loggingChannel = channel.guild.channels.get(channel.guild.configs.loggingChannel);
+        if (!log) return;
+        return loggingChannel.sendEmbed(log);
+    }
+
+    async init() {
+        if (!this.client.gateways.guilds.schema.logs.has("channels")) {
+            this.client.gateways.guilds.schema.logs.add("channels", { type: "boolean", default: false });
+        }
+    }
+
+};

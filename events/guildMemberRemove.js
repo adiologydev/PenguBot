@@ -11,20 +11,29 @@ module.exports = class extends Event {
 
     async run(member) {
         const guild = member.guild; // eslint-disable-line
-        if (guild.configs.get("leave-messages") === false) return;
-        if (!guild.channels.exists("id", guild.configs.get("leave-channel"))) return;
-        const channel = guild.channels.find("id", guild.configs.get("leave-channel"));
-        if (!channel.permissionsFor(guild.me).has(["SEND_MESSAGES", "EMBED_LINKS", "ATTACH_FILES"])) return;
+        if (!guild.configs.get("leave-messages") === false) {
+            if (guild.channels.exists("id", guild.configs.get("leave-channel"))) {
+                const channel = guild.channels.find("id", guild.configs.get("leave-channel"));
+                if (channel.permissionsFor(guild.me).has(["SEND_MESSAGES", "EMBED_LINKS", "ATTACH_FILES"])) {
+                    if (member.guild.configs.get("leave-text") === null) { member.guild.configs.update("leave-text", "It's sad to see you leave {USERNAME}, hope to see you again."); }
+                    try {
+                        channel.send(this.replace(guild.configs.get("leave-text"), member));
+                    } catch (e) {
+                        console.error(e);
+                    }
+                }
+            }
+        }
 
-        const log = this.client.functions.log("leave", guild, `**${member.user.tag}** (${member.user.id}) has \`left\` the guild.\n**Total Members:** ${guild.members.size}`);
-        const logChannel = member.guild.channels.get(member.guild.configs.logChannel);
-        if (log) logChannel.sendEmbed(log);
+        // Logging
+        const log = this.client.log("leave", guild, `**${member.user.tag}** (${member.user.id}) has \`left\` the guild.\n**Total Members:** ${guild.members.size}`);
+        const loggingChannel = member.guild.channels.get(member.guild.configs.loggingChannel);
+        if (log) loggingChannel.sendEmbed(log);
+    }
 
-        if (member.guild.configs.get("leave-text") === null) { member.guild.configs.update("leave-text", "It's sad to see you leave {USERNAME}, hope to see you again."); }
-        try {
-            channel.send(this.replace(guild.configs.get("leave-text"), member));
-        } catch (e) {
-            console.error(e);
+    async init() {
+        if (!this.client.gateways.guilds.schema.logs.has("leave")) {
+            this.client.gateways.guilds.schema.logs.add("leave", { type: "boolean", default: false });
         }
     }
 
