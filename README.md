@@ -8,6 +8,8 @@ Join Discord for Support and Development https://discord.gg/u8WYw5r
 ## Contributors
 [**Vlad**](https://github.com/KingDGrizzle) - Help with Migration Script for Database
 
+[**Jacz**](https://github.com/MrJacz) - Music Rework Code Review And Assistance Making It
+
 [**QuantumlyTangled**](https://github.com/QuantumlyTangled) - Translate Command and Queue Modifications
 
 [**Ice**](https://github.com/iceeMC/) - SoundCloud Playback Support and YouTube RegEx Modification
