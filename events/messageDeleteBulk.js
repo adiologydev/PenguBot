@@ -3,13 +3,6 @@ const logger = require("../utils/log");
 
 module.exports = class extends Event {
 
-    constructor(...args) {
-        super(...args, {
-            enabled: true,
-            once: false
-        });
-    }
-
     async run(messages) {
         const guild = messages.first().guild; // eslint-disable-line
         if (!guild) return;

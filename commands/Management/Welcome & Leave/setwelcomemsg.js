@@ -6,7 +6,6 @@ module.exports = class extends Command {
         super(...args, {
             runIn: ["text"],
             cooldown: 10,
-            bucket: 1,
             aliases: ["swm", "setwelcomemmessage"],
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],

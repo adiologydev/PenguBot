@@ -12,7 +12,6 @@ module.exports = class extends Command {
             description: (msg) => msg.language.get("COMMAND_PREFIX_DESCRIPTION"),
             quotedStringSupport: false,
             usage: "[prefix:string]",
-            usageDelim: undefined,
             extendedHelp: "No extended help available."
         });
     }

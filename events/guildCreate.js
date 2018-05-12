@@ -8,13 +8,6 @@ const webhook = new WebhookClient("435500732507226112", config.webhooks.guildEve
 
 module.exports = class extends Event {
 
-    constructor(...args) {
-        super(...args, {
-            enabled: true,
-            once: false
-        });
-    }
-
     async run(guild) {
         // Sending Message After Bot Being Added
         if (!guild.available) return;

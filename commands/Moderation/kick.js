@@ -7,7 +7,6 @@ module.exports = class extends Command {
         super(...args, {
             runIn: ["text"],
             cooldown: 10,
-            bucket: 1,
             aliases: ["kickmember"],
             permissionLevel: 5,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "KICK_MEMBERS"],

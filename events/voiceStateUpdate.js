@@ -2,10 +2,6 @@ const { Event } = require("klasa");
 
 module.exports = class extends Event {
 
-    constructor(...args) {
-        super(...args, { once: false });
-    }
-
     async run(oldMem, newMem) {
         setTimeout(async () => {
             const queue = this.client.queue.get(newMem.guild.id);

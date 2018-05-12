@@ -11,7 +11,6 @@ module.exports = class extends Command {
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: (msg) => msg.language.get("COMMAND_LOG_DESCRPTION"),
             usage: "[Option:string]",
-            usageDelim: undefined,
             extendedHelp: "No extended help available."
         });
     }

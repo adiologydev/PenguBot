@@ -3,13 +3,6 @@ const logger = require("../utils/log");
 
 module.exports = class extends Event {
 
-    constructor(...args) {
-        super(...args, {
-            enabled: true,
-            once: false
-        });
-    }
-
     async run(oldChannel, newChannel) {
         if (!oldChannel.type === "text") return;
         if (oldChannel.id !== newChannel.id) return;

@@ -8,13 +8,6 @@ const webhook = new WebhookClient("435500732507226112", config.webhooks.guildEve
 
 module.exports = class extends Event {
 
-    constructor(...args) {
-        super(...args, {
-            enabled: true,
-            once: false
-        });
-    }
-
     async run(guild) {
         // Logging New Guilds
         const gcount = (await this.client.shard.fetchClientValues("guilds.size")).reduce((prev, val) => prev + val, 0);

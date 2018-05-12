@@ -6,14 +6,12 @@ module.exports = class extends Command {
         super(...args, {
             runIn: ["text"],
             cooldown: 10,
-            bucket: 1,
             aliases: ["makepengudj", "createdj", "createdjrole"],
             permissionLevel: 4,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             requiredConfigs: ["staff-mods"],
             description: (msg) => msg.language.get("COMMAND_MAKE_DJ_DESCRPTION"),
             usage: "<member:user>",
-            usageDelim: undefined,
             extendedHelp: "No extended help available."
         });
     }
