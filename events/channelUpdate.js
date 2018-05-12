@@ -9,9 +9,9 @@ module.exports = class extends Event {
         });
     }
 
-    async run(oldChannel, newChannel) {
+    async run(oldChannel) {
         if (!oldChannel.type === "text") return;
-        const log = this.client.log("channels", oldChannel.guild, `🛠 **#${oldChannel.name}** (${oldChannel.id}) channel was \`updated\` to **#${newChannel.name}**`);
+        const log = this.client.log("channels", oldChannel.guild, `🛠 **#${oldChannel.name}** (${oldChannel.id}) channel was \`updated\``);
         const loggingChannel = oldChannel.guild.channels.get(oldChannel.guild.configs.loggingChannel);
         if (!log) return;
         return loggingChannel.sendEmbed(log);

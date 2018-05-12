@@ -21,7 +21,7 @@ module.exports = (type, guild, message) => {
     }
     if (type === "mute") {
         embed
-            .setColor("#b71c1c")
+            .setColor("#ff5252")
             .setTimestamp()
             .setDescription(message);
         return embed;
@@ -47,11 +47,19 @@ module.exports = (type, guild, message) => {
             .setDescription(message);
         return embed;
     }
-    if (type === "message") {
+    if (type === "messages") {
         embed
             .setColor("#3F729B")
             .setTimestamp()
             .setDescription(message);
+        return embed;
+    }
+    if (type === "roles") {
+        embed
+            .setColor("#3949ab")
+            .setTimestamp()
+            .setDescription(message);
+        return embed;
     }
     return null;
 };

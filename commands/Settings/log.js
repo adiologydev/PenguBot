@@ -17,7 +17,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [Option]) {
-        if (!Option) return msg.reply("Invalid Option, please choose from `ban`, `kick`, `join`, `leave`, `channels`, `mute`, `message`.");
+        if (!Option) return msg.reply("Invalid Option, please choose from `ban`, `kick`, `join`, `leave`, `channels`, `mute`, `messages`.");
         const opt = Option.toLowerCase();
         switch (opt) {
         case "ban": this.update("ban", msg);
@@ -32,9 +32,11 @@ module.exports = class extends Command {
             break;
         case "mute": this.update("mute", msg);
             break;
-        case "message": this.update("message", msg);
+        case "messages": this.update("messages", msg);
             break;
-        default: msg.reply("Invalid Option, please choose from `ban`, `kick`, `join`, `leave`, `channels`, `mute`, `message`.");
+        case "roles": this.update("roles", msg);
+            break;
+        default: msg.reply("Invalid Option, please choose from `ban`, `kick`, `join`, `leave`, `channels`, `mute`, `messages`.");
         }
     }
 
