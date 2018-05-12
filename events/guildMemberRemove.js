@@ -11,7 +11,7 @@ module.exports = class extends Event {
                 if (channel.permissionsFor(guild.me).has(["SEND_MESSAGES", "EMBED_LINKS", "ATTACH_FILES"])) {
                     if (member.guild.configs.get("leave-text") === null) { member.guild.configs.update("leave-text", "It's sad to see you leave {USERNAME}, hope to see you again."); }
                     try {
-                        channel.send(this.replace(guild.configs.get("leave-text"), member));
+                        await channel.send(this.replace(guild.configs.get("leave-text"), member));
                     } catch (e) {
                         console.error(e);
                     }

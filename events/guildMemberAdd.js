@@ -12,7 +12,7 @@ module.exports = class extends Event {
                 if (channel.permissionsFor(guild.me).has(["SEND_MESSAGES", "EMBED_LINKS", "ATTACH_FILES"])) {
                     if (member.guild.configs.get("welcome-text") === null) { member.guild.configs.update("welcome-text", "Welcome {MENTION} to {GUILD_NAME}, we hope you enjoy your stay!"); }
                     try {
-                        channel.send(this.replace(guild.configs.get("welcome-text"), member));
+                        await channel.send(this.replace(guild.configs.get("welcome-text"), member));
                     } catch (e) {
                         console.error(e);
                     }
