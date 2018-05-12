@@ -1,4 +1,5 @@
 const { Event } = require("klasa");
+const logger = require("../utils/log");
 
 module.exports = class extends Event {
 
@@ -12,7 +13,7 @@ module.exports = class extends Event {
     async run(message) {
         if (!message.guild) return;
         if (message.member.user.id === this.client.user.id) return;
-        const log = this.client.log("messages", message.guild, `❌ **Message by ${message.member}** was \`deleted\` in <#${message.channel.id}>`);
+        const log = logger("messages", message.guild, `❌ **Message by ${message.member}** was \`deleted\` in <#${message.channel.id}>`);
         const loggingChannel = message.guild.channels.get(message.guild.configs.loggingChannel);
         if (log) loggingChannel.sendEmbed(log);
     }

@@ -1,4 +1,5 @@
 const { Event } = require("klasa");
+const logger = require("../utils/log");
 
 module.exports = class extends Event {
 
@@ -26,7 +27,7 @@ module.exports = class extends Event {
         }
 
         // Logging
-        const log = this.client.log("leave", guild, `📤 **${member.user.tag}** (${member.user.id}) has \`left\` the guild.\n**Total Members:** ${guild.members.size}`);
+        const log = logger("leave", guild, `📤 **${member.user.tag}** (${member.user.id}) has \`left\` the guild.\n**Total Members:** ${guild.members.size}`);
         const loggingChannel = member.guild.channels.get(member.guild.configs.loggingChannel);
         if (log) loggingChannel.sendEmbed(log);
     }

@@ -1,4 +1,5 @@
 const { Event } = require("klasa");
+const logger = require("../utils/log");
 
 module.exports = class extends Event {
 
@@ -9,9 +10,10 @@ module.exports = class extends Event {
         });
     }
 
-    async run(oldChannel) {
+    async run(oldChannel, newChannel) {
         if (!oldChannel.type === "text") return;
-        const log = this.client.log("channels", oldChannel.guild, `🛠 **#${oldChannel.name}** (${oldChannel.id}) channel was \`updated\``);
+        if (oldChannel.id !== newChannel.id) return;
+        const log = logger("channels", oldChannel.guild, `🛠 **#${oldChannel.name}** (${oldChannel.id}) channel was \`updated\``);
         const loggingChannel = oldChannel.guild.channels.get(oldChannel.guild.configs.loggingChannel);
         if (!log) return;
         return loggingChannel.sendEmbed(log);

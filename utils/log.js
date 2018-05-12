@@ -4,64 +4,17 @@ module.exports = (type, guild, message) => {
     if (!canPost(guild)) return null;
     if (!isEnabled(guild, type)) return null;
 
-    const embed = new MessageEmbed();
-    if (type === "ban") {
-        embed
-            .setColor("#b71c1c")
-            .setTimestamp()
-            .setDescription(message);
-        return embed;
+    switch (type) {
+    case "ban": return generateEmbed(message, "#b71c1c");
+    case "kick": return generateEmbed(message, "#b71c1c");
+    case "mute": return generateEmbed(message, "#ff5252");
+    case "join": return generateEmbed(message, "#2BBBAD");
+    case "leave": return generateEmbed(message, "#2196f3");
+    case "channels": return generateEmbed(message, "#33b5e5");
+    case "messages": return generateEmbed(message, "#3F729B");
+    case "roles": return generateEmbed(message, "#3949ab");
+    default: return null;
     }
-    if (type === "kick") {
-        embed
-            .setColor("#b71c1c")
-            .setTimestamp()
-            .setDescription(message);
-        return embed;
-    }
-    if (type === "mute") {
-        embed
-            .setColor("#ff5252")
-            .setTimestamp()
-            .setDescription(message);
-        return embed;
-    }
-    if (type === "join") {
-        embed
-            .setColor("#2BBBAD")
-            .setTimestamp()
-            .setDescription(message);
-        return embed;
-    }
-    if (type === "leave") {
-        embed
-            .setColor("#2196f3")
-            .setTimestamp()
-            .setDescription(message);
-        return embed;
-    }
-    if (type === "channels") {
-        embed
-            .setColor("#33b5e5")
-            .setTimestamp()
-            .setDescription(message);
-        return embed;
-    }
-    if (type === "messages") {
-        embed
-            .setColor("#3F729B")
-            .setTimestamp()
-            .setDescription(message);
-        return embed;
-    }
-    if (type === "roles") {
-        embed
-            .setColor("#3949ab")
-            .setTimestamp()
-            .setDescription(message);
-        return embed;
-    }
-    return null;
 };
 
 // Method which checks for basic permissions and requirements
@@ -72,4 +25,11 @@ const canPost = (guild) => {
     return true;
 };
 
+// Check if the log type is enabled in the guild
 const isEnabled = (guild, key) => guild.configs.get(`logs.${key}`);
+
+// Create an embed with required fields
+const generateEmbed = (message, color) => new MessageEmbed()
+    .setColor(color)
+    .setTimestamp()
+    .setDescription(message);
