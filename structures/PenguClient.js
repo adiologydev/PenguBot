@@ -1,4 +1,5 @@
 const { Client, PermissionLevels } = require("klasa");
+const MusicManager = require("../lib/music/MusicManager");
 
 class PenguClient extends Client {
 
@@ -6,9 +7,10 @@ class PenguClient extends Client {
         super(options);
         this.config = require("../config.json");
         this.functions = require("../utils/functions.js");
-        this.lavalink = null;
-        this.queue = new Map();
         this.log = require("../utils/log.js");
+
+        this.lavalink = require("../lib/music/LavalinkClient");
+        this.music = new MusicManager(this);
     }
 
 }
