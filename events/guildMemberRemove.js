@@ -5,7 +5,7 @@ module.exports = class extends Event {
 
     async run(member) {
         const guild = member.guild; // eslint-disable-line
-        if (!guild.configs.get("leave-messages") === false) {
+        if (guild.configs.get("leave-messages")) {
             if (guild.channels.exists("id", guild.configs.get("leave-channel"))) {
                 const channel = guild.channels.find("id", guild.configs.get("leave-channel"));
                 if (channel.permissionsFor(guild.me).has(["SEND_MESSAGES", "EMBED_LINKS", "ATTACH_FILES"])) {
