@@ -1,4 +1,5 @@
 const client = require("./structures/PenguClient");
+require("./lib/extensions/PenguGuild.js");
 
 client.login(client.config.main.token);
 

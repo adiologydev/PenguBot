@@ -8,7 +8,6 @@ class PenguClient extends Client {
         this.config = require("../config.json");
         this.functions = require("../utils/functions.js");
         this.log = require("../utils/log.js");
-
         this.lavalink = require("../lib/music/LavalinkClient");
         this.music = new MusicManager(this);
     }
