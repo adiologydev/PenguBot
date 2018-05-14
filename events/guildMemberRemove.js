@@ -1,26 +1,33 @@
 const { Event } = require("klasa");
+const logger = require("../utils/log");
 
 module.exports = class extends Event {
 
-    constructor(...args) {
-        super(...args, {
-            enabled: true,
-            once: false
-        });
-    }
-
     async run(member) {
         const guild = member.guild; // eslint-disable-line
-        if (guild.configs.get("leave-messages") === false) return;
-        if (!guild.channels.exists("id", guild.configs.get("leave-channel"))) return;
-        const channel = guild.channels.find("id", guild.configs.get("leave-channel"));
-        if (!channel.permissionsFor(guild.me).has(["SEND_MESSAGES", "EMBED_LINKS", "ATTACH_FILES"])) return;
+        if (guild.configs.get("leave-messages")) {
+            if (guild.channels.exists("id", guild.configs.get("leave-channel"))) {
+                const channel = guild.channels.find("id", guild.configs.get("leave-channel"));
+                if (channel.permissionsFor(guild.me).has(["SEND_MESSAGES", "EMBED_LINKS", "ATTACH_FILES"])) {
+                    if (member.guild.configs.get("leave-text") === null) { member.guild.configs.update("leave-text", "It's sad to see you leave {USERNAME}, hope to see you again."); }
+                    try {
+                        await channel.send(this.replace(guild.configs.get("leave-text"), member));
+                    } catch (e) {
+                        console.error(e);
+                    }
+                }
+            }
+        }
 
-        if (member.guild.configs.get("leave-text") === null) { member.guild.configs.update("leave-text", "It's sad to see you leave {USERNAME}, hope to see you again."); }
-        try {
-            channel.send(this.replace(guild.configs.get("leave-text"), member));
-        } catch (e) {
-            console.error(e);
+        // Logging
+        const log = logger("leave", guild, `📤 **${member.user.tag}** (${member.user.id}) has \`left\` the guild.\n**Total Members:** ${guild.members.size}`);
+        const loggingChannel = member.guild.channels.get(member.guild.configs.loggingChannel);
+        if (log) loggingChannel.sendEmbed(log);
+    }
+
+    async init() {
+        if (!this.client.gateways.guilds.schema.logs.has("leave")) {
+            this.client.gateways.guilds.schema.logs.add("leave", { type: "boolean", default: false });
         }
     }
 

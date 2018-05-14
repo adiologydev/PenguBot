@@ -6,7 +6,6 @@ module.exports = class extends Command {
         super(...args, {
             runIn: ["text"],
             cooldown: 10,
-            bucket: 1,
             aliases: ["banmember"],
             permissionLevel: 5,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "BAN_MEMBERS"],
@@ -27,6 +26,7 @@ module.exports = class extends Command {
 
         reason = reason.length > 0 ? `${reason.join(" ")}\nBanned By: ${msg.author.tag}` : `No reason specified.\nBanned By: ${msg.author.tag}`;
         await user.ban({ reason: reason });
+
         return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${member.tag} ${msg.language.get("MESSAGE_BANNED")}***`);
     }
 

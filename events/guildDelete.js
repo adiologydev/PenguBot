@@ -8,13 +8,6 @@ const webhook = new WebhookClient("435500732507226112", config.webhooks.guildEve
 
 module.exports = class extends Event {
 
-    constructor(...args) {
-        super(...args, {
-            enabled: true,
-            once: false
-        });
-    }
-
     async run(guild) {
         // Logging New Guilds
         const gcount = (await this.client.shard.fetchClientValues("guilds.size")).reduce((prev, val) => prev + val, 0);
@@ -23,12 +16,11 @@ module.exports = class extends Event {
             .setColor("#d9534f")
             .setTimestamp()
             .setFooter(`Total Guilds Count: ${gcount}`)
-            .setThumbnail(guild.iconURL())
             .setDescription(`• **Name (ID):** ${guild.name} (${guild.id})
 • **Owner:** ${guild.owner.user.tag} (${guild.owner.user.id})
 • **Members / Bots / Total:** ${guild.members.filter(m => !m.user.bot).size} / ${guild.members.filter(m => m.user.bot).size} / ${guild.memberCount}
 • **Created At:** ${moment(guild.createdAT).format("dddd, MMMM Do YYYY ")}`);
-
+        if (guild.iconURL()) guildlog.setThumbnail(guild.iconURL());
         webhook.send({ embeds: [guildlog] });
     }
 

@@ -126,6 +126,7 @@ module.exports = class extends Language {
 
             // Logging
             MESSAGE_LOGCHAN_SET: "Logging channel has now been set!",
+            COMMAND_LOG_DESCRPTION: "Enable/Disable Logging events if you're Pengu Admin or above.",
 
             // Autoroles Messages
             MESSAGE_AUTOROLES_ENABLED: "Auto Roles have been enabled in this guild!",

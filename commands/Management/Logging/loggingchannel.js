@@ -6,7 +6,6 @@ module.exports = class extends Command {
         super(...args, {
             runIn: ["text"],
             cooldown: 10,
-            bucket: 1,
             aliases: ["slogc", "setlogginchannel"],
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
@@ -28,7 +27,6 @@ module.exports = class extends Command {
         }
         if (!this.client.gateways.guilds.schema.has("logs")) {
             this.client.gateways.guilds.schema.add("logs", {});
-            this.client.gateways.guilds.schema.logs.add("moderations", { type: "boolean", default: false });
         }
     }
 
