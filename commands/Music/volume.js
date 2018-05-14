@@ -13,6 +13,7 @@ module.exports = class extends Command {
             extendedHelp: "No extended help available.",
             usage: "[volume:integer]"
         });
+        this.Music = true;
     }
 
     async run(msg, [volume]) {
