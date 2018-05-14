@@ -15,20 +15,13 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        const queue = this.client.queue.get(msg.guild.id);
-        const player = this.client.lavalink.get(msg.guild.id);
+        const { music } = msg.guild;
         if (!msg.member.voiceChannel) return msg.sendMessage("<:penguError:435712890884849664> You're currently not in a voice channel.");
-        if (!queue || !player) return msg.sendMessage("<:penguError:435712890884849664> ***There's currently no music playing!***");
+        if (!music.playing) return msg.sendMessage("<:penguError:435712890884849664> ***There's currently no music playing!***");
 
-        if (await msg.hasAtLeastPermissionLevel(3) || queue.vc.members.size <= 3) {
-            try {
-                this.client.queue.delete(msg.guild.id);
-                await msg.sendMessage("<:penguSuccess:435712876506775553> ***Queue cleared, leaving voice channel.***");
-                return this.client.lavalink.leave(msg.guild.id);
-            } catch (e) {
-                await msg.sendMessage("<:penguSuccess:435712876506775553> ***Leaving voice channel.***");
-                return this.client.lavalink.leave(msg.guild.id);
-            }
+        if (await msg.hasAtLeastPermissionLevel(3) || music.voiceChannel.members.size <= 3) {
+            await music.destroy();
+            return msg.sendMessage("<:penguSuccess:435712876506775553> ***Queue cleared, leaving voice channel.***");
         } else {
             return msg.sendMessage("<:penguError:435712890884849664> ***There are members in the VC right now, use skip instead!***");
         }
