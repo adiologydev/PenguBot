@@ -1,6 +1,5 @@
 const { Command } = require("klasa");
-const Lyricist = require("../../utils/lyrics.js");
-const lyrics = new Lyricist();
+const lyrics = require("../../lib/Util/Util");
 const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
@@ -19,7 +18,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [song]) {
-        const req = await lyrics.request(`search?q=${song}`);
+        const req = await lyrics.lyricsRequest(`search?q=${song}`);
         const lyricdata = req.response.hits[0];
         if (!lyricdata) return msg.reply("The provided song could not be found. Please try again with a different one or contact us at <https://discord.gg/6KpTfqR>.");
 
