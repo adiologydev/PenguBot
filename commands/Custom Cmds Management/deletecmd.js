@@ -12,7 +12,6 @@ module.exports = class extends Command {
             requiredConfigs: ["customcmds"],
             description: (msg) => msg.language.get("COMMAND_DEL_CMD_DESCRIPTION"),
             usage: "<name:string>",
-            usageDelim: undefined,
             extendedHelp: "No extended help available."
         });
     }

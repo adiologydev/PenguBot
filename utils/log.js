@@ -1,41 +1,35 @@
-const { RichEmbed } = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 
-const ban = (client, banner, banee, reason) => {
-    if (!canPost(client, banner.guild, "moderations")) return;
-    const channel = banner.guild.configs.logChannel;
-    const embed = new RichEmbed()
-        .setColor("#1C2331")
-        .setDescription(`⏫ | **${banee.tag}** (${banee.id}) was **Banned** for \`${reason}\`\n\nBanned By: ${banner}`);
-    return channel.sendEmbed(embed);
-};
+module.exports = (type, guild, message) => {
+    if (!canPost(guild)) return null;
+    if (!isEnabled(guild, type)) return null;
 
-const softban = (client, banner, banee, reason) => {
-    if (!canPost(client, banner.guild, "moderations")) return;
-    const channel = banner.guild.configs.logChannel;
-    const embed = new RichEmbed()
-        .setColor("#1C2331")
-        .setDescription(`⏫ | **${banee.tag}** (${banee.id}) was **Soft Banned** for \`${reason}\`\n\nBanned By: ${banner}`);
-    return channel.sendEmbed(embed);
-};
-
-const kick = (client, kicker, kickee, reason) => {
-    if (!canPost(client, kicker.guild, "moderations")) return;
-    const channel = kicker.guild.configs.logChannel;
-    const embed = new RichEmbed()
-        .setColor("#3F729B")
-        .setDescription(`⏫ | **${kickee.tag}** (${kickee.id}) was **Kicked** for \`${reason}\`\n\nBanned By: ${kicker}`);
-    return channel.sendEmbed(embed);
+    switch (type) {
+    case "ban": return generateEmbed(message, "#b71c1c");
+    case "kick": return generateEmbed(message, "#b71c1c");
+    case "mute": return generateEmbed(message, "#ff5252");
+    case "join": return generateEmbed(message, "#2BBBAD");
+    case "leave": return generateEmbed(message, "#2196f3");
+    case "channels": return generateEmbed(message, "#33b5e5");
+    case "messages": return generateEmbed(message, "#3F729B");
+    case "roles": return generateEmbed(message, "#3949ab");
+    default: return null;
+    }
 };
 
 // Method which checks for basic permissions and requirements
-const canPost = (client, guild, key) => {
-    if (!guild.configs.get(`logs.${key}`)) return false;
-    const channel = guild.configs.logChannel;
+const canPost = (guild) => {
+    const channel = guild.configs.loggingChannel;
     if (!channel) return false;
-    if (!guild.channels.get(channel).postable) return false;
+    if (!guild.channels.get(channel).permissionsFor(guild.me).has(["SEND_MESSAGES", "EMBED_LINKS", "ATTACH_FILES"])) return false;
     return true;
 };
 
-module.exports.ban = ban;
-module.exports.softban = softban;
-module.exports.kick = kick;
+// Check if the log type is enabled in the guild
+const isEnabled = (guild, key) => guild.configs.get(`logs.${key}`);
+
+// Create an embed with required fields
+const generateEmbed = (message, color) => new MessageEmbed()
+    .setColor(color)
+    .setTimestamp()
+    .setDescription(message);
