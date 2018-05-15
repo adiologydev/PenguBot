@@ -6,7 +6,7 @@ module.exports = class extends Command {
         super(...args, {
             runIn: ["text"],
             cooldown: 10,
-            aliases: ["slogc", "setlogginchannel"],
+            aliases: ["setloggingchannel", "setlogchannel"],
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             usage: "[Channel:channel]",
