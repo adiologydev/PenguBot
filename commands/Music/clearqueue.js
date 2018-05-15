@@ -6,10 +6,10 @@ module.exports = class extends Command {
         super(...args, {
             runIn: ["text"],
             cooldown: 10,
-            aliases: ["forceleave", "leave", "stopmusic", "musicstop"],
+            aliases: ["cq", "prunequeue"],
             permissionLevel: 0,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            description: (msg) => msg.language.get("COMMAND_LEAVE_DESCRIPTION"),
+            description: (msg) => msg.language.get("COMMAND_CLEARQUEUE_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
         this.Music = true;
@@ -21,8 +21,8 @@ module.exports = class extends Command {
         if (!music.playing) return msg.sendMessage("<:penguError:435712890884849664> ***There's currently no music playing!***");
 
         if (await msg.hasAtLeastPermissionLevel(3) || music.voiceChannel.members.size <= 3) {
-            await music.destroy();
-            return msg.sendMessage("<:penguSuccess:435712876506775553> ***Queue cleared, leaving voice channel.***");
+            music.prune();
+            return msg.sendMessage("<:penguSuccess:435712876506775553> ***Queue cleared.***");
         } else {
             return msg.sendMessage("<:penguError:435712890884849664> ***There are members in the VC right now, use skip instead!***");
         }
