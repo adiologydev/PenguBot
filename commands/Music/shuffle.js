@@ -12,14 +12,15 @@ module.exports = class extends Command {
             description: (msg) => msg.language.get("COMMAND_SHUFFLE_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
+        this.Music = true;
     }
 
     async run(msg) {
-        const queue = this.client.queue.get(msg.guild.id);
-        if (!msg.member.voiceChannel) return msg.sendMessage("<:penguError:435712890884849664> You're currently not in a voice channel.");
-        if (!queue) return msg.sendMessage("<:penguError:435712890884849664> There's currently no music playing!");
-        if (queue.songs.length <= 2) return msg.sendMessage("<:penguError:435712890884849664> Your queue has less than two songs, add more to shuffle!");
-        await this.shuffleArray(queue.songs);
+        const { music } = msg.guild;
+        const { queue } = music;
+        if (!music.playing) return msg.sendMessage("<:penguError:435712890884849664> There's currently no music playing!");
+        if (queue.length <= 2) return msg.sendMessage("<:penguError:435712890884849664> Your queue has less than two songs, add more to shuffle!");
+        await this.shuffleArray(queue);
         return msg.sendMessage("<:penguSuccess:435712876506775553> ***Queue has now been shuffled!***");
     }
 
