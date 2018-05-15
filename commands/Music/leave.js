@@ -6,7 +6,7 @@ module.exports = class extends Command {
         super(...args, {
             runIn: ["text"],
             cooldown: 10,
-            aliases: ["forceleave", "leave", "stopmusic", "musicstop"],
+            aliases: ["forceleave", "leave", "stopmusic", "musicstop", "stop"],
             permissionLevel: 0,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: (msg) => msg.language.get("COMMAND_LEAVE_DESCRIPTION"),
