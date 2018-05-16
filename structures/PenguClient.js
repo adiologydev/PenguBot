@@ -42,7 +42,7 @@ const client = new PenguClient({
     disableEveryone: true,
     typing: true,
     permissionLevels: pLevels,
-    provider: { default: "rethinkdb" },
+    providers: { default: "rethinkdb" },
     disabledEvents: ["GUILD_SYNC",
         "CHANNEL_PINS_UPDATE",
         "USER_NOTE_UPDATE",
