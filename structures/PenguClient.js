@@ -1,13 +1,14 @@
 const { Client, PermissionLevels } = require("klasa");
+const { Client: IdioticAPI } = require("idiotic-api");
 
 class PenguClient extends Client {
 
-    constructor(options) { //eslint-disable-line
+    constructor(options) {
         super(options);
         this.config = require("../config.json");
         this.functions = require("../utils/functions.js");
         this.lavalink = null;
-        this.idiotic = null;
+        this.idiotic = new IdioticAPI(this.config.keys.idiotic, { dev: true });;
         this.queue = new Map();
     }
 
@@ -35,10 +36,6 @@ const pLevels = new PermissionLevels()
     .add(10, (c, m) => m.author === c.owner);
 
 const client = new PenguClient({
-    clientOptions: {
-        fetchAllMembers: false,
-        ownerID: "136549806079344640"
-    },
     presence: { activity: { name: "PenguBot.cc | v2.0 | p!help", type: "WATCHING" } },
     prefix: "p!",
     cmdEditing: true,
