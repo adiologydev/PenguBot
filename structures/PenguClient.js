@@ -43,11 +43,6 @@ const client = new PenguClient({
     typing: true,
     permissionLevels: pLevels,
     provider: { default: "rethinkdb" },
-    gateways: {
-        guilds: { provider: "rethinkdb" },
-        users: { provider: "rethinkdb" },
-        clientStorage: { provider: "rethinkdb" }
-    },
     disabledEvents: ["GUILD_SYNC",
         "CHANNEL_PINS_UPDATE",
         "USER_NOTE_UPDATE",
