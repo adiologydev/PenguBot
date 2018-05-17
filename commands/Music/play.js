@@ -134,11 +134,11 @@ module.exports = class extends Command {
             .setFooter("© PenguBot.cc")
             .setColor("#5cb85c")
             .setDescription([
-                `• **Song:** ${song.trackTitle}`,
+                `• **Song:** ${song.title}`,
                 `• **Author:** ${song.author}`,
-                `• **Length:** ${song.stream === true ? "Live Stream" : song.trackFriendlyDuration}`,
-                `• **Requested By:** ${song.requester.tag}`,
-                `• **Link:** ${song.trackURL}`
+                `• **Length:** ${song.stream === true ? "Live Stream" : song.friendlyDuration}`,
+                `• **Requested By:** ${song.requester.GuildMember.tag}`,
+                `• **Link:** ${song.url}`
             ]);
     }
 
@@ -154,11 +154,11 @@ module.exports = class extends Command {
             .setFooter("© PenguBot.cc")
             .setColor("#eedc2f")
             .setDescription([
-                `• **Song:** ${song.trackTitle}`,
+                `• **Song:** ${song.title}`,
                 `• **Author:** ${song.author}`,
-                `• **Length:** ${song.stream === true ? "Live Stream" : song.trackFriendlyDuration}`,
-                `• **Requested By:** ${song.requester.tag}`,
-                `• **Link:** ${song.trackURL}`
+                `• **Length:** ${song.stream === true ? "Live Stream" : song.friendlyDuration}`,
+                `• **Requested By:** ${song.requester.GuildMember.tag}`,
+                `• **Link:** ${song.url}`
             ]);
     }
 
