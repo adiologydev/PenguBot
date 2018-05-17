@@ -76,16 +76,22 @@ module.exports = class extends Command {
                         return musicInterface.textChannel.send({ embed: await this.playEmbed(song) });
                     }
                     if (end.reason === "FINISHED") {
-                        if (!musicInterface.queue.loop) await musicInterface.queue.shift();
-                        setTimeout(async () => {
-                            if (musicInterface.queue.length === 0) {
-                                await musicInterface.textChannel.send({ embed: await this.stopEmbed() });
-                                return await musicInterface.destroy();
-                            } else {
-                                await this.play(musicInterface.queue.songs[0]);
-                                return musicInterface.textChannel.send({ embed: await this.playEmbed(song) });
-                            }
-                        }, 500);
+                        if (!musicInterface.loop) {
+                            setTimeout(async () => {
+                                if (musicInterface.queue.length === 0) {
+                                    await musicInterface.textChannel.send({ embed: await this.stopEmbed() });
+                                    return await musicInterface.destroy();
+                                } else {
+                                    await musicInterface.queue.shift();
+                                    await this.play(musicInterface);
+                                    return musicInterface.textChannel.send({ embed: await this.playEmbed(song) });
+                                }
+                            }, 500);
+                        } else {
+                            await musicInterface.queue.shift();
+                            await this.play(musicInterface);
+                            return musicInterface.textChannel.send({ embed: await this.playEmbed(song) });
+                        }
                     }
                 });
                 return musicInterface.textChannel.send({ embed: await this.playEmbed(song) });
