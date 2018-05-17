@@ -23,12 +23,12 @@ module.exports = class extends Command {
         const { music } = msg.guild;
         music.textChannel = msg.channel;
 
-        return this.handle(msg, song);
+        const songs = await this.client.lavalink.resolveTracks(song);
+        return this.handle(msg, songs);
     }
 
     async handle(msg, songs) {
         const musicInterface = msg.guild.music;
-
         if (!musicInterface.playing) await this.handleSongs(msg, songs, true);
         if (musicInterface.playing) return this.handleSongs(msg, songs, false);
 
@@ -44,10 +44,10 @@ module.exports = class extends Command {
     async handleSongs(msg, songs, first = false) {
         const { music } = msg.guild;
         if (songs.isPlaylist) {
-            for (const song of songs) music.add(song, msg.member);
+            for (const song of songs) music().add(song, msg.member);
             if (first === false) return msg.send(`Added **${songs.length}** songs to the queue based of your playlist.`);
         }
-        const addedSong = music.add(songs[0], msg.member);
+        const addedSong = music().add(songs[0], msg.member);
         if (first === false) return msg.send({ embed: await this.queueEmbed(addedSong) });
         return null;
     }
