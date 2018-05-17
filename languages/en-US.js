@@ -208,6 +208,17 @@ module.exports = class extends Language {
             COMMAND_TICKLE_DESCRIPTION: "Who's being tough on surface? Tickle them and make them laugh!",
             COMMAND_POKE_DESCRIPTION: "Ping someone by poking them!",
             COMMAND_FEED_DESCRIPTION: "Anyone hungry? Feed them some food.",
+            COMMAND_BATSLAP_DESCRIPTION: "Be a Bat Man and slap someone!",
+            COMMAND_BEAUTIFUL_DESCRIPTION: "Admire your or someone else's avatar.",
+            COMMAND_FACEPALM_DESCRIPTION: "*sigh* facepalm where you have to.",
+            COMMAND_RIP_DESCRIPTION: "Pay someone their final respect.",
+            COMMAND_SUPERPUNCH_DESCRIPTION: "Become a superman and give someone an even stronger punch!",
+            COMMAND_TATTOO_DESCRIPTION: "Ever wanted your avatar being tatted on someone else? Here you have it.",
+            COMMAND_TRIGGERED_DESCRIPTION: "Because getting trigerred is a lot easier now...",
+            COMMAND_WANTED_DESCRIPTION: "Print some Wanted posters of who is wanted by the sherrif department.",
+            COMMAND_VAULT_DESCRIPTION: "Be the ICONIC Vault boy or make someone else be one.",
+            COMMAND_PLS_DESCRIPTION: "Pls someone because they're not listening.",
+            COMMAND_BLAME_DESCRIPTION: "Blame someone because it's clearly their fault!",
 
             // NSFW Commands
             COMMAND_ANAL_DESCRIPTION: "-NOT SAFE FOR WORK- Anal images.",

@@ -33,6 +33,7 @@
     "erlpack": "github:discordapp/erlpack",
     "fast-html-parser": "^1.0.1",
     "google-translate-api": "^2.3.0",
+    "idiotic-api": "^0.2.7",
     "klasa": "github:dirigeants/klasa",
     "moment": "^2.22.1",
     "moment-duration-format": "^2.2.2",

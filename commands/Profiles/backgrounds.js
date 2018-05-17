@@ -25,7 +25,25 @@ module.exports = class extends Command {
 
     async view(msg, [key]) {
         // If All Backgrounds
-        if (key.toLowerCase() === "all") {
+        if (!key) {
+            const userbg = msg.author.configs.backgrounds;
+            const bgs = new RichDisplay(new MessageEmbed()
+                .setTitle("Use 'p!bgs view all' to view names, id's and prices of all available backgrounds")
+                .setAuthor("Profile Backgrounds You Own - PenguBot", "https://i.imgur.com/oq9kgaR.png")
+                .setDescription("Scroll between pages to see the profile backgrounds list you own. 'p!bgs view all' to view all available backgrounds you can buy and purchase.")
+                .setColor("#F75F4E")
+            );
+
+            for (let i = 0, temp = userbg.length; i < temp; i += 5) {
+                const curr = userbg.slice(i, i + 5);
+                bgs.addPage(t => t.setDescription(curr.map(c => `• ${c}`)));
+            }
+
+            bgs.run(await msg.sendMessage("<a:penguLoad:435712860744581120> Loading List..."), {
+                time: 120000,
+                filter: (reaction, user) => user === msg.author
+            });
+        } else if (key.toLowerCase() === "all") {
             const bgs = new RichDisplay(new MessageEmbed()
                 .setTitle("Use Command: `p!bgs buy ID` to buy a background and `p!bgs change ID` to change it")
                 .setAuthor("All Profile Backgrounds - PenguBot", "https://i.imgur.com/oq9kgaR.png")
@@ -44,23 +62,7 @@ module.exports = class extends Command {
                 filter: (reaction, user) => user === msg.author
             });
         } else {
-            const userbg = msg.author.configs.backgrounds;
-            const bgs = new RichDisplay(new MessageEmbed()
-                .setTitle("Use 'p!bgs view all' to view names, id's and prices of all available backgrounds")
-                .setAuthor("Profile Backgrounds You Own - PenguBot", "https://i.imgur.com/oq9kgaR.png")
-                .setDescription("Scroll between pages to see the profile backgrounds list you own. 'p!bgs view all' to view all available backgrounds you can buy and purchase.")
-                .setColor("#F75F4E")
-            );
-
-            for (let i = 0, temp = userbg.length; i < temp; i += 5) {
-                const curr = userbg.slice(i, i + 5);
-                bgs.addPage(t => t.setDescription(curr.map(c => `• ${c}`)));
-            }
-
-            bgs.run(await msg.sendMessage("<a:penguLoad:435712860744581120> Loading List..."), {
-                time: 120000,
-                filter: (reaction, user) => user === msg.author
-            });
+            return msg.reply("Invalid option, please type `p!bg view all` to view all the backgrounds available.");
         }
     }
 
