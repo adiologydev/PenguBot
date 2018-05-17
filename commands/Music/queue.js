@@ -7,7 +7,6 @@ module.exports = class extends Command {
         super(...args, {
             runIn: ["text"],
             cooldown: 10,
-            aliases: ["stopmusic", "leave"],
             permissionLevel: 0,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS", "MANAGE_MESSAGES"],
             description: (msg) => msg.language.get("COMMAND_QUEUE_DESCRIPTION"),
