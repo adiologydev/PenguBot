@@ -24,13 +24,12 @@ module.exports = class extends Command {
         music.textChannel = msg.channel;
 
         const songs = await this.client.lavalink.resolveTracks(song);
-        return this.handle(msg, songs);
+        return this.handle(msg, songs, music);
     }
 
-    async handle(msg, songs) {
-        const musicInterface = msg.guild.music();
-        if (!musicInterface.playing) await this.handleSongs(msg, songs, true);
-        if (musicInterface.playing) return this.handleSongs(msg, songs, false);
+    async handle(msg, songs, musicInterface) {
+        if (!musicInterface.playing) await this.handleSongs(msg, songs, true, musicInterface);
+        if (musicInterface.playing) return this.handleSongs(msg, songs, false, musicInterface);
 
         try {
             await musicInterface.join(msg.member.voiceChannel);
