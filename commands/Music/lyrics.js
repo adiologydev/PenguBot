@@ -1,5 +1,5 @@
 const { Command } = require("klasa");
-const lyrics = require("../../lib/Util/Util");
+const { lyricsRequest, scrapeLyrics } = require("../../lib/Util/Util.js");
 const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
@@ -18,7 +18,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [song]) {
-        const req = await lyrics.lyricsRequest(`search?q=${song}`);
+        const req = await lyricsRequest(`search?q=${song}`);
         const lyricdata = req.response.hits[0];
         if (!lyricdata) return msg.reply("The provided song could not be found. Please try again with a different one or contact us at <https://discord.gg/6KpTfqR>.");
 
@@ -26,7 +26,7 @@ module.exports = class extends Command {
         const extendedsong = lyricdata.result.title_with_featured;
         const artist = lyricdata.result.primary_artist.name;
 
-        const lyricsbody = await lyrics.scrapeLyrics(lyricdata.result.url);
+        const lyricsbody = await scrapeLyrics(lyricdata.result.url);
         if (!lyricsbody) return msg.reply("The provided song's lyrics could not be found. Please try again with a different one or contact us at <https://discord.gg/6KpTfqR>.");
 
         const embed = new MessageEmbed()
