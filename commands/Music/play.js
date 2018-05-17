@@ -69,26 +69,27 @@ module.exports = class extends Command {
 
         await this.delayer(500);
 
-        musicInterface.play(song.track);
-
-        musicInterface.on("end", async end => {
-            if (end.reason === "REPLACED") {
-                return musicInterface.textChannel.send({ embed: await this.playEmbed(song) });
-            }
-            if (end.reason === "FINISHED") {
-                setTimeout(async () => {
-                    if (musicInterface.queue.length === 0) {
-                        await musicInterface.textChannel.send({ embed: await this.stopEmbed() });
-                        return await musicInterface.destroy();
-                    } else {
-                        await musicInterface.queue.shift();
-                        await this.play(musicInterface);
+        return musicInterface.play(song.track)
+            .then(async player => {
+                player.on("end", async end => {
+                    if (end.reason === "REPLACED") {
                         return musicInterface.textChannel.send({ embed: await this.playEmbed(song) });
                     }
-                }, 500);
-            }
-        });
-        return musicInterface.textChannel.send({ embed: await this.playEmbed(song) });
+                    if (end.reason === "FINISHED") {
+                        setTimeout(async () => {
+                            if (musicInterface.queue.length === 0) {
+                                await musicInterface.textChannel.send({ embed: await this.stopEmbed() });
+                                return await musicInterface.destroy();
+                            } else {
+                                await musicInterface.queue.shift();
+                                await this.play(musicInterface);
+                                return musicInterface.textChannel.send({ embed: await this.playEmbed(song) });
+                            }
+                        }, 500);
+                    }
+                });
+                return musicInterface.textChannel.send({ embed: await this.playEmbed(song) });
+            });
     }
 
     /**
