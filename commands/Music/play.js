@@ -18,6 +18,11 @@ module.exports = class extends Command {
             extendedHelp: "No extended help available."
         });
 
+        /**
+         * A function to delay code execution
+         * @param {number} time The amount of time to delay for
+         * @returns {Promise<setTimeout>}
+         */
         this.delayer = time => new Promise(res => setTimeout(() => res(), time));
         this.Music = true;
     }
