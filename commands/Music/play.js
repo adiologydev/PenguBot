@@ -20,7 +20,7 @@ module.exports = class extends Command {
     async run(msg, [song]) {
         const { voiceChannel } = msg.member;
         this.resolvePermissions(msg, voiceChannel);
-        const music = msg.guild.music();
+        const { music } = msg.guild;
         music.textChannel = msg.channel;
 
         const songs = await this.client.lavalink.resolveTracks(song);
@@ -42,12 +42,11 @@ module.exports = class extends Command {
     }
 
     async handleSongs(msg, songs, first = false) {
-        const { music } = msg.guild;
         if (songs.isPlaylist) {
-            for (const song of songs) music().add(song, msg.member);
+            for (const song of songs) msg.guild.music().add(song, msg.member);
             if (first === false) return msg.send(`Added **${songs.length}** songs to the queue based of your playlist.`);
         }
-        const addedSong = music().add(songs[0], msg.member);
+        const addedSong = msg.guild.music().add(songs[0], msg.member);
         if (first === false) return msg.send({ embed: await this.queueEmbed(addedSong) });
         return null;
     }
@@ -59,7 +58,7 @@ module.exports = class extends Command {
             return musicInterface.textChannel.send({ embed: await this.stopEmbed() }).then(() => musicInterface.destroy());
         }
 
-        await this.delayer(500);
+        // await this.delayer(500);
 
         musicInterface.play(song.track);
 
