@@ -96,13 +96,24 @@ module.exports = class extends Command {
      * @param {Discord.Message} msg The message option from which it gets the guild data
      * @param {Discord.VoiceChannel} voiceChannel The voicechannel for which it checks if it has permission to connect or speak in
      */
-    resolvePermissions(msg, voiceChannel) {
+    async resolvePermissions(msg, voiceChannel) {
         const permissions = voiceChannel.permissionsFor(msg.guild.me);
 
-        if (permissions.has("CONNECT") === false) throw "It seems I can't join the party since I lack the CONNECT permission";
-        if (permissions.has("SPEAK") === false) throw "Well, well, well, it seems I can connect, but can't speak. Could you fix that please?";
+        if (permissions.has("CONNECT") === false) {
+            throw await this.Error({
+                title: "Permission Error",
+                color: "#d11b1b",
+                description: "It seems I can't join the party since I lack the CONNECT permission"
+            });
+        }
+        if (permissions.has("SPEAK") === false) {
+            throw await this.Error({
+                title: "Permission Error",
+                color: "#d11b1b",
+                description: "Well, well, well, it seems I can connect, but can't speak. Could you fix that please?"
+            });
+        }
     }
-
 
     /**
      * A embed that is sent when a new song plays
@@ -158,6 +169,20 @@ module.exports = class extends Command {
                 `• **Party Over:** All the songs from the queue have finished playing. Leaving voice channel.`,
                 `• **Support:** If you enjoyed PenguBot and it's features, please consider becoming a Patron at: https://www.Patreon.com/PenguBot`
             ]);
+    }
+
+    /**
+     * A embed that is sent and built when an error happens
+     * @param {Object} data The object containing data to make the embed
+     * @returns {MessageEmbed}
+     */
+    async Error(data = {}) {
+        return new MessageEmbed()
+            .setTitle(data.title)
+            .setTimestamp()
+            .setFooter("© PenguBot.cc")
+            .setColor(data.color)
+            .setDescription(data.description);
     }
 
 };
