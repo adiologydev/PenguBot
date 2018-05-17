@@ -20,17 +20,16 @@ module.exports = class extends Command {
     async run(msg, [song]) {
         const { voiceChannel } = msg.member;
         this.resolvePermissions(msg, voiceChannel);
-        const music = msg.guild.music();
+        const music = this.client.music.get(msg.guild.id) || this.client.music.add(msg.guild);
         music.textChannel = msg.channel;
 
         const songs = await this.client.lavalink.resolveTracks(song);
-        return this.handle(msg, songs);
+        return this.handle(msg, songs, music);
     }
 
-    async handle(msg, songs) {
-        const musicInterface = msg.guild.music();
-        if (!musicInterface.playing) await this.handleSongs(msg, songs, true);
-        if (musicInterface.playing) return this.handleSongs(msg, songs, false);
+    async handle(msg, songs, musicInterface) {
+        if (!musicInterface.playing) await this.handleSongs(msg, songs, true, musicInterface);
+        if (musicInterface.playing) return this.handleSongs(msg, songs, false, musicInterface);
 
         try {
             await musicInterface.join(msg.member.voiceChannel);
@@ -41,8 +40,7 @@ module.exports = class extends Command {
         }
     }
 
-    async handleSongs(msg, songs, first = false) {
-        const { music } = msg.guild;
+    async handleSongs(msg, songs, first = false, music) {
         if (songs.isPlaylist) {
             for (const song of songs) music().add(song, msg.member);
             if (first === false) return msg.send(`Added **${songs.length}** songs to the queue based of your playlist.`);
