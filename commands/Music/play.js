@@ -137,7 +137,7 @@ module.exports = class extends Command {
                 `• **Song:** ${song.title}`,
                 `• **Author:** ${song.author}`,
                 `• **Length:** ${song.stream === true ? "Live Stream" : song.friendlyDuration}`,
-                `• **Requested By:** ${song.requester.GuildMember.tag}`,
+                `• **Requested By:** ${song.requester}`,
                 `• **Link:** ${song.url}`
             ]);
     }
@@ -157,7 +157,7 @@ module.exports = class extends Command {
                 `• **Song:** ${song.title}`,
                 `• **Author:** ${song.author}`,
                 `• **Length:** ${song.stream === true ? "Live Stream" : song.friendlyDuration}`,
-                `• **Requested By:** ${song.requester.GuildMember.tag}`,
+                `• **Requested By:** ${song.requester}`,
                 `• **Link:** ${song.url}`
             ]);
     }
