@@ -1,5 +1,4 @@
 const Song = require("../../lib/music/Song.js"); // eslint-disable-line
-const MusicInterface = require("../../lib/music/MusicInterface.js"); // eslint-disable-line
 const Discord = require("discord.js");
 
 const { Command } = require("klasa");
@@ -15,11 +14,9 @@ module.exports = class extends Command {
             aliases: ["musicplay"],
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS", "ATTACH_FILES"],
             description: (msg) => msg.language.get("COMMAND_PLAY_DESCRIPTION"),
-            usage: "<song:string>",
+            usage: "<song:songname>",
             extendedHelp: "No extended help available."
         });
-
-        this.Music = true;
 
         /**
          * A function to delay code execution
@@ -27,50 +24,14 @@ module.exports = class extends Command {
          * @returns {Promise<setTimeout>}
          */
         this.delayer = time => new Promise(res => setTimeout(() => res(), time));
-
-        /**
-         * @param {string} toExec The string to do the regex on
-         * @returns {Array<string>}
-         */
-        this.playlist = toExec => /(\?|&)list=(.*)/.exec(toExec);
-        /**
-         * @param {string} toExec The string to do the regex on
-         * @returns {Array<string>}
-         */
-        this.YTMini = toExec => /https:\/\/?(www\.)?youtu\.be\/?(.*)/.exec(toExec);
-        /**
-         * @param {string} toExec The string to do the regex on
-         * @returns {Array<string>}
-         */
-        this.YTFull = toExec => /https:\/\/?(www\.)?youtube\.com\/watch\?v=?(.*)/.exec(toExec);
-        /**
-         * @param {string} toExec The string to do the regex on
-         * @returns {Array<string>}
-         */
-        this.scPlaylist = toExec => /https:\/\/?soundcloud.com\/.*\/.*\/.*/.exec(toExec);
-        /**
-         * @param {string} toExec The string to do the regex on
-         * @returns {Array<string>}
-         */
-        this.soundCloud = toExec => /https:\/\/soundcloud\.com\/.*/.exec(toExec);
-
-        /**
-         * @type {Discord.Message}
-         * @private
-         */
-        this.globalMSG = null;
+        this.Music = true;
     }
 
     async run(msg, [song]) {
         const music = msg.guild.music();
         const { voiceChannel } = msg.member;
-
         this.resolvePermissions(msg, voiceChannel);
-
         music.textChannel = msg.channel;
-        this.globalMSG = msg;
-
-        await this.typeResolver(msg, song, music);
 
         const songs = await this.client.lavalink.resolveTracks(song);
         return this.handle(msg, songs, music);
@@ -90,25 +51,9 @@ module.exports = class extends Command {
     }
 
     async handleSongs(msg, songs, first = false) {
-        if (songs.length > 1) {
-            let limit;
-            if (this.client.config.main.patreon === false) { limit = 74; } else { limit = 2000; }
-            for (let i = 0; i <= limit; i++) {
-                msg.guild.music().add(songs[i], msg.member);
-            }
-            if (songs.length >= 75 && this.client.config.main.patreon === false) {
-                return msg.send({
-                    embed: await this.Error({
-                        title: "Support us!",
-                        color: "#f96854",
-                        description: [
-                            "🎧 | **Queue:** Playlist has been added to the queue. This playlist has more than 75 songs but only 75 were added",
-                            "If you wish bypass this limit become our Patreon today at https://patreon.com/PenguBot and use our Patron Only Bot."
-                        ]
-                    })
-                });
-            }
-            return msg.send(`🎧 | **Queue:** Added **${songs.length}** songs to the queue based on your playlist.`);
+        if (songs.isPlaylist) {
+            for (const song of songs) msg.guild.music().add(song, msg.member);
+            if (first === false) return msg.send(`Added **${songs.length}** songs to the queue based of your playlist.`);
         }
         const addedSong = msg.guild.music().add(songs[0], msg.member);
         if (first === false) return msg.send({ embed: await this.queueEmbed(addedSong) });
@@ -177,36 +122,6 @@ module.exports = class extends Command {
                 description: "Well, well, well, it seems I can connect, but can't speak. Could you fix that please?"
             });
         }
-    }
-
-    /**
-     * A function to resolve the type
-     * @param {Discord.Message} msg The msg Object
-     * @param {string} song the song string to resolve
-     * @param {MusicInterface} music The music interface
-     * @returns {Song}
-     */
-    async typeResolver(msg, song, music) {
-        const url = encodeURIComponent(song);
-        if (this.playlist(url)) {
-            const songsData = await this.client.lavalink.resolveTracks(song);
-            if (!songsData) return music.textChannel.sendMessage("<:penguError:435712890884849664> ***That playlist could not be found, please try with a different one.***");
-            return this.handle(msg, songsData, music);
-        } else if (this.soundCloud(url)) {
-            const sc = this.scPlaylist(song);
-            if (sc) {
-                const tracks = await this.client.lavalink.resolveTracks(sc[0]);
-                for (let i = 0; i <= tracks.length; i++) {
-                    await this.handle(msg, tracks[i], music);
-                }
-                return music.textChannel.send(`🗒 | Soundcloud playlist has been added to the queue.`);
-            }
-            const saang = this.soundCloud(url);
-            const songData = await this.client.lavalink.resolveTracks(saang[0]);
-            if (!songData) return msg.sendMessage("<:penguError:435712890884849664> ***That song could not be found, please try with a different one.***");
-            return this.handle(msg, songData[0], music);
-        }
-        return null;
     }
 
     /**
