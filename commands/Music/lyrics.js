@@ -23,11 +23,11 @@ module.exports = class extends Command {
         if (!song) {
             if (!music.playing) return msg.send("<:penguError:435712890884849664> ***There is no music playing so you can't use this flag***");
             const res = await music.lyrics();
-            return msg.send({ embed: await this.lyricsEmbed(res.extendedsong, res.artist, res.picture, res.lyricdata, res.lyricsbody) });
+            return msg.send({ embed: await this.lyricsEmbed(res.extendedSong, res.artist, res.picture, res.lyricData, res.lyricsBody) });
         } else {
             const req = await lyricsRequest(`search?q=${song}`);
             const res = await lyricsFormatter(req);
-            return msg.send({ embed: await this.lyricsEmbed(res.extendedsong, res.artist, res.picture, res.lyricdata, res.lyricsbody) });
+            return msg.send({ embed: await this.lyricsEmbed(res.extendedSong, res.artist, res.picture, res.lyricData, res.lyricsBody) });
         }
     }
 
