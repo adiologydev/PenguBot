@@ -52,8 +52,24 @@ module.exports = class extends Command {
 
     async handleSongs(msg, songs, first = false) {
         if (songs.isPlaylist) {
-            for (const song of songs) msg.guild.music().add(song, msg.member);
-            if (first === false) return msg.send(`Added **${songs.length}** songs to the queue based of your playlist.`);
+            let limit;
+            if (this.client.config.main.patreon === false) { limit = 74; } else { limit = 2000; }
+            for (let i = 0; i <= limit; i++) {
+                msg.guild.music().add(songs[i], msg.member);
+            }
+            if (songs.length >= 75 && this.client.config.main.patreon === false) {
+                return msg.send({
+                    embed: await this.Error({
+                        title: "Support us!",
+                        color: "#f96854",
+                        description: [
+                            "🎧 | **Queue:** Playlist has been added to the queue. This playlist has more than 75 songs but only 75 were added",
+                            "If you wish bypass this limit become our Patreon today at https://patreon.com/PenguBot and use our Patron Only Bot."
+                        ]
+                    })
+                });
+            }
+            return msg.send(`🎧 | **Queue:** Added **${songs.length}** songs to the queue based on your playlist.`);
         }
         const addedSong = msg.guild.music().add(songs[0], msg.member);
         if (first === false) return msg.send({ embed: await this.queueEmbed(addedSong) });
