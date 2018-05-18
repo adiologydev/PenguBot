@@ -34,6 +34,10 @@ module.exports = class extends Command {
         this.scPlaylist = toExec => /https:\/\/?soundcloud.com\/.*\/.*\/.*/.exec(toExec);
         this.soundCloud = toExec => /https:\/\/soundcloud\.com\/.*/.exec(toExec);
 
+        /**
+         * @type {Discord.Message}
+         * @private
+         */
         this.globalMSG = null;
     }
 
