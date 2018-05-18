@@ -28,9 +28,9 @@ module.exports = class extends Command {
     }
 
     async run(msg, [song]) {
+        const music = msg.guild.music();
         const { voiceChannel } = msg.member;
         this.resolvePermissions(msg, voiceChannel);
-        const music = msg.guild.music();
         music.textChannel = msg.channel;
 
         const songs = await this.client.lavalink.resolveTracks(song);
@@ -89,8 +89,12 @@ module.exports = class extends Command {
                             }, 500);
                         } else {
                             await musicInterface.queue.shift();
+                            const channel = musicInterface.textChannel;
+
+                            this.delayer(200);
+
                             await this.play(musicInterface);
-                            return musicInterface.textChannel.send({ embed: await this.playEmbed(song) });
+                            return channel.send({ embed: await this.playEmbed(song) });
                         }
                     }
                 });

@@ -1,5 +1,5 @@
 const { Command } = require("klasa");
-const { lyricsRequest, scrapeLyrics } = require("../../lib/Util/Util.js");
+const { lyricsRequest, lyricsFormatter } = require("../../lib/Util/Util.js");
 const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
@@ -13,30 +13,37 @@ module.exports = class extends Command {
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: (msg) => msg.language.get("COMMAND_LYRICS_DESCRIPTION"),
             extendedHelp: "No extended help available.",
-            usage: "<song:string>"
+            usage: "[song:string]"
         });
     }
 
     async run(msg, [song]) {
-        const req = await lyricsRequest(`search?q=${song}`);
-        const lyricdata = req.response.hits[0];
-        if (!lyricdata) return msg.reply("The provided song could not be found. Please try again with a different one or contact us at <https://discord.gg/6KpTfqR>.");
+        const currentTag = "current" in msg.flags ? Boolean(msg.flags.current) : false;
+        const music = msg.guild.music();
 
-        const picture = lyricdata.result.song_art_image_thumbnail_url;
-        const extendedsong = lyricdata.result.title_with_featured;
-        const artist = lyricdata.result.primary_artist.name;
+        try {
+            if (currentTag === true) {
+                if (!music.playing) return msg.send("<:penguError:435712890884849664> ***There is no music playing so you can't use this flag***");
+                const res = await music.lyrics();
+                return msg.send({ embed: await this.lyricsEmbed(res.extendedsong, res.artist, res.picture, res.lyricdata, res.lyricsbody) });
+            } else {
+                const req = await lyricsRequest(`search?q=${song}`);
+                const res = await lyricsFormatter(req);
+                return msg.send({ embed: await this.lyricsEmbed(res.extendedsong, res.artist, res.picture, res.lyricdata, res.lyricsbody) });
+            }
+        } catch (_) {
+            return msg.send("<:penguError:435712890884849664> ***It seems we had an hickup***");
+        }
+    }
 
-        const lyricsbody = await scrapeLyrics(lyricdata.result.url);
-        if (!lyricsbody) return msg.reply("The provided song's lyrics could not be found. Please try again with a different one or contact us at <https://discord.gg/6KpTfqR>.");
-
-        const embed = new MessageEmbed()
+    lyricsEmbed(extendedsong, artist, picture, lyricdata, lyricsbody) {
+        return new MessageEmbed()
             .setColor("#428bca")
             .setAuthor(`${extendedsong} - ${artist} | Lyrics`, this.client.user.avatarURL, `http://genius.com/${lyricdata.result.path}`)
             .setTimestamp()
             .setFooter("© PenguBot.cc")
             .setDescription(lyricsbody.length >= 1900 ? `${lyricsbody.substr(0, 1900)}...` : lyricsbody)
             .setThumbnail(picture);
-        return msg.sendEmbed(embed);
     }
 
 };
