@@ -28,10 +28,30 @@ module.exports = class extends Command {
          */
         this.delayer = time => new Promise(res => setTimeout(() => res(), time));
 
+        /**
+         * @param {string} toExec The string to do the regex on
+         * @returns {Array<string>}
+         */
         this.playlist = toExec => /(\?|&)list=(.*)/.exec(toExec);
+        /**
+         * @param {string} toExec The string to do the regex on
+         * @returns {Array<string>}
+         */
         this.YTMini = toExec => /https:\/\/?(www\.)?youtu\.be\/?(.*)/.exec(toExec);
+        /**
+         * @param {string} toExec The string to do the regex on
+         * @returns {Array<string>}
+         */
         this.YTFull = toExec => /https:\/\/?(www\.)?youtube\.com\/watch\?v=?(.*)/.exec(toExec);
+        /**
+         * @param {string} toExec The string to do the regex on
+         * @returns {Array<string>}
+         */
         this.scPlaylist = toExec => /https:\/\/?soundcloud.com\/.*\/.*\/.*/.exec(toExec);
+        /**
+         * @param {string} toExec The string to do the regex on
+         * @returns {Array<string>}
+         */
         this.soundCloud = toExec => /https:\/\/soundcloud\.com\/.*/.exec(toExec);
 
         /**
