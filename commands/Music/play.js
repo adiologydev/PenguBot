@@ -45,6 +45,15 @@ module.exports = class extends Command {
             const songsData = await this.client.lavalink.resolveTracks(song);
             if (!songsData) return msg.sendMessage("<:penguError:435712890884849664> ***That playlist could not be found, please try with a different one.***");
             return this.handle(msg, songsData, music);
+        } else if (this.soundCloud(url)) {
+            const sc = this.scPlaylist(song);
+            if (sc) {
+                const tracks = await this.client.lavalink.resolveTracks(sc[0]);
+                for (let i = 0; i <= tracks.length; i++) {
+                    await this.handle(msg, tracks[i], music);
+                }
+                return music.textChannel.send(`🗒 | Soundcloud playlist has been added to the queue.`);
+            }
         }
 
         const songs = await this.client.lavalink.resolveTracks(song);
