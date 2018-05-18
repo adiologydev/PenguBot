@@ -1,6 +1,5 @@
 const Song = require("../../lib/music/Song.js"); // eslint-disable-line
 const Discord = require("discord.js");
-const { get } = require("snekfetch");
 
 const { Command } = require("klasa");
 const { MessageEmbed } = Discord;
@@ -19,13 +18,20 @@ module.exports = class extends Command {
             extendedHelp: "No extended help available."
         });
 
+        this.Music = true;
+
         /**
          * A function to delay code execution
          * @param {number} time The amount of time to delay for
          * @returns {Promise<setTimeout>}
          */
         this.delayer = time => new Promise(res => setTimeout(() => res(), time));
-        this.Music = true;
+
+        this.playlist = toExec => /(\?|&)list=(.*)/.exec(toExec);
+        this.YTMini = toExec => /https:\/\/?(www\.)?youtu\.be\/?(.*)/.exec(toExec);
+        this.YTFull = toExec => /https:\/\/?(www\.)?youtube\.com\/watch\?v=?(.*)/.exec(toExec);
+        this.scPlaylist = toExec => /https:\/\/?soundcloud.com\/.*\/.*\/.*/.exec(toExec);
+        this.soundCloud = toExec => /https:\/\/soundcloud\.com\/.*/.exec(toExec);
     }
 
     async run(msg, [song]) {
@@ -35,13 +41,7 @@ module.exports = class extends Command {
         this.resolvePermissions(msg, voiceChannel);
         music.textChannel = msg.channel;
 
-        const playlist = /(\?|\&)list=(.*)/.exec(song); // eslint-disable-line
-        const YTMini = /https:\/\/?(www\.)?youtu\.be\/?(.*)/.exec(url);
-        const YTFull = /https:\/\/?(www\.)?youtube\.com\/watch\?v=?(.*)/.exec(song);
-        const scPlaylist = /https:\/\/?soundcloud.com\/.*\/.*\/.*/.exec(song);
-        const soundCloud = /https:\/\/soundcloud\.com\/.*/.exec(url); // eslint-disable-line
-
-        if (playlist) {
+        if (this.playlist(url)) {
             const songsData = await this.client.lavalink.resolveTracks(song);
             if (!songsData) return msg.sendMessage("<:penguError:435712890884849664> ***That playlist could not be found, please try with a different one.***");
             return this.handle(msg, songsData, music);
@@ -66,11 +66,23 @@ module.exports = class extends Command {
 
     async handleSongs(msg, songs, first = false) {
         if (songs.length > 1) {
-            let limit; if (this.client.config.main.patreon === false) { limit = 74; } else { limit = 2000; } // eslint-disable-line
+            let limit;
+            if (this.client.config.main.patreon === false) { limit = 74; } else { limit = 2000; }
             for (let i = 0; i <= limit; i++) {
                 msg.guild.music().add(songs[i], msg.member);
             }
-            if (songs.length >= 75 && this.client.config.main.patreon === false) return msg.send(`🎧 | **Queue:** Playlist has been added to the queue. This playlist has more than 75 songs but only 75 were added, to bypass this limit become our Patreon today at https://patreon.com/PenguBot and use our Patron Only Bot.`);
+            if (songs.length >= 75 && this.client.config.main.patreon === false) {
+                return msg.send({
+                    embed: await this.Error({
+                        title: "Support us!",
+                        color: "#f96854",
+                        description: [
+                            "🎧 | **Queue:** Playlist has been added to the queue. This playlist has more than 75 songs but only 75 were added",
+                            "If you wish bypass this limit become our Patreon today at https://patreon.com/PenguBot and use our Patron Only Bot."
+                        ]
+                    })
+                });
+            }
             return msg.send(`🎧 | **Queue:** Added **${songs.length}** songs to the queue based on your playlist.`);
         }
         const addedSong = msg.guild.music().add(songs[0], msg.member);

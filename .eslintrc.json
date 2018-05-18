@@ -100,7 +100,7 @@
 		"max-depth": "error",
 		"max-len": ["error", 280, 2],
 		"max-nested-callbacks": ["error", { "max": 4 }],
-		"max-statements-per-line": ["error", { "max": 2 }],
+		"max-statements-per-line": ["error", { "max": 4 }],
 		"new-cap": "error",
 		"newline-per-chained-call": ["error", { "ignoreChainWithDepth": 6 }],
 		"no-array-constructor": "error",
