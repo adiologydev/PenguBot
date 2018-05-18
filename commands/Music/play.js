@@ -1,4 +1,5 @@
 const Song = require("../../lib/music/Song.js"); // eslint-disable-line
+const MusicInterface = require("../../lib/music/MusicInterface.js"); // eslint-disable-line
 const Discord = require("discord.js");
 
 const { Command } = require("klasa");
@@ -32,29 +33,20 @@ module.exports = class extends Command {
         this.YTFull = toExec => /https:\/\/?(www\.)?youtube\.com\/watch\?v=?(.*)/.exec(toExec);
         this.scPlaylist = toExec => /https:\/\/?soundcloud.com\/.*\/.*\/.*/.exec(toExec);
         this.soundCloud = toExec => /https:\/\/soundcloud\.com\/.*/.exec(toExec);
+
+        this.globalMSG = null;
     }
 
     async run(msg, [song]) {
-        const url = encodeURIComponent(song);
         const music = msg.guild.music();
         const { voiceChannel } = msg.member;
-        this.resolvePermissions(msg, voiceChannel);
-        music.textChannel = msg.channel;
 
-        if (this.playlist(url)) {
-            const songsData = await this.client.lavalink.resolveTracks(song);
-            if (!songsData) return msg.sendMessage("<:penguError:435712890884849664> ***That playlist could not be found, please try with a different one.***");
-            return this.handle(msg, songsData, music);
-        } else if (this.soundCloud(url)) {
-            const sc = this.scPlaylist(song);
-            if (sc) {
-                const tracks = await this.client.lavalink.resolveTracks(sc[0]);
-                for (let i = 0; i <= tracks.length; i++) {
-                    await this.handle(msg, tracks[i], music);
-                }
-                return music.textChannel.send(`🗒 | Soundcloud playlist has been added to the queue.`);
-            }
-        }
+        this.resolvePermissions(msg, voiceChannel);
+
+        music.textChannel = msg.channel;
+        this.globalMSG = msg;
+
+        await this.typeResolver(msg, song, music);
 
         const songs = await this.client.lavalink.resolveTracks(song);
         return this.handle(msg, songs, music);
@@ -161,6 +153,36 @@ module.exports = class extends Command {
                 description: "Well, well, well, it seems I can connect, but can't speak. Could you fix that please?"
             });
         }
+    }
+
+    /**
+     * A function to resolve the type
+     * @param {Discord.Message} msg The msg Object
+     * @param {string} song the song string to resolve
+     * @param {MusicInterface} music The music interface
+     * @returns {Song}
+     */
+    async typeResolver(msg, song, music) {
+        const url = encodeURIComponent(song);
+        if (this.playlist(url)) {
+            const songsData = await this.client.lavalink.resolveTracks(song);
+            if (!songsData) return music.textChannel.sendMessage("<:penguError:435712890884849664> ***That playlist could not be found, please try with a different one.***");
+            return this.handle(msg, songsData, music);
+        } else if (this.soundCloud(url)) {
+            const sc = this.scPlaylist(song);
+            if (sc) {
+                const tracks = await this.client.lavalink.resolveTracks(sc[0]);
+                for (let i = 0; i <= tracks.length; i++) {
+                    await this.handle(msg, tracks[i], music);
+                }
+                return music.textChannel.send(`🗒 | Soundcloud playlist has been added to the queue.`);
+            }
+            const saang = this.soundCloud(url);
+            const songData = await this.client.lavalink.resolveTracks(saang[0]);
+            if (!songData) return msg.sendMessage("<:penguError:435712890884849664> ***That song could not be found, please try with a different one.***");
+            return this.handle(msg, songData[0], music);
+        }
+        return null;
     }
 
     /**
