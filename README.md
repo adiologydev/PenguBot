@@ -10,16 +10,18 @@ Join Discord for Support and Development https://discord.gg/u8WYw5r
 
 [**Jacz**](https://github.com/MrJacz) - Music Rework Code Review And Assistance Making It
 
-[**QuantumlyTangled**](https://github.com/QuantumlyTangled) - Translate Command and Queue Modifications
+[**QuantumlyTangled**](https://github.com/QuantumlyTangled) - Translate Command and Music Rewrite
 
 [**Ice**](https://github.com/iceeMC/) - SoundCloud Playback Support and YouTube RegEx Modification
+
+[**Kashall**](https://github.com/Kashalls/) - Leaderboard and other help
 
 ## Acknowledgement
 [**Klasa Pieces**](https://github.com/dirigeants/klasa-pieces/)
 
-[**Dragonfire535 - Xiao**](https://github.com/dragonfire535)
+[**Dragonfire535**](https://github.com/dragonfire535)
 
-[**WeebDev - Commando**](https://github.com/WeebDev/Commando)
+[**WeebDev**](https://github.com/WeebDev/Commando)
 
 [**Jacz**](https://github.com/MrJacz)
 

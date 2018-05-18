@@ -38,6 +38,10 @@ module.exports = class extends Command {
         const nextLvl = Math.floor(((lvl + 1) / 0.2) ** 2);
         const xpProg = Math.round(((xp - oldLvl) / (nextLvl - oldLvl)) * 269);
 
+        const users = await this.client.providers.get("rethinkdb").getAll("users").then(res => res.sort((a, b) => b.xp - a.xp));
+        const usersPos = users.filter(a => this.client.users.get(a.id));
+        const pos = usersPos.findIndex(i => i.id === user.id);
+
         const bgName = await user.configs.get("profile-bg");
         const bgImg = await fs.readFile(`${process.cwd()}/assets/profiles/bg/${bgName}.png`);
         const avatar = await get(user.displayAvatarURL({ format: "png", sze: 256 })).then(res => res.body);
@@ -60,7 +64,7 @@ module.exports = class extends Command {
             .setTextAlign("left")
             .addText(`Title: ${title}`, 30, 196, 193)
             .addText(`Snowflakes: ${snowflakes.toLocaleString()}`, 30, 219, 193)
-            .addText(`Global Rank: Coming Soon`, 30, 243, 193)
+            .addText(`Global Rank: #${pos !== -1 ? pos + 1 : "???"}`, 30, 243, 193)
             // XP Bar
             .setColor("#459466")
             .addRect(21, 269, xpProg, 15.5)

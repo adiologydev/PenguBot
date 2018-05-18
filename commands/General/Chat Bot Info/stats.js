@@ -1,4 +1,4 @@
-const { Command, version: klasaVersion, Duration } = require("klasa");
+const { Command, Duration } = require("klasa");
 const { version: discordVersion, MessageEmbed } = require("discord.js");
 module.exports = class extends Command {
 
@@ -27,15 +27,15 @@ module.exports = class extends Command {
             .setColor("RANDOM")
             .setTimestamp()
             .setThumbnail("https://i.imgur.com/HE0ZOSA.png")
-            .setDescription(msg.language.get("COMMAND_STATS",
-                (memory || process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2),
-                Duration.toNow(Date.now() - (process.uptime() * 1000)),
-                (users || this.client.users.size).toLocaleString(),
-                (guilds || this.client.guilds.size).toLocaleString(),
-                (channels || this.client.channels.size).toLocaleString(),
-                (vc || this.client.lavalink.size).toLocaleString(),
-                klasaVersion, discordVersion, process.version, msg
-            ));
+            .addField("Memory Usage", `${(memory || process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true)
+            .addField("Uptime", Duration.toNow(Date.now() - (process.uptime() * 1000)), true)
+            .addField("Users", (users || this.client.users.size).toLocaleString(), true)
+            .addField("Guilds", (guilds || this.client.guilds.size).toLocaleString(), true)
+            .addField("Channels", (channels || this.client.channels.size).toLocaleString(), true)
+            .addField("Voice Streams", (vc || this.client.lavalink.size).toLocaleString(), true)
+            .addField("Discord Version", discordVersion, true)
+            .addField("Shards", `${((msg.guild ? msg.guild.shardID : msg.channel.shardID) || this.client.options.shardId) + 1} / ${this.client.options.shardCount}`, true)
+            .setAuthor("PenguBot - Statistics", this.client.user.displayAvatarURL(), "https://www.pengubot.com");
 
         return msg.sendMessage({ embed: embed });
     }

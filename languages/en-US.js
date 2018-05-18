@@ -45,22 +45,6 @@ module.exports = class extends Language {
                 "• **PenguBot's Donation Page:** https://www.PenguBot.cc/donate"
             ],
             COMMAND_HELP_NODM: "<:penguError:435712890884849664> | You have DMs disabled, I couldn't send you the commands in DMs.",
-            COMMAND_STATS: (memUsage, uptime, users, servers, channels, vc, klasaVersion, discordVersion, processVersion, msg) => [
-                "**__PenguBot Statistics__**",
-                "",
-                `• **Memory Usage:** ${memUsage} MB`,
-                `• **Uptime:** ${uptime}`,
-                `• **Users:** ${users}`,
-                `• **Servers/Guilds:** ${servers}`,
-                `• **Channels:** ${channels}`,
-                `• **Music Streams:** ${vc}`,
-                " ",
-                `• **Discord.js Version:** v${discordVersion}`,
-                `• **Node.js Version:** ${processVersion}`,
-                this.client.options.shardCount ? `• **Shard:** ${((msg.guild ? msg.guild.shardID : msg.channel.shardID) || this.client.options.shardId) + 1} / ${this.client.options.shardCount}` : "",
-                "",
-                "**Website:** [www.PenguBot.cc](https://www.PenguBot.cc)\n**Author:** [AdityaTD#5346](https://www.AdityaTD.me)"
-            ],
             COMMAND_UPVOTE: ["**__Vote for PenguBot__**",
                 "Want PenguBot to become bigger and be available in more guilds you visit?",
                 "Then vote for PenguBot via the link below and also unlock access to",
