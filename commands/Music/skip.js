@@ -17,7 +17,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [force]) {
-        const { music } = msg.guild;
+        const music = msg.guild.music();
 
         if (music.voiceChannel.members.size > 4) {
             if (force) {

@@ -16,7 +16,7 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        const { music } = msg.guild;
+        const music = msg.guild.music();
         const { queue } = music;
         if (!music.playing) return msg.sendMessage("<:penguError:435712890884849664> There's currently no music playing!");
         if (queue.length <= 2) return msg.sendMessage("<:penguError:435712890884849664> Your queue has less than two songs, add more to shuffle!");

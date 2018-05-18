@@ -16,7 +16,7 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        const { music } = msg.guild;
+        const music = msg.guild.music();
         const { queue } = music;
         if (!music.playing) return msg.sendMessage("<:penguError:435712890884849664> ***There's currently no music playing!***");
 
@@ -29,7 +29,7 @@ module.exports = class extends Command {
 
         for (let i = 0, temp = queue.length; i < temp; i += 5) {
             const curr = queue.slice(i, i + 5);
-            pages.addPage(t => t.setDescription(curr.map(y => `\`-\` [${y.trackTitle.replace(/\*/g, "\\*")}](${y.trackURL}) (${y.friendlyDuration})`)));
+            pages.addPage(t => t.setDescription(curr.map(y => `\`-\` [${y.title.replace(/\*/g, "\\*")}](${y.url}) (${y.friendlyDuration})`)));
         }
         pages.run(await msg.sendMessage("<a:penguLoad:435712860744581120> Loading Queue..."), {
             time: 120000,

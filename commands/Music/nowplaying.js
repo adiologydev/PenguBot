@@ -17,7 +17,7 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        const { music } = msg.guild;
+        const music = msg.guild.music();
         if (!music.playing) return msg.sendMessage("<:penguError:435712890884849664> ***There's currently no music playing!***");
         if (!music.queue.length) throw "<:penguError:435712890884849664> ***There are no songs in queue!***";
 
@@ -27,11 +27,11 @@ module.exports = class extends Command {
             .setTitle("⏯ | Now Playing - PenguBot")
             .setTimestamp()
             .setFooter("© PenguBot.cc")
-            .setDescription([`• **Song:** ${song.trackTitle}`,
+            .setDescription([`• **Song:** ${song.title}`,
                 `• **Author:** ${song.author}`,
-                `• **Duration:** ${song.stream === true ? "Live Stream" : song.trackFriendlyDuration}`,
-                `• **Requested By:** ${song.requester.tag}`,
-                `• **Link:** ${song.trackURL}`]);
+                `• **Duration:** ${song.stream === true ? "Live Stream" : song.friendlyDuration}`,
+                `• **Requested By:** ${song.requester}`,
+                `• **Link:** ${song.url}`]);
         return msg.sendEmbed(embed);
     }
 

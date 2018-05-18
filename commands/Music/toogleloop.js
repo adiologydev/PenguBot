@@ -21,7 +21,12 @@ module.exports = class extends Command {
 
         if (!this.client.config.main.patreon || this.client.functions.isPatron(this.client, msg.guild.id === false)) return msg.sendMessage("<:penguError:435712890884849664> ***You need to be in a Patron Guild in order to use this command.***");
 
-        return music.smartLoop();
+        try {
+            await music.smartLoop();
+            return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Loop set to ${music.loop} .***`);
+        } catch (_) {
+            return msg.sendMessage(`<:penguError:435712890884849664> ***Failed to change loop state.***`);
+        }
     }
 
 };
