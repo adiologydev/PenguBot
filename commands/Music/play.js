@@ -1,5 +1,6 @@
 const Song = require("../../lib/music/Song.js"); // eslint-disable-line
 const Discord = require("discord.js");
+const { get } = require("snekfetch");
 
 const { Command } = require("klasa");
 const { MessageEmbed } = Discord;
@@ -28,10 +29,23 @@ module.exports = class extends Command {
     }
 
     async run(msg, [song]) {
+        const url = encodeURIComponent(song);
         const music = msg.guild.music();
         const { voiceChannel } = msg.member;
         this.resolvePermissions(msg, voiceChannel);
         music.textChannel = msg.channel;
+
+        const playlist = /(\?|\&)list=(.*)/.exec(song); // eslint-disable-line
+        const YTMini = /https:\/\/?(www\.)?youtu\.be\/?(.*)/.exec(url);
+        const YTFull = /https:\/\/?(www\.)?youtube\.com\/watch\?v=?(.*)/.exec(song);
+        const scPlaylist = /https:\/\/?soundcloud.com\/.*\/.*\/.*/.exec(song);
+        const soundCloud = /https:\/\/soundcloud\.com\/.*/.exec(url); // eslint-disable-line
+
+        if (playlist) {
+            const songsData = await this.client.lavalink.resolveTracks(song);
+            if (!songsData) return msg.sendMessage("<:penguError:435712890884849664> ***That playlist could not be found, please try with a different one.***");
+            return this.handle(msg, songsData, music);
+        }
 
         const songs = await this.client.lavalink.resolveTracks(song);
         return this.handle(msg, songs, music);
@@ -51,9 +65,13 @@ module.exports = class extends Command {
     }
 
     async handleSongs(msg, songs, first = false) {
-        if (songs.isPlaylist) {
-            for (const song of songs) msg.guild.music().add(song, msg.member);
-            if (first === false) return msg.send(`Added **${songs.length}** songs to the queue based of your playlist.`);
+        if (songs.length > 1) {
+            let limit; if (this.client.config.main.patreon === false) { limit = 74; } else { limit = 2000; } // eslint-disable-line
+            for (let i = 0; i <= limit; i++) {
+                msg.guild.music().add(songs[i], msg.member);
+            }
+            if (songs.length >= 75 && this.client.config.main.patreon === false) return msg.send(`🎧 | **Queue:** Playlist has been added to the queue. This playlist has more than 75 songs but only 75 were added, to bypass this limit become our Patreon today at https://patreon.com/PenguBot and use our Patron Only Bot.`);
+            return msg.send(`🎧 | **Queue:** Added **${songs.length}** songs to the queue based on your playlist.`);
         }
         const addedSong = msg.guild.music().add(songs[0], msg.member);
         if (first === false) return msg.send({ embed: await this.queueEmbed(addedSong) });
