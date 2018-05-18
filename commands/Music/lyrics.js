@@ -17,22 +17,17 @@ module.exports = class extends Command {
         });
     }
 
-    async run(msg, [song]) {
-        const currentTag = "current" in msg.flags ? Boolean(msg.flags.current) : false;
+    async run(msg, [song = null]) {
         const music = msg.guild.music();
 
-        try {
-            if (currentTag === true) {
-                if (!music.playing) return msg.send("<:penguError:435712890884849664> ***There is no music playing so you can't use this flag***");
-                const res = await music.lyrics();
-                return msg.send({ embed: await this.lyricsEmbed(res.extendedsong, res.artist, res.picture, res.lyricdata, res.lyricsbody) });
-            } else {
-                const req = await lyricsRequest(`search?q=${song}`);
-                const res = await lyricsFormatter(req);
-                return msg.send({ embed: await this.lyricsEmbed(res.extendedsong, res.artist, res.picture, res.lyricdata, res.lyricsbody) });
-            }
-        } catch (_) {
-            return msg.send("<:penguError:435712890884849664> ***It seems we had an hickup***");
+        if (!song) {
+            if (!music.playing) return msg.send("<:penguError:435712890884849664> ***There is no music playing so you can't use this flag***");
+            const res = await music.lyrics();
+            return msg.send({ embed: await this.lyricsEmbed(res.extendedsong, res.artist, res.picture, res.lyricdata, res.lyricsbody) });
+        } else {
+            const req = await lyricsRequest(`search?q=${song}`);
+            const res = await lyricsFormatter(req);
+            return msg.send({ embed: await this.lyricsEmbed(res.extendedsong, res.artist, res.picture, res.lyricdata, res.lyricsbody) });
         }
     }
 
