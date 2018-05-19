@@ -6,10 +6,10 @@ module.exports = class extends Command {
         super(...args, {
             runIn: ["text"],
             cooldown: 8,
-            aliases: ["pause", "resume"],
+            aliases: ["loop", "loopon", "loopoff"],
             permissionLevel: 3,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            description: (msg) => msg.language.get("COMMAND_PAUSE_DESCRIPTION"),
+            description: (msg) => msg.language.get("COMMANDLOOP_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
         this.Music = true;
@@ -22,10 +22,10 @@ module.exports = class extends Command {
         if (!this.client.config.main.patreon || this.client.functions.isPatron(this.client, msg.guild.id === false)) return msg.sendMessage("<:penguError:435712890884849664> ***You need to be in a Patron Guild in order to use this command.***");
 
         try {
-            await music.smartPause();
-            return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Pause set to ${music.paused} .***`);
+            await music.smartLoop();
+            return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Loop set to ${music.loop} .***`);
         } catch (_) {
-            return msg.sendMessage(`<:penguError:435712890884849664> ***Failed to change pause state.***`);
+            return msg.sendMessage(`<:penguError:435712890884849664> ***Failed to change loop state.***`);
         }
     }
 

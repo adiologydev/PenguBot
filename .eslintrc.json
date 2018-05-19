@@ -6,7 +6,10 @@
     },
     "parserOptions": {
         "ecmaVersion": 8,
-        "sourceType": "module"
+		"sourceType": "module",
+		"ecmaFeatures": {
+			"experimentalObjectRestSpread": true
+		}
     },
     "plugins": [
         "promise",
@@ -97,7 +100,7 @@
 		"max-depth": "error",
 		"max-len": ["error", 280, 2],
 		"max-nested-callbacks": ["error", { "max": 4 }],
-		"max-statements-per-line": ["error", { "max": 2 }],
+		"max-statements-per-line": ["error", { "max": 4 }],
 		"new-cap": "error",
 		"newline-per-chained-call": ["error", { "ignoreChainWithDepth": 6 }],
 		"no-array-constructor": "error",
@@ -111,6 +114,9 @@
 		"no-trailing-spaces": "error",
 		"no-unneeded-ternary": "error",
 		"no-whitespace-before-property": "error",
+		"no-irregular-whitespace": ["error", {
+			"skipTemplates": true
+		}],
 		"object-curly-newline": "error",
 		"object-curly-spacing": ["error", "always"],
 		"operator-assignment": "error",
@@ -158,7 +164,7 @@
         "promise/no-nesting": "warn",
         "promise/no-promise-in-callback": "warn",
         "promise/no-callback-in-promise": "warn",
-        "promise/no-return-in-finally": "warn",
+        "promise/no-return-in-finally": "off",
         "node/no-missing-require": "error",
         "node/no-unpublished-bin": "error",
         "node/no-deprecated-api": "error",

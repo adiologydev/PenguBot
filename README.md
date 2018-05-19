@@ -8,6 +8,8 @@ Join Discord for Support and Development https://discord.gg/u8WYw5r
 ## Contributors
 [**Vlad**](https://github.com/KingDGrizzle) - Help with Migration Script for Database
 
+[**Jacz**](https://github.com/MrJacz) - Music Rework Code Review And Assistance Making It
+
 [**QuantumlyTangled**](https://github.com/QuantumlyTangled) - Translate Command and Music Rewrite
 
 [**Ice**](https://github.com/iceeMC/) - SoundCloud Playback Support and YouTube RegEx Modification
@@ -22,6 +24,8 @@ Join Discord for Support and Development https://discord.gg/u8WYw5r
 [**WeebDev**](https://github.com/WeebDev/Commando)
 
 [**Jacz**](https://github.com/MrJacz)
+
+[**Kyra**](https://github.com/kyranet)
 
 ## Vote on DiscordBots to Support
 [![Discord Bots](https://discordbots.org/api/widget/303181184718995457.svg)](https://discordbots.org/bot/303181184718995457/vote)

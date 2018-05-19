@@ -13,24 +13,24 @@ module.exports = class extends Command {
             description: (msg) => msg.language.get("COMMAND_DMSONG_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
+        this.Music = true;
     }
 
     async run(msg) {
-        const queue = this.client.queue.get(msg.guild.id);
-        const player = this.client.lavalink.get(msg.guild.id);
-        if (!queue) return msg.sendMessage("<:penguError:435712890884849664> ***There's currently no music playing!***");
-        if (!player) return msg.sendMessage("<:penguError:435712890884849664> ***There's currently no music playing!***");
+        const music = msg.guild.music();
+        const { queue } = music;
+        if (!music.playing) return msg.sendMessage("<:penguError:435712890884849664> ***There's currently no music playing!***");
 
-        const song = queue.songs[0];
+        const song = queue[0];
         const embed = new MessageEmbed()
             .setColor("#5bc0de")
             .setTitle("⏯ | Now Playing - PenguBot")
             .setTimestamp()
             .setFooter("© PenguBot.cc")
-            .setDescription([`• **Song:** ${song.name}`,
+            .setDescription([`• **Song:** ${song.title}`,
                 `• **Author:** ${song.author}`,
-                `• **Duration:** ${this.client.functions.friendlyTime(player.state.position)} / ${song.stream === true ? "Live Stream" : this.client.functions.friendlyTime(song.length)}`,
-                `• **Requested By:** ${song.requester.tag}`,
+                `• **Duration:** ${song.stream === true ? "Live Stream" : song.friendlyDuration}`,
+                `• **Requested By:** ${song.requester}`,
                 `• **Link:** ${song.url}`]);
         return msg.author.send({ embed: embed });
     }

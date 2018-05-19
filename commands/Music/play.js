@@ -1,6 +1,8 @@
+const Song = require("../../lib/music/Song.js"); // eslint-disable-line
+const Discord = require("discord.js");
+
 const { Command } = require("klasa");
-const { get } = require("snekfetch");
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed } = Discord;
 
 module.exports = class extends Command {
 
@@ -12,208 +14,191 @@ module.exports = class extends Command {
             aliases: ["musicplay"],
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS", "ATTACH_FILES"],
             description: (msg) => msg.language.get("COMMAND_PLAY_DESCRIPTION"),
-            usage: "<song:string>",
+            usage: "<song:songname>",
             extendedHelp: "No extended help available."
         });
+
+        /**
+         * A function to delay code execution
+         * @param {number} time The amount of time to delay for
+         * @returns {Promise<setTimeout>}
+         */
+        this.delayer = time => new Promise(res => setTimeout(() => res(), time));
+        this.Music = true;
     }
 
-    // Main Command Functions
     async run(msg, [song]) {
-        const url = encodeURIComponent(song);
-        if (!msg.member.voiceChannel) return msg.sendMessage("<:penguError:435712890884849664> ***You're currently not in a Voice Channel, please join one to use this command.***");
-        if (this.client.functions.validURL(song)) {
-            const playlist = /(\?|\&)list=(.*)/.exec(song); // eslint-disable-line
-            const soundCloud = /https:\/\/soundcloud\.com\/.*/.exec(url); // eslint-disable-line
-            // YouTube URLS
-            const YTMini = /https:\/\/?(www\.)?youtu\.be\/?(.*)/.exec(url);
-            const YTFull = /https:\/\/?(www\.)?youtube\.com\/watch\?v=?(.*)/.exec(url);
-            const scPlaylist = /https:\/\/?soundcloud.com\/.*\/.*\/.*/.exec(song);
-            if (playlist) {
-                // Playlist Handling
-                const { body } = await get(`https://www.googleapis.com/youtube/v3/playlists?part=id,snippet&id=${playlist[2]}&key=${this.client.config.keys.music.youtube}`);
-                if (!body.items[0]) return msg.sendMessage("<:penguError:435712890884849664> ***That youtube playlist could not be found, please try with a different one.***");
-                const songData = await this.client.functions.getSongs(url);
-                if (!songData) return msg.sendMessage("<:penguError:435712890884849664> ***That playlist could not be found, please try with a different one.***");
-                let limit; if (this.client.config.main.patreon === false) { limit = 24; } else { limit = 1000; } // eslint-disable-line
-                for (let i = 0; i <= limit; i++) {
-                    await this.musicHandler(msg, songData[i], msg.guild, msg.member.voiceChannel, true).catch(() => null);
-                }
-                if (songData.length >= 25 && this.client.config.main.patreon === false) return msg.sendMessage(`🗒 | **${body.items[0].snippet.title}** playlist has been added to the queue. This playlist has more than 25 songs but only 25 were added, to bypass this limit become our Patreon today at https://patreon.com/PenguBot`); // eslint-disable-line
-                return msg.sendMessage(`🗒 | **${body.items[0].snippet.title}** playlist has been added to the queue.`);
-            } else if (soundCloud) {
-                // Handling SoundCloud
-                if (scPlaylist) {
-                    const tracks = await this.client.functions.getSongs(scPlaylist[0]);
-                    for (let i = 0; i <= tracks.length; i++) {
-                        await this.musicHandler(msg, tracks[i], msg.guild, msg.member.voiceChannel, true).catch(() => null);
+        const music = msg.guild.music();
+        const { voiceChannel } = msg.member;
+        this.resolvePermissions(msg, voiceChannel);
+        music.textChannel = msg.channel;
+
+        if (song.length === 0) return msg.reply("No results found for your requested input, please try again.");
+
+        return this.handle(msg, song, music);
+    }
+
+    async handle(msg, songs, musicInterface) {
+        if (!musicInterface.playing) await this.handleSongs(msg, songs, true, musicInterface);
+        if (musicInterface.playing) return this.handleSongs(msg, songs, false, musicInterface);
+
+        try {
+            await musicInterface.join(msg.member.voiceChannel);
+            return this.play(musicInterface);
+        } catch (error) {
+            this.client.console.error(error);
+            return musicInterface.textChannel.send(`Voice Channel Error: ${error}`).then(() => musicInterface.destroy());
+        }
+    }
+
+    async handleSongs(msg, songs, first = false) {
+        if (songs.length > 1) {
+            let limit;
+            if (this.client.config.main.patreon === false) { limit = 74; } else { limit = 2000; }
+            for (let i = 0; i <= limit; i++) {
+                msg.guild.music().add(songs[i], msg.member);
+            }
+            if (songs.length >= 75 && this.client.config.main.patreon === false) {
+                return msg.send({
+                    embed: new MessageEmbed()
+                        .setTitle("Support us!")
+                        .setColor("#f96854")
+                        .setDescription(["🎧 | **Queue:** Playlist has been added to the queue. This playlist has more than 75 songs but only 75 were added",
+                            "If you wish bypass this limit become our Patreon today at https://patreon.com/PenguBot and use our Patron Only Bot."])
+                });
+            }
+            return msg.send(`🎧 | **Queue:** Added **${songs.length}** songs to the queue based on your playlist.`);
+        }
+        const addedSong = msg.guild.music().add(songs[0], msg.member);
+        if (first === false) return msg.send({ embed: await this.queueEmbed(addedSong) });
+        return null;
+    }
+
+    async play(musicInterface) {
+        const song = musicInterface.queue[0];
+        const guild = musicInterface.textChannel.guild; // eslint-disable-line
+
+        await this.delayer(500);
+
+        return musicInterface.play(song.track)
+            .then(async player => {
+                await player.volume(guild.configs.musicVolume);
+                player.on("end", async end => {
+                    if (end.reason === "REPLACED") {
+                        return musicInterface.textChannel.send({ embed: await this.playEmbed(song) });
                     }
-                    return msg.sendMessage(`🗒 | Soundcloud playlist has been added to the queue.`);
-                }
-                const songData = await this.client.functions.getSongs(soundCloud[0]);
-                if (!songData) return msg.sendMessage("<:penguError:435712890884849664> ***That song could not be found, please try with a different one.***");
-                await this.musicHandler(msg, songData[0], msg.guild, msg.member.voiceChannel);
-            } else if (YTMini) {
-                // YouTube Mini URL Handling
-                const songData = await this.client.functions.getSongs(YTMini[0]);
-                if (!songData) return msg.sendMessage("<:penguError:435712890884849664> ***That song could not be found, please try with a different one.***");
-                await this.musicHandler(msg, songData[0], msg.guild, msg.member.voiceChannel);
-            } else if (YTFull) {
-                // YouTube Full URL Handling
-                const songData = await this.client.functions.getSongs(YTFull[0]);
-                if (!songData) return msg.sendMessage("<:penguError:435712890884849664> ***That song could not be found, please try with a different one.***");
-                await this.musicHandler(msg, songData[0], msg.guild, msg.member.voiceChannel);
-            } else {
-                // URL Handling
-                const songData = await this.client.functions.getSongs(url);
-                if (!songData) return msg.sendMessage("<:penguError:435712890884849664> ***That song could not be found, please try with a different one.***");
-                await this.musicHandler(msg, songData[0], msg.guild, msg.member.voiceChannel);
-            }
-        } else if (song.match(/scsearch:.*/) || song.match(/ytsearch:.*/)) {
-            // Wildcard Handling
-            const songData = await this.client.functions.getSongs(song);
-            if (!songData) return msg.sendMessage("<:penguError:435712890884849664> ***That song could not be found, please try with a different one.***");
-            this.musicHandler(msg, songData[0], msg.guild, msg.member.voiceChannel);
-        } else {
-            // Search from YouTube
-            const songsData = await this.client.functions.getSongs(`ytsearch:${song}`);
-            if (!songsData) return msg.sendMessage("<:penguError:435712890884849664> ***Results for this song could not be found, please try with a different one.***");
-            const options = songsData.slice(0, 5);
-            let index = 0;
-            const selection = await msg.awaitReply([`🎵 | **Select a Song - PenguBot**\n`,
-                `${options.map(o => `➡ \`${++index}\` ${o.info.title} - ${o.info.author} (${this.client.functions.friendlyTime(o.info.length)})`).join("\n")}`,
-                `\n${msg.author}, Please select an option by replying from range \`1-5\` to add it to the queue.`], 20000);
-            try {
-                const vid = parseInt(selection);
-                if (vid < 0 || vid > 4) return await msg.sendMessage(`${msg.author}, <:penguError:435712890884849664> Invalid Option, select from \`1-5\`. Cancelled request.`);
-                // selection.delete();
-                await this.musicHandler(msg, songsData[vid - 1], msg.guild, msg.member.voiceChannel);
-            } catch (e) {
-                try {
-                    return await msg.sendMessage(`${msg.author}, <:penguError:435712890884849664> No options selected, cancelled request.`);
-                } catch (ea) {
-                    return;
-                }
-            }
-        }
-    }
-
-    // Creating Volume Integer for Guild's Configuration
-    async init() {
-        if (!this.client.gateways.guilds.schema.has("musicVolume")) {
-            this.client.gateways.guilds.schema.add("musicVolume", { type: "integer", default: 90, configurable: false });
-        }
-        if (!this.client.gateways.guilds.schema.has("pengu-dj")) {
-            this.client.gateways.guilds.schema.add("pengu-dj", { type: "user", array: true });
-        }
-    }
-
-    async musicHandler(msg, songData, guild, vc, playlist = false) {
-        const queue = this.client.queue.get(guild.id);
-        // Creating new song item
-        const song = {
-            track: songData.track,
-            name: songData.info.title,
-            author: songData.info.author,
-            stream: songData.info.isStream,
-            length: songData.info.length,
-            url: songData.info.uri,
-            requester: msg.author
-        };
-
-        // If Guild does not already have a queue
-        if (!queue) {
-            const queueConst = {
-                vc: vc,
-                tc: msg.channel,
-                loop: false,
-                songs: [],
-                volume: msg.guild.configs.musicVolume
-            };
-            this.client.queue.set(guild.id, queueConst);
-            queueConst.songs.push(song);
-            try {
-                await this.client.lavalink.join({
-                    guild: msg.guild.id,
-                    channel: msg.member.voiceChannelID,
-                    host: "localhost"
-                }, { selfdeaf: true });
-                return this.musicPlay(song, guild);
-            } catch (e) {
-                await msg.sendMessage("<:penguError:435712890884849664> ***There seems to be an error, please try again or seek help at: <https://www.pengubot.cc/invite>.***");
-                return console.error(`-- musicHandler --\n${e}`);
-            }
-        } else {
-            queue.songs.push(song);
-            if (playlist === true) return;
-            return msg.sendMessage({ embed: await this.queueEmbed(song) });
-        }
-    }
-
-    // Music Play Handler
-    async musicPlay(song, guild) {
-        const queue = this.client.queue.get(guild.id);
-        const player = this.client.lavalink.get(guild.id);
-        await player.play(song.track);
-        await player.volume(guild.configs.musicVolume);
-
-        // Event Handling
-        player.on("end", async end => {
-            if (end.reason === "REPLACED") {
-                return queue.tc.send({ embed: await this.playEmbed(queue.songs[0]) });
-            }
-            if (end.reason === "FINISHED") {
-                setTimeout(async () => {
-                    if (!queue.loop) queue.songs.shift();
-                    if (queue.songs.length === 0) {
-                        await this.client.lavalink.leave(guild.id);
-                        await queue.tc.send({ embed: await this.stopEmbed() });
-                        return this.client.queue.delete(guild.id);
-                    } else {
-                        await player.play(queue.songs[0].track);
-                        await player.volume(guild.configs.musicVolume);
-                        if (!queue.loop) return queue.tc.send({ embed: await this.playEmbed(queue.songs[0]) });
-                        return;
+                    if (end.reason === "FINISHED") {
+                        setTimeout(async () => {
+                            if (!musicInterface.loop) musicInterface.queue.shift();
+                            if (musicInterface.queue.length === 0) {
+                                await musicInterface.textChannel.send({ embed: await this.stopEmbed() });
+                                return await musicInterface.destroy();
+                            } else {
+                                await this.play(musicInterface);
+                                const channel = musicInterface.textChannel;
+                                await player.volume(guild.configs.musicVolume);
+                                if (!musicInterface.loop) return channel.send({ embed: await this.playEmbed(song) });
+                                return;
+                            }
+                        }, 500);
                     }
-                }, 500);
-            }
-        });
-        return queue.tc.send({ embed: await this.playEmbed(queue.songs[0]) });
+                });
+                if (!musicInterface.loop) return musicInterface.textChannel.send({ embed: await this.playEmbed(song) });
+            });
     }
 
+    /**
+     * A function to check if it has permission to Connect or Speak and if it cant it will throw a response
+     * @param {Discord.Message} msg The message option from which it gets the guild data
+     * @param {Discord.VoiceChannel} voiceChannel The voicechannel for which it checks if it has permission to connect or speak in
+     */
+    async resolvePermissions(msg, voiceChannel) {
+        const permissions = voiceChannel.permissionsFor(msg.guild.me);
+
+        if (permissions.has("CONNECT") === false) {
+            throw await this.Error({
+                title: "Permission Error",
+                color: "#d11b1b",
+                description: "It seems I can't join the party since I lack the CONNECT permission"
+            });
+        }
+        if (permissions.has("SPEAK") === false) {
+            throw await this.Error({
+                title: "Permission Error",
+                color: "#d11b1b",
+                description: "Well, well, well, it seems I can connect, but can't speak. Could you fix that please?"
+            });
+        }
+    }
+
+    /**
+     * A embed that is sent when a new song plays
+     * @param {Song} song The song object of which the data is gotten
+     * @returns {MessageEmbed}
+     */
     async playEmbed(song) {
         return new MessageEmbed()
             .setTitle("⏯ | Now Playing - PenguBot")
             .setTimestamp()
             .setFooter("© PenguBot.cc")
             .setColor("#5cb85c")
-            .setDescription([`• **Song:** ${song.name}`,
+            .setDescription([
+                `• **Song:** ${song.title}`,
                 `• **Author:** ${song.author}`,
-                `• **Length:** ${song.stream === true ? "Live Stream" : this.client.functions.friendlyTime(song.length)}`,
-                `• **Requested By:** ${song.requester.tag}`,
-                `• **Link:** ${song.url}`]);
+                `• **Length:** ${song.stream === true ? "Live Stream" : song.friendlyDuration}`,
+                `• **Requested By:** ${song.requester}`,
+                `• **Link:** ${song.url}`
+            ]);
     }
 
+    /**
+     * A embed that is sent when a song is queued
+     * @param {Song} song The song object of which the data is gotten
+     * @returns {MessageEmbed}
+     */
     async queueEmbed(song) {
         return new MessageEmbed()
             .setTitle("🗒 | Song Queued - PenguBot")
             .setTimestamp()
             .setFooter("© PenguBot.cc")
             .setColor("#eedc2f")
-            .setDescription([`• **Song:** ${song.name}`,
+            .setDescription([
+                `• **Song:** ${song.title}`,
                 `• **Author:** ${song.author}`,
-                `• **Length:** ${song.stream === true ? "Live Stream" : this.client.functions.friendlyTime(song.length)}`,
-                `• **Requested By:** ${song.requester.tag}`,
-                `• **Link:** ${song.url}`]);
+                `• **Length:** ${song.stream === true ? "Live Stream" : song.friendlyDuration}`,
+                `• **Requested By:** ${song.requester}`,
+                `• **Link:** ${song.url}`
+            ]);
     }
 
+    /**
+     * A embed that is sent when the queue ends
+     * @returns {MessageEmbed}
+     */
     async stopEmbed() {
         return new MessageEmbed()
             .setTitle("⏹ | Queue Finished - PenguBot")
             .setTimestamp()
             .setFooter("© PenguBot.cc")
             .setColor("#d9534f")
-            .setDescription([`• **Party Over:** All the songs from the queue have finished playing. Leaving voice channel.`,
-                `• **Support:** If you enjoyed PenguBot and it's features, please consider becoming a Patron at: https://www.Patreon.com/PenguBot`]);
+            .setDescription([
+                `• **Party Over:** All the songs from the queue have finished playing. Leaving voice channel.`,
+                `• **Support:** If you enjoyed PenguBot and it's features, please consider becoming a Patron at: https://www.Patreon.com/PenguBot`
+            ]);
+    }
+
+    /**
+     * A embed that is sent and built when an error happens
+     * @param {Object} data The object containing data to make the embed
+     * @returns {MessageEmbed}
+     */
+    async Error(data = {}) {
+        return new MessageEmbed()
+            .setTitle(data.title)
+            .setTimestamp()
+            .setFooter("© PenguBot.cc")
+            .setColor(data.color)
+            .setDescription(data.description);
     }
 
 };

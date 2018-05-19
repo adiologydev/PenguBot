@@ -24,8 +24,8 @@ module.exports = class extends Command {
             .setFooter("© PenguBot.cc")
             .setDescription("Now enjoy music right on your Discord Guild with PenguBot Music, powered with extreme backend technology where performance is not compromised.")
             .addField(`• ${prefix}play`, "For Song Selector Use: `p!play <Song Name>`, For Playlists, YouTube Video URLs, Soundcloud URLs, Live Streams, etc. use `p!play <URL>`, for SoundCloud Search or YouTube Search use: `p!play <ytsearch|scsearch>:<song name>`.") // eslint-disable-line max-len
-            .addField(`• ${prefix}stop`, "Stops the music and clears the queue. Requires `Pengu-DJ` or above.")
             .addField(`• ${prefix}skip`, "Skip the current song instantly if there are 3 or less people in the voice channel. It does a vote skip if there are more people. Requires `Pengu-DJ` or above.")
+            .addField(`• ${prefix}clearqueue`, "Clears the current queue. Requires `Pengu-DJ` or above.")
             .addField(`• ${prefix}pause`, "Pause the music. Requires Requires `Pengu-DJ` or above. PATRON ONLY")
             .addField(`• ${prefix}resume`, "Resume the paused music. Requires Requires `Pengu-DJ` or above. PATRON ONLY")
             .addField(`• ${prefix}queue`, "Tells you which all songs are in the queue with more information.")

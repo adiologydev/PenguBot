@@ -1,15 +1,28 @@
 const { Event } = require("klasa");
-const { PlayerManager } = require("discord.js-lavalink");
 
-module.exports = class extends Event {
+const MusicClient = require("../lib/music/LavalinkClient");
+const Player = require("../lib/music/Player");
+
+module.exports = class Ready extends Event {
 
     async run() {
-        const manager = new PlayerManager(this.client, this.client.config.nodes, {
-            user: this.client.user.id,
-            shards: this.client.shard.count
-        });
+        this.bindMusic();
         this.client.setMaxListeners(50);
-        this.client.lavalink = manager;
+    }
+
+    async bindMusic() {
+        this.client.lavalink = new MusicClient(this.client, {
+            nodes: this.client.config.nodes,
+            user: this.client.user.id,
+            shards: this.client.shard ? this.client.shard.count : 1,
+            rest: this.client.config.restnode,
+            player: Player,
+            regions: {
+                defaultRegion: this.client.config.regions.defaultRegion,
+                defaultRegions: this.client.config.regions.defaultRegions
+            }
+        });
+        this.client.emit("log", "[MUSIC] Manager hook has been enabled.");
     }
 
 };
