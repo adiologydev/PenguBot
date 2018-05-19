@@ -76,41 +76,34 @@ module.exports = class extends Command {
 
     async play(musicInterface) {
         const song = musicInterface.queue[0];
-
-        if (!song) {
-            return musicInterface.textChannel.send({ embed: await this.stopEmbed() }).then(() => musicInterface.destroy());
-        }
+        const guild = musicInterface.textChannel.guild; // eslint-disable-line
 
         await this.delayer(500);
 
         return musicInterface.play(song.track)
             .then(async player => {
+                await player.volume(guild.configs.musicVolume);
                 player.on("end", async end => {
                     if (end.reason === "REPLACED") {
                         return musicInterface.textChannel.send({ embed: await this.playEmbed(song) });
                     }
                     if (end.reason === "FINISHED") {
-                        if (!musicInterface.loop) {
-                            setTimeout(async () => {
-                                if (musicInterface.queue.length === 0) {
-                                    await musicInterface.textChannel.send({ embed: await this.stopEmbed() });
-                                    return await musicInterface.destroy();
-                                } else {
-                                    await musicInterface.queue.shift();
-                                    const channel = musicInterface.textChannel;
-                                    await this.play(musicInterface);
-                                    return channel.send({ embed: await this.playEmbed(song) });
-                                }
-                            }, 500);
-                        } else {
-                            await musicInterface.queue.shift();
-                            const channel = musicInterface.textChannel;
-                            await this.play(musicInterface);
-                            return channel.send({ embed: await this.playEmbed(song) });
-                        }
+                        setTimeout(async () => {
+                            if (!musicInterface.loop) musicInterface.queue.shift();
+                            if (musicInterface.queue.length === 0) {
+                                await musicInterface.textChannel.send({ embed: await this.stopEmbed() });
+                                return await musicInterface.destroy();
+                            } else {
+                                await this.play(musicInterface);
+                                const channel = musicInterface.textChannel;
+                                await player.volume(guild.configs.musicVolume);
+                                if (!musicInterface.loop) return channel.send({ embed: await this.playEmbed(song) });
+                                return;
+                            }
+                        }, 500);
                     }
                 });
-                return musicInterface.textChannel.send({ embed: await this.playEmbed(song) });
+                if (!musicInterface.loop) return musicInterface.textChannel.send({ embed: await this.playEmbed(song) });
             });
     }
 
