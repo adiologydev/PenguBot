@@ -32,9 +32,7 @@ module.exports = class extends Command {
         const { voiceChannel } = msg.member;
         this.resolvePermissions(msg, voiceChannel);
         music.textChannel = msg.channel;
-
-        const songs = await this.client.lavalink.resolveTracks(song);
-        return this.handle(msg, songs, music);
+        return this.handle(msg, song, music);
     }
 
     async handle(msg, songs, musicInterface) {
