@@ -30,8 +30,7 @@ module.exports = class extends Command {
         }
 
         await msg.send(`<:penguSuccess:435712876506775553> Skipped: **${music.queue[0].title}**`);
-        music.queue.shift();
-        music.skip(true);
+        music.skip();
         if (!music.queue[0]) {
             await music.destroy();
             return msg.send("The queue was empty after the skip so I will leave.:runner::wind_blowing_face:");

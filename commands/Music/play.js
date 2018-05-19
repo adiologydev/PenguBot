@@ -32,6 +32,9 @@ module.exports = class extends Command {
         const { voiceChannel } = msg.member;
         this.resolvePermissions(msg, voiceChannel);
         music.textChannel = msg.channel;
+
+        if (song.length === 0) return msg.reply("No results found for your requested input, please try again.");
+
         return this.handle(msg, song, music);
     }
 
@@ -49,7 +52,7 @@ module.exports = class extends Command {
     }
 
     async handleSongs(msg, songs, first = false) {
-        if (songs.isPlaylist) {
+        if (songs.length > 1) {
             let limit;
             if (this.client.config.main.patreon === false) { limit = 74; } else { limit = 2000; }
             for (let i = 0; i <= limit; i++) {
@@ -57,14 +60,11 @@ module.exports = class extends Command {
             }
             if (songs.length >= 75 && this.client.config.main.patreon === false) {
                 return msg.send({
-                    embed: await this.Error({
-                        title: "Support us!",
-                        color: "#f96854",
-                        description: [
-                            "🎧 | **Queue:** Playlist has been added to the queue. This playlist has more than 75 songs but only 75 were added",
-                            "If you wish bypass this limit become our Patreon today at https://patreon.com/PenguBot and use our Patron Only Bot."
-                        ]
-                    })
+                    embed: new MessageEmbed()
+                        .setTitle("Support us!")
+                        .setColor("#f96854")
+                        .setDescription(["🎧 | **Queue:** Playlist has been added to the queue. This playlist has more than 75 songs but only 75 were added",
+                            "If you wish bypass this limit become our Patreon today at https://patreon.com/PenguBot and use our Patron Only Bot."])
                 });
             }
             return msg.send(`🎧 | **Queue:** Added **${songs.length}** songs to the queue based on your playlist.`);
