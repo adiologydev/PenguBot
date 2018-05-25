@@ -10,7 +10,7 @@ module.exports = class extends Event {
         if (oldMessage.author.id === this.client.user.id) return;
         const log = logger("messages", oldMessage.guild, `🔄 **Message by ${oldMessage.member}** was \`updated\` in <#${oldMessage.channel.id}>\n**Before:**\n${oldMessage.content}\n**After:**\n${newMessage.content}`, `${oldMessage.author.tag} (${oldMessage.author.id})`, oldMessage.author.displayAvatarURL()); // eslint-disable-line
         const loggingChannel = oldMessage.guild.channels.get(oldMessage.guild.configs.loggingChannel);
-        if (log) loggingChannel.sendEmbed(log);
+        if (log || !loggingChannel) loggingChannel.sendEmbed(log);
     }
 
 };

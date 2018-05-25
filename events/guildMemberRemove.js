@@ -8,6 +8,7 @@ module.exports = class extends Event {
         if (guild.configs.get("leave-messages")) {
             if (guild.channels.exists("id", guild.configs.get("leave-channel"))) {
                 const channel = guild.channels.find("id", guild.configs.get("leave-channel"));
+                if (!channel) return;
                 if (channel.permissionsFor(guild.me).has(["SEND_MESSAGES", "EMBED_LINKS", "ATTACH_FILES"])) {
                     if (member.guild.configs.get("leave-text") === null) { member.guild.configs.update("leave-text", "It's sad to see you leave {USERNAME}, hope to see you again."); }
                     try {

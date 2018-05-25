@@ -9,7 +9,7 @@ module.exports = class extends Event {
         if (message.member.user.id === this.client.user.id) return;
         const log = logger("messages", message.guild, `❌ **Message by ${message.member}** was \`deleted\` in <#${message.channel.id}>\n**Content:**\n${message.content}`, `${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL());
         const loggingChannel = message.guild.channels.get(message.guild.configs.loggingChannel);
-        if (log) loggingChannel.sendEmbed(log);
+        if (log || !loggingChannel) loggingChannel.sendEmbed(log);
     }
 
     async init() {

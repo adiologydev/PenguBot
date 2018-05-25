@@ -7,7 +7,7 @@ module.exports = class extends Event {
         if (channel.type !== "text") return;
         const log = logger("channels", channel.guild, `📗 **#${channel.name}** (${channel.id}) channel was \`created\``);
         const loggingChannel = channel.guild.channels.get(channel.guild.configs.loggingChannel);
-        if (!log) return;
+        if (!log || !loggingChannel) return;
         return loggingChannel.sendEmbed(log);
     }
 
