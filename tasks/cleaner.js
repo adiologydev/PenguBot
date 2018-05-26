@@ -46,7 +46,7 @@ module.exports = class MemorySweeper extends Task {
 
     async run() {
         const OLD_SNOWFLAKE = binaryToID(((Date.now() - THRESHOLD) - EPOCH).toString(2).padStart(42, "0") + EMPTY);
-        let presences = 0, guildMembers = 0, emojis = 0, lastMessages = 0, users = 0;
+        let presences = 0, guildMembers = 0, emojis = 0, lastMessages = 0;
 
         // Per-Guild sweeper
         for (const guild of this.client.guilds.values()) {
@@ -77,20 +77,11 @@ module.exports = class MemorySweeper extends Task {
             }
         }
 
-        // Per-User sweeper
-        for (const user of this.client.users.values()) {
-            if (user.lastMessageID && user.lastMessageID > OLD_SNOWFLAKE) continue;
-            this.client.users.delete(user.id);
-            this.client.gateways.users.cache.delete(user.id);
-            users++;
-        }
-
         // Emit a log
         this.client.emit("verbose",
             `${HEADER} ${
                 this.setColor(presences)} [Presence]s | ${
                 this.setColor(guildMembers)} [GuildMember]s | ${
-                this.setColor(users)} [User]s | ${
                 this.setColor(emojis)} [Emoji]s | ${
                 this.setColor(lastMessages)} [Last Message]s.`);
     }
