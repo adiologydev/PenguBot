@@ -13,7 +13,7 @@ module.exports = class extends Command {
 
     async run(msg, [Page]) {
         const users = await this.client.providers.get("rethinkdb").getAll("users").then(res => res.sort((a, b) => b.xp - a.xp));
-        const userPos = users.filter(a => this.client.users.get(a.id));
+        const userPos = users.filter(a => this.client.users.fetch(a.id));
 
         const leaderboard = [];
         const totalPages = Math.round(userPos.length / 10);
@@ -28,10 +28,10 @@ module.exports = class extends Command {
         userPos.slice(index * 10, (index + 1) * 10)
             .map(user => ({ xp: user.xp, user: user.id }))
             .forEach((newMap, position) =>
-                leaderboard.push(` • ${((index * 10) + (position + 1)).toString().padStart(2, " ")} | ${this.client.users.get(newMap.user).tag.padEnd(30, " ")}::  ${newMap.xp.toLocaleString()} XPs`)
+                leaderboard.push(` • ${((index * 10) + (position + 1)).toString().padStart(2, " ")} | ${this.client.users.fetch(newMap.user).tag.padEnd(30, " ")}::  ${newMap.xp.toLocaleString()} XP`)
             );
 
-        leaderboard.push(`\n • ${pos !== -1 ? pos + 1 : "???"} | ${msg.author.tag.padEnd(30, " ")}::  ${this.client.users.get(msg.author.id).configs.xp.toLocaleString()} XPs`);
+        leaderboard.push(`\n • ${pos !== -1 ? pos + 1 : "???"} | ${msg.author.tag.padEnd(30, " ")}::  ${this.client.users.fetch(msg.author.id).configs.xp.toLocaleString()} XP`);
         leaderboard.push("--------------------------------------------------");
         return msg.channel.send(`${leaderboard.join("\n")}\n Page ${index + 1} / ${totalPages || 1} - ${userPos.length} Total Users`, { code: "asciidoc" });
     }

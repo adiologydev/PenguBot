@@ -39,7 +39,7 @@ module.exports = class extends Command {
         const xpProg = Math.round(((xp - oldLvl) / (nextLvl - oldLvl)) * 269);
 
         const users = await this.client.providers.get("rethinkdb").getAll("users").then(res => res.sort((a, b) => b.xp - a.xp));
-        const usersPos = users.filter(a => this.client.users.get(a.id));
+        const usersPos = users.filter(a => this.client.users.fetch(a.id));
         const pos = usersPos.findIndex(i => i.id === user.id);
 
         const bgName = await user.configs.get("profile-bg");

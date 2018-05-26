@@ -10,6 +10,7 @@ module.exports = class extends Event {
         });
         this.client.setMaxListeners(50);
         this.client.lavalink = manager;
+        this.client.schedule.create("cleaner", "0 * * * *");
     }
 
 };

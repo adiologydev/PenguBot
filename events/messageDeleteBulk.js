@@ -9,7 +9,7 @@ module.exports = class extends Event {
         if (messages.first().author.bot) return;
         const log = logger("messages", guild, `❌ **${messages.size} messages** were \`deleted\` in <#${messages.first().channel.id}>`);
         const loggingChannel = guild.channels.get(guild.configs.loggingChannel);
-        if (log || !loggingChannel) loggingChannel.sendEmbed(log);
+        if (log) loggingChannel.sendEmbed(log);
     }
 
 
