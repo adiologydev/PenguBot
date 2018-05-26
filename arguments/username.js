@@ -7,7 +7,7 @@ function resolveUser(query, guild) {
     if (query instanceof GuildMember) return query.user;
     if (query instanceof User) return query;
     if (typeof query === "string") {
-        if (USER_REGEXP.test(query)) return guild.client.users.fetch(USER_REGEXP.exec(query)[1]).catch(() => null);
+        if (USER_REGEXP.test(query)) return guild.client.users.get(USER_REGEXP.exec(query)[1]).catch(() => null);
         if (/\w{1,32}#\d{4}/.test(query)) {
             const res = guild.members.find(member => member.user.tag === query);
             return res ? res.user : null;
