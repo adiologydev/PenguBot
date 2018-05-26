@@ -7,7 +7,7 @@ module.exports = class extends Task {
         try {
             return user.send(`⏰ **Reminder:** ${text}`);
         } catch (e) {
-            return _channel.send(`📘 | ${user}, **Reminder:** ${text}`);
+            return _channel.send(`📘 | <@${user.id}>, **Reminder:** ${text}`);
         }
     }
 
