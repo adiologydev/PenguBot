@@ -24,7 +24,7 @@ module.exports = class extends Event {
         // Logging
         const log = logger("join", guild, `📥 **${member.user.tag}** (${member.user.id}) has \`joined\` the guild.\n**Total Members:** ${guild.members.size}`);
         const loggingChannel = member.guild.channels.get(member.guild.configs.loggingChannel);
-        if (log) loggingChannel.sendEmbed(log);
+        if (log && loggingChannel) loggingChannel.send(log);
 
         // Auto Roles
         if (guild.configs.get("autoroles")) {
