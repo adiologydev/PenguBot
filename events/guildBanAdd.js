@@ -5,7 +5,7 @@ module.exports = class extends Event {
 
     async run(guild, user) {
         const log = logger("ban", guild, `🔨 **${user.tag}** (${user.id}) was \`banned\``);
-        const loggingChannel = guild.channels.get(guild.configs.loggingChannel);
+        const loggingChannel = await guild.channels.fetch(guild.configs.loggingChannel);
         if (log && loggingChannel) loggingChannel.send(log);
     }
 

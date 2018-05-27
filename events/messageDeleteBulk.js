@@ -8,7 +8,7 @@ module.exports = class extends Event {
         if (!guild) return;
         if (messages.first().author.bot) return;
         const log = logger("messages", guild, `❌ **${messages.size} messages** were \`deleted\` in <#${messages.first().channel.id}>`);
-        const loggingChannel = guild.channels.get(guild.configs.loggingChannel);
+        const loggingChannel = await guild.channels.fetch(guild.configs.loggingChannel);
         if (log && loggingChannel) loggingChannel.send(log);
     }
 

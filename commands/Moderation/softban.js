@@ -18,7 +18,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [member, days = 1, ...reason]) {
-        const user = msg.guild.members.get(member.id);
+        const user = await msg.guild.members.fetch(member.id);
 
         if (user.id === msg.author.id) return msg.reply(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_BAN_YOURSELF")}***`);
         if (user.id === this.client.user.id) return msg.reply(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_BAN_PENGU")}***`);

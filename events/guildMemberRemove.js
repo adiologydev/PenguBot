@@ -22,7 +22,7 @@ module.exports = class extends Event {
 
         // Logging
         const log = logger("leave", guild, `📤 **${member.user.tag}** (${member.user.id}) has \`left\` the guild.\n**Total Members:** ${guild.members.size}`);
-        const loggingChannel = member.guild.channels.get(member.guild.configs.loggingChannel);
+        const loggingChannel = await guild.channels.fetch(guild.configs.loggingChannel);
         if (log && loggingChannel) loggingChannel.send(log);
     }
 

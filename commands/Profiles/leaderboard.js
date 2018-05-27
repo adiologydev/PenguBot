@@ -13,7 +13,7 @@ module.exports = class extends Command {
 
     async run(msg, [Page]) {
         const users = await this.client.providers.get("rethinkdb").getAll("users").then(res => res.sort((a, b) => b.xp - a.xp));
-        const userPos = users.filter(a => this.client.users.get(a.id));
+        const userPos = users.filter(async a => await this.client.users.fetch(a.id));
 
         const leaderboard = [];
         const totalPages = Math.round(userPos.length / 10);
@@ -25,14 +25,18 @@ module.exports = class extends Command {
         leaderboard.push("=== PenguBot Global Leaderboard ===\n");
         const pos = userPos.findIndex(i => i.id === msg.author.id);
 
-        userPos.slice(index * 10, (index + 1) * 10)
-            .map(user => ({ xp: user.xp, user: user.id }))
-            .forEach((newMap, position) =>
-                leaderboard.push(` • ${((index * 10) + (position + 1)).toString().padStart(2, " ")} | ${this.client.users.get(newMap.user).username.padEnd(30, " ")}::  ${newMap.xp.toLocaleString()} XP`)
-            );
+        const userProfiles = await Promise.all(userPos.slice(index * 10, (index + 1) * 10)
+            .map(async user => {
+                const username = await this.client.users.fetch(user.id).then(a => a.username).catch(() => null) || "None";
+                return { xp: user.xp ? user.xp : 0, username };
+            }));
+        for (let i = 0; i < userProfiles.length; i++) {
+            const userData = userProfiles[i];
+            leaderboard.push(` • ${((index * 10) + (i + 1)).toString().padStart(2, " ")} | ${userData.username.padEnd(30, " ")}::  ${userData.xp.toLocaleString()} XP`);
+        }
 
-        const posNum = pos !== -1 ? pos + 1 : "000";
-        leaderboard.push(`\n • ${posNum.toString().padStart(2, " ")} | ${msg.author.username.padEnd(30, " ")}::  ${this.client.users.get(msg.author.id).configs.xp.toLocaleString()} XP`);
+        const posNum = pos !== -1 ? pos + 1 : 0;
+        leaderboard.push(`\n • ${posNum.toString().padStart(2, " ")} | ${msg.author.username.padEnd(30, " ")}::  ${msg.author.configs.xp.toLocaleString()} XP`);
         leaderboard.push("--------------------------------------------------");
         return msg.channel.send(`${leaderboard.join("\n")}\n Page ${index + 1} / ${totalPages || 1} - ${userPos.length} Total Users`, { code: "asciidoc" });
     }

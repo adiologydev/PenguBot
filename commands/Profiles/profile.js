@@ -39,10 +39,10 @@ module.exports = class extends Command {
         const xpProg = Math.round(((xp - oldLvl) / (nextLvl - oldLvl)) * 269);
 
         const users = await this.client.providers.get("rethinkdb").getAll("users").then(res => res.sort((a, b) => b.xp - a.xp));
-        const usersPos = users.filter(a => this.client.users.get(a.id));
+        const usersPos = users.filter(a => this.client.users.has(a.id));
         const pos = usersPos.findIndex(i => i.id === user.id);
 
-        const bgName = await user.configs.get("profile-bg");
+        const bgName = await user.configs["profile-bg"];
         const bgImg = await fs.readFile(`${process.cwd()}/assets/profiles/bg/${bgName}.png`);
         const avatar = await get(user.displayAvatarURL({ format: "png", sze: 256 })).then(res => res.body);
 

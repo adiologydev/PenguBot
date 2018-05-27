@@ -8,7 +8,7 @@ module.exports = class extends Event {
         if (message.author.bot) return;
         if (message.author.id === "438049470094114816" || message.author.id === "303181184718995457") return;
         const log = logger("messages", message.guild, `❌ **Message by ${message.member}** was \`deleted\` in <#${message.channel.id}>\n**Content:**\n${message.content}`, `${message.author.tag} (${message.author.id})`, message.author.displayAvatarURL());
-        const loggingChannel = this.client.channels.get(message.guild.configs.loggingChannel);
+        const loggingChannel = await message.guild.channels.fetch(message.guild.configs.loggingChannel);
         if (log && loggingChannel) loggingChannel.send(log);
     }
 
