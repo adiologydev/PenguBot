@@ -28,11 +28,11 @@ module.exports = class extends Command {
     }
 
     async createImage(user) {
-        const xp = await user.configs.xp;
-        const lvl = await user.configs.level;
-        const snowflakes = await user.configs.snowflakes;
-        const reps = await user.configs.reps;
-        const title = await user.configs.title;
+        const xp = user.configs.xp;
+        const lvl = user.configs.level;
+        const snowflakes = user.configs.snowflakes;
+        const reps = user.configs.reps;
+        const title = user.configs.title;
 
         const oldLvl = Math.floor((lvl / 0.2) ** 2);
         const nextLvl = Math.floor(((lvl + 1) / 0.2) ** 2);
@@ -42,7 +42,7 @@ module.exports = class extends Command {
         const usersPos = users.filter(a => this.client.users.has(a.id));
         const pos = usersPos.findIndex(i => i.id === user.id);
 
-        const bgName = await user.configs["profile-bg"];
+        const bgName = user.configs["profile-bg"];
         const bgImg = await fs.readFile(`${process.cwd()}/assets/profiles/bg/${bgName}.png`);
         const avatar = await get(user.displayAvatarURL({ format: "png", sze: 256 })).then(res => res.body);
 

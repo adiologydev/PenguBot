@@ -134,18 +134,6 @@
 		"no-useless-constructor": "error",
 		"prefer-arrow-callback": "error",
 		"prefer-const": "error",
-		"prefer-destructuring": ["error", {
-			"VariableDeclarator": {
-				"array": false,
-				"object": true
-			},
-			"AssignmentExpression": {
-				"array": true,
-				"object": true
-			}
-			}, {
-			"enforceForRenamedProperties": false
-		}],
 		"prefer-rest-params": "error",
 		"prefer-spread": "error",
 		"prefer-template": "error",

@@ -18,14 +18,13 @@ module.exports = class extends Monitor {
 
     async run(msg) {
         if (!msg.guild) return;
-        if (!msg.channel.permissionsFor(msg.guild.me).has(["SEND_MESSAGES", "ATTACH_FILES"])) return;
         if (timeout.has(msg.author.id)) return;
 
         const randomXP = this.client.functions.randomNumber(1, 5);
         const randomSnowflakes = this.client.functions.randomNumber(1, 2);
         const newSnowflakes = msg.author.configs.snowflakes + randomSnowflakes;
-        const newXP = await msg.author.configs.xp + randomXP;
-        const oldLvl = await msg.author.configs.level;
+        const newXP = msg.author.configs.xp + randomXP;
+        const oldLvl = msg.author.configs.level;
         const newLvl = Math.floor(0.2 * Math.sqrt(newXP));
         await msg.author.configs.update(["xp", "level", "snowflakes"], [newXP, newLvl, newSnowflakes]);
 
@@ -35,7 +34,8 @@ module.exports = class extends Monitor {
         // Generate Level Up Images on Level Up
         if (oldLvl !== newLvl) {
             if (msg.guild.configs.get("level-ups") === true) {
-                const bgName = await msg.author.configs["profile-bg"];
+                if (!msg.channel.permissionsFor(msg.guild.me).has(["SEND_MESSAGES", "ATTACH_FILES"])) return;
+                const bgName = msg.author.configs["profile-bg"];
                 const bgImg = await fs.readFile(`${process.cwd()}/assets/profiles/bg/${bgName}.png`);
                 const avatar = await get(msg.author.displayAvatarURL({ format: "png", size: 128 })).then(res => res.body);
                 const img = await new Canvas(100, 100)
