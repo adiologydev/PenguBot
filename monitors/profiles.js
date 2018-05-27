@@ -19,11 +19,12 @@ module.exports = class extends Monitor {
     async run(msg) {
         if (!msg.guild) return;
         if (!msg.channel.permissionsFor(msg.guild.me).has(["SEND_MESSAGES", "ATTACH_FILES"])) return;
+        if (timeout.has(msg.author.id)) return;
 
         const randomXP = this.client.functions.randomNumber(1, 5);
         const randomSnowflakes = this.client.functions.randomNumber(1, 2);
         const newSnowflakes = msg.author.configs.snowflakes + randomSnowflakes;
-        const newXP = await msg.author.configs.get.xp + randomXP;
+        const newXP = await msg.author.configs.xp + randomXP;
         const oldLvl = await msg.author.configs.level;
         const newLvl = Math.floor(0.2 * Math.sqrt(newXP));
         await msg.author.configs.update(["xp", "level", "snowflakes"], [newXP, newLvl, newSnowflakes]);

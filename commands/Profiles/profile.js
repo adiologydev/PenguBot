@@ -28,11 +28,11 @@ module.exports = class extends Command {
     }
 
     async createImage(user) {
-        const xp = await user.configs.get("xp");
-        const lvl = await user.configs.get("level");
-        const snowflakes = await user.configs.get("snowflakes");
-        const reps = await user.configs.get("reps");
-        const title = await user.configs.get("title");
+        const xp = await user.configs.xp;
+        const lvl = await user.configs.level;
+        const snowflakes = await user.configs.snowflakes;
+        const reps = await user.configs.reps;
+        const title = await user.configs.title;
 
         const oldLvl = Math.floor((lvl / 0.2) ** 2);
         const nextLvl = Math.floor(((lvl + 1) / 0.2) ** 2);
