@@ -20,6 +20,7 @@ module.exports = class extends Command {
             return msg.sendMessage("❄ | ***You can not give your daily Snowflakes to a bot!***");
         }
         if (msg.author.configs.get("daily-cooldown") > 0) {
+            await msg.author.configs._syncStatus;
             const now = Date.now();
             const last = msg.author.configs.get("daily-cooldown");
             const diff = now - last;

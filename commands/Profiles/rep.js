@@ -25,6 +25,7 @@ module.exports = class extends Command {
             }
         }
         if (msg.author.configs.get("rep-cooldown") > 0) {
+            await msg.author.configs._syncStatus;
             const now = Date.now();
             const last = msg.author.configs.get("rep-cooldown");
             const diff = now - last;

@@ -28,6 +28,7 @@ module.exports = class extends Command {
     }
 
     async createImage(user) {
+        await user.configs._syncStatus;
         const { xp, level: lvl, snowflakes, reps, title } = user.configs;
 
         const oldLvl = Math.floor((lvl / 0.2) ** 2);

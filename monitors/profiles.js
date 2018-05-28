@@ -19,6 +19,7 @@ module.exports = class extends Monitor {
     async run(msg) {
         if (!msg.guild) return;
         if (timeout.has(msg.author.id)) return;
+        await msg.author.configs._syncStatus;
 
         const randomXP = this.client.functions.randomNumber(1, 5);
         const randomSnowflakes = this.client.functions.randomNumber(1, 2);

@@ -14,6 +14,7 @@ module.exports = class extends Command {
     async run(msg, [Page]) {
         const users = await this.client.providers.get("rethinkdb").getAll("users").then(res => res.sort((a, b) => b.xp - a.xp));
         const userPos = users.filter(async a => await this.client.users.fetch(a.id));
+        await msg.author.configs._syncStatus;
 
         const leaderboard = [];
         const totalPages = Math.round(userPos.length / 10);
