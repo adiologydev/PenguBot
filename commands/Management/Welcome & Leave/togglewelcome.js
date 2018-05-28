@@ -17,8 +17,8 @@ module.exports = class extends Command {
 
     async run(msg) {
         if (!msg.guild.configs.messages.welcome.enabled) {
-            if (!msg.guild.channels.get(msg.guild.configs.messages.welcome.channel)) { msg.guild.configs.update("messages.welcome.channel", msg.channel.id); }
-            if (!msg.guild.configs.messages.welcome.message) { msg.guild.configs.update("messages.welcome.message", "Welcome {MENTION} to {GUILD_NAME}, we hope you enjoy your stay!", { action: "add" }); }
+            if (!msg.guild.channels.get(msg.guild.configs.messages.welcome.channel)) { await msg.guild.configs.update("messages.welcome.channel", msg.channel.id); }
+            if (!msg.guild.configs.messages.welcome.message) { await msg.guild.configs.update("messages.welcome.message", "Welcome {MENTION} to {GUILD_NAME}, we hope you enjoy your stay!", { action: "add" }); }
             return msg.guild.configs.update("messages.welcome.enabled", true).then(() => {
                 msg.sendMessage(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_WLCM_ENABLED")}***`);
             });

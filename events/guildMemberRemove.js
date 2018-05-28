@@ -9,7 +9,7 @@ module.exports = class extends Event {
             if (guild.channels.get(guild.configs.get("messages.leave.channel"))) {
                 const channel = guild.channels.get(guild.configs.get("messages.leave.channel"));
                 if (channel && channel.permissionsFor(guild.me).has(["SEND_MESSAGES", "EMBED_LINKS", "ATTACH_FILES"])) {
-                    if (!member.guild.configs.messages.leave.message) { member.guild.configs.update("messages.leave.message", "It's sad to see you leave {USERNAME}, hope to see you again."); }
+                    if (!member.guild.configs.messages.leave.message) { await member.guild.configs.update("messages.leave.message", "It's sad to see you leave {USERNAME}, hope to see you again."); }
                     try {
                         await channel.send(this.replace(guild.configs.get("messages.leave.message"), member));
                     } catch (e) {

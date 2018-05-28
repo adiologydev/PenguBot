@@ -17,7 +17,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [member]) {
-        if (msg.guild.configs.get("permissions.dj").indexOf(member.id) !== -1) {
+        if (msg.guild.configs.permissions.dj.indexOf(member.id) !== -1) {
             await msg.guild.configs.update("permissions.dj", member.id, { action: "remove" });
             return msg.sendMessage(`<:penguError:435712890884849664> ***${member.tag} ${msg.language.get("MESSAGE_DJ_REMOVE")}***`);
         } else {

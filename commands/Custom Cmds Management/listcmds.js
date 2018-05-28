@@ -19,10 +19,7 @@ module.exports = class extends Command {
     async run(msg) {
         if (msg.guild.configs.customcmds.cmds[0] === undefined) return msg.reply(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_NO_CMDS")}***`);
         const prefix = msg.guild.configs.get("prefix");
-        const names = [];
-        msg.guild.configs.customcmds.cmds.forEach(a => {
-            names.push(`${a.name}`);
-        });
+        const names = msg.guild.configs.customcmds.cmds.map(cmd => cmd.name);
 
         const cmds = new RichDisplay(new MessageEmbed()
             .setTitle("Use the reactions to change pages, select a page or stop viewing the commands.")

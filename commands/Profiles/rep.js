@@ -24,10 +24,10 @@ module.exports = class extends Command {
                 return msg.sendMessage("🏆 | ***You can not rep a bot, I know you love bots like me but no!***");
             }
         }
-        if (msg.author.configs.get("repcooldown") > 0) {
+        if (msg.author.configs.repcooldown > 0) {
             await msg.author.configs._syncStatus;
             const now = Date.now();
-            const last = msg.author.configs.get("repcooldown");
+            const last = msg.author.configs.repcooldown;
             const diff = now - last;
             const next = 43200000 - diff;
 
@@ -40,8 +40,8 @@ module.exports = class extends Command {
                 if (!user) {
                     return msg.sendMessage("🏆 | ***You can now give a reputation point!***");
                 } else {
-                    msg.author.configs.update("repcooldown", Date.now());
-                    user.configs.update("reps", user.configs.get("reps") + 1);
+                    await msg.author.configs.update("repcooldown", Date.now());
+                    await user.configs.update("reps", user.configs.reps + 1);
                     return msg.sendMessage(`🏆 | ***You have given a reputation point to ${user}!***`);
                 }
             } else {
@@ -51,7 +51,7 @@ module.exports = class extends Command {
             return msg.sendMessage("🏆 | ***You can now give a reputation point!***");
         } else {
             msg.author.configs.update("repcooldown", Date.now());
-            user.configs.update("reps", user.configs.get("reps") + 1);
+            await user.configs.update("reps", user.configs.reps + 1);
             return msg.sendMessage(`🏆 | ***You have given a reputation point to ${user}!***`);
         }
     }

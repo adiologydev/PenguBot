@@ -6,13 +6,13 @@ module.exports = class extends Event {
     async run(member) {
         // Welcome Messages
         const guild = member.guild; // eslint-disable-line
-        if (guild.configs.get("messages.welcome.enabled")) {
-            if (guild.channels.get(guild.configs.get("messages.welcome.channel"))) {
-                const channel = guild.channels.get(guild.configs.get("messages.welcome.channel"));
+        if (guild.configs.messages.welcome.enabled) {
+            if (guild.channels.get(guild.configs.messages.welcome.channel)) {
+                const channel = guild.channels.get(guild.configs.messages.welcome.channel);
                 if (channel && channel.permissionsFor(guild.me).has(["SEND_MESSAGES", "EMBED_LINKS", "ATTACH_FILES"])) {
-                    if (!guild.configs.messages.welcome.message) { member.guild.configs.update("messages.welcome.message", "Welcome {MENTION} to {GUILD_NAME}, we hope you enjoy your stay!"); }
+                    if (!guild.configs.messages.welcome.message) { await member.guild.configs.update("messages.welcome.message", "Welcome {MENTION} to {GUILD_NAME}, we hope you enjoy your stay!"); }
                     try {
-                        await channel.send(this.replace(guild.configs.get("messages.welcome.message"), member));
+                        await channel.send(this.replace(guild.configs.messages.welcome.message, member));
                     } catch (e) {
                         console.error(e);
                     }
@@ -26,7 +26,7 @@ module.exports = class extends Event {
         if (log && loggingChannel) loggingChannel.send(log);
 
         // Auto Roles
-        if (guild.configs.get("autoroles.enabled")) {
+        if (guild.configs.autoroles.enabled) {
             if (guild.me.permissions.has("MANAGE_MEMBERS")) {
                 const { roles } = guild.configs.autoroles;
                 if (!roles) return;

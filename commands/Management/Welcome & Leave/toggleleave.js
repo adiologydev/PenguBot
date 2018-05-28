@@ -17,8 +17,8 @@ module.exports = class extends Command {
 
     async run(msg) {
         if (!msg.guild.configs.messages.leave.enabled) {
-            if (!msg.guild.channels.get(msg.guild.configs.messages.leave.channel)) { msg.guild.configs.update("messages.leave.channel", msg.channel.id); }
-            if (!msg.guild.configs.messages.leave.message) { msg.guild.configs.update("messages.leave.message", "It's sad to see you leaving **{USERNAME}**!", { action: "add" }); }
+            if (!msg.guild.channels.get(msg.guild.configs.messages.leave.channel)) { await msg.guild.configs.update("messages.leave.channel", msg.channel.id); }
+            if (!msg.guild.configs.messages.leave.message) { await msg.guild.configs.update("messages.leave.message", "It's sad to see you leaving **{USERNAME}**!", { action: "add" }); }
             return msg.guild.configs.update("messages.leave.enabled", true).then(() => {
                 msg.sendMessage(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_LEAVE_ENABLED")}***`);
             });
@@ -39,7 +39,7 @@ module.exports = class extends Command {
         if (!this.client.gateways.guilds.schema.messages.leave.has("channel")) {
             await this.client.gateways.guilds.schema.messages.leave.add("channel", { type: "channel" });
         }
-        if (!await this.client.gateways.guilds.schema.messages.leave.has("message")) {
+        if (!this.client.gateways.guilds.schema.messages.leave.has("message")) {
             await this.client.gateways.guilds.schema.messages.leave.add("message", { type: "string" });
         }
     }

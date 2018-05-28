@@ -18,11 +18,9 @@ module.exports = class extends Monitor {
         if (!this.client.commands.has(cmdName)) {
             const cmd = msg.guild.configs.customcmds.cmds.find(c => c.name === cmdName);
             if (!cmd) return;
-            if (cmd.name === cmdName) {
-                cooldown.add(msg.author.id);
-                setTimeout(() => cooldown.delete(msg.author.id), 10000);
-                return msg.sendMessage(this.replace(cmd.content, msg));
-            }
+            cooldown.add(msg.author.id);
+            setTimeout(() => cooldown.delete(msg.author.id), 10000);
+            return msg.sendMessage(this.replace(cmd.content, msg));
         }
     }
 

@@ -13,12 +13,12 @@ module.exports = class extends Monitor {
         if (msg.author.id !== this.client.user.id) {
             if (msg.mentions.users.size) {
                 const mentioned = msg.mentions.users.first();
-                if (mentioned.configs.get("afk.afk")) {
+                if (mentioned.configs.afk.afk) {
                     msg.sendMessage(`⏰ | ***${mentioned.tag} ${msg.language.get("MESSAGE_IS_AFK")}*** ${mentioned.configs.get("afk.reason")}`);
                 }
             }
 
-            if (msg.author.configs.get("afk.afk")) {
+            if (msg.author.configs.afk.afk) {
                 await msg.author.configs.update("afk.afk", false).then(() => {
                     msg.author.configs.update("afk.reason", null);
                 });
