@@ -9,7 +9,7 @@ module.exports = class extends Command {
         super(...args, {
             cooldown: 8,
             requiredPermissions: ["ATTACH_IMAGES", "EMBED_LINKS"],
-            description: (msg) => msg.language.get("COMMAND_SNAP_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_SNAP_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
     }

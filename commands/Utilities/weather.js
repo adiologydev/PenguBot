@@ -15,7 +15,7 @@ module.exports = class extends Command {
             aliases: ["w", "☁", "⛅", "⛈", "🌤", "🌥", "🌦", "🌧", "🌨", "🌩", "🌪"],
             cooldown: 30,
             requiredPermissions: ["EMBED_LINKS", "ATTACH_FILES"],
-            description: (msg) => msg.language.get("COMMAND_WEATHER_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_WEATHER_DESCRIPTION"),
             usage: "<location:string> [...]",
             extendedHelp: "No extended help available."
         });

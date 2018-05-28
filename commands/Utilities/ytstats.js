@@ -10,7 +10,7 @@ module.exports = class extends Command {
             aliases: ["youtubestats"],
             cooldown: 5,
             requiredPermissions: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
-            description: (msg) => msg.language.get("COMMAND_YTSTATS_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_YTSTATS_DESCRIPTION"),
             usage: "<name:string> [...]",
             extendedHelp: "No extended help available."
         });

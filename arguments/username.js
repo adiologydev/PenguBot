@@ -39,9 +39,9 @@ module.exports = class extends Argument {
         }
 
         switch (querySearch.length) {
-        case 0: throw `${possible.name} Must be a valid name, id or user mention`;
-        case 1: return querySearch[0];
-        default: throw `Found multiple matches: \`${querySearch.map(user => user.tag).join("`, `")}\``;
+            case 0: throw `${possible.name} Must be a valid name, id or user mention`;
+            case 1: return querySearch[0];
+            default: throw `Found multiple matches: \`${querySearch.map(user => user.tag).join("`, `")}\``;
         }
     }
 

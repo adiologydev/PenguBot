@@ -6,7 +6,7 @@ module.exports = class extends Command {
         super(...args, {
             guarded: true,
             requiredPermissions: ["EMBED_LINKS"],
-            description: (msg) => msg.language.get("COMMAND_SUPPORT_DESCRIPTION")
+            description: msg => msg.language.get("COMMAND_SUPPORT_DESCRIPTION")
         });
     }
 

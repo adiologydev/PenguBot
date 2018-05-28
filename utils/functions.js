@@ -9,7 +9,7 @@ const haste = (input, extension) => new Promise((res, rej) => {
     }).catch(e => rej(e));
 });
 
-const isUpvoter = (id) => new Promise((resolve, reject) => {
+const isUpvoter = id => new Promise((resolve, reject) => {
     get(`https://discordbots.org/api/bots/303181184718995457/check`)
         .set("Authorization", config.keys.dbl)
         .query("userId", id)
@@ -19,7 +19,7 @@ const isUpvoter = (id) => new Promise((resolve, reject) => {
         }).catch(err => reject(err));
 });
 
-const postStats = (client) => {
+const postStats = client => {
     if (client.user.id !== "303181184718995457") return;
     post(`https://discordbots.org/api/bots/${client.user.id}/stats`)
         .set("Authorization", config.keys.dbl)
@@ -60,7 +60,7 @@ async function getSongs(string) {
     return res.body;
 }
 
-const friendlyTime = (duration) => {
+const friendlyTime = duration => {
     let seconds = parseInt((duration / 1000) % 60);
     let minutes = parseInt((duration / (1000 * 60)) % 60);
     let hours = parseInt((duration / (1000 * 60 * 60)) % 24);
@@ -72,14 +72,14 @@ const friendlyTime = (duration) => {
     return `${hours}:${minutes}:${seconds}`;
 };
 
-const validURL = (str) => {
+const validURL = str => {
     const regexp = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/; // eslint-disable-line
     if (!regexp.test(str)) {
         return false;
     } else { return true; }
 };
 
-const clearPatrons = (client) => {
+const clearPatrons = client => {
     if (!client.config.main.patreon) return "Not the Patron Bot.";
     const guilds = client.guilds; // eslint-disable-line
     for (const guild of guilds) {
@@ -89,7 +89,7 @@ const clearPatrons = (client) => {
 };
 
 const mysql = require("mysql2/promise");
-const migrate = async (client) => {
+const migrate = async client => {
     const con = await mysql.createConnection({ host: "localhost", user: "root", password: "", database: "pengubotv2" });
     const [rows] = await con.execute("SELECT * FROM settings");
     for (const row of rows) {

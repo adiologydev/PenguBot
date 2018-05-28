@@ -10,7 +10,7 @@ module.exports = class extends Command {
             aliases: ["np", "currentsong", "song"],
             permissionLevel: 0,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            description: (msg) => msg.language.get("COMMAND_MUSIC_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_MUSIC_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
     }

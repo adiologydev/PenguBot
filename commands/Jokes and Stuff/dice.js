@@ -6,7 +6,7 @@ module.exports = class extends Command {
         super(...args, {
             cooldown: 8,
             aliases: ["die", "roll"],
-            description: (msg) => msg.language.get("COMMAND_DICE_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_DICE_DESCRIPTION"),
             extendedHelp: "No extended help available.",
             usage: "[sides:integer]"
         });

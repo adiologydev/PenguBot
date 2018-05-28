@@ -10,7 +10,7 @@ module.exports = class extends Command {
             aliases: ["kickmember"],
             permissionLevel: 5,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "KICK_MEMBERS"],
-            description: (msg) => msg.language.get("COMMAND_KICK_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_KICK_DESCRIPTION"),
             quotedStringSupport: false,
             usage: "<member:user> [reason:string] [...]",
             usageDelim: " ",

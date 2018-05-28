@@ -10,7 +10,7 @@ module.exports = class extends Command {
             aliases: ["twitchstats"],
             cooldown: 5,
             requiredPermissions: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
-            description: (msg) => msg.language.get("COMMAND_TWSTATS_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_TWSTATS_DESCRIPTION"),
             usage: "<name:string> [...]",
             extendedHelp: "No extended help available."
         });

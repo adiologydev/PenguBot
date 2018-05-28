@@ -11,13 +11,13 @@ module.exports = class extends Command {
             permissionLevel: 0,
             aliases: ["musicplay"],
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS", "ATTACH_FILES"],
-            description: (msg) => msg.language.get("COMMAND_PLAY_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_PLAY_DESCRIPTION"),
             usage: "<song:string>",
             extendedHelp: "No extended help available."
         });
     }
 
-    // Main Command Functions
+    /* eslint-disable complexity */
     async run(msg, [song]) {
         const url = encodeURIComponent(song);
         if (!msg.member.voiceChannel) return msg.sendMessage("<:penguError:435712890884849664> ***You're currently not in a Voice Channel, please join one to use this command.***");
@@ -96,6 +96,7 @@ module.exports = class extends Command {
             }
         }
     }
+    /* eslint-disable complexity */
 
     // Creating Volume Integer for Guild's Configuration
     async init() {

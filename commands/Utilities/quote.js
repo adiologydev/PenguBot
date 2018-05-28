@@ -9,7 +9,7 @@ module.exports = class extends Command {
             cooldown: 8,
             permissionLevel: 0,
             requiredPermissions: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
-            description: (msg) => msg.language.get("COMMAND_QUOTE_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_QUOTE_DESCRIPTION"),
             usage: "<message:message>",
             extendedHelp: "No extended help available."
         });

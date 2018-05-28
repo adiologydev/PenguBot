@@ -16,7 +16,7 @@ module.exports = class extends Command {
             cooldown: 30,
             permissionLevel: 0,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "ATTACH_FILES"],
-            description: (msg) => msg.language.get("COMMAND_PROFILE_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_PROFILE_DESCRIPTION"),
             usage: "[user:user]",
             extendedHelp: "No extended help available."
         });
@@ -28,11 +28,7 @@ module.exports = class extends Command {
     }
 
     async createImage(user) {
-        const xp = user.configs.xp;
-        const lvl = user.configs.level;
-        const snowflakes = user.configs.snowflakes;
-        const reps = user.configs.reps;
-        const title = user.configs.title;
+        const { xp, level: lvl, snowflakes, reps, title } = user.configs;
 
         const oldLvl = Math.floor((lvl / 0.2) ** 2);
         const nextLvl = Math.floor(((lvl + 1) / 0.2) ** 2);

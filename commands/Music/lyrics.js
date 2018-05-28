@@ -12,7 +12,7 @@ module.exports = class extends Command {
             aliases: ["songlyrics", "lyric"],
             permissionLevel: 0,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            description: (msg) => msg.language.get("COMMAND_LYRICS_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_LYRICS_DESCRIPTION"),
             extendedHelp: "No extended help available.",
             usage: "<song:string>"
         });

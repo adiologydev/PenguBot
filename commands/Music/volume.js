@@ -9,7 +9,7 @@ module.exports = class extends Command {
             aliases: ["changevol", "setvolume"],
             permissionLevel: 0,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            description: (msg) => msg.language.get("COMMAND_VOLUME_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_VOLUME_DESCRIPTION"),
             extendedHelp: "No extended help available.",
             usage: "[volume:integer]"
         });

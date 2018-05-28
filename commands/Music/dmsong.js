@@ -10,7 +10,7 @@ module.exports = class extends Command {
             aliases: ["savesong", "dmcurrentsong"],
             permissionLevel: 0,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            description: (msg) => msg.language.get("COMMAND_DMSONG_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_DMSONG_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
     }

@@ -9,7 +9,7 @@ module.exports = class extends Command {
             permissionLevel: 0,
             aliases: ["settitle"],
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            description: (msg) => msg.language.get("COMMAND_TITLE_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_TITLE_DESCRIPTION"),
             usage: "<title:string>",
             extendedHelp: "No extended help available."
         });

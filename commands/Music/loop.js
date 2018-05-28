@@ -9,7 +9,7 @@ module.exports = class extends Command {
             aliases: ["loopsong", "repeat"],
             permissionLevel: 0,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            description: (msg) => msg.language.get("COMMAND_LOOP_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_LOOP_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
     }

@@ -49,7 +49,7 @@ const client = new PenguClient({
         "RELATIONSHIP_ADD",
         "RELATIONSHIP_REMOVE",
         "USER_SETTINGS_UPDATE"],
-    readyMessage: (c) => `${c.user.tag}, Ready to serve ${c.guilds.size} guilds and ${c.users.size} users.`
+    readyMessage: c => `${c.user.tag}, Ready to serve ${c.guilds.size} guilds and ${c.users.size} users.`
 });
 
 module.exports = client;

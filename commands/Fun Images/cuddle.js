@@ -9,7 +9,7 @@ module.exports = class extends Command {
             cooldown: 8,
             aliases: ["sendcuddle"],
             requiredPermissions: ["ATTACH_IMAGES", "EMBED_LINKS"],
-            description: (msg) => msg.language.get("COMMAND_CUDDLE_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_CUDDLE_DESCRIPTION"),
             extendedHelp: "No extended help available.",
             usage: "<user:user>"
         });

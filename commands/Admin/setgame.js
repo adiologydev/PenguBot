@@ -8,7 +8,7 @@ module.exports = class extends Command {
             permissionLevel: 10,
             usage: "<game:string> [...]",
             usageDelim: " ",
-            description: (msg) => msg.language.get("COMMAND_SG_DESCRIPTION")
+            description: msg => msg.language.get("COMMAND_SG_DESCRIPTION")
         });
     }
 

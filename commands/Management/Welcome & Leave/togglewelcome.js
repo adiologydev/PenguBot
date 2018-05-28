@@ -10,7 +10,7 @@ module.exports = class extends Command {
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             requiredConfigs: ["welcome-messages"],
-            description: (msg) => msg.language.get("COMMAND_TOGGLE_WELCOME_DESCRPTION"),
+            description: msg => msg.language.get("COMMAND_TOGGLE_WELCOME_DESCRPTION"),
             extendedHelp: "No extended help available."
         });
     }

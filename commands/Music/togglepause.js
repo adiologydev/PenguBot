@@ -9,7 +9,7 @@ module.exports = class extends Command {
             aliases: ["pause", "resume"],
             permissionLevel: 3,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            description: (msg) => msg.language.get("COMMAND_PAUSE_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_PAUSE_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
     }

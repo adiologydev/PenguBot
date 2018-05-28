@@ -5,20 +5,20 @@ module.exports = (type, guild, message, title, avatar) => {
     if (!isEnabled(guild, type)) return null;
 
     switch (type) {
-    case "ban": return generateEmbed(message, "#b71c1c");
-    case "kick": return generateEmbed(message, "#b71c1c");
-    case "mute": return generateEmbed(message, "#ff5252");
-    case "join": return generateEmbed(message, "#2BBBAD");
-    case "leave": return generateEmbed(message, "#2196f3");
-    case "channels": return generateEmbed(message, "#33b5e5");
-    case "messages": return generateEmbed(message, "#3F729B", title, avatar);
-    case "roles": return generateEmbed(message, "#3949ab");
-    default: return null;
+        case "ban": return generateEmbed(message, "#b71c1c");
+        case "kick": return generateEmbed(message, "#b71c1c");
+        case "mute": return generateEmbed(message, "#ff5252");
+        case "join": return generateEmbed(message, "#2BBBAD");
+        case "leave": return generateEmbed(message, "#2196f3");
+        case "channels": return generateEmbed(message, "#33b5e5");
+        case "messages": return generateEmbed(message, "#3F729B", title, avatar);
+        case "roles": return generateEmbed(message, "#3949ab");
+        default: return null;
     }
 };
 
 // Method which checks for basic permissions and requirements
-const canPost = (guild) => {
+const canPost = guild => {
     const channel = guild.configs.loggingChannel;
     if (!channel) return false;
     if (!guild.channels.get(channel).permissionsFor(guild.me).has(["SEND_MESSAGES", "EMBED_LINKS", "ATTACH_FILES"])) return false;

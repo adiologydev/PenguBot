@@ -18,7 +18,7 @@ module.exports = class extends Command {
             subcommands: true,
             aliases: ["background", "profilebg", "bgs", "bg"],
             usage: "<view|buy|change> [key:string]",
-            description: (msg) => msg.language.get("COMMAND_BACKGROUND_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_BACKGROUND_DESCRIPTION"),
             usageDelim: " "
         });
     }
@@ -69,53 +69,53 @@ module.exports = class extends Command {
     async buy(msg, [key]) {
         const id = parseInt(key);
         switch (id) {
-        case 1: return msg.reply("You already own this background.");
-        case 2: this.process(msg, "sunset-palms", 1000);
-            break;
-        case 3: this.process(msg, "cherry-blossoms", 1000);
-            break;
-        case 4: this.process(msg, "butterflies", 1000);
-            break;
-        case 5: this.process(msg, "sunset-tree", 1250);
-            break;
-        case 6: this.process(msg, "birdie", 1250);
-            break;
-        case 7: this.process(msg, "tracks", 1500);
-            break;
-        case 8: this.process(msg, "stars", 1500);
-            break;
-        case 9: this.process(msg, "people", 1850);
-            break;
-        case 10: this.process(msg, "courtyard", 2000);
-            break;
-        default: return msg.reply("Invalid ID, please view all backgrounds you can purchase by using the command `p!bgs view all`.");
+            case 1: return msg.reply("You already own this background.");
+            case 2: this.process(msg, "sunset-palms", 1000);
+                break;
+            case 3: this.process(msg, "cherry-blossoms", 1000);
+                break;
+            case 4: this.process(msg, "butterflies", 1000);
+                break;
+            case 5: this.process(msg, "sunset-tree", 1250);
+                break;
+            case 6: this.process(msg, "birdie", 1250);
+                break;
+            case 7: this.process(msg, "tracks", 1500);
+                break;
+            case 8: this.process(msg, "stars", 1500);
+                break;
+            case 9: this.process(msg, "people", 1850);
+                break;
+            case 10: this.process(msg, "courtyard", 2000);
+                break;
+            default: return msg.reply("Invalid ID, please view all backgrounds you can purchase by using the command `p!bgs view all`.");
         }
     }
 
     async change(msg, [key]) {
         const id = parseInt(key);
         switch (id) {
-        case 1: this.changeBG(msg, "default");
-            break;
-        case 2: this.changeBG(msg, "sunset-palms");
-            break;
-        case 3: this.changeBG(msg, "cherry-blossoms");
-            break;
-        case 4: this.changeBG(msg, "butterflies");
-            break;
-        case 5: this.changeBG(msg, "sunset-tree");
-            break;
-        case 6: this.changeBG(msg, "birdie");
-            break;
-        case 7: this.changeBG(msg, "tracks");
-            break;
-        case 8: this.changeBG(msg, "stars");
-            break;
-        case 9: this.changeBG(msg, "people");
-            break;
-        case 10: this.changeBG(msg, "courtyard");
-            break;
-        default: return msg.reply("Invalid ID, please view all backgrounds you can purchase and their IDs by using the command `p!bgs view all`.");
+            case 1: this.changeBG(msg, "default");
+                break;
+            case 2: this.changeBG(msg, "sunset-palms");
+                break;
+            case 3: this.changeBG(msg, "cherry-blossoms");
+                break;
+            case 4: this.changeBG(msg, "butterflies");
+                break;
+            case 5: this.changeBG(msg, "sunset-tree");
+                break;
+            case 6: this.changeBG(msg, "birdie");
+                break;
+            case 7: this.changeBG(msg, "tracks");
+                break;
+            case 8: this.changeBG(msg, "stars");
+                break;
+            case 9: this.changeBG(msg, "people");
+                break;
+            case 10: this.changeBG(msg, "courtyard");
+                break;
+            default: return msg.reply("Invalid ID, please view all backgrounds you can purchase and their IDs by using the command `p!bgs view all`.");
         }
     }
 

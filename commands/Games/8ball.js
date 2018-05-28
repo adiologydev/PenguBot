@@ -30,7 +30,7 @@ module.exports = class extends Command {
         super(...args, {
             cooldown: 8,
             aliases: ["yesorno"],
-            description: (msg) => msg.language.get("COMMAND_8BALL_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_8BALL_DESCRIPTION"),
             extendedHelp: "No extended help available.",
             usage: "<question:string>"
         });
