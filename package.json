@@ -1,10 +1,11 @@
 {
   "name": "pengubot",
-  "version": "2.0.1",
+  "version": "2.0.0",
   "description": "PenguBot re-write for Performance and Stability.",
   "main": "start.js",
   "scripts": {
-    "test": "eslint ."
+    "test": "eslint .",
+    "lint": "eslint --fix ."
   },
   "repository": {
     "type": "git",
@@ -33,10 +34,8 @@
     "erlpack": "github:discordapp/erlpack",
     "fast-html-parser": "^1.0.1",
     "google-translate-api": "^2.3.0",
-    "idiotic-api": "^0.2.7",
+    "idiotic-api": "^0.2.8",
     "klasa": "github:dirigeants/klasa",
-    "moment": "^2.22.1",
-    "moment-duration-format": "^2.2.2",
     "mysql2": "^1.5.3",
     "random-puppy": "^1.1.0",
     "rethinkdbdash": "^2.3.31",
@@ -44,8 +43,8 @@
     "zlib-sync": "^0.1.4"
   },
   "devDependencies": {
-    "eslint": "^4.19.0",
+    "eslint": "^4.19.1",
     "eslint-plugin-node": "^6.0.1",
-    "eslint-plugin-promise": "^3.7.0"
+    "eslint-plugin-promise": "^3.8.0"
   }
 }

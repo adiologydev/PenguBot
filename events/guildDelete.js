@@ -1,15 +1,18 @@
-const { Event } = require("klasa");
+const { Event, Timestamp } = require("klasa");
 const { WebhookClient } = require("discord.js");
-const moment = require("moment");
-const config = require("../config");
 const { MessageEmbed } = require("discord.js");
-
-const webhook = new WebhookClient("435500732507226112", config.webhooks.guildEvent);
+const config = require("../config");
 
 module.exports = class extends Event {
 
+    constructor(...args) {
+        super(...args);
+
+        this.weebhook = new WebhookClient("435500732507226112", config.webhooks.guildEvent);
+        this.timestamp = new Timestamp("dddd, MMMM Do YYYY");
+    }
+
     async run(guild) {
-        // Logging New Guilds
         const gcount = (await this.client.shard.fetchClientValues("guilds.size")).reduce((prev, val) => prev + val, 0);
         const guildlog = new MessageEmbed()
             .setAuthor("Left a Guild - PenguBot", this.client.user.avatarURL())
@@ -19,9 +22,9 @@ module.exports = class extends Event {
             .setDescription(`• **Name (ID):** ${guild.name} (${guild.id})
 • **Owner:** ${guild.owner.user.tag} (${guild.owner.user.id})
 • **Members / Bots / Total:** ${guild.members.filter(m => !m.user.bot).size} / ${guild.members.filter(m => m.user.bot).size} / ${guild.memberCount}
-• **Created At:** ${moment(guild.createdAT).format("dddd, MMMM Do YYYY ")}`);
+• **Created At:** ${this.timestamp.display(guild.createdAT)}`);
         if (guild.iconURL()) guildlog.setThumbnail(guild.iconURL());
-        webhook.send({ embeds: [guildlog] });
+        await this.webhook.send({ embeds: [guildlog] });
     }
 
 };
