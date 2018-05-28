@@ -7,8 +7,8 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             aliases: ["ev"],
-            description: (msg) => msg.language.get("COMMAND_EVAL_DESCRIPTION"),
-            extendedHelp: (msg) => msg.language.get("COMMAND_EVAL_EXTENDED"),
+            description: msg => msg.language.get("COMMAND_EVAL_DESCRIPTION"),
+            extendedHelp: msg => msg.language.get("COMMAND_EVAL_EXTENDED"),
             guarded: true,
             permissionLevel: 10,
             usage: "<expression:str>"
@@ -31,34 +31,34 @@ module.exports = class extends Command {
 
     async handleMessage(msg, options, { success, result, time, footer }) {
         switch (options.sendAs) {
-        case "file": {
-            if (msg.channel.attachable) return msg.sendFile(Buffer.from(result), "output.txt", `**Type:**${footer}\n\n${time}`);
-            await this.getTypeOutput(msg, options);
-            return this.handleMessage(msg, options, { success, result, time, footer });
-        }
-        case "haste":
-        case "hastebin": {
-            if (!options.url) options.url = await this.getHaste(result).catch(() => null);
-            if (options.url) return msg.sendMessage(`**Output:**\n${options.url}\n\n**Type:**${footer}\n${time}`);
-            options.hastebinUnavailable = true;
-            await this.getTypeOutput(msg, options);
-            return this.handleMessage(msg, options, { success, result, time, footer });
-        }
-        case "console":
-        case "log": {
-            this.client.emit("log", result);
-            return msg.sendMessage(`${footer}\n${time}`);
-        }
-        case "none":
-            return null;
-        default: {
-            if (result.length > 2000) {
+            case "file": {
+                if (msg.channel.attachable) return msg.sendFile(Buffer.from(result), "output.txt", `**Type:**${footer}\n\n${time}`);
                 await this.getTypeOutput(msg, options);
                 return this.handleMessage(msg, options, { success, result, time, footer });
             }
-            return msg.sendMessage(msg.language.get(success ? "COMMAND_EVAL_OUTPUT" : "COMMAND_EVAL_ERROR",
-                time, util.codeBlock("js", result), footer));
-        }
+            case "haste":
+            case "hastebin": {
+                if (!options.url) options.url = await this.getHaste(result).catch(() => null);
+                if (options.url) return msg.sendMessage(`**Output:**\n${options.url}\n\n**Type:**${footer}\n${time}`);
+                options.hastebinUnavailable = true;
+                await this.getTypeOutput(msg, options);
+                return this.handleMessage(msg, options, { success, result, time, footer });
+            }
+            case "console":
+            case "log": {
+                this.client.emit("log", result);
+                return msg.sendMessage(`${footer}\n${time}`);
+            }
+            case "none":
+                return null;
+            default: {
+                if (result.length > 2000) {
+                    await this.getTypeOutput(msg, options);
+                    return this.handleMessage(msg, options, { success, result, time, footer });
+                }
+                return msg.sendMessage(msg.language.get(success ? "COMMAND_EVAL_OUTPUT" : "COMMAND_EVAL_ERROR",
+                    time, util.codeBlock("js", result), footer));
+            }
         }
     }
 

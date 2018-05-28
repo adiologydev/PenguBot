@@ -8,7 +8,7 @@ module.exports = class extends Command {
             cooldown: 8,
             aliases: ["rockpaperscissors", "rpsgame"],
             requiredPermissions: ["ATTACH_IMAGES", "EMBED_LINKS"],
-            description: (msg) => msg.language.get("COMMAND_RPS_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_RPS_DESCRIPTION"),
             extendedHelp: "No extended help available.",
             usage: "<move:string>"
         });

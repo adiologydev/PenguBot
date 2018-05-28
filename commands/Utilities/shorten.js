@@ -10,7 +10,7 @@ module.exports = class extends Command {
             aliases: ["shortener", "shortlink"],
             permissionLevel: 0,
             requiredPermissions: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
-            description: (msg) => msg.language.get("COMMAND_SHORTEN_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_SHORTEN_DESCRIPTION"),
             usage: "<link:url>",
             extendedHelp: "No extended help available."
         });

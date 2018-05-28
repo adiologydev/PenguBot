@@ -7,7 +7,7 @@ module.exports = class extends Command {
         super(...args, {
             guarded: true,
             requiredPermissions: ["EMBED_LINKS", "ATTACH_IMAGES"],
-            description: (msg) => msg.language.get("COMMAND_UPVOTE_DESCRIPTION")
+            description: msg => msg.language.get("COMMAND_UPVOTE_DESCRIPTION")
         });
     }
 

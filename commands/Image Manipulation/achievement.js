@@ -7,7 +7,7 @@ module.exports = class extends Command {
             cooldown: 8,
             aliases: ["mca", "makeachievement", "achievementget"],
             requiredPermissions: ["ATTACH_FILES", "USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
-            description: (msg) => msg.language.get("COMMAND_MCA_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_MCA_DESCRIPTION"),
             extendedHelp: "No extended help available.",
             usage: "<Achievement:str>"
         });

@@ -11,7 +11,7 @@ module.exports = class extends Command {
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             requiredConfigs: ["auto-roles"],
             usage: "<role:role>",
-            description: (msg) => msg.language.get("COMMAND_ADD_ROLES_DESCRPTION"),
+            description: msg => msg.language.get("COMMAND_ADD_ROLES_DESCRPTION"),
             extendedHelp: "No extended help available."
         });
     }

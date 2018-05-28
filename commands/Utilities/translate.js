@@ -6,7 +6,7 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             runIn: ["text", "dm"],
-            description: (msg) => msg.language.get("COMMAND_TRANSLATE_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_TRANSLATE_DESCRIPTION"),
             usageDelim: "|",
             usage: "<Message:msg|Content:string> <language:str>"
         });

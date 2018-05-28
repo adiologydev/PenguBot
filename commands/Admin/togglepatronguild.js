@@ -7,7 +7,7 @@ module.exports = class extends Command {
             aliases: ["tpg"],
             permissionLevel: 10,
             usage: "<guild:string>",
-            description: (msg) => msg.language.get("COMMAND_TPG_DESCRIPTION")
+            description: msg => msg.language.get("COMMAND_TPG_DESCRIPTION")
         });
     }
 

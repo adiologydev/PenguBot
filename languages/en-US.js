@@ -10,10 +10,10 @@ module.exports = class extends Language {
             COMMAND_UNLOAD: (type, name) => `<:penguSuccess:435712876506775553> Unloaded ${type}: ${name}`,
             COMMAND_TRANSFER_ERROR: "<:penguError:435712890884849664> That file has been transfered already or never existed.",
             COMMAND_RELOAD: (type, name) => `<:penguSuccess:435712876506775553> Reloaded ${type}: ${name}`,
-            COMMAND_RELOAD_ALL: (type) => `<:penguSuccess:435712876506775553> Reloaded all ${type}.`,
+            COMMAND_RELOAD_ALL: type => `<:penguSuccess:435712876506775553> Reloaded all ${type}.`,
             COMMAND_LOAD: (time, type, name) => `<:penguSuccess:435712876506775553> Successfully loaded ${type}: ${name}. (Took: ${time})`,
             COMMAND_LOAD_ERROR: (type, name, error) => `<:penguError:435712890884849664> Failed to load ${type}: ${name}. Reason:${util.codeBlock("js", error)}`,
-            COMMAND_INVITE: (client) => [
+            COMMAND_INVITE: client => [
                 `**👉 | Invite PenguBot to your Discord Guild:**`,
                 `<${client.invite}>`
             ],

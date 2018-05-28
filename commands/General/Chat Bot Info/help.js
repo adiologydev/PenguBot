@@ -6,7 +6,7 @@ module.exports = class extends Command {
         super(...args, {
             aliases: ["commands"],
             guarded: true,
-            description: (msg) => msg.language.get("COMMAND_HELP_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_HELP_DESCRIPTION"),
             usage: "(Command:cmd)"
         });
 
@@ -49,7 +49,7 @@ module.exports = class extends Command {
         const commandNames = [...this.client.commands.keys()];
         const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
 
-        await Promise.all(this.client.commands.map((command) =>
+        await Promise.all(this.client.commands.map(command =>
             this.client.inhibitors.run(msg, command, true)
                 .then(() => {
                     if (!help.hasOwnProperty(command.category)) help[command.category] = {};

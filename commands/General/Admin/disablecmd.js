@@ -11,7 +11,7 @@ module.exports = class extends Command {
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             requiredConfigs: ["disabledCommands"],
-            description: (msg) => msg.language.get("COMMAND_TOGGLE_COMMAND_DESCRPTION"),
+            description: msg => msg.language.get("COMMAND_TOGGLE_COMMAND_DESCRPTION"),
             usage: "<command:cmd>",
             extendedHelp: "No extended help available."
         });

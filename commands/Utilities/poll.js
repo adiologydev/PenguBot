@@ -10,7 +10,7 @@ module.exports = class extends Command {
             aliases: ["strawpoll", "createpoll"],
             permissionLevel: 0,
             requiredPermissions: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
-            description: (msg) => msg.language.get("COMMAND_POLL_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_POLL_DESCRIPTION"),
             usage: "<Question:string> <Options:string> [...]",
             usageDelim: "|",
             extendedHelp: "No extended help available."

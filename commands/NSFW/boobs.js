@@ -10,7 +10,7 @@ module.exports = class extends Command {
             cooldown: 8,
             aliases: ["boobies"],
             requiredPermissions: ["ATTACH_IMAGES", "EMBED_LINKS"],
-            description: (msg) => msg.language.get("COMMAND_BOOBS_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_BOOBS_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
     }

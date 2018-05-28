@@ -12,7 +12,7 @@ module.exports = class extends Command {
             requiredConfigs: ["welcome-channel"],
             usage: "[channel:channel]",
             usageDelim: "",
-            description: (msg) => msg.language.get("COMMAND_CHANNEL_WELCOME_DESCRPTION"),
+            description: msg => msg.language.get("COMMAND_CHANNEL_WELCOME_DESCRPTION"),
             extendedHelp: "No extended help available."
         });
     }

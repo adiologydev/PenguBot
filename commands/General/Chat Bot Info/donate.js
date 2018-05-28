@@ -8,7 +8,7 @@ module.exports = class extends Command {
             aliases: ["patreon", "patron"],
             guarded: true,
             requiredPermissions: ["EMBED_LINKS", "ATTACH_IMAGES"],
-            description: (msg) => msg.language.get("COMMAND_DONATE_DESCRIPTION")
+            description: msg => msg.language.get("COMMAND_DONATE_DESCRIPTION")
         });
     }
 

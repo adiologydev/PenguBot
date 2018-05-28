@@ -9,7 +9,7 @@ module.exports = class extends Command {
             aliases: ["enablelog", "disablelog", "togglelog"],
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            description: (msg) => msg.language.get("COMMAND_LOG_DESCRPTION"),
+            description: msg => msg.language.get("COMMAND_LOG_DESCRPTION"),
             usage: "[Option:string]",
             extendedHelp: "No extended help available."
         });
@@ -19,23 +19,23 @@ module.exports = class extends Command {
         if (!Option) return msg.reply("Invalid Option, please choose from `ban`, `kick`, `join`, `leave`, `channels`, `mute`, `messages`, `roles`.");
         const opt = Option.toLowerCase();
         switch (opt) {
-        case "ban": this.update("ban", msg);
-            break;
-        case "kick": this.update("kick", msg);
-            break;
-        case "channels": this.update("channels", msg);
-            break;
-        case "join": this.update("join", msg);
-            break;
-        case "leave": this.update("leave", msg);
-            break;
-        case "mute": this.update("mute", msg);
-            break;
-        case "messages": this.update("messages", msg);
-            break;
-        case "roles": this.update("roles", msg);
-            break;
-        default: msg.reply("Invalid Option, please choose from `ban`, `kick`, `join`, `leave`, `channels`, `mute`, `messages`, `roles`.");
+            case "ban": this.update("ban", msg);
+                break;
+            case "kick": this.update("kick", msg);
+                break;
+            case "channels": this.update("channels", msg);
+                break;
+            case "join": this.update("join", msg);
+                break;
+            case "leave": this.update("leave", msg);
+                break;
+            case "mute": this.update("mute", msg);
+                break;
+            case "messages": this.update("messages", msg);
+                break;
+            case "roles": this.update("roles", msg);
+                break;
+            default: msg.reply("Invalid Option, please choose from `ban`, `kick`, `join`, `leave`, `channels`, `mute`, `messages`, `roles`.");
         }
     }
 

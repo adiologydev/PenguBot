@@ -9,7 +9,7 @@ module.exports = class extends Command {
             cooldown: 8,
             aliases: ["foxy", "foxes"],
             requiredPermissions: ["ATTACH_FILES", "USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
-            description: (msg) => msg.language.get("COMMAND_FOX_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_FOX_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
     }

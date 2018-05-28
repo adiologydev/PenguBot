@@ -15,7 +15,7 @@ module.exports = class extends Command {
         super(...args, {
             cooldown: 8,
             aliases: ["sendcookie"],
-            description: (msg) => msg.language.get("COMMAND_COOKIE_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_COOKIE_DESCRIPTION"),
             extendedHelp: "No extended help available.",
             usage: "<user:user>"
         });

@@ -9,7 +9,7 @@ module.exports = class extends Command {
             aliases: ["forceleave", "leave"],
             permissionLevel: 0,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            description: (msg) => msg.language.get("COMMAND_LEAVE_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_LEAVE_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
     }

@@ -10,7 +10,7 @@ module.exports = class extends Command {
             aliases: ["urband", "urbandictionary"],
             cooldown: 10,
             requiredPermissions: ["EMBED_LINKS", "ATTACH_FILES"],
-            description: (msg) => msg.language.get("COMMAND_URBAN_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_URBAN_DESCRIPTION"),
             usage: "<word:string> [...]",
             extendedHelp: "No extended help available."
         });

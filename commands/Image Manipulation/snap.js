@@ -7,7 +7,7 @@ module.exports = class extends Command {
             cooldown: 8,
             aliases: ["snapchat"],
             requiredPermissions: ["ATTACH_FILES", "USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
-            description: (msg) => msg.language.get("COMMAND_SNAP_DESCRIPTION"),
+            description: msg => msg.language.get("COMMAND_SNAP_DESCRIPTION"),
             extendedHelp: "No extended help available.",
             usage: "<Snaptext:str>"
         });
