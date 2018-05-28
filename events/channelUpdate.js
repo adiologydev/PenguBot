@@ -7,7 +7,7 @@ module.exports = class extends Event {
         if (oldChannel.type !== "text") return;
         if (oldChannel.id !== newChannel.id) return;
         const log = logger("channels", oldChannel.guild, `🛠 **#${oldChannel.name}** (${oldChannel.id}) channel was \`updated\``);
-        const loggingChannel = await oldChannel.guild.channels.fetch(oldChannel.guild.configs.loggingChannel);
+        const loggingChannel = oldChannel.guild.channels.get(oldChannel.guild.configs.loggingChannel);
         if (log && loggingChannel) loggingChannel.send(log);
     }
 
