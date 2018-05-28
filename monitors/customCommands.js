@@ -12,12 +12,11 @@ module.exports = class extends Monitor {
         if (!msg.channel.permissionsFor(msg.guild.me).has(["SEND_MESSAGES", "EMBED_LINKS", "ATTACH_FILES"])) return;
         if (!msg.guild.configs.get("customcmds")) return;
         if (cooldown.has(msg.author.id)) return;
-        if (msg.guild.configs.get("custom-commands") === false) return;
 
         const base = msg.content.split(msg.guild.configs.get("prefix"));
         const cmdName = base[1];
         if (!this.client.commands.has(cmdName)) {
-            const cmd = msg.guild.configs.customcmds.find(c => c.name === cmdName);
+            const cmd = msg.guild.configs.customcmds.cmds.find(c => c.name === cmdName);
             if (!cmd) return;
             if (cmd.name === cmdName) {
                 cooldown.add(msg.author.id);

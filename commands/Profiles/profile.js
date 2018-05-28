@@ -39,14 +39,14 @@ module.exports = class extends Command {
         const usersPos = users.filter(a => this.client.users.has(a.id));
         const pos = usersPos.findIndex(i => i.id === user.id);
 
-        const bgName = user.configs["profile-bg"];
+        const bgName = user.configs.profilebg;
         const bgImg = await fs.readFile(`${process.cwd()}/assets/profiles/bg/${bgName}.png`);
         const avatar = await get(user.displayAvatarURL({ format: "png", sze: 256 })).then(res => res.body);
 
         return await new Canvas(300, 300)
             // Initializing & Avatar
             .addImage(bgImg, 0, 0, 300, 300)
-            .addImage(avatar, 27, 57, 87, 87)
+            .addImage(avatar, 27, 57, 86, 86)
             .setTextFont("20px Roboto, NotoEmoji")
             .setColor("#F2F2F2")
             .addResponsiveText(user.tag, 120, 120, 160)
@@ -68,13 +68,13 @@ module.exports = class extends Command {
             .setTextFont("10px Roboto")
             .setColor("#FFFFFF")
             .setTextAlign("center")
-            .addText(`XP: ${oldLvl} / ${nextLvl}`, 151, 281)
+            .addText(`XP: ${xp} / ${nextLvl}`, 151, 281)
             .toBufferAsync();
     }
 
     async init() {
-        if (!this.client.gateways.users.schema.has("profile-bg")) {
-            this.client.gateways.users.schema.add("profile-bg", { type: "string", default: "default", configurable: false });
+        if (!this.client.gateways.users.schema.has("profilebg")) {
+            this.client.gateways.users.schema.add("profilebg", { type: "string", default: "default", configurable: false });
         }
     }
 

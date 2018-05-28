@@ -103,8 +103,8 @@ module.exports = class extends Command {
         if (!this.client.gateways.guilds.schema.has("musicVolume")) {
             this.client.gateways.guilds.schema.add("musicVolume", { type: "integer", default: 90, configurable: false });
         }
-        if (!this.client.gateways.guilds.schema.has("pengu-dj")) {
-            this.client.gateways.guilds.schema.add("pengu-dj", { type: "user", array: true });
+        if (!this.client.gateways.guilds.schema.permissions.has("dj")) {
+            this.client.gateways.guilds.schema.permissions.add("dj", { type: "user", array: true });
         }
     }
 

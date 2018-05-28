@@ -9,27 +9,27 @@ module.exports = class extends Command {
             aliases: ["tccmd", "togglecustom", "tcmd", "togglecustomcommands"],
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            requiredConfigs: ["custom-commands"],
+            requiredConfigs: ["customcmds.enabled"],
             description: msg => msg.language.get("COMMAND_TOGGLE_CUSTOM_DESCRPTION"),
             extendedHelp: "No extended help available."
         });
     }
 
     async run(msg) {
-        if (msg.guild.configs.get("custom-commands") === false) {
-            return msg.guild.configs.update("custom-commands", true).then(() => {
+        if (msg.guild.configs.get("customcmds") === false) {
+            return msg.guild.configs.update("customcmds.enabled", true).then(() => {
                 msg.sendMessage(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_COMMAND_CUSTOM_ENABLED")}***`);
             });
         } else {
-            return msg.guild.configs.update("custom-commands", false).then(() => {
+            return msg.guild.configs.update("customcmds.enabled", false).then(() => {
                 msg.sendMessage(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_COMMAND_CUSTOM_DISABLED")}***`);
             });
         }
     }
 
     async init() {
-        if (!this.client.gateways.guilds.schema.has("custom-commands")) {
-            this.client.gateways.guilds.schema.add("custom-commands", { type: "boolean", default: true });
+        if (!this.client.gateways.guilds.schema.customcmds.has("enabled")) {
+            this.client.gateways.guilds.schema.customcmds.add("enabled", { type: "boolean", default: true });
         }
     }
 

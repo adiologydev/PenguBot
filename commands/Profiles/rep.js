@@ -24,10 +24,10 @@ module.exports = class extends Command {
                 return msg.sendMessage("🏆 | ***You can not rep a bot, I know you love bots like me but no!***");
             }
         }
-        if (msg.author.configs.get("rep-cooldown") > 0) {
+        if (msg.author.configs.get("repcooldown") > 0) {
             await msg.author.configs._syncStatus;
             const now = Date.now();
-            const last = msg.author.configs.get("rep-cooldown");
+            const last = msg.author.configs.get("repcooldown");
             const diff = now - last;
             const next = 43200000 - diff;
 
@@ -40,7 +40,7 @@ module.exports = class extends Command {
                 if (!user) {
                     return msg.sendMessage("🏆 | ***You can now give a reputation point!***");
                 } else {
-                    msg.author.configs.update("rep-cooldown", Date.now());
+                    msg.author.configs.update("repcooldown", Date.now());
                     user.configs.update("reps", user.configs.get("reps") + 1);
                     return msg.sendMessage(`🏆 | ***You have given a reputation point to ${user}!***`);
                 }
@@ -50,7 +50,7 @@ module.exports = class extends Command {
         } else if (!user) {
             return msg.sendMessage("🏆 | ***You can now give a reputation point!***");
         } else {
-            msg.author.configs.update("rep-cooldown", Date.now());
+            msg.author.configs.update("repcooldown", Date.now());
             user.configs.update("reps", user.configs.get("reps") + 1);
             return msg.sendMessage(`🏆 | ***You have given a reputation point to ${user}!***`);
         }
@@ -60,8 +60,8 @@ module.exports = class extends Command {
         if (!this.client.gateways.users.schema.has("reps")) {
             this.client.gateways.users.schema.add("reps", { type: "integer", default: 0, configurable: false });
         }
-        if (!this.client.gateways.users.schema.has("rep-cooldown")) {
-            this.client.gateways.users.schema.add("rep-cooldown", { type: "integer", default: 0, configurable: false });
+        if (!this.client.gateways.users.schema.has("repcooldown")) {
+            this.client.gateways.users.schema.add("repcooldown", { type: "integer", default: 0, configurable: false });
         }
     }
 

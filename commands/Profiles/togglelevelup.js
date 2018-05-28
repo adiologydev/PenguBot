@@ -7,7 +7,7 @@ module.exports = class extends Command {
             runIn: ["text"],
             cooldown: 10,
             aliases: ["togglelevelups", "levelups"],
-            requiredConfigs: ["level-ups"],
+            requiredConfigs: ["levelup"],
             permissionLevel: 4,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "BAN_MEMBERS"],
             description: msg => msg.language.get("COMMAND_LEVELUP_DESCRIPTION"),
@@ -17,18 +17,18 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        if (msg.guild.configs.get("level-ups") === true) {
-            msg.guild.configs.update("level-ups", false);
+        if (msg.guild.configs.levelup) {
+            msg.guild.configs.update("levelup", false);
             return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Level Up announcements have been Disabled!***`);
         } else {
-            msg.guild.configs.update("level-ups", true);
+            msg.guild.configs.update("levelup", true);
             return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Level Up announcements have been Enabled!***`);
         }
     }
 
     async init() {
-        if (!this.client.gateways.guilds.schema.has("level-ups")) {
-            this.client.gateways.guilds.schema.add("level-ups", { type: "boolean", default: true });
+        if (!this.client.gateways.guilds.schema.has("levelup")) {
+            this.client.gateways.guilds.schema.add("levelup", { type: "boolean", default: true });
         }
     }
 

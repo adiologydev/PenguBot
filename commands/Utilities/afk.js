@@ -22,14 +22,14 @@ module.exports = class extends Command {
         }
 
         const afk = await msg.author.configs.get("afk");
-        if (!afk) {
-            await msg.author.configs.update("afk", true).then(() => {
-                msg.author.configs.update("afk-reason", reason, { action: "add" });
+        if (!afk.afk) {
+            await msg.author.configs.update("afk.afk", true).then(() => {
+                msg.author.configs.update("afk.reason", reason, { action: "add" });
                 msg.sendMessage(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_AFK_TRUE")}***`);
             });
         } else {
-            await msg.author.configs.update("afk", false).then(() => {
-                msg.author.configs.update("afk-reason", null);
+            await msg.author.configs.update("afk.afk", false).then(() => {
+                msg.author.configs.update("afk.reason", null);
                 msg.sendMessage(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_AFK_FALSE")}***`);
             });
         }
@@ -37,10 +37,13 @@ module.exports = class extends Command {
 
     async init() {
         if (!this.client.gateways.users.schema.has("afk")) {
-            this.client.gateways.users.schema.add("afk", { type: "boolean", default: false, configurable: false });
+            this.client.gateways.users.schema.add("afk", {});
         }
-        if (!this.client.gateways.users.schema.has("afk-reason")) {
-            this.client.gateways.users.schema.add("afk-reason", { type: "string", configurable: false });
+        if (!this.client.gateways.users.schema.afk.has("afk")) {
+            await this.client.gateways.users.schema.afk.add("afk", { type: "boolean", default: false, configurable: false });
+        }
+        if (!this.client.gateways.users.schema.afk.has("reason")) {
+            await this.client.gateways.users.schema.afk.add("reason", { type: "string", configurable: false });
         }
     }
 

@@ -36,14 +36,17 @@ module.exports = class extends Command {
     }
 
     async init() {
-        if (!this.client.gateways.guilds.schema.has("staff-admins")) {
-            this.client.gateways.guilds.schema.add("staff-admins", { type: "User", array: true, configurable: false });
+        if (!this.client.gateways.guilds.schema.has("permissions")) {
+            await this.client.gateways.guilds.schema.add("permissions", {});
         }
-        if (!this.client.gateways.guilds.schema.has("staff-mods")) {
-            this.client.gateways.guilds.schema.add("staff-mods", { type: "User", array: true, configurable: false });
+        if (!this.client.gateways.guilds.schema.permissions.has("admins")) {
+            await this.client.gateways.guilds.schema.permissions.add("admins", { type: "User", array: true, configurable: false });
+        }
+        if (!this.client.gateways.guilds.schema.permissions.has("mods")) {
+            await this.client.gateways.guilds.schema.permissions.add("mods", { type: "User", array: true, configurable: false });
         }
         if (!this.client.gateways.guilds.schema.logs.has("kick")) {
-            this.client.gateways.guilds.schema.logs.add("kick", { type: "boolean", default: false });
+            await this.client.gateways.guilds.schema.logs.add("kick", { type: "boolean", default: false });
         }
     }
 

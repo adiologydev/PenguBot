@@ -99,32 +99,32 @@ const migrate = async client => {
         for (const [key, value] of Object.entries(settings)) {
             if (key.startsWith("cmd")) {
                 const [, cmdName] = key.split(".");
-                guild.configs.update("customcmds", { name: cmdName, content: value });
+                guild.configs.update("customcmds.cmds", { name: cmdName, content: value });
                 continue;
             }
             if (key === "settings.wlcm-msg") {
-                guild.configs.update("welcome-text", value);
+                guild.configs.update("messages.welcome.message", value);
                 continue;
             }
             if (key === "settings.leav-msg") {
-                guild.configs.update("leave-text", value);
+                guild.configs.update("messages.leave.message", value);
                 continue;
             }
             // Welcome Enabled and Channel ID
             if (key === "settings.wlcm-main") {
                 const [enabled, channelid] = value.split("|");
-                if (enabled && channelid && guild.channels.has(channelid)) guild.configs.update(["welcome-messages", "welcome-channel"], [true, channelid]);
+                if (enabled && channelid && guild.channels.has(channelid)) guild.configs.update(["messages.welcome.enabled", "messages.welcome.channel"], [true, channelid]);
                 continue;
             }
             // Leave Enabled and Channel ID
             if (key === "settings.leav-main") {
                 const [enabled, channelid] = value.split("|");
-                if (enabled && channelid && guild.channels.has(channelid)) guild.configs.update(["leave-messages", "leave-channel"], [true, channelid]);
+                if (enabled && channelid && guild.channels.has(channelid)) guild.configs.update(["messages.leave.enabled", "messages.leave.channel"], [true, channelid]);
                 continue;
             }
             // Autoroles
             if (key === "AutoRole") {
-                guild.configs.update(["auto-roles", "autoroles"], [value, true], guild);
+                guild.configs.update(["autoroles.roles", "autoroles.enabled"], [value, true], guild);
                 continue;
             }
             await guild.configs.update(key, value);

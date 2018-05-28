@@ -6,14 +6,13 @@ module.exports = class extends Event {
     async run(member) {
         // Welcome Messages
         const guild = member.guild; // eslint-disable-line
-        if (guild.configs.get("welcome-messages")) {
-            if (guild.channels.exists("id", guild.configs.get("welcome-channel"))) {
-                const channel = guild.channels.find("id", guild.configs.get("welcome-channel"));
-                if (!channel) return;
-                if (channel.permissionsFor(guild.me).has(["SEND_MESSAGES", "EMBED_LINKS", "ATTACH_FILES"])) {
-                    if (member.guild.configs.get("welcome-text") === null) { member.guild.configs.update("welcome-text", "Welcome {MENTION} to {GUILD_NAME}, we hope you enjoy your stay!"); }
+        if (guild.configs.get("messages.welcome.enabled")) {
+            if (guild.channels.get(guild.configs.get("messages.welcome.channel"))) {
+                const channel = guild.channels.get(guild.configs.get("messages.welcome.channel"));
+                if (channel && channel.permissionsFor(guild.me).has(["SEND_MESSAGES", "EMBED_LINKS", "ATTACH_FILES"])) {
+                    if (!guild.configs.messages.welcome.message) { member.guild.configs.update("messages.welcome.message", "Welcome {MENTION} to {GUILD_NAME}, we hope you enjoy your stay!"); }
                     try {
-                        await channel.send(this.replace(guild.configs.get("welcome-text"), member));
+                        await channel.send(this.replace(guild.configs.get("messages.welcome.message"), member));
                     } catch (e) {
                         console.error(e);
                     }
@@ -22,20 +21,19 @@ module.exports = class extends Event {
         }
 
         // Logging
-        const log = logger("join", guild, `📥 **${member.user.tag}** (${member.user.id}) has \`joined\` the guild.\n**Total Members:** ${guild.members.size}`);
+        const log = logger("join", guild, `📥 **${member.user.tag}** (${member.user.id}) has \`joined\` the guild.\n**Total Members:** ${guild.memberCount}`);
         const loggingChannel = guild.channels.get(guild.configs.loggingChannel);
         if (log && loggingChannel) loggingChannel.send(log);
 
         // Auto Roles
-        if (guild.configs.get("autoroles")) {
-            if (!guild.me.permissions.missing(["MANAGE_MEMBERS"])) {
-                if (!guild.configs.get("auto-roles")) {
-                    const roles = guild.configs.get("auto-roles");
-                    try {
-                        await member.roles.add(roles, "Auto Roles");
-                    } catch (e) {
-                        console.error(e);
-                    }
+        if (guild.configs.get("autoroles.enabled")) {
+            if (guild.me.permissions.has("MANAGE_MEMBERS")) {
+                const { roles } = guild.configs.autoroles;
+                if (!roles) return;
+                try {
+                    await member.roles.add(roles, "Auto Roles");
+                } catch (e) {
+                    console.error(e);
                 }
             }
         }

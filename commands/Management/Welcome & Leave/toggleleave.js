@@ -9,35 +9,38 @@ module.exports = class extends Command {
             aliases: ["tlm", "toggleleavemessages"],
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            requiredConfigs: ["leave-messages"],
+            requiredConfigs: ["messages.leave.enabled"],
             description: msg => msg.language.get("COMMAND_TOGGLE_LEAVE_DESCRPTION"),
             extendedHelp: "No extended help available."
         });
     }
 
     async run(msg) {
-        if (msg.guild.configs.get("leave-messages") === false) {
-            if (!msg.guild.channels.exists("id", msg.guild.configs.get("leave-channel"))) { msg.guild.configs.update("leave-channel", msg.channel.id); }
-            if (msg.guild.configs.get("leave-text") === null) { msg.guild.configs.update("leave-text", "It's sad to see you leave {USERNAME}, hope to see you again.", { action: "add" }); }
-            return msg.guild.configs.update("leave-messages", true).then(() => {
+        if (!msg.guild.configs.messages.leave.enabled) {
+            if (!msg.guild.channels.get(msg.guild.configs.messages.leave.channel)) { msg.guild.configs.update("messages.leave.channel", msg.channel.id); }
+            if (!msg.guild.configs.messages.leave.message) { msg.guild.configs.update("messages.leave.message", "It's sad to see you leaving **{USERNAME}**!", { action: "add" }); }
+            return msg.guild.configs.update("messages.leave.enabled", true).then(() => {
                 msg.sendMessage(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_LEAVE_ENABLED")}***`);
             });
         } else {
-            return msg.guild.configs.update("leave-messages", false).then(() => {
+            return msg.guild.configs.update("messages.leave.enabled", false).then(() => {
                 msg.sendMessage(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_LEAVE_DISABLED")}***`);
             });
         }
     }
 
     async init() {
-        if (!this.client.gateways.guilds.schema.has("leave-messages")) {
-            this.client.gateways.guilds.schema.add("leave-messages", { type: "boolean", default: false });
+        if (!this.client.gateways.guilds.schema.messages.has("leave")) {
+            await this.client.gateways.guilds.schema.messages.add("leave", {});
         }
-        if (!this.client.gateways.guilds.schema.has("leave-channel")) {
-            this.client.gateways.guilds.schema.add("leave-channel", { type: "channel" });
+        if (!this.client.gateways.guilds.schema.messages.leave.has("enabled")) {
+            await this.client.gateways.guilds.schema.messages.leave.add("enabled", { type: "boolean", default: false });
         }
-        if (!this.client.gateways.guilds.schema.has("leave-text")) {
-            this.client.gateways.guilds.schema.add("leave-text", { type: "string" });
+        if (!this.client.gateways.guilds.schema.messages.leave.has("channel")) {
+            await this.client.gateways.guilds.schema.messages.leave.add("channel", { type: "channel" });
+        }
+        if (!await this.client.gateways.guilds.schema.messages.leave.has("message")) {
+            await this.client.gateways.guilds.schema.messages.leave.add("message", { type: "string" });
         }
     }
 

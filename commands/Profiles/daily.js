@@ -19,10 +19,10 @@ module.exports = class extends Command {
         if (user.bot) {
             return msg.sendMessage("❄ | ***You can not give your daily Snowflakes to a bot!***");
         }
-        if (msg.author.configs.get("daily-cooldown") > 0) {
+        if (msg.author.configs.daily > 0) {
             await msg.author.configs._syncStatus;
             const now = Date.now();
-            const last = msg.author.configs.get("daily-cooldown");
+            const last = msg.author.configs.daily;
             const diff = now - last;
             const next = 43200000 - diff;
 
@@ -32,22 +32,20 @@ module.exports = class extends Command {
             const timeLeft = `${hours} hours, ${minutes} minutes and ${Math.round(seconds)} seconds`;
 
             if (diff >= 43200000) {
-                user.configs.update("snowflakes", user.configs.snowflakes + 100);
-                user.configs.update("daily-cooldown", Date.now());
+                await user.configs.update(["snowflakes", "daily"], [user.configs.snowflakes + 100, Date.now()]);
                 return msg.reply(`❄ | ***You have claimed your 100 Snowflakes for today!***`);
             } else {
                 return msg.sendMessage(`❄ | ***You can claim your daily Snowflakes in ${timeLeft}!***`);
             }
         } else {
-            user.configs.update("snowflakes", user.configs.snowflakes + 100);
-            user.configs.update("daily-cooldown", Date.now());
+            await user.configs.update(["snowflakes", "daily"], [user.configs.snowflakes + 100, Date.now()]);
             return msg.reply(`❄ | ***You have claimed your 100 Snowflakes for today!***`);
         }
     }
 
     async init() {
-        if (!this.client.gateways.users.schema.has("daily-cooldown")) {
-            this.client.gateways.users.schema.add("daily-cooldown", { type: "integer", default: 0, configurable: false });
+        if (!this.client.gateways.users.schema.has("daily")) {
+            this.client.gateways.users.schema.add("daily", { type: "integer", default: 0, configurable: false });
         }
     }
 

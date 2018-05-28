@@ -10,7 +10,7 @@ module.exports = class extends Monitor {
     }
 
     async run(msg) {
-        if (!msg.guild || !msg.guild.configs.get("anti-invite")) return null;
+        if (!msg.guild || !msg.guild.configs.automod.invites) return null;
         if (await msg.hasAtLeastPermissionLevel(4)) return null;
         if (!/(https?:\/\/)?(www\.)?(discord\.(gg|li|me|io)|discordapp\.com\/invite)\/.+/.test(msg.content)) return null;
         return msg.delete()
@@ -18,8 +18,11 @@ module.exports = class extends Monitor {
     }
 
     async init() {
-        if (!this.client.gateways.guilds.schema.has("anti-invite")) {
-            await this.client.gateways.guilds.schema.add("anti-invite", { type: "boolean", default: false });
+        if (!this.client.gateways.guilds.schema.has("automod")) {
+            await this.client.gateways.guilds.schema.add("automod", {});
+        }
+        if (!this.client.gateways.guilds.schema.automod.has("invites")) {
+            await this.client.gateways.guilds.schema.automod.add("invites", { type: "boolean", default: false });
         }
     }
 

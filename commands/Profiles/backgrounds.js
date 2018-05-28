@@ -137,7 +137,7 @@ module.exports = class extends Command {
     }
 
     compareBackground(msg, name) {
-        if (msg.author.configs.get("profile-bg") === name) return true;
+        if (msg.author.configs.get("profilebg") === name) return true;
         return false;
     }
 
@@ -147,12 +147,12 @@ module.exports = class extends Command {
     }
 
     async updateOwnership(msg, name, price) {
-        await msg.author.configs.update(["snowflakes", "backgrounds", "profile-bg"], [msg.author.configs.snowflakes - price, name, name]);
+        await msg.author.configs.update(["snowflakes", "backgrounds", "profilebg"], [msg.author.configs.snowflakes - price, name, name]);
         return msg.sendMessage(`<:penguSuccess:435712876506775553> ***You just bought and set your background to \`${name}\` for ${price} Snowflakes.***`);
     }
 
     async updateBG(msg, name) {
-        await msg.author.configs.update("profile-bg", name);
+        await msg.author.configs.update("profilebg", name);
         return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Your Profile Background is now set to: \`${name}\`***`);
     }
 

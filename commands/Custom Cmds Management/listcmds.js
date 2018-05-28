@@ -10,17 +10,17 @@ module.exports = class extends Command {
             aliases: ["listcommands"],
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
-            requiredConfigs: ["customcmds"],
+            requiredConfigs: ["customcmds.cmds"],
             description: msg => msg.language.get("COMMAND_LIST_CMDS_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
     }
 
     async run(msg) {
-        if (msg.guild.configs.customcmds[0] === undefined) return msg.reply(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_NO_CMDS")}***`);
+        if (msg.guild.configs.customcmds.cmds[0] === undefined) return msg.reply(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_NO_CMDS")}***`);
         const prefix = msg.guild.configs.get("prefix");
         const names = [];
-        msg.guild.configs.customcmds.forEach(a => {
+        msg.guild.configs.customcmds.cmds.forEach(a => {
             names.push(`${a.name}`);
         });
 
