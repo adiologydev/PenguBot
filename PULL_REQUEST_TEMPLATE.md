@@ -1,5 +1,5 @@
 ### Description of Your Pull Request
-What does your pull request specfically does by adding/modifying or removing code?
+What does your pull request specifically does by adding/modifying or removing code?
 
 ### Changes Proposed and or Files Changed
 - Example Change
