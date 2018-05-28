@@ -90,7 +90,7 @@ const clearPatrons = client => {
 
 const mysql = require("mysql2/promise");
 const migrate = async client => {
-    const con = await mysql.createConnection({ host: "localhost", user: "root", password: "", database: "pengubotv2" });
+    const con = await mysql.createConnection({ host: config.migrate.host, user: config.migrate.user, password: config.migrate.password, database: config.migrate.database });
     const [rows] = await con.execute("SELECT * FROM settings");
     for (const row of rows) {
         let { guild, settings } = row;

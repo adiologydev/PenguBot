@@ -18,13 +18,13 @@ const pLevels = new PermissionLevels()
     // everyone can use these commands
     .add(0, () => true)
     // Pengu DJ
-    .add(3, (c, m) => m.guild && m.guild.configs.get("pengu-dj").includes(m.member.id), { fetch: true })
+    .add(3, (c, m) => m.guild && m.guildConfigs["pengu-dj"].includes(m.member.id), { fetch: true })
     // Member is a PenguBot Moderator in the guild
-    .add(4, (c, m) => m.guild && m.guild.configs.get("staff-mods").includes(m.member.id), { fetch: true })
+    .add(4, (c, m) => m.guild && m.guildConfigs["staff-mods"].includes(m.member.id), { fetch: true })
     // Member must have Kick/Ban Permissions
-    .add(5, (c, m) => m.guild && m.member.permissions.has("BAN_MEMBERS") && m.member.permissions.has("KICK_MEMBERS") || m.guild.configs.get("staff-mods").includes(m.member.id), { fetch: true }) // eslint-disable-line
+    .add(5, (c, m) => m.guild && m.member.permissions.has("BAN_MEMBERS") && m.member.permissions.has("KICK_MEMBERS") || m.guildConfigs["staff-mods"].includes(m.member.id), { fetch: true }) // eslint-disable-line
     // Member must have 'MANAGE_GUILD' or 'ADMINISTRATOR' permissions
-    .add(6, (c, m) => m.guild && m.member.permissions.has("MANAGE_GUILD") || m.member.permissions.has("ADMINISTRATOR") || m.guild.configs.get("staff-admins").includes(m.member.id), { fetch: true }) // eslint-disable-line
+    .add(6, (c, m) => m.guild && m.member.permissions.has("MANAGE_GUILD") || m.member.permissions.has("ADMINISTRATOR") || m.guildConfigs["staff-admins"].includes(m.member.id), { fetch: true }) // eslint-disable-line
     // The member using this command must be the guild owner
     .add(7, (c, m) => m.guild && m.member === m.guild.owner, { fetch: true })
     /*
