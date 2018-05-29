@@ -8,27 +8,23 @@ module.exports = class extends Monitor {
     }
 
     async run(msg) {
-        if (!msg.guild) return;
-        if (!msg.channel.permissionsFor(msg.guild.me).has(["SEND_MESSAGES", "EMBED_LINKS", "ATTACH_FILES"])) return;
-        if (!msg.guild.configs.get("customcmds")) return;
+        if (!msg.guild || !msg.channel.postable || !msg.guild.configs.customcmds.enabled) return;
+        if (!msg.guild.configs.customcmds.cmds.length) return;
         if (cooldown.has(msg.author.id)) return;
 
-        const base = msg.content.split(msg.guild.configs.get("prefix"));
-        const cmdName = base[1];
-        if (!this.client.commands.has(cmdName)) {
-            const cmd = msg.guild.configs.customcmds.cmds.find(c => c.name === cmdName);
-            if (!cmd) return;
-            cooldown.add(msg.author.id);
-            setTimeout(() => cooldown.delete(msg.author.id), 10000);
-            return msg.sendMessage(this.replace(cmd.content, msg));
-        }
+        const cmdName = msg.content.slice(msg.guild.configs.prefix.length).trim().split(/ +/g).shift().toLowerCase();
+        if (!this.client.commands.has(cmdName)) return;
+        const cmd = msg.guild.configs.customcmds.cmds.find(c => c.name === cmdName);
+        if (!cmd) return;
+        cooldown.add(msg.author.id);
+        setTimeout(() => cooldown.delete(msg.author.id), 10000);
+        return msg.sendMessage(this.replace(cmd.content, msg));
     }
 
     replace(content, msg) {
         return content
             .replace(/{GUILD_NAME}/g, msg.member.guild.name)
             .replace(/{USERNAME}/g, msg.member.user.username)
-            .replace(/{DISPLAYNAME}/g, msg.member.displayName)
             .replace(/{ID}/g, msg.member.id)
             .replace(/{MENTION}/g, msg.member.toString())
             .replace(/{SERVER}/g, msg.member.guild.name)

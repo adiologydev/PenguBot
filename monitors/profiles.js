@@ -9,7 +9,6 @@ module.exports = class extends Monitor {
 
     constructor(...args) {
         super(...args, {
-            enabled: true,
             ignoreBots: true,
             ignoreSelf: true,
             ignoreOthers: false
@@ -34,17 +33,16 @@ module.exports = class extends Monitor {
 
         // Generate Level Up Images on Level Up
         if (oldLvl !== newLvl) {
-            if (msg.guild.configs.levelup) {
-                if (!msg.channel.permissionsFor(msg.guild.me).has(["SEND_MESSAGES", "ATTACH_FILES"])) return;
-                const bgName = msg.author.configs.profilebg;
-                const bgImg = await fs.readFile(`${process.cwd()}/assets/profiles/bg/${bgName}.png`);
-                const avatar = await get(msg.author.displayAvatarURL({ format: "png", size: 128 })).then(res => res.body);
-                const img = await new Canvas(100, 100)
-                    .addImage(bgImg, 0, 0, 530, 530)
-                    .addImage(avatar, 22, 22, 57, 57)
-                    .toBufferAsync();
-                msg.sendMessage(`🆙 | **${msg.author.tag} leveled up to Level ${newLvl}!**`, { files: [{ attachment: img, name: `${msg.author.id}.png` }] });
-            }
+            if (!msg.guild.configs.levelup) return;
+            if (!msg.channel.postable) return;
+            const bgName = msg.author.configs.profilebg;
+            const bgImg = await fs.readFile(`${process.cwd()}/assets/profiles/bg/${bgName}.png`);
+            const avatar = await get(msg.author.displayAvatarURL({ format: "png", size: 128 })).then(res => res.body);
+            const img = await new Canvas(100, 100)
+                .addImage(bgImg, 0, 0, 530, 530)
+                .addImage(avatar, 22, 22, 57, 57)
+                .toBufferAsync();
+            msg.sendMessage(`🆙 | **${msg.author.tag} leveled up to Level ${newLvl}!**`, { files: [{ attachment: img, name: `${msg.author.id}.png` }] });
         }
     }
 
