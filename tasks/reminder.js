@@ -6,7 +6,7 @@ module.exports = class extends Task {
         const _channel = this.client.channels.get(channel);
         const _user = await this.client.users.fetch(user).catch(() => null);
         if (_user && _user.send) await _user.send(`⏰ **Reminder:** ${text}`);
-        else await _channel.send(`📘 | <@${user}>, **Reminder:** ${text}`);
+        else await _channel.send(`📘 | ${_user}, **Reminder:** ${text}`);
     }
 
 };
