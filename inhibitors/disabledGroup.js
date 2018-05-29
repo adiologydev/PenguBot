@@ -10,8 +10,7 @@ module.exports = class extends Inhibitor {
     }
 
     async run(msg, cmd) {
-        if (!msg.guild) return;
-        if (!msg.guild.configs.disabledCommandsGroup.includes(cmd.category)) return;
+        if (!msg.guildConfigs.disabledCommandsGroup.includes(cmd.category)) return;
         throw msg.language.get("INHIBITOR_DISABLED_GROUP");
     }
 
