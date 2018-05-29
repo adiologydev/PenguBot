@@ -4,25 +4,19 @@ const logger = require("../utils/log");
 module.exports = class extends Event {
 
     async run(member) {
-        const guild = member.guild; // eslint-disable-line
-        if (guild.configs.get("messages.leave.enabled")) {
-            if (guild.channels.get(guild.configs.get("messages.leave.channel"))) {
-                const channel = guild.channels.get(guild.configs.get("messages.leave.channel"));
-                if (channel && channel.permissionsFor(guild.me).has(["SEND_MESSAGES", "EMBED_LINKS", "ATTACH_FILES"])) {
-                    if (!member.guild.configs.messages.leave.message) { await member.guild.configs.update("messages.leave.message", "It's sad to see you leave {USERNAME}, hope to see you again."); }
-                    try {
-                        await channel.send(this.replace(guild.configs.get("messages.leave.message"), member));
-                    } catch (e) {
-                        console.error(e);
-                    }
-                }
-            }
-        }
-
         // Logging
-        const log = logger("leave", guild, `📤 **${member.user.tag}** (${member.user.id}) has \`left\` the guild.\n**Total Members:** ${guild.memberCount}`);
-        const loggingChannel = guild.channels.get(guild.configs.loggingChannel);
-        if (log && loggingChannel) loggingChannel.send(log);
+        const log = logger("leave", member.guild, `📤 **${member.user.tag}** (${member.user.id}) has \`left\` the guild.\n**Total Members:** ${member.guild.memberCount}`);
+        const loggingChannel = member.guild.channels.get(member.guild.configs.loggingChannel);
+        if (log && loggingChannel) await loggingChannel.send(log);
+
+        await this.leaveMessage(member);
+    }
+
+    leaveMessage(member) {
+        if (!member.guild.configs.messages.leave.enabled) return;
+        const channel = member.guild.channels.get(member.guild.configs.messages.leave.channel);
+        if (!channel || (channel && !channel.postable)) return;
+        return channel.send(this.replace(member.guild.configs.messages.leave.message, member));
     }
 
     async init() {
@@ -40,8 +34,7 @@ module.exports = class extends Event {
             .replace(/{MENTION}/g, member.toString())
             .replace(/{SERVER}/g, member.guild.name)
             .replace(/{USER}/g, member.user.tag)
-            .replace(/{TAG}/g, member.user.tag)
-            .replace(/{DISPLAYNAME}/g, member.displayName);
+            .replace(/{TAG}/g, member.user.tag);
     }
 
 };

@@ -40,7 +40,7 @@ module.exports = class extends Command {
             await this.client.gateways.guilds.schema.messages.leave.add("channel", { type: "channel" });
         }
         if (!this.client.gateways.guilds.schema.messages.leave.has("message")) {
-            await this.client.gateways.guilds.schema.messages.leave.add("message", { type: "string" });
+            await this.client.gateways.guilds.schema.messages.leave.add("message", { type: "string", default: "It's sad to see you leave {USERNAME}, hope to see you again." });
         }
     }
 

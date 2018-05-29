@@ -4,9 +4,9 @@ const logger = require("../utils/log");
 module.exports = class extends Event {
 
     async run(role) {
-        const log = logger("roles", role.guild, `☑ **${role} role** was \`created\` in the guild.`);
+        const log = logger("roles", role.guild, `☑ **${role.name}** role was \`created\` in the guild.`);
         const loggingChannel = role.guild.channels.get(role.guild.configs.loggingChannel);
-        if (log && loggingChannel) loggingChannel.send(log);
+        if (log && loggingChannel) await loggingChannel.send(log);
     }
 
     async init() {

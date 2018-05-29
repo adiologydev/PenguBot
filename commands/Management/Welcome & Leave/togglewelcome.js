@@ -43,7 +43,7 @@ module.exports = class extends Command {
             await this.client.gateways.guilds.schema.messages.welcome.add("channel", { type: "channel" });
         }
         if (!await this.client.gateways.guilds.schema.messages.welcome.has("message")) {
-            await this.client.gateways.guilds.schema.messages.welcome.add("message", { type: "string" });
+            await this.client.gateways.guilds.schema.messages.welcome.add("message", { type: "string", default: "Welcome {MENTION} to {GUILD_NAME}, we hope you enjoy your stay!" });
         }
     }
 
