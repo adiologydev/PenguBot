@@ -201,8 +201,11 @@ module.exports = class extends Language {
             COMMAND_TRIGGERED_DESCRIPTION: "Because getting trigerred is a lot easier now...",
             COMMAND_WANTED_DESCRIPTION: "Print some Wanted posters of who is wanted by the sherrif department.",
             COMMAND_VAULT_DESCRIPTION: "Be the ICONIC Vault boy or make someone else be one.",
-            COMMAND_PLS_DESCRIPTION: "Pls someone because they're not listening.",
-            COMMAND_BLAME_DESCRIPTION: "Blame someone because it's clearly their fault!",
+            COMMAND_GARBAGE_DESCRIPTION: "Garbage someone because they're trash.",
+            COMMAND_APPROVE_DESCRIPTION: "Give someone a seal of approval",
+            COMMAND_REJECT_DESCRIPTION: "Reject someone, their quality isn't upto the mark.",
+            COMMAND_TINDER_DESCRIPTION: "You Have a Match, let's match you with someone!",
+            COMMAND_MISSING_DESCRIPTION: "Has your dear one went missing? Get them a poster.",
 
             // NSFW Commands
             COMMAND_ANAL_DESCRIPTION: "-NOT SAFE FOR WORK- Anal images.",

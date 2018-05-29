@@ -1,5 +1,5 @@
 const { Command } = require("klasa");
-const slots = ["🍇", "🍊", "🍐", "🍒", "🍋", "🥝", "🍔", "🍟", "🌭", "🍕", "🌮", "🍘", "🍫", "🍿", "🍩", "🍪"];
+const slots = ["🍔", "🍟", "🌭", "🍕", "🌮", "🍘", "🍫", "🍿", "🍩"];
 const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
@@ -31,14 +31,14 @@ module.exports = class extends Command {
                 .setTimestamp()
                 .setDescription(`${Tone} | ${Ttwo} | ${Tthree}\n${Mone} | ${Mtwo} | ${Mthree}\n${Bone} | ${Btwo} | ${Bthree}`)
                 .setColor("RANDOM");
-            return msg.sendMessage(`***${msg.member.user} You just won! Good job!***`, { embed: embed });
+            return msg.sendMessage(`***${msg.author} You just won! Good job!***`, { embed: embed });
         }
         const embed = new MessageEmbed()
             .setFooter("© PenguBot.cc")
             .setTimestamp()
             .setDescription(`${Tone} | ${Ttwo} | ${Tthree}\n${Mone} | ${Mtwo} | ${Mthree}\n${Bone} | ${Btwo} | ${Bthree}`)
             .setColor("RANDOM");
-        return msg.sendMessage(`***${msg.member.user} You lost! Better luck next time!***`, { embed: embed });
+        return msg.sendMessage(`***${msg.author} You lost! Better luck next time!***`, { embed: embed });
     }
 
 };
