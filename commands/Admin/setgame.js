@@ -6,16 +6,15 @@ module.exports = class extends Command {
         super(...args, {
             aliases: ["sg"],
             permissionLevel: 10,
-            usage: "<game:string> [...]",
-            usageDelim: " ",
+            usage: "<game:string>",
             description: msg => msg.language.get("COMMAND_SG_DESCRIPTION")
         });
     }
 
-    async run(msg, [...game]) {
-        this.client.shard.broadcastEval(this.client.user.setPresence({ activity: { name: game.join(" "), status: "online" } })
+    async run(msg, [game]) {
+        return this.client.user.setPresence({ activity: { name: game, status: "online" } })
             .then(msg.sendMessage(`**Playing status has been changed to:** ${game.join(" ")}`))
-            .catch(err => { throw err; }));
+            .catch(err => { throw err; });
     }
 
 };

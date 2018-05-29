@@ -12,13 +12,9 @@ module.exports = class extends Command {
     }
 
     async run(msg, [guild]) {
-        if (this.client.configs.pGuilds.find(g => g === guild)) {
-            this.client.configs.update("pGuilds", guild, { action: "remove" });
-            msg.reply(`**Removed Guild:** ${guild}`);
-        } else {
-            this.client.configs.update("pGuilds", guild, { action: "add" });
-            msg.reply(`**Added Guild:** ${guild}`);
-        }
+        const exists = this.client.configs.pGuilds.includes(guild);
+        await this.client.configs.update("pGuilds", guild);
+        return msg.sendMessage(`${exists ? "**Removed Guild:**" : "**Added Guild:**"} ${guild}`);
     }
 
     async init() {
