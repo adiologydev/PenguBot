@@ -18,15 +18,10 @@ module.exports = (type, guild, message, title, avatar) => {
 };
 
 // Method which checks for basic permissions and requirements
-const canPost = guild => {
-    const channel = guild.configs.loggingChannel;
-    if (!channel) return false;
-    if (!guild.channels.get(channel).permissionsFor(guild.me).has(["SEND_MESSAGES", "EMBED_LINKS", "ATTACH_FILES"])) return false;
-    return true;
-};
+const canPost = guild => guild.configs.loggingChannel && guild.channels.get(guild.configs.loggingChannel).postable;
 
 // Check if the log type is enabled in the guild
-const isEnabled = (guild, key) => guild.configs.get(`logs.${key}`);
+const isEnabled = (guild, key) => Boolean(guild.configs.get(`logs.${key}`));
 
 // Create an embed with required fields
 const generateEmbed = (message, color, title, avatar) => {

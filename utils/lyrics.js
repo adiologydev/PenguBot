@@ -1,29 +1,28 @@
-const snekie = require("snekfetch");
+const snekfetch = require("snekfetch");
 const cheerio = require("cheerio");
 const config = require("../config");
 const key = config.keys.music.lyrics;
 
-module.exports = class Lyricist {
+class Lyrics {
 
-    async request(path) {
-        // Fetch result and parse it as JSON
-        const { body } = await snekie.get(`https://api.genius.com/${path}`)
+    static async request(path) {
+        return snekfetch.get(`https://api.genius.com/${path}`)
             .set("Authorization", `Bearer ${key}`)
-            .catch(err => {
-                // Handle errors
-                if (err.body.error) { throw new Error(`${err.body.error}: ${err.body.error_description}`); }
-                if (err.body.meta.status !== 200) { throw new Error(`${err.body.meta.status}: ${err.body.meta.message}`); }
-                throw err;
+            .then(res => res.body)
+            .catch(error => {
+                if (error.body.error) throw new Error(`${error.body.error}: ${error.body.error_description}`);
+                if (error.body.meta.status !== 200) throw new Error(`${error.body.meta.status}: ${error.body.meta.message}`);
+                throw error;
             });
-
-        return body;
     }
 
-    async scrapeLyrics(url) {
-        const { text } = await snekie.get(url);
-        const $ = cheerio.load(text);
-        if (!$(".lyrics")) return null;
-        return $(".lyrics").text().trim();
+    static scrape(url) {
+        return snekfetch.get(url).then(res => {
+            const $ = cheerio.load(res.text);
+            return $(".lyrics") ? $(".lyrics").text().trim() : null;
+        });
     }
 
-};
+}
+
+module.exports = Lyrics;

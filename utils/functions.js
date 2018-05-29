@@ -1,144 +1,124 @@
-// Any functions which will be available with PenguClient
-const { post, get } = require("snekfetch");
+const validURlRegex = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/; // eslint-disable-line no-useless-escape
+const snekfetch = require("snekfetch");
 const config = require("../config");
-
-const haste = (input, extension) => new Promise((res, rej) => {
-    if (!input) rej("Input argument is required.");
-    post("https://hastebin.com/documents").send(input).then(body => {
-        res(`https://hastebin.com/${body.body.key}${extension ? `.${extension}` : ""}`);
-    }).catch(e => rej(e));
-});
-
-const isUpvoter = id => new Promise((resolve, reject) => {
-    get(`https://discordbots.org/api/bots/303181184718995457/check`)
-        .set("Authorization", config.keys.dbl)
-        .query("userId", id)
-        .then(r => {
-            if (r.body.voted === 1) return resolve(true);
-            return resolve(false);
-        }).catch(err => reject(err));
-});
-
-const postStats = client => {
-    if (client.user.id !== "303181184718995457") return;
-    post(`https://discordbots.org/api/bots/${client.user.id}/stats`)
-        .set("Authorization", config.keys.dbl)
-        .send({
-            server_count: client.guilds.size,
-            shard_id: client.shard.id,
-            shard_count: client.shard.count
-        }).catch(console.error);
-    post(`https://bots.discord.pw/api/bots/${client.user.id}/stats`)
-        .set("Authorization", config.keys.dbpw)
-        .send({
-            server_count: client.guilds.size,
-            shard_id: client.shard.id,
-            shard_count: client.shard.count
-        }).catch(console.error);
-};
-
-const isPatron = (client, guild) => {
-    if (client.configs.pGuilds.find(g => g === guild.id)) return true;
-    return false;
-};
-
-const randomNumber = (min, max) => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min)) + min;
-};
-
-async function getSongs(string) {
-    const res = await get(`http://${config.keys.music.host}:2333/loadtracks?identifier=${string}`)
-        .set("Authorization", config.keys.music.password)
-        .catch(err => {
-            console.error(err);
-            return null;
-        });
-    if (!res) throw "There was an error, try again";
-    if (!res.body.length) throw "No tracks found";
-    return res.body;
-}
-
-const friendlyTime = duration => {
-    let seconds = parseInt((duration / 1000) % 60);
-    let minutes = parseInt((duration / (1000 * 60)) % 60);
-    let hours = parseInt((duration / (1000 * 60 * 60)) % 24);
-
-    hours = hours < 10 ? `0${hours}` : hours;
-    minutes = minutes < 10 ? `0${minutes}` : minutes;
-    seconds = seconds < 10 ? `0${seconds}` : seconds;
-
-    return `${hours}:${minutes}:${seconds}`;
-};
-
-const validURL = str => {
-    const regexp = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/; // eslint-disable-line
-    if (!regexp.test(str)) {
-        return false;
-    } else { return true; }
-};
-
-const clearPatrons = client => {
-    if (!client.config.main.patreon) return "Not the Patron Bot.";
-    const guilds = client.guilds; // eslint-disable-line
-    for (const guild of guilds) {
-        if (!isPatron(client, guild)) guild.leave();
-        return `Left ${guild.name} (${guild.id}) of ${guild.owner.user.tag} (${guild.owner.user.id})`;
-    }
-};
-
 const mysql = require("mysql2/promise");
-const migrate = async client => {
-    const con = await mysql.createConnection({ host: config.migrate.host, user: config.migrate.user, password: config.migrate.password, database: config.migrate.database });
-    const [rows] = await con.execute("SELECT * FROM settings");
-    for (const row of rows) {
-        let { guild, settings } = row;
-        if (!(guild = client.guilds.get(guild))) continue;
-        settings = JSON.parse(settings);
-        for (const [key, value] of Object.entries(settings)) {
-            if (key.startsWith("cmd")) {
-                const [, cmdName] = key.split(".");
-                await guild.configs.update("customcmds.cmds", { name: cmdName, content: value });
-                continue;
+
+class Util {
+
+    static haste(input, extension = "js") {
+        return snekfetch.post("https://hastebin.com/documents")
+            .send(input)
+            .then(res => `https://hastebin.com/${res.body.key}.${extension}`);
+    }
+
+    static isUpvoter(id) {
+        return snekfetch.get("https://discordbots.org/api/bots/303181184718995457/check")
+            .set("Authorization", config.keys.dbl)
+            .query("userId", id)
+            .then(res => Boolean(res.body.voted));
+    }
+
+    static async postStats(client) {
+        if (client.user.id !== "303181184718995457") return;
+        const stats = { server_count: client.guilds.size, shard_id: client.shard.id, shard_count: client.shard.count };
+        return Promise.all([
+            snekfetch.post(`https://discordbots.org/api/bots/${client.user.id}/stats`)
+                .set("Authorization", config.keys.dbl).send(stats),
+            snekfetch.post(`https://bots.discord.pw/api/bots/${client.user.id}/stats`)
+                .set("Authorization", config.keys.dbpw).send(stats)
+        ]);
+    }
+
+    static isPatron(guild) {
+        return guild.client.configs.pGuilds.includes(guild.id);
+    }
+
+    static randomNumber(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+    static async getSongs(search) {
+        return snekfetch.get(`http://${config.keys.music.host}:2333/loadtracks`)
+            .set("Authorization", config.keys.music.password)
+            .query("identifier", search)
+            .then(res => res.body.length ? res.body : null)
+            .catch(err => {
+                console.error(err);
+                return null;
+            });
+    }
+
+    static friendlyTime(duration) {
+        let seconds = parseInt((duration / 1000) % 60);
+        let minutes = parseInt((duration / (1000 * 60)) % 60);
+        let hours = parseInt((duration / (1000 * 60 * 60)) % 24);
+
+        hours = hours < 10 ? `0${hours}` : hours;
+        minutes = minutes < 10 ? `0${minutes}` : minutes;
+        seconds = seconds < 10 ? `0${seconds}` : seconds;
+
+        return `${hours}:${minutes}:${seconds}`;
+    }
+
+    static validURL(str) {
+        return validURlRegex.test(str);
+    }
+
+    static async clearPatrons(client) {
+        const results = [];
+        if (!config.main.patreon) throw new Error("Not the Patron Bot.");
+        for (const guild of client.guilds.values()) {
+            if (!Util.isPatron(guild)) guild.leave();
+            else results.push(`Left ${guild.name} (${guild.id}) of ${guild.owner ? guild.owner.user.tag : "Uncached or Banned Owner"} (${guild.ownerID})`);
+        }
+        return results;
+    }
+
+    static async execute(client) {
+        const con = await mysql.createConnection({ host: config.migrate.host, user: config.migrate.user, password: config.migrate.password, database: config.migrate.database });
+        const [rows] = await con.execute("SELECT * FROM settings");
+        for (const row of rows) {
+            const guild = client.guilds.get(row.guild);
+            if (!guild) continue;
+            const settings = JSON.parse(row.settings || "{}");
+            for (const [key, value] of Object.entries(settings)) {
+                if (key.startsWith("cmd")) {
+                    const [, cmdName] = key.split(".");
+                    await guild.configs.update("customcmds.cmds", { name: cmdName, content: value });
+                    continue;
+                }
+                if (key === "settings.wlcm-msg") {
+                    await guild.configs.update("messages.welcome.message", value);
+                    continue;
+                }
+                if (key === "settings.leav-msg") {
+                    await guild.configs.update("messages.leave.message", value);
+                    continue;
+                }
+                // Welcome Enabled and Channel ID
+                if (key === "settings.wlcm-main") {
+                    const [enabled, channelid] = value.split("|");
+                    if (enabled && channelid && guild.channels.has(channelid)) await guild.configs.update(["messages.welcome.enabled", "messages.welcome.channel"], [true, channelid]);
+                    continue;
+                }
+                // Leave Enabled and Channel ID
+                if (key === "settings.leav-main") {
+                    const [enabled, channelid] = value.split("|");
+                    if (enabled && channelid && guild.channels.has(channelid)) await guild.configs.update(["messages.leave.enabled", "messages.leave.channel"], [true, channelid]);
+                    continue;
+                }
+                // Autoroles
+                if (key === "AutoRole") {
+                    await guild.configs.update(["autoroles.roles", "autoroles.enabled"], [value, true], guild);
+                    continue;
+                }
+                await guild.configs.update(key, value);
             }
-            if (key === "settings.wlcm-msg") {
-                await guild.configs.update("messages.welcome.message", value);
-                continue;
-            }
-            if (key === "settings.leav-msg") {
-                await guild.configs.update("messages.leave.message", value);
-                continue;
-            }
-            // Welcome Enabled and Channel ID
-            if (key === "settings.wlcm-main") {
-                const [enabled, channelid] = value.split("|");
-                if (enabled && channelid && guild.channels.has(channelid)) await guild.configs.update(["messages.welcome.enabled", "messages.welcome.channel"], [true, channelid]);
-                continue;
-            }
-            // Leave Enabled and Channel ID
-            if (key === "settings.leav-main") {
-                const [enabled, channelid] = value.split("|");
-                if (enabled && channelid && guild.channels.has(channelid)) await guild.configs.update(["messages.leave.enabled", "messages.leave.channel"], [true, channelid]);
-                continue;
-            }
-            // Autoroles
-            if (key === "AutoRole") {
-                await guild.configs.update(["autoroles.roles", "autoroles.enabled"], [value, true], guild);
-                continue;
-            }
-            await guild.configs.update(key, value);
         }
     }
-};
 
-module.exports.haste = haste;
-module.exports.isUpvoter = isUpvoter;
-module.exports.postStats = postStats;
-module.exports.isPatron = isPatron;
-module.exports.randomNumber = randomNumber;
-module.exports.getSongs = getSongs;
-module.exports.friendlyTime = friendlyTime;
-module.exports.validURL = validURL;
-module.exports.clearPatrons = clearPatrons;
-module.exports.migrate = migrate;
+}
+
+module.exports = Util;

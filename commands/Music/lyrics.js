@@ -1,7 +1,6 @@
 const { Command } = require("klasa");
-const Lyricist = require("../../utils/lyrics.js");
-const lyrics = new Lyricist();
 const { MessageEmbed } = require("discord.js");
+const lyrics = require("../../utils/lyrics.js");
 
 module.exports = class extends Command {
 
@@ -10,7 +9,6 @@ module.exports = class extends Command {
             runIn: ["text"],
             cooldown: 10,
             aliases: ["songlyrics", "lyric"],
-            permissionLevel: 0,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: msg => msg.language.get("COMMAND_LYRICS_DESCRIPTION"),
             extendedHelp: "No extended help available.",
@@ -27,7 +25,7 @@ module.exports = class extends Command {
         const extendedsong = lyricdata.result.title_with_featured;
         const artist = lyricdata.result.primary_artist.name;
 
-        const lyricsbody = await lyrics.scrapeLyrics(lyricdata.result.url);
+        const lyricsbody = await lyrics.scrape(lyricdata.result.url);
         if (!lyricsbody) return msg.reply("The provided song's lyrics could not be found. Please try again with a different one or contact us at <https://discord.gg/6KpTfqR>.");
 
         const embed = new MessageEmbed()
