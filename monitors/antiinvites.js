@@ -12,6 +12,9 @@ module.exports = class extends Monitor {
 
     async run(msg) {
         if (!msg.guild || !msg.guild.configs.automod.invites) return null;
+        if (!this.client.config.main.patreon) {
+            if (msg.guild.members.has("438049470094114816")) return;
+        }
         if (await msg.hasAtLeastPermissionLevel(4)) return null;
         if (!inviteRegex.test(msg.content)) return null;
         return msg.delete().catch(err => this.client.emit("log", err, "error"));

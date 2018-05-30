@@ -9,7 +9,7 @@ module.exports = class extends Command {
             aliases: ["togglelevelups", "levelups"],
             requiredConfigs: ["levelup"],
             permissionLevel: 4,
-            requiredPermissions: ["USE_EXTERNAL_EMOJIS", "BAN_MEMBERS"],
+            requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: msg => msg.language.get("COMMAND_LEVELUP_DESCRIPTION"),
             quotedStringSupport: false,
             extendedHelp: "No extended help available."

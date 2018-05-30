@@ -8,6 +8,9 @@ module.exports = class extends Event {
         const log = logger("channels", channel.guild, `📗 **#${channel.name}** (${channel.id}) channel was \`created\``);
         const loggingChannel = channel.guild.channels.get(channel.guild.configs.loggingChannel);
         if (log && loggingChannel) await loggingChannel.send(log);
+
+        const role = channel.guild.roles.filter(r => r.name === "PENGU_MUTED");
+        if (role) await channel.updateOverwrite(role, { SEND_MESSAGES: false, ADD_REACTIONS: false, CONNECT: false }, `New Channel Created`).catch(() => null);
     }
 
     async init() {
