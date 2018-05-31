@@ -5,7 +5,7 @@ What does your pull request specifically does by adding/modifying or removing co
 - Example Change
 
 ### Label Your Pull Request
-- [x] This PR modifies existing code to enhance the bot
+- [ ] This PR modifies existing code to enhance the bot
 - [ ] This PR fixes a bug within the bot
 - [ ] This PR removes/renames methods or properties
 - [ ] This PR adds methods, features, commands or properties
