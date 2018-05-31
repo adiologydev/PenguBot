@@ -270,7 +270,8 @@ module.exports = class extends Language {
             COMMAND_VOLUME_DESCRIPTION: "Change the default volume of Pengu in your guild",
 
             // Game Stats
-            COMMAND_FORTNITE_DESCRIPTION: "Get Fortnite Game Statistics within Discord."
+            COMMAND_FORTNITE_DESCRIPTION: "Get Fortnite Game Statistics within Discord.",
+            COMMAND_CRSTATS_DESCRIPTION: "Clash Royale Player Statistics within Discord."
         };
     }
 
