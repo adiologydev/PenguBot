@@ -4,19 +4,14 @@ const inviteRegex = /(https?:\/\/)?(www\.)?(discord\.(gg|li|me|io)|discordapp\.c
 module.exports = class extends Monitor {
 
     constructor(...args) {
-        super(...args, {
-            enabled: true,
-            ignoreSelf: true
-        });
+        super(...args, { ignoreSelf: true });
     }
 
     async run(msg) {
-        if (!msg.guild || !msg.guild.configs.automod.invites) return null;
-        if (!this.client.config.main.patreon) {
-            if (msg.guild.members.has("438049470094114816")) return;
-        }
-        if (await msg.hasAtLeastPermissionLevel(4)) return null;
-        if (!inviteRegex.test(msg.content)) return null;
+        if (!msg.guild || !msg.guild.configs.automod.invites) return;
+        if (!this.client.config.main.patreon) if (msg.guild.members.has("438049470094114816")) return;
+        if (await msg.hasAtLeastPermissionLevel(4)) return;
+        if (!inviteRegex.test(msg.content)) return;
         return msg.delete().catch(err => this.client.emit("log", err, "error"));
     }
 

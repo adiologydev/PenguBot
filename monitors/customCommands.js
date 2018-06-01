@@ -9,9 +9,7 @@ module.exports = class extends Monitor {
 
     async run(msg) {
         if (!msg.guild || !msg.channel.postable || !msg.guild.configs.customcmds.enabled) return;
-        if (!this.client.config.main.patreon) {
-            if (msg.guild.members.has("438049470094114816")) return;
-        }
+        if (!this.client.config.main.patreon) if (msg.guild.members.has("438049470094114816")) return;
         if (!msg.guild.configs.customcmds.cmds.length) return;
         if (cooldown.has(msg.author.id)) return;
 

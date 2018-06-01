@@ -17,9 +17,7 @@ module.exports = class extends Monitor {
 
     async run(msg) {
         if (!msg.guild) return;
-        if (!this.client.config.main.patreon) {
-            if (msg.guild.members.has("438049470094114816")) return;
-        }
+        if (!this.client.config.main.patreon) if (msg.guild.members.has("438049470094114816")) return;
         if (timeout.has(msg.author.id)) return;
         await msg.author.configs._syncStatus;
 

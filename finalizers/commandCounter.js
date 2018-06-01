@@ -2,10 +2,6 @@ const { Finalizer } = require("klasa");
 
 module.exports = class extends Finalizer {
 
-    constructor(...args) {
-        super(...args, { enabled: true });
-    }
-
     async run(msg) {
         const config = this.client.configs;
         const cmd = msg.command.name;
