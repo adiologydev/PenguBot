@@ -37,6 +37,7 @@ module.exports = class extends Event {
         }
 
         this.client.emit("klasaReady");
+        if (this.client.config.main.status) this.client.whStatus.send(`✅ **ONLINE:** Shard \`${this.client.shard.id}\` is now online.`);
     }
 
 };
