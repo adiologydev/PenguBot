@@ -5,7 +5,7 @@ const permissionLevels = require("./PermissionLevels");
 class PenguClient extends Client {
 
     constructor(options) {
-        super({ permissionLevels, ...options });
+        super({ ...options, permissionLevels });
 
         this.config = require("../config.json");
         this.functions = require("../utils/functions.js");

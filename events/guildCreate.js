@@ -1,14 +1,10 @@
 const { Event, Timestamp } = require("klasa");
-const { WebhookClient } = require("discord.js");
 const { MessageEmbed } = require("discord.js");
-const config = require("../config");
 
 module.exports = class extends Event {
 
     constructor(...args) {
         super(...args);
-
-        this.webhook = new WebhookClient("435500732507226112", config.webhooks.guildEvent);
         this.timestamp = new Timestamp("dddd, MMMM Do YYYY");
     }
 
@@ -35,20 +31,6 @@ Hey! I'm PenguBot, a friendly multi-purpose Discord bot, now that you know who I
 • **Author:** [**AdityaTD#5346**](https://adityatd.me/)`);
 
         if (channel) await channel.send({ embed });
-
-        // Logging New Guilds
-        const gcount = (await this.client.shard.fetchClientValues("guilds.size")).reduce((prev, val) => prev + val, 0);
-        const guildlog = new MessageEmbed()
-            .setAuthor("Added to a New Guild - PenguBot", this.client.user.avatarURL())
-            .setColor("#5cb85c")
-            .setTimestamp()
-            .setFooter(`Total Guilds Count: ${gcount}`)
-            .setDescription(`• **Name (ID):** ${guild.name} (${guild.id})
-• **Owner:** ${guild.owner.user.tag} (${guild.owner.user.id})
-• **Members / Bots / Total:** ${guild.members.filter(m => !m.user.bot).size} / ${guild.members.filter(m => m.user.bot).size} / ${guild.memberCount}
-• **Created At:** ${this.timestamp.display(guild.createdAT)}`);
-        if (guild.iconURL()) guildlog.setThumbnail(guild.iconURL());
-        await this.webhook.send({ embeds: [guildlog] });
 
         // Posting Stats for a new guild being added
         await this.client.functions.postStats(this.client);
