@@ -32,9 +32,6 @@ Hey! I'm PenguBot, a friendly multi-purpose Discord bot, now that you know who I
 
         if (channel) await channel.send({ embed });
 
-        // Posting Stats for a new guild being added
-        await this.client.functions.postStats(this.client);
-
         // Patreon Checker
         if (this.client.config.main.patreon === true) {
             if (!this.client.configs.pGuilds.includes(guild.id)) {

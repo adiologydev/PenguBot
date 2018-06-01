@@ -1,5 +1,4 @@
 const { Event, util } = require("klasa");
-const { WebhookClient } = require("discord.js");
 const { PlayerManager } = require("discord.js-lavalink");
 
 module.exports = class extends Event {
@@ -9,7 +8,6 @@ module.exports = class extends Event {
             once: true,
             event: "ready"
         });
-        this.webhook = new WebhookClient("451318929814716426", this.client.config.webhooks.status);
     }
 
     async run() {
@@ -40,7 +38,7 @@ module.exports = class extends Event {
 
         this.client.emit("klasaReady");
         this.client.setMaxListeners(50);
-        if (this.client.config.main.status) this.webhook.send(`✅ **ONLINE:** Shard \`${this.client.shard.id}\` is now online.`);
+        if (this.client.config.main.status) this.client.whStatus.send(`✅ **ONLINE:** Shard \`${this.client.shard.id}\` is now online.`);
     }
 
 };
