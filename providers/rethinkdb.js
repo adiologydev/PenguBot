@@ -5,7 +5,7 @@ module.exports = class extends Provider {
 
     constructor(...args) {
         super(...args);
-        this.db = rethink(this.client.options.providers.rethinkdb || { db: "pengubot", timeout: 60, buffer: 500 });
+        this.db = rethink(this.client.options.providers.rethinkdb || { db: "pengubot", timeout: 300, max: 5000, buffer: 500 });
     }
 
     /* Table methods */
