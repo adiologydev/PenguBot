@@ -6,8 +6,8 @@ module.exports = class extends Inhibitor {
         super(...args, { spamProtection: true });
     }
 
-    async run() {
-        throw true;
+    async run(msg) {
+        if (msg.author.id !== "136549806079344640") throw true;
     }
 
 };
