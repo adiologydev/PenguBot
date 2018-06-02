@@ -1,6 +1,6 @@
 const { Client } = require("klasa");
 const { Client: IdioticAPI } = require("idiotic-api");
-const permissionLevels = require("./PermissionLevels");
+const permissionLevels = require(`./permissionLevels`);
 const { WebhookClient } = require("discord.js");
 
 class PenguClient extends Client {
