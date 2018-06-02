@@ -35,7 +35,7 @@
     "fast-html-parser": "^1.0.1",
     "google-translate-api": "^2.3.0",
     "idiotic-api": "^0.2.8",
-    "klasa": "github:dirigeants/klasa",
+    "klasa": "github:dirigeants/klasa#SGv2.2.0",
     "mysql2": "^1.5.3",
     "random-puppy": "^1.1.0",
     "rethinkdbdash": "^2.3.31",

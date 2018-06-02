@@ -1,17 +1,26 @@
-const { Provider } = require("klasa");
+const { Provider, util: { mergeObjects } } = require("klasa");
 const rethink = require("rethinkdbdash");
 
 module.exports = class extends Provider {
 
     constructor(...args) {
         super(...args);
-        this.db = rethink(this.client.options.providers.rethinkdb || { db: "pengubot" });
+        this.db = rethink(this.client.options.providers.rethinkdb || { db: "test" });
     }
 
     /* Table methods */
 
     get exec() {
         return this.db;
+    }
+
+    /**
+	 * Pings the Rethinkdb server.
+	 * @returns {Promise<number>}
+	 */
+    async ping() {
+        const now = Date.now();
+        return await this.db.now() - now;
     }
 
     /**
@@ -96,7 +105,7 @@ module.exports = class extends Provider {
 	 * @returns {Promise<Object>}
 	 */
     getRandom(table) {
-        return this.getAll(table).then(data => data[Math.floor(Math.random() * data.length)]);
+        return this.getKeys(table).then(data => this.get(table, data[Math.floor(Math.random() * data.length)].id));
     }
 
     /**
@@ -161,30 +170,22 @@ module.exports = class extends Provider {
 	 * Insert a new document into a table.
 	 * @param {string} table the name of the table.
 	 * @param {string} id the id of the record.
-	 * @param {Object} doc the object you want to insert in the table.
+	 * @param {(ConfigurationUpdateResultEntry[] | [string, any][] | Object<string, *>)} doc the object you want to insert in the table.
 	 * @returns {Promise<Object>}
 	 */
     create(table, id, doc = {}) {
-        return this.db.table(table).insert(Object.assign(doc, { id })).then(resolvePromise);
-    }
-
-    set(...args) {
-        return this.create(...args);
-    }
-
-    insert(...args) {
-        return this.create(...args);
+        return this.db.table(table).insert(mergeObjects(this.parseUpdateInput(doc), { id })).then(resolvePromise);
     }
 
     /**
 	 * Update a document from a table given its ID.
 	 * @param {string} table the name of the table.
 	 * @param {string|number} id the entry's ID.
-	 * @param {Object} doc the object you want to insert in the table.
+	 * @param {(ConfigurationUpdateResultEntry[] | [string, any][] | Object<string, *>)} doc the object you want to insert in the table.
 	 * @returns {Promise<Object>}
 	 */
     update(table, id, doc) {
-        return this.db.table(table).get(id).update(doc).then(resolvePromise);
+        return this.db.table(table).get(id).update(this.parseUpdateInput(doc)).then(resolvePromise);
     }
 
     /**
@@ -234,11 +235,11 @@ module.exports = class extends Provider {
 	 * Replace the object from an entry with another.
 	 * @param {string} table the name of the table.
 	 * @param {string|number} id the entry's ID.
-	 * @param {Object} doc the document in question to replace the current entry's properties.
+	 * @param {(ConfigurationUpdateResultEntry[] | [string, any][] | Object<string, *>)} doc the document in question to replace the current entry's properties.
 	 * @returns {Promise<Object>}
 	 */
     replace(table, id, doc) {
-        return this.db.table(table).get(id).replace(doc).then(resolvePromise);
+        return this.db.table(table).get(id).replace(this.parseUpdateInput(doc)).then(resolvePromise);
     }
 
     /**

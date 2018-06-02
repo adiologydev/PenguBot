@@ -42,4 +42,10 @@ Hey! I'm PenguBot, a friendly multi-purpose Discord bot, now that you know who I
         }
     }
 
+    async init() {
+        if (!this.client.gateways.clientStorage.schema.has("pGuilds")) {
+            this.client.gateways.clientStorage.schema.add("pGuilds", { type: "string", array: true });
+        }
+    }
+
 };
