@@ -9,7 +9,7 @@ new PenguClient({
     typing: true,
     providers: {
         default: "rethinkdb",
-        rethinkdb: { db: "pengubot", timeout: 1 }
+        rethinkdb: { db: "pengubot" }
     },
     disabledEvents: [
         "GUILD_SYNC",
