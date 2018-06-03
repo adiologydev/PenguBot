@@ -9,7 +9,7 @@ new PenguClient({
     typing: true,
     providers: {
         default: "rethinkdb",
-        rethinkdb: { db: "pengubot" }
+        rethinkdb: { db: "pengubot", max: 10000 }
     },
     disabledEvents: [
         "GUILD_SYNC",
