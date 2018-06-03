@@ -7,7 +7,10 @@ new PenguClient({
     commandEditing: true,
     disableEveryone: true,
     typing: true,
-    providers: { default: "rethinkdb" },
+    providers: {
+        default: "rethinkdb",
+        rethinkdb: { db: "pengubot", timeout: 100 }
+    },
     disabledEvents: [
         "GUILD_SYNC",
         "CHANNEL_PINS_UPDATE",
