@@ -6,8 +6,8 @@ module.exports = class extends Inhibitor {
         super(...args, { spamProtection: false });
     }
 
-    async run(msg) {
-        if (msg.author.id !== "136549806079344640") throw true;
+    run(msg) {
+        return msg.author !== this.client.owner;
     }
 
 };
