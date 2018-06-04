@@ -6,6 +6,7 @@ new PenguClient({
     prefix: "p!",
     commandEditing: true,
     disableEveryone: true,
+    ownerID: "136549806079344640",
     typing: true,
     providers: {
         default: "rethinkdb",
