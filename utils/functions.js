@@ -78,7 +78,7 @@ class Util {
 
     static async execute(client) {
         const con = await mysql.createConnection({ host: config.migrate.host, user: config.migrate.user, password: config.migrate.password, database: config.migrate.database });
-        const [rows] = await con.execute("SELECT * FROM settings");
+        const [rows] = await con.execute(`SELECT * FROM settings WHERE id IN ('${[...client.guilds.keys()].join("', '")}');`);
         for (const row of rows) {
             const guild = client.guilds.get(row.guild);
             if (!guild) continue;
