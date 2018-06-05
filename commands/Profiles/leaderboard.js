@@ -35,7 +35,7 @@ module.exports = class extends Command {
 
         const userProfiles = await Promise.all(userPos.slice(index * 10, (index + 1) * 10)
             .map(async user => {
-                const username = await this.client.users.fetch(user.id).then(a => a.username).catch(() => null) || "None";
+                const username = await this.client.users.get(user.id).then(a => a.username).catch(() => null) || "None";
                 return { xp: user.xp ? user.xp : 0, username };
             }));
         for (let i = 0; i < userProfiles.length; i++) {
@@ -46,7 +46,7 @@ module.exports = class extends Command {
         const posNum = pos !== -1 ? pos + 1 : 0;
         leaderboard.push(`\n • ${posNum.toString().padStart(2, " ")} | ${msg.author.username.padEnd(30, " ")}::  ${msg.author.configs.xp.toLocaleString()} XP`);
         leaderboard.push("--------------------------------------------------");
-        return msg.channel.send(`${leaderboard.join("\n")}\n Page ${index + 1} / ${totalPages || 1} - ${userPos.length} Total Users`, { code: "asciidoc" });
+        return msg.channel.send(`${leaderboard.join("\n")}\n Page ${index + 1} / ${totalPages.toLocaleString() || 1} - ${userPos.length.toLocaleString()} Total Users`, { code: "asciidoc" });
     }
 
 };
