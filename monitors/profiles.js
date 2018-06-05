@@ -35,7 +35,7 @@ module.exports = class extends Monitor {
 
         // Generate Level Up Images on Level Up
         if (oldLvl !== newLvl) {
-            if (!msg.guild.configs.levelup) return;
+            if (msg.guild.configs.levelup) return;
             if (!msg.channel.postable) return;
             const bgName = msg.author.configs.profilebg;
             const bgImg = await fs.readFile(`${process.cwd()}/assets/profiles/bg/${bgName}.png`);
