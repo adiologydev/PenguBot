@@ -76,11 +76,11 @@ class Util {
         return results;
     }
 
-    static async execute(client) {
+    static async execute(client, guildid = undefined) {
         const con = await mysql.createConnection({ host: config.migrate.host, user: config.migrate.user, password: config.migrate.password, database: config.migrate.database });
         const [rows] = await con.execute(`SELECT * FROM settings WHERE guild IN ('${[...client.guilds.keys()].join("', '")}');`);
         for (const row of rows) {
-            const guild = client.guilds.get(row.guild);
+            const guild = guildid ? client.guilds.get(guildid) : client.guilds.get(row.guild);
             if (!guild) continue;
             const settings = JSON.parse(row.settings || "{}");
             for (const [key, value] of Object.entries(settings)) {
