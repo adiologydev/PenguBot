@@ -29,7 +29,6 @@
     "canvas": "github:Automattic/node-canvas#92b192447e9b9ae98da0f801e4e34afdd1dc1ef8",
     "canvas-constructor": "github:kyranet/canvasConstructor",
     "cheerio": "^1.0.0-rc.2",
-    "cli-table-redemption": "^1.0.1",
     "discord.js": "github:discordjs/discord.js",
     "discord.js-lavalink": "github:mrjacz/discord.js-lavalink",
     "erlpack": "github:discordapp/erlpack",
