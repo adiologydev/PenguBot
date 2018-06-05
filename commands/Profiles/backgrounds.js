@@ -27,7 +27,7 @@ module.exports = class extends Command {
         await msg.author.configs._syncStatus;
         // If All Backgrounds
         if (!key) {
-            const userbg = msg.author.configs.backgrounds;
+            const userbg = msg.author.configs.get("backgrounds");
             const bgs = new RichDisplay(new MessageEmbed()
                 .setTitle("Use 'p!bgs view all' to view names, id's and prices of all available backgrounds")
                 .setAuthor("Profile Backgrounds You Own - PenguBot", "https://i.imgur.com/oq9kgaR.png")
@@ -137,7 +137,7 @@ module.exports = class extends Command {
     }
 
     checkOwnership(msg, name) {
-        if (msg.author.configs.backgrounds.includes(name)) return true;
+        if (msg.author.configs.get("backgrounds").includes(name)) return true;
         return false;
     }
 

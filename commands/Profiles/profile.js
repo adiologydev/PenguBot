@@ -13,7 +13,7 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             runIn: ["text"],
-            cooldown: 30,
+            cooldown: 60,
             permissionLevel: 0,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "ATTACH_FILES"],
             description: msg => msg.language.get("COMMAND_PROFILE_DESCRIPTION"),

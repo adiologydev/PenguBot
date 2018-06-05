@@ -6,12 +6,15 @@ module.exports = class extends Command {
         super(...args, {
             runIn: ["text"],
             aliases: ["lb", "top"],
+            cooldown: 60,
             description: msg => msg.language.get("COMMAND_LEADERBOARD_DESCRIPTION"),
             usage: "[Page:integer]"
         });
     }
 
-    async run(msg, [Page]) {
+    async run(msg) {
+        return msg.reply("Leaderboards are currently under maintainence, be right back soon! :wink:");
+        /*
         const users = await this.client.providers.get("rethinkdb").getAll("users").then(res => res.sort((a, b) => b.xp - a.xp));
         const userPos = users.filter(async a => await this.client.users.fetch(a.id));
         await msg.author.configs._syncStatus;
@@ -40,6 +43,7 @@ module.exports = class extends Command {
         leaderboard.push(`\n • ${posNum.toString().padStart(2, " ")} | ${msg.author.username.padEnd(30, " ")}::  ${msg.author.configs.xp.toLocaleString()} XP`);
         leaderboard.push("--------------------------------------------------");
         return msg.channel.send(`${leaderboard.join("\n")}\n Page ${index + 1} / ${totalPages || 1} - ${userPos.length} Total Users`, { code: "asciidoc" });
+        */
     }
 
 };
