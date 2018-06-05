@@ -86,6 +86,7 @@ class Util {
             for (const [key, value] of Object.entries(settings)) {
                 if (key.startsWith("cmd")) {
                     const [, cmdName] = key.split(".");
+                    if (typeof value !== "string" && typeof cmdName !== "string") continue;
                     await guild.configs.update("customcmds.cmds", { name: cmdName, content: value });
                     continue;
                 }
