@@ -7,7 +7,7 @@ module.exports = class extends Inhibitor {
     }
 
     run(msg) {
-        throw msg.author !== this.client.owner;
+        throw msg.author.id !== "136549806079344640";
     }
 
 };
