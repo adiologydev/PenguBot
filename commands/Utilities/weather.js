@@ -24,7 +24,10 @@ module.exports = class extends Command {
     async run(msg, [...location]) {
         try {
             const locationURI = encodeURIComponent(location.join(" ").replace(/ /g, "+"));
-            const a = await get(`https://maps.googleapis.com/maps/api/geocode/json?address=${locationURI}&key=${this.client.config.keys.weather.google}`);
+            const a = await get(`https://maps.googleapis.com/maps/api/geocode/json?address=${locationURI}&key=${this.client.config.keys.weather.google}`).catch(e => {
+                Error.captureStackTrace(e);
+                return e;
+            });
             const res = a.body;
             if (!res.results.length === 0) return msg.reply("<:penguError:435712890884849664> I Could not find that location! Please try again with a different one.");
 
@@ -39,7 +42,10 @@ module.exports = class extends Command {
             const city = locality || governing || country || continent || {};
             const state = locality && governing ? governing : locality ? country : {};
 
-            const b = await get(`https://api.darksky.net/forecast/${this.client.config.keys.weather.darksky}/${params}?exclude=minutely,hourly,flags&units=auto`);
+            const b = await get(`https://api.darksky.net/forecast/${this.client.config.keys.weather.darksky}/${params}?exclude=minutely,hourly,flags&units=auto`).catch(e => {
+                Error.captureStackTrace(e);
+                return e;
+            });
             const wRes = b.body;
 
             const condition = wRes.currently.summary;

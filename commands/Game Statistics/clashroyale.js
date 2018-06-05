@@ -18,7 +18,10 @@ module.exports = class extends Command {
     async run(msg, [Tag]) {
         let data;
         try {
-            data = await get(`https://api.royaleapi.com/player/${Tag}`).set("auth", `${this.client.config.keys.games.crapi}`);
+            data = await get(`https://api.royaleapi.com/player/${Tag}`).set("auth", `${this.client.config.keys.games.crapi}`).catch(e => {
+                Error.captureStackTrace(e);
+                return e;
+            });
         } catch (e) {
             return msg.sendMessage("<:penguError:435712890884849664> ***Invalid Tag, please retry with a valid one which you can find under Game Settings.***");
         }

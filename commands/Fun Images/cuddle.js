@@ -16,7 +16,10 @@ module.exports = class extends Command {
     }
 
     async run(msg, [user]) {
-        const { body } = await get("https://nekos.life/api/v2/img/cuddle");
+        const { body } = await get("https://nekos.life/api/v2/img/cuddle").catch(e => {
+            Error.captureStackTrace(e);
+            return e;
+        });
         const embed = new MessageEmbed()
             .setFooter("© PenguBot.cc")
             .setTimestamp()

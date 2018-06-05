@@ -15,7 +15,10 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        const { text } = await get("https://icanhazdadjoke.com/").set("Accept", "text/plain");
+        const { text } = await get("https://icanhazdadjoke.com/").set("Accept", "text/plain").catch(e => {
+            Error.captureStackTrace(e);
+            return e;
+        });
         const embed = new MessageEmbed()
             .setDescription(`**Dad Joke Alert**\n\n${text}`)
             .setThumbnail("https://i.imgur.com/IxosIBh.png")

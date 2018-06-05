@@ -15,7 +15,10 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        const { body } = await get("https://catfact.ninja/fact");
+        const { body } = await get("https://catfact.ninja/fact").catch(e => {
+            Error.captureStackTrace(e);
+            return e;
+        });
         const embed = new MessageEmbed()
             .setFooter("© PenguBot.cc")
             .setTimestamp()

@@ -39,7 +39,10 @@ module.exports = class extends Monitor {
             if (!msg.channel.postable) return;
             const bgName = msg.author.configs.profilebg;
             const bgImg = await fs.readFile(`${process.cwd()}/assets/profiles/bg/${bgName}.png`);
-            const avatar = await get(msg.author.displayAvatarURL({ format: "png", size: 128 })).then(res => res.body);
+            const avatar = await get(msg.author.displayAvatarURL({ format: "png", size: 128 })).then(res => res.body).catch(e => {
+                Error.captureStackTrace(e);
+                return e;
+            });
             const img = await new Canvas(100, 100)
                 .addImage(bgImg, 0, 0, 530, 530)
                 .addImage(avatar, 22, 22, 57, 57)
