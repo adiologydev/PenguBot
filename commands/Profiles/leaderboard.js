@@ -35,7 +35,7 @@ module.exports = class extends Command {
 
         const userProfiles = await Promise.all(userPos.slice(index * 10, (index + 1) * 10)
             .map(async user => {
-                const username = await this.client.users.get(user.id).then(a => a.username).catch(() => null) || "None";
+                const username = await this.client.users.get(user.id).username || "None";
                 return { xp: user.xp ? user.xp : 0, username };
             }));
         for (let i = 0; i < userProfiles.length; i++) {
