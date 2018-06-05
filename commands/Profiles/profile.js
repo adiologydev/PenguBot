@@ -42,7 +42,7 @@ module.exports = class extends Command {
         if (this.client.uPosCache) usersPos = this.client.uPosCache;
         usersPos = users.filter(async a => await this.client.users.fetch(a.id));
         this.client.uPosCache = usersPos;
-        const pos = usersPos.findInsdex(i => i.id === user.id);
+        const pos = usersPos.findIndex(i => i.id === user.id);
 
         const bgName = user.configs.profilebg;
         const bgImg = await fs.readFile(`${process.cwd()}/assets/profiles/bg/${bgName}.png`);
