@@ -22,7 +22,7 @@ module.exports = class extends Command {
             .setTimestamp()
             .setImage(body.url)
             .setColor("RANDOM");
-        return msg.sendMessage(`✋ | ***${user}, you just got patted by ${msg.member.user}!***`, { embed: embed });
+        return msg.sendMessage(`✋ | ***${user}, you just got patted by ${msg.author}!***`, { embed: embed });
     }
 
 };

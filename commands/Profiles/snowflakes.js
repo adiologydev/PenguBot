@@ -29,7 +29,7 @@ module.exports = class extends Command {
             if (user.bot) return msg.reply("You can not send Snowflakes to bot accounts.");
             if (msg.author.id === user.id) return msg.reply("You can not send Snowflakes to yourself.");
             const userSnowflakes = user.configs.snowflakes;
-            const confirm = await msg.awaitReply(`${msg.member}, Please confirm the transfer of ❄ **${amount.toLocaleString()} Snowflake(s)** to ${user} by typing \`YES\` or \`NO\`.`);
+            const confirm = await msg.awaitReply(`${msg.author}, Please confirm the transfer of ❄ **${amount.toLocaleString()} Snowflake(s)** to ${user} by typing \`YES\` or \`NO\`.`);
             if (confirm.toLowerCase() === "yes" || confirm.toLowerCase() === "y") {
                 await user.configs._syncStatus;
                 msg.author.configs.update("snowflakes", currSnowflakes - amount);

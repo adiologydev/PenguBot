@@ -20,7 +20,7 @@ module.exports = class extends Command {
     /* eslint-disable complexity */
     async run(msg, [song]) {
         const url = encodeURIComponent(song);
-        if (!msg.member.voiceChannel) return msg.sendMessage("<:penguError:435712890884849664> ***You're currently not in a Voice Channel, please join one to use this command.***");
+        if (!msg.member.voiceChannel || !msg.member) return msg.sendMessage("<:penguError:435712890884849664> ***You're currently not in a Voice Channel, please join one to use this command.***");
         if (this.client.functions.validURL(song)) {
             const playlist = /(\?|\&)list=(.*)/.exec(song); // eslint-disable-line
             const soundCloud = /https:\/\/soundcloud\.com\/.*/.exec(url); // eslint-disable-line
