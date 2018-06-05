@@ -15,6 +15,7 @@ class PenguClient extends Client {
         this.queue = new Map();
         this.whStatus = new WebhookClient("451318929814716426", this.config.webhooks.status);
         this.topCache = null;
+        this.uPosCache = null;
     }
 
 }

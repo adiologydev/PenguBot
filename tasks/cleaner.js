@@ -87,6 +87,7 @@ module.exports = class MemorySweeper extends Task {
 
         // Clean Profiles Cache
         this.client.topCache = null;
+        this.client.uPosCache = null;
 
         // Emit a log
         this.client.emit("verbose",

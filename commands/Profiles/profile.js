@@ -38,8 +38,11 @@ module.exports = class extends Command {
         if (this.client.topCache) users = this.client.topCache;
         users = await this.client.providers.get("rethinkdb").getAll("users").then(res => res.sort((a, b) => b.xp - a.xp));
         this.client.topCache = users;
-        const usersPos = users.filter(a => this.client.users.has(a.id));
-        const pos = usersPos.findIndex(i => i.id === user.id);
+        let usersPos;
+        if (this.client.uPosCache) usersPos = this.client.uPosCache;
+        usersPos = users.filter(async a => await this.client.users.fetch(a.id));
+        this.client.uPosCache = usersPos;
+        const pos = usersPos.findInsdex(i => i.id === user.id);
 
         const bgName = user.configs.profilebg;
         const bgImg = await fs.readFile(`${process.cwd()}/assets/profiles/bg/${bgName}.png`);

@@ -17,7 +17,10 @@ module.exports = class extends Command {
         if (this.client.topCache) users = this.client.topCache;
         users = await this.client.providers.get("rethinkdb").getAll("users").then(res => res.sort((a, b) => b.xp - a.xp));
         this.client.topCache = users;
-        const userPos = users.filter(async a => await this.client.users.fetch(a.id));
+        let userPos;
+        if (this.client.uPosCache) userPos = this.client.uPosCache;
+        userPos = users.filter(async a => await this.client.users.fetch(a.id));
+        this.client.uPosCache = userPos;
         await msg.author.configs._syncStatus;
 
         const leaderboard = [];
