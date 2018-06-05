@@ -14,7 +14,6 @@ module.exports = class extends Command {
         super(...args, {
             runIn: ["text"],
             cooldown: 60,
-            permissionLevel: 0,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "ATTACH_FILES"],
             description: msg => msg.language.get("COMMAND_PROFILE_DESCRIPTION"),
             usage: "[user:user]",
@@ -35,7 +34,10 @@ module.exports = class extends Command {
         const nextLvl = Math.floor(((lvl + 1) / 0.2) ** 2);
         const xpProg = Math.round(((xp - oldLvl) / (nextLvl - oldLvl)) * 269);
 
-        const users = await this.client.providers.get("rethinkdb").getAll("users").then(res => res.sort((a, b) => b.xp - a.xp));
+        let users;
+        if (this.client.topCache) users = this.client.topCache;
+        users = await this.client.providers.get("rethinkdb").getAll("users").then(res => res.sort((a, b) => b.xp - a.xp));
+        this.client.topCache = users;
         const usersPos = users.filter(a => this.client.users.has(a.id));
         const pos = usersPos.findIndex(i => i.id === user.id);
 

@@ -85,6 +85,9 @@ module.exports = class MemorySweeper extends Task {
             users++;
         }
 
+        // Clean Profiles Cache
+        this.client.topCache = null;
+
         // Emit a log
         this.client.emit("verbose",
             `${HEADER} ${
@@ -116,7 +119,7 @@ module.exports = class MemorySweeper extends Task {
 
     async init() {
         if (!this.client.configs.schedules.some(schedule => schedule.taskName === this.name)) {
-            await this.client.schedule.create("cleaner", "0 * * * *");
+            await this.client.schedule.create("cleaner", "*/15 * * * *");
         }
     }
 

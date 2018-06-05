@@ -14,6 +14,7 @@ class PenguClient extends Client {
         this.idiotic = new IdioticAPI(this.config.keys.idiotic, { dev: true });
         this.queue = new Map();
         this.whStatus = new WebhookClient("451318929814716426", this.config.webhooks.status);
+        this.topCache = null;
     }
 
 }
