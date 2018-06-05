@@ -19,7 +19,7 @@ module.exports = class extends Command {
         this.client.topCache = users;
         let userPos;
         if (this.client.uPosCache) userPos = this.client.uPosCache;
-        userPos = users.filter(async a => await this.client.users.fetch(a.id));
+        userPos = users.filter(async a => await this.client.users.get(a.id));
         this.client.uPosCache = userPos;
         await msg.author.configs._syncStatus;
 

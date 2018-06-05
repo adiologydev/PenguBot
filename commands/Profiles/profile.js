@@ -40,7 +40,7 @@ module.exports = class extends Command {
         this.client.topCache = users;
         let usersPos;
         if (this.client.uPosCache) usersPos = this.client.uPosCache;
-        usersPos = users.filter(async a => await this.client.users.fetch(a.id));
+        usersPos = users.filter(async a => await this.client.users.get(a.id));
         this.client.uPosCache = usersPos;
         const pos = usersPos.findIndex(i => i.id === user.id);
 
