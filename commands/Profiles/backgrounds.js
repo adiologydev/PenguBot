@@ -24,6 +24,7 @@ module.exports = class extends Command {
     }
 
     async view(msg, [key]) {
+        await msg.author.configs._syncStatus;
         // If All Backgrounds
         if (!key) {
             const userbg = msg.author.configs.backgrounds;
@@ -67,6 +68,7 @@ module.exports = class extends Command {
     }
 
     async buy(msg, [key]) {
+        await msg.author.configs._syncStatus;
         const id = parseInt(key);
         switch (id) {
             case 1: return msg.reply("You already own this background.");
@@ -93,6 +95,7 @@ module.exports = class extends Command {
     }
 
     async change(msg, [key]) {
+        await msg.author.configs._syncStatus;
         const id = parseInt(key);
         switch (id) {
             case 1: this.changeBG(msg, "default");
