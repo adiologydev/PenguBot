@@ -38,6 +38,7 @@
     "klasa": "github:dirigeants/klasa",
     "mysql2": "^1.5.3",
     "random-puppy": "^1.1.0",
+    "raven": "^2.6.2",
     "rethinkdbdash": "^2.3.31",
     "uws": "^10.148.0",
     "zlib-sync": "^0.1.4"
