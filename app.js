@@ -13,7 +13,7 @@ function startBot() {
         typing: true,
         providers: {
             default: "rethinkdb",
-            rethinkdb: { db: "pengubot", servers: [{ host: config.database.host, port: config.database.port }], max: 3000, buffer: 300 }
+            rethinkdb: { db: "pengubot", servers: [{ host: config.database.host, port: config.database.port }], max: 1300, buffer: 300 }
         },
         disabledEvents: [
             "GUILD_SYNC",
