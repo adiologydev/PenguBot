@@ -15,8 +15,8 @@ module.exports = class extends Command {
         });
     }
 
-    async run(msg, [user = msg.member.user]) {
-        const { body } = await get(`https://api.whatdoestrumpthink.com/api/v1/quotes/personalized?q=${user.username}`).catch(() => msg.sendMessage("There was an error, I think a cat has cut the wire off, dogs don't do that."));
+    async run(msg, [user = msg.author]) {
+        const { body } = await get(`https://api.whatdoestrumpthink.com/api/v1/quotes/personalized?q=${encodeURI(user.username)}`).catch(() => msg.sendMessage("There was an error, I think a cat has cut the wire off, dogs don't do that."));
 
         const embed = new MessageEmbed()
             .setDescription(`**Get Trumped**\n\n${body.message}`)

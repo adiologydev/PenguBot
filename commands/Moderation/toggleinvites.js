@@ -7,7 +7,6 @@ module.exports = class extends Command {
             runIn: ["text"],
             cooldown: 10,
             aliases: ["adblock", "antiinvites"],
-            requiredConfigs: ["automod.invites"],
             permissionLevel: 4,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "BAN_MEMBERS"],
             description: msg => msg.language.get("COMMAND_ADBLOCK_DESCRIPTION"),

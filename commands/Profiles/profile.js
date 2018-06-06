@@ -13,8 +13,7 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             runIn: ["text"],
-            cooldown: 30,
-            permissionLevel: 0,
+            cooldown: 60,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "ATTACH_FILES"],
             description: msg => msg.language.get("COMMAND_PROFILE_DESCRIPTION"),
             usage: "[user:user]",
@@ -35,13 +34,22 @@ module.exports = class extends Command {
         const nextLvl = Math.floor(((lvl + 1) / 0.2) ** 2);
         const xpProg = Math.round(((xp - oldLvl) / (nextLvl - oldLvl)) * 269);
 
-        const users = await this.client.providers.get("rethinkdb").getAll("users").then(res => res.sort((a, b) => b.xp - a.xp));
-        const usersPos = users.filter(a => this.client.users.has(a.id));
+        let users;
+        if (this.client.topCache) users = this.client.topCache;
+        users = await this.client.providers.get("rethinkdb").getAll("users").then(res => res.sort((a, b) => b.xp - a.xp));
+        this.client.topCache = users;
+        let usersPos;
+        if (this.client.uPosCache) usersPos = this.client.uPosCache;
+        usersPos = users.filter(async a => await this.client.users.fetch(a.id));
+        this.client.uPosCache = usersPos;
         const pos = usersPos.findIndex(i => i.id === user.id);
 
         const bgName = user.configs.profilebg;
         const bgImg = await fs.readFile(`${process.cwd()}/assets/profiles/bg/${bgName}.png`);
-        const avatar = await get(user.displayAvatarURL({ format: "png", sze: 256 })).then(res => res.body);
+        const avatar = await get(user.displayAvatarURL({ format: "png", sze: 256 })).then(res => res.body).catch(e => {
+            Error.captureStackTrace(e);
+            return e;
+        });
 
         return await new Canvas(300, 300)
             // Initializing & Avatar
@@ -75,6 +83,9 @@ module.exports = class extends Command {
     async init() {
         if (!this.client.gateways.users.schema.has("profilebg")) {
             this.client.gateways.users.schema.add("profilebg", { type: "string", default: "default", configurable: false });
+        }
+        if (!this.client.gateways.users.schema.has("backgrounds")) {
+            this.client.gateways.users.schema.add("backgrounds", { type: "string", default: ["default"], array: true, configurable: false });
         }
     }
 

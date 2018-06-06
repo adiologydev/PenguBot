@@ -1,6 +1,6 @@
 {
   "name": "pengubot",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "description": "PenguBot re-write for Performance and Stability.",
   "main": "start.js",
   "scripts": {
@@ -29,7 +29,7 @@
     "canvas": "github:Automattic/node-canvas#92b192447e9b9ae98da0f801e4e34afdd1dc1ef8",
     "canvas-constructor": "github:kyranet/canvasConstructor",
     "cheerio": "^1.0.0-rc.2",
-    "discord.js": "github:discordjs/discord.js",
+    "discord.js": "github:discordjs/discord.js#c8ecbe6585a615e77deb5f04bf64a9675e73fb41",
     "discord.js-lavalink": "github:mrjacz/discord.js-lavalink",
     "erlpack": "github:discordapp/erlpack",
     "fast-html-parser": "^1.0.1",
@@ -38,6 +38,7 @@
     "klasa": "github:dirigeants/klasa",
     "mysql2": "^1.5.3",
     "random-puppy": "^1.1.0",
+    "raven": "^2.6.2",
     "rethinkdbdash": "^2.3.31",
     "uws": "^10.148.0",
     "zlib-sync": "^0.1.4"

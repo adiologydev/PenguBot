@@ -6,14 +6,21 @@ module.exports = class extends Command {
         super(...args, {
             runIn: ["text"],
             aliases: ["lb", "top"],
+            cooldown: 60,
             description: msg => msg.language.get("COMMAND_LEADERBOARD_DESCRIPTION"),
             usage: "[Page:integer]"
         });
     }
 
     async run(msg, [Page]) {
-        const users = await this.client.providers.get("rethinkdb").getAll("users").then(res => res.sort((a, b) => b.xp - a.xp));
-        const userPos = users.filter(async a => await this.client.users.fetch(a.id));
+        let users;
+        if (this.client.topCache) users = this.client.topCache;
+        users = await this.client.providers.get("rethinkdb").getAll("users").then(res => res.sort((a, b) => b.xp - a.xp));
+        this.client.topCache = users;
+        let userPos;
+        if (this.client.uPosCache) userPos = this.client.uPosCache;
+        userPos = users.filter(async a => await this.client.users.fetch(a.id));
+        this.client.uPosCache = userPos;
         await msg.author.configs._syncStatus;
 
         const leaderboard = [];
@@ -39,7 +46,7 @@ module.exports = class extends Command {
         const posNum = pos !== -1 ? pos + 1 : 0;
         leaderboard.push(`\n • ${posNum.toString().padStart(2, " ")} | ${msg.author.username.padEnd(30, " ")}::  ${msg.author.configs.xp.toLocaleString()} XP`);
         leaderboard.push("--------------------------------------------------");
-        return msg.channel.send(`${leaderboard.join("\n")}\n Page ${index + 1} / ${totalPages || 1} - ${userPos.length} Total Users`, { code: "asciidoc" });
+        return msg.channel.send(`${leaderboard.join("\n")}\n Page ${index + 1} / ${totalPages.toLocaleString() || 1} - ${userPos.length.toLocaleString()} Total Users`, { code: "asciidoc" });
     }
 
 };

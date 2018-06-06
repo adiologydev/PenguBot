@@ -9,7 +9,6 @@ module.exports = class extends Monitor {
 
     async run(msg) {
         if (!msg.guild || !msg.channel.postable || !msg.guild.configs.customcmds.enabled) return;
-        if (!this.client.config.main.patreon) if (msg.guild.members.has("438049470094114816")) return;
         if (!msg.guild.configs.customcmds.cmds.length) return;
         if (cooldown.has(msg.author.id)) return;
 
@@ -24,13 +23,13 @@ module.exports = class extends Monitor {
 
     replace(content, msg) {
         return content
-            .replace(/{GUILD_NAME}/g, msg.member.guild.name)
-            .replace(/{USERNAME}/g, msg.member.user.username)
-            .replace(/{ID}/g, msg.member.id)
-            .replace(/{MENTION}/g, msg.member.toString())
-            .replace(/{SERVER}/g, msg.member.guild.name)
-            .replace(/{USER}/g, msg.member.user.tag)
-            .replace(/{TAG}/g, msg.member.user.tag)
+            .replace(/{GUILD_NAME}/g, msg.guild.name)
+            .replace(/{USERNAME}/g, msg.author.username)
+            .replace(/{ID}/g, msg.author.id)
+            .replace(/{MENTION}/g, msg.author.toString())
+            .replace(/{SERVER}/g, msg.guild.name)
+            .replace(/{USER}/g, msg.author.tag)
+            .replace(/{TAG}/g, msg.author.tag)
             .replace(/{DISPLAYNAME}/g, msg.member.displayName);
     }
 

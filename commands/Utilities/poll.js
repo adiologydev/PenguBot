@@ -22,7 +22,11 @@ module.exports = class extends Command {
         if (Options.length > 30) return msg.sendMessage("<:penguError:435712890884849664> ***I only allow 30 or less options.***");
         try {
             const { body } = await post("https://www.strawpoll.me/api/v2/polls")
-                .send({ title: Question, options: Options });
+                .send({ title: Question, options: Options })
+                .catch(e => {
+                    Error.captureStackTrace(e);
+                    return e;
+                });
             return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Here's the poll you requested:*** https://www.strawpoll.me/${body.id}`);
         } catch (e) {
             return msg.sendMessage("<:penguError:435712890884849664> ***There was an error trying to create this poll, please try again.***");

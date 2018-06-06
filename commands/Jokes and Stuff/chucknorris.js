@@ -14,7 +14,10 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        const { body } = await get("http://api.chucknorris.io/jokes/random");
+        const { body } = await get("http://api.chucknorris.io/jokes/random").catch(e => {
+            Error.captureStackTrace(e);
+            return e;
+        });
         const embed = new MessageEmbed()
             .setColor("RANDOM")
             .setDescription(`**Chuck Norris Joke**\n\n${body.value}`)

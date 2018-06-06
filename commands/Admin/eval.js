@@ -126,7 +126,10 @@ module.exports = class extends Command {
     }
 
     async getHaste(result) {
-        const { body } = await post("https://hastebin.com/documents").send(result);
+        const { body } = await post("https://hastebin.com/documents").send(result).catch(e => {
+            Error.captureStackTrace(e);
+            return e;
+        });
         return `https://hastebin.com/${body.key}.js`;
     }
 

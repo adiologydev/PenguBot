@@ -1,6 +1,6 @@
 const { Client } = require("klasa");
 const { Client: IdioticAPI } = require("idiotic-api");
-const permissionLevels = require("./PermissionLevels");
+const permissionLevels = require(`./permissionLevels`);
 const { WebhookClient } = require("discord.js");
 
 class PenguClient extends Client {
@@ -14,6 +14,8 @@ class PenguClient extends Client {
         this.idiotic = new IdioticAPI(this.config.keys.idiotic, { dev: true });
         this.queue = new Map();
         this.whStatus = new WebhookClient("451318929814716426", this.config.webhooks.status);
+        this.topCache = null;
+        this.uPosCache = null;
     }
 
 }

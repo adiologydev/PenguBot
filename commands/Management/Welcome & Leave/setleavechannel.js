@@ -9,7 +9,6 @@ module.exports = class extends Command {
             aliases: ["slc", "setleavechan"],
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            requiredConfigs: ["messages.leave.channel"],
             usage: "[channel:channel]",
             usageDelim: "",
             description: msg => msg.language.get("COMMAND_CHANNEL_LEAVE_DESCRPTION"),

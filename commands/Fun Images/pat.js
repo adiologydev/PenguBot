@@ -16,13 +16,16 @@ module.exports = class extends Command {
     }
 
     async run(msg, [user]) {
-        const { body } = await get("https://nekos.life/api/v2/img/pat");
+        const { body } = await get("https://nekos.life/api/v2/img/pat").catch(e => {
+            Error.captureStackTrace(e);
+            return e;
+        });
         const embed = new MessageEmbed()
             .setFooter("© PenguBot.cc")
             .setTimestamp()
             .setImage(body.url)
             .setColor("RANDOM");
-        return msg.sendMessage(`✋ | ***${user}, you just got patted by ${msg.member.user}!***`, { embed: embed });
+        return msg.sendMessage(`✋ | ***${user}, you just got patted by ${msg.author}!***`, { embed: embed });
     }
 
 };

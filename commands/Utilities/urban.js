@@ -17,7 +17,10 @@ module.exports = class extends Command {
     }
 
     async run(msg, [...word]) {
-        const { text } = await get(`http://api.urbandictionary.com/v0/define?term=${word.join(" ")}`);
+        const { text } = await get(`http://api.urbandictionary.com/v0/define?term=${word.join(" ")}`).catch(e => {
+            Error.captureStackTrace(e);
+            return e;
+        });
         const result = JSON.parse(text).list[0];
 
         if (!result) return msg.reply("<:penguError:435712890884849664> That word could not be found on Urban Dictionary.");

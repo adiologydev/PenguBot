@@ -9,7 +9,6 @@ module.exports = class extends Command {
             aliases: ["toggleautorole", "enableautoroles", "disableautoroles"],
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            requiredConfigs: ["autoroles.enabled"],
             description: msg => msg.language.get("COMMAND_TOGGLE_ROLES_DESCRPTION"),
             extendedHelp: "No extended help available."
         });

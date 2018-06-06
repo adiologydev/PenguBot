@@ -7,7 +7,6 @@ module.exports = class extends Command {
             runIn: ["text"],
             cooldown: 10,
             aliases: ["togglelevelups", "levelups"],
-            requiredConfigs: ["levelup"],
             permissionLevel: 4,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: msg => msg.language.get("COMMAND_LEVELUP_DESCRIPTION"),

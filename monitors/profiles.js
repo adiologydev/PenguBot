@@ -17,9 +17,10 @@ module.exports = class extends Monitor {
 
     async run(msg) {
         if (!msg.guild) return;
-        if (!this.client.config.main.patreon) if (msg.guild.members.has("438049470094114816")) return;
         if (timeout.has(msg.author.id)) return;
+
         await msg.author.configs._syncStatus;
+        if (!msg.author.configs) return;
 
         const randomXP = this.client.functions.randomNumber(1, 5);
         const randomSnowflakes = this.client.functions.randomNumber(1, 2);
@@ -38,7 +39,10 @@ module.exports = class extends Monitor {
             if (!msg.channel.postable) return;
             const bgName = msg.author.configs.profilebg;
             const bgImg = await fs.readFile(`${process.cwd()}/assets/profiles/bg/${bgName}.png`);
-            const avatar = await get(msg.author.displayAvatarURL({ format: "png", size: 128 })).then(res => res.body);
+            const avatar = await get(msg.author.displayAvatarURL({ format: "png", size: 128 })).then(res => res.body).catch(e => {
+                Error.captureStackTrace(e);
+                return e;
+            });
             const img = await new Canvas(100, 100)
                 .addImage(bgImg, 0, 0, 530, 530)
                 .addImage(avatar, 22, 22, 57, 57)

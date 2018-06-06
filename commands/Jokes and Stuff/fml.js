@@ -17,7 +17,10 @@ module.exports = class extends Command {
 
     async run(msg) {
         if (msg.guild && !msg.channel.permissionsFor(msg.guild.me).has(["VIEW_CHANNEL"])) return;
-        const { text: html } = await get("http://www.fmylife.com/random");
+        const { text: html } = await get("http://www.fmylife.com/random").catch(e => {
+            Error.captureStackTrace(e);
+            return e;
+        });
         const root = parse(html);
         const article = root.querySelector(".block a");
 

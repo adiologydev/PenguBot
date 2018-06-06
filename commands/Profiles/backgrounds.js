@@ -24,9 +24,10 @@ module.exports = class extends Command {
     }
 
     async view(msg, [key]) {
+        await msg.author.configs._syncStatus;
         // If All Backgrounds
         if (!key) {
-            const userbg = msg.author.configs.backgrounds;
+            const userbg = msg.author.configs.get("backgrounds");
             const bgs = new RichDisplay(new MessageEmbed()
                 .setTitle("Use 'p!bgs view all' to view names, id's and prices of all available backgrounds")
                 .setAuthor("Profile Backgrounds You Own - PenguBot", "https://i.imgur.com/oq9kgaR.png")
@@ -67,72 +68,76 @@ module.exports = class extends Command {
     }
 
     async buy(msg, [key]) {
+        await msg.author.configs._syncStatus;
         const id = parseInt(key);
         switch (id) {
             case 1: return msg.reply("You already own this background.");
-            case 2: this.process(msg, "sunset-palms", 1000);
+            case 2: await this.process(msg, "sunset-palms", 1000);
                 break;
-            case 3: this.process(msg, "cherry-blossoms", 1000);
+            case 3: await this.process(msg, "cherry-blossoms", 1000);
                 break;
-            case 4: this.process(msg, "butterflies", 1000);
+            case 4: await this.process(msg, "butterflies", 1000);
                 break;
-            case 5: this.process(msg, "sunset-tree", 1250);
+            case 5: await this.process(msg, "sunset-tree", 1250);
                 break;
-            case 6: this.process(msg, "birdie", 1250);
+            case 6: await this.process(msg, "birdie", 1250);
                 break;
-            case 7: this.process(msg, "tracks", 1500);
+            case 7: await this.process(msg, "tracks", 1500);
                 break;
-            case 8: this.process(msg, "stars", 1500);
+            case 8: await this.process(msg, "stars", 1500);
                 break;
-            case 9: this.process(msg, "people", 1850);
+            case 9: await this.process(msg, "people", 1850);
                 break;
-            case 10: this.process(msg, "courtyard", 2000);
+            case 10: await this.process(msg, "courtyard", 2000);
                 break;
             default: return msg.reply("Invalid ID, please view all backgrounds you can purchase by using the command `p!bgs view all`.");
         }
     }
 
     async change(msg, [key]) {
+        await msg.author.configs._syncStatus;
         const id = parseInt(key);
         switch (id) {
-            case 1: this.changeBG(msg, "default");
+            case 1: await this.changeBG(msg, "default");
                 break;
-            case 2: this.changeBG(msg, "sunset-palms");
+            case 2: await this.changeBG(msg, "sunset-palms");
                 break;
-            case 3: this.changeBG(msg, "cherry-blossoms");
+            case 3: await this.changeBG(msg, "cherry-blossoms");
                 break;
-            case 4: this.changeBG(msg, "butterflies");
+            case 4: await this.changeBG(msg, "butterflies");
                 break;
-            case 5: this.changeBG(msg, "sunset-tree");
+            case 5: await this.changeBG(msg, "sunset-tree");
                 break;
-            case 6: this.changeBG(msg, "birdie");
+            case 6: await this.changeBG(msg, "birdie");
                 break;
-            case 7: this.changeBG(msg, "tracks");
+            case 7: await this.changeBG(msg, "tracks");
                 break;
-            case 8: this.changeBG(msg, "stars");
+            case 8: await this.changeBG(msg, "stars");
                 break;
-            case 9: this.changeBG(msg, "people");
+            case 9: await this.changeBG(msg, "people");
                 break;
-            case 10: this.changeBG(msg, "courtyard");
+            case 10: await this.changeBG(msg, "courtyard");
                 break;
             default: return msg.reply("Invalid ID, please view all backgrounds you can purchase and their IDs by using the command `p!bgs view all`.");
         }
     }
 
     async process(msg, name, price) {
+        await msg.author.configs._syncStatus;
         if (this.checkOwnership(msg, name)) return msg.reply("You already own this background.");
         if (!this.checkBalance(msg, price)) return msg.reply("Insufficient Snowflakes in your account to buy this background, please try again later.");
         await this.updateOwnership(msg, name, price);
     }
 
     async changeBG(msg, name) {
+        await msg.author.configs._syncStatus;
         if (!this.checkOwnership(msg, name)) return msg.reply("You do not own this background, please buy it using `p!bg buy ID` first.");
         if (this.compareBackground(msg, name)) return msg.reply("That is already your current background, please choose another one.");
         await this.updateBG(msg, name);
     }
 
     checkOwnership(msg, name) {
-        if (msg.author.configs.backgrounds.includes(name)) return true;
+        if (msg.author.configs.get("backgrounds").includes(name)) return true;
         return false;
     }
 

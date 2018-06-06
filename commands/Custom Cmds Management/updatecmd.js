@@ -9,7 +9,6 @@ module.exports = class extends Command {
             aliases: ["changecmd"],
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            requiredConfigs: ["customcmds.cmds"],
             description: msg => msg.language.get("COMMAND_ADD_CMD_DESCRIPTION"),
             usage: "<name:string> <content:string> [...]",
             usageDelim: " ",

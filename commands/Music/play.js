@@ -20,17 +20,20 @@ module.exports = class extends Command {
     /* eslint-disable complexity */
     async run(msg, [song]) {
         const url = encodeURIComponent(song);
+        await msg.guild.members.fetch(msg.author.id).catch(() => {
+            throw "I tripped on a wire! *Ouch!* It hurts but I'll recover, try again later.";
+        });
         if (!msg.member.voiceChannel) return msg.sendMessage("<:penguError:435712890884849664> ***You're currently not in a Voice Channel, please join one to use this command.***");
         if (this.client.functions.validURL(song)) {
             const playlist = /(\?|\&)list=(.*)/.exec(song); // eslint-disable-line
             const soundCloud = /https:\/\/soundcloud\.com\/.*/.exec(url); // eslint-disable-line
-            // YouTube URLS
-            const YTMini = /https:\/\/?(www\.)?youtu\.be\/?(.*)/.exec(url);
-            const YTFull = /https:\/\/?(www\.)?youtube\.com\/watch\?v=?(.*)/.exec(url);
             const scPlaylist = /https:\/\/?soundcloud.com\/.*\/.*\/.*/.exec(song);
             if (playlist) {
                 // Playlist Handling
-                const { body } = await get(`https://www.googleapis.com/youtube/v3/playlists?part=id,snippet&id=${playlist[2]}&key=${this.client.config.keys.music.youtube}`);
+                const { body } = await get(`https://www.googleapis.com/youtube/v3/playlists?part=id,snippet&id=${playlist[2]}&key=${this.client.config.keys.music.youtube}`).catch(e => {
+                    Error.captureStackTrace(e);
+                    return e;
+                });
                 if (!body.items[0]) return msg.sendMessage("<:penguError:435712890884849664> ***That youtube playlist could not be found, please try with a different one.***");
                 const songData = await this.client.functions.getSongs(url);
                 if (!songData) return msg.sendMessage("<:penguError:435712890884849664> ***That playlist could not be found, please try with a different one.***");
@@ -52,19 +55,9 @@ module.exports = class extends Command {
                 const songData = await this.client.functions.getSongs(soundCloud[0]);
                 if (!songData) return msg.sendMessage("<:penguError:435712890884849664> ***That song could not be found, please try with a different one.***");
                 await this.musicHandler(msg, songData[0], msg.guild, msg.member.voiceChannel);
-            } else if (YTMini) {
-                // YouTube Mini URL Handling
-                const songData = await this.client.functions.getSongs(YTMini[0]);
-                if (!songData) return msg.sendMessage("<:penguError:435712890884849664> ***That song could not be found, please try with a different one.***");
-                await this.musicHandler(msg, songData[0], msg.guild, msg.member.voiceChannel);
-            } else if (YTFull) {
-                // YouTube Full URL Handling
-                const songData = await this.client.functions.getSongs(YTFull[0]);
-                if (!songData) return msg.sendMessage("<:penguError:435712890884849664> ***That song could not be found, please try with a different one.***");
-                await this.musicHandler(msg, songData[0], msg.guild, msg.member.voiceChannel);
             } else {
                 // URL Handling
-                const songData = await this.client.functions.getSongs(url);
+                const songData = await this.client.functions.getSongs(song);
                 if (!songData) return msg.sendMessage("<:penguError:435712890884849664> ***That song could not be found, please try with a different one.***");
                 await this.musicHandler(msg, songData[0], msg.guild, msg.member.voiceChannel);
             }

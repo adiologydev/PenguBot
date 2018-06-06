@@ -9,7 +9,6 @@ module.exports = class extends Command {
             aliases: ["swm", "setwelcomemmessage"],
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            requiredConfigs: ["messages.welcome.message"],
             usage: "<message:string> [...]",
             usageDelim: " ",
             description: msg => msg.language.get("COMMAND_SET_WELCOME_DESCRPTION"),

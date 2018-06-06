@@ -3,6 +3,12 @@ const { Event } = require("klasa");
 module.exports = class extends Event {
 
     async run(oldMem, newMem) {
+        await oldMem.guild.members.fetch(oldMem.id).catch(() => {
+            throw "I tripped on a wire! *Ouch!* It hurts but I'll recover, try again later.";
+        });
+        await newMem.guild.members.fetch(newMem.id).catch(() => {
+            throw "I tripped on a wire! *Ouch!* It hurts but I'll recover, try again later.";
+        });
         setTimeout(async () => {
             const queue = this.client.queue.get(newMem.guild.id);
             if (!queue) return;

@@ -15,7 +15,10 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        const { body } = await get("http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=false");
+        const { body } = await get("http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=false").catch(e => {
+            Error.captureStackTrace(e);
+            return e;
+        });
         const embed = new MessageEmbed()
             .setFooter("© PenguBot.cc")
             .setTimestamp()

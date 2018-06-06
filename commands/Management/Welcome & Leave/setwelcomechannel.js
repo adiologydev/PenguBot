@@ -9,7 +9,6 @@ module.exports = class extends Command {
             aliases: ["swc", "setwelcomechan"],
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            requiredConfigs: ["messages.welcome.channel"],
             usage: "[channel:channel]",
             usageDelim: "",
             description: msg => msg.language.get("COMMAND_CHANNEL_WELCOME_DESCRPTION"),

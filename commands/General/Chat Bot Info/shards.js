@@ -1,5 +1,5 @@
-const { Command, Timestamp } = require("klasa");
-const formatUptime = time => Timestamp.toNow(Date.now() - (time * 1000));
+const { Command, Duration } = require("klasa");
+const formatUptime = time => Duration.toNow(Date.now() - time);
 
 module.exports = class extends Command {
 

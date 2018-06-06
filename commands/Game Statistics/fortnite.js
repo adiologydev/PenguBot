@@ -11,23 +11,35 @@ module.exports = class extends Command {
             permissionLevel: 0,
             requiredPermissions: ["EMBED_LINKS", "ATTACH_FILES"],
             description: msg => msg.language.get("COMMAND_FORTNITE_DESCRIPTION"),
-            usage: "<Platform:string> <Username:string>",
+            usage: "<Platform:string> <Username:string> [...]",
             usageDelim: " ",
             extendedHelp: "No extended help available."
         });
     }
 
-    async run(msg, [Platform, Username]) {
+    async run(msg, [Platform, ...Username]) {
         let data;
         if (Platform.toLowerCase() === "pc") {
-            data = await get(`https://api.fortnitetracker.com/v1/profile/pc/${Username}`)
-                .set("TRN-Api-Key", this.client.config.keys.games.fortnite);
+            data = await get(`https://api.fortnitetracker.com/v1/profile/pc/${Username.join(" ")}`)
+                .set("TRN-Api-Key", this.client.config.keys.games.fortnite)
+                .catch(e => {
+                    Error.captureStackTrace(e);
+                    return e;
+                });
         } else if (Platform.toLowerCase() === "xbox") {
-            data = await get(`https://api.fortnitetracker.com/v1/profile/xb1/${Username}`)
-                .set("TRN-Api-Key", this.client.config.keys.games.fortnite);
+            data = await get(`https://api.fortnitetracker.com/v1/profile/xb1/${Username.join(" ")}`)
+                .set("TRN-Api-Key", this.client.config.keys.games.fortnite)
+                .catch(e => {
+                    Error.captureStackTrace(e);
+                    return e;
+                });
         } else if (Platform.toLowerCase() === "psn") {
-            data = await get(`https://api.fortnitetracker.com/v1/profile/psn/${Username}`)
-                .set("TRN-Api-Key", this.client.config.keys.games.fortnite);
+            data = await get(`https://api.fortnitetracker.com/v1/profile/psn/${Username.join(" ")}`)
+                .set("TRN-Api-Key", this.client.config.keys.games.fortnite)
+                .catch(e => {
+                    Error.captureStackTrace(e);
+                    return e;
+                });
         } else {
             return msg.sendMessage("<:penguError:435712890884849664> ***Invalid Platform, please retry with either of these platforms: `pc`. `xbox`, `psn`.***");
         }
