@@ -15,7 +15,7 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        if (msg.guild.configs.get("customcmds") === false) {
+        if (msg.guild.configs.get("customcmds.enabled") === false) {
             return msg.guild.configs.update("customcmds.enabled", true).then(() => {
                 msg.sendMessage(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_COMMAND_CUSTOM_ENABLED")}***`);
             });
