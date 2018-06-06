@@ -1,4 +1,4 @@
-const { Provider, Type, util: { mergeDefault, isObject, makeObject } } = require("klasa");
+const { Provider, Type, util: { mergeDefault, isObject, makeObject, chunk } } = require("klasa");
 const rethink = require("rethinkdbdash");
 
 module.exports = class extends Provider {
@@ -41,12 +41,22 @@ module.exports = class extends Provider {
     /* Document methods */
 
     async getAll(table, entries = []) {
-        if (entries.length) return this.db.table(table).getAll(...entries).run();
+        if (entries.length) {
+            const chunks = chunk(entries, 50000);
+            const output = [];
+            for (const myChunk of chunks) output.push(...await this.db.table(table).getAll(...myChunk).run());
+            return output;
+        }
         return this.db.table(table).run();
     }
 
     async getKeys(table, entries = []) {
-        if (entries.length) return this.db.table(table).getAll(...entries)("id").run();
+        if (entries.length) {
+            const chunks = chunk(entries, 50000);
+            const output = [];
+            for (const myChunk of chunks) output.push(...await this.db.table(table).getAll(...myChunk)("id").run());
+            return output;
+        }
         return this.db.table(table)("id").run();
     }
 
@@ -75,21 +85,7 @@ module.exports = class extends Provider {
     }
 
     async delete(table, id) {
-        return this.db.table(table).get(id).delete();
-    }
-
-    async updateValue(table, path, value) {
-        // { channels: { modlog: '340713281972862976' } } | undefined
-        if (isObject(path) && typeof value === "undefined") {
-            return this.db.table(table).update(path).run();
-        }
-
-        // 'channels.modlog' | '340713281972862976'
-        if (typeof path === "string" && typeof value !== "undefined") {
-            return this.db.table(table).update(makeObject(path, value)).run();
-        }
-
-        throw new TypeError(`Expected an object as first parameter or a string and a non-undefined value. Got: ${new Type(path)} and ${new Type(value)}`);
+        return this.db.table(table).get(id).delete().run();
     }
 
     async removeValue(table, path) {
