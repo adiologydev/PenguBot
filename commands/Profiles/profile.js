@@ -35,13 +35,15 @@ module.exports = class extends Command {
         const xpProg = Math.round(((xp - oldLvl) / (nextLvl - oldLvl)) * 269);
 
         let users;
-        if (this.client.topCache) users = this.client.topCache;
-        users = await this.client.providers.get("rethinkdb").getAll("users").then(res => res.sort((a, b) => b.xp - a.xp));
-        this.client.topCache = users;
+        if (this.client.topCache) { users = this.client.topCache; } else {
+            users = await this.client.providers.get("rethinkdb").getAll("users").then(res => res.sort((a, b) => b.xp - a.xp));
+            this.client.topCache = users;
+        }
         let usersPos;
-        if (this.client.uPosCache) usersPos = this.client.uPosCache;
-        usersPos = users.filter(async a => await this.client.users.fetch(a.id));
-        this.client.uPosCache = usersPos;
+        if (this.client.uPosCache) { usersPos = this.client.uPosCache; } else {
+            usersPos = users.filter(async a => await this.client.users.fetch(a.id));
+            this.client.uPosCache = usersPos;
+        }
         const pos = usersPos.findIndex(i => i.id === user.id);
 
         const bgName = user.configs.profilebg;
