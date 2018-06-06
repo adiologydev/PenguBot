@@ -1,5 +1,4 @@
 const { Command } = require("klasa");
-const { get } = require("snekfetch");
 const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
@@ -25,24 +24,18 @@ module.exports = class extends Command {
         });
         if (!msg.member.voiceChannel) return msg.sendMessage("<:penguError:435712890884849664> ***You're currently not in a Voice Channel, please join one to use this command.***");
         if (this.client.functions.validURL(song)) {
-            const playlist = /^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/.exec(url); // eslint-disable-line
+            const playlist = /(\?|\&)list=(.*)/.exec(song); // eslint-disable-line
             const soundCloud = /https:\/\/soundcloud\.com\/.*/.exec(url); // eslint-disable-line
             const scPlaylist = /https:\/\/?soundcloud.com\/.*\/.*\/.*/.exec(song);
             if (playlist) {
-                // Playlist Handling
-                const { body } = await get(`https://www.googleapis.com/youtube/v3/playlists?part=id,snippet&id=${playlist[2]}&key=${this.client.config.keys.music.youtube}`).catch(e => {
-                    Error.captureStackTrace(e);
-                    return e;
-                });
-                if (!body.items[0]) return msg.sendMessage("<:penguError:435712890884849664> ***That youtube playlist could not be found, please try with a different one.***");
-                const songData = await this.client.functions.getSongs(url);
+                const songData = await this.client.functions.getSongs(song);
                 if (!songData) return msg.sendMessage("<:penguError:435712890884849664> ***That playlist could not be found, please try with a different one.***");
-                let limit; if (this.client.config.main.patreon === false) { limit = 24; } else { limit = 1000; } // eslint-disable-line
+                let limit; if (this.client.config.main.patreon === false || !this.client.functions.isUpvoter(msg.author.id)) { limit = 49; } else { limit = 1000; } // eslint-disable-line
                 for (let i = 0; i <= limit; i++) {
                     await this.musicHandler(msg, songData[i], msg.guild, msg.member.voiceChannel, true).catch(() => null);
                 }
-                if (songData.length >= 25 && this.client.config.main.patreon === false) return msg.sendMessage(`🗒 | **${body.items[0].snippet.title}** playlist has been added to the queue. This playlist has more than 25 songs but only 25 were added, to bypass this limit become our Patreon today at https://patreon.com/PenguBot`); // eslint-disable-line
-                return msg.sendMessage(`🗒 | **${body.items[0].snippet.title}** playlist has been added to the queue.`);
+                if (songData.length >= 50 && this.client.config.main.patreon === false || !this.client.functions.isUpvoter(msg.author.id)) return msg.sendMessage(`🗒 | Playlist has been added to the queue. This playlist has more than 50 songs but only 50 were added, to bypass this limit become our Patreon today at <https://patreon.com/PenguBot> or Vote for PenguBot on <https://discordbots.org/bot/PenguBot/vote>.`); // eslint-disable-line
+                return msg.sendMessage(`🗒 | ***Playlist has been added to the queue.***`);
             } else if (soundCloud) {
                 // Handling SoundCloud
                 if (scPlaylist) {
