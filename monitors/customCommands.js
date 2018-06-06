@@ -13,7 +13,7 @@ module.exports = class extends Monitor {
         if (cooldown.has(msg.author.id)) return;
 
         const cmdName = msg.content.slice(msg.guild.configs.prefix.length).trim().split(/ +/g).shift().toLowerCase();
-        if (!this.client.commands.has(cmdName)) return;
+        if (this.client.commands.has(cmdName)) return;
         const cmd = msg.guild.configs.customcmds.cmds.find(c => c.name === cmdName);
         if (!cmd) return;
         cooldown.add(msg.author.id);
