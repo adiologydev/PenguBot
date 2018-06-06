@@ -9,7 +9,6 @@ module.exports = class extends Command {
             aliases: ["addautorole", "removeautorole", "removeautoroles", "deleteautorole", "deleteautoroles"],
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            requiredConfigs: ["autoroles.roles"],
             usage: "<role:role>",
             description: msg => msg.language.get("COMMAND_ADD_ROLES_DESCRPTION"),
             extendedHelp: "No extended help available."

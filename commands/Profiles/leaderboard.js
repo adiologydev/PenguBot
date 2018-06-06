@@ -19,7 +19,7 @@ module.exports = class extends Command {
         this.client.topCache = users;
         let userPos;
         if (this.client.uPosCache) userPos = this.client.uPosCache;
-        userPos = users.filter(async a => await this.client.users.get(a.id));
+        userPos = users.filter(async a => await this.client.users.fetch(a.id));
         this.client.uPosCache = userPos;
         await msg.author.configs._syncStatus;
 
@@ -35,7 +35,7 @@ module.exports = class extends Command {
 
         const userProfiles = await Promise.all(userPos.slice(index * 10, (index + 1) * 10)
             .map(async user => {
-                const username = await this.client.users.get(user.id).username || "None";
+                const username = await this.client.users.fetch(user.id).username || "None";
                 return { xp: user.xp ? user.xp : 0, username };
             }));
         for (let i = 0; i < userProfiles.length; i++) {

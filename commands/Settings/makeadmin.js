@@ -9,7 +9,6 @@ module.exports = class extends Command {
             aliases: ["setadmin", "addadmin", "deladmin", "removeadmin", "toggleadmin"],
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            requiredConfigs: ["permissions.admins"],
             description: msg => msg.language.get("COMMAND_MAKE_ADMIN_DESCRPTION"),
             usage: "<member:user>",
             extendedHelp: "No extended help available."

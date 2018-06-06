@@ -9,7 +9,6 @@ module.exports = class extends Command {
             aliases: ["tlm", "toggleleavemessages"],
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            requiredConfigs: ["messages.leave.enabled"],
             description: msg => msg.language.get("COMMAND_TOGGLE_LEAVE_DESCRPTION"),
             extendedHelp: "No extended help available."
         });

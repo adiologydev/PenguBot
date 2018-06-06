@@ -9,7 +9,6 @@ module.exports = class extends Command {
             aliases: ["slm", "setleavemessage"],
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            requiredConfigs: ["messages.leave.message"],
             usage: "<message:string> [...]",
             usageDelim: " ",
             description: msg => msg.language.get("COMMAND_SET_LEAVE_DESCRPTION"),

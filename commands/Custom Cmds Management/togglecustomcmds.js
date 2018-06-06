@@ -9,7 +9,6 @@ module.exports = class extends Command {
             aliases: ["tccmd", "togglecustom", "tcmd", "togglecustomcommands"],
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            requiredConfigs: ["customcmds.enabled"],
             description: msg => msg.language.get("COMMAND_TOGGLE_CUSTOM_DESCRPTION"),
             extendedHelp: "No extended help available."
         });

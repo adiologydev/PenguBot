@@ -9,7 +9,6 @@ module.exports = class extends Command {
             aliases: ["delcmd", "removecmd"],
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            requiredConfigs: ["customcmds.cmds"],
             description: msg => msg.language.get("COMMAND_DEL_CMD_DESCRIPTION"),
             usage: "<name:string>",
             extendedHelp: "No extended help available."

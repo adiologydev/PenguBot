@@ -36,7 +36,7 @@ module.exports = class extends Command {
             .setColor("#398ce7")
             .setTimestamp()
             .setDescription([`❯ **Name | Tag:** ${body.name} | ${body.tag}`,
-                `❯ **Trophies / Max Trophies:** ${body.trophies.toLocaleString()} / ${body.stats.maxTrophies.toLocaleString()}`,
+                `❯ **Trophies / Max Trophies:** ${body.trophies ? body.trophies.toLocaleString() : 0} / ${body.stats.maxTrophies ? body.stats.maxTrophies.toLocaleString() : 0}`,
                 `❯ **Rank:** ${body.rank.toLocaleString()}`,
                 `❯ **Arena:** ${body.arena.name} - ${body.arena.arena}`,
                 `❯ **Total / Wins / Draws / Losses:** ${body.games.total} / ${body.games.wins} / ${body.games.draws} / ${body.games.losses}`,

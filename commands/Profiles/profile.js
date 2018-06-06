@@ -40,7 +40,7 @@ module.exports = class extends Command {
         this.client.topCache = users;
         let usersPos;
         if (this.client.uPosCache) usersPos = this.client.uPosCache;
-        usersPos = users.filter(async a => await this.client.users.get(a.id));
+        usersPos = users.filter(async a => await this.client.users.fetch(a.id));
         this.client.uPosCache = usersPos;
         const pos = usersPos.findIndex(i => i.id === user.id);
 
@@ -83,6 +83,9 @@ module.exports = class extends Command {
     async init() {
         if (!this.client.gateways.users.schema.has("profilebg")) {
             this.client.gateways.users.schema.add("profilebg", { type: "string", default: "default", configurable: false });
+        }
+        if (!this.client.gateways.users.schema.has("backgrounds")) {
+            this.client.gateways.users.schema.add("backgrounds", { type: "string", default: ["default"], array: true, configurable: false });
         }
     }
 

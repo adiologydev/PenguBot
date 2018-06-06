@@ -7,7 +7,6 @@ module.exports = class extends Command {
             runIn: ["text"],
             cooldown: 10,
             aliases: ["togglelevelups", "levelups"],
-            requiredConfigs: ["levelup"],
             permissionLevel: 4,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: msg => msg.language.get("COMMAND_LEVELUP_DESCRIPTION"),
@@ -19,10 +18,10 @@ module.exports = class extends Command {
     async run(msg) {
         if (msg.guild.configs.levelup) {
             await msg.guild.configs.update("levelup", false);
-            return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Level Up announcements have been Enabled!***`);
+            return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Level Up announcements have been Disabled!***`);
         } else {
             await msg.guild.configs.update("levelup", true);
-            return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Level Up announcements have been Disabled!***`);
+            return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Level Up announcements have been Enabled!***`);
         }
     }
 

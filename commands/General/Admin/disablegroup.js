@@ -10,7 +10,6 @@ module.exports = class extends Command {
             aliases: ["enablegroup", "disablecommandgroup", "enablecommandgroup", "disablecommandcategory", "enablecommandcategory"],
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            requiredConfigs: ["disabledCommands"],
             description: msg => msg.language.get("COMMAND_TOGGLE_GROUP_DESCRPTION"),
             usage: "<command:cmd>",
             extendedHelp: "No extended help available."
