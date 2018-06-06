@@ -46,8 +46,7 @@ module.exports = class MemorySweeper extends Task {
 
     async run() {
         const OLD_SNOWFLAKE = binaryToID(((Date.now() - THRESHOLD) - EPOCH).toString(2).padStart(42, "0") + EMPTY);
-        let presences = 0, guildMembers = 0, emojis = 0, lastMessages = 0;
-        // users = 0;
+        let presences = 0, guildMembers = 0, emojis = 0, lastMessages = 0, users = 0;
 
         // Per-Guild sweeper
         for (const guild of this.client.guilds.values()) {
@@ -78,12 +77,13 @@ module.exports = class MemorySweeper extends Task {
             }
         }
 
-        /* Per-User sweeper - Tbh I don't think I can handle it's errors anymore
+        // Per-User sweeper
         for (const user of this.client.users.values()) {
             if (user.lastMessageID && user.lastMessageID > OLD_SNOWFLAKE) continue;
             this.client.users.delete(user.id);
+            this.client.gateways.users.cache.delete(user.id);
             users++;
-        } */
+        }
 
         // Clean Profiles Cache
         this.client.topCache = null;
@@ -94,7 +94,7 @@ module.exports = class MemorySweeper extends Task {
             `${HEADER} ${
                 this.setColor(presences)} [Presence]s | ${
                 this.setColor(guildMembers)} [GuildMember]s | ${
-                // this.setColor(users)} [User]s | ${
+                this.setColor(users)} [User]s | ${
                 this.setColor(emojis)} [Emoji]s | ${
                 this.setColor(lastMessages)} [Last Message]s.`);
     }
@@ -118,6 +118,7 @@ module.exports = class MemorySweeper extends Task {
         return `\u001B[39m\u001B[32m${text}\u001B[39m\u001B[90m`;
     }
 
+    // Init
     async init() {
         if (!this.client.configs.schedules.some(schedule => schedule.taskName === this.name)) {
             await this.client.schedule.create("cleaner", "*/15 * * * *");
