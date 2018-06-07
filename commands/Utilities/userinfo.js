@@ -25,7 +25,7 @@ module.exports = class extends Command {
             .addField("❯ Name", user.user.tag, true)
             .addField("❯ ID", user.id, true)
             .addField("❯ Discord Join Date", this.timestamp.display(user.user.createdAt), true)
-            .addField("❯ Server Join Date", this.timestamp.display(user.joinedTimestamp), true)
+            .addField("❯ Server Join Date", this.timestamp.display(user.user.joinedTimestamp), true)
             .addField("❯ Nickname", user.nickname || "None", true)
             .addField("❯ Bot?", user.user.bot ? "Yes" : "No", true)
             .addField("❯ Highest Role", user.roles.highest.id !== msg.guild.defaultRole.id ? user.roles.highest.name : "None", true)
