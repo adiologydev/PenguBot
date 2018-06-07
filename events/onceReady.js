@@ -32,6 +32,9 @@ module.exports = class extends Event {
         // Init the schedule
         await this.client.schedule.init();
 
+        // Sync All Configs
+        await this.client.gateways.sync();
+
         if (this.client.options.readyMessage !== null) {
             this.client.emit("log", util.isFunction(this.client.options.readyMessage) ? this.client.options.readyMessage(this.client) : this.client.options.readyMessage);
         }
