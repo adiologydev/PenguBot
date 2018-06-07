@@ -12,9 +12,10 @@ module.exports = class extends Command {
     }
 
     async run(msg, [game]) {
-        return this.client.user.setPresence({ activity: { name: game, status: "online" } })
-            .then(msg.sendMessage(`**Playing status has been changed to:** ${game.join(" ")}`))
+        await this.client.user.setPresence({ activity: { name: game, status: "online" } })
             .catch(err => { throw err; });
+
+        return msg.sendMessage(`**Playing status has been changed to:** ${game}`);
     }
 
 };
