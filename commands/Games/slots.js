@@ -25,7 +25,7 @@ module.exports = class extends Command {
         const Btwo = slots[Math.floor(Math.random() * slots.length)];
         const Bthree = slots[Math.floor(Math.random() * slots.length)];
 
-        if (Mone === Mtwo && Mone === Mthree) {
+        if (Mone === Mtwo && Mone === Mthree || Mone === Mtwo || Mthree === Mtwo || Mthree === Mone) { // eslint-disable-line
             const embed = new MessageEmbed()
                 .setFooter("© PenguBot.cc")
                 .setTimestamp()

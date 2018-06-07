@@ -110,11 +110,11 @@ class Util {
                     if (enabled && channelid && guild.channels.has(channelid)) await guild.configs.update(["messages.leave.enabled", "messages.leave.channel"], [true, channelid]);
                     continue;
                 }
-                // Autoroles
+                /* Autoroles - Disabled due to explicit errors while migrating
                 if (key === "AutoRole") {
                     await guild.configs.update(["autoroles.roles", "autoroles.enabled"], [value, true], guild);
                     continue;
-                }
+                } */
                 await guild.configs.update(key, value);
             }
         }
