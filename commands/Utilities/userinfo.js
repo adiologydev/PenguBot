@@ -1,4 +1,4 @@
-const { Command } = require("klasa");
+const { Command, Timestamp } = require("klasa");
 const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
@@ -13,18 +13,19 @@ module.exports = class extends Command {
             usage: "[user:member]",
             extendedHelp: "No extended help available."
         });
+        this.timestamp = new Timestamp("d MMMM YYYY");
     }
 
     async run(msg, [user = msg.member]) {
         const embed = new MessageEmbed()
-            .setColor(user.displayHexColor)
+            .setColor(user.user.displayHexColor || "#32c4e3")
             .setTimestamp()
             .setFooter("© PenguBot.cc")
             .setThumbnail(user.user.displayAvatarURL())
             .addField("❯ Name", user.user.tag, true)
             .addField("❯ ID", user.id, true)
-            .addField("❯ Discord Join Date", user.user.createdAt.toDateString(), true)
-            .addField("❯ Server Join Date", user.joinedAt.toDateString(), true)
+            .addField("❯ Discord Join Date", this.timestamp.display(user.user.createdAt), true)
+            .addField("❯ Server Join Date", this.timestamp.display(user.joinedTimestamp), true)
             .addField("❯ Nickname", user.nickname || "None", true)
             .addField("❯ Bot?", user.user.bot ? "Yes" : "No", true)
             .addField("❯ Highest Role", user.roles.highest.id !== msg.guild.defaultRole.id ? user.roles.highest.name : "None", true)

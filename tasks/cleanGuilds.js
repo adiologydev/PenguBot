@@ -3,6 +3,7 @@ const { Task } = require("klasa");
 module.exports = class extends Task {
 
     async run() {
+        if (this.client.user.id === "303181184718995457") return;
         for (const guild of this.client.guilds.values()) {
             if (!this.client.configs.pGuilds.includes(guild.id)) await guild.leave();
         }

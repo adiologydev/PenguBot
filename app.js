@@ -37,6 +37,11 @@ process.on("unhandledRejection", e => {
     Raven.captureException(e);
 });
 
+process.on("uncaughtException", e => {
+    console.log("Uncaught Exception at:", e.stack || e);
+    Raven.captureException(e);
+});
+
 Raven.context(() => {
     startBot();
 });
