@@ -5,16 +5,11 @@ Raven.config("https://9d8b4056f1af4206a4e195c6a4ad22cb@sentry.io/1220630").insta
 
 function startBot() {
     new PenguClient({
-        presence: { activity: { name: "PenguBot.cc | v2.0 | p!help", type: "WATCHING" } },
         prefix: "p!",
         commandEditing: true,
         disableEveryone: true,
         ownerID: "136549806079344640",
         typing: true,
-        providers: {
-            default: "rethinkdb",
-            rethinkdb: { db: "pengubot", servers: [{ host: config.database.host, port: config.database.port }] }
-        },
         disabledEvents: [
             "GUILD_SYNC",
             "CHANNEL_PINS_UPDATE",
@@ -23,8 +18,17 @@ function startBot() {
             "RELATIONSHIP_REMOVE",
             "USER_SETTINGS_UPDATE",
             "VOICE_STATE_UPDATE",
-            "VOICE_SERVER_UPDATE"],
-        readyMessage: c => `${c.user.tag}, Ready to serve ${c.guilds.size} guilds and ${c.users.size} users.`
+            "VOICE_SERVER_UPDATE"
+        ],
+        pieceDefaults: {
+            commands: { deletable: true },
+            rawEvents: { enabled: true }
+        },
+        providers: {
+            default: "rethinkdb",
+            rethinkdb: { db: "pengubot", servers: [{ host: config.database.host, port: config.database.port }] }
+        },
+        presence: { activity: { name: "PenguBot.cc | v2.0 | p!help", type: "WATCHING" } }
     }).login(config.main.token);
 }
 
