@@ -18,7 +18,7 @@ module.exports = class extends Command {
     async run(msg, [Tag]) {
         let data;
         try {
-            data = await get(`https://api.royaleapi.com/player/${Tag}`).set("auth", `${this.client.config.keys.games.crapi}`).catch(e => {
+            data = await get(`https://api.royaleapi.com/player/${Tag.toUpperCase()}`).set("auth", `${this.client.config.keys.games.crapi}`).catch(e => {
                 Error.captureStackTrace(e);
                 return e;
             });
@@ -37,7 +37,7 @@ module.exports = class extends Command {
             .setTimestamp()
             .setDescription([`❯ **Name | Tag:** ${body.name} | ${body.tag}`,
                 `❯ **Trophies / Max Trophies:** ${body.trophies ? body.trophies.toLocaleString() : 0} / ${body.stats.maxTrophies ? body.stats.maxTrophies.toLocaleString() : 0}`,
-                `❯ **Rank:** ${body.rank.toLocaleString() || "N/A"}`,
+                `❯ **Rank:** ${body.rank ? body.rank.toLocaleString() : "N/A"}`,
                 `❯ **Arena:** ${body.arena.name} - ${body.arena.arena}`,
                 `❯ **Total / Wins / Draws / Losses:** ${body.games.total} / ${body.games.wins} / ${body.games.draws} / ${body.games.losses}`,
                 `❯ **Deck:** [View User's Current Deck](${body.deckLink})`]);
