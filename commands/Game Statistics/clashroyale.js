@@ -37,7 +37,7 @@ module.exports = class extends Command {
             .setTimestamp()
             .setDescription([`❯ **Name | Tag:** ${body.name} | ${body.tag}`,
                 `❯ **Trophies / Max Trophies:** ${body.trophies ? body.trophies.toLocaleString() : 0} / ${body.stats.maxTrophies ? body.stats.maxTrophies.toLocaleString() : 0}`,
-                `❯ **Rank:** ${body.rank.toLocaleString()}`,
+                `❯ **Rank:** ${body.rank.toLocaleString() || "N/A"}`,
                 `❯ **Arena:** ${body.arena.name} - ${body.arena.arena}`,
                 `❯ **Total / Wins / Draws / Losses:** ${body.games.total} / ${body.games.wins} / ${body.games.draws} / ${body.games.losses}`,
                 `❯ **Deck:** [View User's Current Deck](${body.deckLink})`]);
