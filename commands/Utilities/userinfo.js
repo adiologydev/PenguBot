@@ -20,7 +20,7 @@ module.exports = class extends Command {
         return msg.sendEmbed(new MessageEmbed()
             .setColor(user.displayHexColor || "#32c4e3")
             .setTimestamp()
-            .setFooter("© PenguBot.cc")
+            .setFooter("© PenguBot.com")
             .setThumbnail(user.user.displayAvatarURL())
             .addField("❯ Name", user.user.tag, true)
             .addField("❯ ID", user.id, true)

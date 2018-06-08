@@ -29,7 +29,7 @@ module.exports = class extends Language {
                 "",
                 "**__General Information__**",
                 `• **Version:** ${this.client.config.main.version}`,
-                "• **Website:** <https://www.PenguBot.cc>",
+                "• **Website:** <https://www.PenguBot.com>",
                 "• **Patreon:** <https://www.Patreon.com/PenguBot>",
                 "• **Discord Guild:** <https://discord.gg/6KpTfqR>",
                 "• **GitHub:** <https://www.github.com/AdityaTD/PenguBot>",
@@ -42,7 +42,7 @@ module.exports = class extends Language {
                 "",
                 "• **Patreon:** https://www.patreon.com/PenguBot",
                 "• **Crypto Donations:** https://1upcoin.com/donate/adityatd",
-                "• **PenguBot's Donation Page:** https://www.PenguBot.cc/donate"
+                "• **PenguBot's Donation Page:** https://www.PenguBot.com/donate"
             ],
             COMMAND_HELP_NODM: "<:penguError:435712890884849664> | You have DMs disabled, I couldn't send you the commands in DMs.",
             COMMAND_UPVOTE: ["**__Vote for PenguBot__**",

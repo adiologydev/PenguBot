@@ -23,7 +23,7 @@ module.exports = class extends Command {
 
     async run(msg, [user]) {
         const embed = new MessageEmbed()
-            .setFooter("© PenguBot.cc")
+            .setFooter("© PenguBot.com")
             .setTimestamp()
             .setImage(cookies[Math.floor(Math.random() * cookies.length)])
             .setColor("RANDOM");

@@ -24,7 +24,7 @@ module.exports = class extends Command {
             .setColor(6570406)
             .setAuthor("Twitch Channel Statistics", "https://i.imgur.com/krTbTeD.png")
             .setTimestamp()
-            .setFooter("© PenguBot.cc")
+            .setFooter("© PenguBot.com")
             .setThumbnail(body.logo)
             .setDescription(`❯ **Channel Name:** ${body.display_name}
 ❯ **Channel Status:** ${body.status}

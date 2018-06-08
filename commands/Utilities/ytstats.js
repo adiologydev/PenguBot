@@ -26,7 +26,7 @@ module.exports = class extends Command {
             .setColor("#ea5655")
             .setAuthor("YouTube Channel Statistics", "https://i.imgur.com/1sLSPUr.png")
             .setTimestamp()
-            .setFooter("© PenguBot.cc")
+            .setFooter("© PenguBot.com")
             .setThumbnail(snippet.body.items[0].snippet.thumbnails.high.url)
             .setDescription(`❯ **Channel Name:** ${snippet.body.items[0].snippet.channelTitle}
 ❯ **Channel Description:** ${snippet.body.items[0].snippet.description}\n

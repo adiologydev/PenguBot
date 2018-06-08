@@ -26,7 +26,7 @@ module.exports = class extends Command {
             .setColor("#5bc0de")
             .setTitle("⏯ | Now Playing - PenguBot")
             .setTimestamp()
-            .setFooter("© PenguBot.cc")
+            .setFooter("© PenguBot.com")
             .setDescription([`• **Song:** ${song.name}`,
                 `• **Author:** ${song.author}`,
                 `• **Duration:** ${this.client.functions.friendlyTime(player.state.position)} / ${song.stream === true ? "Live Stream" : this.client.functions.friendlyTime(song.length)}`,

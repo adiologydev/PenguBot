@@ -32,7 +32,7 @@ module.exports = class extends Command {
             .setColor("#428bca")
             .setAuthor(`${extendedsong} - ${artist} | Lyrics`, this.client.user.avatarURL, `http://genius.com/${lyricdata.result.path}`)
             .setTimestamp()
-            .setFooter("© PenguBot.cc")
+            .setFooter("© PenguBot.com")
             .setDescription(lyricsbody.length >= 1900 ? `${lyricsbody.substr(0, 1900)}...` : lyricsbody)
             .setThumbnail(picture);
         return msg.sendEmbed(embed);

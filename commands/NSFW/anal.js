@@ -24,7 +24,7 @@ module.exports = class extends Command {
                 img = await randomPuppy(subReddits[Math.floor(Math.random() * subReddits.length)]);
             }
             const embed = new MessageEmbed()
-                .setFooter("© PenguBot.cc")
+                .setFooter("© PenguBot.com")
                 .setTimestamp()
                 .setImage(img)
                 .setColor("RANDOM");

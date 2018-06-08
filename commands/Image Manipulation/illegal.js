@@ -30,7 +30,7 @@ module.exports = class extends Command {
                 const embed = new MessageEmbed()
                     .setColor("RANDOM")
                     .setImage(gif)
-                    .setFooter("© PenguBot.cc");
+                    .setFooter("© PenguBot.com");
                 return msg.sendEmbed(embed);
             } catch (err) {
                 return msg.reply(`<:penguError:435712890884849664> Oh no, an error occurred: \`${err.message}\`. Please try again later!`);

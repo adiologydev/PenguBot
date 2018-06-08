@@ -20,7 +20,7 @@ module.exports = class extends Command {
         const embed = new MessageEmbed()
             .setColor("RANDOM")
             .setTimestamp()
-            .setFooter("© PenguBot.cc")
+            .setFooter("© PenguBot.com")
             .setThumbnail(msg.guild.iconURL())
             .addField("❯ Name", msg.guild.name, true)
             .addField("❯ ID", msg.guild.id, true)

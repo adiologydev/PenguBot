@@ -25,7 +25,7 @@ module.exports = class extends Command {
 
     async run(msg) {
         const embed = new MessageEmbed()
-            .setFooter("© PenguBot.cc")
+            .setFooter("© PenguBot.com")
             .setTimestamp()
             .setImage(pics[Math.floor(Math.random() * pics.length)])
             .setColor("RANDOM");

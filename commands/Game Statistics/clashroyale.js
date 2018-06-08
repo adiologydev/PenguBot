@@ -31,7 +31,7 @@ module.exports = class extends Command {
         const { body } = data;
         const embed = new MessageEmbed()
             .setTitle("Clash Royale Player Statistics - PenguBot")
-            .setFooter("© PenguBot.cc")
+            .setFooter("© PenguBot.com")
             .setThumbnail("https://i.imgur.com/4xXGK08.png")
             .setColor("#398ce7")
             .setTimestamp()

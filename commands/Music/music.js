@@ -21,7 +21,7 @@ module.exports = class extends Command {
             .setColor("#91c3d2")
             .setTitle("🎵 | Music Help - PenguBot")
             .setTimestamp()
-            .setFooter("© PenguBot.cc")
+            .setFooter("© PenguBot.com")
             .setDescription("Now enjoy music right on your Discord Guild with PenguBot Music, powered with extreme backend technology where performance is not compromised.")
             .addField(`• ${prefix}play`, "For Song Selector Use: `p!play <Song Name>`, For Playlists, YouTube Video URLs, Soundcloud URLs, Live Streams, etc. use `p!play <URL>`, for SoundCloud Search or YouTube Search use: `p!play <ytsearch|scsearch>:<song name>`.") // eslint-disable-line max-len
             .addField(`• ${prefix}stop`, "Stops the music and clears the queue. Requires `Pengu-DJ` or above.")

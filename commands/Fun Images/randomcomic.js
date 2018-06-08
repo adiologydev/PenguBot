@@ -20,7 +20,7 @@ module.exports = class extends Command {
         const $ = cheerio.load(text);
 
         const embed = new MessageEmbed()
-            .setFooter("© PenguBot.cc")
+            .setFooter("© PenguBot.com")
             .setTimestamp()
             .setColor("RANDOM")
             .setDescription(`**Random Comic**`)

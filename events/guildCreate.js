@@ -27,7 +27,7 @@ Hey! I'm PenguBot, a friendly multi-purpose Discord bot, now that you know who I
 • **User Friendly:** If you're not aware of the guild's prefix just tag Pengu and type your command, i.e. \`@PenguBot#9722 pengu\`\n
 • **Support:** In case you need any help you can also join our guild at [**discord.gg/u8WYw5r**](https://discord.gg/u8WYw5r).\n
 • **Agreement:** By using PenguBot in your guild you and your guild members agree that PenguBot may collect End User Data.\n
-• **Website:** [**PenguBot.cc**](https://www.PenguBot.cc)
+• **Website:** [**PenguBot.com**](https://www.PenguBot.com)
 • **Author:** [**AdityaTD#5346**](https://adityatd.me/)`);
 
         if (channel) await channel.send({ embed });

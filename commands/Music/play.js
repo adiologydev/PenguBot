@@ -126,7 +126,7 @@ module.exports = class extends Command {
                 }, { selfdeaf: true });
                 return this.musicPlay(song, guild);
             } catch (e) {
-                await msg.sendMessage("<:penguError:435712890884849664> ***There seems to be an error, please try again or seek help at: <https://www.pengubot.cc/invite>.***");
+                await msg.sendMessage("<:penguError:435712890884849664> ***There seems to be an error, please try again or seek help at: <https://www.PenguBot.com/invite>.***");
                 return console.error(`-- musicHandler --\n${e}`);
             }
         } else {
@@ -171,7 +171,7 @@ module.exports = class extends Command {
         return new MessageEmbed()
             .setTitle("⏯ | Now Playing - PenguBot")
             .setTimestamp()
-            .setFooter("© PenguBot.cc")
+            .setFooter("© PenguBot.com")
             .setColor("#5cb85c")
             .setDescription([`• **Song:** ${song.name}`,
                 `• **Author:** ${song.author}`,
@@ -184,7 +184,7 @@ module.exports = class extends Command {
         return new MessageEmbed()
             .setTitle("🗒 | Song Queued - PenguBot")
             .setTimestamp()
-            .setFooter("© PenguBot.cc")
+            .setFooter("© PenguBot.com")
             .setColor("#eedc2f")
             .setDescription([`• **Song:** ${song.name}`,
                 `• **Author:** ${song.author}`,
@@ -197,7 +197,7 @@ module.exports = class extends Command {
         return new MessageEmbed()
             .setTitle("⏹ | Queue Finished - PenguBot")
             .setTimestamp()
-            .setFooter("© PenguBot.cc")
+            .setFooter("© PenguBot.com")
             .setColor("#d9534f")
             .setDescription([`• **Party Over:** All the songs from the queue have finished playing. Leaving voice channel.`,
                 `• **Support:** If you enjoyed PenguBot and it's features, please consider becoming a Patron at: https://www.Patreon.com/PenguBot`]);

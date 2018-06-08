@@ -27,7 +27,7 @@ module.exports = class extends Command {
         const embed = new MessageEmbed()
             .setColor("RANDOM")
             .setTimestamp()
-            .setFooter("© PenguBot.cc")
+            .setFooter("© PenguBot.com")
             .setTitle("Urban Dictionary")
             .setThumbnail("https://i.imgur.com/roNW5D3.png")
             .setDescription(`**❯ Word:** ${result.word}

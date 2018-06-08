@@ -49,7 +49,7 @@ module.exports = class extends Command {
 
         const embed = new MessageEmbed()
             .setTitle("Fortnite Battle Royale Statistics - PenguBot")
-            .setFooter("© PenguBot.cc")
+            .setFooter("© PenguBot.com")
             .setThumbnail("https://i.imgur.com/EER1jFB.png")
             .setColor("#151842")
             .setTimestamp()

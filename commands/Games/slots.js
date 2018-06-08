@@ -27,14 +27,14 @@ module.exports = class extends Command {
 
         if (Mone === Mtwo || Mone === Mthree || Mthree === Mtwo) {
             const embed = new MessageEmbed()
-                .setFooter("© PenguBot.cc")
+                .setFooter("© PenguBot.com")
                 .setTimestamp()
                 .setDescription(`${Tone} | ${Ttwo} | ${Tthree}\n${Mone} | ${Mtwo} | ${Mthree}\n${Bone} | ${Btwo} | ${Bthree}`)
                 .setColor("RANDOM");
             return msg.sendMessage(`***${msg.author} You just won! Good job!***`, { embed: embed });
         }
         const embed = new MessageEmbed()
-            .setFooter("© PenguBot.cc")
+            .setFooter("© PenguBot.com")
             .setTimestamp()
             .setDescription(`${Tone} | ${Ttwo} | ${Tthree}\n${Mone} | ${Mtwo} | ${Mthree}\n${Bone} | ${Btwo} | ${Bthree}`)
             .setColor("RANDOM");
