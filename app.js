@@ -28,6 +28,7 @@ function startBot() {
             default: "rethinkdb",
             rethinkdb: { db: "pengubot", servers: [{ host: config.database.host, port: config.database.port }] }
         },
+        console: { useColor: true },
         presence: { activity: { name: "PenguBot.com | v2.0 | p!help", type: "WATCHING" } }
     }).login(config.main.token);
 }
