@@ -22,7 +22,7 @@ module.exports = class extends Event {
 
         // Client-wide settings
         this.client.configs = this.client.gateways.clientStorage.get(this.client.user.id, true);
-        await this.client.configs.sync();
+        await this.client.gateways.sync(true);
 
         // Init all the pieces
         await Promise.all(this.client.pieceStores.filter(store => !["providers", "extendables"].includes(store.name)).map(store => store.init()));
@@ -32,8 +32,7 @@ module.exports = class extends Event {
         // Init the schedule
         await this.client.schedule.init();
 
-        // Sync All Configs
-        await this.client.gateways.sync();
+
 
         if (this.client.options.readyMessage !== null) {
             this.client.emit("log", util.isFunction(this.client.options.readyMessage) ? this.client.options.readyMessage(this.client) : this.client.options.readyMessage);
