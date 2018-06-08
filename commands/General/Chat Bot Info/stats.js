@@ -5,6 +5,7 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             guarded: true,
+            aliases: ["status"],
             description: msg => msg.language.get("COMMAND_STATS_DESCRIPTION")
         });
     }
@@ -25,7 +26,7 @@ module.exports = class extends Command {
             .setColor("RANDOM")
             .setTimestamp()
             .setThumbnail("https://i.imgur.com/HE0ZOSA.png")
-            .addField("Memory Usage", `${memory} MB`, true)
+            .addField("Memory Usage", `${memory.toFixed(2)} MB`, true)
             .addField("Uptime", Duration.toNow(Date.now() - (process.uptime() * 1000)), true)
             .addField("Users", users.toLocaleString(), true)
             .addField("Guilds", guilds.toLocaleString(), true)
