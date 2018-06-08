@@ -17,20 +17,19 @@ module.exports = class extends Command {
     }
 
     async run(msg, [user = msg.member]) {
-        const embed = new MessageEmbed()
-            .setColor(user.user.displayHexColor || "#32c4e3")
+        return msg.sendEmbed(new MessageEmbed()
+            .setColor(user.displayHexColor || "#32c4e3")
             .setTimestamp()
             .setFooter("© PenguBot.cc")
             .setThumbnail(user.user.displayAvatarURL())
             .addField("❯ Name", user.user.tag, true)
             .addField("❯ ID", user.id, true)
             .addField("❯ Discord Join Date", this.timestamp.display(user.user.createdAt), true)
-            .addField("❯ Server Join Date", this.timestamp.display(user.user.joinedTimestamp), true)
+            .addField("❯ Server Join Date", user.joinedTimestamp ? this.timestamp.display(user.joinedTimestamp) : "Unknown", true)
             .addField("❯ Nickname", user.nickname || "None", true)
-            .addField("❯ Bot?", user.user.bot ? "Yes" : "No", true)
+            .addField("❯ Bot?", user.bot ? "Yes" : "No", true)
             .addField("❯ Highest Role", user.roles.highest.id !== msg.guild.defaultRole.id ? user.roles.highest.name : "None", true)
-            .addField("❯ Hoist Role", user.roles.hoist ? user.roles.hoist.name : "None", true);
-        return msg.sendEmbed(embed);
+            .addField("❯ Hoist Role", user.roles.hoist ? user.roles.hoist.name : "None", true));
     }
 
 };
