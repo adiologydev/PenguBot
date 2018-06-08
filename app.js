@@ -1,7 +1,7 @@
 const PenguClient = require("./structures/PenguClient");
 const config = require("./config.json");
 const Raven = require("raven");
-Raven.config("https://9d8b4056f1af4206a4e195c6a4ad22cb@sentry.io/1220630").install();
+Raven.config(config.keys.sentry).install();
 
 function startBot() {
     new PenguClient({
