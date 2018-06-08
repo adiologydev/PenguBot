@@ -18,7 +18,7 @@ module.exports = class extends Command {
 
     async run(msg, [user = msg.member]) {
         return msg.sendEmbed(new MessageEmbed()
-            .setColor(user.displayHexColor || "#32c4e3")
+            .setColor(user.displayHexColor ? user.displayHexColor : "#32c4e3")
             .setTimestamp()
             .setFooter("© PenguBot.com")
             .setThumbnail(user.user.displayAvatarURL())
