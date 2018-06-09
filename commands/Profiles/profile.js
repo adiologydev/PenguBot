@@ -23,11 +23,14 @@ module.exports = class extends Command {
 
     async run(msg, [user = msg.author]) {
         if (user.bot) return msg.reply("Can not fetch bot profiles.");
-        return msg.channel.sendFile(await this.createImage(user));
+        const load = await msg.sendMessage(`<a:penguLoad:435712860744581120> ***Let me process all that data through my igloo, give me a few...***`);
+        msg.channel.sendFile(await this.createImage(user));
+        return load.delete();
     }
 
     async createImage(user) {
         await user.configs._syncStatus;
+        const r = this.client.providers.default.db;
         const { xp, level: lvl, snowflakes, reps, title } = user.configs;
 
         const oldLvl = Math.floor((lvl / 0.2) ** 2);
@@ -36,15 +39,10 @@ module.exports = class extends Command {
 
         let users;
         if (this.client.topCache) { users = this.client.topCache; } else {
-            users = await this.client.providers.get("rethinkdb").getAll("users").then(res => res.sort((a, b) => b.xp - a.xp));
+            users = await r.table("users").orderBy(r.desc("xp")).pluck("id", "xp").run();
             this.client.topCache = users;
         }
-        let usersPos;
-        if (this.client.uPosCache) { usersPos = this.client.uPosCache; } else {
-            usersPos = users.filter(async a => await this.client.users.fetch(a.id));
-            this.client.uPosCache = usersPos;
-        }
-        const pos = usersPos.findIndex(i => i.id === user.id);
+        const pos = users.findIndex(i => i.id === user.id);
 
         const bgName = user.configs.profilebg;
         const bgImg = await fs.readFile(`${process.cwd()}/assets/profiles/bg/${bgName}.png`);

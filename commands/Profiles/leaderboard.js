@@ -6,38 +6,35 @@ module.exports = class extends Command {
         super(...args, {
             runIn: ["text"],
             aliases: ["lb", "top"],
-            cooldown: 60,
+            cooldown: 30,
             description: msg => msg.language.get("COMMAND_LEADERBOARD_DESCRIPTION"),
             usage: "[Page:integer]"
         });
     }
 
     async run(msg, [Page]) {
+        const load = await msg.sendMessage(`<a:penguLoad:435712860744581120> ***Let me process all that data through my igloo, give me a few...***`);
+        const r = this.client.providers.default.db;
         let users;
         if (this.client.topCache) { users = this.client.topCache; } else {
-            users = await this.client.providers.get("rethinkdb").getAll("users").then(res => res.sort((a, b) => b.xp - a.xp));
+            users = await r.table("users").orderBy(r.desc("xp")).pluck("id", "xp").run();
             this.client.topCache = users;
-        }
-        let userPos;
-        if (this.client.uPosCache) { userPos = this.client.uPosCache; } else {
-            userPos = users.filter(async a => await this.client.users.fetch(a.id));
-            this.client.uPosCache = userPos;
         }
         await msg.author.configs._syncStatus;
 
         const leaderboard = [];
-        const totalPages = Math.round(userPos.length / 10);
+        const totalPages = Math.round(users.length / 10);
 
         const index = Page ? Page -= 1 : 0;
 
-        if ((index > totalPages && !totalPages) || (totalPages && index + 1 > totalPages)) return msg.channel.send(`There are only **${totalPages || 1}** page(s) in the leaderboard.`);
+        if ((index > totalPages && !totalPages) || (totalPages && index + 1 > totalPages)) return msg.sendMessage(`There are only **${totalPages || 1}** page(s) in the leaderboard.`);
 
         leaderboard.push("=== PenguBot Global Leaderboard ===\n");
-        const pos = userPos.findIndex(i => i.id === msg.author.id);
+        const pos = users.findIndex(i => i.id === msg.author.id);
 
-        const userProfiles = await Promise.all(userPos.slice(index * 10, (index + 1) * 10)
+        const userProfiles = await Promise.all(users.slice(index * 10, (index + 1) * 10)
             .map(async user => {
-                const username = await this.client.users.fetch(user.id).then(a => a.username).catch(() => null) || "None";
+                const username = await this.client.users.fetch(user.id).then(a => a.username).catch(() => null) || "N/A";
                 return { xp: user.xp ? user.xp : 0, username };
             }));
         for (let i = 0; i < userProfiles.length; i++) {
@@ -48,7 +45,9 @@ module.exports = class extends Command {
         const posNum = pos !== -1 ? pos + 1 : 0;
         leaderboard.push(`\n • ${posNum.toString().padStart(2, " ")} | ${msg.author.username.padEnd(30, " ")}::  ${msg.author.configs.xp.toLocaleString()} XP`);
         leaderboard.push("--------------------------------------------------");
-        return msg.channel.send(`${leaderboard.join("\n")}\n Page ${index + 1} / ${totalPages.toLocaleString() || 1} - ${userPos.length.toLocaleString()} Total Users`, { code: "asciidoc" });
+
+        load.delete();
+        return msg.channel.send(`${leaderboard.join("\n")}\n Page ${index + 1} / ${totalPages.toLocaleString() || 1} - ${users.length.toLocaleString()} Total Users`, { code: "asciidoc" });
     }
 
 };
