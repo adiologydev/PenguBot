@@ -36,7 +36,7 @@ module.exports = class extends Event {
         return text
             .replace(/{GUILD_NAME}/g, member.guild.name)
             .replace(/{USERNAME}/g, member.user.username)
-            .replace(/{DISPLAYNAME}/g, member.displayName)
+            .replace(/{DISPLAYNAME}/g, member.nickname)
             .replace(/{ID}/g, member.id)
             .replace(/{MENTION}/g, member.toString())
             .replace(/{SERVER}/g, member.guild.name)
