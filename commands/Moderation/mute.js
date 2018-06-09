@@ -22,7 +22,7 @@ module.exports = class extends Command {
         if (user.id === msg.author.id) return msg.reply(`<:penguError:435712890884849664> ***You can not mute yourself...***`);
         if (user.id === this.client.user.id) return msg.reply(`<:penguError:435712890884849664> ***Why would you want to mute Pengu?***`);
 
-        if (!msg.guild.roles.find("name", "PENGU_MUTED")) {
+        if (!msg.guild.roles.find(r => r.name === "PENGU_MUTED")) {
             await msg.guild.roles.create({
                 data: {
                     name: "PENGU_MUTED",
@@ -31,7 +31,7 @@ module.exports = class extends Command {
             });
         }
 
-        const role = msg.guild.roles.find("name", "PENGU_MUTED");
+        const role = msg.guild.roles.find(r => r.name === "PENGU_MUTED");
 
         if (user.roles.exists("id", role.id)) {
             await user.roles.remove(role).catch(console.error);
