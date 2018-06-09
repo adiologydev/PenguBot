@@ -9,6 +9,9 @@ module.exports = class extends Monitor {
     async run(msg) {
         if (!msg.guild || !msg.channel.postable || msg.author.id === this.client.user.id) return;
 
+        const member = await msg.guild.members.fetch("438049470094114816").catch(() => null);
+        if (member && !this.client.config.main.patreon) return;
+
         if (msg.mentions.users.size) {
             const mentioned = msg.mentions.users.first();
             if (mentioned.configs.afk.afk) {

@@ -15,6 +15,8 @@ module.exports = class extends Monitor {
         if (!msg.guild || !msg.channel.postable || !msg.guild.configs.customcmds.enabled) return;
         if (!msg.guild.configs.customcmds.cmds.length) return;
         if (this.cooldown.has(msg.author.id)) return;
+        const member = await msg.guild.members.fetch("438049470094114816").catch(() => null);
+        if (member && !this.client.config.main.patreon) return;
 
         const cmdName = msg.content.slice(msg.guild.configs.prefix.length).trim().split(/ +/g).shift().toLowerCase();
         if (this.client.commands.has(cmdName)) return;
