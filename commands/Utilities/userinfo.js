@@ -16,7 +16,8 @@ module.exports = class extends Command {
         this.timestamp = new Timestamp("d MMMM YYYY");
     }
 
-    async run(msg, [user = msg.member]) {
+    async run(msg, [user]) {
+        if (!user) user = await msg.guild.members.fetch(msg.author.id).catch(() => null);
         return msg.sendEmbed(new MessageEmbed()
             .setColor(user.displayHexColor ? user.displayHexColor : "#32c4e3")
             .setTimestamp()
