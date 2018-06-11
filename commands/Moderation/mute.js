@@ -33,7 +33,7 @@ module.exports = class extends Command {
 
         const role = msg.guild.roles.find(r => r.name === "PENGU_MUTED");
 
-        if (user.roles.exists("id", role.id)) {
+        if (user.roles.find(r => r.id === role.id)) {
             await user.roles.remove(role).catch(console.error);
             msg.guild.channels.forEach(async c => {
                 await c.updateOverwrite(role, { SEND_MESSAGES: false, ADD_REACTIONS: false, CONNECT: false }, `Mute Command Executed By ${msg.author.tag}`);
