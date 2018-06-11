@@ -206,13 +206,13 @@ module.exports = class extends Command {
     getRegion(region) {
         region = region.replace("vip-", "");
         for (const key in this.client.config.regions.defaultRegions) {
-            const nodes = this.client.lavalink.nodes.filter(node => node.connected && node.region === key);
+            const nodes = this.client.lavalink.nodes.filter(node => node.ready && node.region === key);
             if (!nodes) continue;
             for (const id of this.client.config.regions.defaultRegions[key]) {
                 if (id === region || region.startsWith(id) || region.includes(id)) return key;
             }
         }
-        return "us";
+        return this.client.lavalink.nodes.first().region;
     }
 
     getIdealHost(region) {
