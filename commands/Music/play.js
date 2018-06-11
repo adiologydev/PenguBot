@@ -122,7 +122,7 @@ module.exports = class extends Command {
                 await this.client.lavalink.join({
                     guild: msg.guild.id,
                     channel: msg.member.voiceChannelID,
-                    host: "localhost"
+                    host: this.getIdealHost(msg.guild.region)
                 }, { selfdeaf: true });
                 return this.musicPlay(song, guild);
             } catch (e) {
@@ -201,6 +201,25 @@ module.exports = class extends Command {
             .setColor("#d9534f")
             .setDescription([`• **Party Over:** All the songs from the queue have finished playing. Leaving voice channel.`,
                 `• **Support:** If you enjoyed PenguBot and it's features, please consider becoming a Patron at: https://www.Patreon.com/PenguBot`]);
+    }
+
+    getRegion(region) {
+        region = region.replace("vip-", "");
+        for (const key in this.client.config.regions.defaultRegions) {
+            const nodes = this.client.lavalink.nodes.filter(node => node.connected && node.region === key);
+            if (!nodes) continue;
+            for (const id of this.client.config.regions.defaultRegions[key]) {
+                if (id === region || region.startsWith(id) || region.includes(id)) return key;
+            }
+        }
+        return "us";
+    }
+
+    getIdealHost(region) {
+        region = this.getRegion(region);
+        const foundNode = this.client.lavalink.nodes.find(node => node.ready && node.region === region);
+        if (foundNode) return foundNode.host;
+        return this.client.lavalink.nodes.first().host;
     }
 
 };
