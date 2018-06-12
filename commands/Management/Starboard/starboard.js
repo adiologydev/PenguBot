@@ -43,7 +43,7 @@ module.exports = class extends Command {
                 .setDescription(Message.content)
                 .setAuthor(Message.author.tag, Message.author.displayAvatarURL())
                 .setTimestamp(new Date())
-                .setFooter(`⭐ 1 | ${Message.id}`);
+                .setFooter(`⭐ ${Message.reactions.get("⭐").count} | ${Message.id}`);
             if (image) embed.setImage(image);
             await starChannel.send({ embed });
         }

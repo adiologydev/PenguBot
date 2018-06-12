@@ -42,7 +42,7 @@ module.exports = class extends Event {
                 .setDescription(msg.content)
                 .setAuthor(msg.author.tag, msg.author.displayAvatarURL())
                 .setTimestamp(new Date())
-                .setFooter(`⭐ 1 | ${msg.id}`);
+                .setFooter(`⭐ ${msg.reactions.get("⭐").count} | ${msg.id}`);
             if (image) embed.setImage(image);
             await starChannel.send({ embed });
         }
