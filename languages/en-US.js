@@ -271,7 +271,17 @@ module.exports = class extends Language {
 
             // Game Stats
             COMMAND_FORTNITE_DESCRIPTION: "Get Fortnite Game Statistics within Discord.",
-            COMMAND_CRSTATS_DESCRIPTION: "Clash Royale Player Statistics within Discord."
+            COMMAND_CRSTATS_DESCRIPTION: "Clash Royale Player Statistics within Discord.",
+
+            // Starboard
+            COMMAND_TOGGLE_STARBOARD_DESCRPTION: "Allows Pengu Administrators and above to toggle Starboard in the guild.",
+            COMMAND_CHANNEL_STAR_DESCRPTION: "Allows Pengu Administrators and above to set a Starboard channel.",
+            COMMAND_REQUIRED_STAR_DESCRPTION: "Allows Pengu Administrators and above to set minimum stars before Starboard message.",
+            COMMAND_STAR_DESCRPTION: "Allows Pengu Moderators and above to force Starboard a message.",
+            MESSAGE_STAR_ENABLED: "Starboard has now been enabled.",
+            MESSAGE_STAR_DISABLED: "Starboard has now been disabled.",
+            MESSAGE_STARS_REQUIRED_SET: "Set the minimum Stars required before a message is sent to Starboard.",
+            MESSAGE_STAR_CHANNEL_SET: "Successfully set the Starboard channel."
         };
     }
 

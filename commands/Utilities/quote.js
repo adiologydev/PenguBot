@@ -16,12 +16,22 @@ module.exports = class extends Command {
     }
 
     async run(msg, [message]) {
+        const image = msg.attachments.size > 0 ? await this.checkAttachments(msg.attachments.array()[0].url) : null;
         const embed = new MessageEmbed()
             .setColor(message.member.displayHexColor)
             .setDescription(`${message.content}`)
             .setTimestamp(message.createdAt)
             .setAuthor(message.author.tag, message.author.displayAvatarURL());
+        if (image) embed.setImage(image);
         return msg.sendEmbed(embed);
+    }
+
+    checkAttachments(attachment) {
+        const imageLink = attachment.split(".");
+        const typeOfImage = imageLink[imageLink.length - 1];
+        const image = /(jpg|jpeg|png|gif)/gi.test(typeOfImage);
+        if (!image) return null;
+        return attachment;
     }
 
 };
