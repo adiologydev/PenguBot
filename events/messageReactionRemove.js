@@ -27,7 +27,7 @@ module.exports = class extends Event {
             const embed = new MessageEmbed()
                 .setColor(starEmbed.color)
                 .setDescription(starEmbed.description)
-                .setAuthor(msg.author.tag, msg.author.displayAvatarURL)
+                .setAuthor(msg.author.tag, msg.author.displayAvatarURL())
                 .setTimestamp()
                 .setFooter(`⭐ ${parseInt(star[1]) + 1} | ${msg.id}`);
             if (image) embed.setImage(image);

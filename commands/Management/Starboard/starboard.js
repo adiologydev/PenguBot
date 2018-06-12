@@ -29,7 +29,7 @@ module.exports = class extends Command {
             const embed = new MessageEmbed()
                 .setColor(starEmbed.color)
                 .setDescription(starEmbed.description)
-                .setAuthor(Message.author.tag, Message.author.displayAvatarURL)
+                .setAuthor(Message.author.tag, Message.author.displayAvatarURL())
                 .setTimestamp()
                 .setFooter(`⭐ ${parseInt(star[1]) + 1} | ${msg.id}`);
             if (image) embed.setImage(image);
