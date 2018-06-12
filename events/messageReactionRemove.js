@@ -21,7 +21,6 @@ module.exports = class extends Event {
         const starMsg = fetch.find(m => m.embeds[0] && m.embeds[0].footer.text.startsWith("⭐") && m.embeds[0].footer.text.endsWith(msg.id));
 
         if (starMsg) {
-            const star = /^\⭐\s([0-9]{1,3})\s\|\s([0-9]{17,20})/.exec(starMsg.embeds[0].footer.text); // eslint-disable-line
             const starEmbed = starMsg.embeds[0];
             const image = msg.attachments.size > 0 ? await this.checkAttachments(msg.attachments.array()[0].url) : null;
             const embed = new MessageEmbed()
@@ -29,7 +28,7 @@ module.exports = class extends Event {
                 .setDescription(starEmbed.description)
                 .setAuthor(msg.author.tag, msg.author.displayAvatarURL())
                 .setTimestamp()
-                .setFooter(`⭐ ${parseInt(star[1]) + 1} | ${msg.id}`);
+                .setFooter(`⭐ ${msg.reactions.get("⭐").count} | ${msg.id}`);
             if (image) embed.setImage(image);
             const oldMsg = await starChannel.messages.fetch(starMsg.id);
             if (!msg.reactions.get("⭐")) return oldMsg.delete();
