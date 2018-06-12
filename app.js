@@ -5,9 +5,10 @@ Raven.config(config.keys.sentry).install();
 
 function startBot() {
     new PenguClient({
-        prefix: "p!",
+        prefix: ["p!", "P!"],
         commandEditing: true,
         disableEveryone: true,
+        regexPrefix: new RegExp(/^((?:Hey |Ok )?Pengu(?:,|!| ))/i),
         ownerID: "136549806079344640",
         typing: true,
         disabledEvents: [
