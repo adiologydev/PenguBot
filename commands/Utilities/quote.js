@@ -18,7 +18,7 @@ module.exports = class extends Command {
     async run(msg, [message]) {
         const image = msg.attachments.size > 0 ? await this.checkAttachments(msg.attachments.array()[0].url) : null;
         const embed = new MessageEmbed()
-            .setColor(message.member.displayHexColor)
+            .setColor("#FAFAFA")
             .setDescription(`${message.content}`)
             .setTimestamp(message.createdAt)
             .setAuthor(message.author.tag, message.author.displayAvatarURL());
