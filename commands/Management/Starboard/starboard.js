@@ -38,6 +38,7 @@ module.exports = class extends Command {
         } else {
             const image = Message.attachments.size > 0 ? await this.checkAttachments(Message.attachments.array()[0].url) : null;
             if (!image && Message.content.length < 1) return msg.reply("Can not star an Empty Message.");
+            Message.react("⭐");
             const embed = new MessageEmbed()
                 .setColor(15844367)
                 .setDescription(Message.content)
