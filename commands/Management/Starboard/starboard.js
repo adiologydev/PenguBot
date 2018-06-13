@@ -21,41 +21,32 @@ module.exports = class extends Command {
         if (!starChannel || !starChannel.postable) return msg.reply("I do not have permissions to send Embeds in Starboard channel or Channel not found.");
         const fetch = await starChannel.messages.fetch({ limit: 100 });
         const starMsg = fetch.find(m => m.embeds[0] && m.embeds[0].footer.text.startsWith("⭐") && m.embeds[0].footer.text.endsWith(Message.id));
-
+        const attachment = msg.attachments.first();
+        const image = (attachment.height && attachment) || null;
         if (starMsg) {
             const star = /^\⭐\s([0-9]{1,3})\s\|\s([0-9]{17,20})/.exec(starMsg.embeds[0].footer.text); // eslint-disable-line
             const starEmbed = starMsg.embeds[0];
-            const image = Message.attachments.size > 0 ? await this.checkAttachments(Message.attachments.array()[0].url) : null;
             const embed = new MessageEmbed()
                 .setColor(starEmbed.color)
                 .setDescription(starEmbed.description)
+                .setImage(image)
                 .setAuthor(Message.author.tag, Message.author.displayAvatarURL())
                 .setTimestamp()
                 .setFooter(`⭐ ${msg.reactions.get("⭐").count} | ${msg.id}`);
-            if (image) embed.setImage(image);
             const oldMsg = await starChannel.messages.fetch(starMsg.id);
-            await oldMsg.edit({ embed });
+            return oldMsg.edit({ embed });
         } else {
-            const image = Message.attachments.size > 0 ? await this.checkAttachments(Message.attachments.array()[0].url) : null;
-            if (!image && Message.content.length < 1) return msg.reply("Can not star an Empty Message.");
+            if (!image && !Message.content) return msg.reply("Can not star an Empty Message.");
             await Message.react("⭐");
             const embed = new MessageEmbed()
                 .setColor(15844367)
                 .setDescription(Message.content)
+                .setImage(image)
                 .setAuthor(Message.author.tag, Message.author.displayAvatarURL())
                 .setTimestamp(new Date())
                 .setFooter(`⭐ ${Message.reactions.get("⭐").count} | ${Message.id}`);
-            if (image) embed.setImage(image);
-            await starChannel.send({ embed });
+            return starChannel.send({ embed });
         }
-    }
-
-    checkAttachments(attachment) {
-        const imageLink = attachment.split(".");
-        const typeOfImage = imageLink[imageLink.length - 1];
-        const image = /(jpg|jpeg|png|gif)/gi.test(typeOfImage);
-        if (!image) return null;
-        return attachment;
     }
 
 };
