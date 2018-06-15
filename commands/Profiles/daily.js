@@ -23,7 +23,7 @@ module.exports = class extends Command {
         const reward = upvoter ? 300 : 100;
 
         if (msg.author.configs.daily > 0) {
-            await msg.author.configs._syncStatus;
+            await msg.author.configs.waitSync();
             const now = Date.now();
             const last = msg.author.configs.daily;
             const diff = now - last;

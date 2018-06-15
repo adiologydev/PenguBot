@@ -19,7 +19,7 @@ module.exports = class extends Command {
         if (title.length > 30) {
             return msg.reply("Your title can not be more than 30 characters long, please enter a smaller one.");
         }
-        await msg.author.configs._syncStatus;
+        await msg.author.configs.waitSync();
         msg.author.configs.update("title", title);
         return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Your profile title has been updated to:*** ${title}`);
     }

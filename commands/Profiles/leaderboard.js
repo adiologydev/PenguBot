@@ -20,7 +20,7 @@ module.exports = class extends Command {
             users = await r.table("users").orderBy(r.desc("xp")).pluck("id", "xp").run();
             this.client.topCache = users;
         }
-        await msg.author.configs._syncStatus;
+        await msg.author.configs.waitSync();
 
         const leaderboard = [];
         const totalPages = Math.round(users.length / 10);

@@ -21,7 +21,7 @@ module.exports = class extends Monitor {
         const member = await msg.guild.members.fetch("438049470094114816").catch(() => null);
         if (member && !this.client.config.main.patreon) return;
 
-        await msg.author.configs._syncStatus;
+        await msg.author.configs.waitSync();
         if (!msg.author.configs) return;
 
         const randomXP = this.client.functions.randomNumber(1, 5);

@@ -18,12 +18,12 @@ module.exports = class extends Command {
 
     async run(msg, [user, amount]) {
         if (!user) {
-            await msg.author.configs._syncStatus;
+            await msg.author.configs.waitSync();
             return msg.reply(`❄ | **Your account balance is:** ${msg.author.configs.snowflakes.toLocaleString()} Snowflakes.`);
         } else if (!amount) {
             return msg.reply("You've not specified the amount of **Snowflake(s)** to send.");
         } else {
-            await msg.author.configs._syncStatus;
+            await msg.author.configs.waitSync();
             const currSnowflakes = msg.author.configs.snowflakes;
             if (amount >= currSnowflakes) return msg.reply("Your account balance is low, please enter an amount which you have.");
             if (user.bot) return msg.reply("You can not send Snowflakes to bot accounts.");
@@ -31,7 +31,7 @@ module.exports = class extends Command {
             const userSnowflakes = user.configs.snowflakes;
             const confirm = await msg.awaitReply(`${msg.author}, Please confirm the transfer of ❄ **${amount.toLocaleString()} Snowflake(s)** to ${user} by typing \`YES\` or \`NO\`.`);
             if (confirm.toLowerCase() === "yes" || confirm.toLowerCase() === "y") {
-                await user.configs._syncStatus;
+                await user.configs.waitSync();
                 msg.author.configs.update("snowflakes", currSnowflakes - amount);
                 user.configs.update("snowflakes", userSnowflakes + amount);
                 return msg.reply(`❄ | **You've sent \`${amount}\` Snowflake(s) to ${user}!**`);

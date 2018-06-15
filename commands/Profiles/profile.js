@@ -29,7 +29,7 @@ module.exports = class extends Command {
     }
 
     async createImage(user) {
-        await user.configs._syncStatus;
+        await user.configs.waitSync();
         const r = this.client.providers.default.db;
         const { xp, level: lvl, snowflakes, reps, title } = user.configs;
 

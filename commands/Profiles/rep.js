@@ -25,7 +25,7 @@ module.exports = class extends Command {
             }
         }
         if (msg.author.configs.repcooldown > 0) {
-            await msg.author.configs._syncStatus;
+            await msg.author.configs.waitSync();
             const now = Date.now();
             const last = msg.author.configs.repcooldown;
             const diff = now - last;
