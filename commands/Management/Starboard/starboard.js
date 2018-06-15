@@ -31,7 +31,7 @@ module.exports = class extends Command {
                 .setDescription(starEmbed.description)
                 .setAuthor(Message.author.tag, Message.author.displayAvatarURL())
                 .setTimestamp()
-                .setFooter(`⭐ ${msg.reactions.get("⭐").count} | ${msg.id}`);
+                .setFooter(`⭐ ${Message.reactions.get("⭐").count} | ${msg.id}`);
             if (image) embed.setImage(image);
             const oldMsg = await starChannel.messages.fetch(starMsg.id);
             await oldMsg.edit({ embed });
