@@ -24,7 +24,7 @@
  */
 
 const { Task } = require("klasa");
-const { util: { binaryToID } } = require("discord.js");
+const { util: { binaryToID }, WebhookClient } = require("discord.js");
 
 // THRESHOLD equals to 30 minutes in milliseconds:
 //     - 1000 milliseconds = 1 second
@@ -43,6 +43,11 @@ const HEADER = `\u001B[39m\u001B[94m[CACHE CLEANUP]\u001B[39m\u001B[90m`;
  * @extends {Task}
  */
 module.exports = class MemorySweeper extends Task {
+
+    constructor(...args) {
+        super(...args);
+        this.webhook = new WebhookClient("457561275392589834", this.client.config.webhooks.cleaner);
+    }
 
     async run() {
         const OLD_SNOWFLAKE = binaryToID(((Date.now() - THRESHOLD) - EPOCH).toString(2).padStart(42, "0") + EMPTY);
@@ -96,6 +101,11 @@ module.exports = class MemorySweeper extends Task {
                 this.setColor(users)} [User]s | ${
                 this.setColor(emojis)} [Emoji]s | ${
                 this.setColor(lastMessages)} [Last Message]s.`);
+        if (!this.client.config.main.patreon) {
+            this.webhook.send(`\`\`\`| Presences | guildMembers | users | emojis | lastMessages |\n
+|-----------|--------------|-------|--------|--------------|
+| ${presences} | ${guildMembers} | ${users} | ${emojis} | ${lastMessages} |\`\`\``);
+        }
     }
 
     /**

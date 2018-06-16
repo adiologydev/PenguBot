@@ -19,7 +19,6 @@ module.exports = class extends Monitor {
         if (!msg.guild) return;
         if (timeout.has(msg.author.id)) return;
         if (this.client.config.main.patreon) return;
-        if (this.client.configs.userBlacklist.includes(msg.author.id) || this.client.configs.guildBlacklist.includes(msg.guild.id)) return;
 
         await msg.author.configs.waitSync();
         if (!msg.author.configs) return;

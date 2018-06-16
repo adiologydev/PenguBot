@@ -35,7 +35,7 @@
     "fast-html-parser": "^1.0.1",
     "google-translate-api": "^2.3.0",
     "heapdump": "^0.3.9",
-    "idiotic-api": "^0.2.9",
+    "idiotic-api": "^0.2.10",
     "klasa": "github:dirigeants/klasa",
     "mysql2": "^1.5.3",
     "random-puppy": "^1.1.0",

@@ -8,7 +8,6 @@ module.exports = class extends Monitor {
 
     async run(msg) {
         if (!msg.guild || !msg.channel.postable || msg.author.id === this.client.user.id) return;
-        if (this.client.configs.userBlacklist.includes(msg.author.id) || this.client.configs.guildBlacklist.includes(msg.guild.id)) return;
         if (this.client.config.main.patreon) return;
         if (msg.mentions.users.size) {
             const mentioned = msg.mentions.users.first();
