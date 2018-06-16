@@ -14,6 +14,8 @@ module.exports = class extends Monitor {
     async run(msg) {
         if (!msg.guild || !msg.channel.postable || !msg.guild.configs.customcmds.enabled) return;
         if (!msg.guild.configs.customcmds.cmds.length) return;
+        if (this.client.configs.userBlacklist.includes(msg.author.id) || this.client.configs.guildBlacklist.includes(msg.guild.id)) return;
+
         if (this.cooldown.has(msg.author.id)) return;
         const member = await msg.guild.members.fetch("438049470094114816").catch(() => null);
         if (member && !this.client.config.main.patreon) return;
