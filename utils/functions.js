@@ -21,11 +21,15 @@ class Util {
     static async postStats(client) {
         if (client.user.id !== "303181184718995457") return;
         const stats = { server_count: client.guilds.size, shard_id: client.shard.id, shard_count: client.shard.count };
+
+        const allGuilds = await client.shard.fetchClientValues("guilds.size");
         return Promise.all([
             snekfetch.post(`https://discordbots.org/api/bots/${client.user.id}/stats`)
                 .set("Authorization", config.keys.dbl).send(stats),
             snekfetch.post(`https://bots.discord.pw/api/bots/${client.user.id}/stats`)
-                .set("Authorization", config.keys.dbpw).send(stats)
+                .set("Authorization", config.keys.dbpw).send(stats),
+            snekfetch.post(`https://botsfordiscord.com/api/v1/bots/${client.user.id}`)
+                .set("Authorization", config.keys.b4d).send({ server_count: allGuilds.reduce((prev, val) => prev + val, 0) })
         ]);
     }
 
