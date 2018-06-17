@@ -44,7 +44,7 @@ module.exports = class extends Language {
                 "• **Crypto Donations:** https://1upcoin.com/donate/adityatd",
                 "• **PenguBot's Donation Page:** https://www.PenguBot.com/donate"
             ],
-            COMMAND_HELP_NODM: "<:penguError:435712890884849664> | You have DMs disabled, I couldn't send you the commands in DMs.",
+            COMMAND_HELP_NODM: "📪 | You have DMs disabled, I couldn't send you the commands in DMs so here's a link to all the commands: <https://www.pengubot.com/commands>",
             COMMAND_UPVOTE: ["**__Vote for PenguBot__**",
                 "Want PenguBot to become bigger and be available in more guilds you visit?",
                 "Then vote for PenguBot via the link below and also unlock access to",
