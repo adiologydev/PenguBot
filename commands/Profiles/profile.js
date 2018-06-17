@@ -39,7 +39,7 @@ module.exports = class extends Command {
 
         let users;
         if (this.client.topCache) { users = this.client.topCache; } else {
-            users = await r.table("users").orderBy(r.desc("xp")).pluck("id", "xp").run();
+            users = await r.table("users").orderBy({ index: r.desc("xp") }).pluck("id", "xp").run();
             this.client.topCache = users;
         }
         const pos = users.findIndex(i => i.id === user.id);

@@ -19,6 +19,7 @@ module.exports = class extends Command {
         if (user.bot) {
             return msg.sendMessage("❄ | ***You can not give your daily Snowflakes to a bot!***");
         }
+
         const upvoter = this.client.functions.isUpvoter(msg.author.id);
         const reward = upvoter ? 300 : 100;
 

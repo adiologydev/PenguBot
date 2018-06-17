@@ -17,7 +17,7 @@ module.exports = class extends Command {
         const r = this.client.providers.default.db;
         let users;
         if (this.client.topCache) { users = this.client.topCache; } else {
-            users = await r.table("users").orderBy(r.desc("xp")).pluck("id", "xp").run();
+            users = await r.table("users").orderBy({ index: r.desc("xp") }).pluck("id", "xp").run();
             this.client.topCache = users;
         }
         await msg.author.configs.waitSync();
