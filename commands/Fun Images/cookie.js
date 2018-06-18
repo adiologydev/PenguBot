@@ -27,7 +27,7 @@ module.exports = class extends Command {
             .setTimestamp()
             .setImage(cookies[Math.floor(Math.random() * cookies.length)])
             .setColor("RANDOM");
-        return msg.sendMessage(`***<@${user.id}>, you've been given a cookie by ${msg.author}!***`, { embed: embed });
+        return msg.sendMessage(msg.language.get("COMMAND_COOKIE_MESSAGE", user.id, msg.author), { embed: embed });
     }
 
 };

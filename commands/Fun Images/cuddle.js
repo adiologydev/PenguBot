@@ -25,7 +25,7 @@ module.exports = class extends Command {
             .setTimestamp()
             .setImage(body.url)
             .setColor("RANDOM");
-        return msg.sendMessage(`🤗 | ***${user}, you just got cuddled by ${msg.author}!***`, { embed: embed });
+        return msg.sendMessage(msg.language.get("COMMAND_COOKIE_MESSAGE", user, msg.author), { embed: embed });
     }
 
 };

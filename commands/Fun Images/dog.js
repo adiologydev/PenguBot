@@ -23,7 +23,7 @@ module.exports = class extends Command {
             .setFooter("© PenguBot.com")
             .setTimestamp()
             .setColor("RANDOM")
-            .setDescription(`**Dog Picture**`)
+            .setDescription(msg.language.get("COMMAND_DOG_EMBED_DESCRIPTION_MESSAGE"))
             .setImage(body[0]);
         return msg.sendEmbed(embed);
     }

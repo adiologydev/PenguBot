@@ -28,7 +28,7 @@ module.exports = class extends Command {
             .setTimestamp()
             .setImage(punches[Math.floor(Math.random() * punches.length)])
             .setColor("RANDOM");
-        return msg.sendMessage(`👊 | ***${user}, you just got punched by ${msg.author}!***`, { embed: embed });
+        return msg.sendMessage(msg.language.get("COMMAND_PUNCH_MESSAGE", user, msg.author), { embed: embed });
     }
 
 };
