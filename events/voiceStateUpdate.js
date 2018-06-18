@@ -6,10 +6,11 @@ module.exports = class extends Event {
         setTimeout(async () => {
             const queue = this.client.queue.get(newMem.guild.id);
             if (!queue) return;
-            if (!oldMem.guild.me.voiceChannel) return;
+            const _voiceCh = oldMem.guild.me.voiceChannel;
+            if (!_voiceCh) return;
             if (this.client.config.main.patreon === true) return;
             setTimeout(async () => {
-                if (oldMem.voiceChannel === oldMem.guild.me.voiceChannel && newMem.voiceChannel !== newMem.guild.me.voiceChannel && newMem.guild.me.voiceChannel.members.size === 1) {
+                if (_voiceCh.members.filter(mem => !mem.user.bot).size < 1) {
                     try {
                         await this.client.lavalink.leave(newMem.guild.id);
                         queue.tc.send("<:penguError:435712890884849664> ***No one left in Voice Channel, leaving...***");
