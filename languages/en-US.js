@@ -202,10 +202,11 @@ module.exports = class extends Language {
             COMMAND_WANTED_DESCRIPTION: "Print some Wanted posters of who is wanted by the sherrif department.",
             COMMAND_VAULT_DESCRIPTION: "Be the ICONIC Vault boy or make someone else be one.",
             COMMAND_GARBAGE_DESCRIPTION: "Garbage someone because they're trash.",
-            COMMAND_APPROVE_DESCRIPTION: "Give someone a seal of approval",
+            COMMAND_APPROVED_DESCRIPTION: "Give someone a seal of approval",
             COMMAND_REJECT_DESCRIPTION: "Reject someone, their quality isn't upto the mark.",
             COMMAND_TINDER_DESCRIPTION: "You Have a Match, let's match you with someone!",
             COMMAND_MISSING_DESCRIPTION: "Has your dear one went missing? Get them a poster.",
+            COMMAND_SNAPCHAT_DESCRIPTION: "Create a Snapchat Meme Image.",
 
             // NSFW Commands
             COMMAND_ANAL_DESCRIPTION: "-NOT SAFE FOR WORK- Anal images.",
