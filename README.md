@@ -25,6 +25,8 @@ Join Discord for Support and Development https://discord.gg/u8WYw5r
 
 [**Kyra**](https://github.com/kyranet)
 
+[**random-puppy**](https://github.com/dylang/random-puppy/)
+
 ## Hosting
 We're proudly hosted by [DigitalOcean](https://m.do.co/c/bfc0c187cdec). Visit the link by clicking the image below to avail Free $10 credits to try out the services.
 

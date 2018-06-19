@@ -1,5 +1,4 @@
 const { Command } = require("klasa");
-const randomPuppy = require("random-puppy");
 const subReddits = ["realgirls", "amateur", "homemadexxx", "AmateurArchives", "dirtypenpals", "FestivalSluts", "CollegeAmateurs", "amateurcumsluts", "nsfw_amateurs", "funwithfriends", "randomsexiness", "amateurporn", "normalnudes"];
 const { MessageEmbed } = require("discord.js");
 
@@ -20,10 +19,10 @@ module.exports = class extends Command {
         if (!this.client.functions.isUpvoter(msg.author.id)) return msg.sendMessage(`<:penguError:435712890884849664> ***You are not an up-voter of PenguBot, please visit <https://discordbots.org/bot/PenguBot/vote> to vote now and get access!***`);
 
         try {
-            let img = await randomPuppy(subReddits[Math.floor(Math.random() * subReddits.length)]);
+            let img = await this.client.functions.scrapeSubreddit(subReddits[Math.floor(Math.random() * subReddits.length)]);
             if (!img) return msg.sendMessage(`Too fast, too furious, try again!`);
             if (img.indexOf(".mp4")) {
-                img = await randomPuppy(subReddits[Math.floor(Math.random() * subReddits.length)]);
+                img = await this.client.functions.scrapeSubreddit(subReddits[Math.floor(Math.random() * subReddits.length)]);
             }
             const embed = new MessageEmbed()
                 .setFooter("© PenguBot.com")

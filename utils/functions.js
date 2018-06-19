@@ -80,6 +80,17 @@ class Util {
         return results;
     }
 
+    // Modified code from `github:dylang/random-puppy`
+    static async scrapeSubreddit(subreddit) {
+        subreddit = typeof subreddit === "string" && subreddit.length !== 0 ? subreddit : "puppies";
+        return snekfetch.get(`https://imgur.com/r/${subreddit}/hot.json`)
+            .then(res => {
+                if (!res.body.data) return;
+                const img = res.body.data[Math.floor(Math.random() * res.body.data.length)];
+                return `http://imgur.com/${img.hash}${img.ext.replace(/\?.*/, "")}`;
+            });
+    }
+
     /*  static async execute(client, guildid = undefined) {
         const con = await mysql.createConnection({ host: config.migrate.host, user: config.migrate.user, password: config.migrate.password, database: config.migrate.database });
         const [rows] = await con.execute(`SELECT * FROM settings WHERE guild IN ('${[...client.guilds.keys()].join("', '")}');`);

@@ -1,6 +1,6 @@
 const { Command } = require("klasa");
 const { get } = require("snekfetch");
-const { parse } = require("fast-html-parser");
+const { load } = require("cheerio");
 const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
@@ -21,11 +21,11 @@ module.exports = class extends Command {
             Error.captureStackTrace(e);
             return e;
         });
-        const root = parse(html);
-        const article = root.querySelector(".block a");
+        const $ = load(html);
+        const article = $("p").find("a").first().text();
 
         const embed = new MessageEmbed()
-            .setDescription(`**F*ck My Life**\n${article.text}`)
+            .setDescription(`**F*ck My Life**\n${article}`)
             .setThumbnail("https://i.imgur.com/XW16vXq.png")
             .setColor("RANDOM");
         return msg.sendMessage({ embed: embed });
