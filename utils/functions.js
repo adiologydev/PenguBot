@@ -1,7 +1,7 @@
 const validURlRegex = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/; // eslint-disable-line no-useless-escape
 const snekfetch = require("snekfetch");
 const config = require("../config");
-const mysql = require("mysql2/promise");
+// const mysql = require("mysql2/promise");
 
 class Util {
 
@@ -80,7 +80,7 @@ class Util {
         return results;
     }
 
-    static async execute(client, guildid = undefined) {
+    /*  static async execute(client, guildid = undefined) {
         const con = await mysql.createConnection({ host: config.migrate.host, user: config.migrate.user, password: config.migrate.password, database: config.migrate.database });
         const [rows] = await con.execute(`SELECT * FROM settings WHERE guild IN ('${[...client.guilds.keys()].join("', '")}');`);
         for (const row of rows) {
@@ -114,15 +114,15 @@ class Util {
                     if (enabled && channelid && guild.channels.has(channelid)) await guild.configs.update(["messages.leave.enabled", "messages.leave.channel"], [true, channelid]);
                     continue;
                 }
-                /* Autoroles - Disabled due to explicit errors while migrating
+                // Autoroles - Disabled due to explicit errors while migrating
                 if (key === "AutoRole") {
                     await guild.configs.update(["autoroles.roles", "autoroles.enabled"], [value, true], guild);
                     continue;
-                } */
+                }
                 await guild.configs.update(key, value);
             }
         }
-    }
+   } */
 
 }
 
