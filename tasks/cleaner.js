@@ -91,7 +91,7 @@ module.exports = class MemorySweeper extends Task {
         }
 
         // Clean Profiles Cache
-        if (this.client.topCache) this.client.topCache = null;
+        if (this.client.topCache) this.client.topCache.length = 0;
 
         // Emit a log
         this.client.emit("verbose",
@@ -104,7 +104,7 @@ module.exports = class MemorySweeper extends Task {
         if (!this.client.config.main.patreon) {
             this.webhook.send(`\`\`\`| Presences | guildMembers | users | emojis | lastMessages |\n
 |-----------|--------------|-------|--------|--------------|
-| ${presences} | ${guildMembers} | ${users} | ${emojis} | ${lastMessages} |\`\`\``);
+|     ${presences}     |     ${guildMembers}    |      ${users}      |     ${emojis}    |      ${lastMessages}      |\`\`\``);
         }
     }
 

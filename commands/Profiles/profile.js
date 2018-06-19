@@ -38,7 +38,7 @@ module.exports = class extends Command {
         const xpProg = Math.round(((xp - oldLvl) / (nextLvl - oldLvl)) * 269);
 
         let users;
-        if (this.client.topCache) { users = this.client.topCache; } else {
+        if (this.client.topCache.length) { users = this.client.topCache; } else {
             users = await r.table("users").orderBy({ index: r.desc("xp") }).pluck("id", "xp").run();
             this.client.topCache = users;
         }
