@@ -21,7 +21,9 @@ module.exports = class extends Command {
         }
 
         const upvoter = this.client.functions.isUpvoter(msg.author.id);
-        const reward = upvoter ? 300 : 100;
+        let reward;
+        if (upvoter) reward = 300;
+        reward = 100;
 
         if (msg.author.configs.daily > 0) {
             await msg.author.configs.waitSync();
