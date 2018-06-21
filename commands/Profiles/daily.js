@@ -20,7 +20,7 @@ module.exports = class extends Command {
             return msg.sendMessage("❄ | ***You can not give your daily Snowflakes to a bot!***");
         }
 
-        const upvoter = await this.client.functions.isUpvoter(msg.author.id);
+        const upvoter = this.client.functions.isUpvoter(msg.author.id);
         let reward;
         if (upvoter) reward = 300;
         reward = 100;
