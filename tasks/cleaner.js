@@ -102,9 +102,7 @@ module.exports = class MemorySweeper extends Task {
                 this.setColor(emojis)} [Emoji]s | ${
                 this.setColor(lastMessages)} [Last Message]s.`);
         if (!this.client.config.main.patreon) {
-            this.webhook.send(`\`\`\`| Presences | guildMembers | users | emojis | lastMessages |\n
-|-----------|--------------|-------|--------|--------------|
-|     ${presences}     |     ${guildMembers}    |      ${users}      |     ${emojis}    |      ${lastMessages}      |\`\`\``);
+            this.webhook.send(`🗑 **CLEANER - Shard:** ${this.client.shard.id + 1}/${this.client.shard.count}\`\`\`| Presences: ${presences} | guildMembers: ${guildMembers} | users: ${users} | emojis: ${emojis} | lastMessages: ${lastMessages} |\`\`\``);
         }
     }
 
