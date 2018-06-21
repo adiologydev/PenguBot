@@ -11,8 +11,8 @@ class Util {
             .then(res => `https://hastebin.com/${res.body.key}.${extension}`);
     }
 
-    static isUpvoter(id) {
-        return snekfetch.get("https://discordbots.org/api/bots/303181184718995457/check")
+    static async isUpvoter(id) {
+        return await snekfetch.get("https://discordbots.org/api/bots/303181184718995457/check")
             .set("Authorization", config.keys.dbl)
             .query("userId", id)
             .then(res => Boolean(res.body.voted));
