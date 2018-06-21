@@ -20,10 +20,8 @@ module.exports = class extends Command {
             return msg.sendMessage("❄ | ***You can not give your daily Snowflakes to a bot!***");
         }
 
-        const upvoter = this.client.functions.isUpvoter(msg.author.id);
-        let reward;
-        if (upvoter) reward = 300;
-        reward = 100;
+        const upvoter = await this.client.functions.isUpvoter(msg.author.id);
+        const reward = upvoter ? 300 : 100;
 
         if (msg.author.configs.daily > 0) {
             await msg.author.configs.waitSync();
