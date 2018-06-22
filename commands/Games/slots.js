@@ -31,13 +31,13 @@ module.exports = class extends Command {
         const Bthree = slots[Math.floor(Math.random() * slots.length)];
 
         if (Mone === Mtwo || Mone === Mthree || Mthree === Mtwo) {
-            const flakesPercent = Math.round(Snowflakes * 50 / 100) >= 1 ? Math.round(Snowflakes * 50 / 100) : 1;
-            const winFlakes = msg.author.configs.snowflakes + Snowflakes + flakesPercent;
+            const flakesPercent = Math.round(Snowflakes * 60 / 100) >= 1 ? Math.round(Snowflakes * 50 / 100) : 1;
+            const winFlakes = msg.author.configs.snowflakes - Snowflakes + flakesPercent;
             const embed = new MessageEmbed()
                 .setFooter("© PenguBot.com")
                 .setTimestamp()
                 .setDescription(`${Tone} | ${Ttwo} | ${Tthree}\n${Mone} | ${Mtwo} | ${Mthree}\n${Bone} | ${Btwo} | ${Bthree}`)
-                .setColor("RANDOM");
+                .setColor("#43A047");
             await msg.author.configs.update("snowflakes", winFlakes);
             return msg.sendMessage(`***${msg.author} You just won ❄ \`${flakesPercent}\`, you now have ❄ \`${msg.author.configs.snowflakes}\`! Good job!***`, { embed: embed });
         }
@@ -45,7 +45,7 @@ module.exports = class extends Command {
             .setFooter("© PenguBot.com")
             .setTimestamp()
             .setDescription(`${Tone} | ${Ttwo} | ${Tthree}\n${Mone} | ${Mtwo} | ${Mthree}\n${Bone} | ${Btwo} | ${Bthree}`)
-            .setColor("RANDOM");
+            .setColor("#d32f2f");
         await msg.author.configs.update("snowflakes", msg.author.configs.snowflakes - Snowflakes);
         return msg.sendMessage(`***${msg.author} You lost ❄ \`${Snowflakes}\`, you now have ❄ \`${msg.author.configs.snowflakes}\`! Better luck next time!***`, { embed: embed });
     }
