@@ -3,6 +3,11 @@ const { Finalizer } = require("klasa");
 module.exports = class extends Finalizer {
 
     async run(msg) {
+        const cmds = this.client.health.commands.temp;
+        if (!cmds[msg.command.name]) cmds[msg.command.name] = 0;
+        cmds[msg.command.name] += 1;
+        this.client.health.commands.temp.count += 1;
+
         const config = this.client.configs;
         const cmd = msg.command.name;
         let count = config.counter.commands.find(c => c.name === cmd);
