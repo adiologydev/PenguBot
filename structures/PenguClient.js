@@ -21,11 +21,11 @@ class PenguClient extends Client {
             commands: {
                 temp: {
                     count: 0,
-				    ran: {}
+                    ran: {}
                 },
                 cmdCount: new Array(60).fill({
                     count: 0,
-				    ran: {}
+                    ran: {}
                 })
             }
         });
