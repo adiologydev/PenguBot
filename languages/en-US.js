@@ -275,6 +275,7 @@ module.exports = class extends Language {
             // Game Stats
             COMMAND_FORTNITE_DESCRIPTION: "Get Fortnite Game Statistics within Discord.",
             COMMAND_CRSTATS_DESCRIPTION: "Clash Royale Player Statistics within Discord.",
+            COMMAND_COCSTATS_DESCRIPTION: "Clash of Clans Player Statistics within Discord.",
 
             // Starboard
             COMMAND_TOGGLE_STARBOARD_DESCRPTION: "Allows Pengu Administrators and above to toggle Starboard in the guild.",
