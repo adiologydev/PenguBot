@@ -12,6 +12,7 @@ module.exports = class extends Command {
             description: msg => msg.language.get("COMMAND_STOP_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
+        this.music = true;
     }
 
     async run(msg) {

@@ -14,6 +14,7 @@ module.exports = class extends Command {
             usage: "<song:string>",
             extendedHelp: "No extended help available."
         });
+        this.music = true;
     }
 
     /* eslint-disable complexity */
