@@ -11,15 +11,16 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        let [users, guilds, channels, memory, vc] = [0, 0, 0, 0, 0];
+        let [users, guilds, channels, memory, vc, cpm] = [0, 0, 0, 0, 0, 0];
 
-        const results = await this.client.shard.broadcastEval(`[this.guilds.reduce((prev, val) => val.memberCount + prev, 0), this.guilds.size, this.channels.size, (process.memoryUsage().heapUsed / 1024 / 1024), this.lavalink.size]`);
+        const results = await this.client.shard.broadcastEval(`[this.guilds.reduce((prev, val) => val.memberCount + prev, 0), this.guilds.size, this.channels.size, (process.memoryUsage().heapUsed / 1024 / 1024), this.lavalink.size, this.health.commands.cmdCount[59].count]`);
         for (const result of results) {
             users += result[0];
             guilds += result[1];
             channels += result[2];
             memory += result[3];
             vc += result[4];
+            cpm += result[5];
         }
 
         const embed = new MessageEmbed()
@@ -33,7 +34,7 @@ module.exports = class extends Command {
             .addField("❯ Channels", channels.toLocaleString(), true)
             .addField("❯ Voice Streams", vc.toLocaleString(), true)
             .addField("❯ Total Commands Ran", this.client.configs.counter.total, true)
-            .addField("❯ CPM", this.client.health.commands.cmdCount[59].count, true)
+            .addField("❯ CPM", cpm, true)
             .addField("❯ Discord Version", discordVersion, true)
             .addField("❯ Shards", `${this.client.shard.id + 1} / ${this.client.shard.count}`, true)
             .setAuthor("PenguBot - Statistics", this.client.user.displayAvatarURL(), "https://www.pengubot.com");
