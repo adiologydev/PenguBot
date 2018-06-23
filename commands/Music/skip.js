@@ -13,6 +13,7 @@ module.exports = class extends Command {
             extendedHelp: "No extended help available."
         });
         this.votes = new Map();
+        this.music = true;
     }
 
     async run(msg) {
