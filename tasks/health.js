@@ -5,7 +5,7 @@ module.exports = class extends Task {
     async run() {
         this.client.health.cmd.cmdCount.shift();
         this.client.health.cmd.cmdCount.push(this.client.health.commands.temp);
-        this.client.health.commands.tempCount = {
+        this.client.health.commands.temp = {
             count: 0,
             ran: {}
         };
