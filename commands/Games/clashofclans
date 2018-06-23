@@ -21,7 +21,7 @@ module.exports = class extends Command {
             .catch(error => {
                 if (error.reason === "notFound") msg.sendMessage("<:penguError:435712890884849664> ***Invalid Tag, please retry with a valid one which you can find under In-game.***");
                 Error.captureStackTrace(error);
-                return msg.reply("There was an error, please try again later.");
+                return null;
             });
 
         if (!data) return msg.reply("Couldn't find your data, try again later.");
