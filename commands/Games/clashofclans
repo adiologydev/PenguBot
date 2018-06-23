@@ -41,13 +41,13 @@ module.exports = class extends Command {
         .addField('Best Trophies', playerData.bestTrophies, true);
         let troopLevels = '', spellLevels = '', heroLevels= '';
       
-        playerData.troops.forEach(troop => troopLevels += `${troop.name} ${troop.level} ${troop.level === troop.maxLevel ? "🔥\n" : "\n"}`);
+        playerData.troops.forEach(troop => troopLevels += `${troop.name}: ${troop.level} ${troop.level === troop.maxLevel ? "🔥\n" : "\n"}`);
         if (troopLevels) embed.addField('Troop Levels', troopLevels);
 
-        playerData.spells.forEach(spell => spellLevels += `${spell.name} ${spell.level} ${spell.level === spell.maxLevel ? "🔥\n" : "\n"}`);
+        playerData.spells.forEach(spell => spellLevels += `${spell.name}: ${spell.level} ${spell.level === spell.maxLevel ? "🔥\n" : "\n"}`);
         if (spellLevels) embed.addField('Troop Levels', spellLevels);
 
-        playerData.heroes.forEach(hero => heroLevels += `${hero.name} ${hero.level} ${hero.level === hero.maxLevel ? "🔥\n" : "\n"}`);
+        playerData.heroes.forEach(hero => heroLevels += `${hero.name}: ${hero.level} ${hero.level === hero.maxLevel ? "🔥\n" : "\n"}`);
         if (heroLevels) embed.addField('Troop Levels', heroLevels);    
         return msg.sendMessage(embed);
     }
