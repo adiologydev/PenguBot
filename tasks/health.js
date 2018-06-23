@@ -13,7 +13,7 @@ module.exports = class extends Task {
 
     async init() {
         if (!this.client.configs.schedules.some(task => task.taskName === this.name)) {
-            await this.client.schedule.create(this.name, "*/1 * * * *");
+            await this.client.schedule.create(this.name, "* * * * *");
         }
     }
 
