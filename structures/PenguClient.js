@@ -17,6 +17,18 @@ class PenguClient extends Client {
         this.whStatus = new WebhookClient("451318929814716426", this.config.webhooks.status);
         this.topCache = [];
         this.uPosCache = null;
+        this.health = Object.seal({
+            commands: {
+                temp: {
+                    count: 0,
+				    ran: {}
+                },
+                cmdCount: new Array(60).fill({
+                    count: 0,
+				    ran: {}
+                })
+            }
+        });
         this.rawEvents = new RawEventStore(this);
         this.registerStore(this.rawEvents);
     }
