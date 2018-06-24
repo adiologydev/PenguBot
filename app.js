@@ -8,7 +8,7 @@ function startBot() {
         prefix: ["p!", "P!"],
         commandEditing: true,
         disableEveryone: true,
-        regexPrefix: new RegExp(/^((?:Hey |Ok )?Pengu(?:,|!| ))/i),
+        regexPrefix: /^((?:Hey |Ok )?Pengu(?:,|!| ))/i,
         ownerID: "136549806079344640",
         typing: true,
         disabledEvents: [

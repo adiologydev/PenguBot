@@ -20,7 +20,7 @@ module.exports = class extends Command {
         const r = await this.client.schedule.create("reminder", time, {
             data: {
                 channel: msg.channel.id,
-                user: msg.author,
+                user: msg.author.id,
                 text: message.join(" ")
             }
         });
