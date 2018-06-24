@@ -21,7 +21,6 @@ class VoiceStateUpdate extends RawEvent {
     async voiceStateUpdate(oldMem, newMem) {
         if (this.client.config.main.patreon) return;
         await sleep(10000);
-        if (!newMem.guild.me) await newMem.guild.members.fetch(this.client.user.id);
         const queue = this.client.queue.get(newMem.guild.id);
         if (!queue) return;
         await sleep(300000);
