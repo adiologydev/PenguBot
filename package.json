@@ -29,7 +29,7 @@
     "canvas": "github:Automattic/node-canvas#92b192447e9b9ae98da0f801e4e34afdd1dc1ef8",
     "canvas-constructor": "github:kyranet/canvasConstructor",
     "cheerio": "^1.0.0-rc.2",
-    "discord.js": "github:discordjs/discord.js#25be12def210e5908f61a5ff22257ce4ec3b3824",
+    "discord.js": "github:discordjs/discord.js",
     "discord.js-lavalink": "github:MrJacz/discord.js-lavalink",
     "erlpack": "github:discordapp/erlpack",
     "google-translate-api": "^2.3.0",
