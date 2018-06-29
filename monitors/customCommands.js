@@ -16,7 +16,7 @@ module.exports = class extends Monitor {
         if (!msg.guild.configs.customcmds.cmds.length) return;
         if (this.cooldown.has(msg.author.id)) return;
         if (this.client.config.main.patreon) return;
-        if (!msg.content.startsWith(msg.guild.configs.prefix) || !msg.content.match(/^((?:Hey |Ok )?Pengu(?:,|!| ))/i)) return;
+        if (!msg.content.startsWith(msg.guild.configs.prefix)) return;
 
         const cmdName = msg.content.slice(msg.guild.configs.prefix.length).trim().split(/ +/g).shift().toLowerCase();
         if (this.client.commands.has(cmdName)) return;
