@@ -32,7 +32,7 @@ module.exports = class extends Command {
 
         if (Mone === Mtwo || Mone === Mthree || Mthree === Mtwo) {
             const flakesPercent = Math.round(Snowflakes * 60 / 100) >= 1 ? Math.round(Snowflakes * 50 / 100) : 1;
-            const winFlakes = msg.author.configs.snowflakes - Snowflakes + flakesPercent;
+            const winFlakes = msg.author.configs.snowflakes + Snowflakes + flakesPercent;
             const embed = new MessageEmbed()
                 .setFooter("© PenguBot.com")
                 .setTimestamp()
