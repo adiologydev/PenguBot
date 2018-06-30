@@ -50,7 +50,7 @@ module.exports = class extends Language {
                 "Then vote for PenguBot via the link below and also unlock access to",
                 "limited features that only upvoters can have access to!",
                 "",
-                "• **Vote:** https://discordbots.org/bot/PenguBot/vote"],
+                "• **Vote:** https://www.pengubot.com/upvote"],
             COMMAND_TOGGLE_GROUP_DESCRPTION: "Disable/Enable Command Categories.",
             COMMAND_TOGGLE_COMMAND_DESCRPTION: "Disable/Enable Commands in your guild.",
             COMMAND_SUPPORT_DESCRIPTION: "Link to join PenguBot's Support Guild.",

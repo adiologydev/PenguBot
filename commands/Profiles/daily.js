@@ -37,13 +37,13 @@ module.exports = class extends Command {
 
             if (diff >= 43200000) {
                 await user.configs.update(["snowflakes", "daily"], [user.configs.snowflakes + reward, Date.now()]);
-                return msg.reply(`❄ | ***You have claimed your ${reward} Snowflakes for today! To gain 300 Snowflakes everyday, make sure to upvote PenguBot at <https://discordbots.org/bot/PenguBot/vote>***`);
+                return msg.reply(`❄ | ***You have claimed your ${reward} Snowflakes for today! To gain 300 Snowflakes everyday, make sure to upvote PenguBot at <https://www.pengubot.com/upvote>***`);
             } else {
                 return msg.sendMessage(`❄ | ***You can claim your daily Snowflakes in ${timeLeft}!***`);
             }
         } else {
             await user.configs.update(["snowflakes", "daily"], [user.configs.snowflakes + reward, Date.now()]);
-            return msg.reply(`❄ | ***You have claimed your ${reward} Snowflakes for today! To gain 300 Snowflakes everyday, make sure to upvote PenguBot at <https://discordbots.org/bot/PenguBot/vote>***`);
+            return msg.reply(`❄ | ***You have claimed your ${reward} Snowflakes for today! To gain 300 Snowflakes everyday, make sure to upvote PenguBot at <https://www.pengubot.com/upvote>***`);
         }
     }
 

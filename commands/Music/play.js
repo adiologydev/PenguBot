@@ -31,11 +31,11 @@ module.exports = class extends Command {
             if (playlist) {
                 const songData = await this.client.functions.getSongs(song);
                 if (!songData) return msg.sendMessage("<:penguError:435712890884849664> ***That playlist could not be found, please try with a different one.***");
-                let limit; if (this.client.config.main.patreon === false || !this.client.functions.isUpvoter(msg.author.id)) { limit = 49; } else { limit = 1000; } // eslint-disable-line
+                let limit; if (this.client.config.main.patreon === false || !await this.client.functions.isUpvoter(msg.author.id)) { limit = 49; } else { limit = 1000; } // eslint-disable-line
                 for (let i = 0; i <= limit; i++) {
                     await this.musicHandler(msg, songData[i], msg.guild, msg.member.voiceChannel, true).catch(() => null);
                 }
-                if (songData.length >= 50 && this.client.config.main.patreon === false || !this.client.functions.isUpvoter(msg.author.id)) return msg.sendMessage(`🗒 | Playlist has been added to the queue. This playlist has more than 50 songs but only 50 were added, to bypass this limit become our Patreon today at <https://patreon.com/PenguBot> or Vote for PenguBot on <https://discordbots.org/bot/PenguBot/vote>.`); // eslint-disable-line
+                if (songData.length >= 50 && this.client.config.main.patreon === false || !await this.client.functions.isUpvoter(msg.author.id)) return msg.sendMessage(`🗒 | Playlist has been added to the queue. This playlist has more than 50 songs but only 50 were added, to bypass this limit become our Patreon today at <https://patreon.com/PenguBot> or Vote for PenguBot on <https://www.pengubot.com/upvote>.`); // eslint-disable-line
                 return msg.sendMessage(`🗒 | ***Playlist has been added to the queue.***`);
             } else if (soundCloud) {
                 // Handling SoundCloud
