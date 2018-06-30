@@ -29,7 +29,7 @@ class Util {
             snekfetch.post(`https://bots.discord.pw/api/bots/${client.user.id}/stats`)
                 .set("Authorization", config.keys.dbpw).send(stats),
             snekfetch.post(`https://listcord.com/api/bot/${client.user.id}/guilds`)
-                .set("Authorization", config.keys.listcord).send({ guilds: client.guilds.size, shard: client.shard.id }),
+                .set("token", config.keys.listcord).send({ guilds: client.guilds.size, shard: client.shard.id }),
             snekfetch.post(`https://botsfordiscord.com/api/v1/bots/${client.user.id}`)
                 .set("Authorization", config.keys.b4d).send({ server_count: allGuilds.reduce((prev, val) => prev + val, 0) })
         ]);
