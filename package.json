@@ -34,11 +34,11 @@
     "erlpack": "github:discordapp/erlpack",
     "google-translate-api": "^2.3.0",
     "heapdump": "^0.3.9",
-    "idiotic-api": "^0.2.10",
+    "idiotic-api": "^0.2.11",
     "klasa": "github:dirigeants/klasa",
-    "raven": "^2.6.2",
+    "raven": "^2.6.3",
     "rethinkdbdash": "^2.3.31",
-    "uws": "^10.148.0",
+    "uws": "^10.148.1",
     "zlib-sync": "^0.1.4"
   },
   "devDependencies": {
