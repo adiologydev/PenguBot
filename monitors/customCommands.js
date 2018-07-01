@@ -36,7 +36,7 @@ module.exports = class extends Monitor {
             .replace(/{SERVER}/g, msg.guild.name)
             .replace(/{USER}/g, msg.author.tag)
             .replace(/{TAG}/g, msg.author.tag)
-            .replace(/{DISPLAYNAME}/g, msg.member.nickname);
+            .replace(/{DISPLAYNAME}/g, msg.member.nickname ? msg.member.nickname : msg.author.username);
     }
 
 };

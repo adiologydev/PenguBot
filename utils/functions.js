@@ -18,13 +18,13 @@ class Util {
             .query("userId", id)
             .then(async res => {
                 upvoter = Boolean(res.body.voted);
-                if (!res.body.voted) {
+                /* if (!res.body.voted) { -- DISABLED TILL THE SITE IS STABLE AGAIN --
                     await snekfetch.get("https://listcord.com/api/bot/303181184718995457/votes").then(data => { // eslint-disable-line
                         for (const u of data.body) {
                             if (u.id === id) upvoter = true;
                         }
                     });
-                }
+                }*/
             });
         return upvoter;
     }
