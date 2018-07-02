@@ -28,7 +28,7 @@ module.exports = class extends Command {
             .addField("❯ Creation Date", msg.guild.createdAt.toDateString(), true)
             .addField("❯ Explicit Filter", filterLevels[msg.guild.explicitContentFilter], true)
             .addField("❯ Verification Level", verificationLevels[msg.guild.verificationLevel], true)
-            .addField("❯ Owner", `<@${msg.guild.owner.id}>`, true)
+            .addField("❯ Owner", `<@${msg.guild.ownerID}>`, true)
             .addField("❯ Members", msg.guild.memberCount, true)
             .addField("❯ Roles", msg.guild.roles.size, true)
             .addField("❯ Channels", msg.guild.channels.size, true);
