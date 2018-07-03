@@ -34,6 +34,7 @@ We're proudly hosted by [DigitalOcean](https://m.do.co/c/bfc0c187cdec). Visit th
 
 ## Vote on DiscordBots to Support
 [![Discord Bots](https://discordbots.org/api/widget/303181184718995457.svg)](https://discordbots.org/bot/303181184718995457/vote)
+[![Bots For Discord](https://botsfordiscord.com/api/v1/bots/303181184718995457/embed?theme=dark)](https://www.pengubot.com/upvote)
 
 ## License
 MIT
