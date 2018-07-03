@@ -59,7 +59,7 @@ module.exports = class extends Command {
                 `❯ **Kills:** ${data.body.lifeTimeStats.find(a => a.key === "Kills").value}`,
                 `❯ **Wins:** ${data.body.lifeTimeStats.find(a => a.key === "Wins").value}`,
                 `❯ **K/D:** ${data.body.lifeTimeStats.find(a => a.key === "K/d").value}`,
-                `❯ **Top 3:** ${data.body.lifeTimeStats.find(a => a.key === "Top 3s").value}`,
+                `❯ **Top 3s:** ${data.body.lifeTimeStats.find(a => a.key === "Top 3s").value}`,
                 `❯ **Platform:** ${data.body.platformNameLong}`]);
         return msg.sendMessage(embed);
     }
