@@ -207,6 +207,8 @@ module.exports = class extends Language {
             COMMAND_TINDER_DESCRIPTION: "You Have a Match, let's match you with someone!",
             COMMAND_MISSING_DESCRIPTION: "Has your dear one went missing? Get them a poster.",
             COMMAND_SNAPCHAT_DESCRIPTION: "Create a Snapchat Meme Image.",
+            COMMAND_OSU_DESCRIPTION: "Get osu! Statistics in a cool way!",
+            COMMAND_CMM_DESCRIPTION: "Create a nice Change My Mind meme!",
 
             // NSFW Commands
             COMMAND_ANAL_DESCRIPTION: "-NOT SAFE FOR WORK- Anal images.",
