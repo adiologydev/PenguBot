@@ -10,7 +10,7 @@ module.exports = class extends Command {
             permissionLevel: 0,
             requiredPermissions: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
             description: msg => msg.language.get("COMMAND_AVATAR_DESCRIPTION"),
-            usage: "[person:member]",
+            usage: "[person:user]",
             extendedHelp: "No extended help available."
         });
     }
