@@ -19,7 +19,9 @@ function startBot() {
             "RELATIONSHIP_REMOVE",
             "USER_SETTINGS_UPDATE",
             "VOICE_STATE_UPDATE",
-            "VOICE_SERVER_UPDATE"
+            "VOICE_SERVER_UPDATE",
+            "TYPING_START",
+            "PRESENCE_UPDATE"
         ],
         pieceDefaults: {
             commands: { deletable: true },

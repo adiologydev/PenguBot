@@ -6,7 +6,7 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             runIn: ["text"],
-            cooldown: 10,
+            cooldown: 8,
             aliases: ["togglemute", "unmute"],
             permissionLevel: 4,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
@@ -17,7 +17,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [member]) {
-        const user = await msg.guild.members.fetch(member.id);
+        const user = await msg.guild.members.fetch(member.id).catch(() => null);
 
         if (user.id === msg.author.id) return msg.reply(`<:penguError:435712890884849664> ***You can not mute yourself...***`);
         if (user.id === this.client.user.id) return msg.reply(`<:penguError:435712890884849664> ***Why would you want to mute Pengu?***`);
@@ -29,24 +29,22 @@ module.exports = class extends Command {
                     permissions: ["READ_MESSAGES"]
                 }
             });
+            const { channels } = msg.guild;
+            for (const c of channels) {
+                await c.updateOverwrite(role, { SEND_MESSAGES: false, ADD_REACTIONS: false, CONNECT: false }, `Mute Command Executed By ${msg.author.tag}`);
+            }
         }
 
         const role = msg.guild.roles.find(r => r.name === "PENGU_MUTED");
 
-        if (user.roles.find(r => r.id === role.id)) {
-            await user.roles.remove(role).catch(console.error);
-            msg.guild.channels.forEach(async c => {
-                await c.updateOverwrite(role, { SEND_MESSAGES: false, ADD_REACTIONS: false, CONNECT: false }, `Mute Command Executed By ${msg.author.tag}`);
-            });
+        if (user.roles.has(role.id)) {
+            await user.roles.remove(role).catch(() => null);
             const log = logger("ban", msg.guild, `🔈 **${member.tag}** (${member.id}) was \`unmuted\` by **${msg.author.tag}** (${msg.author.id})`);
             const loggingChannel = msg.guild.channels.get(msg.guild.configs.loggingChannel);
             if (log) loggingChannel.sendEmbed(log);
             return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${member.tag} ${msg.language.get("MESSAGE_UNMUTED")}***`);
         } else {
-            await user.roles.add(role).catch(console.error);
-            msg.guild.channels.forEach(async c => {
-                await c.updateOverwrite(role, { SEND_MESSAGES: false, ADD_REACTIONS: false, CONNECT: false }, `Mute Command Executed By ${msg.author.tag}`);
-            });
+            await user.roles.add(role).catch(() => null);
             const log = logger("ban", msg.guild, `🔇 **${member.tag}** (${member.id}) was \`muted\` by **${msg.author.tag}** (${msg.author.id})`);
             const loggingChannel = msg.guild.channels.get(msg.guild.configs.loggingChannel);
             if (log) loggingChannel.sendEmbed(log);
