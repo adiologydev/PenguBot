@@ -29,11 +29,11 @@ module.exports = class extends Command {
             const image = Message.attachments.size > 0 ? await this.checkAttachments(Message.attachments.array()[0].url) : null;
             const embed = new MessageEmbed()
                 .setColor(starEmbed.color)
-                .setDescription(starEmbed.description)
                 .setAuthor(Message.author.tag, Message.author.displayAvatarURL())
                 .setTimestamp()
                 .setFooter(`⭐ ${Message.reactions.get("⭐").count} | ${msg.id}`);
             if (image) embed.setImage(image);
+            if (starEmbed.description) embed.setDescription(starEmbed.description);
             const oldMsg = await starChannel.messages.fetch(starMsg.id);
             await oldMsg.edit({ embed });
         } else {
@@ -42,11 +42,11 @@ module.exports = class extends Command {
             await Message.react("⭐");
             const embed = new MessageEmbed()
                 .setColor(15844367)
-                .setDescription(Message.content)
                 .setAuthor(Message.author.tag, Message.author.displayAvatarURL())
                 .setTimestamp(new Date())
                 .setFooter(`⭐ ${Message.reactions.get("⭐").count} | ${Message.id}`);
             if (image) embed.setImage(image);
+            if (Message.content) embed.setDescription(Message.content);
             await starChannel.send({ embed });
         }
     }

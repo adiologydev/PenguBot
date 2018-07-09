@@ -26,11 +26,11 @@ module.exports = class extends Event {
             const image = msg.attachments.size > 0 ? await this.checkAttachments(msg.attachments.array()[0].url) : null;
             const embed = new MessageEmbed()
                 .setColor(starEmbed.color)
-                .setDescription(starEmbed.description)
                 .setAuthor(msg.author.tag, msg.author.displayAvatarURL())
                 .setTimestamp()
                 .setFooter(`⭐ ${msg.reactions.get("⭐").count} | ${msg.id}`);
             if (image) embed.setImage(image);
+            if (starEmbed.description) embed.setDescription(starEmbed.description);
             const oldMsg = await starChannel.messages.fetch(starMsg.id);
             if (!msg.reactions.get("⭐")) return oldMsg.delete();
             await oldMsg.edit({ embed });

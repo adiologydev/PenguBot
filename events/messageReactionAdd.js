@@ -27,11 +27,11 @@ module.exports = class extends Event {
             const image = msg.attachments.size > 0 ? await this.checkAttachments(msg.attachments.array()[0].url) : null;
             const embed = new MessageEmbed()
                 .setColor(starEmbed.color)
-                .setDescription(starEmbed.description)
                 .setAuthor(msg.author.tag, msg.author.displayAvatarURL())
                 .setTimestamp()
                 .setFooter(`⭐ ${msg.reactions.get("⭐").count} | ${msg.id}`);
             if (image) embed.setImage(image);
+            if (starEmbed.description) embed.setDescription(starEmbed.description);
             const oldMsg = await starChannel.messages.fetch(starMsg.id);
             await oldMsg.edit({ embed });
         } else {
@@ -39,11 +39,11 @@ module.exports = class extends Event {
             if (!image && msg.content.length < 1) return;
             const embed = new MessageEmbed()
                 .setColor(15844367)
-                .setDescription(msg.content)
                 .setAuthor(msg.author.tag, msg.author.displayAvatarURL())
                 .setTimestamp(new Date())
                 .setFooter(`⭐ ${msg.reactions.get("⭐").count} | ${msg.id}`);
             if (image) embed.setImage(image);
+            if (msg.content) embed.setDescription(msg.content);
             await starChannel.send({ embed });
         }
     }
