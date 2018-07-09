@@ -1,5 +1,4 @@
 const { Command } = require("klasa");
-const logger = require("../../utils/log");
 
 module.exports = class extends Command {
 
@@ -39,15 +38,11 @@ module.exports = class extends Command {
 
         if (user.roles.has(role.id)) {
             await user.roles.remove(role).catch(() => null);
-            const log = logger("ban", msg.guild, `🔈 **${member.tag}** (${member.id}) was \`unmuted\` by **${msg.author.tag}** (${msg.author.id})`);
-            const loggingChannel = msg.guild.channels.get(msg.guild.configs.loggingChannel);
-            if (log) loggingChannel.sendEmbed(log);
+            this.client.emit("customLogs", msg.guild, "unmute", { name: "mute", muter: msg.author }, member);
             return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${member.tag} ${msg.language.get("MESSAGE_UNMUTED")}***`);
         } else {
             await user.roles.add(role).catch(() => null);
-            const log = logger("ban", msg.guild, `🔇 **${member.tag}** (${member.id}) was \`muted\` by **${msg.author.tag}** (${msg.author.id})`);
-            const loggingChannel = msg.guild.channels.get(msg.guild.configs.loggingChannel);
-            if (log) loggingChannel.sendEmbed(log);
+            this.client.emit("customLogs", msg.guild, "mute", { name: "mute", muter: msg.author }, member);
             return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${member.tag} ${msg.language.get("MESSAGE_MUTED")}***`);
         }
     }
