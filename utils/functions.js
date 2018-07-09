@@ -18,32 +18,15 @@ class Util {
             .query("userId", id)
             .then(async res => {
                 upvoter = Boolean(res.body.voted);
-                /* if (!res.body.voted) { -- DISABLED TILL THE SITE IS STABLE AGAIN --
+                if (!res.body.voted) {
                     await snekfetch.get("https://listcord.com/api/bot/303181184718995457/votes").then(data => { // eslint-disable-line
                         for (const u of data.body) {
                             if (u.id === id) upvoter = true;
                         }
-                    });
-                }*/
+                    }).catch(() => null);
+                }
             });
         return upvoter;
-    }
-
-    static async postStats(client) {
-        if (client.user.id !== "303181184718995457") return;
-        const stats = { server_count: client.guilds.size, shard_id: client.shard.id, shard_count: client.shard.count };
-
-        const allGuilds = await client.shard.fetchClientValues("guilds.size");
-        return Promise.all([
-            snekfetch.post(`https://discordbots.org/api/bots/${client.user.id}/stats`)
-                .set("Authorization", config.keys.dbl).send(stats),
-            snekfetch.post(`https://bots.discord.pw/api/bots/${client.user.id}/stats`)
-                .set("Authorization", config.keys.dbpw).send(stats),
-            snekfetch.post(`https://listcord.com/api/bot/${client.user.id}/guilds`)
-                .set("token", config.keys.listcord).send({ guilds: client.guilds.size, shard: client.shard.id }),
-            snekfetch.post(`https://botsfordiscord.com/api/v1/bots/${client.user.id}`)
-                .set("Authorization", config.keys.b4d).send({ server_count: allGuilds.reduce((prev, val) => prev + val, 0) })
-        ]);
     }
 
     static isPatron(guild) {
