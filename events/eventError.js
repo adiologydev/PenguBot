@@ -3,12 +3,9 @@ const Raven = require("raven");
 
 module.exports = class extends Event {
 
-    constructor(...args) {
-        super(...args);
-        Raven.config(this.client.config.keys.sentry).install();
-    }
-    async run(event, args, error) {
-        Raven.captureMessage(`eventError: ${event.name}\n${error}`);
+    run(event, args, error) {
+        this.client.emit("wtf", `[EVENT] ${event.path}\n${error ? error.stack ? error.stack : error : "Unknown error"}`);
+        Raven.captureMessage(`eventError: ${event.name}\n${error ? error.stack ? error.stack : error : "Unknown error"}`);
     }
 
 };
