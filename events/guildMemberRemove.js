@@ -1,13 +1,10 @@
 const { Event } = require("klasa");
-const logger = require("../utils/log");
 
 module.exports = class extends Event {
 
     async run(member) {
         // Logging
-        const log = logger("leave", member.guild, `📤 **${member.user.tag}** (${member.user.id}) has \`left\` the guild.\n**Total Members:** ${member.guild.memberCount}`);
-        const loggingChannel = member.guild.channels.get(member.guild.configs.loggingChannel);
-        if (log && loggingChannel) await loggingChannel.send(log);
+        this.client.emit("customLogs", member.guild, "leave", { name: "leave" }, member.user);
 
         await this.leaveMessage(member);
     }
