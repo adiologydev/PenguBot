@@ -1,13 +1,10 @@
 const { Event } = require("klasa");
-const logger = require("../utils/log");
 
 module.exports = class extends Event {
 
     async run(member) {
         // Logging
-        const log = logger("join", member.guild, `📥 **${member.user.tag}** (${member.user.id}) has \`joined\` the guild.\n**Total Members:** ${member.guild.memberCount}`);
-        const loggingChannel = member.guild.channels.get(member.guild.configs.loggingChannel);
-        if (log && loggingChannel) await loggingChannel.send(log);
+        this.client.emit("customLogs", member.guild, "join", { name: "join" }, member.user);
 
         await this.welcomeMessage(member);
         await this.autoroles(member);
