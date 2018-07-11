@@ -5,7 +5,7 @@ module.exports = class extends Event {
 
     /* eslint-disable complexity */
     async run(guild, type, data, user) {
-        if (!guild.configs.loggingChannel || !guild.channels.get(guild.configs.loggingChannel).postable) return;
+        if (!guild.configs.loggingChannel || !guild.channels.get(guild.configs.loggingChannel) || !guild.channels.get(guild.configs.loggingChannel).postable) return;
         if (!guild.configs.get(`logs.${data.name}`)) return;
 
         const channel = guild.channels.get(guild.configs.loggingChannel);
