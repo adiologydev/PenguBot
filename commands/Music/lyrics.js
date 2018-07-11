@@ -12,12 +12,19 @@ module.exports = class extends Command {
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: msg => msg.language.get("COMMAND_LYRICS_DESCRIPTION"),
             extendedHelp: "No extended help available.",
-            usage: "<song:string>"
+            usage: "[song:string]"
         });
     }
 
     async run(msg, [song]) {
-        const req = await lyrics.request(`search?q=${song}`);
+        let songName;
+        if (!song) {
+            const queue = this.client.queue.get(msg.guild.id);
+            if (!queue) return msg.reply("No Music is playing right now, please enter a song name you want lyrics for.");
+            songName = queue.songs[0].name;
+        } else { songName = song; }
+
+        const req = await lyrics.request(`search?q=${songName}`);
         const lyricdata = req.response.hits[0];
         if (!lyricdata) return msg.reply("The provided song could not be found. Please try again with a different one or contact us at <https://discord.gg/6KpTfqR>.");
 

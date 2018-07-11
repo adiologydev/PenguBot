@@ -19,6 +19,8 @@ module.exports = class extends Command {
     async run(msg, [...name]) {
         const snippet = await get(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${name.join(" ")}&key=${this.client.config.keys.music.youtube}&maxResults=1&type=channel`)
             .catch(e => msg.reply(`<:penguError:435712890884849664> Your channel was too powerful that I couldn't handle it, try again! Error: ${e}`));
+        if (!snippet.body.items[0]) return msg.reply(msg.language.get("ER_TRY_AGAIN"));
+
         const data = await get(`https://www.googleapis.com/youtube/v3/channels?part=snippet,contentDetails,statistics,brandingSettings&id=${snippet.body.items[0].id.channelId}&key=${this.client.config.keys.music.youtube}`)
             .catch(e => msg.reply(`<:penguError:435712890884849664> Your channel was too powerful that I couldn't handle it, try again! Error: ${e}`));
 

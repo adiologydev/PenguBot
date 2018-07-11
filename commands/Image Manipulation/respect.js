@@ -14,7 +14,9 @@ module.exports = class extends Command {
     }
 
     async run(msg, [user = msg.author]) {
-        const image = await this.client.idiotic.respect(user.displayAvatarURL({ format: "png", size: 128 }));
+        const image = await this.client.idiotic.respect(user.displayAvatarURL({ format: "png", size: 128 }))
+            .catch(() => null);
+        if (!image) return msg.reply(msg.language.get("ER_TRY_AGAIN"));
         return msg.channel.sendFile(image);
     }
 

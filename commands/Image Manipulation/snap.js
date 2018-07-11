@@ -14,7 +14,9 @@ module.exports = class extends Command {
     }
 
     async run(msg, [Snaptext]) {
-        const image = await this.client.idiotic.snapchat(Snaptext);
+        const image = await this.client.idiotic.snapchat(Snaptext)
+            .catch(() => null);
+        if (!image) return msg.reply(msg.language.get("ER_TRY_AGAIN"));
         return msg.channel.sendFile(image);
     }
 

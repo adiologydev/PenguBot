@@ -287,7 +287,11 @@ module.exports = class extends Language {
             MESSAGE_STAR_ENABLED: "Starboard has now been enabled.",
             MESSAGE_STAR_DISABLED: "Starboard has now been disabled.",
             MESSAGE_STARS_REQUIRED_SET: "Set the minimum Stars required before a message is sent to Starboard.",
-            MESSAGE_STAR_CHANNEL_SET: "Successfully set the Starboard channel."
+            MESSAGE_STAR_CHANNEL_SET: "Successfully set the Starboard channel.",
+
+            // Custom Messages
+            ER_TRY_AGAIN: "I am very sorry but was an error, please try again!",
+            ER_MUSIC_TRIP: "I tripped on a wire! *Ouch!* It hurts but I'll recover, try again later."
         };
     }
 

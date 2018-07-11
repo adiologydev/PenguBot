@@ -16,6 +16,9 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
+        await msg.guild.members.fetch(msg.author.id).catch(() => {
+            throw msg.language.get("ER_MUSIC_TRIP");
+        });
         const queue = this.client.queue.get(msg.guild.id);
         const player = this.client.lavalink.get(msg.guild.id);
         if (!queue) return msg.sendMessage("<:penguError:435712890884849664> ***There's currently no music playing!***");

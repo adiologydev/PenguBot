@@ -17,9 +17,12 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
+        await msg.guild.members.fetch(msg.author.id).catch(() => {
+            throw msg.language.get("ER_MUSIC_TRIP");
+        });
         const queue = this.client.queue.get(msg.guild.id);
         const player = this.client.lavalink.get(msg.guild.id);
-        if (!msg.member.voiceChannel) return msg.sendMessage("<:penguError:435712890884849664> You're currently not in a voice channel.");
+        if (!msg.member || msg.member.voiceChannel) return msg.sendMessage("<:penguError:435712890884849664> You're currently not in a voice channel or there was an error, try again.");
         if (!queue) return msg.sendMessage("<:penguError:435712890884849664> There's currently no music playing!");
         if (!player) return msg.sendMessage("<:penguError:435712890884849664> There's currently no music playing!");
         const threshold = Math.ceil(queue.vc.members.size / 3);

@@ -8,7 +8,7 @@ class PenguClient extends Client {
 
     constructor(options) {
         super({ ...options, permissionLevels });
-        
+
         this.functions = require("../utils/functions.js");
         this.config = require("../config.json");
         this.lavalink = null;
