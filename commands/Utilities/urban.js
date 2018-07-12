@@ -25,7 +25,6 @@ module.exports = class extends Command {
         const result = JSON.parse(text).list[0];
         if (!result) return msg.reply("<:penguError:435712890884849664> That word could not be found on Urban Dictionary.");
 
-        const defination = result.defination.length <= 5900 ? result.defination : `${result.definition.substring(0, 5900)}...`;
         const embed = new MessageEmbed()
             .setColor("RANDOM")
             .setTimestamp()
@@ -34,7 +33,7 @@ module.exports = class extends Command {
             .setThumbnail("https://i.imgur.com/roNW5D3.png")
             .setDescription(`**❯ Word:** ${result.word}
 
-❯ **Definition:** ${defination}
+❯ **Definition:** ${result.defination}
 
 ❯ **Votes:** 👍 ${result.thumbs_up} 👎 ${result.thumbs_down}
 

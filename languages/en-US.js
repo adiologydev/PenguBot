@@ -28,7 +28,7 @@ module.exports = class extends Language {
                 "• **Author:** [AdityaTD#5346](https://www.AdityaTD.me)",
                 "",
                 "**__General Information__**",
-                `• **Version:** ${this.client.config.main.version}`,
+                `• **Version:** ${require("../package").version}`,
                 "• **Website:** <https://www.PenguBot.com>",
                 "• **Patreon:** <https://www.Patreon.com/PenguBot>",
                 "• **Discord Guild:** <https://discord.gg/6KpTfqR>",

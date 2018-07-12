@@ -44,7 +44,7 @@ module.exports = class extends Command {
             return msg.sendMessage("<:penguError:435712890884849664> ***Invalid Platform, please retry with either of these platforms: `pc`. `xbox`, `psn`.***");
         }
 
-        if (!data) return msg.sendMessage("<:penguError:435712890884849664> ***Invalid Username or Platform, please retry with either of these platforms: `pc`. `xbox`, `psn`.***");
+        if (!data || !data.body) return msg.sendMessage("<:penguError:435712890884849664> ***Invalid Username or Platform, please retry with either of these platforms: `pc`. `xbox`, `psn`.***");
         if (data.body.error) return msg.sendMessage("<:penguError:435712890884849664> ***There was an error in the Tracking API, please try again later.***");
 
         const embed = new MessageEmbed()

@@ -33,6 +33,7 @@ module.exports = class extends Event {
             if (image) embed.setImage(image);
             if (starEmbed.description) embed.setDescription(starEmbed.description);
             const oldMsg = await starChannel.messages.fetch(starMsg.id);
+            if (oldMsg.author.id !== this.client.user.id) return;
             await oldMsg.edit({ embed });
         } else {
             const image = msg.attachments.size > 0 ? await this.checkAttachments(msg.attachments.array()[0].url) : null;

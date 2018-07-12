@@ -24,7 +24,7 @@ module.exports = class extends Command {
             songName = queue.songs[0].name;
         } else { songName = song; }
 
-        const req = await lyrics.request(`search?q=${songName}`);
+        const req = await lyrics.request(`search?q=${encodeURIComponent(songName)}`);
         const lyricdata = req.response.hits[0];
         if (!lyricdata) return msg.reply("The provided song could not be found. Please try again with a different one or contact us at <https://discord.gg/6KpTfqR>.");
 
@@ -37,7 +37,7 @@ module.exports = class extends Command {
 
         const embed = new MessageEmbed()
             .setColor("#428bca")
-            .setAuthor(`${extendedsong} - ${artist} | Lyrics`, this.client.user.avatarURL, `http://genius.com/${lyricdata.result.path}`)
+            .setAuthor(`${extendedsong} - ${artist} | Lyrics`, this.client.user.avatarURL, `http://genius.com/${encodeURIComponent(lyricdata.result.path)}`)
             .setTimestamp()
             .setFooter("© PenguBot.com")
             .setDescription(lyricsbody.length >= 1900 ? `${lyricsbody.substr(0, 1900)}...` : lyricsbody)
