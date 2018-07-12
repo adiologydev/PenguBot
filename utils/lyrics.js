@@ -6,7 +6,7 @@ const key = config.keys.music.lyrics;
 class Lyrics {
 
     static async request(path) {
-        return snekfetch.get(`https://api.genius.com/${path}`)
+        return snekfetch.get(`https://api.genius.com/${encodeURIComponent(path)}`)
             .set("Authorization", `Bearer ${key}`)
             .then(res => res.body)
             .catch(error => {
