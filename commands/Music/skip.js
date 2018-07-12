@@ -19,8 +19,8 @@ module.exports = class extends Command {
     async run(msg) {
         const queue = this.client.queue.get(msg.guild.id);
         const player = this.client.lavalink.get(msg.guild.id);
-        if (!msg.member || msg.member.voiceChannel) return msg.sendMessage("<:penguError:435712890884849664> You're currently not in a voice channel or there was an error, try again.");
         if (!queue) return msg.sendMessage("<:penguError:435712890884849664> There's currently no music playing!");
+        if (!queue.vc.members.has(msg.author.id)) return msg.sendMessage("<:penguError:435712890884849664> You're currently not in a voice channel or there was an error, try again.");
         if (!player) return msg.sendMessage("<:penguError:435712890884849664> There's currently no music playing!");
         const threshold = Math.ceil(queue.vc.members.size / 3);
         const force = threshold <= 1 || queue.vc.members.size < threshold || await msg.hasAtLeastPermissionLevel(3);

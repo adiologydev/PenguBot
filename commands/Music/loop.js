@@ -17,8 +17,9 @@ module.exports = class extends Command {
 
     async run(msg) {
         const queue = this.client.queue.get(msg.guild.id);
-        if (!msg.member.voiceChannel) return msg.sendMessage("<:penguError:435712890884849664> You're currently not in a voice channel.");
         if (!queue) return msg.sendMessage("<:penguError:435712890884849664> There's currently no music playing!");
+        if (!queue.vc.members.has(msg.author.id)) return msg.sendMessage("<:penguError:435712890884849664> You're currently not in a voice channel or there was an error, try again.");
+
         if (queue.loop) {
             queue.loop = false;
             return msg.sendMessage("⏯ | ***Song looping is now Disabled***");
