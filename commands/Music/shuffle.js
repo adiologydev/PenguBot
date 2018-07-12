@@ -16,9 +16,6 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        await msg.guild.members.fetch(msg.author.id).catch(() => {
-            throw msg.language.get("ER_MUSIC_TRIP");
-        });
         const queue = this.client.queue.get(msg.guild.id);
         if (!msg.member.voiceChannel) return msg.sendMessage("<:penguError:435712890884849664> You're currently not in a voice channel.");
         if (!queue) return msg.sendMessage("<:penguError:435712890884849664> There's currently no music playing!");
