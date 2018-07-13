@@ -1,6 +1,6 @@
 const { Command } = require("klasa");
 const { MessageEmbed } = require("discord.js");
-const lyrics = require("../../utils/lyrics.js");
+const lyrics = require("../../lib/utils/lyrics.js");
 
 module.exports = class extends Command {
 

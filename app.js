@@ -1,8 +1,11 @@
-const PenguClient = require("./structures/PenguClient");
+const PenguClient = require("./lib/structures/PenguClient");
 const config = require("./config.json");
 const Raven = require("raven");
-Raven.config(config.keys.sentry).install();
 
+// Extensions
+require("./lib/extensions/PenguGuild");
+
+// Bot
 function startBot() {
     new PenguClient({
         prefix: ["p!"],
@@ -24,7 +27,7 @@ function startBot() {
             "PRESENCE_UPDATE"
         ],
         pieceDefaults: {
-            commands: { deletable: true },
+            commands: { deletable: true, quotedStringSupport: true },
             rawEvents: { enabled: true }
         },
         providers: {
@@ -36,6 +39,9 @@ function startBot() {
         presence: { activity: { name: "PenguBot.com | v2.0 | p!help", type: "WATCHING" } }
     }).login(config.main.token);
 }
+
+// Raven
+Raven.config(config.keys.sentry).install();
 
 process.on("unhandledRejection", e => {
     console.log("Unhandled Rejection at:", e.stack || e);
