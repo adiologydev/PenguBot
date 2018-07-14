@@ -1,6 +1,7 @@
 const PenguClient = require("./structures/PenguClient");
 const config = require("./config.json");
 const Raven = require("raven");
+const memwatch = require("memwatch-next");
 Raven.config(config.keys.sentry).install();
 
 function startBot() {
@@ -45,6 +46,11 @@ process.on("unhandledRejection", e => {
 process.on("uncaughtException", e => {
     console.log("Uncaught Exception at:", e.stack || e);
     Raven.captureException(e);
+});
+
+memwatch.on("leak", info => {
+    console.log("Possible Memory Leak detected =>", info);
+    Raven.captureMessage(`Leak Detected\n${info}`);
 });
 
 Raven.context(() => {
