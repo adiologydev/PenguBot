@@ -50,7 +50,7 @@ process.on("uncaughtException", e => {
 
 memwatch.on("leak", info => {
     console.log("Possible Memory Leak detected =>", info);
-    Raven.captureMessage(`Leak Detected\n${info}`);
+    Raven.captureMessage(`Leak Detected\n${JSON.stringify(info)}`);
 });
 
 Raven.context(() => {
