@@ -1,7 +1,7 @@
 const PenguClient = require("./structures/PenguClient");
 const config = require("./config.json");
 const Raven = require("raven");
-const memwatch = require("memwatch-next");
+const memwatch = require("node-memwatch");
 Raven.config(config.keys.sentry).install();
 
 function startBot() {
