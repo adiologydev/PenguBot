@@ -2,10 +2,16 @@ const PenguClient = require("./structures/PenguClient");
 const config = require("./config.json");
 const Raven = require("raven");
 const memwatch = require("node-memwatch");
-Raven.config(config.keys.sentry).install();
 
-function startBot() {
-    new PenguClient({
+Raven.config(config.keys.sentry, { captureUnhandledRejections: true }).install();
+
+memwatch.on("leak", info => {
+    console.log("Possible Memory Leak detected =>", info);
+    Raven.captureMessage(`Leak Detected\nreason: ${info.reason}`);
+});
+
+Raven.context(() => {
+        new PenguClient({
         prefix: ["p!"],
         commandEditing: true,
         disableEveryone: true,
@@ -36,23 +42,4 @@ function startBot() {
         production: config.main.production,
         presence: { activity: { name: "PenguBot.com | v2.0 | p!help", type: "WATCHING" } }
     }).login(config.main.token);
-}
-
-process.on("unhandledRejection", e => {
-    console.log("Unhandled Rejection at:", e.stack || e);
-    Raven.captureException(e);
-});
-
-process.on("uncaughtException", e => {
-    console.log("Uncaught Exception at:", e.stack || e);
-    Raven.captureException(e);
-});
-
-memwatch.on("leak", info => {
-    console.log("Possible Memory Leak detected =>", info);
-    Raven.captureMessage(`Leak Detected\n${JSON.stringify(info)}`);
-});
-
-Raven.context(() => {
-    startBot();
 });
