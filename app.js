@@ -1,17 +1,11 @@
 const PenguClient = require("./structures/PenguClient");
 const config = require("./config.json");
 const Raven = require("raven");
-const memwatch = require("node-memwatch");
 
 Raven.config(config.keys.sentry, { captureUnhandledRejections: true }).install();
 
-memwatch.on("leak", info => {
-    console.log("Possible Memory Leak detected =>", info);
-    Raven.captureMessage(`Leak Detected\nreason: ${info.reason}`);
-});
-
 Raven.context(() => {
-        new PenguClient({
+    new PenguClient({
         prefix: ["p!"],
         commandEditing: true,
         disableEveryone: true,

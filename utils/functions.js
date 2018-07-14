@@ -18,16 +18,6 @@ class Util {
             .query("userId", id)
             .then(async res => {
                 upvoter = Boolean(res.body.voted);
-                if (!res.body.voted) {
-                    await snekfetch.get("https://listcord.com/api/bot/303181184718995457/votes").then(data => { // eslint-disable-line
-                        for (const u of data.body) {
-                            if (u.id === id) {
-                                if (Date.now() - u.lastVote >= 86400000) { upvoter = true; }
-                                upvoter = false;
-                            }
-                        }
-                    }).catch(() => null);
-                }
             });
         return upvoter;
     }

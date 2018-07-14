@@ -36,7 +36,6 @@
     "heapdump": "^0.3.9",
     "idiotic-api": "github:YorkAARGH/Idiotic-Wrapper",
     "klasa": "github:dirigeants/klasa",
-    "node-memwatch": "^1.0.1",
     "raven": "^2.6.3",
     "rethinkdbdash": "^2.3.31",
     "uws": "^10.148.1",
