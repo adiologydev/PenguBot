@@ -19,7 +19,7 @@ module.exports = class extends Command {
             .setFooter("© PenguBot.com");
         for (const node of this.client.lavalink.nodes.values()) {
             embed.addField(node.region, `**Players:** ${node.stats.playingPlayers} / ${node.stats.players}
-**Memory Usage:** ${(node.stats.memory.used / 1024 / 1024).toFixed(2)} / ${(node.stats.memory.free / 1024 / 1024).toFixed(2)}
+**Memory:** ${(node.stats.memory.used / 1024 / 1024).toFixed(2)} / ${(node.stats.memory.allocated / 1024 / 1024).toFixed(2)}
 **CPU:** ${node.stats.cpu.systemLoad.toFixed(2)}`, true);
         }
         return msg.sendEmbed(embed);
