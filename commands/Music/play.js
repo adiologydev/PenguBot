@@ -51,7 +51,7 @@ module.exports = class extends Command {
             let limit;
             if (!this.client.config.main.patreon && !await this.client.functions.isUpvoter(msg.author.id)) { limit = 74; } else { limit = 1000; } // eslint-disable-line
             for (let i = 0; i <= limit; i++) {
-                musicInterface.queue.add(songs[i]);
+                musicInterface.queue.push(songs[i]);
             }
             if (songs.length >= 75 && this.client.config.main.patreon === false && !await this.client.functions.isUpvoter(msg.author.id)) {
                 return msg.send({
@@ -110,7 +110,7 @@ module.exports = class extends Command {
             .setDescription([`• **Song:** ${song.title}`,
                 `• **Author:** ${song.author}`,
                 `• **Length:** ${song.isStream === true ? "Live Stream" : song.friendlyDuration}`,
-                `• **Requested By:** ${song.requester.tag}`,
+                `• **Requested By:** ${song.requester}`,
                 `• **Link:** ${song.url}`]);
     }
 
@@ -123,7 +123,7 @@ module.exports = class extends Command {
             .setDescription([`• **Song:** ${song.name}`,
                 `• **Author:** ${song.author}`,
                 `• **Length:** ${song.isStream === true ? "Live Stream" : song.friendlyDuration}`,
-                `• **Requested By:** ${song.requester.tag}`,
+                `• **Requested By:** ${song.requester}`,
                 `• **Link:** ${song.url}`]);
     }
 
