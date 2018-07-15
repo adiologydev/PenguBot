@@ -54,12 +54,12 @@ module.exports = class extends Command {
             .setColor("#151842")
             .setTimestamp()
             .setDescription([`❯ **Epic Username:** ${data.body.epicUserHandle}`,
-                `❯ **Score:** ${data.body.lifeTimeStats.find(a => a.key === "Score").value}`,
-                `❯ **Matches Played:** ${data.body.lifeTimeStats.find(a => a.key === "Matches Played").value}`,
-                `❯ **Kills:** ${data.body.lifeTimeStats.find(a => a.key === "Kills").value}`,
-                `❯ **Wins:** ${data.body.lifeTimeStats.find(a => a.key === "Wins").value}`,
-                `❯ **K/D:** ${data.body.lifeTimeStats.find(a => a.key === "K/d").value}`,
-                `❯ **Top 3s:** ${data.body.lifeTimeStats.find(a => a.key === "Top 3s").value}`,
+                `❯ **Score:** ${data.body.lifeTimeStats.find(a => a.key === "Score").value ? data.body.lifeTimeStats.find(a => a.key === "Score").value : "N/A"}`,
+                `❯ **Matches Played:** ${data.body.lifeTimeStats.find(a => a.key === "Matches Played").value ? data.body.lifeTimeStats.find(a => a.key === "Matches Played").value : "N/A"}`,
+                `❯ **Kills:** ${data.body.lifeTimeStats.find(a => a.key === "Kills").value ? data.body.lifeTimeStats.find(a => a.key === "Kills").value : "N/A"}`,
+                `❯ **Wins:** ${data.body.lifeTimeStats.find(a => a.key === "Wins").value ? data.body.lifeTimeStats.find(a => a.key === "Wins").value : "N/A"}`,
+                `❯ **K/D:** ${data.body.lifeTimeStats.find(a => a.key === "K/d").value ? data.body.lifeTimeStats.find(a => a.key === "K/d").value : "N/A"}`,
+                `❯ **Top 3s:** ${data.body.lifeTimeStats.find(a => a.key === "Top 3s").value ? data.body.lifeTimeStats.find(a => a.key === "Top 3s").value : "N/A"}`,
                 `❯ **Platform:** ${data.body.platformNameLong}`]);
         return msg.sendMessage(embed);
     }

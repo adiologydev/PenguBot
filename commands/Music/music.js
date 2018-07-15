@@ -9,7 +9,7 @@ module.exports = class extends Command {
             cooldown: 10,
             aliases: ["np", "currentsong", "song"],
             permissionLevel: 0,
-            requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
+            requiredPermissions: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
             description: msg => msg.language.get("COMMAND_MUSIC_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
