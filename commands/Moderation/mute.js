@@ -34,7 +34,8 @@ module.exports = class extends Command {
             }
         }
 
-        const role = msg.guild.roles.find(r => r.name === "PENGU_MUTED").catch(() => msg.reply("There was an error, I couldn't find the `PENGU_MUTED` role!"));
+        const role = msg.guild.roles.find(r => r.name === "PENGU_MUTED");
+        if (!role) return msg.reply("There was an error, I couldn't find the `PENGU_MUTED` role! Please try again or contact us at: https://discord.gg/kWMcUNe");
 
         if (user.roles.has(role.id)) {
             await user.roles.remove(role).catch(() => null);
