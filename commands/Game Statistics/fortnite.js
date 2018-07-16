@@ -20,21 +20,21 @@ module.exports = class extends Command {
     async run(msg, [Platform, ...Username]) {
         let data;
         if (Platform.toLowerCase() === "pc") {
-            data = await get(`https://api.fortnitetracker.com/v1/profile/pc/${Username.join(" ")}`)
+            data = await get(`https://api.fortnitetracker.com/v1/profile/pc/${encodeURIComponent(Username.join(" "))}`)
                 .set("TRN-Api-Key", this.client.config.keys.games.fortnite)
                 .catch(e => {
                     Error.captureStackTrace(e);
                     return e;
                 });
         } else if (Platform.toLowerCase() === "xbox") {
-            data = await get(`https://api.fortnitetracker.com/v1/profile/xb1/${Username.join(" ")}`)
+            data = await get(`https://api.fortnitetracker.com/v1/profile/xb1/${encodeURIComponent(Username.join(" "))}`)
                 .set("TRN-Api-Key", this.client.config.keys.games.fortnite)
                 .catch(e => {
                     Error.captureStackTrace(e);
                     return e;
                 });
         } else if (Platform.toLowerCase() === "psn") {
-            data = await get(`https://api.fortnitetracker.com/v1/profile/psn/${Username.join(" ")}`)
+            data = await get(`https://api.fortnitetracker.com/v1/profile/psn/${encodeURIComponent(Username.join(" "))}`)
                 .set("TRN-Api-Key", this.client.config.keys.games.fortnite)
                 .catch(e => {
                     Error.captureStackTrace(e);

@@ -25,7 +25,11 @@ module.exports = class extends Command {
         if (user.bannable === false) return msg.reply(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_BAN_CANT")}***`);
 
         reason = reason.length > 0 ? `${reason.join(" ")}\nBanned By: ${msg.author.tag}` : `No reason specified.\nBanned By: ${msg.author.tag}`;
-        await user.ban({ reason: reason });
+        try {
+            await user.ban({ reason: reason });
+        } catch (e) {
+            throw "<:penguError:435712890884849664> There was an error, please try again.";
+        }
 
         return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${member.tag} ${msg.language.get("MESSAGE_BANNED")}***`);
     }

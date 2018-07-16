@@ -25,7 +25,6 @@ module.exports = class extends Command {
             .setAuthor("Twitch Channel Statistics", "https://i.imgur.com/krTbTeD.png")
             .setTimestamp()
             .setFooter("© PenguBot.com")
-            .setThumbnail(body.logo)
             .setDescription(`❯ **Channel Name:** ${body.display_name}
 ❯ **Channel Status:** ${body.status}
 ❯ **Partnered:** ${body.partner}\n
@@ -33,6 +32,7 @@ module.exports = class extends Command {
 ❯ **Total Views:** ${parseInt(body.views).toLocaleString()}
 ❯ **Channel Created:** ${new Date(body.created_at).toDateString()}\n
 ❯ **Link:** ${body.url}`);
+        if (body.logo) embed.setThumbnail(body.logo);
         return msg.sendEmbed(embed);
     }
 
