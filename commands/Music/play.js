@@ -107,7 +107,7 @@ module.exports = class extends Command {
             .setTimestamp()
             .setFooter("© PenguBot.com")
             .setColor("#5cb85c")
-            .setDescription([`• **Song:** ${song.title}`,
+            .setDescription([`• **Title:** ${song.title}`,
                 `• **Author:** ${song.author}`,
                 `• **Length:** ${song.isStream === true ? "Live Stream" : song.friendlyDuration}`,
                 `• **Requested By:** ${song.requester}`,
@@ -120,7 +120,7 @@ module.exports = class extends Command {
             .setTimestamp()
             .setFooter("© PenguBot.com")
             .setColor("#eedc2f")
-            .setDescription([`• **Song:** ${song.name}`,
+            .setDescription([`• **Title:** ${song.name}`,
                 `• **Author:** ${song.author}`,
                 `• **Length:** ${song.isStream === true ? "Live Stream" : song.friendlyDuration}`,
                 `• **Requested By:** ${song.requester}`,
