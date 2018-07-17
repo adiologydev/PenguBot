@@ -16,15 +16,15 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        const queue = this.client.queue.get(msg.guild.id);
-        if (!queue) return msg.sendMessage("<:penguError:435712890884849664> There's currently no music playing!");
-        if (!queue.vc.members.has(msg.author.id)) return msg.sendMessage("<:penguError:435712890884849664> You're currently not in a voice channel or there was an error, try again.");
+        const { music } = msg.guild;
+        if (!music.playing) return msg.sendMessage("<:penguError:435712890884849664> There's currently no music playing!");
+        if (msg.member.voiceChannelID !== msg.guild.me.voiceChannelID) return msg.sendMessage("<:penguError:435712890884849664> You're currently not in a voice channel or there was an error, try again.");
 
-        if (queue.loop) {
-            queue.loop = false;
+        if (music.looping) {
+            music.looping = false;
             return msg.sendMessage("⏯ | ***Song looping is now Disabled***");
         } else {
-            queue.loop = true;
+            music.looping = true;
             return msg.sendMessage("⏯ | ***Song looping is now Enabled***");
         }
     }

@@ -19,9 +19,9 @@ module.exports = class extends Command {
     async run(msg, [song]) {
         let songName;
         if (!song) {
-            const queue = this.client.queue.get(msg.guild.id);
+            const { queue } = msg.guild.music;
             if (!queue) return msg.reply("No Music is playing right now, please enter a song name you want lyrics for.");
-            songName = queue.songs[0].name;
+            songName = queue[0].title;
         } else { songName = song; }
 
         const req = await lyrics.request(`search?q=${encodeURIComponent(songName)}`);

@@ -84,10 +84,10 @@ module.exports = class extends Command {
         return musicInterface.play(song.track)
             .then(async player => {
                 musicInterface.playing = true;
-                await musicInterface.textChannel.send(this.playEmbed(song));
+                if (!musicInterface.looping) await musicInterface.textChannel.send(this.playEmbed(song));
                 player.once("end", data => {
                     if (data.reason === "REPLACED") return;
-                    musicInterface.skip(false);
+                    if (!musicInterface.looping) musicInterface.skip(false);
                     this.play(musicInterface);
                 });
                 player.once("error", this.client.console.error);
