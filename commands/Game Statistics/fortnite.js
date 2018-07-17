@@ -11,41 +11,22 @@ module.exports = class extends Command {
             permissionLevel: 0,
             requiredPermissions: ["EMBED_LINKS", "ATTACH_FILES"],
             description: msg => msg.language.get("COMMAND_FORTNITE_DESCRIPTION"),
-            usage: "<Platform:string> <Username:string> [...]",
+            usage: "<pc|xbox|psn> <Username:string> [...]",
             usageDelim: " ",
             extendedHelp: "No extended help available."
         });
     }
 
     async run(msg, [Platform, ...Username]) {
-        let data;
-        if (Platform.toLowerCase() === "pc") {
-            data = await get(`https://api.fortnitetracker.com/v1/profile/pc/${encodeURIComponent(Username.join(" "))}`)
-                .set("TRN-Api-Key", this.client.config.keys.games.fortnite)
-                .catch(e => {
-                    Error.captureStackTrace(e);
-                    return e;
-                });
-        } else if (Platform.toLowerCase() === "xbox") {
-            data = await get(`https://api.fortnitetracker.com/v1/profile/xb1/${encodeURIComponent(Username.join(" "))}`)
-                .set("TRN-Api-Key", this.client.config.keys.games.fortnite)
-                .catch(e => {
-                    Error.captureStackTrace(e);
-                    return e;
-                });
-        } else if (Platform.toLowerCase() === "psn") {
-            data = await get(`https://api.fortnitetracker.com/v1/profile/psn/${encodeURIComponent(Username.join(" "))}`)
-                .set("TRN-Api-Key", this.client.config.keys.games.fortnite)
-                .catch(e => {
-                    Error.captureStackTrace(e);
-                    return e;
-                });
-        } else {
-            return msg.sendMessage("<:penguError:435712890884849664> ***Invalid Platform, please retry with either of these platforms: `pc`. `xbox`, `psn`.***");
-        }
+        const data = await get(`https://api.fortnitetracker.com/v1/profile/${Platform}/${encodeURIComponent(Username.join(" "))}`)
+            .set("TRN-Api-Key", this.client.config.keys.games.fortnite)
+            .catch(e => {
+                Error.captureStackTrace(e);
+                return e;
+            });
 
-        if (!data || !data.body) return msg.sendMessage("<:penguError:435712890884849664> ***Invalid Username or Platform, please retry with either of these platforms: `pc`. `xbox`, `psn`.***");
-        if (data.body.error) return msg.sendMessage("<:penguError:435712890884849664> ***There was an error in the Tracking API, please try again later.***");
+        if (!data || !data.body) throw "<:penguError:435712890884849664> ***Invalid Username or Platform, please retry with either of these platforms: `pc`. `xbox`, `psn`.***";
+        if (data.body.error) throw "<:penguError:435712890884849664> ***There was an error in the Tracking API, please try again later.***";
 
         const embed = new MessageEmbed()
             .setTitle("Fortnite Battle Royale Statistics - PenguBot")
