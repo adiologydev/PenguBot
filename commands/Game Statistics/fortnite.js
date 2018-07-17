@@ -17,18 +17,18 @@ module.exports = class extends Command {
         });
     }
 
-    async run(msg, [Platform, ...Username]) {
-        const data = await get(`https://api.fortnitetracker.com/v1/profile/${Platform}/${encodeURIComponent(Username.join(" "))}`)
+    async run(msg, [platform, ...username]) {
+        const data = await get(`https://api.fortnitetracker.com/v1/profile/${platform}/${encodeURIComponent(username.join(" "))}`)
             .set("TRN-Api-Key", this.client.config.keys.games.fortnite)
             .catch(e => {
                 Error.captureStackTrace(e);
-                return e;
+                throw e;
             });
 
         if (!data || !data.body) throw "<:penguError:435712890884849664> ***Invalid Username or Platform, please retry with either of these platforms: `pc`. `xbox`, `psn`.***";
         if (data.body.error) throw "<:penguError:435712890884849664> ***There was an error in the Tracking API, please try again later.***";
 
-        const embed = new MessageEmbed()
+        return msg.sendMessage(new MessageEmbed()
             .setTitle("Fortnite Battle Royale Statistics - PenguBot")
             .setFooter("© PenguBot.com")
             .setThumbnail("https://i.imgur.com/EER1jFB.png")
@@ -41,8 +41,7 @@ module.exports = class extends Command {
                 `❯ **Wins:** ${data.body.lifeTimeStats.find(a => a.key === "Wins").value ? data.body.lifeTimeStats.find(a => a.key === "Wins").value : "N/A"}`,
                 `❯ **K/D:** ${data.body.lifeTimeStats.find(a => a.key === "K/d").value ? data.body.lifeTimeStats.find(a => a.key === "K/d").value : "N/A"}`,
                 `❯ **Top 3s:** ${data.body.lifeTimeStats.find(a => a.key === "Top 3s").value ? data.body.lifeTimeStats.find(a => a.key === "Top 3s").value : "N/A"}`,
-                `❯ **Platform:** ${data.body.platformNameLong}`]);
-        return msg.sendMessage(embed);
+                `❯ **Platform:** ${data.body.platformNameLong}`]));
     }
 
 };
