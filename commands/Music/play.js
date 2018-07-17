@@ -58,7 +58,7 @@ module.exports = class extends Command {
                     embed: new MessageEmbed()
                         .setTitle("Support us!")
                         .setColor("#f96854")
-                        .setDescription(["🎧 | **Queue:** Playlist has been added to the queue. This playlist has more than 75 songs but only 75 were added",
+                        .setDescription(["🎧 | **Queue:** Playlist has been added to the queue. This playlist has more than 75 songs but only 75 were added.",
                             "If you wish bypass this limit become our Patreon today at https://patreon.com/PenguBot and use our Patron Only Bot."])
                 });
             } else {
