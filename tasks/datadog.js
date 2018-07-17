@@ -14,7 +14,7 @@ module.exports = class extends Task {
 
     // Init
     async init() {
-        if (this.client.user.id !== "303181184718995457") return this.disable();
+        if (this.client.user.id !== "303181184718995457" && this.client.shard.id !== 0) return this.disable();
         if (!this.client.configs.schedules.some(schedule => schedule.taskName === this.name)) {
             await this.client.schedule.create("cleaner", "*/1 * * * *");
         }
