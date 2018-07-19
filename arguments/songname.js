@@ -2,35 +2,32 @@ const { Argument } = require("klasa");
 const Song = require("../lib/structures/Song");
 const url = require("url");
 
-module.exports = class extends Argument {
+// Regexes
+const playlist = /(\?|\&)list=(.*)/i; // eslint-disable-line
+const soundcloud = /https:\/\/soundcloud\.com\/.*/i;
+const scPlaylist = /https:\/\/?soundcloud.com\/.*\/.*\/.*/i;
+const wcSc = /scsearch:.*/;
+const wcYt = /ytsearch:.*/;
 
-    constructor(...args) {
-        super(...args);
-        this.playlist = /(\?|\&)list=(.*)/i; // eslint-disable-line
-        this.soundcloud = /https:\/\/soundcloud\.com\/.*/i;
-        this.scPlaylist = /https:\/\/?soundcloud.com\/.*\/.*\/.*/i;
-    }
+module.exports = class extends Argument {
 
     async run(arg, possible, msg) {
         arg = arg.replace(/<(.+)>/g, "$1");
         if (!msg.guild) return null;
 
         const results = [];
-        results.playlist = false;
 
         const isLink = this.isLink(arg);
         if (isLink) {
-            if (this.playlist.exec(arg)) {
+            if (playlist.exec(arg)) {
                 const playlistResults = await this.getTracks(arg);
                 if (!playlistResults[0]) throw msg.language.get("ER_MUSIC_NF");
                 results.push(...playlistResults);
-                results.playlist = true;
-            } else if (this.soundcloud.exec(arg)) {
-                if (this.scPlaylist.exec(arg)) {
+            } else if (soundcloud.exec(arg)) {
+                if (scPlaylist.exec(arg)) {
                     const scPlaylistRes = await this.getTracks(arg);
                     if (!scPlaylistRes[0]) throw msg.language.get("ER_MUSIC_NF");
                     results.push(...scPlaylistRes);
-                    results.playlist = true;
                 } else {
                     const scSingleRes = await this.getTracks(arg);
                     if (!scSingleRes) throw msg.language.get("ER_MUSIC_NF");
@@ -41,7 +38,7 @@ module.exports = class extends Argument {
                 if (!httpRes[0]) throw msg.language.get("ER_MUSIC_NF");
                 results.push(httpRes[0]);
             }
-        } else if (arg.match(/scsearch:.*/) || arg.match(/ytsearch:.*/)) {
+        } else if (wcYt.exec(arg) || wcSc.exec(arg)) {
             const wildcardRes = await this.getTracks(arg);
             if (!wildcardRes[0]) throw msg.language.get("ER_MUSIC_NF");
             results.push(wildcardRes[0]);
@@ -49,12 +46,14 @@ module.exports = class extends Argument {
             let searchRes = await this.getTracks(`ytsearch:${arg}`);
             if (!searchRes[0]) searchRes = await this.getTracks(`scsearch:${arg}`);
             if (!searchRes[0]) throw "Could not find any search results on YouTube or SoundCloud, try again with a different name or provide a URL.";
-            const options = searchRes.slice(0, 5); let index = 0;
+            const options = searchRes.slice(0, 5);
+            let index = 0;
             const selection = await msg.awaitReply([`🎵 | **Select a Song - PenguBot**\n`,
                 `${options.map(o => `➡ \`${++index}\` ${o.info.title} - ${o.info.author} (${this.client.functions.friendlyDuration(o.info.length)})`).join("\n")}`,
                 `\n${msg.author}, Please select an option by replying from range \`1-5\` to add it to the queue.`], 20000);
             try {
-                const selectedNo = parseInt(selection);
+                if (selectedNo !== Number(selectedNo)) throw "<:penguError:435712890884849664> ***Invalid Option Selected, please select from `1-5`. Cancelled song selection.***";
+                const selectedNo = Number(selection);
                 if (selectedNo <= 0 || selectedNo > 5) throw "<:penguError:435712890884849664> ***Invalid Option Selected, please select from `1-5`. Cancelled song selection.***";
                 results.push(searchRes[selectedNo - 1]);
             } catch (e) {

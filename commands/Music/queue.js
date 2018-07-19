@@ -27,9 +27,9 @@ module.exports = class extends Command {
             .setColor("#428bca")
         );
 
-        for (let i = 0, temp = queue.length; i < temp; i += 5) {
+        for (let i = 0; i < queue.length; i += 5) {
             const curr = queue.slice(i, i + 5);
-            pages.addPage(t => t.setDescription(curr.map(y => `\`-\` [${y.title.replace(/\*/g, "\\*")}](${y.url}) (${y.friendlyDuration})`)));
+            pages.addPage(t => t.setDescription(curr.map(y => `\`-\` [${y.title.replace(/\*/g, "\\*")}](${y.url}) (${y.friendlyDuration})`).join("\n")));
         }
         pages.run(await msg.sendMessage("<a:penguLoad:435712860744581120> Loading Queue..."), {
             time: 120000,

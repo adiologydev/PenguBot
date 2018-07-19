@@ -2,9 +2,6 @@ const PenguClient = require("./lib/structures/PenguClient");
 const config = require("./config.json");
 const Raven = require("raven");
 
-// Extensions
-require("./lib/extensions/PenguGuild");
-
 // Bot
 function startBot() {
     new PenguClient({

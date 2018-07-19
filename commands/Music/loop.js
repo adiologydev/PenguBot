@@ -20,13 +20,8 @@ module.exports = class extends Command {
         if (!music.playing) return msg.sendMessage("<:penguError:435712890884849664> There's currently no music playing!");
         if (msg.member.voiceChannelID !== msg.guild.me.voiceChannelID) return msg.sendMessage("<:penguError:435712890884849664> You're currently not in a voice channel or there was an error, try again.");
 
-        if (music.looping) {
-            music.looping = false;
-            return msg.sendMessage("⏯ | ***Song looping is now Disabled***");
-        } else {
-            music.looping = true;
-            return msg.sendMessage("⏯ | ***Song looping is now Enabled***");
-        }
+        music.looping = !music.looping;
+        return msg.sendMessage(`⏯ | ***Song looping is now ${music.looping ? "Enabled" : "Disabled"}***`);
     }
 
 };

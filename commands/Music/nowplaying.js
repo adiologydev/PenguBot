@@ -20,17 +20,18 @@ module.exports = class extends Command {
         const { queue } = music;
         if (!music.playing) return msg.sendMessage("<:penguError:435712890884849664> ***There's currently no music playing!***");
 
-        const song = queue[0];
+        const [song] = queue;
+        if (!song) return msg.sendMessage("<:penguError:435712890884849664> ***Song not found, please try with a different one.***");
         const embed = new MessageEmbed()
             .setColor("#5bc0de")
             .setTitle("⏯ | Now Playing - PenguBot")
             .setTimestamp()
             .setFooter("© PenguBot.com")
-            .setDescription([`• **Title:** ${song.title}`,
-                `• **Author:** ${song.author}`,
-                `• **Duration:** ${song.stream === true ? "Live Stream" : song.friendlyDuration}`,
-                `• **Requested By:** ${song.requester}`,
-                `• **Link:** ${song.url}`]);
+            .setDescription(`• **Title:** ${song.title}
+• **Author:** ${song.author}
+• **Duration:** ${song.stream === true ? "Live Stream" : song.friendlyDuration}
+• **Requested By:** ${song.requester}
+• **Link:** ${song.url}`);
         return msg.sendEmbed(embed);
     }
 

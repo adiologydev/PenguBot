@@ -48,12 +48,9 @@ module.exports = class extends Command {
     async handleSongs(msg, songs) {
         const musicInterface = msg.guild.music;
         if (songs.length > 1) {
-            let limit;
-            if (!this.client.config.main.patreon && !await this.client.functions.isUpvoter(msg.author.id)) { limit = 74; } else { limit = 1000; } // eslint-disable-line
-            for (let i = 0; i <= limit; i++) {
-                if (songs[i] === undefined) continue;
-                musicInterface.queue.push(songs[i]);
-            }
+            const limit = this.client.config.main.patreon && await this.client.functions.isUpvoter(msg.author.id) ? 1000 : 74;
+            const limitedSongs = songs.slice(0, limit);
+            musicInterface.queue.push(...limitedSongs);
             if (songs.length >= 75 && this.client.config.main.patreon === false && !await this.client.functions.isUpvoter(msg.author.id)) {
                 return msg.send({
                     embed: new MessageEmbed()
@@ -108,11 +105,11 @@ module.exports = class extends Command {
             .setTimestamp()
             .setFooter("© PenguBot.com")
             .setColor("#5cb85c")
-            .setDescription([`• **Title:** ${song.title}`,
-                `• **Author:** ${song.author}`,
-                `• **Length:** ${song.isStream === true ? "Live Stream" : song.friendlyDuration}`,
-                `• **Requested By:** ${song.requester}`,
-                `• **Link:** ${song.url}`]);
+            .setDescription(`• **Title:** ${song.title}
+• **Author:** ${song.author}
+• **Length:** ${song.isStream === true ? "Live Stream" : song.friendlyDuration}
+• **Requested By:** ${song.requester}
+• **Link:** ${song.url}`);
     }
 
     queueEmbed(song) {
@@ -121,11 +118,11 @@ module.exports = class extends Command {
             .setTimestamp()
             .setFooter("© PenguBot.com")
             .setColor("#eedc2f")
-            .setDescription([`• **Title:** ${song.title}`,
-                `• **Author:** ${song.author}`,
-                `• **Length:** ${song.isStream === true ? "Live Stream" : song.friendlyDuration}`,
-                `• **Requested By:** ${song.requester}`,
-                `• **Link:** ${song.url}`]);
+            .setDescription(`• **Title:** ${song.title}
+• **Author:** ${song.author}
+• **Length:** ${song.isStream === true ? "Live Stream" : song.friendlyDuration}
+• **Requested By:** ${song.requester}
+• **Link:** ${song.url}`);
     }
 
     stopEmbed() {
@@ -134,8 +131,8 @@ module.exports = class extends Command {
             .setTimestamp()
             .setFooter("© PenguBot.com")
             .setColor("#d9534f")
-            .setDescription([`• **Party Over:** All the songs from the queue have finished playing. Leaving voice channel.`,
-                `• **Support:** If you enjoyed PenguBot and it's features, please consider becoming a Patron at: https://www.Patreon.com/PenguBot`]);
+            .setDescription(`• **Party Over:** All the songs from the queue have finished playing. Leaving voice channel.
+• **Support:** If you enjoyed PenguBot and it's features, please consider becoming a Patron at: https://www.Patreon.com/PenguBot`);
     }
 
 };

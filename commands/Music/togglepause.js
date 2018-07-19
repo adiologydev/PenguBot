@@ -22,13 +22,8 @@ module.exports = class extends Command {
 
         if (!this.client.config.main.patreon && !this.client.functions.isPatron(msg.guild) && !await this.client.functions.isUpvoter(msg.author.id)) return msg.sendMessage("<:penguError:435712890884849664> ***You need to be an upvoter of PenguBot to use this command by voting at: <https://discordbots.org/bot/PenguBot> or by being in a Patron Guild by becoming a Patron at <https://www.patreon.com/PenguBot>.***");
 
-        if (music.paused) {
-            music.pause();
-            return msg.sendMessage("⏯ | ***PenguBot has Resumed the music!***");
-        } else {
-            music.pause();
-            return msg.sendMessage("⏯ | ***PenguBot has Paused the music!***");
-        }
+        music.pause();
+        return msg.sendMessage(`⏯ | ***PenguBot has ${music.paused ? "Paused" : "Resumed"} the music!***`);
     }
 
 };

@@ -8,7 +8,6 @@ module.exports = class extends Command {
             runIn: ["text"],
             cooldown: 10,
             aliases: ["np", "currentsong", "song"],
-            permissionLevel: 0,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: msg => msg.language.get("COMMAND_MUSIC_DESCRIPTION"),
             extendedHelp: "No extended help available."
