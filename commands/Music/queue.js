@@ -1,7 +1,8 @@
-const { Command, RichDisplay } = require("klasa");
+const MusicCommand = require("../../lib/structures/MusicCommand");
+const { RichDisplay } = require("klasa");
 const { MessageEmbed } = require("discord.js");
 
-module.exports = class extends Command {
+module.exports = class extends MusicCommand {
 
     constructor(...args) {
         super(...args, {

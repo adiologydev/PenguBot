@@ -1,9 +1,10 @@
-const { Command } = require("klasa");
+const MusicCommand = require("../../lib/structures/MusicCommand");
 
-module.exports = class extends Command {
+module.exports = class extends MusicCommand {
 
     constructor(...args) {
         super(...args, {
+            requireMusic: true,
             runIn: ["text"],
             cooldown: 10,
             aliases: ["shufflequeue", "queueshuffle"],
@@ -12,7 +13,6 @@ module.exports = class extends Command {
             description: msg => msg.language.get("COMMAND_SHUFFLE_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
-        this.music = true;
     }
 
     async run(msg) {

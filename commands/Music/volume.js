@@ -1,9 +1,10 @@
-const { Command } = require("klasa");
+const MusicCommand = require("../../lib/structures/MusicCommand");
 
-module.exports = class extends Command {
+module.exports = class extends MusicCommand {
 
     constructor(...args) {
         super(...args, {
+            requireMusic: true,
             runIn: ["text"],
             cooldown: 8,
             aliases: ["changevol", "setvolume"],
@@ -13,7 +14,6 @@ module.exports = class extends Command {
             extendedHelp: "No extended help available.",
             usage: "[volume:integer]"
         });
-        this.music = true;
     }
 
     async run(msg, [volume]) {

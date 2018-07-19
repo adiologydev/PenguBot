@@ -1,10 +1,11 @@
-const { Command } = require("klasa");
+const MusicCommand = require("../../lib/structures/MusicCommand");
 const { MessageEmbed } = require("discord.js");
 
-module.exports = class extends Command {
+module.exports = class extends MusicCommand {
 
     constructor(...args) {
         super(...args, {
+            requireMusic: true,
             runIn: ["text"],
             cooldown: 5,
             aliases: ["musicplay"],
@@ -13,7 +14,6 @@ module.exports = class extends Command {
             usage: "<song:songname>",
             extendedHelp: "No extended help available."
         });
-        this.music = true;
         this.delayer = time => new Promise(res => setTimeout(() => res(), time));
     }
 
