@@ -31,7 +31,7 @@ module.exports = class extends Command {
                 `• **Duration:** ${song.stream === true ? "Live Stream" : song.friendlyDuration}`,
                 `• **Requested By:** ${song.requester}`,
                 `• **Link:** ${song.url}`]);
-        return msg.sendEmbed({ embed: embed });
+        return msg.sendEmbed(embed);
     }
 
 };

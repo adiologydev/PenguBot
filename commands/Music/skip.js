@@ -17,13 +17,12 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        const queue = this.client.queue.get(msg.guild.id);
-        const player = this.client.lavalink.get(msg.guild.id);
-        if (!queue) return msg.sendMessage("<:penguError:435712890884849664> There's currently no music playing!");
-        if (!queue.vc.members.has(msg.author.id)) return msg.sendMessage("<:penguError:435712890884849664> You're currently not in a voice channel or there was an error, try again.");
-        if (!player) return msg.sendMessage("<:penguError:435712890884849664> There's currently no music playing!");
-        const threshold = Math.ceil(queue.vc.members.size / 3);
-        const force = threshold <= 1 || queue.vc.members.size < threshold || await msg.hasAtLeastPermissionLevel(3);
+        const { music } = msg.guild;
+        const { queue } = music;
+        if (!music.playing) return msg.sendMessage("<:penguError:435712890884849664> There's currently no music playing!");
+        if (msg.member.voiceChannelID !== msg.guild.me.voiceChannelID) return msg.sendMessage("<:penguError:435712890884849664> You're currently not in a voice channel or there was an error, try again.");
+        const threshold = Math.ceil(music.voiceChannel.members.size / 3);
+        const force = threshold <= 1 || music.voiceChannel < threshold || await msg.hasAtLeastPermissionLevel(3);
 
         if (force) return msg.reply(this.skip(msg.guild, queue));
 
@@ -63,19 +62,9 @@ module.exports = class extends Command {
             this.votes.delete(guild.id);
         }
 
-        const current = queue.songs[0];
-        queue.songs.shift();
-        const song = queue.songs[0];
-        if (!song) {
-            setTimeout(async () => {
-                await this.client.lavalink.leave(guild.id);
-                return this.client.queue.delete(guild.id);
-            }, 500);
-            return "🎵 | **Music:** Finished playing the current queue. Enjoyed what you heard? Why not support us on Patreon at <https://www.Patreon.com/PenguBot>";
-        }
-
-        this.client.lavalink.get(guild.id).play(song.track);
-        return `<:penguSuccess:435712876506775553> Skipped: **${current.name}**`;
+        const current = queue[0];
+        guild.music.skip();
+        return `<:penguSuccess:435712876506775553> Skipped: **${current.title}**`;
     }
 
     setTimeout(vote) {

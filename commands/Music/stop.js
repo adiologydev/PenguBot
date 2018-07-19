@@ -17,7 +17,6 @@ module.exports = class extends Command {
 
     async run(msg) {
         const { music } = msg.guild;
-        if (!msg.member.voiceChannel) return msg.sendMessage("<:penguError:435712890884849664> You're currently not in a voice channel.");
         if (!music.playing) return msg.sendMessage("<:penguError:435712890884849664> ***There's currently no music playing!***");
 
         if (await msg.hasAtLeastPermissionLevel(3) || music.voiceChannel.members.size <= 3) {

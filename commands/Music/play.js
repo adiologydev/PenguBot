@@ -51,6 +51,7 @@ module.exports = class extends Command {
             let limit;
             if (!this.client.config.main.patreon && !await this.client.functions.isUpvoter(msg.author.id)) { limit = 74; } else { limit = 1000; } // eslint-disable-line
             for (let i = 0; i <= limit; i++) {
+                if (songs[i] === undefined) continue;
                 musicInterface.queue.push(songs[i]);
             }
             if (songs.length >= 75 && this.client.config.main.patreon === false && !await this.client.functions.isUpvoter(msg.author.id)) {
@@ -68,7 +69,7 @@ module.exports = class extends Command {
             musicInterface.queue.push(...songs);
             if (!musicInterface.playing) return;
             musicInterface.playing = true;
-            return msg.send(this.playEmbed(songs[0]));
+            return msg.send(this.queueEmbed(songs[0]));
         }
     }
 
@@ -120,7 +121,7 @@ module.exports = class extends Command {
             .setTimestamp()
             .setFooter("© PenguBot.com")
             .setColor("#eedc2f")
-            .setDescription([`• **Title:** ${song.name}`,
+            .setDescription([`• **Title:** ${song.title}`,
                 `• **Author:** ${song.author}`,
                 `• **Length:** ${song.isStream === true ? "Live Stream" : song.friendlyDuration}`,
                 `• **Requested By:** ${song.requester}`,
