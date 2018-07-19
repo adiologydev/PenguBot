@@ -56,8 +56,8 @@ module.exports = class extends Command {
                     embed: new MessageEmbed()
                         .setTitle("Support us!")
                         .setColor("#f96854")
-                        .setDescription(["🎧 | **Queue:** Playlist has been added to the queue. This playlist has more than 75 songs but only 75 were added.",
-                            "If you wish bypass this limit become our Patreon today at https://patreon.com/PenguBot and use our Patron Only Bot."])
+                        .setDescription(`🎧 | **Queue:** Playlist has been added to the queue. This playlist has more than 75 songs but only 75 were added.
+If you wish bypass this limit become our Patreon today at https://patreon.com/PenguBot and use our Patron Only Bot.`)
                 });
             } else {
                 return msg.send(`🎧 | **Queue:** Added **${songs.length}** songs to the queue based on your playlist.`);
@@ -88,7 +88,10 @@ module.exports = class extends Command {
                     if (!musicInterface.looping) musicInterface.skip(false);
                     this.play(musicInterface);
                 });
-                player.once("error", this.client.console.error);
+                player.once("error", e => {
+                    this.client.console.error(e);
+                    musicInterface.textChannel.send("I am very sorry but was an error, please try again or contact us at https://discord.gg/kWMcUNe");
+                });
             });
     }
 
