@@ -8,7 +8,6 @@ module.exports = class extends MusicCommand {
             runIn: ["text"],
             cooldown: 10,
             aliases: ["loopsong", "repeat"],
-            permissionLevel: 0,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: msg => msg.language.get("COMMAND_LOOP_DESCRIPTION"),
             extendedHelp: "No extended help available."

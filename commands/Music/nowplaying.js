@@ -6,7 +6,7 @@ module.exports = class extends MusicCommand {
     constructor(...args) {
         super(...args, {
             runIn: ["text"],
-            cooldown: 10,
+            cooldown: 8,
             aliases: ["np", "currentsong", "song"],
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: msg => msg.language.get("COMMAND_NOWPLAYING_DESCRIPTION"),

@@ -6,9 +6,8 @@ module.exports = class extends MusicCommand {
         super(...args, {
             requireMusic: true,
             runIn: ["text"],
-            cooldown: 10,
+            cooldown: 8,
             aliases: ["loopsong", "repeat"],
-            permissionLevel: 0,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: msg => msg.language.get("COMMAND_SKIP_DESCRIPTION"),
             extendedHelp: "No extended help available."

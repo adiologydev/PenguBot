@@ -8,7 +8,6 @@ module.exports = class extends MusicCommand {
             runIn: ["text"],
             cooldown: 10,
             aliases: ["shufflequeue", "queueshuffle"],
-            permissionLevel: 0,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: msg => msg.language.get("COMMAND_SHUFFLE_DESCRIPTION"),
             extendedHelp: "No extended help available."

@@ -8,7 +8,6 @@ module.exports = class extends MusicCommand {
             runIn: ["text"],
             cooldown: 8,
             aliases: ["changevol", "setvolume"],
-            permissionLevel: 0,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: msg => msg.language.get("COMMAND_VOLUME_DESCRIPTION"),
             extendedHelp: "No extended help available.",
