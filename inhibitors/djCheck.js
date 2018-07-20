@@ -9,7 +9,8 @@ module.exports = class extends Inhibitor {
     async run(msg, cmd) {
         if (!msg.guild) return;
         if (msg.guild.configs.djOnly) {
-            if (cmd.music) {
+            console.log(cmd);
+            if (cmd.options.requireMusic) {
                 if (!msg.hasAtLeastPermissionLevel(3)) {
                     throw msg.language.get("INHIBITOR_DJ_ONLY");
                 }
