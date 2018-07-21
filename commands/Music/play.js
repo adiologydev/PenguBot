@@ -5,7 +5,7 @@ module.exports = class extends MusicCommand {
 
     constructor(...args) {
         super(...args, {
-            requireMusic: true,
+            requireDJ: true,
             runIn: ["text"],
             cooldown: 5,
             aliases: ["musicplay"],
