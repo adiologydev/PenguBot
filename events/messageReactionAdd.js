@@ -3,11 +3,6 @@ const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Event {
 
-    constructor(...args) {
-        super(...args);
-        this.provider = this.client.providers.default;
-    }
-
     async run(reaction) {
         const msg = reaction.message;
         const { guild } = msg;
@@ -56,6 +51,9 @@ module.exports = class extends Event {
         if (!image) return null;
         return attachment;
     }
-
+    
+    get provider() {
+        return this.client.providers.default;
+    }
 
 };
