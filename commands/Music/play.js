@@ -47,18 +47,13 @@ module.exports = class extends MusicCommand {
 
     async handleSongs(msg, songs) {
         const musicInterface = msg.guild.music;
+        const isUpvoter = await this.client.functions.isUpvoter(msg.author.id);
         if (songs.length > 1) {
-            const limit = this.client.config.main.patreon && await this.client.functions.isUpvoter(msg.author.id) ? 1000 : 74;
+            const limit = this.client.config.main.patreon && isUpvoter ? 1000 : 74;
             const limitedSongs = songs.slice(0, limit);
             musicInterface.queue.push(...limitedSongs);
-            if (songs.length >= 75 && this.client.config.main.patreon === false && !await this.client.functions.isUpvoter(msg.author.id)) {
-                return msg.send({
-                    embed: new MessageEmbed()
-                        .setTitle("Support us!")
-                        .setColor("#f96854")
-                        .setDescription(`🎧 | **Queue:** Playlist has been added to the queue. This playlist has more than 75 songs but only 75 were added.
-If you wish bypass this limit become our Patreon today at https://patreon.com/PenguBot and use our Patron Only Bot.`)
-                });
+            if (songs.length >= 75 && !this.client.config.main.patreon && !isUpvoter) {
+                return msg.send({ embed: this.supportEmbed });
             } else {
                 return msg.send(`🎧 | **Queue:** Added **${songs.length}** songs to the queue based on your playlist.`);
             }
@@ -102,6 +97,7 @@ If you wish bypass this limit become our Patreon today at https://patreon.com/Pe
         if (permissions.has("SPEAK") === false) throw "I can connect... but not speak. Please turn on this permission so I can spit some bars.";
     }
 
+    // Response Embeds
     playEmbed(song) {
         return new MessageEmbed()
             .setTitle("⏯ | Now Playing - PenguBot")
@@ -110,7 +106,7 @@ If you wish bypass this limit become our Patreon today at https://patreon.com/Pe
             .setColor("#5cb85c")
             .setDescription(`• **Title:** ${song.title}
 • **Author:** ${song.author}
-• **Length:** ${song.isStream === true ? "Live Stream" : song.friendlyDuration}
+• **Length:** ${song.isStream ? "Live Stream" : song.friendlyDuration}
 • **Requested By:** ${song.requester}
 • **Link:** ${song.url}`);
     }
@@ -123,7 +119,7 @@ If you wish bypass this limit become our Patreon today at https://patreon.com/Pe
             .setColor("#eedc2f")
             .setDescription(`• **Title:** ${song.title}
 • **Author:** ${song.author}
-• **Length:** ${song.isStream === true ? "Live Stream" : song.friendlyDuration}
+• **Length:** ${song.isStream ? "Live Stream" : song.friendlyDuration}
 • **Requested By:** ${song.requester}
 • **Link:** ${song.url}`);
     }
@@ -136,6 +132,14 @@ If you wish bypass this limit become our Patreon today at https://patreon.com/Pe
             .setColor("#d9534f")
             .setDescription(`• **Party Over:** All the songs from the queue have finished playing. Leaving voice channel.
 • **Support:** If you enjoyed PenguBot and it's features, please consider becoming a Patron at: https://www.Patreon.com/PenguBot`);
+    }
+
+    supportEmbed() {
+        return new MessageEmbed()
+            .setTitle("Support us!")
+            .setColor("#f96854")
+            .setDescription(`🎧 | **Queue:** Playlist has been added to the queue. This playlist has more than 75 songs but only 75 were added.
+If you wish bypass this limit become our Patreon today at https://patreon.com/PenguBot and use our Patron Only Bot.`);
     }
 
 };

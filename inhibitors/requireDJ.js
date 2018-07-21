@@ -10,11 +10,9 @@ module.exports = class extends Inhibitor {
         if (cmd.requireDJ !== true) return;
         if (msg.channel.type !== "text") throw "This command may be only executed in a server.";
 
-        if (msg.guild.configs.djOnly) {
-            if (!msg.hasAtLeastPermissionLevel(3)) {
-                throw msg.language.get("INHIBITOR_DJ_ONLY");
-            }
-        }
+        if (!msg.guild.configs.djOnly) return;
+        if (await msg.hasAtLeastPermissionLevel(3)) return;
+        throw msg.language.get("INHIBITOR_DJ_ONLY");
     }
 
     async init() {
