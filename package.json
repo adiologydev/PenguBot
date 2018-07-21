@@ -34,6 +34,7 @@
     "erlpack": "github:discordapp/erlpack",
     "google-translate-api": "^2.3.0",
     "heapdump": "^0.3.9",
+    "hot-shots": "^5.7.0",
     "idiotic-api": "github:YorkAARGH/Idiotic-Wrapper",
     "klasa": "github:dirigeants/klasa",
     "raven": "^2.6.3",
@@ -43,7 +44,7 @@
   },
   "devDependencies": {
     "eslint": "5.0.0",
-    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-node": "^7.0.0",
     "eslint-plugin-promise": "^3.8.0"
   }
 }

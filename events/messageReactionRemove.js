@@ -3,11 +3,6 @@ const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Event {
 
-    constructor(...args) {
-        super(...args);
-        this.provider = this.client.providers.default;
-    }
-
     async run(reaction) {
         const msg = reaction.message;
         const { guild } = msg;
@@ -26,7 +21,7 @@ module.exports = class extends Event {
             const image = msg.attachments.size > 0 ? await this.checkAttachments(msg.attachments.array()[0].url) : null;
             const embed = new MessageEmbed()
                 .setColor(starEmbed.color)
-                .setAuthor(msg.author.tag, msg.author.displayAvatarURL())
+                .setAuthor(`${msg.author.tag} in #${msg.channel.name}`, msg.author.displayAvatarURL())
                 .setTimestamp()
                 .setFooter(`⭐ ${msg.reactions.get("⭐").count} | ${msg.id}`);
             if (image) embed.setImage(image);
@@ -46,5 +41,8 @@ module.exports = class extends Event {
         return attachment;
     }
 
+    get provider() {
+        return this.client.providers.default;
+    }
 
 };

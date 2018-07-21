@@ -16,7 +16,9 @@ module.exports = class extends Task {
             snekfetch.post(`https://listcord.com/api/bot/${this.client.user.id}/guilds`)
                 .set("token", this.client.config.keys.listcord).send({ guilds: this.client.guilds.size, shard: this.client.shard.id }),
             snekfetch.post(`https://botsfordiscord.com/api/v1/bots/${this.client.user.id}`)
-                .set("Authorization", this.client.config.keys.b4d).send({ server_count: allGuilds.reduce((prev, val) => prev + val, 0) })
+                .set("Authorization", this.client.config.keys.b4d).send({ server_count: allGuilds.reduce((prev, val) => prev + val, 0) }),
+            snekfetch.post(`https://discordbots.group/api/bot/${this.client.user.id}`)
+                .set("Authorization", this.client.config.keys.dbg).send({ count: allGuilds.reduce((prev, val) => prev + val, 0) })
         ]);
     }
 
