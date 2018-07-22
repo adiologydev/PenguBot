@@ -5,7 +5,7 @@ const dogstats = new StatsD();
 module.exports = class extends Task {
 
     async run() {
-        if (this.client.user.id !== "303181184718995457" && this.client.shard.id !== 0) return this.disable();
+        if (this.client.user.id !== "303181184718995457" && this.client.shard.id !== 0) return;
         const allGuilds = await this.client.shard.fetchClientValues("guilds.size");
         const allVc = await this.client.shard.fetchClientValues("lavalink.size");
         dogstats.gauge("pengubot.cmdscounter", this.client.configs.counter.total);
