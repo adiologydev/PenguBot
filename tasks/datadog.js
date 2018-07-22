@@ -5,6 +5,7 @@ const dogstats = new StatsD();
 module.exports = class extends Task {
 
     async run() {
+        if (this.client.user.id !== "303181184718995457" && this.client.shard.id !== 0) return this.disable();
         const allGuilds = await this.client.shard.fetchClientValues("guilds.size");
         const allVc = await this.client.shard.fetchClientValues("lavalink.size");
         dogstats.gauge("pengubot.cmdscounter", this.client.configs.counter.total);
@@ -14,7 +15,6 @@ module.exports = class extends Task {
 
     // Init
     async init() {
-        if (this.client.user.id !== "303181184718995457" && this.client.shard.id !== 0) return this.disable();
         if (!this.client.configs.schedules.some(schedule => schedule.taskName === this.name)) {
             await this.client.schedule.create("datadog", "*/1 * * * *");
         }
