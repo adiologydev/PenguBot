@@ -20,7 +20,7 @@ module.exports = class extends MusicCommand {
         if (!song) {
             const { queue } = msg.guild.music;
             if (!queue.length) return msg.reply("No Music is playing right now, please enter a song name you want lyrics for.");
-            song = queue[0].title
+            song = queue[0].title;
         }
 
         const req = await lyrics.request(`search?q=${encodeURIComponent(song)}`);
