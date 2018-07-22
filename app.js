@@ -1,9 +1,10 @@
-const PenguClient = require("./lib/structures/PenguClient");
+const PenguClient = require("./structures/PenguClient");
 const config = require("./config.json");
 const Raven = require("raven");
 
-// Bot
-function startBot() {
+Raven.config(config.keys.sentry, { captureUnhandledRejections: true }).install();
+
+Raven.context(() => {
     new PenguClient({
         prefix: ["p!"],
         commandEditing: true,
@@ -35,12 +36,4 @@ function startBot() {
         production: config.main.production,
         presence: { activity: { name: "PenguBot.com | v2.0 | p!help", type: "WATCHING" } }
     }).login(config.main.token);
-}
-
-// Raven
-Raven.config(config.keys.sentry).install();
-
-process.on("unhandledRejection", e => {
-    console.log("Unhandled Rejection at:", e.stack || e);
-    Raven.captureException(e);
 });
