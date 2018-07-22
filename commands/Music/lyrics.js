@@ -17,12 +17,11 @@ module.exports = class extends MusicCommand {
     }
 
     async run(msg, [song]) {
-        let songName;
         if (!song) {
             const { queue } = msg.guild.music;
-            if (!queue) return msg.reply("No Music is playing right now, please enter a song name you want lyrics for.");
-            songName = queue[0].title;
-        } else { songName = song; }
+            if (!queue.length) return msg.reply("No Music is playing right now, please enter a song name you want lyrics for.");
+            song = queue[0].title
+        }
 
         const req = await lyrics.request(`search?q=${encodeURIComponent(songName)}`);
         const lyricdata = req.response.hits[0];
