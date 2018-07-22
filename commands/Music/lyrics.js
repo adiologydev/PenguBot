@@ -23,7 +23,7 @@ module.exports = class extends MusicCommand {
             song = queue[0].title
         }
 
-        const req = await lyrics.request(`search?q=${encodeURIComponent(songName)}`);
+        const req = await lyrics.request(`search?q=${encodeURIComponent(song)}`);
         const lyricdata = req.response.hits[0];
         if (!lyricdata) return msg.reply("The provided song could not be found. Please try again with a different one or contact us at <https://discord.gg/6KpTfqR>.");
 
