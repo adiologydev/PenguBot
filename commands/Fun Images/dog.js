@@ -15,7 +15,7 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        const { body } = await get("http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=false").catch(e => {
+        const { message } = await get("https://dog.ceo/api/breeds/image/random").catch(e => {
             Error.captureStackTrace(e);
             return e;
         });
@@ -24,7 +24,7 @@ module.exports = class extends Command {
             .setTimestamp()
             .setColor("RANDOM")
             .setDescription(`**Dog Picture**`)
-            .setImage(body[0]);
+            .setImage(message);
         return msg.sendEmbed(embed);
     }
 
