@@ -28,7 +28,7 @@ module.exports = class extends MusicCommand {
             .setFooter("© PenguBot.com")
             .setDescription(`• **Title:** ${song.title}
 • **Author:** ${song.author}
-• **Duration:** ${song.stream ? "Live Stream" : song.friendlyDuration}
+• **Duration:** ${song.friendlyDuration}
 • **Requested By:** ${song.requester}
 • **Link:** ${song.url}`);
         return msg.sendEmbed(embed);

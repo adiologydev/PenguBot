@@ -16,53 +16,55 @@ module.exports = class extends Argument {
         if (!msg.guild) return null;
 
         const results = [];
+        results.playlist = null;
 
         const isLink = this.isLink(arg);
         if (isLink) {
             if (playlist.exec(arg)) {
                 const playlistResults = await this.getTracks(arg);
-                if (!playlistResults[0]) throw msg.language.get("ER_MUSIC_NF");
-                results.push(...playlistResults);
+                if (!playlistResults.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
+                results.playlist = playlistResults.playlistInfo.name;
+                results.push(...playlistResults.tracks);
             } else if (soundcloud.exec(arg)) {
                 if (scPlaylist.exec(arg)) {
                     const scPlaylistRes = await this.getTracks(arg);
-                    if (!scPlaylistRes[0]) throw msg.language.get("ER_MUSIC_NF");
-                    results.push(...scPlaylistRes);
+                    if (!scPlaylistRes.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
+                    results.playlist = scPlaylistRes.playlistInfo.name;
+                    results.push(...scPlaylistRes.tracks);
                 } else {
                     const scSingleRes = await this.getTracks(arg);
-                    if (!scSingleRes) throw msg.language.get("ER_MUSIC_NF");
-                    results.push(scSingleRes[0]);
+                    if (!scSingleRes.tracks) throw msg.language.get("ER_MUSIC_NF");
+                    results.push(scSingleRes.tracks[0]);
                 }
             } else {
                 const httpRes = await this.getTracks(arg);
-                if (!httpRes[0]) throw msg.language.get("ER_MUSIC_NF");
-                results.push(httpRes[0]);
+                if (!httpRes.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
+                results.push(httpRes.tracks[0]);
             }
         } else if (wcYt.exec(arg) || wcSc.exec(arg)) {
             const wildcardRes = await this.getTracks(arg);
-            if (!wildcardRes[0]) throw msg.language.get("ER_MUSIC_NF");
-            results.push(wildcardRes[0]);
+            if (!wildcardRes.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
+            results.push(wildcardRes.tracks[0]);
         } else {
             let searchRes = await this.getTracks(`ytsearch:${arg}`);
-            if (!searchRes[0]) searchRes = await this.getTracks(`scsearch:${arg}`);
-            if (!searchRes[0]) throw "Could not find any search results on YouTube or SoundCloud, try again with a different name or provide a URL.";
-            const options = searchRes.slice(0, 5);
+            if (!searchRes.tracks[0]) searchRes = await this.getTracks(`scsearch:${arg}`);
+            if (!searchRes.tracks[0]) throw "Could not find any search results on YouTube or SoundCloud, try again with a different name or provide a URL.";
+            const options = searchRes.tracks.slice(0, 5);
             let index = 0;
             const selection = await msg.awaitReply([`🎵 | **Select a Song - PenguBot**\n`,
                 `${options.map(o => `➡ \`${++index}\` ${o.info.title} - ${o.info.author} (${this.client.functions.friendlyDuration(o.info.length)})`).join("\n")}`,
                 `\n${msg.author}, Please select an option by replying from range \`1-5\` to add it to the queue.`], 20000);
             try {
-                if (selectedNo !== Number(selectedNo)) throw "<:penguError:435712890884849664> ***Invalid Option Selected, please select from `1-5`. Cancelled song selection.***";
                 const selectedNo = Number(selection);
-                if (selectedNo <= 0 || selectedNo > 5) throw "<:penguError:435712890884849664> ***Invalid Option Selected, please select from `1-5`. Cancelled song selection.***";
-                results.push(searchRes[selectedNo - 1]);
+                if (selectedNo <= 0 || selectedNo > 5 || selectedNo !== Number(selectedNo)) return "<:penguError:435712890884849664> ***Invalid Option Selected, please select from `1-5`. Cancelled song selection.***";
+                results.push(searchRes.tracks[selectedNo - 1]);
             } catch (e) {
                 throw "<:penguError:435712890884849664> ***No Option Selected, cancelled song selection.***";
             }
         }
 
         if (!results.length) throw msg.language.get("ER_MUSIC_NF");
-        return results.map(track => new Song(track, msg.author));
+        return { tracks: results.map(track => new Song(track, msg.author)), playlist: results.playlist };
     }
 
     /**

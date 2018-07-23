@@ -1,4 +1,4 @@
-const PenguClient = require("./structures/PenguClient");
+const PenguClient = require("./lib/structures/PenguClient");
 const config = require("./config.json");
 const Raven = require("raven");
 

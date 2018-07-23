@@ -1,7 +1,7 @@
-const MusicCommand = require("../../lib/structures/MusicCommand");
+const { Command } = require("klasa");
 const { MessageEmbed } = require("discord.js");
 
-module.exports = class extends MusicCommand {
+module.exports = class extends Command {
 
     constructor(...args) {
         super(...args, {
@@ -28,7 +28,7 @@ module.exports = class extends MusicCommand {
             .setFooter("© PenguBot.com")
             .setDescription(`• **Title:** ${song.title}
 • **Author:** ${song.author}
-• **Duration:** ${song.stream ? "Live Stream" : song.friendlyDuration}
+• **Duration:** ${song.friendlyDuration}
 • **Requested By:** ${song.requester}
 • **Link:** ${song.url}`);
         return msg.author.send({ embed });

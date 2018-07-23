@@ -19,8 +19,6 @@ module.exports = class extends MusicCommand {
     async run(msg) {
         const { music } = msg.guild;
         const { queue } = music;
-        if (!music.playing) return msg.sendMessage("<:penguError:435712890884849664> There's currently no music playing!");
-        if (msg.member.voiceChannelID !== msg.guild.me.voiceChannelID) return msg.sendMessage("<:penguError:435712890884849664> You're currently not in a voice channel or there was an error, try again.");
         const threshold = Math.ceil(music.voiceChannel.members.size / 3);
         const force = threshold <= 1 || music.voiceChannel < threshold || await msg.hasAtLeastPermissionLevel(3);
 

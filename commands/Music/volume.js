@@ -6,7 +6,6 @@ module.exports = class extends MusicCommand {
         super(...args, {
             requireDJ: true,
             requireMusic: true,
-            runIn: ["text"],
             cooldown: 8,
             aliases: ["changevol", "setvolume"],
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
@@ -18,14 +17,11 @@ module.exports = class extends MusicCommand {
 
     async run(msg, [volume]) {
         if (!volume) return msg.sendMessage(`🔈 | ***Guild's Current Music Volume is:*** ${msg.guild.configs.musicVolume}`);
-        if (!msg.hasAtLeastPermissionLevel(3)) return msg.reply("<:penguError:435712890884849664> You are not a **Pengu DJ** to change the volume.");
-        if (volume <= 100 || volume >= 0) {
-            await msg.guild.configs.update("musicVolume", volume);
-            if (msg.guild.music.playing) msg.guild.music.player.volume(volume);
-            return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Volume has been set to:*** ${volume}`);
-        } else {
-            return msg.sendMessage(`<:penguError:435712890884849664> ***Volume can not be lower than 0 or higher than 100.***`);
-        }
+        if (!await msg.hasAtLeastPermissionLevel(3)) return msg.reply("<:penguError:435712890884849664> You are not a **Pengu DJ** to change the volume.");
+        if (!volume <= 100 || !volume >= 0) return msg.sendMessage(`<:penguError:435712890884849664> ***Volume can not be lower than 0 or higher than 100.***`);
+        await msg.guild.configs.update("musicVolume", volume);
+        if (msg.guild.music.playing) msg.guild.music.player.volume(volume);
+        return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Volume has been set to:*** ${volume}`);
     }
 
     async init() {

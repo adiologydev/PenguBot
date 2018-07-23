@@ -48,20 +48,20 @@ module.exports = class extends MusicCommand {
     async handleSongs(msg, songs) {
         const musicInterface = msg.guild.music;
         const isUpvoter = await this.client.functions.isUpvoter(msg.author.id);
-        if (songs.length > 1) {
+        if (songs.tracks.length > 1) {
             const limit = this.client.config.main.patreon && isUpvoter ? 1000 : 74;
-            const limitedSongs = songs.slice(0, limit);
+            const limitedSongs = songs.tracks.slice(0, limit);
             musicInterface.queue.push(...limitedSongs);
-            if (songs.length >= 75 && !this.client.config.main.patreon && !isUpvoter) {
-                return msg.send({ embed: this.supportEmbed });
+            if (songs.tracks.length >= 75 && !this.client.config.main.patreon && !isUpvoter) {
+                return msg.sendEmbed(this.supportEmbed(songs.playlist));
             } else {
-                return msg.send(`🎧 | **Queue:** Added **${songs.length}** songs to the queue based on your playlist.`);
+                return msg.send(`🎧 | **Queue:** Added **${songs.tracks.length}** songs from **${songs.playlist}** to the queue based on your playlist.`);
             }
         } else {
-            musicInterface.queue.push(...songs);
+            musicInterface.queue.push(...songs.tracks);
             if (!musicInterface.playing) return;
             musicInterface.playing = true;
-            return msg.send(this.queueEmbed(songs[0]));
+            return msg.send(this.queueEmbed(songs.tracks[0]));
         }
     }
 
@@ -69,7 +69,7 @@ module.exports = class extends MusicCommand {
         const [song] = musicInterface.queue;
 
         if (!song) {
-            return musicInterface.textChannel.send(this.stopEmbed()).then(() => musicInterface.destroy());
+            return musicInterface.textChannel.sendEmbed(this.stopEmbed).then(() => musicInterface.destroy());
         }
 
         await this.delayer(250);
@@ -106,7 +106,7 @@ module.exports = class extends MusicCommand {
             .setColor("#5cb85c")
             .setDescription(`• **Title:** ${song.title}
 • **Author:** ${song.author}
-• **Length:** ${song.isStream ? "Live Stream" : song.friendlyDuration}
+• **Length:** ${song.friendlyDuration}
 • **Requested By:** ${song.requester}
 • **Link:** ${song.url}`);
     }
@@ -119,12 +119,12 @@ module.exports = class extends MusicCommand {
             .setColor("#eedc2f")
             .setDescription(`• **Title:** ${song.title}
 • **Author:** ${song.author}
-• **Length:** ${song.isStream ? "Live Stream" : song.friendlyDuration}
+• **Length:** ${song.friendlyDuration}
 • **Requested By:** ${song.requester}
 • **Link:** ${song.url}`);
     }
 
-    stopEmbed() {
+    get stopEmbed() {
         return new MessageEmbed()
             .setTitle("⏹ | Queue Finished - PenguBot")
             .setTimestamp()
@@ -134,11 +134,11 @@ module.exports = class extends MusicCommand {
 • **Support:** If you enjoyed PenguBot and it's features, please consider becoming a Patron at: https://www.Patreon.com/PenguBot`);
     }
 
-    supportEmbed() {
+    supportEmbed(playlistName) {
         return new MessageEmbed()
             .setTitle("Support us!")
             .setColor("#f96854")
-            .setDescription(`🎧 | **Queue:** Playlist has been added to the queue. This playlist has more than 75 songs but only 75 were added.
+            .setDescription(`🎧 | **Queue:** Playlist **${playlistName}** has been added to the queue.\n This playlist has more than 75 songs but only 75 were added.
 If you wish bypass this limit become our Patreon today at https://patreon.com/PenguBot and use our Patron Only Bot.`);
     }
 
