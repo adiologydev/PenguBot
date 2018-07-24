@@ -75,7 +75,7 @@ module.exports = {
         "no-unmodified-loop-condition": "error",
         "no-unused-expressions": "error",
         "no-useless-call": "error",
-        "no-useless-escape": "off",
+        "no-useless-escape": "error",
         "no-useless-concat": "error",
         "no-void": "error",
         "no-warning-comments": "warn",
