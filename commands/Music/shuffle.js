@@ -20,7 +20,7 @@ module.exports = class extends MusicCommand {
         if (!music.playing) return msg.sendMessage("<:penguError:435712890884849664> There's currently no music playing!");
         if (queue.length <= 2) return msg.sendMessage("<:penguError:435712890884849664> Your queue has less than two songs, add more to shuffle!");
 
-        await this.shuffleArray(queue);
+        this.shuffleArray(queue);
         return msg.sendMessage("<:penguSuccess:435712876506775553> ***Queue has now been shuffled!***");
     }
 
