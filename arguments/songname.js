@@ -3,7 +3,7 @@ const Song = require("../lib/structures/Song");
 const url = require("url");
 
 // Regexes
-const playlist = /(\?|\&)list=(.*)/i; // eslint-disable-line
+const playlist = /(\?|\&)list=(.*)/i;
 const soundcloud = /https:\/\/soundcloud\.com\/.*/i;
 const scPlaylist = /https:\/\/?soundcloud.com\/.*\/.*\/.*/i;
 const wcSc = /scsearch:.*/;
