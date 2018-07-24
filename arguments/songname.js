@@ -49,17 +49,12 @@ module.exports = class extends Argument {
             if (!searchRes.tracks[0]) searchRes = await this.getTracks(`scsearch:${arg}`);
             if (!searchRes.tracks[0]) throw "Could not find any search results on YouTube or SoundCloud, try again with a different name or provide a URL.";
             const options = searchRes.tracks.slice(0, 5);
-            let index = 0;
             const selection = await msg.awaitReply([`🎵 | **Select a Song - PenguBot**\n`,
-                `${options.map(o => `➡ \`${++index}\` ${o.info.title} - ${o.info.author} (${this.client.functions.friendlyDuration(o.info.length)})`).join("\n")}`,
-                `\n${msg.author}, Please select an option by replying from range \`1-5\` to add it to the queue.`], 20000);
-            try {
-                const selectedNo = Number(selection);
-                if (selectedNo <= 0 || selectedNo > 5 || selectedNo !== Number(selectedNo)) return "<:penguError:435712890884849664> ***Invalid Option Selected, please select from `1-5`. Cancelled song selection.***";
-                results.push(searchRes.tracks[selectedNo - 1]);
-            } catch (e) {
-                throw "<:penguError:435712890884849664> ***No Option Selected, cancelled song selection.***";
-            }
+                `${options.map((o, index) => `➡ \`${++index}\` ${o.info.title} - ${o.info.author} (${this.client.functions.friendlyDuration(o.info.length)})`).join("\n")}`,
+                `\n${msg.author}, Please select an option by replying from range \`1-5\` to add it to the queue.`], 20000).catch(() => 0);
+            const selectedNo = Number(selection);
+            if (selectedNo <= 0 || selectedNo > 5 || typeof selectedNo !== Number) throw "<:penguError:435712890884849664> ***Invalid Option Selected, please select from `1-5`. Cancelled song selection.***";
+            results.push(searchRes.tracks[selectedNo - 1]);
         }
 
         if (!results.length) throw msg.language.get("ER_MUSIC_NF");
