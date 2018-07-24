@@ -6,7 +6,6 @@ module.exports = class extends MusicCommand {
 
     constructor(...args) {
         super(...args, {
-            runIn: ["text"],
             cooldown: 10,
             aliases: ["stopmusic", "leave"],
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS", "MANAGE_MESSAGES"],

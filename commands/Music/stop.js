@@ -6,7 +6,6 @@ module.exports = class extends MusicCommand {
         super(...args, {
             requireDJ: true,
             requireMusic: true,
-            runIn: ["text"],
             cooldown: 8,
             aliases: ["forceleave", "leave", "stopmusic", "musicstop", "stop"],
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
