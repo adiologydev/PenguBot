@@ -7,14 +7,12 @@ module.exports = class extends Inhibitor {
     }
 
     async run(msg, cmd) {
-        if (!msg.guild) return;
-        if (msg.guild.configs.djOnly) {
-            if (cmd.music) {
-                if (!msg.hasAtLeastPermissionLevel(3)) {
-                    throw msg.language.get("INHIBITOR_DJ_ONLY");
-                }
-            }
-        }
+        if (cmd.requireDJ !== true) return;
+        if (msg.channel.type !== "text") throw "This command may be only executed in a server.";
+
+        if (!msg.guild.configs.djOnly) return;
+        if (await msg.hasAtLeastPermissionLevel(3)) return;
+        throw msg.language.get("INHIBITOR_DJ_ONLY");
     }
 
     async init() {

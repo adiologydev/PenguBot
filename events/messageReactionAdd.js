@@ -51,7 +51,7 @@ module.exports = class extends Event {
         if (!image) return null;
         return attachment;
     }
-    
+
     get provider() {
         return this.client.providers.default;
     }

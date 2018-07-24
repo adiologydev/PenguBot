@@ -58,7 +58,7 @@ module.exports = class MemorySweeper extends Task {
             const { me } = guild;
             for (const [id, member] of guild.members) {
                 if (member === me) continue;
-                if (member.voiceChannelID) continue;
+                if (member.voiceChannel || member.voiceChannelID) continue;
                 if (member.lastMessageID && member.lastMessageID > OLD_SNOWFLAKE) continue;
                 guildMembers++;
                 guild.members.delete(id);

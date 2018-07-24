@@ -1,14 +1,12 @@
-const { Command } = require("klasa");
+const MusicCommand = require("../../lib/structures/MusicCommand");
 const { MessageEmbed } = require("discord.js");
 
-module.exports = class extends Command {
+module.exports = class extends MusicCommand {
 
     constructor(...args) {
         super(...args, {
-            runIn: ["text"],
             cooldown: 10,
             aliases: ["np", "currentsong", "song"],
-            permissionLevel: 0,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
             description: msg => msg.language.get("COMMAND_MUSIC_DESCRIPTION"),
             extendedHelp: "No extended help available."

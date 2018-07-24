@@ -1,18 +1,17 @@
-const { Command } = require("klasa");
+const MusicCommand = require("../../lib/structures/MusicCommand");
 
-module.exports = class extends Command {
+module.exports = class extends MusicCommand {
 
     constructor(...args) {
         super(...args, {
-            runIn: ["text"],
+            requireDJ: true,
+            requireMusic: true,
             cooldown: 8,
             aliases: ["djonly", "enabledjonly", "disabledjonly"],
-            permissionLevel: 0,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: msg => msg.language.get("COMMAND_DJONLY_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
-        this.music = true;
     }
 
     async run(msg) {

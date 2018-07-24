@@ -8,7 +8,6 @@ module.exports = class extends Command {
             runIn: ["text"],
             cooldown: 10,
             aliases: ["listcommands"],
-            permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
             description: msg => msg.language.get("COMMAND_LIST_CMDS_DESCRIPTION"),
             extendedHelp: "No extended help available."

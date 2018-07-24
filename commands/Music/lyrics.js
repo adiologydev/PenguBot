@@ -1,12 +1,11 @@
-const { Command } = require("klasa");
+const MusicCommand = require("../../lib/structures/MusicCommand");
 const { MessageEmbed } = require("discord.js");
-const lyrics = require("../../utils/lyrics.js");
+const lyrics = require("../../lib/utils/lyrics.js");
 
-module.exports = class extends Command {
+module.exports = class extends MusicCommand {
 
     constructor(...args) {
         super(...args, {
-            runIn: ["text"],
             cooldown: 10,
             aliases: ["songlyrics", "lyric"],
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
@@ -17,14 +16,13 @@ module.exports = class extends Command {
     }
 
     async run(msg, [song]) {
-        let songName;
         if (!song) {
-            const queue = this.client.queue.get(msg.guild.id);
-            if (!queue) return msg.reply("No Music is playing right now, please enter a song name you want lyrics for.");
-            songName = queue.songs[0].name;
-        } else { songName = song; }
+            const { queue } = msg.guild.music;
+            if (!queue.length) return msg.reply("No Music is playing right now, please enter a song name you want lyrics for.");
+            song = queue[0].title;
+        }
 
-        const req = await lyrics.request(`search?q=${encodeURIComponent(songName)}`);
+        const req = await lyrics.request(`search?q=${encodeURIComponent(song)}`);
         const lyricdata = req.response.hits[0];
         if (!lyricdata) return msg.reply("The provided song could not be found. Please try again with a different one or contact us at <https://discord.gg/6KpTfqR>.");
 
