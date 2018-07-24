@@ -51,7 +51,7 @@ module.exports = class extends Argument {
             const options = searchRes.tracks.slice(0, 5);
             const selection = await msg.awaitReply([`🎵 | **Select a Song - PenguBot**\n`,
                 `${options.map((o, index) => `➡ \`${++index}\` ${o.info.title} - ${o.info.author} (${this.client.functions.friendlyDuration(o.info.length)})`).join("\n")}`,
-                `\n${msg.author}, Please select an option by replying from range \`1-5\` to add it to the queue.`], 20000).catch(() => 0);
+                `\n${msg.author}, Please select an option by replying from range \`1-5\` to add it to the queue.`], 20000);
             const selectedNo = Number(selection);
             if (selectedNo <= 0 || selectedNo > 5 || typeof selectedNo !== Number) throw "<:penguError:435712890884849664> ***Invalid Option Selected, please select from `1-5`. Cancelled song selection.***";
             results.push(searchRes.tracks[selectedNo - 1]);
