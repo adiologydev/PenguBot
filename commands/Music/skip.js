@@ -59,9 +59,9 @@ module.exports = class extends MusicCommand {
             this.votes.delete(guild.id);
         }
 
-        const current = queue[0];
+        const current = queue[0].title;
         guild.music.skip();
-        return `<:penguSuccess:435712876506775553> Skipped: **${current.title}**`;
+        return `<:penguSuccess:435712876506775553> Skipped: **${current ? current : "N/A"}**`;
     }
 
     setTimeout(vote) {

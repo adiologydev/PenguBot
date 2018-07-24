@@ -18,7 +18,7 @@ module.exports = class extends MusicCommand {
     async run(msg, [song]) {
         if (!song) {
             const { queue } = msg.guild.music;
-            if (!queue.length) return msg.reply("No Music is playing right now, please enter a song name you want lyrics for.");
+            if (!queue.length || !queue[0].title) return msg.reply("No Music is playing right now, please enter a song name you want lyrics for.");
             song = queue[0].title;
         }
 
