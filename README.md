@@ -1,6 +1,6 @@
 # PenguBot [![Build Status](https://travis-ci.org/AdityaTD/PenguBot.svg?branch=master)](https://travis-ci.org/AdityaTD/PenguBot) [![Discord](https://discordapp.com/api/guilds/303195322514014210/embed.png)](https://discord.gg/u8WYw5r) [![Greenkeeper badge](https://badges.greenkeeper.io/AdityaTD/PenguBot.svg)](https://greenkeeper.io/) [![Servers](https://discordbots.org/api/widget/servers/303181184718995457.svg?noavatar=true)](https://discordbots.org/bot/303181184718995457/vote)
 
-PenguBot is a community developed Discord Bot with over 19,000 guilds.
+PenguBot is a community developed Discord Bot with over 23,000 guilds.
 Join Discord for Support and Development https://discord.gg/u8WYw5r
 
 ### Guide on How to Contribute: [Click Here](https://github.com/AdityaTD/PenguBot/blob/master/CONTRIBUTING.md)
