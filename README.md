@@ -14,7 +14,7 @@ Join Discord for Support and Development https://discord.gg/u8WYw5r
 
 [**Kashall**](https://github.com/Kashalls/) - Leaderboard and other help
 
-[**Jacz**](https://github.com/MrJacz) - Code Reviews and advance code related help
+[**Jacz**](https://github.com/MrJacz) - Code reviews, Music require, refactoring help. General/Advanced code help and questions.
 
 ## Acknowledgement
 [**Klasa Pieces**](https://github.com/dirigeants/klasa-pieces/)
@@ -27,7 +27,7 @@ Join Discord for Support and Development https://discord.gg/u8WYw5r
 
 [**random-puppy**](https://github.com/dylang/random-puppy/)
 
-[**Jacz**](https://github.com/mrjacz) Expressed permission to use modified or exact code from the Private [Trident repository](https://github.com/mrjacz/trident) [Screenshot](https://i.imgur.com/9YmMNUF.png)
+[**Jacz**](https://github.com/MrJacz) Expressed permission to use modified or exact code from the private Trident repository [Screenshot](https://i.imgur.com/9YmMNUF.png)
 
 ## Hosting
 We're proudly hosted by [DigitalOcean](https://m.do.co/c/bfc0c187cdec). Visit the link by clicking the image below to avail Free $10 credits to try out the services.
