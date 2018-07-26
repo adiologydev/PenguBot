@@ -13,10 +13,7 @@ module.exports = class extends Language {
             COMMAND_RELOAD_ALL: type => `<:penguSuccess:435712876506775553> Reloaded all ${type}.`,
             COMMAND_LOAD: (time, type, name) => `<:penguSuccess:435712876506775553> Successfully loaded ${type}: ${name}. (Took: ${time})`,
             COMMAND_LOAD_ERROR: (type, name, error) => `<:penguError:435712890884849664> Failed to load ${type}: ${name}. Reason:${util.codeBlock("js", error)}`,
-            COMMAND_INVITE: client => [
-                `**👉 | Invite PenguBot to your Discord Guild:**`,
-                `<${client.invite}>`
-            ],
+            COMMAND_INVITE: `**👉 | Invite PenguBot to your Discord Guild:** <https://www.PenguBot.com/invite>`,
             COMMAND_SUPPORT: `**__PenguBot Support Guild__**\n• **Invite Link:** https://discord.gg/u8WYw5r`,
             COMMAND_INVITE_DESCRIPTION: "Displays the join server link of the bot.",
             COMMAND_INFO: [
