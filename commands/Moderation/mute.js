@@ -9,7 +9,7 @@ module.exports = class extends Command {
             aliases: ["togglemute", "unmute"],
             permissionLevel: 4,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            description: msg => msg.language.get("COMMAND_MUTE_DESCRPTION"),
+            description: language => language.get("COMMAND_MUTE_DESCRPTION"),
             usage: "<member:user>",
             extendedHelp: "No extended help available."
         });

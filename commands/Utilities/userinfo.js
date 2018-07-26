@@ -9,7 +9,7 @@ module.exports = class extends Command {
             aliases: ["uinfo"],
             cooldown: 5,
             requiredPermissions: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
-            description: msg => msg.language.get("COMMAND_USERINFO_DESCRIPTION"),
+            description: language => language.get("COMMAND_USERINFO_DESCRIPTION"),
             usage: "[user:member]",
             extendedHelp: "No extended help available."
         });

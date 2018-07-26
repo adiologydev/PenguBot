@@ -9,7 +9,7 @@ module.exports = class extends Command {
             cooldown: 8,
             aliases: ["sendpoke"],
             requiredPermissions: ["ATTACH_IMAGES", "EMBED_LINKS"],
-            description: msg => msg.language.get("COMMAND_POKE_DESCRIPTION"),
+            description: language => language.get("COMMAND_POKE_DESCRIPTION"),
             extendedHelp: "No extended help available.",
             usage: "<user:user>"
         });

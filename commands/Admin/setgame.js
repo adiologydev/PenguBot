@@ -7,7 +7,7 @@ module.exports = class extends Command {
             aliases: ["sg"],
             permissionLevel: 10,
             usage: "<game:string>",
-            description: msg => msg.language.get("COMMAND_SG_DESCRIPTION")
+            description: language => language.get("COMMAND_SG_DESCRIPTION")
         });
     }
 

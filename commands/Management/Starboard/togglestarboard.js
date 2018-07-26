@@ -9,7 +9,7 @@ module.exports = class extends Command {
             aliases: ["tsb", "togglestarboards"],
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            description: msg => msg.language.get("COMMAND_TOGGLE_STARBOARD_DESCRPTION"),
+            description: language => language.get("COMMAND_TOGGLE_STARBOARD_DESCRPTION"),
             extendedHelp: "No extended help available."
         });
     }

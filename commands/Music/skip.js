@@ -9,7 +9,7 @@ module.exports = class extends MusicCommand {
             cooldown: 8,
             aliases: ["loopsong", "repeat"],
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            description: msg => msg.language.get("COMMAND_SKIP_DESCRIPTION"),
+            description: language => language.get("COMMAND_SKIP_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
         this.votes = new Map();
@@ -21,7 +21,7 @@ module.exports = class extends MusicCommand {
         const threshold = Math.ceil(music.voiceChannel.members.size / 3);
         const force = threshold <= 1 || music.voiceChannel < threshold || await msg.hasAtLeastPermissionLevel(3);
 
-        if (force) return msg.reply(this.skip(msg.guild, queue));
+        if (force) return msg.reply(this.skip(msg.guild));
 
         const vote = this.votes.get(msg.guild.id);
         if (vote && vote.count >= 1) {
@@ -29,7 +29,7 @@ module.exports = class extends MusicCommand {
 
             vote.count++;
             vote.users.push(msg.author.id);
-            if (vote.count >= threshold) return msg.reply(this.skip(msg.guild, queue));
+            if (vote.count >= threshold) return msg.reply(this.skip(msg.guild));
 
             const time = this.setTimeout(vote);
             const remaining = threshold - vote.count;
@@ -53,15 +53,15 @@ module.exports = class extends MusicCommand {
         }
     }
 
-    skip(guild, queue) {
+    skip(guild) {
         if (this.votes.has(guild.id)) {
             clearTimeout(this.votes.get(guild.id).timeout);
             this.votes.delete(guild.id);
         }
 
-        const current = queue[0].title;
+        const [song] = guild.music.queue;
         guild.music.skip();
-        return `<:penguSuccess:435712876506775553> Skipped: **${current ? current : "N/A"}**`;
+        return `<:penguSuccess:435712876506775553> Skipped: **${song ? song.title : "N/A"}**`;
     }
 
     setTimeout(vote) {
@@ -69,7 +69,7 @@ module.exports = class extends MusicCommand {
         clearTimeout(vote.timeout);
         vote.timeout = setTimeout(() => {
             this.votes.delete(vote.guild);
-            vote.queue.tc.send("<:penguSuccess:435712876506775553> The vote to skip the current song has ended.");
+            vote.queue.textChannel.send("<:penguSuccess:435712876506775553> The vote to skip the current song has ended.");
         }, time);
 
         return Math.round(time / 1000);

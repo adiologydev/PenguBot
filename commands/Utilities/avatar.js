@@ -9,7 +9,7 @@ module.exports = class extends Command {
             aliases: ["pp", "profilepicture"],
             permissionLevel: 0,
             requiredPermissions: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
-            description: msg => msg.language.get("COMMAND_AVATAR_DESCRIPTION"),
+            description: language => language.get("COMMAND_AVATAR_DESCRIPTION"),
             usage: "[person:user]",
             extendedHelp: "No extended help available."
         });

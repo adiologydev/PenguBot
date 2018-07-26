@@ -8,7 +8,7 @@ module.exports = class extends MusicCommand {
             cooldown: 8,
             aliases: ["savesong", "dmcurrentsong"],
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            description: msg => msg.language.get("COMMAND_DMSONG_DESCRIPTION"),
+            description: language => language.get("COMMAND_DMSONG_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
     }

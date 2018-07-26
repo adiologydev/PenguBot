@@ -9,7 +9,7 @@ module.exports = class extends MusicCommand {
             cooldown: 10,
             aliases: ["loopsong", "repeat"],
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            description: msg => msg.language.get("COMMAND_LOOP_DESCRIPTION"),
+            description: language => language.get("COMMAND_LOOP_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
     }

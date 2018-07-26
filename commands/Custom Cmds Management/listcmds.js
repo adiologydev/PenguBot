@@ -9,7 +9,7 @@ module.exports = class extends Command {
             cooldown: 10,
             aliases: ["listcommands"],
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
-            description: msg => msg.language.get("COMMAND_LIST_CMDS_DESCRIPTION"),
+            description: language => language.get("COMMAND_LIST_CMDS_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
     }

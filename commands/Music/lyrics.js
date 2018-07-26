@@ -9,7 +9,7 @@ module.exports = class extends MusicCommand {
             cooldown: 10,
             aliases: ["songlyrics", "lyric"],
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            description: msg => msg.language.get("COMMAND_LYRICS_DESCRIPTION"),
+            description: language => language.get("COMMAND_LYRICS_DESCRIPTION"),
             extendedHelp: "No extended help available.",
             usage: "[song:string]"
         });

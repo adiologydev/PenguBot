@@ -8,7 +8,7 @@ module.exports = class extends Command {
             aliases: ["details", "what"],
             guarded: true,
             requiredPermissions: ["EMBED_LINKS"],
-            description: msg => msg.language.get("COMMAND_INFO_DESCRIPTION")
+            description: language => language.get("COMMAND_INFO_DESCRIPTION")
         });
     }
 

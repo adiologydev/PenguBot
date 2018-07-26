@@ -18,7 +18,7 @@ module.exports = class extends Command {
             subcommands: true,
             aliases: ["background", "profilebg", "bgs", "bg"],
             usage: "<view|buy|change> [key:string]",
-            description: msg => msg.language.get("COMMAND_BACKGROUND_DESCRIPTION"),
+            description: language => language.get("COMMAND_BACKGROUND_DESCRIPTION"),
             usageDelim: " "
         });
     }

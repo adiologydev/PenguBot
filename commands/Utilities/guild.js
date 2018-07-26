@@ -11,7 +11,7 @@ module.exports = class extends Command {
             aliases: ["server"],
             cooldown: 5,
             requiredPermissions: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
-            description: msg => msg.language.get("COMMAND_GUILDINFO_DESCRIPTION"),
+            description: language => language.get("COMMAND_GUILDINFO_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
     }

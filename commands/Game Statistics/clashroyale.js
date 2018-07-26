@@ -9,7 +9,7 @@ module.exports = class extends Command {
             cooldown: 15,
             aliases: ["crstats", "clashstats", "clashroyalestats"],
             requiredPermissions: ["EMBED_LINKS", "ATTACH_FILES"],
-            description: msg => msg.language.get("COMMAND_CRSTATS_DESCRIPTION"),
+            description: language => language.get("COMMAND_CRSTATS_DESCRIPTION"),
             usage: "<Tag:string>",
             extendedHelp: "No extended help available."
         });

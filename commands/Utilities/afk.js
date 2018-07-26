@@ -8,7 +8,7 @@ module.exports = class extends Command {
             cooldown: 5,
             permissionLevel: 0,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            description: msg => msg.language.get("COMMAND_AFK_DESCRIPTION"),
+            description: language => language.get("COMMAND_AFK_DESCRIPTION"),
             usage: "[reason:string] [...]",
             extendedHelp: "No extended help available."
         });

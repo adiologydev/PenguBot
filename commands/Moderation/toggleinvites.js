@@ -8,8 +8,8 @@ module.exports = class extends Command {
             cooldown: 10,
             aliases: ["adblock", "antiinvites"],
             permissionLevel: 4,
-            requiredPermissions: ["USE_EXTERNAL_EMOJIS", "BAN_MEMBERS"],
-            description: msg => msg.language.get("COMMAND_ADBLOCK_DESCRIPTION"),
+            requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
+            description: language => language.get("COMMAND_ADBLOCK_DESCRIPTION"),
             quotedStringSupport: false,
             extendedHelp: "No extended help available."
         });

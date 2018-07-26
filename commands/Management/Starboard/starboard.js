@@ -11,7 +11,7 @@ module.exports = class extends Command {
             permissionLevel: 5,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             usage: "<Message:message>",
-            description: msg => msg.language.get("COMMAND_STAR_DESCRPTION"),
+            description: language => language.get("COMMAND_STAR_DESCRPTION"),
             extendedHelp: "No extended help available."
         });
     }

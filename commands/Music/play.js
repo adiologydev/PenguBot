@@ -9,7 +9,7 @@ module.exports = class extends MusicCommand {
             cooldown: 5,
             aliases: ["musicplay"],
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS", "ATTACH_FILES"],
-            description: msg => msg.language.get("COMMAND_PLAY_DESCRIPTION"),
+            description: language => language.get("COMMAND_PLAY_DESCRIPTION"),
             usage: "<song:songname>",
             extendedHelp: "No extended help available."
         });
@@ -83,8 +83,7 @@ module.exports = class extends MusicCommand {
                     this.play(musicInterface);
                 });
                 player.once("error", e => {
-                    this.client.console.error(e);
-                    musicInterface.textChannel.send("I am very sorry but was an error, please try again or contact us at https://discord.gg/kWMcUNe");
+                    musicInterface.textChannel.send(`I am very sorry but was an error, please try again or contact us at https://discord.gg/kWMcUNe | Error: ${e.error}`);
                 });
             });
     }

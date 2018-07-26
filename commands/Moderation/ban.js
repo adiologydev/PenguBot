@@ -9,7 +9,7 @@ module.exports = class extends Command {
             aliases: ["banmember"],
             permissionLevel: 5,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "BAN_MEMBERS"],
-            description: msg => msg.language.get("COMMAND_BAN_DESCRIPTION"),
+            description: language => language.get("COMMAND_BAN_DESCRIPTION"),
             quotedStringSupport: false,
             usage: "<member:user> [reason:string] [...]",
             usageDelim: " ",

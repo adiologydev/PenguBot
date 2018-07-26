@@ -9,7 +9,7 @@ module.exports = class extends Command {
             cooldown: 15,
             aliases: ["cocstats", "coc"],
             requiredPermissions: ["EMBED_LINKS"],
-            description: msg => msg.language.get("COMMAND_COCSTATS_DESCRIPTION"),
+            description: language => language.get("COMMAND_COCSTATS_DESCRIPTION"),
             usage: "<Tag:string>",
             extendedHelp: "No extended help available."
         });

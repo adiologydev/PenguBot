@@ -8,7 +8,7 @@ module.exports = class extends Command {
             cooldown: 5,
             permissionLevel: 4,
             requiredPermissions: ["MANAGE_MESSAGES", "USE_EXTERNAL_EMOJIS"],
-            description: msg => msg.language.get("COMMAND_SAY_DESCRIPTION"),
+            description: language => language.get("COMMAND_SAY_DESCRIPTION"),
             usage: "<message:string> [...]",
             extendedHelp: "No extended help available."
         });

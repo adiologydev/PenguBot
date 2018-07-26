@@ -15,7 +15,7 @@ module.exports = class extends Command {
             runIn: ["text"],
             cooldown: 60,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "ATTACH_FILES"],
-            description: msg => msg.language.get("COMMAND_PROFILE_DESCRIPTION"),
+            description: language => language.get("COMMAND_PROFILE_DESCRIPTION"),
             usage: "[user:user]",
             extendedHelp: "No extended help available."
         });

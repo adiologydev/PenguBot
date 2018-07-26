@@ -9,7 +9,7 @@ module.exports = class extends Command {
             aliases: ["setprefix"],
             permissionLevel: 0,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            description: msg => msg.language.get("COMMAND_PREFIX_DESCRIPTION"),
+            description: language => language.get("COMMAND_PREFIX_DESCRIPTION"),
             quotedStringSupport: false,
             usage: "[prefix:string]",
             extendedHelp: "No extended help available."

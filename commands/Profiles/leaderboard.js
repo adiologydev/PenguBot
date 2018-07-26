@@ -7,7 +7,7 @@ module.exports = class extends Command {
             runIn: ["text"],
             aliases: ["lb", "top"],
             cooldown: 30,
-            description: msg => msg.language.get("COMMAND_LEADERBOARD_DESCRIPTION"),
+            description: language => language.get("COMMAND_LEADERBOARD_DESCRIPTION"),
             usage: "[Page:integer]"
         });
     }

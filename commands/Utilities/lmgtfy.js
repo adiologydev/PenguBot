@@ -9,7 +9,7 @@ module.exports = class extends Command {
             aliases: ["letmegoogleitforyou", "google"],
             permissionLevel: 0,
             requiredPermissions: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
-            description: msg => msg.language.get("COMMAND_LMGTFY_DESCRIPTION"),
+            description: language => language.get("COMMAND_LMGTFY_DESCRIPTION"),
             usage: "<query:string> [...]",
             extendedHelp: "No extended help available."
         });

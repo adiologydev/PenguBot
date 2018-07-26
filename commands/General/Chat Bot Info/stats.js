@@ -6,7 +6,7 @@ module.exports = class extends Command {
         super(...args, {
             guarded: true,
             aliases: ["status"],
-            description: msg => msg.language.get("COMMAND_STATS_DESCRIPTION")
+            description: language => language.get("COMMAND_STATS_DESCRIPTION")
         });
     }
 

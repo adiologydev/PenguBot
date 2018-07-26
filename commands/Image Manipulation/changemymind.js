@@ -7,7 +7,7 @@ module.exports = class extends Command {
             cooldown: 8,
             aliases: ["cmm"],
             requiredPermissions: ["ATTACH_FILES", "USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
-            description: msg => msg.language.get("COMMAND_CMM_DESCRIPTION"),
+            description: language => language.get("COMMAND_CMM_DESCRIPTION"),
             extendedHelp: "No extended help available.",
             usage: "<Text:str>"
         });

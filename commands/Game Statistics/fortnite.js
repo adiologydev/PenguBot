@@ -10,7 +10,7 @@ module.exports = class extends Command {
             aliases: ["fnbr", "fnbrstats", "fortnitestats"],
             permissionLevel: 0,
             requiredPermissions: ["EMBED_LINKS", "ATTACH_FILES"],
-            description: msg => msg.language.get("COMMAND_FORTNITE_DESCRIPTION"),
+            description: language => language.get("COMMAND_FORTNITE_DESCRIPTION"),
             usage: "<pc|xbox|psn> <Username:string> [...]",
             usageDelim: " ",
             extendedHelp: "No extended help available."

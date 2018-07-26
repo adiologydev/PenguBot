@@ -9,7 +9,7 @@ module.exports = class extends Command {
             aliases: ["clean", "purge"],
             permissionLevel: 4,
             requiredPermissions: ["MANAGE_MESSAGES", "USE_EXTERNAL_EMOJIS"],
-            description: msg => msg.language.get("COMMAND_PRUNE_DESCRIPTION"),
+            description: language => language.get("COMMAND_PRUNE_DESCRIPTION"),
             usage: "[limit:integer] [link|links|invite|invites|bots|pengu|me|upload|uploads|user:user]",
             usageDelim: " ",
             extendedHelp: "No extended help available."

@@ -11,7 +11,7 @@ module.exports = class extends Command {
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             usage: "[channel:channel]",
             usageDelim: "",
-            description: msg => msg.language.get("COMMAND_CHANNEL_LEAVE_DESCRPTION"),
+            description: language => language.get("COMMAND_CHANNEL_LEAVE_DESCRPTION"),
             extendedHelp: "No extended help available."
         });
     }

@@ -9,7 +9,7 @@ module.exports = class extends MusicCommand {
             cooldown: 10,
             aliases: ["stopmusic", "leave"],
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS", "MANAGE_MESSAGES"],
-            description: msg => msg.language.get("COMMAND_QUEUE_DESCRIPTION"),
+            description: language => language.get("COMMAND_QUEUE_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
     }

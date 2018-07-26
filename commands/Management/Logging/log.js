@@ -9,7 +9,7 @@ module.exports = class extends Command {
             aliases: ["enablelog", "disablelog", "togglelog"],
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            description: msg => msg.language.get("COMMAND_LOG_DESCRPTION"),
+            description: language => language.get("COMMAND_LOG_DESCRPTION"),
             usage: "[Option:string]",
             extendedHelp: "No extended help available."
         });

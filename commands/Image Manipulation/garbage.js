@@ -7,7 +7,7 @@ module.exports = class extends Command {
             cooldown: 8,
             aliases: ["garbagewho"],
             requiredPermissions: ["ATTACH_FILES", "USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
-            description: msg => msg.language.get("COMMAND_GARBAGE_DESCRIPTION"),
+            description: language => language.get("COMMAND_GARBAGE_DESCRIPTION"),
             extendedHelp: "No extended help available.",
             usage: "[GarbageWho:user]"
         });

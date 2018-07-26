@@ -9,7 +9,7 @@ module.exports = class extends Command {
             aliases: ["setmod", "addmod", "delmod", "removemod", "togglemod"],
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            description: msg => msg.language.get("COMMAND_MAKE_MODS_DESCRPTION"),
+            description: language => language.get("COMMAND_MAKE_MODS_DESCRPTION"),
             usage: "<member:user>",
             extendedHelp: "No extended help available."
         });

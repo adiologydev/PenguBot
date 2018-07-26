@@ -9,7 +9,7 @@ module.exports = class extends Command {
             cooldown: 8,
             aliases: ["slotsroll"],
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
-            description: msg => msg.language.get("COMMAND_SLOTS_DESCRIPTION"),
+            description: language => language.get("COMMAND_SLOTS_DESCRIPTION"),
             extendedHelp: "No extended help available.",
             usage: "[Snowflakes:integer]"
         });
