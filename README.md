@@ -14,7 +14,7 @@ Join Discord for Support and Development https://discord.gg/u8WYw5r
 
 [**Kashall**](https://github.com/Kashalls/) - Leaderboard and other help
 
-[**Jacz**](https://github.com/MrJacz) - Code reviews, Music require, refactoring help. General/Advanced code help and questions.
+[**Jacz**](https://github.com/MrJacz) - Code reviews, Music rewrite, refactoring help. General/Advanced code help and questions.
 
 ## Acknowledgement
 [**Klasa Pieces**](https://github.com/dirigeants/klasa-pieces/)
