@@ -5,6 +5,7 @@ module.exports = class extends Language {
     constructor(...args) {
         super(...args);
         this.language = {
+            DEFAULT: key => `${key} has not been localized for en-US yet. Please report this on https://discord.gg/u8WYw5r in the support channel for a fix.`,
             INHIBITOR_DISABLED: "<:penguError:435712890884849664> ***This command is currently disabled***",
             INHIBITOR_DISABLED_GROUP: "<:penguError:435712890884849664> ***This command group is currently disabled***",
             COMMAND_UNLOAD: (type, name) => `<:penguSuccess:435712876506775553> Unloaded ${type}: ${name}`,
