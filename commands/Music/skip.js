@@ -31,7 +31,7 @@ module.exports = class extends MusicCommand {
             vote.users.push(msg.author.id);
             if (vote.count >= threshold) return msg.reply(this.skip(msg.guild));
 
-            const time = this.setTimeout(music, vote);
+            const time = this.setTimeout(msg.channel, vote);
             const remaining = threshold - vote.count;
 
             return msg.sendMessage(`${vote.count} vote${vote.count > 1 ? "s" : ""} received so far, ${remaining} more ${remaining > 1 ? "are" : "is"} needed to skip this song. Five more seconds on the :clock1:! The vote will end in ${time} seconds.`); // eslint-disable-line max-len
@@ -45,7 +45,7 @@ module.exports = class extends MusicCommand {
                 timeout: null
             };
 
-            const time = this.setTimeout(music, newVote);
+            const time = this.setTimeout(msg.channel, newVote);
             this.votes.set(msg.guild.id, newVote);
             const remaining = threshold - 1;
 
@@ -64,12 +64,12 @@ module.exports = class extends MusicCommand {
         return `<:penguSuccess:435712876506775553> Skipped: **${song ? song.title : "N/A"}**`;
     }
 
-    setTimeout(musicInterface, vote) {
+    setTimeout(textChannel, vote) {
         const time = vote.start + 15000 - Date.now() + ((vote.count - 1) * 5000);
         clearTimeout(vote.timeout);
         vote.timeout = setTimeout(() => {
             this.votes.delete(vote.guild);
-            musicInterface.textChannel.send("<:penguSuccess:435712876506775553> The vote to skip the current song has ended.");
+            textChannel.send("<:penguSuccess:435712876506775553> The vote to skip the current song has ended.");
         }, time);
 
         return Math.round(time / 1000);
