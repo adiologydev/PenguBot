@@ -39,7 +39,7 @@
     "klasa": "github:dirigeants/klasa",
     "raven": "^2.6.3",
     "rethinkdbdash": "^2.3.31",
-    "uws": "^10.148.1",
+    "uws": "^99.0.0",
     "zlib-sync": "^0.1.4"
   },
   "devDependencies": {
