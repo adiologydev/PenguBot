@@ -22,7 +22,7 @@ module.exports = class extends Command {
         if (user.id === this.client.user.id) return msg.reply(`<:penguError:435712890884849664> ***Why would you want to mute Pengu?***`);
 
         if (!msg.guild.roles.find(r => r.name === "PENGU_MUTED")) {
-            await msg.guild.roles.create({
+            const newRole = await msg.guild.roles.create({
                 data: {
                     name: "PENGU_MUTED",
                     permissions: ["READ_MESSAGES"]
@@ -30,7 +30,7 @@ module.exports = class extends Command {
             });
             const { channels } = msg.guild;
             for (const c of channels) {
-                await c.updateOverwrite(role, { SEND_MESSAGES: false, ADD_REACTIONS: false, CONNECT: false }, `Mute Command Executed By ${msg.author.tag}`);
+                await c.updateOverwrite(newRole, { SEND_MESSAGES: false, ADD_REACTIONS: false, CONNECT: false }, `Mute Command Executed By ${msg.author.tag}`);
             }
         }
 
