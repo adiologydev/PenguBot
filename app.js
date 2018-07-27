@@ -34,6 +34,11 @@ Raven.context(() => {
         },
         console: { useColor: true },
         production: config.main.production,
-        presence: { activity: { name: "PenguBot.com | v2.0 | p!help", type: "WATCHING" } }
+        presence: { activity: { name: "⭐ Do p!donate For Exclusive Patron Bot Access ➖ p!help", type: "WATCHING" } }
     }).login(config.main.token);
+});
+
+process.on("uncaughtException", err => {
+    console.error(`uncaughtException:\n${err.stack}`);
+    Raven.captureException(err);
 });
