@@ -1,4 +1,5 @@
 const { Monitor } = require("klasa");
+const cooldown = new Set();
 
 module.exports = class extends Monitor {
 
@@ -8,7 +9,6 @@ module.exports = class extends Monitor {
             ignoreBots: true,
             ignoreSelf: true
         });
-        this.cooldown = new Set();
     }
 
     async run(msg) {
@@ -16,8 +16,8 @@ module.exports = class extends Monitor {
         if (!msg.guild.configs.customcmds.cmds.length) return;
         if (this.cooldown.has(msg.author.id)) return;
 
-        const member = await msg.guild.members.fetch(msg.author.id).catch(() => null);
-        if (!member) return;
+        if (!msg.member) await msg.guild.members.fetch(msg.author.id).catch(() => null);
+        if (!msg.member) return;
 
         if (this.client.user.id !== "303181184718995457") {
             const mainBot = await msg.guild.members.fetch("303181184718995457").catch(() => null);
