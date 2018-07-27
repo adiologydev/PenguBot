@@ -14,7 +14,7 @@ module.exports = class extends Monitor {
     async run(msg) {
         if (!msg.guild || !msg.channel.postable || !msg.guild.configs.customcmds.enabled) return;
         if (!msg.guild.configs.customcmds.cmds.length) return;
-        if (this.cooldown.has(msg.author.id)) return;
+        if (cooldown.has(msg.author.id)) return;
 
         if (!msg.member) await msg.guild.members.fetch(msg.author.id).catch(() => null);
         if (!msg.member) return;
