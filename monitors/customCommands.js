@@ -16,6 +16,9 @@ module.exports = class extends Monitor {
         if (!msg.guild.configs.customcmds.cmds.length) return;
         if (this.cooldown.has(msg.author.id)) return;
 
+        const member = await msg.guild.members.fetch(msg.author.id).catch(() => null);
+        if (!member) return;
+
         if (this.client.user.id !== "303181184718995457") {
             const mainBot = await msg.guild.members.fetch("303181184718995457").catch(() => null);
             if (mainBot) return;
@@ -41,7 +44,7 @@ module.exports = class extends Monitor {
             .replace(/{SERVER}/g, msg.guild.name)
             .replace(/{USER}/g, msg.author.tag)
             .replace(/{TAG}/g, msg.author.tag)
-            .replace(/{DISPLAYNAME}/g, msg.member.nickname ? msg.member.nickname : msg.author.username);
+            .replace(/{DISPLAYNAME}/g, msg.member.displayName);
     }
 
 };
