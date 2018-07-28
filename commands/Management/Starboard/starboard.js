@@ -21,7 +21,7 @@ module.exports = class extends Command {
         if (!starChannel || !starChannel.postable) return msg.reply("I do not have permissions to send Embeds in Starboard channel or Channel not found.");
         if (!starChannel.nsfw && msg.channel.nsfw) return msg.reply("This message is from an NSFW channel while your Starboard Channel is SFW, I can't send it there sorry!");
         const fetch = await starChannel.messages.fetch({ limit: 100 });
-        const starMsg = fetch.find(m => m.embeds[0] && m.embeds[0].footer.text.startsWith("⭐") && m.embeds[0].footer.text.endsWith(Message.id));
+        const starMsg = fetch.find(m => m.embeds[0] && m.embeds[0].footer && m.embeds[0].footer.text.startsWith("⭐") && m.embeds[0].footer.text.endsWith(Message.id));
 
         if (starMsg) {
             const star = /^\⭐\s([0-9]{1,3})\s\|\s([0-9]{17,20})/.exec(starMsg.embeds[0].footer.text); // eslint-disable-line

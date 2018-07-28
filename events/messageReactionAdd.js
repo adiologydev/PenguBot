@@ -15,7 +15,7 @@ module.exports = class extends Event {
         if (!starChannel || !starChannel.postable) return;
         if (!starChannel.nsfw && msg.channel.nsfw) return;
         const fetch = await starChannel.messages.fetch({ limit: 100 });
-        const starMsg = fetch.find(m => m.embeds[0] && m.embeds[0].footer.text.startsWith("⭐") && m.embeds[0].footer.text.endsWith(msg.id));
+        const starMsg = fetch.find(m => m.embeds[0] && m.embeds[0].footer && m.embeds[0].footer.text.startsWith("⭐") && m.embeds[0].footer.text.endsWith(msg.id));
 
         if (starMsg) {
             const starEmbed = starMsg.embeds[0];
