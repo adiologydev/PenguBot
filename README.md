@@ -30,9 +30,9 @@ Join Discord for Support and Development https://discord.gg/u8WYw5r
 [**Jacz**](https://github.com/MrJacz) Expressed permission to use modified or exact code from the private Trident repository [Screenshot](https://i.imgur.com/9YmMNUF.png)
 
 ## Hosting
-We're proudly hosted by [DigitalOcean](https://m.do.co/c/bfc0c187cdec). Visit the link by clicking the image below to avail Free $10 credits to try out the services.
+We're proudly hosted by [GalaxyGate](https://bit.ly/GalaxyGate). Visit the link by clicking the image below to know more!
 
-[![Digital Ocean](https://i.imgur.com/6OBHX8a.png)](https://m.do.co/c/bfc0c187cdec)
+[![GalaxyGate](https://i.imgur.com/tTbWta8.png)](https://bit.ly/GalaxyGate)
 
 ## Vote on DiscordBots to Support
 [![Discord Bots](https://discordbots.org/api/widget/303181184718995457.svg)](https://discordbots.org/bot/303181184718995457/vote)
