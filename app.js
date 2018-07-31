@@ -6,10 +6,10 @@ Raven.config(config.keys.sentry, { captureUnhandledRejections: true }).install()
 
 Raven.context(() => {
     new PenguClient({
-        prefix: ["p!"],
+        prefix: "p!",
         commandEditing: true,
         disableEveryone: true,
-        regexPrefix: /^((?:Hey |Ok )?Pengu(?:,|!| )|P!|P! )/,
+        regexPrefix: /^((?:Hey |Ok )?Pengu(?:,|!| ))/i,
         ownerID: "136549806079344640",
         typing: true,
         disabledEvents: [
