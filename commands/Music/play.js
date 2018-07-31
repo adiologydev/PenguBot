@@ -24,6 +24,10 @@ module.exports = class extends MusicCommand {
         const { music } = msg.guild;
         music.textChannel = msg.channel;
 
+        const { voiceChannel } = msg.member;
+        if (!voiceChannel) throw "I'm sorry but you need to be in a voice channel to play some music!";
+        this.resolvePermissions(msg, voiceChannel);
+
         return this.handle(msg, songs);
     }
 
@@ -32,6 +36,8 @@ module.exports = class extends MusicCommand {
         try {
             if (!musicInterface.playing) await this.handleSongs(msg, songs);
             else return this.handleSongs(msg, songs);
+
+            await msg.guild.music.join(msg.member.voiceChannel);
             return this.play(musicInterface);
         } catch (error) {
             this.client.console.error(error);
@@ -82,6 +88,12 @@ module.exports = class extends MusicCommand {
                     musicInterface.textChannel.send(`I am very sorry but was an error, please try again or contact us at https://discord.gg/kWMcUNe | Error: ${e.error}`);
                 });
             });
+    }
+
+    resolvePermissions(msg, voiceChannel) {
+        const permissions = voiceChannel.permissionsFor(msg.guild.me);
+        if (permissions.has("CONNECT") === false) throw "I don't have permissions to join your Voice Channel. I am missing the `CONNECT` permission.";
+        if (permissions.has("SPEAK") === false) throw "I can connect... but not speak. Please turn on this permission so I can spit some bars.";
     }
 
     // Response Embeds

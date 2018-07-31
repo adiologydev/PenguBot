@@ -15,47 +15,43 @@ module.exports = class extends Argument {
         arg = arg.replace(/<(.+)>/g, "$1");
         if (!msg.guild) return null;
 
-        const { voiceChannel } = msg.member;
-        if (!voiceChannel) throw "I'm sorry but you need to be in a voice channel to play some music!";
-        this.resolvePermissions(msg, voiceChannel);
-
-        await msg.guild.music.join(voiceChannel);
-        const { node } = msg.guild.music.player;
-
         const results = [];
         results.playlist = null;
+
+        const node = this.idealNode(msg.guild.region);
+        if (!node) throw "Couldn't find an ideal region, please try changing your guild region and try again. If the error presists, contact us at: https://discord.gg/kWMcUNe";
 
         const isLink = this.isLink(arg);
         if (isLink) {
             if (playlist.exec(arg)) {
                 const playlistResults = await this.getTracks(arg, node);
-                if (!playlistResults.tracks[0]) await this.leaveVoice(msg);
+                if (!playlistResults.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
                 results.playlist = playlistResults.playlistInfo.name;
                 results.push(...playlistResults.tracks);
             } else if (soundcloud.exec(arg)) {
                 if (scPlaylist.exec(arg)) {
                     const scPlaylistRes = await this.getTracks(arg, node);
-                    if (!scPlaylistRes.tracks[0]) await this.leaveVoice(msg);
+                    if (!scPlaylistRes.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
                     results.playlist = scPlaylistRes.playlistInfo.name;
                     results.push(...scPlaylistRes.tracks);
                 } else {
                     const scSingleRes = await this.getTracks(arg, node);
-                    if (!scSingleRes.tracks) await this.leaveVoice(msg);
+                    if (!scSingleRes.tracks) throw msg.language.get("ER_MUSIC_NF");
                     results.push(scSingleRes.tracks[0]);
                 }
             } else {
                 const httpRes = await this.getTracks(arg, node);
-                if (!httpRes.tracks[0]) await this.leaveVoice(msg);
+                if (!httpRes.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
                 results.push(httpRes.tracks[0]);
             }
         } else if (wcYt.exec(arg) || wcSc.exec(arg)) {
             const wildcardRes = await this.getTracks(arg, node);
-            if (!wildcardRes.tracks[0]) await this.leaveVoice(msg);
+            if (!wildcardRes.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
             results.push(wildcardRes.tracks[0]);
         } else {
             let searchRes = await this.getTracks(`ytsearch:${arg}`, node);
             if (!searchRes.tracks[0]) searchRes = await this.getTracks(`scsearch:${arg}`, node);
-            if (!searchRes.tracks[0]) await this.leaveVoice(msg);
+            if (!searchRes.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
             const options = searchRes.tracks.slice(0, 5);
             const selection = await msg.awaitReply([`🎵 | **Select a Song - PenguBot**\n`,
                 `${options.map((o, index) => `➡ \`${++index}\` ${o.info.title} - ${o.info.author} (${this.client.functions.friendlyDuration(o.info.length)})`).join("\n")}`,
@@ -66,7 +62,7 @@ module.exports = class extends Argument {
             results.push(searchRes.tracks[selectedNo - 1]);
         }
 
-        if (!results.length) await this.leaveVoice(msg);
+        if (!results.length) throw msg.language.get("ER_MUSIC_NF");
         return { tracks: results.map(track => new Song(track, msg.author)), playlist: results.playlist };
     }
 
@@ -91,16 +87,13 @@ module.exports = class extends Argument {
         return goodUrl && (res.protocol === "https:" || res.protocol === "http:");
     }
 
-    resolvePermissions(msg, voiceChannel) {
-        const permissions = voiceChannel.permissionsFor(msg.guild.me);
-        if (permissions.has("CONNECT") === false) throw "I don't have permissions to join your Voice Channel. I am missing the `CONNECT` permission.";
-        if (permissions.has("SPEAK") === false) throw "I can connect... but not speak. Please turn on this permission so I can spit some bars.";
-    }
-
-    async leaveVoice(msg) {
-        const { music } = msg.guild;
-        if (!music.playing) await music.destroy();
-        throw msg.language.get("ER_MUSIC_NF");
+    /**
+     * Gets the ideal Node based on the guild region
+     * @param {string} region Region of a Guild
+     * @returns {LavalinkNode}
+     */
+    idealNode(region) {
+        return this.client.lavalink.nodes.get(this.client.lavalink.getIdealHost(region)) || null;
     }
 
 };
