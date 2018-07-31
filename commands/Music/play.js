@@ -21,9 +21,6 @@ module.exports = class extends MusicCommand {
             throw msg.language.get("ER_MUSIC_TRIP");
         });
 
-        const { voiceChannel } = msg.member;
-        if (!voiceChannel) throw "I'm sorry but you need to be in a voice channel to play some music!";
-        this.resolvePermissions(msg, voiceChannel);
         const { music } = msg.guild;
         music.textChannel = msg.channel;
 
@@ -35,21 +32,20 @@ module.exports = class extends MusicCommand {
         try {
             if (!musicInterface.playing) await this.handleSongs(msg, songs);
             else return this.handleSongs(msg, songs);
-
-            await musicInterface.join(msg.member.voiceChannel);
             return this.play(musicInterface);
         } catch (error) {
             this.client.console.error(error);
-            return musicInterface.textChannel.send(`I could not join the voice channel: ${error}`).then(() => musicInterface.destroy());
+            return musicInterface.textChannel.send(`There was an error: ${error}`).then(() => musicInterface.destroy());
         }
     }
 
     async handleSongs(msg, songs) {
         const musicInterface = msg.guild.music;
+        if (!musicInterface) return msg.sendMessage(msg.language.get("ER_MUSIC_TRIP"));
         const isUpvoter = await this.client.functions.isUpvoter(msg.author.id);
         if (songs.tracks.length > 1) {
             const limit = this.client.config.main.patreon && isUpvoter ? 1000 : 74;
-            const limitedSongs = songs.tracks.slice(0, limit);
+            const limitedSongs = songs.tracks.slice(0, limit).filter(a => a.track !== undefined);
             musicInterface.queue.push(...limitedSongs);
             if (songs.tracks.length >= 75 && !this.client.config.main.patreon && !isUpvoter) {
                 return msg.sendEmbed(this.supportEmbed(songs.playlist));
@@ -57,7 +53,7 @@ module.exports = class extends MusicCommand {
                 return msg.send(`🎧 | **Queue:** Added **${songs.tracks.length}** songs from **${songs.playlist}** to the queue based on your playlist.`);
             }
         } else {
-            musicInterface.queue.push(...songs.tracks);
+            musicInterface.queue.push(...songs.tracks.filter(a => a.track !== undefined));
             if (!musicInterface.playing) return;
             musicInterface.playing = true;
             return msg.send(this.queueEmbed(songs.tracks[0]));
@@ -86,13 +82,6 @@ module.exports = class extends MusicCommand {
                     musicInterface.textChannel.send(`I am very sorry but was an error, please try again or contact us at https://discord.gg/kWMcUNe | Error: ${e.error}`);
                 });
             });
-    }
-
-    resolvePermissions(msg, voiceChannel) {
-        const permissions = voiceChannel.permissionsFor(msg.guild.me);
-
-        if (permissions.has("CONNECT") === false) throw "I don't have permissions to join your Voice Channel. I am missing the `CONNECT` permission.";
-        if (permissions.has("SPEAK") === false) throw "I can connect... but not speak. Please turn on this permission so I can spit some bars.";
     }
 
     // Response Embeds
