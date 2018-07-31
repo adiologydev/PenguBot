@@ -18,7 +18,7 @@ module.exports = class extends Argument {
         const results = [];
         results.playlist = null;
 
-        const node = this.idealNode(msg.guild.region);
+        const node = msg.guild.music.idealNode;
         if (!node) throw "Couldn't find an ideal region, please try changing your guild region and try again. If the error presists, contact us at: https://discord.gg/kWMcUNe";
 
         const isLink = this.isLink(arg);
@@ -85,15 +85,6 @@ module.exports = class extends Argument {
         const res = url.parse(arg);
         const goodUrl = res.protocol && res.hostname;
         return goodUrl && (res.protocol === "https:" || res.protocol === "http:");
-    }
-
-    /**
-     * Gets the ideal Node based on the guild region
-     * @param {string} region Region of a Guild
-     * @returns {LavalinkNode}
-     */
-    idealNode(region) {
-        return this.client.lavalink.nodes.get(this.client.lavalink.getIdealHost(region)) || null;
     }
 
 };
