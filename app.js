@@ -34,7 +34,8 @@ Raven.context(() => {
         },
         console: { useColor: true },
         production: config.main.production,
-        presence: { activity: { name: "⭐ Do p!donate For Exclusive Patron Bot Access ➖ p!help", type: "WATCHING" } }
+        presence: { activity: { name: "⭐ Do p!donate For Exclusive Patron Bot Access ➖ p!help", type: "WATCHING" } },
+        prefixCaseInsensitive: true
     }).login(config.main.token);
 });
 
