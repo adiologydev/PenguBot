@@ -10,7 +10,7 @@ module.exports = class extends Event {
         if (this.client.config.main.status) this.client.whStatus.send(`✅ **ONLINE:** Shard \`${this.client.shard.id}\` is now online.`);
 
         // Setup DBL Webhook
-        if (this.client.shard.id === 0) {
+        if (this.client.shard.id === 0 && !this.client.config.main.patreon) {
             const dbl = new DBL(this.client.config.keys.dbl, {
                 webhookPort: 2425,
                 webhookAuth: this.client.config.keys.dbl
