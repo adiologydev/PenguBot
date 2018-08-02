@@ -15,6 +15,7 @@ module.exports = class extends Command {
     async run(msg) {
         const embed = new MessageEmbed()
             .setDescription(msg.language.get("COMMAND_INFO"))
+            .setAuthor("PenguBot - Information", this.client.user.displayAvatarURL(), "https://www.pengubot.com")
             .setColor("RANDOM");
         return msg.sendEmbed(embed);
     }
