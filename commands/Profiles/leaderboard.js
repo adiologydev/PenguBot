@@ -12,10 +12,8 @@ module.exports = class extends Command {
         });
     }
 
-    async run(msg) {
-        msg.sendMessage("<:penguError:435712890884849664> ***Global Leaderboards have been temporarily disabled.***");
-
-        /* const load = await msg.sendMessage(`<a:penguLoad:435712860744581120> ***Let me process all that data through my igloo, give me a few...***`);
+    async run(msg, [Page]) {
+        const load = await msg.sendMessage(`<a:penguLoad:435712860744581120> ***Let me process all that data through my igloo, give me a few...***`);
         const r = this.client.providers.default.db;
         let users;
         if (this.client.topCache.length) { users = this.client.topCache; } else {
@@ -49,7 +47,7 @@ module.exports = class extends Command {
         leaderboard.push("--------------------------------------------------");
 
         load.delete();
-        return msg.channel.send(`${leaderboard.join("\n")}\n Page ${index + 1} / ${totalPages.toLocaleString() || 1} - ${users.length.toLocaleString()} Total Users`, { code: "asciidoc" });*/
+        return msg.channel.send(`${leaderboard.join("\n")}\n Page ${index + 1} / ${totalPages.toLocaleString() || 1} - ${users.length.toLocaleString()} Total Users`, { code: "asciidoc" });
     }
 
 };
