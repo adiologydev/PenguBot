@@ -37,12 +37,10 @@ module.exports = class extends Command {
         const nextLvl = Math.floor(((lvl + 1) / 0.2) ** 2);
         const xpProg = Math.round(((xp - oldLvl) / (nextLvl - oldLvl)) * 269);
 
-        let users;
-        if (this.client.topCache.length) { users = this.client.topCache; } else {
-            users = await r.table("users").orderBy({ index: r.desc("xp") }).pluck("id", "xp").run();
-            this.client.topCache = users;
-        }
-        const pos = users.findIndex(i => i.id === user.id);
+        const query = await r.db("pengubot").table("users").orderBy({ index: r.desc("xp") }).pluck("id", "xp").limit(10000).offsetsOf(r.row("id").eq(user.id))
+            .run();
+        console.log(query);
+        const pos = query.length ? `#${Number(query) + 1}` : "More Than 10,000";
 
         const bgName = user.configs.profilebg;
         const bgImg = await fs.readFile(`${process.cwd()}/assets/profiles/bg/${bgName}.png`);
@@ -69,7 +67,7 @@ module.exports = class extends Command {
             .setTextAlign("left")
             .addText(`Title: ${title}`, 30, 196, 193)
             .addText(`Snowflakes: ${snowflakes.toLocaleString()}`, 30, 219, 193)
-            .addText(`Global Rank: #${pos !== -1 ? pos + 1 : "???"}`, 30, 243, 193)
+            .addText(`Global Rank: ${pos}`, 30, 243, 193)
             // XP Bar
             .setColor("#459466")
             .addRect(21, 269, xpProg, 15.5)

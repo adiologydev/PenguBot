@@ -18,14 +18,11 @@ module.exports = class extends Language {
             COMMAND_SUPPORT: `**__PenguBot Support Guild__**\n• **Invite Link:** https://discord.gg/u8WYw5r`,
             COMMAND_INVITE_DESCRIPTION: "Displays the join server link of the bot.",
             COMMAND_INFO: [
-                "**__PenguBot Information__**",
                 "PenguBot is a Multi-Purpose Discord Bot which is filled with features ranging from",
                 "Moderation, Fun, Utilities and more. It is developed in NodeJS using many different",
                 "technologies such as RethinkDB, JavaScript and Linux.",
                 "",
                 "• **Author:** [AdityaTD#5346](https://www.AdityaTD.me)",
-                "",
-                "**__General Information__**",
                 `• **Version:** ${require("../package").version}`,
                 "• **Website:** <https://www.PenguBot.com>",
                 "• **Patreon:** <https://www.Patreon.com/PenguBot>",
@@ -34,7 +31,6 @@ module.exports = class extends Language {
                 "• **Database:** RethinkDB"
             ],
             COMMAND_DONATE: [
-                "**__Support PenguBot__**",
                 "PenguBot runs on multipe servers rented out across the globe and that requires the",
                 "rent.If you'd like to support PenguBot and it's financial costs please visit the following:",
                 "",
@@ -43,8 +39,7 @@ module.exports = class extends Language {
                 "• **PenguBot's Donation Page:** https://www.PenguBot.com/donate"
             ],
             COMMAND_HELP_NODM: "📪 | You have DMs disabled, I couldn't send you the commands in DMs so here's a link to all the commands: <https://www.pengubot.com/commands>",
-            COMMAND_UPVOTE: ["**__Vote for PenguBot__**",
-                "Want PenguBot to become bigger and be available in more guilds you visit?",
+            COMMAND_UPVOTE: ["Want PenguBot to become bigger and be available in more guilds you visit?",
                 "Then vote for PenguBot via the link below and also unlock access to",
                 "limited features that only upvoters can have access to!",
                 "",
