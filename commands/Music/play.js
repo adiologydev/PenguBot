@@ -37,7 +37,7 @@ module.exports = class extends MusicCommand {
             if (!musicInterface.playing) await this.handleSongs(msg, songs);
             else return this.handleSongs(msg, songs);
 
-            await msg.guild.music.join(msg.member.voiceChannel);
+            await musicInterface.join(msg.member.voiceChannel);
             return this.play(musicInterface);
         } catch (error) {
             this.client.console.error(error);
@@ -47,11 +47,10 @@ module.exports = class extends MusicCommand {
 
     async handleSongs(msg, songs) {
         const musicInterface = msg.guild.music;
-        if (!musicInterface) return msg.sendMessage(msg.language.get("ER_MUSIC_TRIP"));
         const isUpvoter = await this.client.functions.isUpvoter(msg.author.id);
         if (songs.tracks.length > 1) {
             const limit = this.client.config.main.patreon && isUpvoter ? 1000 : 74;
-            const limitedSongs = songs.tracks.slice(0, limit).filter(a => a.track !== undefined);
+            const limitedSongs = songs.tracks.slice(0, limit);
             musicInterface.queue.push(...limitedSongs);
             if (songs.tracks.length >= 75 && !this.client.config.main.patreon && !isUpvoter) {
                 return msg.sendEmbed(this.supportEmbed(songs.playlist));
@@ -59,7 +58,7 @@ module.exports = class extends MusicCommand {
                 return msg.send(`🎧 | **Queue:** Added **${songs.tracks.length}** songs from **${songs.playlist}** to the queue based on your playlist.`);
             }
         } else {
-            musicInterface.queue.push(...songs.tracks.filter(a => a.track !== undefined));
+            musicInterface.queue.push(...songs.tracks);
             if (!musicInterface.playing) return;
             musicInterface.playing = true;
             return msg.send(this.queueEmbed(songs.tracks[0]));

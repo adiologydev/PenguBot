@@ -24,33 +24,33 @@ module.exports = class extends Argument {
         const isLink = this.isLink(arg);
         if (isLink) {
             if (playlist.exec(arg)) {
-                const playlistResults = await this.getTracks(arg, node);
+                const playlistResults = await this.getTracks(node, arg);
                 if (!playlistResults.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
                 results.playlist = playlistResults.playlistInfo.name;
                 results.push(...playlistResults.tracks);
             } else if (soundcloud.exec(arg)) {
                 if (scPlaylist.exec(arg)) {
-                    const scPlaylistRes = await this.getTracks(arg, node);
+                    const scPlaylistRes = await this.getTracks(node, arg);
                     if (!scPlaylistRes.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
                     results.playlist = scPlaylistRes.playlistInfo.name;
                     results.push(...scPlaylistRes.tracks);
                 } else {
-                    const scSingleRes = await this.getTracks(arg, node);
+                    const scSingleRes = await this.getTracks(node, arg);
                     if (!scSingleRes.tracks) throw msg.language.get("ER_MUSIC_NF");
                     results.push(scSingleRes.tracks[0]);
                 }
             } else {
-                const httpRes = await this.getTracks(arg, node);
+                const httpRes = await this.getTracks(node, arg);
                 if (!httpRes.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
                 results.push(httpRes.tracks[0]);
             }
         } else if (wcYt.exec(arg) || wcSc.exec(arg)) {
-            const wildcardRes = await this.getTracks(arg, node);
+            const wildcardRes = await this.getTracks(node, arg);
             if (!wildcardRes.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
             results.push(wildcardRes.tracks[0]);
         } else {
-            let searchRes = await this.getTracks(`ytsearch:${arg}`, node);
-            if (!searchRes.tracks[0]) searchRes = await this.getTracks(`scsearch:${arg}`, node);
+            let searchRes = await this.getTracks(node, `ytsearch:${arg}`);
+            if (!searchRes.tracks[0]) searchRes = await this.getTracks(node, `scsearch:${arg}`);
             if (!searchRes.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
             const options = searchRes.tracks.slice(0, 5);
             const selection = await msg.awaitReply([`🎵 | **Select a Song - PenguBot**\n`,
@@ -63,17 +63,17 @@ module.exports = class extends Argument {
         }
 
         if (!results.length) throw msg.language.get("ER_MUSIC_NF");
-        return { tracks: results.map(track => new Song(track, msg.author)), playlist: results.playlist };
+        return { tracks: results.filter(a => a.track !== undefined).map(track => new Song(track, msg.author)), playlist: results.playlist };
     }
 
     /**
      * Gets an array of tracks from lavalink REST API
-     * @param {string} search The search string
      * @param {Object} node The node to use for REST searches
+     * @param {string} search The search string
      * @returns {Array<Object>}
      */
-    getTracks(search, node) {
-        return this.client.lavalink.getSongs(search, node);
+    getTracks(node, search) {
+        return this.client.lavalink.getSongs(node, search);
     }
 
     /**
