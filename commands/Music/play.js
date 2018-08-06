@@ -21,11 +21,12 @@ module.exports = class extends MusicCommand {
             throw msg.language.get("ER_MUSIC_TRIP");
         });
 
+        const { music } = msg.guild;
+        music.textChannel = msg.channel;
+
         const { voiceChannel } = msg.member;
         if (!voiceChannel) throw "I'm sorry but you need to be in a voice channel to play some music!";
         this.resolvePermissions(msg, voiceChannel);
-        const { music } = msg.guild;
-        music.textChannel = msg.channel;
 
         return this.handle(msg, songs);
     }
@@ -40,7 +41,7 @@ module.exports = class extends MusicCommand {
             return this.play(musicInterface);
         } catch (error) {
             this.client.console.error(error);
-            return musicInterface.textChannel.send(`I could not join the voice channel: ${error}`).then(() => musicInterface.destroy());
+            return musicInterface.textChannel.send(`There was an error: ${error}`).then(() => musicInterface.destroy());
         }
     }
 
@@ -90,7 +91,6 @@ module.exports = class extends MusicCommand {
 
     resolvePermissions(msg, voiceChannel) {
         const permissions = voiceChannel.permissionsFor(msg.guild.me);
-
         if (permissions.has("CONNECT") === false) throw "I don't have permissions to join your Voice Channel. I am missing the `CONNECT` permission.";
         if (permissions.has("SPEAK") === false) throw "I can connect... but not speak. Please turn on this permission so I can spit some bars.";
     }

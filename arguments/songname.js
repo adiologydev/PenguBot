@@ -10,6 +10,7 @@ const wcYt = /ytsearch:.*/;
 
 module.exports = class extends Argument {
 
+    /* eslint-disable complexity */
     async run(arg, possible, msg) {
         arg = arg.replace(/<(.+)>/g, "$1");
         if (!msg.guild) return null;
@@ -17,37 +18,40 @@ module.exports = class extends Argument {
         const results = [];
         results.playlist = null;
 
+        const node = msg.guild.music.idealNode;
+        if (!node) throw "Couldn't find an ideal region, please try changing your guild region and try again. If the error presists, contact us at: https://discord.gg/kWMcUNe";
+
         const isLink = this.isLink(arg);
         if (isLink) {
             if (playlist.exec(arg)) {
-                const playlistResults = await this.getTracks(arg);
+                const playlistResults = await this.getTracks(node, arg);
                 if (!playlistResults.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
                 results.playlist = playlistResults.playlistInfo.name;
                 results.push(...playlistResults.tracks);
             } else if (soundcloud.exec(arg)) {
                 if (scPlaylist.exec(arg)) {
-                    const scPlaylistRes = await this.getTracks(arg);
+                    const scPlaylistRes = await this.getTracks(node, arg);
                     if (!scPlaylistRes.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
                     results.playlist = scPlaylistRes.playlistInfo.name;
                     results.push(...scPlaylistRes.tracks);
                 } else {
-                    const scSingleRes = await this.getTracks(arg);
+                    const scSingleRes = await this.getTracks(node, arg);
                     if (!scSingleRes.tracks) throw msg.language.get("ER_MUSIC_NF");
                     results.push(scSingleRes.tracks[0]);
                 }
             } else {
-                const httpRes = await this.getTracks(arg);
+                const httpRes = await this.getTracks(node, arg);
                 if (!httpRes.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
                 results.push(httpRes.tracks[0]);
             }
         } else if (wcYt.exec(arg) || wcSc.exec(arg)) {
-            const wildcardRes = await this.getTracks(arg);
+            const wildcardRes = await this.getTracks(node, arg);
             if (!wildcardRes.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
             results.push(wildcardRes.tracks[0]);
         } else {
-            let searchRes = await this.getTracks(`ytsearch:${arg}`);
-            if (!searchRes.tracks[0]) searchRes = await this.getTracks(`scsearch:${arg}`);
-            if (!searchRes.tracks[0]) throw "Could not find any search results on YouTube or SoundCloud, try again with a different name or provide a URL.";
+            let searchRes = await this.getTracks(node, `ytsearch:${arg}`);
+            if (!searchRes.tracks[0]) searchRes = await this.getTracks(node, `scsearch:${arg}`);
+            if (!searchRes.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
             const options = searchRes.tracks.slice(0, 5);
             const selection = await msg.awaitReply([`🎵 | **Select a Song - PenguBot**\n`,
                 `${options.map((o, index) => `➡ \`${++index}\` ${o.info.title} - ${o.info.author} (${this.client.functions.friendlyDuration(o.info.length)})`).join("\n")}`,
@@ -59,18 +63,24 @@ module.exports = class extends Argument {
         }
 
         if (!results.length) throw msg.language.get("ER_MUSIC_NF");
-        return { tracks: results.map(track => new Song(track, msg.author)), playlist: results.playlist };
+        return { tracks: results.filter(a => a.track !== undefined).map(track => new Song(track, msg.author)), playlist: results.playlist };
     }
 
     /**
      * Gets an array of tracks from lavalink REST API
+     * @param {Object} node The node to use for REST searches
      * @param {string} search The search string
      * @returns {Array<Object>}
      */
-    getTracks(search) {
-        return this.client.lavalink.getSongs(search);
+    getTracks(node, search) {
+        return this.client.lavalink.getSongs(node, search);
     }
 
+    /**
+     * Returns a valid URl that can be accepted by Lavalink
+     * @param {string} arg URL which you want to verify
+     * @returns {string}
+     */
     isLink(arg) {
         const res = url.parse(arg);
         const goodUrl = res.protocol && res.hostname;
