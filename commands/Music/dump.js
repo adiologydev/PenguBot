@@ -26,7 +26,7 @@ module.exports = class extends MusicCommand {
         }
 
         const paste = await this.upload(raw);
-        return msg.sendMessage(`<:penguSuccess:435712876506775553> **Raw dump of current queue has been created:** ${paste}\n**Tip:** Save this URL to use with the \`load\` command to instantly load a queue.`);
+        return msg.sendMessage(`<:penguSuccess:435712876506775553> **Raw dump of current queue has been created:** ${paste}\n**Tip:** Save this URL to use with the \`play\` command to instantly load a queue.`);
     }
 
     async upload(data) {
