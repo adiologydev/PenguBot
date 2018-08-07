@@ -1,12 +1,14 @@
 const { Argument } = require("klasa");
 const Song = require("../lib/structures/Song");
 const url = require("url");
+const { get } = require("snekfetch");
 
 const playlist = /(\?|\&)list=(.*)/i; // eslint-disable-line no-useless-escape
 const soundcloud = /https:\/\/soundcloud\.com\/.*/i;
 const scPlaylist = /https:\/\/?soundcloud.com\/.*\/.*\/.*/i;
 const wcSc = /scsearch:.*/;
 const wcYt = /ytsearch:.*/;
+const paste = /https:\/\/paste.pengubot.com\/(.*)/i;
 
 module.exports = class extends Argument {
 
@@ -39,6 +41,14 @@ module.exports = class extends Argument {
                     if (!scSingleRes.tracks) throw msg.language.get("ER_MUSIC_NF");
                     results.push(scSingleRes.tracks[0]);
                 }
+            } else if (paste.exec(arg)) {
+                const rawRes = await get(`https://paste.pengubot.com/raw/${paste.exec(arg)[1]}`);
+                if (!rawRes.body) throw msg.language.get("ER_MUSIC_NF");
+                for (const song of JSON.parse(rawRes.body).songs) {
+                    const songRes = await this.getTracks(node, song);
+                    results.push(songRes.tracks[0]);
+                }
+                results.playlist = "Custom PenguBot Playlist";
             } else {
                 const httpRes = await this.getTracks(node, arg);
                 if (!httpRes.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
