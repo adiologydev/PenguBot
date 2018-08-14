@@ -119,7 +119,7 @@ module.exports = class MemorySweeper extends Task {
 
     // Init
     async init() {
-        if (!this.client.configs.schedules.some(schedule => schedule.taskName === this.name)) {
+        if (!this.client.settings.schedules.some(schedule => schedule.taskName === this.name)) {
             await this.client.schedule.create("cleaner", "*/8 * * * *");
         }
     }

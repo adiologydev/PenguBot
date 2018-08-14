@@ -56,7 +56,7 @@ module.exports = class extends Command {
                     if (!help.hasOwnProperty(command.category)) help[command.category] = {};
                     if (!help[command.category].hasOwnProperty(command.subCategory)) help[command.category][command.subCategory] = [];
                     const description = isFunction(command.description) ? command.description(msg.language) : command.description;
-                    help[command.category][command.subCategory].push(`${msg.guildConfigs.prefix}${command.name.padEnd(longest)} :: ${description}`);
+                    help[command.category][command.subCategory].push(`${msg.guildSettings.prefix}${command.name.padEnd(longest)} :: ${description}`);
                 })
                 .catch(() => {
                     // noop

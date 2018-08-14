@@ -16,7 +16,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [Channel = msg.channel]) {
-        return msg.guild.configs.update("loggingChannel", Channel.id).then(() => {
+        return msg.guild.settings.update("loggingChannel", Channel.id).then(() => {
             msg.sendMessage(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_LOGCHAN_SET")}***`);
         });
     }

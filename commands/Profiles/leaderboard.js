@@ -20,7 +20,7 @@ module.exports = class extends Command {
             users = await r.table("users").orderBy({ index: r.desc("xp") }).pluck("id", "xp").run();
             this.client.topCache = users;
         }
-        await msg.author.configs.waitSync();
+        await msg.author.settings.waitSync();
 
         const leaderboard = [];
         const totalPages = Math.round(users.length / 10);
@@ -43,7 +43,7 @@ module.exports = class extends Command {
         }
 
         const posNum = pos !== -1 ? pos + 1 : 0;
-        leaderboard.push(`\n • ${posNum.toString().padStart(2, " ")} | ${msg.author.username.padEnd(30, " ")}::  ${msg.author.configs.xp.toLocaleString()} XP`);
+        leaderboard.push(`\n • ${posNum.toString().padStart(2, " ")} | ${msg.author.username.padEnd(30, " ")}::  ${msg.author.settings.xp.toLocaleString()} XP`);
         leaderboard.push("--------------------------------------------------");
 
         load.delete();

@@ -16,12 +16,12 @@ module.exports = class extends Command {
     }
 
     async run(msg, [role]) {
-        if (msg.guild.configs.get("autoroles.roles").indexOf(role.id) !== -1) {
-            return msg.guild.configs.update("autoroles.roles", role).then(() => {
+        if (msg.guild.settings.get("autoroles.roles").indexOf(role.id) !== -1) {
+            return msg.guild.settings.update("autoroles.roles", role).then(() => {
                 msg.sendMessage(`<:penguError:435712890884849664> ***${role.name} ${msg.language.get("MESSAGE_AUTOROLE_REMOVED")}***`);
             });
         } else {
-            return msg.guild.configs.update("autoroles.roles", role).then(() => {
+            return msg.guild.settings.update("autoroles.roles", role).then(() => {
                 msg.sendMessage(`<:penguSuccess:435712876506775553> ***${role.name} ${msg.language.get("MESSAGE_AUTOROLE_ADDED")}***`);
             });
         }

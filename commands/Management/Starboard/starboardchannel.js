@@ -17,7 +17,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [channel = msg.channel]) {
-        return msg.guild.configs.update("starboard.channel", channel.id).then(() => {
+        return msg.guild.settings.update("starboard.channel", channel.id).then(() => {
             msg.sendMessage(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_STAR_CHANNEL_SET")}***`);
         });
     }
