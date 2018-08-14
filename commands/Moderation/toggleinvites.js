@@ -16,11 +16,11 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        if (msg.guild.configs.get("automod.invites") === true) {
-            await msg.guild.configs.update("automod.invites", false);
+        if (msg.guild.settings.get("automod.invites") === true) {
+            await msg.guild.settings.update("automod.invites", false);
             return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Anti-invites have been Disabled!***`);
         } else {
-            await msg.guild.configs.update("automod.invites", true);
+            await msg.guild.settings.update("automod.invites", true);
             return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Anti-invites have been Enabled!***`);
         }
     }

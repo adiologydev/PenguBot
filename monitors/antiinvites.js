@@ -8,7 +8,7 @@ module.exports = class extends Monitor {
     }
 
     async run(msg) {
-        if (!msg.guild || !msg.guild.configs.automod.invites) return;
+        if (!msg.guild || !msg.guild.settings.automod.invites) return;
 
         if (this.client.user.id !== "303181184718995457") {
             const mainBot = await msg.guild.members.fetch("303181184718995457").catch(() => null);

@@ -40,11 +40,11 @@ module.exports = class extends Command {
     }
 
     update(key, msg) {
-        if (msg.guild.configs.get(`logs.${key}`)) {
-            msg.guild.configs.update(`logs.${key}`, false);
+        if (msg.guild.settings.get(`logs.${key}`)) {
+            msg.guild.settings.update(`logs.${key}`, false);
             return msg.sendMessage(`<:penguError:435712890884849664> ***\`${key}\` logging is now Disabled.***`);
         } else {
-            msg.guild.configs.update(`logs.${key}`, true);
+            msg.guild.settings.update(`logs.${key}`, true);
             return msg.sendMessage(`<:penguSuccess:435712876506775553> ***\`${key}\` logging is now Enabled.***`);
         }
     }

@@ -8,7 +8,7 @@ module.exports = class extends Finalizer {
         cmds[msg.command.name] += 1;
         this.client.health.commands.temp.count += 1;
 
-        const config = this.client.configs;
+        const config = this.client.settings;
         const cmd = msg.command.name;
         let count = config.counter.commands.find(c => c.name === cmd);
         let index = config.counter.commands.findIndex(c => c.name === cmd);

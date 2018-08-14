@@ -29,9 +29,9 @@ module.exports = class extends Command {
     }
 
     async createImage(user) {
-        await user.configs.waitSync();
+        await user.settings.waitSync();
         const r = this.client.providers.default.db;
-        const { xp, level: lvl, snowflakes, reps, title } = user.configs;
+        const { xp, level: lvl, snowflakes, reps, title } = user.settings;
 
         const oldLvl = Math.floor((lvl / 0.2) ** 2);
         const nextLvl = Math.floor(((lvl + 1) / 0.2) ** 2);
@@ -42,7 +42,7 @@ module.exports = class extends Command {
         console.log(query);
         const pos = query.length ? `#${Number(query) + 1}` : "More Than 10,000";
 
-        const bgName = user.configs.profilebg;
+        const bgName = user.settings.profilebg;
         const bgImg = await fs.readFile(`${process.cwd()}/assets/profiles/bg/${bgName}.png`);
         const avatar = await get(user.displayAvatarURL({ format: "png", sze: 256 })).then(res => res.body).catch(e => {
             Error.captureStackTrace(e);
