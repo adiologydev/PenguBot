@@ -24,10 +24,10 @@ module.exports = class extends Command {
     }
 
     async view(msg, [key]) {
-        await msg.author.configs.waitSync();
+        await msg.author.settings.waitSync();
         // If All Backgrounds
         if (!key) {
-            const userbg = msg.author.configs.get("backgrounds");
+            const userbg = msg.author.settings.get("backgrounds");
             const bgs = new RichDisplay(new MessageEmbed()
                 .setTitle("Use 'p!bgs view all' to view names, id's and prices of all available backgrounds")
                 .setAuthor("Profile Backgrounds You Own - PenguBot", "https://i.imgur.com/oq9kgaR.png")
@@ -68,7 +68,7 @@ module.exports = class extends Command {
     }
 
     async buy(msg, [key]) {
-        await msg.author.configs.waitSync();
+        await msg.author.settings.waitSync();
         const id = parseInt(key);
         switch (id) {
             case 1: return msg.reply("You already own this background.");
@@ -95,7 +95,7 @@ module.exports = class extends Command {
     }
 
     async change(msg, [key]) {
-        await msg.author.configs.waitSync();
+        await msg.author.settings.waitSync();
         const id = parseInt(key);
         switch (id) {
             case 1: await this.changeBG(msg, "default");
@@ -123,41 +123,41 @@ module.exports = class extends Command {
     }
 
     async process(msg, name, price) {
-        await msg.author.configs.waitSync();
+        await msg.author.settings.waitSync();
         if (this.checkOwnership(msg, name)) return msg.reply("You already own this background.");
         if (!this.checkBalance(msg, price)) return msg.reply("Insufficient Snowflakes in your account to buy this background, please try again later.");
         await this.updateOwnership(msg, name, price);
     }
 
     async changeBG(msg, name) {
-        await msg.author.configs.waitSync();
+        await msg.author.settings.waitSync();
         if (!this.checkOwnership(msg, name)) return msg.reply("You do not own this background, please buy it using `p!bg buy ID` first.");
         if (this.compareBackground(msg, name)) return msg.reply("That is already your current background, please choose another one.");
         await this.updateBG(msg, name);
     }
 
     checkOwnership(msg, name) {
-        if (msg.author.configs.get("backgrounds").includes(name)) return true;
+        if (msg.author.settings.get("backgrounds").includes(name)) return true;
         return false;
     }
 
     compareBackground(msg, name) {
-        if (msg.author.configs.get("profilebg") === name) return true;
+        if (msg.author.settings.get("profilebg") === name) return true;
         return false;
     }
 
     checkBalance(msg, price) {
-        if (msg.author.configs.snowflakes >= price) return true;
+        if (msg.author.settings.snowflakes >= price) return true;
         return false;
     }
 
     async updateOwnership(msg, name, price) {
-        await msg.author.configs.update(["snowflakes", "backgrounds", "profilebg"], [msg.author.configs.snowflakes - price, name, name]);
+        await msg.author.settings.update(["snowflakes", "backgrounds", "profilebg"], [msg.author.settings.snowflakes - price, name, name]);
         return msg.sendMessage(`<:penguSuccess:435712876506775553> ***You just bought and set your background to \`${name}\` for ${price} Snowflakes.***`);
     }
 
     async updateBG(msg, name) {
-        await msg.author.configs.update("profilebg", name);
+        await msg.author.settings.update("profilebg", name);
         return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Your Profile Background is now set to: \`${name}\`***`);
     }
 

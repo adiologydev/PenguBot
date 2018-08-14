@@ -12,8 +12,8 @@ module.exports = class extends Monitor {
     }
 
     async run(msg) {
-        if (!msg.guild || !msg.channel.postable || !msg.guild.configs.customcmds.enabled) return;
-        if (!msg.guild.configs.customcmds.cmds.length) return;
+        if (!msg.guild || !msg.channel.postable || !msg.guild.settings.customcmds.enabled) return;
+        if (!msg.guild.settings.customcmds.cmds.length) return;
         if (cooldown.has(msg.author.id)) return;
 
         if (!msg.member) await msg.guild.members.fetch(msg.author.id).catch(() => null);
@@ -24,11 +24,11 @@ module.exports = class extends Monitor {
             if (mainBot) return;
         }
 
-        if (!msg.content.startsWith(msg.guild.configs.prefix)) return;
+        if (!msg.content.startsWith(msg.guild.settings.prefix)) return;
 
-        const cmdName = msg.content.slice(msg.guild.configs.prefix.length).trim().split(/ +/g).shift().toLowerCase();
+        const cmdName = msg.content.slice(msg.guild.settings.prefix.length).trim().split(/ +/g).shift().toLowerCase();
         if (this.client.commands.has(cmdName)) return;
-        const cmd = msg.guild.configs.customcmds.cmds.find(c => c.name === cmdName);
+        const cmd = msg.guild.settings.customcmds.cmds.find(c => c.name === cmdName);
         if (!cmd) return;
         cooldown.add(msg.author.id);
         setTimeout(() => cooldown.delete(msg.author.id), 8000);

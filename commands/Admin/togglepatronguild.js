@@ -12,8 +12,8 @@ module.exports = class extends Command {
     }
 
     async run(msg, [guild]) {
-        const exists = this.client.configs.pGuilds.includes(guild);
-        await this.client.configs.update("pGuilds", guild);
+        const exists = this.client.settings.pGuilds.includes(guild);
+        await this.client.settings.update("pGuilds", guild);
         return msg.sendMessage(`${exists ? "**Removed Guild:**" : "**Added Guild:**"} ${guild}`);
     }
 

@@ -7,10 +7,10 @@ module.exports = class extends Event {
         const msg = reaction.message;
         const { guild } = msg;
         if (!guild) return;
-        if (!guild.configs.starboard.enabled || !guild.configs.starboard.channel) return;
+        if (!guild.settings.starboard.enabled || !guild.settings.starboard.channel) return;
         if (reaction.emoji.name !== "⭐") return;
 
-        const starChannel = msg.guild.channels.find(c => c.id === msg.guild.configs.starboard.channel);
+        const starChannel = msg.guild.channels.find(c => c.id === msg.guild.settings.starboard.channel);
         if (!starChannel || !starChannel.postable) return;
         if (!starChannel.nsfw && msg.channel.nsfw) return;
         const fetch = await starChannel.messages.fetch({ limit: 100 });

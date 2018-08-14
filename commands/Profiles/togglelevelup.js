@@ -16,11 +16,11 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        if (msg.guild.configs.levelup) {
-            await msg.guild.configs.update("levelup", false);
+        if (msg.guild.settings.levelup) {
+            await msg.guild.settings.update("levelup", false);
             return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Level Up announcements have been Disabled!***`);
         } else {
-            await msg.guild.configs.update("levelup", true);
+            await msg.guild.settings.update("levelup", true);
             return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Level Up announcements have been Enabled!***`);
         }
     }
