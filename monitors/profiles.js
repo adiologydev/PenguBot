@@ -33,7 +33,7 @@ module.exports = class extends Monitor {
         const newXP = msg.author.settings.xp + randomXP;
         const oldLvl = msg.author.settings.level;
         const newLvl = Math.floor(0.2 * Math.sqrt(newXP));
-        await msg.author.settings.update(["xp", "level", "snowflakes"], [newXP, newLvl, newSnowflakes]);
+        await msg.author.settings.update([["xp", newXP], ["level", newLvl], ["snowflakes", newSnowflakes]]);
 
         timeout.add(msg.author.id);
         setTimeout(() => timeout.delete(msg.author.id), 45000);

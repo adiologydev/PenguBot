@@ -22,7 +22,7 @@ module.exports = class extends Monitor {
         }
 
         if (msg.author.settings.afk.afk) {
-            await msg.author.settings.update(["afk.afk", "afk.reason"], [false, null]);
+            await msg.author.settings.update([["afk.afk", false], ["afk.reason", null]]);
             const m = await msg.sendMessage(`<:penguError:435712890884849664> ***${msg.author.tag} ${msg.language.get("MESSAGE_AFK_REMOVED")}***`);
             await m.delete({ timeout: 10000 });
         }

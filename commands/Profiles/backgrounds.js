@@ -152,7 +152,7 @@ module.exports = class extends Command {
     }
 
     async updateOwnership(msg, name, price) {
-        await msg.author.settings.update(["snowflakes", "backgrounds", "profilebg"], [msg.author.settings.snowflakes - price, name, name]);
+        await msg.author.settings.update([["snowflakes", msg.author.settings.snowflakes - price], ["backgrounds", name], ["profilebg", name]]);
         return msg.sendMessage(`<:penguSuccess:435712876506775553> ***You just bought and set your background to \`${name}\` for ${price} Snowflakes.***`);
     }
 
