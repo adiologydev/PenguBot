@@ -1,4 +1,5 @@
 const RawEvent = require("../lib/structures/RawEvent");
+const { VoiceState } = require('discord.js');
 
 class VoiceStateUpdate extends RawEvent {
 
@@ -16,7 +17,9 @@ class VoiceStateUpdate extends RawEvent {
         const oldMember = member._clone();
         oldMember._frozenVoiceState = oldMember.voiceState;
 
-        guild.voiceStates.set(member.user.id, data);
+        const entry = new VoiceState(guild.id, data);
+        
+        guild.voiceStates.set(member.user.id, entry);
     }
 
 }
