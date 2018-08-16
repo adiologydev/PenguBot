@@ -16,12 +16,6 @@ module.exports = class extends Event {
         return channel.send(this.replace(member.guild.settings.messages.leave.message, member));
     }
 
-    async init() {
-        if (!this.client.gateways.guilds.schema.logs.has("leave")) {
-            this.client.gateways.guilds.schema.logs.add("leave", { type: "boolean", default: false });
-        }
-    }
-
     replace(text, member) {
         return text
             .replace(/{GUILD_NAME}/g, member.guild.name)

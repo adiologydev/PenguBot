@@ -6,10 +6,4 @@ module.exports = class extends Event {
         this.client.emit("customLogs", role.guild, "roleCreate", { role: role, name: "roles" });
     }
 
-    async init() {
-        if (!this.client.gateways.guilds.schema.logs.has("roles")) {
-            this.client.gateways.guilds.schema.logs.add("roles", { type: "boolean", default: false });
-        }
-    }
-
 };

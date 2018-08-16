@@ -20,13 +20,4 @@ module.exports = class extends Monitor {
         return msg.delete().catch(err => this.client.emit("log", err, "error"));
     }
 
-    async init() {
-        if (!this.client.gateways.guilds.schema.has("automod")) {
-            await this.client.gateways.guilds.schema.add("automod", { });
-        }
-        if (!this.client.gateways.guilds.schema.automod.has("invites")) {
-            await this.client.gateways.guilds.schema.automod.add("invites", { type: "boolean", default: false });
-        }
-    }
-
 };

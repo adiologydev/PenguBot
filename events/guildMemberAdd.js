@@ -24,12 +24,6 @@ module.exports = class extends Event {
         return member.roles.add(member.guild.settings.autoroles.roles, "PenguBot - AutoRole Feature").catch(() => null);
     }
 
-    async init() {
-        if (!this.client.gateways.guilds.schema.logs.has("join")) {
-            this.client.gateways.guilds.schema.logs.add("join", { type: "boolean", default: false });
-        }
-    }
-
     replace(text, member) {
         return text
             .replace(/{GUILD_NAME}/g, member.guild.name)

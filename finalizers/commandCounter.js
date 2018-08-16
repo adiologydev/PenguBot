@@ -21,10 +21,4 @@ module.exports = class extends Finalizer {
         await config.update("counter.commands", { name: cmd, count: count.count + 1 }, { arrayPosition: index });
     }
 
-    async init() {
-        if (!this.client.gateways.clientStorage.schema.has("counter")) {
-            this.client.gateways.clientStorage.schema.add("counter", { total: { type: "integer" }, commands: { type: "any", array: true } });
-        }
-    }
-
 };

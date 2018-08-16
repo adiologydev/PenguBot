@@ -15,10 +15,4 @@ module.exports = class extends Inhibitor {
         throw msg.language.get("INHIBITOR_DJ_ONLY");
     }
 
-    async init() {
-        if (!this.client.gateways.guilds.schema.has("djOnly")) {
-            this.client.gateways.guilds.schema.add("djOnly", { type: "boolean", default: false });
-        }
-    }
-
 };

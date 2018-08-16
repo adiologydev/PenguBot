@@ -6,10 +6,4 @@ module.exports = class extends Event {
         this.client.emit("customLogs", guild, "ban", { name: "ban" }, user);
     }
 
-    async init() {
-        if (!this.client.gateways.guilds.schema.logs.has("ban")) {
-            this.client.gateways.guilds.schema.logs.add("ban", { type: "boolean", default: false });
-        }
-    }
-
 };

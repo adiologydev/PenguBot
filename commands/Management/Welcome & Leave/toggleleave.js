@@ -28,19 +28,4 @@ module.exports = class extends Command {
         }
     }
 
-    async init() {
-        if (!this.client.gateways.guilds.schema.messages.has("leave")) {
-            await this.client.gateways.guilds.schema.messages.add("leave", {});
-        }
-        if (!this.client.gateways.guilds.schema.messages.leave.has("enabled")) {
-            await this.client.gateways.guilds.schema.messages.leave.add("enabled", { type: "boolean", default: false });
-        }
-        if (!this.client.gateways.guilds.schema.messages.leave.has("channel")) {
-            await this.client.gateways.guilds.schema.messages.leave.add("channel", { type: "channel" });
-        }
-        if (!this.client.gateways.guilds.schema.messages.leave.has("message")) {
-            await this.client.gateways.guilds.schema.messages.leave.add("message", { type: "string", default: "It's sad to see you leave {USERNAME}, hope to see you again." });
-        }
-    }
-
 };

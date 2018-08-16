@@ -24,7 +24,7 @@ module.exports = class extends Monitor {
             if (mainBot) return;
         }
 
-        await msg.author.settings.waitSync();
+        await msg.author.settings.sync(true);
         if (!msg.author.settings) return;
 
         const randomXP = this.client.functions.randomNumber(1, 5);
@@ -53,18 +53,6 @@ module.exports = class extends Monitor {
                 .addImage(avatar, 22, 22, 57, 57)
                 .toBufferAsync();
             msg.sendMessage(`🆙 | **${msg.author.tag} leveled up to Level ${newLvl}!**`, { files: [{ attachment: img, name: `${msg.author.id}.png` }] });
-        }
-    }
-
-    async init() {
-        if (!this.client.gateways.users.schema.has("xp")) {
-            this.client.gateways.users.schema.add("xp", { type: "integer", default: 0, configurable: false });
-        }
-        if (!this.client.gateways.users.schema.has("level")) {
-            this.client.gateways.users.schema.add("level", { type: "integer", default: 0, configurable: false });
-        }
-        if (!this.client.gateways.users.schema.has("snowflakes")) {
-            this.client.gateways.users.schema.add("snowflakes", { type: "integer", default: 0, configurable: false });
         }
     }
 

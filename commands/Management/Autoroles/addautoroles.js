@@ -27,13 +27,4 @@ module.exports = class extends Command {
         }
     }
 
-    async init() {
-        if (!this.client.gateways.guilds.schema.has("autoroles")) {
-            await this.client.gateways.guilds.schema.add("autoroles", {});
-        }
-        if (!this.client.gateways.guilds.schema.autoroles.has("roles")) {
-            await this.client.gateways.guilds.schema.autoroles.add("roles", { type: "role", array: true, configurable: false });
-        }
-    }
-
 };

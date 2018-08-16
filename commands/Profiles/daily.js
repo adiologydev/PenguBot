@@ -24,7 +24,7 @@ module.exports = class extends Command {
         const reward = upvoter ? 300 : 100;
 
         if (msg.author.settings.daily > 0) {
-            await msg.author.settings.waitSync();
+            await msg.author.settings.sync(true);
             const now = Date.now();
             const last = msg.author.settings.daily;
             const diff = now - last;
@@ -44,12 +44,6 @@ module.exports = class extends Command {
         } else {
             await user.settings.update(["snowflakes", "daily"], [user.settings.snowflakes + reward, Date.now()]);
             return msg.reply(`❄ | ***You have claimed your ${reward} Snowflakes for today! To gain 300 Snowflakes everyday, make sure to upvote PenguBot at <https://www.pengubot.com/upvote>***`);
-        }
-    }
-
-    async init() {
-        if (!this.client.gateways.users.schema.has("daily")) {
-            this.client.gateways.users.schema.add("daily", { type: "integer", default: 0, configurable: false });
         }
     }
 

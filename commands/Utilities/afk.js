@@ -35,16 +35,4 @@ module.exports = class extends Command {
         }
     }
 
-    async init() {
-        if (!this.client.gateways.users.schema.has("afk")) {
-            this.client.gateways.users.schema.add("afk", {});
-        }
-        if (!this.client.gateways.users.schema.afk.has("afk")) {
-            await this.client.gateways.users.schema.afk.add("afk", { type: "boolean", default: false, configurable: false });
-        }
-        if (!this.client.gateways.users.schema.afk.has("reason")) {
-            await this.client.gateways.users.schema.afk.add("reason", { type: "string", configurable: false });
-        }
-    }
-
 };

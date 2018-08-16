@@ -10,10 +10,4 @@ module.exports = class extends Event {
         if (role) await channel.updateOverwrite(role, { SEND_MESSAGES: false, ADD_REACTIONS: false, CONNECT: false }, `New Channel Created`).catch(() => null);
     }
 
-    async init() {
-        if (!this.client.gateways.guilds.schema.logs.has("channels")) {
-            this.client.gateways.guilds.schema.logs.add("channels", { type: "boolean", default: false });
-        }
-    }
-
 };

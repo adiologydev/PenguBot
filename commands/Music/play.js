@@ -24,9 +24,9 @@ module.exports = class extends MusicCommand {
         const { music } = msg.guild;
         music.textChannel = msg.channel;
 
-        const { voiceChannel } = msg.member;
-        if (!voiceChannel) throw "I'm sorry but you need to be in a voice channel to play some music!";
-        this.resolvePermissions(msg, voiceChannel);
+        const { channel } = msg.member.voice;
+        if (!channel) throw "I'm sorry but you need to be in a voice channel to play some music!";
+        this.resolvePermissions(msg, channel);
 
         return this.handle(msg, songs);
     }
@@ -37,7 +37,7 @@ module.exports = class extends MusicCommand {
             if (!musicInterface.playing) await this.handleSongs(msg, songs);
             else return this.handleSongs(msg, songs);
 
-            await musicInterface.join(msg.member.voiceChannel);
+            await musicInterface.join(msg.member.voice.channel);
             return this.play(musicInterface);
         } catch (error) {
             this.client.console.error(error);

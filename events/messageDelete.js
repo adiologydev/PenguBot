@@ -7,12 +7,6 @@ module.exports = class extends Event {
         this.client.emit("customLogs", message.guild, "msgDelete", { channel: message.channel, name: "messages", content: message.content, image: message.attachments.size > 0 ? await this.checkAttachments(message.attachments.array()[0].url) : null }, message.author);
     }
 
-    async init() {
-        if (!this.client.gateways.guilds.schema.logs.has("messages")) {
-            this.client.gateways.guilds.schema.logs.add("messages", { type: "boolean", default: false });
-        }
-    }
-
     checkAttachments(attachment) {
         const imageLink = attachment.split(".");
         const typeOfImage = imageLink[imageLink.length - 1];

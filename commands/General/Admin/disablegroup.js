@@ -27,10 +27,4 @@ module.exports = class extends Command {
         }
     }
 
-    async init() {
-        if (!this.client.gateways.guilds.schema.has("disabledCommandsGroup")) {
-            this.client.gateways.guilds.schema.add("disabledCommandsGroup", { type: "string", array: true, configurable: false });
-        }
-    }
-
 };
