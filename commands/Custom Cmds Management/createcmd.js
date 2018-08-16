@@ -24,13 +24,4 @@ module.exports = class extends Command {
         return msg.sendMessage(`<:penguSuccess:435712876506775553> ***\`${name}\` ${msg.language.get("MESSAGE_CMD_ADDED")} ${msg.author.tag}!***`);
     }
 
-    async init() {
-        if (!this.client.gateways.guilds.schema.has("customcmds")) {
-            await this.client.gateways.guilds.schema.add("customcmds", {});
-        }
-        if (!this.client.gateways.guilds.schema.customcmds.has("cmds")) {
-            await this.client.gateways.guilds.schema.customcmds.add("cmds", { type: "any", array: true, configurable: false });
-        }
-    }
-
 };

@@ -47,10 +47,4 @@ module.exports = class extends Command {
         }
     }
 
-    async init() {
-        if (!this.client.gateways.guilds.schema.logs.has("mute")) {
-            this.client.gateways.guilds.schema.logs.add("mute", { type: "boolean", default: false });
-        }
-    }
-
 };

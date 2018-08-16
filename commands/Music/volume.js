@@ -24,13 +24,4 @@ module.exports = class extends MusicCommand {
         return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Volume has been set to:*** ${volume}`);
     }
 
-    async init() {
-        if (!this.client.gateways.guilds.schema.has("musicVolume")) {
-            this.client.gateways.guilds.schema.add("musicVolume", { type: "integer", default: 90, configurable: false });
-        }
-        if (!this.client.gateways.guilds.schema.permissions.has("dj")) {
-            this.client.gateways.guilds.schema.permissions.add("dj", { type: "user", array: true });
-        }
-    }
-
 };

@@ -28,22 +28,4 @@ module.exports = class extends Command {
         }
     }
 
-    async init() {
-        if (!this.client.gateways.guilds.schema.has("messages")) {
-            await this.client.gateways.guilds.schema.add("messages", {});
-        }
-        if (!this.client.gateways.guilds.schema.messages.has("welcome")) {
-            await this.client.gateways.guilds.schema.messages.add("welcome", {});
-        }
-        if (!this.client.gateways.guilds.schema.messages.welcome.has("enabled")) {
-            await this.client.gateways.guilds.schema.messages.welcome.add("enabled", { type: "boolean", default: false });
-        }
-        if (!this.client.gateways.guilds.schema.messages.welcome.has("channel")) {
-            await this.client.gateways.guilds.schema.messages.welcome.add("channel", { type: "channel" });
-        }
-        if (!await this.client.gateways.guilds.schema.messages.welcome.has("message")) {
-            await this.client.gateways.guilds.schema.messages.welcome.add("message", { type: "string", default: "Welcome {MENTION} to {GUILD_NAME}, we hope you enjoy your stay!" });
-        }
-    }
-
 };

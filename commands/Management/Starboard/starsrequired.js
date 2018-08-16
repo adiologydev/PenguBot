@@ -22,10 +22,4 @@ module.exports = class extends Command {
         });
     }
 
-    async init() {
-        if (!this.client.gateways.guilds.schema.starboard.has("required")) {
-            await this.client.gateways.guilds.schema.starboard.add("required", { type: "integer", default: 3 });
-        }
-    }
-
 };

@@ -32,19 +32,4 @@ module.exports = class extends Command {
         return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${member.tag} ${msg.language.get("MESSAGE_KICKED")}***`);
     }
 
-    async init() {
-        if (!this.client.gateways.guilds.schema.has("permissions")) {
-            await this.client.gateways.guilds.schema.add("permissions", {});
-        }
-        if (!this.client.gateways.guilds.schema.permissions.has("admins")) {
-            await this.client.gateways.guilds.schema.permissions.add("admins", { type: "User", array: true, configurable: false });
-        }
-        if (!this.client.gateways.guilds.schema.permissions.has("mods")) {
-            await this.client.gateways.guilds.schema.permissions.add("mods", { type: "User", array: true, configurable: false });
-        }
-        if (!this.client.gateways.guilds.schema.logs.has("kick")) {
-            await this.client.gateways.guilds.schema.logs.add("kick", { type: "boolean", default: false });
-        }
-    }
-
 };

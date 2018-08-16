@@ -21,13 +21,4 @@ module.exports = class extends Command {
         });
     }
 
-    async init() {
-        if (!this.client.gateways.guilds.schema.has("loggingChannel")) {
-            this.client.gateways.guilds.schema.add("loggingChannel", { type: "channel" });
-        }
-        if (!this.client.gateways.guilds.schema.has("logs")) {
-            this.client.gateways.guilds.schema.add("logs", {});
-        }
-    }
-
 };

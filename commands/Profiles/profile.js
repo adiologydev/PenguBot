@@ -29,7 +29,7 @@ module.exports = class extends Command {
     }
 
     async createImage(user) {
-        await user.settings.waitSync();
+        await user.settings.sync(true);
         const r = this.client.providers.default.db;
         const { xp, level: lvl, snowflakes, reps, title } = user.settings;
 
@@ -76,15 +76,6 @@ module.exports = class extends Command {
             .setTextAlign("center")
             .addText(`XP: ${xp} / ${nextLvl}`, 151, 281)
             .toBufferAsync();
-    }
-
-    async init() {
-        if (!this.client.gateways.users.schema.has("profilebg")) {
-            this.client.gateways.users.schema.add("profilebg", { type: "string", default: "default", configurable: false });
-        }
-        if (!this.client.gateways.users.schema.has("backgrounds")) {
-            this.client.gateways.users.schema.add("backgrounds", { type: "string", default: ["default"], array: true, configurable: false });
-        }
     }
 
 };

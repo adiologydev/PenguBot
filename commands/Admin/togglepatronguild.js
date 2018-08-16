@@ -17,10 +17,4 @@ module.exports = class extends Command {
         return msg.sendMessage(`${exists ? "**Removed Guild:**" : "**Added Guild:**"} ${guild}`);
     }
 
-    async init() {
-        if (!this.client.gateways.clientStorage.schema.has("pGuilds")) {
-            this.client.gateways.clientStorage.schema.add("pGuilds", { type: "string", array: true, configurable: false });
-        }
-    }
-
 };

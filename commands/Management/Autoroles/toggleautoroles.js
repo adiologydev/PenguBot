@@ -26,10 +26,4 @@ module.exports = class extends Command {
         }
     }
 
-    async init() {
-        if (!this.client.gateways.guilds.schema.autoroles.has("enabled")) {
-            this.client.gateways.guilds.schema.autoroles.add("enabled", { type: "boolean", default: false });
-        }
-    }
-
 };

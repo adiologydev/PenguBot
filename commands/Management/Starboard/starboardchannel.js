@@ -22,16 +22,4 @@ module.exports = class extends Command {
         });
     }
 
-    async init() {
-        if (!this.client.gateways.guilds.schema.has("starboard")) {
-            await this.client.gateways.guilds.schema.add("starboard", {});
-        }
-        if (!this.client.gateways.guilds.schema.starboard.has("enabled")) {
-            await this.client.gateways.guilds.schema.starboard.add("enabled", { type: "boolean", default: true });
-        }
-        if (!this.client.gateways.guilds.schema.starboard.has("channel")) {
-            await this.client.gateways.guilds.schema.starboard.add("channel", { type: "channel" });
-        }
-    }
-
 };

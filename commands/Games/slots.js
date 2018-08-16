@@ -17,7 +17,7 @@ module.exports = class extends Command {
 
     async run(msg, [Snowflakes = 1]) {
         if (Snowflakes < 1) return msg.reply("The specified amount of Snowflakes is invalid, please enter at least 1 or more Snowflakes.");
-        await msg.author.settings.waitSync();
+        await msg.author.settings.sync(true);
         if (msg.author.settings.snowflakes < Snowflakes) return msg.reply(`❄ You don't have \`${Snowflakes}\` Snowflakes to use slots, use \`${msg.guild.settings.prefix}daily\` command to get some for free!`);
 
         const Mone = slots[Math.floor(Math.random() * slots.length)];

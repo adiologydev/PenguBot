@@ -14,9 +14,9 @@ module.exports = class extends Inhibitor {
 
         await msg.guild.members.fetch(msg.author);
 
-        if (!msg.member.voiceChannel && !force) throw "You are not connected in a voice channel.";
-        if (!msg.guild.me.voiceChannel) throw "I am not connected in a voice channel.";
-        if (msg.member.voiceChannel !== msg.guild.me.voiceChannel && !force) throw "You must be in the same voice channel as me.";
+        if (!msg.member.voice.channel && !force) throw "You are not connected in a voice channel.";
+        if (!msg.guild.me.voice.channel) throw "I am not connected in a voice channel.";
+        if (msg.member.voice.channel !== msg.guild.me.voice.channel && !force) throw "You must be in the same voice channel as me.";
     }
 
 };

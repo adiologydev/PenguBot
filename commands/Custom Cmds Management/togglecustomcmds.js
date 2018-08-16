@@ -26,10 +26,4 @@ module.exports = class extends Command {
         }
     }
 
-    async init() {
-        if (!this.client.gateways.guilds.schema.customcmds.has("enabled")) {
-            this.client.gateways.guilds.schema.customcmds.add("enabled", { type: "boolean", default: true });
-        }
-    }
-
 };

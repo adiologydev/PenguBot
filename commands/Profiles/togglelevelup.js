@@ -25,10 +25,4 @@ module.exports = class extends Command {
         }
     }
 
-    async init() {
-        if (!this.client.gateways.guilds.schema.has("levelup")) {
-            this.client.gateways.guilds.schema.add("levelup", { type: "boolean", default: true });
-        }
-    }
-
 };

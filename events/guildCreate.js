@@ -13,10 +13,4 @@ module.exports = class extends Event {
         }
     }
 
-    async init() {
-        if (!this.client.gateways.clientStorage.schema.has("pGuilds")) {
-            this.client.gateways.clientStorage.schema.add("pGuilds", { type: "string", array: true });
-        }
-    }
-
 };

@@ -24,7 +24,7 @@ module.exports = class extends Command {
     }
 
     async view(msg, [key]) {
-        await msg.author.settings.waitSync();
+        await msg.author.settings.sync(true);
         // If All Backgrounds
         if (!key) {
             const userbg = msg.author.settings.get("backgrounds");
@@ -68,7 +68,7 @@ module.exports = class extends Command {
     }
 
     async buy(msg, [key]) {
-        await msg.author.settings.waitSync();
+        await msg.author.settings.sync(true);
         const id = parseInt(key);
         switch (id) {
             case 1: return msg.reply("You already own this background.");
@@ -95,7 +95,7 @@ module.exports = class extends Command {
     }
 
     async change(msg, [key]) {
-        await msg.author.settings.waitSync();
+        await msg.author.settings.sync(true);
         const id = parseInt(key);
         switch (id) {
             case 1: await this.changeBG(msg, "default");
@@ -123,14 +123,14 @@ module.exports = class extends Command {
     }
 
     async process(msg, name, price) {
-        await msg.author.settings.waitSync();
+        await msg.author.settings.sync(true);
         if (this.checkOwnership(msg, name)) return msg.reply("You already own this background.");
         if (!this.checkBalance(msg, price)) return msg.reply("Insufficient Snowflakes in your account to buy this background, please try again later.");
         await this.updateOwnership(msg, name, price);
     }
 
     async changeBG(msg, name) {
-        await msg.author.settings.waitSync();
+        await msg.author.settings.sync(true);
         if (!this.checkOwnership(msg, name)) return msg.reply("You do not own this background, please buy it using `p!bg buy ID` first.");
         if (this.compareBackground(msg, name)) return msg.reply("That is already your current background, please choose another one.");
         await this.updateBG(msg, name);

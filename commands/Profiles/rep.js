@@ -25,7 +25,7 @@ module.exports = class extends Command {
             }
         }
         if (msg.author.settings.repcooldown > 0) {
-            await msg.author.settings.waitSync();
+            await msg.author.settings.sync(true);
             const now = Date.now();
             const last = msg.author.settings.repcooldown;
             const diff = now - last;
@@ -53,15 +53,6 @@ module.exports = class extends Command {
             msg.author.settings.update("repcooldown", Date.now());
             await user.settings.update("reps", user.settings.reps + 1);
             return msg.sendMessage(`🏆 | ***You have given a reputation point to ${user}!***`);
-        }
-    }
-
-    async init() {
-        if (!this.client.gateways.users.schema.has("reps")) {
-            this.client.gateways.users.schema.add("reps", { type: "integer", default: 0, configurable: false });
-        }
-        if (!this.client.gateways.users.schema.has("repcooldown")) {
-            this.client.gateways.users.schema.add("repcooldown", { type: "integer", default: 0, configurable: false });
         }
     }
 

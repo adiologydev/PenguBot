@@ -17,7 +17,7 @@ module.exports = class extends MusicCommand {
     async run(msg) {
         const { music } = msg.guild;
         if (!music.playing) return msg.sendMessage("<:penguError:435712890884849664> There's currently no music playing!");
-        if (msg.member.voiceChannelID !== msg.guild.me.voiceChannelID) return msg.sendMessage("<:penguError:435712890884849664> You're currently not in a voice channel or there was an error, try again.");
+        if (msg.member.voice.channel.id !== msg.guild.me.voice.channel.id) return msg.sendMessage("<:penguError:435712890884849664> You're currently not in a voice channel or there was an error, try again.");
 
         music.looping = !music.looping;
         return msg.sendMessage(`⏯ | ***Song looping is now ${music.looping ? "Enabled" : "Disabled"}***`);
