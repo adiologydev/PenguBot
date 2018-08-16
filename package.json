@@ -31,7 +31,7 @@
     "cheerio": "^1.0.0-rc.2",
     "dblapi.js": "^2.2.0",
     "discord.js": "github:discordjs/discord.js#588bcbea9dedf8aabca385ec0161ed7e99d14d07",
-    "discord.js-lavalink": "github:PenguBot/discord.js-lavalink",
+    "discord.js-lavalink": "github:MrJacz/discord.js-lavalink",
     "erlpack": "github:discordapp/erlpack",
     "google-translate-api": "^2.3.0",
     "heapdump": "^0.3.9",
