@@ -47,7 +47,7 @@ module.exports = class extends MusicCommand {
 
     async handleSongs(msg, songs) {
         const musicInterface = msg.guild.music;
-        const isUpvoter = await this.client.functions.isUpvoter(msg.author.id);
+        const isUpvoter = await this.client.functions.isUpvoter(msg.author);
         if (songs.tracks.length > 1) {
             const limit = this.client.config.main.patreon && isUpvoter ? 1000 : 74;
             const limitedSongs = songs.tracks.slice(0, limit);

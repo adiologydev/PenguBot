@@ -17,7 +17,7 @@ module.exports = class extends MusicCommand {
     async run(msg) {
         const { music } = msg.guild;
         const { queue } = music;
-        if (await this.client.functions.isUpvoter(msg.author.id)) return msg.sendMessage("<:penguError:435712890884849664> **You must be an upvoter in order to dump the queue:** <https://www.pengubot.com/upvote>");
+        if (await this.client.functions.isUpvoter(msg.author)) return msg.sendMessage("<:penguError:435712890884849664> **You must be an upvoter in order to dump the queue:** <https://www.pengubot.com/upvote>");
         if (!music.playing) return msg.sendMessage(`<:penguError:435712890884849664> ***There's currently no music playing!***`);
 
         const raw = { info: "This file was created by PenguBot.com", songs: [] };
