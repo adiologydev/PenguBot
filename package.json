@@ -36,7 +36,7 @@
     "google-translate-api": "^2.3.0",
     "heapdump": "^0.3.9",
     "idiotic-api": "github:YorkAARGH/Idiotic-Wrapper",
-    "klasa": "dirigeants/klasa",
+    "klasa": "github:dirigeants/klasa",
     "raven": "^2.6.3",
     "rethinkdbdash": "^2.3.31",
     "uws": "^99.0.0",
