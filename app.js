@@ -25,7 +25,7 @@ Raven.context(() => {
             "PRESENCE_UPDATE"
         ],
         pieceDefaults: {
-            commands: { deletable: true, quotedStringSupport: true },
+            commands: { deletable: true, quotedStringSupport: true, bucket: 2 },
             rawEvents: { enabled: true }
         },
         providers: {
@@ -34,8 +34,9 @@ Raven.context(() => {
         },
         console: { useColor: true },
         production: config.main.production,
-        presence: { activity: { name: "⭐ Do p!donate For Exclusive Patron Bot Access ➖ p!help", type: "WATCHING" } },
-        prefixCaseInsensitive: true
+        presence: { activity: { name: "❤ p!donate For Exclusive Patron Bot Access ➖ p!help", type: "PLAYING" } },
+        prefixCaseInsensitive: true,
+        noPrefixDM: true
     }).login(config.main.token);
 });
 

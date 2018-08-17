@@ -28,7 +28,7 @@ module.exports = class extends Command {
                     permissions: ["READ_MESSAGES"]
                 }
             });
-            for (const chs of msg.guild.channels) {
+            for (const chs of msg.guild.channels.values()) {
                 await chs.updateOverwrite(newRole, { SEND_MESSAGES: false, ADD_REACTIONS: false, CONNECT: false }, `Mute Command Executed By ${msg.author.tag}`).catch(() => null);
             }
         }

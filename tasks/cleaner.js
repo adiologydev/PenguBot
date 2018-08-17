@@ -78,12 +78,7 @@ module.exports = class MemorySweeper extends Task {
         }
 
         // Per-User sweeper
-        for (const user of this.client.users.values()) {
-            if (user.lastMessageID && user.lastMessageID > OLD_SNOWFLAKE) continue;
-            this.client.users.delete(user.id);
-            this.client.gateways.users.cache.delete(user.id);
-            users++;
-        }
+        users = this.client.users.sweep(user => !user.lastMessageID || user.lastMessageID <= OLD_SNOWFLAKE);
 
         // Clean Leaderboard Cache
         this.client.topCache = [];
