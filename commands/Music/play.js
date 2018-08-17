@@ -69,7 +69,7 @@ module.exports = class extends MusicCommand {
         const [song] = musicInterface.queue;
 
         if (!song) {
-            return musicInterface.textChannel.sendEmbed(this.stopEmbed).then(() => musicInterface.destroy());
+            return musicInterface.textChannel.send(this.stopEmbed).then(() => musicInterface.destroy());
         }
 
         await this.delayer(250);
