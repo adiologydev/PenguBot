@@ -1,4 +1,4 @@
-const { RawEvent } = require("../index.js");
+const RawEvent = require("../lib/structures/RawEvent");
 
 class VoiceStateUpdate extends RawEvent {
 
