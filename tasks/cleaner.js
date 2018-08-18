@@ -46,7 +46,7 @@ module.exports = class MemorySweeper extends Task {
 
     async run() {
         const OLD_SNOWFLAKE = binaryToID(((Date.now() - THRESHOLD) - EPOCH).toString(2).padStart(42, "0") + EMPTY);
-        let presences = 0, guildMembers = 0, emojis = 0, lastMessages = 0, users = 0;
+        let presences = 0, guildMembers = 0, emojis = 0, messages = 0, users = 0;
 
         // Per-Guild sweeper
         for (const guild of this.client.guilds.values()) {
@@ -71,9 +71,10 @@ module.exports = class MemorySweeper extends Task {
 
         // Per-Channel sweeper
         for (const channel of this.client.channels.values()) {
+            if (channel.messages) messages += channel.messages.sweep(msg => msg.id < OLD_SNOWFLAKE);
             if (channel.lastMessageID) {
                 channel.lastMessageID = null;
-                lastMessages++;
+                messages++;
             }
         }
 
@@ -94,7 +95,7 @@ module.exports = class MemorySweeper extends Task {
                 this.setColor(guildMembers)} [GuildMember]s | ${
                 this.setColor(users)} [User]s | ${
                 this.setColor(emojis)} [Emoji]s | ${
-                this.setColor(lastMessages)} [Last Message]s.`);
+                this.setColor(messages)} [Messages]s.`);
     }
 
     /**
