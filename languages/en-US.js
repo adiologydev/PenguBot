@@ -105,11 +105,14 @@ module.exports = class extends Language {
             MESSAGE_LOGCHAN_SET: "Logging channel has now been set!",
             COMMAND_LOG_DESCRPTION: "Enable/Disable Logging events if you're Pengu Admin or above.",
 
-            // Autoroles Messages
+            // Autoroles & Self Roles
             MESSAGE_AUTOROLES_ENABLED: "Auto Roles have been enabled in this guild!",
             MESSAGE_AUTOROLES_DISABLED: "Auto Roles have been disabled in this guild!",
             MESSAGE_AUTOROLE_REMOVED: "role was removed from the Auto Roles!",
             MESSAGE_AUTOROLE_ADDED: "role was added in the Auto Roles!",
+            COMMAND_SELFROLES: "Assign or Deassign or list Self Roles from Yourself.",
+            COMMAND_SELFROLES_MANAGE: "Add or Remove Self Roles from the server.",
+            COMMAND_TOGGLE_SELFROLES: "Enable/Disable Self Roles on the server.",
 
             // Utilities Messages
             MESSAGE_NEW_REMINDER: "New Reminder has been created with ID:",
