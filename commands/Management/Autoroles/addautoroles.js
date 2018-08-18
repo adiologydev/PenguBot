@@ -22,7 +22,7 @@ module.exports = class extends Command {
             });
         } else {
             return msg.guild.settings.update("autoroles.roles", role, msg.guild).then(() => {
-                msg.sendMessage(`${this.client.emotes.cross} ***${role.name} ${msg.language.get("MESSAGE_AUTOROLE_ADDED")}***`);
+                msg.sendMessage(`${this.client.emotes.check} ***${role.name} ${msg.language.get("MESSAGE_AUTOROLE_ADDED")}***`);
             });
         }
     }
