@@ -20,7 +20,7 @@ module.exports = class extends Command {
             return msg.sendMessage("❄ | ***You can not give your daily Snowflakes to a bot!***");
         }
 
-        const upvoter = await this.client.functions.isUpvoter(msg.author);
+        const upvoter = await this.client.funcs.isUpvoter(msg.author);
         const reward = upvoter ? 300 : 100;
 
         if (msg.author.settings.daily > 0) {

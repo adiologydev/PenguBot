@@ -27,8 +27,8 @@ module.exports = class extends Monitor {
         await msg.author.settings.sync(true);
         if (!msg.author.settings) return;
 
-        const randomXP = this.client.functions.randomNumber(1, 5);
-        const randomSnowflakes = this.client.functions.randomNumber(1, 2);
+        const randomXP = this.client.funcs.randomNumber(1, 5);
+        const randomSnowflakes = this.client.funcs.randomNumber(1, 2);
         const newSnowflakes = msg.author.settings.snowflakes + randomSnowflakes;
         const newXP = msg.author.settings.xp + randomXP;
         const oldLvl = msg.author.settings.level;

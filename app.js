@@ -36,7 +36,8 @@ Raven.context(() => {
         production: config.main.production,
         presence: { activity: { name: "❤ p!donate For Exclusive Patron Bot Access ➖ p!help", type: "PLAYING" } },
         prefixCaseInsensitive: true,
-        noPrefixDM: true
+        noPrefixDM: true,
+        aliasFunctions: { returnRun: true, enabled: true, prefix: "funcs" }
     }).login(config.main.token);
 });
 
