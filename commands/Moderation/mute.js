@@ -36,7 +36,7 @@ module.exports = class extends Command {
         const role = msg.guild.roles.find(r => r.name === "PENGU_MUTED");
         if (!role) return msg.reply("There was an error, I couldn't find the `PENGU_MUTED` role! Please try again or contact us at: https://discord.gg/kWMcUNe");
         const myRole = msg.guild.me.roles.find(r => r.managed);
-        if (role.position < myRole.positon || myRole.position !== 0) return msg.sendMessage(`${this.client.emotes.cross} ***The \`PENGU_MUTED\` role is above my role in the guild, please change the order.***`);
+        if (role.position > myRole.positon) return msg.sendMessage(`${this.client.emotes.cross} ***The \`PENGU_MUTED\` role is above my role in the guild, please change the order.***`);
 
         if (user.roles.has(role.id)) {
             await user.roles.remove(role).catch(() => null);
