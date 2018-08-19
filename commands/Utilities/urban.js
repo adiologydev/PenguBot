@@ -11,21 +11,22 @@ module.exports = class extends Command {
             cooldown: 10,
             requiredPermissions: ["EMBED_LINKS", "ATTACH_FILES"],
             description: language => language.get("COMMAND_URBAN_DESCRIPTION"),
-            usage: "<word:string> [...]",
+            usage: "<word:string>",
             extendedHelp: "No extended help available."
         });
     }
 
-    async run(msg, [...word]) {
-        if (!msg.channel.nsfw) return msg.sendMessage(`<:penguError:435712890884849664> ***This channel is not NSFW and you know how Urban Dictionary is. I can't send it here, sorry.***`);
-        const { text } = await get(`http://api.urbandictionary.com/v0/define?term=${word.join(" ")}`).catch(e => {
+    async run(msg, [word]) {
+        if (!msg.channel.nsfw) return msg.sendMessage(`${this.client.emotes.cross} ***This channel is not NSFW and you know how Urban Dictionary is. I can't send it here, sorry.***`);
+        const { text } = await get(`http://api.urbandictionary.com/v0/define?term=${encodeURIComponent(word)}`).catch(e => {
             Error.captureStackTrace(e);
             return e;
         });
-        const result = JSON.parse(text).list[0];
-        if (!result) return msg.reply("<:penguError:435712890884849664> That word could not be found on Urban Dictionary.");
 
-        const defination = result.definition.length <= 5900 ? result.definition : `${result.definition.substring(0, 5900)}...`;
+        if (!text) return msg.reply(`${this.client.emotes.cross} ***That word could not be found on Urban Dictionary.***`);
+        
+        const result = JSON.parse(text).list[0];
+        const defination = result.definition.length <= 1800 ? result.definition : `${result.definition.substring(0, 1800)}...`;
 
         const embed = new MessageEmbed()
             .setColor("RANDOM")

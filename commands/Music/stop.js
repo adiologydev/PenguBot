@@ -16,13 +16,13 @@ module.exports = class extends MusicCommand {
 
     async run(msg) {
         const { music } = msg.guild;
-        if (!music.playing) return msg.sendMessage("<:penguError:435712890884849664> ***There's currently no music playing!***");
+        if (!msg.guild.me.voice.channel) return msg.sendMessage(`${this.client.emotes.cross} ***There's currently no music playing!***`);
 
         if (await msg.hasAtLeastPermissionLevel(3) || music.voiceChannel.members.size <= 3) {
             await music.destroy();
-            return msg.sendMessage("<:penguSuccess:435712876506775553> ***Queue cleared, leaving voice channel.***");
+            return msg.sendMessage(`${this.client.emotes.check} ***Queue cleared, leaving voice channel.***`);
         } else {
-            return msg.sendMessage("<:penguError:435712890884849664> ***There are members in the VC right now, use skip instead!***");
+            return msg.sendMessage(`${this.client.emotes.cross} ***There are members in the VC right now, use skip instead!***`);
         }
     }
 

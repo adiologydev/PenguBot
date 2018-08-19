@@ -73,7 +73,7 @@ module.exports = class extends Argument {
         }
 
         if (!results.length) throw msg.language.get("ER_MUSIC_NF");
-        return { tracks: results.filter(a => a.track !== undefined).map(track => new Song(track, msg.author)), playlist: results.playlist };
+        return { tracks: results.filter(a => a && a.track !== undefined).map(track => new Song(track, msg.author)), playlist: results.playlist };
     }
 
     /**
