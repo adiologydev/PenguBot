@@ -19,9 +19,9 @@ module.exports = class extends Command {
             Error.captureStackTrace(e);
             return e;
         });
-        text = text.length < 1900 ? text : `${text.substring(0, 1900)}...`;
+        const desc = text.length < 1900 ? text : `${text.substring(0, 1900)}...`;
         const embed = new MessageEmbed()
-            .setDescription(`**Dad Joke Alert**\n\n${text}`)
+            .setDescription(`**Dad Joke Alert**\n\n${desc}`)
             .setThumbnail("https://i.imgur.com/IxosIBh.png")
             .setColor("RANDOM");
         return msg.sendMessage({ embed: embed });

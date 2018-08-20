@@ -20,10 +20,10 @@ module.exports = class extends Command {
     async run(msg, [member, ...reason]) {
         if (member.user.id === msg.author.id) return msg.reply(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_KICK_YOURSELF")}***`);
         if (member.user.id === this.client.user.id) return msg.reply(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_KICK_PENGU")}***`);
-        if (!user.kickable) return msg.reply(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_KICK_CANT")}***`);
+        if (!member.kickable) return msg.reply(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_KICK_CANT")}***`);
 
         reason = reason.length > 0 ? `${reason.join(" ")}\nBanned By: ${msg.author.tag}` : `No reason specified. Kicked By: ${msg.author.tag}`;
-        await user.kick(reason);
+        await member.kick(reason);
 
         this.client.emit("customLogs", msg.guild, "kick", { name: "kick", reason: reason, kicker: msg.author }, member.user);
 

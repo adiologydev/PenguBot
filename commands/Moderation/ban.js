@@ -24,7 +24,7 @@ module.exports = class extends Command {
 
         reason = reason.length > 0 ? `${reason.join(" ")}\nBanned By: ${msg.author.tag}` : `No reason specified.\nBanned By: ${msg.author.tag}`;
         try {
-            await user.ban({ reason: reason });
+            await member.ban({ reason: reason });
         } catch (e) {
             throw "<:penguError:435712890884849664> There was an error, please try again.";
         }
