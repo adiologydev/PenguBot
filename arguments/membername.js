@@ -1,7 +1,7 @@
 const { Argument, util: { regExpEsc } } = require("klasa");
 const { GuildMember, User } = require("discord.js");
 
-const USER_REGEXP = new RegExp("^(?:<@!?)?(\\d{17,21})>?$");
+const USER_REGEXP = Argument.regex.userOrMember
 
 module.exports = class extends Argument {
 
