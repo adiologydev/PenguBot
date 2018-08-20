@@ -16,10 +16,8 @@ module.exports = class extends Command {
     }
 
     async run(msg, [member]) {
-        const user = await msg.guild.members.fetch(member.id).catch(() => null);
-
-        if (user.id === msg.author.id) return msg.reply(`<:penguError:435712890884849664> ***You can not mute yourself...***`);
-        if (user.id === this.client.user.id) return msg.reply(`<:penguError:435712890884849664> ***Why would you want to mute Pengu?***`);
+        if (member.user.id === msg.author.id) return msg.reply(`<:penguError:435712890884849664> ***You can not mute yourself...***`);
+        if (member.user.id === this.client.user.id) return msg.reply(`<:penguError:435712890884849664> ***Why would you want to mute Pengu?***`);
 
         if (!msg.guild.roles.find(r => r.name === "PENGU_MUTED")) {
             const newRole = await msg.guild.roles.create({
@@ -38,14 +36,14 @@ module.exports = class extends Command {
         const myRole = msg.guild.me.roles.find(r => r.managed);
         if (role.position > myRole.positon) return msg.sendMessage(`${this.client.emotes.cross} ***The \`PENGU_MUTED\` role is above my role in the guild, please change the order.***`);
 
-        if (user.roles.has(role.id)) {
-            await user.roles.remove(role).catch(() => null);
-            this.client.emit("customLogs", msg.guild, "unmute", { name: "mute", muter: msg.author }, member);
-            return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${member.tag} ${msg.language.get("MESSAGE_UNMUTED")}***`);
+        if (member.roles.has(role.id)) {
+            await member.roles.remove(role).catch(() => null);
+            this.client.emit("customLogs", msg.guild, "unmute", { name: "mute", muter: msg.author }, member.user);
+            return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${member.user.tag} ${msg.language.get("MESSAGE_UNMUTED")}***`);
         } else {
-            await user.roles.add(role).catch(() => null);
-            this.client.emit("customLogs", msg.guild, "mute", { name: "mute", muter: msg.author }, member);
-            return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${member.tag} ${msg.language.get("MESSAGE_MUTED")}***`);
+            await member.roles.add(role).catch(() => null);
+            this.client.emit("customLogs", msg.guild, "mute", { name: "mute", muter: msg.author }, member.user);
+            return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${member.user.tag} ${msg.language.get("MESSAGE_MUTED")}***`);
         }
     }
 

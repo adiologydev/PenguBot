@@ -18,17 +18,15 @@ module.exports = class extends Command {
     }
 
     async run(msg, [member, days = 1, ...reason]) {
-        const user = await msg.guild.members.fetch(member.id).catch(() => msg.reply("There was an error, maybe the person left, was kicked or was banned."));
-
-        if (user.id === msg.author.id) return msg.reply(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_BAN_YOURSELF")}***`);
-        if (user.id === this.client.user.id) return msg.reply(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_BAN_PENGU")}***`);
-        if (user.bannable === false) return msg.reply(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_BAN_CANT")}***`);
+        if (member.user.id === msg.author.id) return msg.reply(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_BAN_YOURSELF")}***`);
+        if (member.user.id === this.client.user.id) return msg.reply(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_BAN_PENGU")}***`);
+        if (!user.bannable) return msg.reply(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_BAN_CANT")}***`);
 
         reason = reason.length > 0 ? `${reason.join(" ")}\nBanned By: ${msg.author.tag}` : `No reason specified.\nBanned By: ${msg.author.tag}`;
         await user.ban({ days: days, reason: reason });
-        msg.guild.members.unban(user.id);
+        msg.guild.members.unban(member.user.id);
 
-        return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${member.tag} ${msg.language.get("MESSAGE_SOFTBANNED")}***`);
+        return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${member.user.tag} ${msg.language.get("MESSAGE_SOFTBANNED")}***`);
     }
 
 };

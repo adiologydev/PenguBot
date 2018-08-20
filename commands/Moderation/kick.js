@@ -18,18 +18,16 @@ module.exports = class extends Command {
     }
 
     async run(msg, [member, ...reason]) {
-        const user = await msg.guild.members.fetch(member.id).catch(() => msg.reply("There was an error, maybe the person left, was kicked or was banned."));
-
-        if (user.id === msg.author.id) return msg.reply(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_KICK_YOURSELF")}***`);
-        if (user.id === this.client.user.id) return msg.reply(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_KICK_PENGU")}***`);
-        if (user.kickable === false) return msg.reply(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_KICK_CANT")}***`);
+        if (member.user.id === msg.author.id) return msg.reply(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_KICK_YOURSELF")}***`);
+        if (member.user.id === this.client.user.id) return msg.reply(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_KICK_PENGU")}***`);
+        if (!user.kickable) return msg.reply(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_KICK_CANT")}***`);
 
         reason = reason.length > 0 ? `${reason.join(" ")}\nBanned By: ${msg.author.tag}` : `No reason specified. Kicked By: ${msg.author.tag}`;
         await user.kick(reason);
 
-        this.client.emit("customLogs", msg.guild, "kick", { name: "kick", reason: reason, kicker: msg.author }, member);
+        this.client.emit("customLogs", msg.guild, "kick", { name: "kick", reason: reason, kicker: msg.author }, member.user);
 
-        return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${member.tag} ${msg.language.get("MESSAGE_KICKED")}***`);
+        return msg.sendMessage(`${this.client.emotes.check} ***${member.user.tag} ${msg.language.get("MESSAGE_KICKED")}***`);
     }
 
 };
