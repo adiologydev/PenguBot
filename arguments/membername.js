@@ -3,15 +3,12 @@ const { GuildMember, User } = require("discord.js");
 
 const USER_REGEXP = Argument.regex.userOrMember;
 
-function resolveUser(query, guild) {
-    if (query instanceof GuildMember) return query.user;
-    if (query instanceof User) return query;
+function resolveMember(query, guild) {
+    if (query instanceof GuildMember) return query;
+    if (query instanceof User) return guild.members.fetch(query.id).catch(() => null);
     if (typeof query === "string") {
         if (USER_REGEXP.test(query)) return guild.client.users.fetch(USER_REGEXP.exec(query)[1]).catch(() => null);
-        if (/\w{1,32}#\d{4}/.test(query)) {
-            const res = guild.members.find(member => member.user.tag === query);
-            return res ? res.user : null;
-        }
+        if (/\w{1,32}#\d{4}/.test(query)) return guild.members.find(member => member.user.tag === query) || null;
     }
     return null;
 }
@@ -20,7 +17,7 @@ module.exports = class extends Argument {
 
     async run(arg, possible, msg) {
         if (!msg.guild) return this.user(arg, possible, msg);
-        const resUser = await resolveUser(arg, msg.guild);
+        const resUser = await resolveMember(arg, msg.guild);
         if (resUser) return resUser;
 
         const results = [];
@@ -32,7 +29,7 @@ module.exports = class extends Argument {
         let querySearch;
         if (results.length > 0) {
             const regWord = new RegExp(`\\b${regExpEsc(arg)}\\b`, "i");
-            const filtered = results.filter(user => regWord.test(user.username));
+            const filtered = results.filter(member => regWord.test(member.user.username));
             querySearch = filtered.length > 0 ? filtered : results;
         } else {
             querySearch = results;
@@ -41,7 +38,7 @@ module.exports = class extends Argument {
         switch (querySearch.length) {
             case 0: throw `${possible.name} Must be a valid name, id or user mention`;
             case 1: return querySearch[0];
-            default: throw `Found multiple matches: \`${querySearch.map(user => user.tag).join("`, `")}\``;
+            default: throw `Found multiple matches: \`${querySearch.map(member => member.user.tag).join("`, `")}\``;
         }
     }
 
