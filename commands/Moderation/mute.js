@@ -10,7 +10,7 @@ module.exports = class extends Command {
             permissionLevel: 4,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: language => language.get("COMMAND_MUTE_DESCRPTION"),
-            usage: "<member:username>",
+            usage: "<member:membername>",
             extendedHelp: "No extended help available."
         });
     }
