@@ -16,7 +16,7 @@ module.exports = class extends Command {
             cooldown: 60,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "ATTACH_FILES"],
             description: language => language.get("COMMAND_PROFILE_DESCRIPTION"),
-            usage: "[user:user]",
+            usage: "[user:username]",
             extendedHelp: "No extended help available."
         });
     }

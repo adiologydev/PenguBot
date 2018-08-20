@@ -10,7 +10,7 @@ module.exports = class extends Command {
             aliases: ["snowflake", "sendsnowflakes"],
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: language => language.get("COMMAND_SNOWFLAKES_DESCRIPTION"),
-            usage: "[user:user] [amount:integer]",
+            usage: "[user:username] [amount:integer]",
             usageDelim: " ",
             extendedHelp: "No extended help available."
         });

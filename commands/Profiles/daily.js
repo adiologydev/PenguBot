@@ -10,7 +10,7 @@ module.exports = class extends Command {
             aliases: ["dailies"],
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: language => language.get("COMMAND_DAILY_DESCRIPTION"),
-            usage: "[user:user]",
+            usage: "[user:username]",
             extendedHelp: "No extended help available."
         });
     }

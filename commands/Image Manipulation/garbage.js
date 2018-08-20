@@ -9,7 +9,7 @@ module.exports = class extends Command {
             requiredPermissions: ["ATTACH_FILES", "USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
             description: language => language.get("COMMAND_GARBAGE_DESCRIPTION"),
             extendedHelp: "No extended help available.",
-            usage: "[GarbageWho:user]"
+            usage: "[GarbageWho:username]"
         });
     }
 

@@ -16,14 +16,14 @@ module.exports = class extends Command {
             cooldown: 30,
             requiredPermissions: ["EMBED_LINKS", "ATTACH_FILES"],
             description: language => language.get("COMMAND_WEATHER_DESCRIPTION"),
-            usage: "<location:string> [...]",
+            usage: "<location:string>",
             extendedHelp: "No extended help available."
         });
     }
 
-    async run(msg, [...location]) {
+    async run(msg, [location]) {
         try {
-            const locationURI = encodeURIComponent(location.join(" ").replace(/ /g, "+"));
+            const locationURI = encodeURIComponent(location.replace(/ /g, "+"));
             const a = await get(`https://maps.googleapis.com/maps/api/geocode/json?address=${locationURI}&key=${this.client.config.keys.weather.google}`).catch(e => {
                 Error.captureStackTrace(e);
                 return e;

@@ -12,7 +12,7 @@ module.exports = class extends Command {
             requiredPermissions: ["ATTACH_FILES", "USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
             description: language => language.get("COMMAND_LIO_DESCRIPTION"),
             extendedHelp: "No extended help available.",
-            usage: "[user:user]"
+            usage: "[user:username]"
         });
     }
 

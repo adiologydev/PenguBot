@@ -9,7 +9,7 @@ module.exports = class extends Command {
             aliases: ["setloggingchannel", "setlogchannel"],
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            usage: "[Channel:channel]",
+            usage: "[Channel:channelname]",
             description: language => language.get("COMMAND_LOGCHAN_DESCRPTION"),
             extendedHelp: "No extended help available."
         });

@@ -9,17 +9,13 @@ module.exports = class extends Command {
             permissionLevel: 0,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: language => language.get("COMMAND_AFK_DESCRIPTION"),
-            usage: "[reason:string] [...]",
+            usage: "[reason:string]",
             extendedHelp: "No extended help available."
         });
     }
 
-    async run(msg, [...reason]) {
-        if (!reason.join(" ").length > 0) {
-            reason = "No Reason";
-        } else {
-            reason = reason.join(" ");
-        }
+    async run(msg, [reason]) {
+        reason = reason.length > 0 ? reason : "No Reason";
 
         const afk = await msg.author.settings.get("afk");
         if (!afk.afk) {

@@ -23,7 +23,7 @@ module.exports = class extends Command {
             cooldown: 8,
             description: language => language.get("COMMAND_COMPLIMENT_DESCRIPTION"),
             extendedHelp: "No extended help available.",
-            usage: "<user:user>"
+            usage: "<user:username>"
         });
     }
 

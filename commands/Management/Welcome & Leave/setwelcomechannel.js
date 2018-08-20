@@ -9,7 +9,7 @@ module.exports = class extends Command {
             aliases: ["swc", "setwelcomechan"],
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            usage: "[channel:channel]",
+            usage: "[channel:channelname]",
             usageDelim: "",
             description: language => language.get("COMMAND_CHANNEL_WELCOME_DESCRPTION"),
             extendedHelp: "No extended help available."

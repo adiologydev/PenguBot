@@ -10,13 +10,13 @@ module.exports = class extends Command {
             permissionLevel: 0,
             requiredPermissions: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
             description: language => language.get("COMMAND_AVATAR_DESCRIPTION"),
-            usage: "[person:user]",
+            usage: "[person:username]",
             extendedHelp: "No extended help available."
         });
     }
 
     async run(msg, [person = msg.author]) {
-        return msg.sendMessage(`<:blobsmilehappy:373821679132213248> | ***${msg.language.get("MESSAGE_AVATAR")} ${person.tag}: ${person.displayAvatarURL({ size: 1024 })}***`);
+        return msg.sendMessage(`<:blobsmilehappy:373821679132213248> | ***${msg.language.get("MESSAGE_AVATAR")} ${person.tag}: ${person.displayAvatarURL({ size: 2048 })}***`);
     }
 
 };

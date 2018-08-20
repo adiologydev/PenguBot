@@ -24,7 +24,7 @@ module.exports = class extends Command {
         });
 
         if (!text) return msg.reply(`${this.client.emotes.cross} ***That word could not be found on Urban Dictionary.***`);
-        
+
         const result = JSON.parse(text).list[0];
         const defination = result.definition.length <= 1800 ? result.definition : `${result.definition.substring(0, 1800)}...`;
 

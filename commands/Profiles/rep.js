@@ -10,7 +10,7 @@ module.exports = class extends Command {
             aliases: ["reps", "giverep", "givereputation", "reputation"],
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: language => language.get("COMMAND_REP_DESCRIPTION"),
-            usage: "[user:user]",
+            usage: "[user:username]",
             extendedHelp: "No extended help available."
         });
     }

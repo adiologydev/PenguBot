@@ -11,7 +11,7 @@ module.exports = class extends Command {
             aliases: ["die", "roll"],
             description: language => language.get("COMMAND_INSULT_DESCRIPTION"),
             extendedHelp: "No extended help available.",
-            usage: "<user:user>"
+            usage: "<user:username>"
         });
     }
 

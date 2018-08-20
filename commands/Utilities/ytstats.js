@@ -11,13 +11,13 @@ module.exports = class extends Command {
             cooldown: 5,
             requiredPermissions: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
             description: language => language.get("COMMAND_YTSTATS_DESCRIPTION"),
-            usage: "<name:string> [...]",
+            usage: "<name:string>",
             extendedHelp: "No extended help available."
         });
     }
 
-    async run(msg, [...name]) {
-        const snippet = await get(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${name.join(" ")}&key=${this.client.config.keys.music.youtube}&maxResults=1&type=channel`)
+    async run(msg, [name]) {
+        const snippet = await get(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${name}&key=${this.client.config.keys.music.youtube}&maxResults=1&type=channel`)
             .catch(e => msg.reply(`<:penguError:435712890884849664> Your channel was too powerful that I couldn't handle it, try again! Error: ${e}`));
         if (!snippet.body.items[0]) return msg.reply(msg.language.get("ER_TRY_AGAIN"));
 

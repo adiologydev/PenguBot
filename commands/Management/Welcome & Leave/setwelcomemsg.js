@@ -9,15 +9,15 @@ module.exports = class extends Command {
             aliases: ["swm", "setwelcomemmessage"],
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            usage: "<message:string> [...]",
+            usage: "<message:string>",
             usageDelim: " ",
             description: language => language.get("COMMAND_SET_WELCOME_DESCRPTION"),
             extendedHelp: "No extended help available."
         });
     }
 
-    async run(msg, [...message]) {
-        return msg.guild.settings.update("messages.welcome.message", message.join(" ")).then(() => {
+    async run(msg, [message]) {
+        return msg.guild.settings.update("messages.welcome.message", message).then(() => {
             msg.sendMessage(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_WELCOME_SET")}***`);
         });
     }

@@ -11,7 +11,7 @@ module.exports = class extends Command {
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "BAN_MEMBERS"],
             description: language => language.get("COMMAND_SOFTBAN_DESCRIPTION"),
             quotedStringSupport: false,
-            usage: "<member:user> [days:int{1,7}] [reason:string] [...]",
+            usage: "<member:username> [days:int{1,7}] [reason:string] [...]",
             usageDelim: " ",
             extendedHelp: "No extended help available."
         });
