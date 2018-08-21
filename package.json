@@ -38,6 +38,7 @@
     "idiotic-api": "github:YorkAARGH/Idiotic-Wrapper",
     "klasa": "github:dirigeants/klasa",
     "klasa-functions": "github:QuantumPlugin/klasa-functions-plugin",
+    "prom-client": "^11.1.1",
     "raven": "^2.6.3",
     "rethinkdbdash": "^2.3.31",
     "uws": "^99.0.0",

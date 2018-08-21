@@ -18,6 +18,10 @@ module.exports = class extends Event {
             dbl.webhook.on("vote", vote =>
                 this.client.tasks.get("voteRewards").run(vote));
         }
+
+        this.client.promethus.collectDefaultMetrics({
+            timeout: 30000
+        });
     }
 
 };
