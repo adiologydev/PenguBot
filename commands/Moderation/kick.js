@@ -18,8 +18,8 @@ module.exports = class extends Command {
     }
 
     async run(msg, [member, ...reason]) {
-        if (member.user.id === msg.author.id) return msg.reply(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_KICK_YOURSELF")}***`);
-        if (member.user.id === this.client.user.id) return msg.reply(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_KICK_PENGU")}***`);
+        if (member.id === msg.author.id) return msg.reply(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_KICK_YOURSELF")}***`);
+        if (member.id === this.client.user.id) return msg.reply(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_KICK_PENGU")}***`);
         if (!member.kickable) return msg.reply(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_KICK_CANT")}***`);
 
         reason = reason.length > 0 ? `${reason.join(" ")}\nBanned By: ${msg.author.tag}` : `No reason specified. Kicked By: ${msg.author.tag}`;

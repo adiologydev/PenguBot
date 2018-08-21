@@ -16,8 +16,8 @@ module.exports = class extends Command {
     }
 
     async run(msg, [member]) {
-        if (member.user.id === msg.author.id) return msg.reply(`<:penguError:435712890884849664> ***You can not mute yourself...***`);
-        if (member.user.id === this.client.user.id) return msg.reply(`<:penguError:435712890884849664> ***Why would you want to mute Pengu?***`);
+        if (member.id === msg.author.id) return msg.reply(`<:penguError:435712890884849664> ***You can not mute yourself...***`);
+        if (member.id === this.client.user.id) return msg.reply(`<:penguError:435712890884849664> ***Why would you want to mute Pengu?***`);
 
         if (!msg.guild.roles.find(r => r.name === "PENGU_MUTED")) {
             const newRole = await msg.guild.roles.create({
