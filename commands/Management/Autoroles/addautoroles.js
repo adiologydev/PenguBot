@@ -9,30 +9,21 @@ module.exports = class extends Command {
             aliases: ["addautorole", "removeautorole", "removeautoroles", "deleteautorole", "deleteautoroles"],
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            usage: "<role:role>",
-            description: msg => msg.language.get("COMMAND_ADD_ROLES_DESCRPTION"),
+            usage: "<role:rolename>",
+            description: language => language.get("COMMAND_ADD_ROLES_DESCRPTION"),
             extendedHelp: "No extended help available."
         });
     }
 
     async run(msg, [role]) {
-        if (msg.guild.configs.get("autoroles.roles").indexOf(role.id) !== -1) {
-            return msg.guild.configs.update("autoroles.roles", role).then(() => {
-                msg.sendMessage(`<:penguError:435712890884849664> ***${role.name} ${msg.language.get("MESSAGE_AUTOROLE_REMOVED")}***`);
+        if (msg.guild.settings.get("autoroles.roles").indexOf(role.id) !== -1) {
+            return msg.guild.settings.update("autoroles.roles", role, msg.guild).then(() => {
+                msg.sendMessage(`${this.client.emotes.cross} ***${role.name} ${msg.language.get("MESSAGE_AUTOROLE_REMOVED")}***`);
             });
         } else {
-            return msg.guild.configs.update("autoroles.roles", role).then(() => {
-                msg.sendMessage(`<:penguSuccess:435712876506775553> ***${role.name} ${msg.language.get("MESSAGE_AUTOROLE_ADDED")}***`);
+            return msg.guild.settings.update("autoroles.roles", role, msg.guild).then(() => {
+                msg.sendMessage(`${this.client.emotes.check} ***${role.name} ${msg.language.get("MESSAGE_AUTOROLE_ADDED")}***`);
             });
-        }
-    }
-
-    async init() {
-        if (!this.client.gateways.guilds.schema.has("autoroles")) {
-            await this.client.gateways.guilds.schema.add("autoroles", {});
-        }
-        if (!this.client.gateways.guilds.schema.autoroles.has("roles")) {
-            await this.client.gateways.guilds.schema.autoroles.add("roles", { type: "role", array: true, configurable: false });
         }
     }
 

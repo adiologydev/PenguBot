@@ -1,34 +1,28 @@
-const { Command } = require("klasa");
+const MusicCommand = require("../../lib/structures/MusicCommand");
 
-module.exports = class extends Command {
+module.exports = class extends MusicCommand {
 
     constructor(...args) {
         super(...args, {
-            runIn: ["text"],
-            cooldown: 10,
-            aliases: ["stopmusic", "musicstop"],
-            permissionLevel: 0,
+            requireDJ: true,
+            requireMusic: true,
+            cooldown: 8,
+            aliases: ["forceleave", "leave", "stopmusic", "musicstop", "stop"],
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            description: msg => msg.language.get("COMMAND_STOP_DESCRIPTION"),
+            description: language => language.get("COMMAND_LEAVE_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
     }
 
     async run(msg) {
-        const queue = this.client.queue.get(msg.guild.id);
-        const player = this.client.lavalink.get(msg.guild.id);
-        await msg.guild.members.fetch(msg.author.id).catch(() => {
-            throw "I tripped on a wire! *Ouch!* It hurts but I'll recover, try again later.";
-        });
-        if (!msg.member.voiceChannel) return msg.sendMessage("<:penguError:435712890884849664> You're currently not in a voice channel.");
-        if (!queue || !player) return msg.sendMessage("<:penguError:435712890884849664> ***There's currently no music playing!***");
+        const { music } = msg.guild;
+        if (!msg.guild.me.voice.channel) return msg.sendMessage(`${this.client.emotes.cross} ***There's currently no music playing!***`);
 
-        if (await msg.hasAtLeastPermissionLevel(3) || queue.vc.members.size <= 3) {
-            await this.client.lavalink.leave(msg.guild.id);
-            await msg.sendMessage("<:penguSuccess:435712876506775553> ***Queue cleared, leaving voice channel.***");
-            return this.client.queue.delete(msg.guild.id);
+        if (await msg.hasAtLeastPermissionLevel(3) || music.voiceChannel.members.size <= 3) {
+            await music.destroy();
+            return msg.sendMessage(`${this.client.emotes.check} ***Queue cleared, leaving voice channel.***`);
         } else {
-            return msg.sendMessage("<:penguError:435712890884849664> ***There are members in the VC right now, use skip instead!***");
+            return msg.sendMessage(`${this.client.emotes.cross} ***There are members in the VC right now, use skip instead!***`);
         }
     }
 

@@ -21,9 +21,9 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             cooldown: 8,
-            description: msg => msg.language.get("COMMAND_COMPLIMENT_DESCRIPTION"),
+            description: language => language.get("COMMAND_COMPLIMENT_DESCRIPTION"),
             extendedHelp: "No extended help available.",
-            usage: "<user:user>"
+            usage: "<user:username>"
         });
     }
 

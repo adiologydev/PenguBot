@@ -9,8 +9,8 @@ module.exports = class extends Command {
             permissionLevel: 0,
             aliases: ["dailies"],
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            description: msg => msg.language.get("COMMAND_DAILY_DESCRIPTION"),
-            usage: "[user:user]",
+            description: language => language.get("COMMAND_DAILY_DESCRIPTION"),
+            usage: "[user:username]",
             extendedHelp: "No extended help available."
         });
     }
@@ -20,13 +20,14 @@ module.exports = class extends Command {
             return msg.sendMessage("❄ | ***You can not give your daily Snowflakes to a bot!***");
         }
 
-        const upvoter = this.client.functions.isUpvoter(msg.author.id);
+        await msg.author.settings.sync(true);
+
+        const upvoter = await this.client.funcs.isUpvoter(msg.author);
         const reward = upvoter ? 300 : 100;
 
-        if (msg.author.configs.daily > 0) {
-            await msg.author.configs.waitSync();
+        if (msg.author.settings.daily > 0) {
             const now = Date.now();
-            const last = msg.author.configs.daily;
+            const last = msg.author.settings.daily;
             const diff = now - last;
             const next = 43200000 - diff;
 
@@ -36,20 +37,14 @@ module.exports = class extends Command {
             const timeLeft = `${hours} hours, ${minutes} minutes and ${Math.round(seconds)} seconds`;
 
             if (diff >= 43200000) {
-                await user.configs.update(["snowflakes", "daily"], [user.configs.snowflakes + reward, Date.now()]);
-                return msg.reply(`❄ | ***You have claimed your ${reward} Snowflakes for today! To gain 300 Snowflakes everyday, make sure to upvote PenguBot at <https://discordbots.org/bot/PenguBot/vote>***`);
+                await user.settings.update([["snowflakes", user.settings.snowflakes + reward], ["daily", Date.now()]]);
+                return msg.reply(`❄ | ***You have claimed your ${reward} Snowflakes for today! To gain 300 Snowflakes everyday, make sure to upvote PenguBot at <https://www.pengubot.com/upvote>***`);
             } else {
                 return msg.sendMessage(`❄ | ***You can claim your daily Snowflakes in ${timeLeft}!***`);
             }
         } else {
-            await user.configs.update(["snowflakes", "daily"], [user.configs.snowflakes + reward, Date.now()]);
-            return msg.reply(`❄ | ***You have claimed your ${reward} Snowflakes for today! To gain 300 Snowflakes everyday, make sure to upvote PenguBot at <https://discordbots.org/bot/PenguBot/vote>***`);
-        }
-    }
-
-    async init() {
-        if (!this.client.gateways.users.schema.has("daily")) {
-            this.client.gateways.users.schema.add("daily", { type: "integer", default: 0, configurable: false });
+            await user.settings.update([["snowflakes", user.settings.snowflakes + reward], ["daily", Date.now()]]);
+            return msg.reply(`❄ | ***You have claimed your ${reward} Snowflakes for today! To gain 300 Snowflakes everyday, make sure to upvote PenguBot at <https://www.pengubot.com/upvote>***`);
         }
     }
 

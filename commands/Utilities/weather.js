@@ -3,9 +3,9 @@ const { Canvas } = require("canvas-constructor");
 const fs = require("fs-nextra");
 const { get } = require("snekfetch");
 
-Canvas.registerFont(`${process.cwd()}/assets/fonts/Roboto-Regular.ttf`, { family: "Roboto" });
-Canvas.registerFont(`${process.cwd()}/assets/fonts/RobotoCondensed-Regular.ttf`, { family: "Roboto Condensed" });
-Canvas.registerFont(`${process.cwd()}/assets/fonts/RobotoMono-Light.ttf`, { family: "Roboto Mono" });
+Canvas.registerFont(`${process.cwd()}/assets/fonts/Roboto-Regular.ttf`, "Roboto");
+Canvas.registerFont(`${process.cwd()}/assets/fonts/RobotoCondensed-Regular.ttf`, "Roboto Condensed");
+Canvas.registerFont(`${process.cwd()}/assets/fonts/RobotoMono-Light.ttf`, "Roboto Mono");
 
 module.exports = class extends Command {
 
@@ -15,21 +15,21 @@ module.exports = class extends Command {
             aliases: ["w", "☁", "⛅", "⛈", "🌤", "🌥", "🌦", "🌧", "🌨", "🌩", "🌪"],
             cooldown: 30,
             requiredPermissions: ["EMBED_LINKS", "ATTACH_FILES"],
-            description: msg => msg.language.get("COMMAND_WEATHER_DESCRIPTION"),
-            usage: "<location:string> [...]",
+            description: language => language.get("COMMAND_WEATHER_DESCRIPTION"),
+            usage: "<location:string>",
             extendedHelp: "No extended help available."
         });
     }
 
-    async run(msg, [...location]) {
+    async run(msg, [location]) {
         try {
-            const locationURI = encodeURIComponent(location.join(" ").replace(/ /g, "+"));
+            const locationURI = encodeURIComponent(location.replace(/ /g, "+"));
             const a = await get(`https://maps.googleapis.com/maps/api/geocode/json?address=${locationURI}&key=${this.client.config.keys.weather.google}`).catch(e => {
                 Error.captureStackTrace(e);
                 return e;
             });
             const res = a.body;
-            if (!res.results.length === 0) return msg.reply("<:penguError:435712890884849664> I Could not find that location! Please try again with a different one.");
+            if (!res.results.length) return msg.reply("<:penguError:435712890884849664> I Could not find that location! Please try again with a different one.");
 
             const geocodelocation = res.results[0].formatted_address;
             const params = `${res.results[0].geometry.location.lat},${res.results[0].geometry.location.lng}`;

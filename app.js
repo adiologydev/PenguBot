@@ -1,14 +1,15 @@
-const PenguClient = require("./structures/PenguClient");
+const PenguClient = require("./lib/structures/PenguClient");
 const config = require("./config.json");
 const Raven = require("raven");
-Raven.config(config.keys.sentry).install();
 
-function startBot() {
+Raven.config(config.keys.sentry, { captureUnhandledRejections: true }).install();
+
+Raven.context(() => {
     new PenguClient({
-        prefix: ["p!", "P!"],
+        prefix: "p!",
         commandEditing: true,
         disableEveryone: true,
-        regexPrefix: new RegExp(/^((?:Hey |Ok )?Pengu(?:,|!| ))/i),
+        regexPrefix: /^((?:Hey |Ok )?Pengu(?:,|!| ))/i,
         ownerID: "136549806079344640",
         typing: true,
         disabledEvents: [
@@ -19,10 +20,12 @@ function startBot() {
             "RELATIONSHIP_REMOVE",
             "USER_SETTINGS_UPDATE",
             "VOICE_STATE_UPDATE",
-            "VOICE_SERVER_UPDATE"
+            "VOICE_SERVER_UPDATE",
+            "TYPING_START",
+            "PRESENCE_UPDATE"
         ],
         pieceDefaults: {
-            commands: { deletable: true },
+            commands: { deletable: true, quotedStringSupport: true, bucket: 2 },
             rawEvents: { enabled: true }
         },
         providers: {
@@ -30,20 +33,15 @@ function startBot() {
             rethinkdb: { db: "pengubot", servers: [{ host: config.database.host, port: config.database.port }] }
         },
         console: { useColor: true },
-        presence: { activity: { name: "PenguBot.com | v2.0 | p!help", type: "WATCHING" } }
+        production: config.main.production,
+        presence: { activity: { name: "❤ p!donate For Exclusive Patron Bot Access ➖ p!help", type: "PLAYING" } },
+        prefixCaseInsensitive: true,
+        noPrefixDM: true,
+        aliasFunctions: { returnRun: true, enabled: true, prefix: "funcs" }
     }).login(config.main.token);
-}
-
-process.on("unhandledRejection", e => {
-    console.log("Unhandled Rejection at:", e.stack || e);
-    Raven.captureException(e);
 });
 
-process.on("uncaughtException", e => {
-    console.log("Uncaught Exception at:", e.stack || e);
-    Raven.captureException(e);
-});
-
-Raven.context(() => {
-    startBot();
+process.on("uncaughtException", err => {
+    console.error(`uncaughtException:\n${err.stack}`);
+    Raven.captureException(err);
 });

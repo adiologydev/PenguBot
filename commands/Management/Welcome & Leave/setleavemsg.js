@@ -9,15 +9,15 @@ module.exports = class extends Command {
             aliases: ["slm", "setleavemessage"],
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            usage: "<message:string> [...]",
+            usage: "<message:string>",
             usageDelim: " ",
-            description: msg => msg.language.get("COMMAND_SET_LEAVE_DESCRPTION"),
+            description: language => language.get("COMMAND_SET_LEAVE_DESCRPTION"),
             extendedHelp: "No extended help available."
         });
     }
 
-    async run(msg, [...message]) {
-        return msg.guild.configs.update("messages.leave.message", message.join(" ")).then(() => {
+    async run(msg, [message]) {
+        return msg.guild.settings.update("messages.leave.message", message).then(() => {
             msg.sendMessage(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_LEAVE_SET")}***`);
         });
     }

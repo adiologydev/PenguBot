@@ -10,18 +10,18 @@ module.exports = class extends Command {
             aliases: ["shortener", "shortlink"],
             permissionLevel: 0,
             requiredPermissions: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
-            description: msg => msg.language.get("COMMAND_SHORTEN_DESCRIPTION"),
+            description: language => language.get("COMMAND_SHORTEN_DESCRIPTION"),
             usage: "<link:url>",
             extendedHelp: "No extended help available."
         });
     }
 
     async run(msg, [link]) {
-        const { body } = await get(`https://api-ssl.bitly.com/v3/shorten?access_token=${this.client.config.keys.bitly}&longUrl=${encodeURIComponent(link)}`).catch(e => {
+        const data = await get(`https://is.gd/create.php?format=json&url=${encodeURIComponent(link)}`).catch(e => {
             Error.captureStackTrace(e);
-            return e;
+            throw msg.language.get("ER_TRY_AGAIN");
         });
-        return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_LINK_SHORTEN")}*** ${body.data.url}`);
+        return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_LINK_SHORTEN")}*** ${JSON.parse(data.text).shorturl}`);
     }
 
 };

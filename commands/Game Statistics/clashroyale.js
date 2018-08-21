@@ -9,7 +9,7 @@ module.exports = class extends Command {
             cooldown: 15,
             aliases: ["crstats", "clashstats", "clashroyalestats"],
             requiredPermissions: ["EMBED_LINKS", "ATTACH_FILES"],
-            description: msg => msg.language.get("COMMAND_CRSTATS_DESCRIPTION"),
+            description: language => language.get("COMMAND_CRSTATS_DESCRIPTION"),
             usage: "<Tag:string>",
             extendedHelp: "No extended help available."
         });
@@ -26,7 +26,7 @@ module.exports = class extends Command {
             return msg.sendMessage("<:penguError:435712890884849664> ***Invalid Tag, please retry with a valid one which you can find under Game Settings.***");
         }
 
-        if (!data) return msg.reply("There was an error, please try again later.");
+        if (!data || !data.body.stats) return msg.reply("There was an error, please try again later.");
 
         const { body } = data;
         const embed = new MessageEmbed()

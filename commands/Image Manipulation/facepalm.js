@@ -6,14 +6,16 @@ module.exports = class extends Command {
         super(...args, {
             cooldown: 8,
             requiredPermissions: ["ATTACH_FILES", "USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
-            description: msg => msg.language.get("COMMAND_FACEPALM_DESCRIPTION"),
+            description: language => language.get("COMMAND_FACEPALM_DESCRIPTION"),
             extendedHelp: "No extended help available.",
-            usage: "[user:user]"
+            usage: "[user:username]"
         });
     }
 
     async run(msg, [user = msg.author]) {
-        const image = await this.client.idiotic.facepalm(user.displayAvatarURL({ format: "png", size: 128 }));
+        const image = await this.client.idiotic.facepalm(user.displayAvatarURL({ format: "png", size: 128 }))
+            .catch(() => null);
+        if (!image) return msg.reply(msg.language.get("ER_TRY_AGAIN"));
         return msg.channel.sendFile(image);
     }
 

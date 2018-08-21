@@ -10,15 +10,17 @@ module.exports = class extends Command {
             aliases: ["youtubestats"],
             cooldown: 5,
             requiredPermissions: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
-            description: msg => msg.language.get("COMMAND_YTSTATS_DESCRIPTION"),
-            usage: "<name:string> [...]",
+            description: language => language.get("COMMAND_YTSTATS_DESCRIPTION"),
+            usage: "<name:string>",
             extendedHelp: "No extended help available."
         });
     }
 
-    async run(msg, [...name]) {
-        const snippet = await get(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${name.join(" ")}&key=${this.client.config.keys.music.youtube}&maxResults=1&type=channel`)
+    async run(msg, [name]) {
+        const snippet = await get(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${name}&key=${this.client.config.keys.music.youtube}&maxResults=1&type=channel`)
             .catch(e => msg.reply(`<:penguError:435712890884849664> Your channel was too powerful that I couldn't handle it, try again! Error: ${e}`));
+        if (!snippet.body.items[0]) return msg.reply(msg.language.get("ER_TRY_AGAIN"));
+
         const data = await get(`https://www.googleapis.com/youtube/v3/channels?part=snippet,contentDetails,statistics,brandingSettings&id=${snippet.body.items[0].id.channelId}&key=${this.client.config.keys.music.youtube}`)
             .catch(e => msg.reply(`<:penguError:435712890884849664> Your channel was too powerful that I couldn't handle it, try again! Error: ${e}`));
 

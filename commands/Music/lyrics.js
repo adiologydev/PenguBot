@@ -1,23 +1,28 @@
-const { Command } = require("klasa");
+const MusicCommand = require("../../lib/structures/MusicCommand");
 const { MessageEmbed } = require("discord.js");
-const lyrics = require("../../utils/lyrics.js");
+const lyrics = require("../../lib/utils/lyrics.js");
 
-module.exports = class extends Command {
+module.exports = class extends MusicCommand {
 
     constructor(...args) {
         super(...args, {
-            runIn: ["text"],
             cooldown: 10,
             aliases: ["songlyrics", "lyric"],
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            description: msg => msg.language.get("COMMAND_LYRICS_DESCRIPTION"),
+            description: language => language.get("COMMAND_LYRICS_DESCRIPTION"),
             extendedHelp: "No extended help available.",
-            usage: "<song:string>"
+            usage: "[song:string]"
         });
     }
 
     async run(msg, [song]) {
-        const req = await lyrics.request(`search?q=${song}`);
+        if (!song) {
+            const { queue } = msg.guild.music;
+            if (!queue.length || !queue[0].title) return msg.reply("No Music is playing right now, please enter a song name you want lyrics for.");
+            song = queue[0].title;
+        }
+
+        const req = await lyrics.request(`search?q=${encodeURIComponent(song)}`);
         const lyricdata = req.response.hits[0];
         if (!lyricdata) return msg.reply("The provided song could not be found. Please try again with a different one or contact us at <https://discord.gg/6KpTfqR>.");
 
@@ -30,7 +35,7 @@ module.exports = class extends Command {
 
         const embed = new MessageEmbed()
             .setColor("#428bca")
-            .setAuthor(`${extendedsong} - ${artist} | Lyrics`, this.client.user.avatarURL, `http://genius.com/${lyricdata.result.path}`)
+            .setAuthor(`${extendedsong} - ${artist} | Lyrics`, this.client.user.avatarURL, `http://genius.com/${encodeURIComponent(lyricdata.result.path)}`)
             .setTimestamp()
             .setFooter("© PenguBot.com")
             .setDescription(lyricsbody.length >= 1900 ? `${lyricsbody.substr(0, 1900)}...` : lyricsbody)

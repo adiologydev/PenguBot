@@ -7,14 +7,16 @@ module.exports = class extends Command {
             cooldown: 8,
             aliases: ["snapchat"],
             requiredPermissions: ["ATTACH_FILES", "USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
-            description: msg => msg.language.get("COMMAND_SNAP_DESCRIPTION"),
+            description: language => language.get("COMMAND_SNAPCHAT_DESCRIPTION"),
             extendedHelp: "No extended help available.",
             usage: "<Snaptext:str>"
         });
     }
 
     async run(msg, [Snaptext]) {
-        const image = await this.client.idiotic.snapchat(Snaptext);
+        const image = await this.client.idiotic.snapchat(Snaptext)
+            .catch(() => null);
+        if (!image) return msg.reply(msg.language.get("ER_TRY_AGAIN"));
         return msg.channel.sendFile(image);
     }
 

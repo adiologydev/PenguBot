@@ -10,7 +10,7 @@ module.exports = class extends Command {
             aliases: ["enablegroup", "disablecommandgroup", "enablecommandgroup", "disablecommandcategory", "enablecommandcategory"],
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            description: msg => msg.language.get("COMMAND_TOGGLE_GROUP_DESCRPTION"),
+            description: language => language.get("COMMAND_TOGGLE_GROUP_DESCRPTION"),
             usage: "<command:cmd>",
             extendedHelp: "No extended help available."
         });
@@ -18,18 +18,12 @@ module.exports = class extends Command {
 
     async run(msg, [cmd]) {
         if (cmd.guarded) return msg.sendMessage(`<:penguError:435712890884849664> ***${cmd.category} commands category can not be disabled!***`);
-        if (msg.guild.configs.disabledCommandsGroup.indexOf(cmd.category) === -1) {
-            await msg.guild.configs.update("disabledCommandsGroup", cmd.category, { action: "add" });
+        if (msg.guild.settings.disabledCommandsGroup.indexOf(cmd.category) === -1) {
+            await msg.guild.settings.update("disabledCommandsGroup", cmd.category, { action: "add" });
             return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${cmd.category} commands category has been Disabled by ${msg.author.tag}!***`);
         } else {
-            await msg.guild.configs.update("disabledCommandsGroup", cmd.category, { action: "remove" });
+            await msg.guild.settings.update("disabledCommandsGroup", cmd.category, { action: "remove" });
             return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${cmd.category} commands category has been Enabled by ${msg.author.tag}!***`);
-        }
-    }
-
-    async init() {
-        if (!this.client.gateways.guilds.schema.has("disabledCommandsGroup")) {
-            this.client.gateways.guilds.schema.add("disabledCommandsGroup", { type: "string", array: true, configurable: false });
         }
     }
 

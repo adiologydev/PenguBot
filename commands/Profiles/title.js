@@ -9,7 +9,7 @@ module.exports = class extends Command {
             permissionLevel: 0,
             aliases: ["settitle"],
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            description: msg => msg.language.get("COMMAND_TITLE_DESCRIPTION"),
+            description: language => language.get("COMMAND_TITLE_DESCRIPTION"),
             usage: "<title:string>",
             extendedHelp: "No extended help available."
         });
@@ -19,14 +19,9 @@ module.exports = class extends Command {
         if (title.length > 30) {
             return msg.reply("Your title can not be more than 30 characters long, please enter a smaller one.");
         }
-        await msg.author.configs.waitSync();
-        msg.author.configs.update("title", title);
+        await msg.author.settings.sync(true);
+        msg.author.settings.update("title", title);
         return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Your profile title has been updated to:*** ${title}`);
-    }
-    async init() {
-        if (!this.client.gateways.users.schema.has("title")) {
-            this.client.gateways.users.schema.add("title", { type: "string", default: "No Title Set", configurable: false });
-        }
     }
 
 };

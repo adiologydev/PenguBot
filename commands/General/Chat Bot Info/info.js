@@ -8,13 +8,14 @@ module.exports = class extends Command {
             aliases: ["details", "what"],
             guarded: true,
             requiredPermissions: ["EMBED_LINKS"],
-            description: msg => msg.language.get("COMMAND_INFO_DESCRIPTION")
+            description: language => language.get("COMMAND_INFO_DESCRIPTION")
         });
     }
 
     async run(msg) {
         const embed = new MessageEmbed()
             .setDescription(msg.language.get("COMMAND_INFO"))
+            .setAuthor("PenguBot - Information", this.client.user.displayAvatarURL(), "https://www.pengubot.com")
             .setColor("RANDOM");
         return msg.sendEmbed(embed);
     }

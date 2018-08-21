@@ -8,17 +8,16 @@ module.exports = class extends Command {
             runIn: ["text"],
             cooldown: 10,
             aliases: ["listcommands"],
-            permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
-            description: msg => msg.language.get("COMMAND_LIST_CMDS_DESCRIPTION"),
+            description: language => language.get("COMMAND_LIST_CMDS_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
     }
 
     async run(msg) {
-        if (msg.guild.configs.customcmds.cmds[0] === undefined) return msg.reply(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_NO_CMDS")}***`);
-        const prefix = msg.guild.configs.get("prefix");
-        const names = msg.guild.configs.customcmds.cmds.map(cmd => cmd.name);
+        if (msg.guild.settings.customcmds.cmds[0] === undefined) return msg.reply(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_NO_CMDS")}***`);
+        const prefix = msg.guild.settings.get("prefix");
+        const names = msg.guild.settings.customcmds.cmds.map(cmd => cmd.name);
 
         const cmds = new RichDisplay(new MessageEmbed()
             .setTitle("Use the reactions to change pages, select a page or stop viewing the commands.")

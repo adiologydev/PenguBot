@@ -5,6 +5,7 @@ module.exports = class extends Language {
     constructor(...args) {
         super(...args);
         this.language = {
+            DEFAULT: key => `${key} has not been localized for en-US yet. Please report this on https://discord.gg/u8WYw5r in the support channel for a fix.`,
             INHIBITOR_DISABLED: "<:penguError:435712890884849664> ***This command is currently disabled***",
             INHIBITOR_DISABLED_GROUP: "<:penguError:435712890884849664> ***This command group is currently disabled***",
             COMMAND_UNLOAD: (type, name) => `<:penguSuccess:435712876506775553> Unloaded ${type}: ${name}`,
@@ -13,22 +14,16 @@ module.exports = class extends Language {
             COMMAND_RELOAD_ALL: type => `<:penguSuccess:435712876506775553> Reloaded all ${type}.`,
             COMMAND_LOAD: (time, type, name) => `<:penguSuccess:435712876506775553> Successfully loaded ${type}: ${name}. (Took: ${time})`,
             COMMAND_LOAD_ERROR: (type, name, error) => `<:penguError:435712890884849664> Failed to load ${type}: ${name}. Reason:${util.codeBlock("js", error)}`,
-            COMMAND_INVITE: client => [
-                `**👉 | Invite PenguBot to your Discord Guild:**`,
-                `<${client.invite}>`
-            ],
+            COMMAND_INVITE: `**👉 | Invite PenguBot to your Discord Guild:** <https://www.PenguBot.com/invite>`,
             COMMAND_SUPPORT: `**__PenguBot Support Guild__**\n• **Invite Link:** https://discord.gg/u8WYw5r`,
             COMMAND_INVITE_DESCRIPTION: "Displays the join server link of the bot.",
             COMMAND_INFO: [
-                "**__PenguBot Information__**",
                 "PenguBot is a Multi-Purpose Discord Bot which is filled with features ranging from",
                 "Moderation, Fun, Utilities and more. It is developed in NodeJS using many different",
                 "technologies such as RethinkDB, JavaScript and Linux.",
                 "",
                 "• **Author:** [AdityaTD#5346](https://www.AdityaTD.me)",
-                "",
-                "**__General Information__**",
-                `• **Version:** ${this.client.config.main.version}`,
+                `• **Version:** ${require("../package").version}`,
                 "• **Website:** <https://www.PenguBot.com>",
                 "• **Patreon:** <https://www.Patreon.com/PenguBot>",
                 "• **Discord Guild:** <https://discord.gg/6KpTfqR>",
@@ -36,7 +31,6 @@ module.exports = class extends Language {
                 "• **Database:** RethinkDB"
             ],
             COMMAND_DONATE: [
-                "**__Support PenguBot__**",
                 "PenguBot runs on multipe servers rented out across the globe and that requires the",
                 "rent.If you'd like to support PenguBot and it's financial costs please visit the following:",
                 "",
@@ -45,12 +39,11 @@ module.exports = class extends Language {
                 "• **PenguBot's Donation Page:** https://www.PenguBot.com/donate"
             ],
             COMMAND_HELP_NODM: "📪 | You have DMs disabled, I couldn't send you the commands in DMs so here's a link to all the commands: <https://www.pengubot.com/commands>",
-            COMMAND_UPVOTE: ["**__Vote for PenguBot__**",
-                "Want PenguBot to become bigger and be available in more guilds you visit?",
+            COMMAND_UPVOTE: ["Want PenguBot to become bigger and be available in more guilds you visit?",
                 "Then vote for PenguBot via the link below and also unlock access to",
                 "limited features that only upvoters can have access to!",
                 "",
-                "• **Vote:** https://discordbots.org/bot/PenguBot/vote"],
+                "• **Vote:** https://www.pengubot.com/upvote"],
             COMMAND_TOGGLE_GROUP_DESCRPTION: "Disable/Enable Command Categories.",
             COMMAND_TOGGLE_COMMAND_DESCRPTION: "Disable/Enable Commands in your guild.",
             COMMAND_SUPPORT_DESCRIPTION: "Link to join PenguBot's Support Guild.",
@@ -112,11 +105,14 @@ module.exports = class extends Language {
             MESSAGE_LOGCHAN_SET: "Logging channel has now been set!",
             COMMAND_LOG_DESCRPTION: "Enable/Disable Logging events if you're Pengu Admin or above.",
 
-            // Autoroles Messages
+            // Autoroles & Self Roles
             MESSAGE_AUTOROLES_ENABLED: "Auto Roles have been enabled in this guild!",
             MESSAGE_AUTOROLES_DISABLED: "Auto Roles have been disabled in this guild!",
             MESSAGE_AUTOROLE_REMOVED: "role was removed from the Auto Roles!",
             MESSAGE_AUTOROLE_ADDED: "role was added in the Auto Roles!",
+            COMMAND_SELFROLES: "Assign or Deassign or list Self Roles from Yourself.",
+            COMMAND_SELFROLES_MANAGE: "Add or Remove Self Roles from the server.",
+            COMMAND_TOGGLE_SELFROLES: "Enable/Disable Self Roles on the server.",
 
             // Utilities Messages
             MESSAGE_NEW_REMINDER: "New Reminder has been created with ID:",
@@ -202,10 +198,13 @@ module.exports = class extends Language {
             COMMAND_WANTED_DESCRIPTION: "Print some Wanted posters of who is wanted by the sherrif department.",
             COMMAND_VAULT_DESCRIPTION: "Be the ICONIC Vault boy or make someone else be one.",
             COMMAND_GARBAGE_DESCRIPTION: "Garbage someone because they're trash.",
-            COMMAND_APPROVE_DESCRIPTION: "Give someone a seal of approval",
+            COMMAND_APPROVED_DESCRIPTION: "Give someone a seal of approval",
             COMMAND_REJECT_DESCRIPTION: "Reject someone, their quality isn't upto the mark.",
             COMMAND_TINDER_DESCRIPTION: "You Have a Match, let's match you with someone!",
             COMMAND_MISSING_DESCRIPTION: "Has your dear one went missing? Get them a poster.",
+            COMMAND_SNAPCHAT_DESCRIPTION: "Create a Snapchat Meme Image.",
+            COMMAND_OSU_DESCRIPTION: "Get osu! Statistics in a cool way!",
+            COMMAND_CMM_DESCRIPTION: "Create a nice Change My Mind meme!",
 
             // Fun Commands Messages
             COMMAND_COOKIE_MESSAGE: (userID, msgAuthor) => `***<@${userID}>, you've been given a cookie by ${msgAuthor}!***`,
@@ -284,10 +283,13 @@ module.exports = class extends Language {
             COMMAND_LEAVE_DESCRIPTION: "Make Pengu forcefully leave your Voice Channel.",
             COMMAND_PAUSE_DESCRIPTION: "Pause/Resume the currently playing music.",
             COMMAND_VOLUME_DESCRIPTION: "Change the default volume of Pengu in your guild",
+            COMMAND_DJONLY_DESCRIPTION: "Toggle Pengu DJ only mode for Music Commands.",
+            INHIBITOR_DJ_ONLY: "<:penguError:435712890884849664> ***This guild is configured to allow only Pengu DJ's to use Music Commands.***",
 
             // Game Stats
             COMMAND_FORTNITE_DESCRIPTION: "Get Fortnite Game Statistics within Discord.",
             COMMAND_CRSTATS_DESCRIPTION: "Clash Royale Player Statistics within Discord.",
+            COMMAND_COCSTATS_DESCRIPTION: "Clash of Clans Player Statistics within Discord.",
 
             // Starboard
             COMMAND_TOGGLE_STARBOARD_DESCRPTION: "Allows Pengu Administrators and above to toggle Starboard in the guild.",
@@ -297,7 +299,12 @@ module.exports = class extends Language {
             MESSAGE_STAR_ENABLED: "Starboard has now been enabled.",
             MESSAGE_STAR_DISABLED: "Starboard has now been disabled.",
             MESSAGE_STARS_REQUIRED_SET: "Set the minimum Stars required before a message is sent to Starboard.",
-            MESSAGE_STAR_CHANNEL_SET: "Successfully set the Starboard channel."
+            MESSAGE_STAR_CHANNEL_SET: "Successfully set the Starboard channel.",
+
+            // Custom Messages
+            ER_TRY_AGAIN: "I am very sorry but was an error, please try again or contact us at https://discord.gg/kWMcUNe",
+            ER_MUSIC_TRIP: "I tripped on a wire! *Ouch!* It hurts but I'll recover, try again later or contact us at https://discord.gg/kWMcUNe",
+            ER_MUSIC_NF: "<:penguError:435712890884849664> I could not find any results for your query, please try again with a different one or contact us at https://discord.gg/kWMcUNe"
         };
     }
 

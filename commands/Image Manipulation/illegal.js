@@ -9,14 +9,14 @@ module.exports = class extends Command {
             cooldown: 8,
             aliases: ["isnowillegal", "trumpillegal"],
             requiredPermissions: ["ATTACH_FILES", "USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
-            description: msg => msg.language.get("COMMAND_ILLEGAL_DESCRIPTION"),
+            description: language => language.get("COMMAND_ILLEGAL_DESCRIPTION"),
             extendedHelp: "No extended help available.",
-            usage: "<name:string> [...]"
+            usage: "<name:string>"
         });
     }
 
-    async run(msg, [...name]) {
-        const text = name.join(" ").toUpperCase();
+    async run(msg, [name]) {
+        const text = name.toUpperCase();
         if (/^[a-zA-Z0-9 ]+$/g.test(text) && text.length < 11) {
             try {
                 let gif = await this.fetchGIF(text);

@@ -7,7 +7,7 @@ module.exports = class extends Command {
             runIn: ["text"],
             aliases: ["lb", "top"],
             cooldown: 30,
-            description: msg => msg.language.get("COMMAND_LEADERBOARD_DESCRIPTION"),
+            description: language => language.get("COMMAND_LEADERBOARD_DESCRIPTION"),
             usage: "[Page:integer]"
         });
     }
@@ -16,11 +16,11 @@ module.exports = class extends Command {
         const load = await msg.sendMessage(`<a:penguLoad:435712860744581120> ***Let me process all that data through my igloo, give me a few...***`);
         const r = this.client.providers.default.db;
         let users;
-        if (this.client.topCache) { users = this.client.topCache; } else {
+        if (this.client.topCache.length) { users = this.client.topCache; } else {
             users = await r.table("users").orderBy({ index: r.desc("xp") }).pluck("id", "xp").run();
             this.client.topCache = users;
         }
-        await msg.author.configs.waitSync();
+        await msg.author.settings.sync(true);
 
         const leaderboard = [];
         const totalPages = Math.round(users.length / 10);
@@ -43,7 +43,7 @@ module.exports = class extends Command {
         }
 
         const posNum = pos !== -1 ? pos + 1 : 0;
-        leaderboard.push(`\n • ${posNum.toString().padStart(2, " ")} | ${msg.author.username.padEnd(30, " ")}::  ${msg.author.configs.xp.toLocaleString()} XP`);
+        leaderboard.push(`\n • ${posNum.toString().padStart(2, " ")} | ${msg.author.username.padEnd(30, " ")}::  ${msg.author.settings.xp.toLocaleString()} XP`);
         leaderboard.push("--------------------------------------------------");
 
         load.delete();

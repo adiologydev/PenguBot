@@ -24,7 +24,7 @@
  */
 
 const { Task } = require("klasa");
-const { util: { binaryToID }, WebhookClient } = require("discord.js");
+const { util: { binaryToID } } = require("discord.js");
 
 // THRESHOLD equals to 30 minutes in milliseconds:
 //     - 1000 milliseconds = 1 second
@@ -44,14 +44,9 @@ const HEADER = `\u001B[39m\u001B[94m[CACHE CLEANUP]\u001B[39m\u001B[90m`;
  */
 module.exports = class MemorySweeper extends Task {
 
-    constructor(...args) {
-        super(...args);
-        this.webhook = new WebhookClient("457561275392589834", this.client.config.webhooks.cleaner);
-    }
-
     async run() {
         const OLD_SNOWFLAKE = binaryToID(((Date.now() - THRESHOLD) - EPOCH).toString(2).padStart(42, "0") + EMPTY);
-        let presences = 0, guildMembers = 0, emojis = 0, lastMessages = 0, users = 0;
+        let presences = 0, guildMembers = 0, emojis = 0, messages = 0, users = 0;
 
         // Per-Guild sweeper
         for (const guild of this.client.guilds.values()) {
@@ -63,7 +58,7 @@ module.exports = class MemorySweeper extends Task {
             const { me } = guild;
             for (const [id, member] of guild.members) {
                 if (member === me) continue;
-                if (member.voiceChannelID) continue;
+                if (member.voice.channelID) continue;
                 if (member.lastMessageID && member.lastMessageID > OLD_SNOWFLAKE) continue;
                 guildMembers++;
                 guild.members.delete(id);
@@ -76,9 +71,10 @@ module.exports = class MemorySweeper extends Task {
 
         // Per-Channel sweeper
         for (const channel of this.client.channels.values()) {
+            if (channel.messages) messages += channel.messages.sweep(msg => msg.id < OLD_SNOWFLAKE);
             if (channel.lastMessageID) {
                 channel.lastMessageID = null;
-                lastMessages++;
+                messages++;
             }
         }
 
@@ -86,12 +82,11 @@ module.exports = class MemorySweeper extends Task {
         for (const user of this.client.users.values()) {
             if (user.lastMessageID && user.lastMessageID > OLD_SNOWFLAKE) continue;
             this.client.users.delete(user.id);
-            this.client.gateways.users.cache.delete(user.id);
             users++;
         }
 
-        // Clean Profiles Cache
-        if (this.client.topCache) this.client.topCache = null;
+        // Clean Leaderboard Cache
+        this.client.topCache = [];
 
         // Emit a log
         this.client.emit("verbose",
@@ -100,12 +95,7 @@ module.exports = class MemorySweeper extends Task {
                 this.setColor(guildMembers)} [GuildMember]s | ${
                 this.setColor(users)} [User]s | ${
                 this.setColor(emojis)} [Emoji]s | ${
-                this.setColor(lastMessages)} [Last Message]s.`);
-        if (!this.client.config.main.patreon) {
-            this.webhook.send(`\`\`\`| Presences | guildMembers | users | emojis | lastMessages |\n
-|-----------|--------------|-------|--------|--------------|
-| ${presences} | ${guildMembers} | ${users} | ${emojis} | ${lastMessages} |\`\`\``);
-        }
+                this.setColor(messages)} [Messages]s.`);
     }
 
     /**
@@ -129,8 +119,8 @@ module.exports = class MemorySweeper extends Task {
 
     // Init
     async init() {
-        if (!this.client.configs.schedules.some(schedule => schedule.taskName === this.name)) {
-            await this.client.schedule.create("cleaner", "*/15 * * * *");
+        if (!this.client.settings.schedules.some(schedule => schedule.taskName === this.name)) {
+            await this.client.schedule.create("cleaner", "*/8 * * * *");
         }
     }
 

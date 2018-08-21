@@ -10,14 +10,14 @@ module.exports = class extends Command {
             cooldown: 8,
             aliases: ["neko", "nsfwneko", "nsfwnekos"],
             requiredPermissions: ["ATTACH_IMAGES", "EMBED_LINKS"],
-            description: msg => msg.language.get("COMMAND_NEKOS_DESCRIPTION"),
+            description: language => language.get("COMMAND_NEKOS_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
     }
 
     async run(msg) {
         if (!msg.channel.nsfw) return msg.sendMessage(`<:penguError:435712890884849664> ***This channel is not NSFW so I can't send it here...***`);
-        if (!this.client.functions.isUpvoter(msg.author.id)) return msg.sendMessage(`<:penguError:435712890884849664> ***You are not an up-voter of PenguBot, please visit <https://discordbots.org/bot/PenguBot/vote> to vote now and get access!***`);
+        if (!await this.client.funcs.isUpvoter(msg.author)) return msg.sendMessage(`<:penguError:435712890884849664> ***You are not an up-voter of PenguBot, please visit <https://www.pengubot.com/upvote> to vote now and get access!***`);
         const option = options[Math.floor(Math.random() * options.length)];
         const { body } = await get(`https://nekos.life/api/v2/img/${option}`).catch(e => {
             Error.captureStackTrace(e);

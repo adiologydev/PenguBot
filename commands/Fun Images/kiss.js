@@ -9,9 +9,9 @@ module.exports = class extends Command {
             cooldown: 8,
             aliases: ["sendkiss"],
             requiredPermissions: ["ATTACH_IMAGES", "EMBED_LINKS"],
-            description: msg => msg.language.get("COMMAND_KISS_DESCRIPTION"),
+            description: language => language.get("COMMAND_KISS_DESCRIPTION"),
             extendedHelp: "No extended help available.",
-            usage: "<user:user>"
+            usage: "<user:username>"
         });
     }
 

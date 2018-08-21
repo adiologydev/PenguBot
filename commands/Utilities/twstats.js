@@ -10,14 +10,14 @@ module.exports = class extends Command {
             aliases: ["twitchstats"],
             cooldown: 5,
             requiredPermissions: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
-            description: msg => msg.language.get("COMMAND_TWSTATS_DESCRIPTION"),
-            usage: "<name:string> [...]",
+            description: language => language.get("COMMAND_TWSTATS_DESCRIPTION"),
+            usage: "<name:string>",
             extendedHelp: "No extended help available."
         });
     }
 
-    async run(msg, [...name]) {
-        const { body } = await get(`https://api.twitch.tv/kraken/channels/${name.join(" ")}?client_id=${this.client.config.keys.music.twitch}`)
+    async run(msg, [name]) {
+        const { body } = await get(`https://api.twitch.tv/kraken/channels/${name}?client_id=${this.client.config.keys.music.twitch}`)
             .catch(() => msg.reply(`<:penguError:435712890884849664> I couldn't find your channel while searching it on Twitch, please try again!`));
 
         const embed = new MessageEmbed()
@@ -25,7 +25,6 @@ module.exports = class extends Command {
             .setAuthor("Twitch Channel Statistics", "https://i.imgur.com/krTbTeD.png")
             .setTimestamp()
             .setFooter("© PenguBot.com")
-            .setThumbnail(body.logo)
             .setDescription(`❯ **Channel Name:** ${body.display_name}
 ❯ **Channel Status:** ${body.status}
 ❯ **Partnered:** ${body.partner}\n
@@ -33,6 +32,7 @@ module.exports = class extends Command {
 ❯ **Total Views:** ${parseInt(body.views).toLocaleString()}
 ❯ **Channel Created:** ${new Date(body.created_at).toDateString()}\n
 ❯ **Link:** ${body.url}`);
+        if (body.logo) embed.setThumbnail(body.logo);
         return msg.sendEmbed(embed);
     }
 

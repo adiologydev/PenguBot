@@ -8,13 +8,14 @@ module.exports = class extends Command {
             aliases: ["patreon", "patron"],
             guarded: true,
             requiredPermissions: ["EMBED_LINKS", "ATTACH_IMAGES"],
-            description: msg => msg.language.get("COMMAND_DONATE_DESCRIPTION")
+            description: language => language.get("COMMAND_DONATE_DESCRIPTION")
         });
     }
 
     async run(msg) {
         const embed = new MessageEmbed()
             .setDescription(msg.language.get("COMMAND_DONATE"))
+            .setAuthor("PenguBot - Donate and Support", this.client.user.displayAvatarURL(), "https://www.pengubot.com")
             .setThumbnail("https://i.imgur.com/bSOBK4s.png")
             .setColor("RANDOM");
         return msg.sendEmbed(embed);

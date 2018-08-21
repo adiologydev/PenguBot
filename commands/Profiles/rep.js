@@ -9,8 +9,8 @@ module.exports = class extends Command {
             permissionLevel: 0,
             aliases: ["reps", "giverep", "givereputation", "reputation"],
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            description: msg => msg.language.get("COMMAND_REP_DESCRIPTION"),
-            usage: "[user:user]",
+            description: language => language.get("COMMAND_REP_DESCRIPTION"),
+            usage: "[user:username]",
             extendedHelp: "No extended help available."
         });
     }
@@ -24,10 +24,10 @@ module.exports = class extends Command {
                 return msg.sendMessage("🏆 | ***You can not rep a bot, I know you love bots like me but no!***");
             }
         }
-        if (msg.author.configs.repcooldown > 0) {
-            await msg.author.configs.waitSync();
+        if (msg.author.settings.repcooldown > 0) {
+            await msg.author.settings.sync(true);
             const now = Date.now();
-            const last = msg.author.configs.repcooldown;
+            const last = msg.author.settings.repcooldown;
             const diff = now - last;
             const next = 43200000 - diff;
 
@@ -40,8 +40,8 @@ module.exports = class extends Command {
                 if (!user) {
                     return msg.sendMessage("🏆 | ***You can now give a reputation point!***");
                 } else {
-                    await msg.author.configs.update("repcooldown", Date.now());
-                    await user.configs.update("reps", user.configs.reps + 1);
+                    await msg.author.settings.update("repcooldown", Date.now());
+                    await user.settings.update("reps", user.settings.reps + 1);
                     return msg.sendMessage(`🏆 | ***You have given a reputation point to ${user}!***`);
                 }
             } else {
@@ -50,18 +50,9 @@ module.exports = class extends Command {
         } else if (!user) {
             return msg.sendMessage("🏆 | ***You can now give a reputation point!***");
         } else {
-            msg.author.configs.update("repcooldown", Date.now());
-            await user.configs.update("reps", user.configs.reps + 1);
+            msg.author.settings.update("repcooldown", Date.now());
+            await user.settings.update("reps", user.settings.reps + 1);
             return msg.sendMessage(`🏆 | ***You have given a reputation point to ${user}!***`);
-        }
-    }
-
-    async init() {
-        if (!this.client.gateways.users.schema.has("reps")) {
-            this.client.gateways.users.schema.add("reps", { type: "integer", default: 0, configurable: false });
-        }
-        if (!this.client.gateways.users.schema.has("repcooldown")) {
-            this.client.gateways.users.schema.add("repcooldown", { type: "integer", default: 0, configurable: false });
         }
     }
 

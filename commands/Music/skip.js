@@ -1,30 +1,27 @@
-const { Command } = require("klasa");
+const MusicCommand = require("../../lib/structures/MusicCommand");
 
-module.exports = class extends Command {
+module.exports = class extends MusicCommand {
 
     constructor(...args) {
         super(...args, {
-            runIn: ["text"],
-            cooldown: 10,
+            requireDJ: true,
+            requireMusic: true,
+            cooldown: 8,
             aliases: ["loopsong", "repeat"],
-            permissionLevel: 0,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
-            description: msg => msg.language.get("COMMAND_SKIP_DESCRIPTION"),
+            description: language => language.get("COMMAND_SKIP_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
         this.votes = new Map();
     }
 
     async run(msg) {
-        const queue = this.client.queue.get(msg.guild.id);
-        const player = this.client.lavalink.get(msg.guild.id);
-        if (!msg.member.voiceChannel) return msg.sendMessage("<:penguError:435712890884849664> You're currently not in a voice channel.");
-        if (!queue) return msg.sendMessage("<:penguError:435712890884849664> There's currently no music playing!");
-        if (!player) return msg.sendMessage("<:penguError:435712890884849664> There's currently no music playing!");
-        const threshold = Math.ceil(queue.vc.members.size / 3);
-        const force = threshold <= 1 || queue.vc.members.size < threshold || await msg.hasAtLeastPermissionLevel(3);
+        const { music } = msg.guild;
+        const { queue } = music;
+        const threshold = Math.ceil(music.voiceChannel.members.size / 3);
+        const force = threshold <= 1 || music.voiceChannel < threshold || await msg.hasAtLeastPermissionLevel(3);
 
-        if (force) return msg.reply(this.skip(msg.guild, queue));
+        if (force) return msg.reply(this.skip(msg.guild));
 
         const vote = this.votes.get(msg.guild.id);
         if (vote && vote.count >= 1) {
@@ -32,9 +29,9 @@ module.exports = class extends Command {
 
             vote.count++;
             vote.users.push(msg.author.id);
-            if (vote.count >= threshold) return msg.reply(this.skip(msg.guild, queue));
+            if (vote.count >= threshold) return msg.reply(this.skip(msg.guild));
 
-            const time = this.setTimeout(vote);
+            const time = this.setTimeout(msg.channel, vote);
             const remaining = threshold - vote.count;
 
             return msg.sendMessage(`${vote.count} vote${vote.count > 1 ? "s" : ""} received so far, ${remaining} more ${remaining > 1 ? "are" : "is"} needed to skip this song. Five more seconds on the :clock1:! The vote will end in ${time} seconds.`); // eslint-disable-line max-len
@@ -48,7 +45,7 @@ module.exports = class extends Command {
                 timeout: null
             };
 
-            const time = this.setTimeout(newVote);
+            const time = this.setTimeout(msg.channel, newVote);
             this.votes.set(msg.guild.id, newVote);
             const remaining = threshold - 1;
 
@@ -56,33 +53,23 @@ module.exports = class extends Command {
         }
     }
 
-    skip(guild, queue) {
+    skip(guild) {
         if (this.votes.has(guild.id)) {
             clearTimeout(this.votes.get(guild.id).timeout);
             this.votes.delete(guild.id);
         }
 
-        const current = queue.songs[0];
-        queue.songs.shift();
-        const song = queue.songs[0];
-        if (!song) {
-            setTimeout(async () => {
-                await this.client.lavalink.leave(guild.id);
-                return this.client.queue.delete(guild.id);
-            }, 500);
-            return "🎵 | **Music:** Finished playing the current queue. Enjoyed what you heard? Why not support us on Patreon at <https://www.Patreon.com/PenguBot>";
-        }
-
-        this.client.lavalink.get(guild.id).play(song.track);
-        return `<:penguSuccess:435712876506775553> Skipped: **${current.name}**`;
+        const [song] = guild.music.queue;
+        guild.music.skip();
+        return `<:penguSuccess:435712876506775553> Skipped: **${song ? song.title : "N/A"}**`;
     }
 
-    setTimeout(vote) {
+    setTimeout(textChannel, vote) {
         const time = vote.start + 15000 - Date.now() + ((vote.count - 1) * 5000);
         clearTimeout(vote.timeout);
         vote.timeout = setTimeout(() => {
             this.votes.delete(vote.guild);
-            vote.queue.tc.send("<:penguSuccess:435712876506775553> The vote to skip the current song has ended.");
+            textChannel.send("<:penguSuccess:435712876506775553> The vote to skip the current song has ended.");
         }, time);
 
         return Math.round(time / 1000);

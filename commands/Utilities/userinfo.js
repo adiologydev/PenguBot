@@ -9,8 +9,8 @@ module.exports = class extends Command {
             aliases: ["uinfo"],
             cooldown: 5,
             requiredPermissions: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
-            description: msg => msg.language.get("COMMAND_USERINFO_DESCRIPTION"),
-            usage: "[user:member]",
+            description: language => language.get("COMMAND_USERINFO_DESCRIPTION"),
+            usage: "[user:username]",
             extendedHelp: "No extended help available."
         });
         this.timestamp = new Timestamp("d MMMM YYYY");

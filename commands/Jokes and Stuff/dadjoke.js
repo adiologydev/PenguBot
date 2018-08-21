@@ -9,7 +9,7 @@ module.exports = class extends Command {
             cooldown: 8,
             aliases: ["joke"],
             requiredPermissions: ["ATTACH_IMAGES", "EMBED_LINKS"],
-            description: msg => msg.language.get("COMMAND_DADJOKE_DESCRIPTION"),
+            description: language => language.get("COMMAND_DADJOKE_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
     }
@@ -19,8 +19,9 @@ module.exports = class extends Command {
             Error.captureStackTrace(e);
             return e;
         });
+        const desc = text.length < 1900 ? text : `${text.substring(0, 1900)}...`;
         const embed = new MessageEmbed()
-            .setDescription(`**Dad Joke Alert**\n\n${text}`)
+            .setDescription(`**Dad Joke Alert**\n\n${desc}`)
             .setThumbnail("https://i.imgur.com/IxosIBh.png")
             .setColor("RANDOM");
         return msg.sendMessage({ embed: embed });

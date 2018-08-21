@@ -11,7 +11,7 @@ module.exports = class extends Command {
             aliases: ["server"],
             cooldown: 5,
             requiredPermissions: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
-            description: msg => msg.language.get("COMMAND_GUILDINFO_DESCRIPTION"),
+            description: language => language.get("COMMAND_GUILDINFO_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
     }
@@ -28,7 +28,7 @@ module.exports = class extends Command {
             .addField("❯ Creation Date", msg.guild.createdAt.toDateString(), true)
             .addField("❯ Explicit Filter", filterLevels[msg.guild.explicitContentFilter], true)
             .addField("❯ Verification Level", verificationLevels[msg.guild.verificationLevel], true)
-            .addField("❯ Owner", msg.guild.owner.user.tag, true)
+            .addField("❯ Owner", `<@${msg.guild.ownerID}>`, true)
             .addField("❯ Members", msg.guild.memberCount, true)
             .addField("❯ Roles", msg.guild.roles.size, true)
             .addField("❯ Channels", msg.guild.channels.size, true);

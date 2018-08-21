@@ -10,7 +10,7 @@ module.exports = class extends Command {
             cooldown: 8,
             aliases: ["comic", "comics"],
             requiredPermissions: ["ATTACH_FILES", "EMBED_LINKS"],
-            description: msg => msg.language.get("COMMAND_COMIC_DESCRIPTION"),
+            description: language => language.get("COMMAND_COMIC_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
     }

@@ -3,10 +3,10 @@ const { Canvas } = require("canvas-constructor");
 const fs = require("fs-nextra");
 const { get } = require("snekfetch");
 
-Canvas.registerFont(`${process.cwd()}/assets/fonts/Roboto-Regular.ttf`, { family: "Roboto" });
-Canvas.registerFont(`${process.cwd()}/assets/fonts/RobotoCondensed-Regular.ttf`, { family: "Roboto Condensed" });
-Canvas.registerFont(`${process.cwd()}/assets/fonts/RobotoMono-Light.ttf`, { family: "Roboto Mono" });
-Canvas.registerFont(`${process.cwd()}/assets/fonts/NotoEmoji-Regular.ttf`, { family: "NotoEmoji" });
+Canvas.registerFont(`${process.cwd()}/assets/fonts/Roboto-Regular.ttf`, "Roboto");
+Canvas.registerFont(`${process.cwd()}/assets/fonts/RobotoCondensed-Regular.ttf`, "Roboto Condensed");
+Canvas.registerFont(`${process.cwd()}/assets/fonts/RobotoMono-Light.ttf`, "Roboto Mono");
+Canvas.registerFont(`${process.cwd()}/assets/fonts/NotoEmoji-Regular.ttf`, "NotoEmoji");
 
 module.exports = class extends Command {
 
@@ -15,8 +15,8 @@ module.exports = class extends Command {
             runIn: ["text"],
             cooldown: 60,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "ATTACH_FILES"],
-            description: msg => msg.language.get("COMMAND_PROFILE_DESCRIPTION"),
-            usage: "[user:user]",
+            description: language => language.get("COMMAND_PROFILE_DESCRIPTION"),
+            usage: "[user:username]",
             extendedHelp: "No extended help available."
         });
     }
@@ -29,22 +29,20 @@ module.exports = class extends Command {
     }
 
     async createImage(user) {
-        await user.configs.waitSync();
+        await user.settings.sync(true);
         const r = this.client.providers.default.db;
-        const { xp, level: lvl, snowflakes, reps, title } = user.configs;
+        const { xp, level: lvl, snowflakes, reps, title } = user.settings;
 
         const oldLvl = Math.floor((lvl / 0.2) ** 2);
         const nextLvl = Math.floor(((lvl + 1) / 0.2) ** 2);
         const xpProg = Math.round(((xp - oldLvl) / (nextLvl - oldLvl)) * 269);
 
-        let users;
-        if (this.client.topCache) { users = this.client.topCache; } else {
-            users = await r.table("users").orderBy({ index: r.desc("xp") }).pluck("id", "xp").run();
-            this.client.topCache = users;
-        }
-        const pos = users.findIndex(i => i.id === user.id);
+        const query = await r.db("pengubot").table("users").orderBy({ index: r.desc("xp") }).pluck("id", "xp").limit(10000).offsetsOf(r.row("id").eq(user.id))
+            .run();
+        console.log(query);
+        const pos = query.length ? `#${Number(query) + 1}` : "More Than 10,000";
 
-        const bgName = user.configs.profilebg;
+        const bgName = user.settings.profilebg;
         const bgImg = await fs.readFile(`${process.cwd()}/assets/profiles/bg/${bgName}.png`);
         const avatar = await get(user.displayAvatarURL({ format: "png", sze: 256 })).then(res => res.body).catch(e => {
             Error.captureStackTrace(e);
@@ -69,7 +67,7 @@ module.exports = class extends Command {
             .setTextAlign("left")
             .addText(`Title: ${title}`, 30, 196, 193)
             .addText(`Snowflakes: ${snowflakes.toLocaleString()}`, 30, 219, 193)
-            .addText(`Global Rank: #${pos !== -1 ? pos + 1 : "???"}`, 30, 243, 193)
+            .addText(`Global Rank: ${pos}`, 30, 243, 193)
             // XP Bar
             .setColor("#459466")
             .addRect(21, 269, xpProg, 15.5)
@@ -78,15 +76,6 @@ module.exports = class extends Command {
             .setTextAlign("center")
             .addText(`XP: ${xp} / ${nextLvl}`, 151, 281)
             .toBufferAsync();
-    }
-
-    async init() {
-        if (!this.client.gateways.users.schema.has("profilebg")) {
-            this.client.gateways.users.schema.add("profilebg", { type: "string", default: "default", configurable: false });
-        }
-        if (!this.client.gateways.users.schema.has("backgrounds")) {
-            this.client.gateways.users.schema.add("backgrounds", { type: "string", default: ["default"], array: true, configurable: false });
-        }
     }
 
 };
