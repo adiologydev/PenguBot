@@ -22,6 +22,7 @@ module.exports = class extends Event {
         this.client.promethus.collectDefaultMetrics({
             timeout: 30000
         });
+        this.client.prometheusActions.guildGauge.set(this.client.guilds.size);
     }
 
 };

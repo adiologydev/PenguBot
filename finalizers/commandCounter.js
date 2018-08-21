@@ -19,6 +19,8 @@ module.exports = class extends Finalizer {
 
         await config.update("counter.total", config.counter.total + 1);
         await config.update("counter.commands", { name: cmd, count: count.count + 1 }, { arrayPosition: index });
+
+        this.client.prometheusActions.commandCounter.inc();
     }
 
 };

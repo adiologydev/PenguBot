@@ -11,6 +11,8 @@ module.exports = class extends Event {
                 await guild.leave();
             }
         }
+
+        this.client.prometheusActions.guildGauge.inc();
     }
 
 };
