@@ -1,4 +1,5 @@
 const { Finalizer } = require("klasa");
+const promClient = require("prom-client");
 
 module.exports = class extends Finalizer {
 
@@ -20,7 +21,19 @@ module.exports = class extends Finalizer {
         await config.update("counter.total", config.counter.total + 1);
         await config.update("counter.commands", { name: cmd, count: count.count + 1 }, { arrayPosition: index });
 
-        this.client.prometheus.commandCounter.inc();
+        if (!this.client.prometheus.commands.executions.has(cmd)) {
+            await this.client.prometheus.commands.executions.set(
+                msg.command.name,
+                new promClient.Gauge({
+                    name: `pengubot_command_${cmd}`,
+                    help: `Displays the usage ammount of the ${cmd} command`
+                })
+            );
+        }
+
+        this.client.prometheus.commands.executions.get(cmd).inc();
+
+        this.client.prometheus.commands.counter.inc();
     }
 
 };

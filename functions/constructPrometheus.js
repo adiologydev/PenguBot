@@ -9,7 +9,7 @@ module.exports = class extends Function {
                 await this.client.prometheus.commands.executions.set(
                     command.name,
                     new promClient.Gauge({
-                        name: `command_${command.name}`,
+                        name: `pengubot_command_${command.name}`,
                         help: `Displays the usage ammount of the ${command.name} command`
                     })
                 );
