@@ -1,6 +1,7 @@
 const { Event } = require("klasa");
 const MusicClient = require("../lib/structures/LavalinkClient");
 const DBL = require("dblapi.js");
+const promClient = require("prom-client");
 
 module.exports = class extends Event {
 
@@ -19,11 +20,11 @@ module.exports = class extends Event {
                 this.client.tasks.get("voteRewards").run(vote));
         }
 
-        this.client.promethus.collectDefaultMetrics({
-            timeout: 30000,
+        promClient.collectDefaultMetrics({
+            timeout: 10000,
             prefix: "pengubot_"
         });
-        this.client.prometheusActions.guildGauge.set(this.client.guilds.size);
+        this.client.prometheus.guildGauge.set(this.client.guilds.size);
     }
 
 };

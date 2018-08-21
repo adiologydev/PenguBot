@@ -12,7 +12,7 @@ module.exports = class extends Event {
             }
         }
 
-        this.client.prometheusActions.guildGauge.inc();
+        this.client.prometheus.guildGauge.inc();
     }
 
 };
