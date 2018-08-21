@@ -206,6 +206,22 @@ module.exports = class extends Language {
             COMMAND_OSU_DESCRIPTION: "Get osu! Statistics in a cool way!",
             COMMAND_CMM_DESCRIPTION: "Create a nice Change My Mind meme!",
 
+            // Fun Commands Messages
+            COMMAND_COOKIE_MESSAGE: (userID, msgAuthor) => `***<@${userID}>, you've been given a cookie by ${msgAuthor}!***`,
+            COMMAND_CUDDLE_MESSAGE: (user, msgAuthor) => `🤗 | ***${user}, you just got cuddled by ${msgAuthor}!***`,
+            COMMAND_DOG_EMBED_DESCRIPTION_MESSAGE: "**Dog Picture**",
+            COMMAND_FEED_MESSAGE: (user, msgAuthor) => `🥘 | ***${user}, you just got fed by ${msgAuthor}!***`,
+            COMMAND_FOX_EMBED_DESCRIPTION_MESSAGE: "**Fox Picture**",
+            COMMAND_HUG_MESSAGE: (user, msgAuthor) => `🤗 | ***${user}, you just got hugged by ${msgAuthor}!***`,
+            COMMAND_KISS_MESSAGE: (user, msgAuthor) => `💋 | ***${user}, you just recieved a kiss from ${msgAuthor}!***`,
+            COMMAND_PAT_MESSAGE: (user, msgAuthor) => `✋ | ***${user}, you just got patted by ${msgAuthor}!***`,
+            COMMAND_PENGU_MESSAGE: msgAuthor => `<:pengu:383632112323919872> | ***${msgAuthor}, here's the cute Pengu picture you requested!***`,
+            COMMAND_POKE_MESSAGE: (user, msgAuthor) => `👈 | ***${user}, you just got poked by ${msgAuthor}!***`,
+            COMMAND_PUNCH_MESSAGE: (user, msgAuthor) => `👊 | ***${user}, you just got punched by ${msgAuthor}!***`,
+            COMMAND_RANDOMCOMIC_EMBED_DESCRIPTION_MESSAGE: "**Random Comic**",
+            COMMAND_SLAP_MESSAGE: (user, msgAuthor) => `🖐 | ***${user}, you just got slapped by ${msgAuthor}!***`,
+            COMMAND_TICKLE_MESSAGE: (user, msgAuthor) => `🤣 | ***${user}, you just got tickled by ${msgAuthor}!***`,
+
             // NSFW Commands
             COMMAND_ANAL_DESCRIPTION: "-NOT SAFE FOR WORK- Anal images.",
             COMMAND_BOOBS_DESCRIPTION: "-NOT SAFE FOR WORK- Boobs images.",

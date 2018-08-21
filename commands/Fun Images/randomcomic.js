@@ -23,7 +23,7 @@ module.exports = class extends Command {
             .setFooter("© PenguBot.com")
             .setTimestamp()
             .setColor("RANDOM")
-            .setDescription(`**Random Comic**`)
+            .setDescription(msg.language.get("COMMAND_RANDOMCOMIC_EMBED_DESCRIPTION_MESSAGE"))
             .setImage(`http:${$("#rcg-comic").first().find("img").first().attr("src").replace(/\\/g, "/")}`);
         return msg.sendEmbed(embed);
     }
