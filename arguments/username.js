@@ -6,7 +6,7 @@ const USER_REGEXP = Argument.regex.userOrMember;
 module.exports = class extends Argument {
 
     async run(arg, possible, msg) {
-        if (!msg.guild) return this.user(arg, possible, msg);
+        if (!msg.guild) return this.store.get("user").run(arg, possible, msg);
         const resUser = await this.resolveUser(arg, msg.guild);
         if (resUser) return resUser;
 
