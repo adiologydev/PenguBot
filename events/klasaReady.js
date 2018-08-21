@@ -20,7 +20,8 @@ module.exports = class extends Event {
         }
 
         this.client.promethus.collectDefaultMetrics({
-            timeout: 30000
+            timeout: 30000,
+            prefix: "pengubot_"
         });
         this.client.prometheusActions.guildGauge.set(this.client.guilds.size);
     }
