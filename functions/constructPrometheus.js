@@ -16,6 +16,19 @@ module.exports = class extends Function {
                 this.client.prometheus.commands.executions.get(command.name).set(command.count);
             }
         }
+
+        for (const [, command] of this.client.commands) {
+            const cat = command.fullCategory[0];
+            if (!this.client.prometheus.commands.categories.has(cat)) {
+                await this.client.prometheus.commands.categories.set(
+                    cat,
+                    new promClient.Gauge({
+                        name: `pengubot_category_${cat}`,
+                        help: `Displays the usage ammount of the ${cat} category`
+                    })
+                );
+            }
+        }
     }
 
 };
