@@ -9,7 +9,7 @@ module.exports = class extends Function {
             this.client.prometheus.commands.executions.labels(command.name).set(command.count);
         }
 
-        for (const [, command] of this.client.commands) {
+        for (const command of this.client.commands.values()) {
             const cat = command.fullCategory[0];
             if (done.includes(cat)) continue;
             this.client.prometheus.commands.categories.labels(cat).inc();
