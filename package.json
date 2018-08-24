@@ -37,6 +37,7 @@
     "heapdump": "^0.3.9",
     "idiotic-api": "github:YorkAARGH/Idiotic-Wrapper",
     "klasa": "github:dirigeants/klasa",
+    "klasa-dashboard-hooks": "github:PenguBot/klasa-dashboard-hooks",
     "klasa-functions": "github:QuantumPlugin/klasa-functions-plugin",
     "raven": "^2.6.3",
     "rethinkdbdash": "^2.3.31",
