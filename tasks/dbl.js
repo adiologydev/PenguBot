@@ -13,8 +13,8 @@ module.exports = class extends Task {
                 .set("Authorization", this.client.config.keys.dbl).send(stats),
             snekfetch.post(`https://bots.discord.pw/api/bots/${this.client.user.id}/stats`)
                 .set("Authorization", this.client.config.keys.dbpw).send(stats),
-            snekfetch.post(`https://listcord.com/api/bot/${this.client.user.id}/guilds`)
-                .set("token", this.client.config.keys.listcord).send({ guilds: this.client.guilds.size, shard: this.client.shard.id }),
+            snekfetch.post(`https://discordbotlist.com/api/bots/${this.client.user.id}/stats`)
+                .set("token", this.client.config.keys.ogdbl).send({ guilds: this.client.guilds.size, users: this.client.guilds.reduce((prev, val) => val.memberCount + prev, 0), shard_id: this.client.shard.id, voice_connections: this.client.lavalink.size }),
             snekfetch.post(`https://botsfordiscord.com/api/v1/bots/${this.client.user.id}`)
                 .set("Authorization", this.client.config.keys.b4d).send({ server_count: allGuilds.reduce((prev, val) => prev + val, 0) }),
             snekfetch.post(`https://discordbots.group/api/bot/${this.client.user.id}`)

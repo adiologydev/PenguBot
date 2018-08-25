@@ -37,7 +37,10 @@ Raven.context(() => {
         presence: { activity: { name: "❤ p!donate For Exclusive Patron Bot Access ➖ p!help", type: "PLAYING" } },
         prefixCaseInsensitive: true,
         noPrefixDM: true,
-        aliasFunctions: { returnRun: true, enabled: true, prefix: "funcs" }
+        aliasFunctions: { returnRun: true, enabled: true, prefix: "funcs" },
+        dashboardHooks: { apiPrefix: "/" },
+        clientSecret: config.dashboard.secret,
+        clientID: config.dashboard.id
     }).login(config.main.token);
 });
 
