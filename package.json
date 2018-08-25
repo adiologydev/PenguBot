@@ -43,6 +43,7 @@
     "raven": "^2.6.3",
     "rethinkdbdash": "^2.3.31",
     "uws": "^99.0.0",
+    "veza": "^0.2.3",
     "zlib-sync": "^0.1.4"
   },
   "devDependencies": {
