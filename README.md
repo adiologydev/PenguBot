@@ -35,10 +35,10 @@ We're proudly hosted by [GalaxyGate](https://bit.ly/GalaxyGate). Visit the link 
 
 [![GalaxyGate](https://i.imgur.com/tTbWta8.png)](https://bit.ly/GalaxyGate)
 
-## Vote on DiscordBots to Support
+## Vote on Bot Lists to Support
 [![Discord Bots](https://discordbots.org/api/widget/303181184718995457.svg)](https://discordbots.org/bot/303181184718995457/vote)
-[![Discord Bot List](https://discordbotlist.com/bots/303181184718995457/widget)](https://discordbotlist.com/bots/303181184718995457upvote)
 [![Bots For Discord](https://botsfordiscord.com/api/v1/bots/303181184718995457/embed?theme=dark)](https://www.pengubot.com/upvote)
+[![Discord Bot List](https://discordbotlist.com/bots/303181184718995457/widget)](https://discordbotlist.com/bots/303181184718995457/upvote)
 
 ## License
 MIT
