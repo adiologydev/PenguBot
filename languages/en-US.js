@@ -269,6 +269,7 @@ module.exports = class extends Language {
             COMMAND_VOLUME_DESCRIPTION: "Change the default volume of Pengu in your guild",
             COMMAND_DJONLY_DESCRIPTION: "Toggle Pengu DJ only mode for Music Commands.",
             INHIBITOR_DJ_ONLY: "<:penguError:435712890884849664> ***This guild is configured to allow only Pengu DJ's to use Music Commands.***",
+            COMMAND_DUMP_DESCRIPTION: "Dump your server queue in raw format to be used later!",
 
             // Game Stats
             COMMAND_FORTNITE_DESCRIPTION: "Get Fortnite Game Statistics within Discord.",
