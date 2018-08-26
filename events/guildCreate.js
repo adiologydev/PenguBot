@@ -12,7 +12,13 @@ module.exports = class extends Event {
             }
         }
 
-        this.client.prometheus.guildGauge.inc();
+        this.client.IPC.sendTo("PenguManager", JSON.stringify({
+            t: "Prometheus_GUILD",
+            at: "inc",
+            d: {
+                c: 1
+            }
+        }));
     }
 
 };

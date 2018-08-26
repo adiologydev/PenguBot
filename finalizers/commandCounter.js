@@ -21,10 +21,29 @@ module.exports = class extends Finalizer {
         await config.update("counter.total", config.counter.total + 1);
         await config.update("counter.commands", { name: cmd, count: count.count + 1 }, { arrayPosition: index });
 
-        this.client.prometheus.commands.executions.labels(cmd).inc();
-        this.client.prometheus.commands.categories.labels(cat).inc();
-
-        this.client.prometheus.commands.counter.inc();
+        this.client.IPC.sendTo("PenguManager", JSON.stringify({
+            t: "Prometheus_COMMAND_EXECUTIONS",
+            at: "inc",
+            d: {
+                c: 1,
+                l: [cmd]
+            }
+        }));
+        this.client.IPC.sendTo("PenguManager", JSON.stringify({
+            t: "Prometheus_COMMAND_CATEGORIES",
+            at: "inc",
+            d: {
+                c: 1,
+                l: [cat]
+            }
+        }));
+        this.client.IPC.sendTo("PenguManager", JSON.stringify({
+            t: "Prometheus_COMMAND_COUNTER",
+            at: "inc",
+            d: {
+                c: 1
+            }
+        }));
     }
 
 };

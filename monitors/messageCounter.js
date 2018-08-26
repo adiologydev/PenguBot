@@ -11,7 +11,13 @@ module.exports = class extends Monitor {
     }
 
     async run() {
-        this.client.prometheus.messageCounter.inc();
+        this.client.IPC.sendTo("PenguManager", JSON.stringify({
+            t: "Prometheus_MESSAGE",
+            at: "inc",
+            d: {
+                c: 1
+            }
+        }));
     }
 
 };
