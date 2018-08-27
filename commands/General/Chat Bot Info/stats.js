@@ -33,9 +33,9 @@ module.exports = class extends Command {
             .addField("❯ Guilds", guilds.toLocaleString(), true)
             .addField("❯ Channels", channels.toLocaleString(), true)
             .addField("❯ Voice Streams", vc.toLocaleString(), true)
-            .addField("❯ Total Commands Ran", this.client.settings.counter.total, true)
+            .addField("❯ Total Commands Ran", this.client.settings.counter.total.toLocaleString(), true)
             .addField("❯ CPM", cpm, true)
-            .addField("❯ Discord Version", discordVersion, true)
+            .addField("❯ Discord.js", discordVersion, true)
             .addField("❯ Shards", `${this.client.shard.id + 1} / ${this.client.shard.count}`, true)
             .setAuthor("PenguBot - Statistics", this.client.user.displayAvatarURL(), "https://www.pengubot.com");
 
