@@ -17,8 +17,8 @@ module.exports = class extends Command {
 
         const data = [];
         data.push(`\`\`\`prolog\n\n= Shards Information =\n`)
-        data.push(`${"ID".padStart(3, " ").padEnd(3, " ")} | ${"Guilds".padStart(3, " ").padEnd(3, " ")} | ${"Channels".padStart(3, " ").padEnd(3, " ")} | ${"Users".padStart(3, " ").padEnd(3, " ")} | ${"Memory".padStart(3, " ").padEnd(3, " ")} | ${"Voice".padStart(3, " ").padEnd(3, " ")} | ${"Uptime".padStart(3, " ").padEnd(3, " ")}\n`);
-        result.map(r => data.push(`${(r[0]+1).toString().padStart(3, " ").padEnd(3, " ")} | ${r[1].toString().padStart(3, " ").padEnd(3, " ")} | ${r[2].toString().padStart(3, " ").padEnd(3, " ")} | ${r[3].toString().padStart(3, " ").padEnd(3, " ")} | ${r[4].toString().padStart(3, " ").padEnd(3, " ")} | ${r[5].toString().padStart(3, " ").padEnd(3, " ")} | ${formatUptime(r[6]).padStart(3, " ").padEnd(3, " ")}`));
+        data.push(`${"ID".padStart(3, " ").padEnd(3, " ")} | ${"Guilds".padStart(3, " ").padEnd(3, " ")} | ${"Channels".padStart(3, " ").padEnd(3, " ")} | ${"Users".padStart(6, " ").padEnd(7, " ")} | ${"Memory".padStart(4, " ").padEnd(4, " ")} | ${"Voice".padStart(3, " ").padEnd(3, " ")} | ${"Uptime".padStart(3, " ").padEnd(3, " ")}\n`);
+        result.map(r => data.push(`${(r[0]+1).toString().padStart(3, " ").padEnd(3, " ")} | ${r[1].toString().padStart(6, " ").padEnd(6, " ")} | ${r[2].toString().padStart(8, " ").padEnd(8, " ")} | ${r[3].toString().padStart(7, " ").padEnd(7, " ")} | ${r[4].toString().padStart(6, " ").padEnd(6, " ")} | ${r[5].toString().padStart(5, " ").padEnd(5, " ")} | ${formatUptime(r[6]).padStart(3, " ").padEnd(3, " ")}`));
         data.push(`\`\`\``);
 
         return msg.sendMessage(data.join("\n"));
