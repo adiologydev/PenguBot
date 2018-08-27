@@ -8,6 +8,8 @@ const soundcloud = /https:\/\/soundcloud\.com\/.*/i;
 const scPlaylist = /https:\/\/?soundcloud.com\/.*\/.*\/.*/i;
 const wcSc = /scsearch:.*/;
 const wcYt = /ytsearch:.*/;
+const jpop = /(listen.moe|listen moe|listen.moe jpop|listen moe jpop|jpop moe|jpop listen moe|jpop listen.moe|listen.moe\/jpop)/i;
+const kpop = /(listen.moe kpop|listen moe kpop|kpop moe|kpop listen moe|kpop listen.moe|listen.moe\/kpop)/i;
 const paste = /https:\/\/paste.pengubot.com\/(.*)/i;
 
 module.exports = class extends Argument {
@@ -58,6 +60,14 @@ module.exports = class extends Argument {
             const wildcardRes = await this.getTracks(node, arg);
             if (!wildcardRes.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
             results.push(wildcardRes.tracks[0]);
+        } else if(jpop.exec(arg)) {
+            const getJpop = await this.getTracks(node, "https://listen.moe/opus");
+            if(!getJpop) throw msg.language.get("ER_MUSIC_NF");
+            results.push(getJpop.tracks[0]);
+        } else if(kpop.exec(arg)) {
+            const getJpop = await this.getTracks(node, "https://listen.moe/kpop/opus");
+            if(!getJpop) throw msg.language.get("ER_MUSIC_NF");
+            results.push(getJpop.tracks[0]);
         } else {
             let searchRes = await this.getTracks(node, `ytsearch:${arg}`);
             if (!searchRes.tracks[0]) searchRes = await this.getTracks(node, `scsearch:${arg}`);
