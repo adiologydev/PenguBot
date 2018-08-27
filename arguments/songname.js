@@ -61,11 +61,11 @@ module.exports = class extends Argument {
             if (!wildcardRes.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
             results.push(wildcardRes.tracks[0]);
         } else if(jpop.exec(arg)) {
-            const getJpop = await this.getTracks(node, "https://listen.moe/opus");
+            const getJpop = await this.getTracks(node, "https://listen.moe/stream");
             if(!getJpop) throw msg.language.get("ER_MUSIC_NF");
             results.push(getJpop.tracks[0]);
         } else if(kpop.exec(arg)) {
-            const getJpop = await this.getTracks(node, "https://listen.moe/kpop/opus");
+            const getJpop = await this.getTracks(node, "https://listen.moe/kpop/stream");
             if(!getJpop) throw msg.language.get("ER_MUSIC_NF");
             results.push(getJpop.tracks[0]);
         } else {
