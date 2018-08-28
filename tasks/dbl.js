@@ -6,10 +6,10 @@ module.exports = class extends Task {
     async run() {
         if (this.client.user.id !== "303181184718995457") return;
         const stats = { server_count: this.client.guilds.size, shard_id: this.client.shard.id, shard_count: this.client.shard.count };
-        
+
         let [guilds, vc, users] = [0, 0, 0];
         const results = await this.client.shard.broadcastEval(`[this.guilds.reduce((prev, val) => val.memberCount + prev, 0), this.guilds.size, this.lavalink.size`);
-        
+
         for (const result of results) {
             users += result[0];
             vc = +result[3];
