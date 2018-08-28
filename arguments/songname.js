@@ -60,13 +60,13 @@ module.exports = class extends Argument {
             const wildcardRes = await this.getTracks(node, arg);
             if (!wildcardRes.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
             results.push(wildcardRes.tracks[0]);
-        } else if(jpop.exec(arg)) {
+        } else if (jpop.exec(arg)) {
             const getJpop = await this.getTracks(node, "https://listen.moe/stream");
-            if(!getJpop) throw msg.language.get("ER_MUSIC_NF");
+            if (!getJpop) throw msg.language.get("ER_MUSIC_NF");
             results.push(getJpop.tracks[0]);
-        } else if(kpop.exec(arg)) {
+        } else if (kpop.exec(arg)) {
             const getJpop = await this.getTracks(node, "https://listen.moe/kpop/stream");
-            if(!getJpop) throw msg.language.get("ER_MUSIC_NF");
+            if (!getJpop) throw msg.language.get("ER_MUSIC_NF");
             results.push(getJpop.tracks[0]);
         } else {
             let searchRes = await this.getTracks(node, `ytsearch:${arg}`);
