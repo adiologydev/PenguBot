@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/AdityaTD/PenguBot#readme",
   "dependencies": {
+    "@discordjs/uws": "^10.149.0",
     "canvas": "github:Automattic/node-canvas#92b192447e9b9ae98da0f801e4e34afdd1dc1ef8",
     "canvas-constructor": "github:kyranet/canvasConstructor",
     "cheerio": "^1.0.0-rc.2",
@@ -41,7 +42,6 @@
     "klasa-functions": "github:QuantumPlugin/klasa-functions-plugin",
     "raven": "^2.6.3",
     "rethinkdbdash": "^2.3.31",
-    "uws": "^99.0.0",
     "zlib-sync": "^0.1.4"
   },
   "devDependencies": {
