@@ -1,6 +1,6 @@
 const { Command } = require("klasa");
 const snekfetch = require("snekfetch");
-const { MessageEmbed } = require("discord.js");
+// const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
 
@@ -15,8 +15,9 @@ module.exports = class extends Command {
         });
     }
 
-    async run(msg, [name]) {
-        const text = name.toUpperCase();
+    async run(msg) {
+        return msg.sendMessage(`${this.client.emotes.cross} ***Unfortunately due to the provider of this command's API getting down, this command is temporarily disabled.***`);
+        /* const text = name.toUpperCase();
         if (/^[a-zA-Z0-9 ]+$/g.test(text) && text.length < 11) {
             try {
                 let gif = await this.fetchGIF(text);
@@ -37,7 +38,7 @@ module.exports = class extends Command {
             }
         } else {
             return msg.sendMessage("<:penguError:435712890884849664> Invalid Input, please enter 10 or fewer characters. (A-Z, 0-9)");
-        }
+        }*/
     }
 
     async createGIF(text) {
