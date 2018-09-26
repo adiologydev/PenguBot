@@ -16,7 +16,7 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        return msg.sendMessage(`${this.client.emotes.cross} ***Unfortunately due to the provider of this command's API getting down, this command is temporarily disabled.***`);
+        return msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("ER_API")}***`);
         /* const text = name.toUpperCase();
         if (/^[a-zA-Z0-9 ]+$/g.test(text) && text.length < 11) {
             try {

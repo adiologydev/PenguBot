@@ -17,7 +17,7 @@ module.exports = class extends MusicCommand {
     async run(msg) {
         const { music } = msg.guild;
         const { queue } = music;
-        if (!music.playing) return msg.sendMessage("<:penguError:435712890884849664> ***There's currently no music playing!***");
+        if (!music.playing) return msg.sendMessage(`${this.client.emotes.cross} ***There's currently no music playing!***`);
 
         const pages = new RichDisplay(new MessageEmbed()
             .setTitle("Use the reactions to change pages, select a page, or stop viewing the queue")
@@ -30,7 +30,7 @@ module.exports = class extends MusicCommand {
             const curr = queue.slice(i, i + 5);
             pages.addPage(t => t.setDescription(curr.map(y => `\`-\` [${y.title.replace(/\*/g, "\\*")}](${y.url}) (${y.friendlyDuration})`).join("\n")));
         }
-        pages.run(await msg.sendMessage("<a:penguLoad:435712860744581120> Loading Queue..."), {
+        pages.run(await msg.sendMessage(`${this.client.emotes.loading} Loading Queue...`), {
             time: 120000,
             filter: (reaction, user) => user === msg.author
         });

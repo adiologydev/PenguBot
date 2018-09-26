@@ -17,11 +17,11 @@ module.exports = class extends MusicCommand {
     async run(msg) {
         const { music } = msg.guild;
         const { queue } = music;
-        if (!music.playing) return msg.sendMessage("<:penguError:435712890884849664> There's currently no music playing!");
-        if (queue.length <= 2) return msg.sendMessage("<:penguError:435712890884849664> Your queue has less than two songs, add more to shuffle!");
+        if (!music.playing) return msg.sendMessage(`${this.client.emotes.cross} There's currently no music playing!`);
+        if (queue.length <= 2) return msg.sendMessage(`${this.client.emotes.cross} Your queue has less than two songs, add more to shuffle!`);
 
         this.shuffleArray(queue);
-        return msg.sendMessage("<:penguSuccess:435712876506775553> ***Queue has now been shuffled!***");
+        return msg.sendMessage(`${this.client.emotes.check} ***Queue has now been shuffled!***`);
     }
 
     shuffleArray(array) {

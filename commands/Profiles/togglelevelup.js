@@ -18,10 +18,10 @@ module.exports = class extends Command {
     async run(msg) {
         if (msg.guild.settings.levelup) {
             await msg.guild.settings.update("levelup", false);
-            return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Level Up announcements have been Disabled!***`);
+            return msg.sendMessage(`${this.client.emotes.check} ***Level Up announcements have been Disabled!***`);
         } else {
             await msg.guild.settings.update("levelup", true);
-            return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Level Up announcements have been Enabled!***`);
+            return msg.sendMessage(`${this.client.emotes.check} ***Level Up announcements have been Enabled!***`);
         }
     }
 

@@ -21,7 +21,7 @@ module.exports = class extends Command {
         }
         await msg.author.settings.sync(true);
         msg.author.settings.update("title", title);
-        return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Your profile title has been updated to:*** ${title}`);
+        return msg.sendMessage(`${this.client.emotes.check} ***Your profile title has been updated to:*** ${title}`);
     }
 
 };

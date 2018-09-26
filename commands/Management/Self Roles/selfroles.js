@@ -21,7 +21,7 @@ module.exports = class extends Command {
 
     async list(msg) {
         const { roles } = msg.guild.settings.selfroles;
-        if (!roles.length) return msg.sendMessage(`${this.client.emotes.cross} ***This guild does not have any self assignable roles.***`);
+        if (!roles.length) return msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("CMD_NO_SELFROLES")}***`);
         const pages = new RichDisplay(new MessageEmbed()
             .setTitle("Use the reactions to change pages, select a page, or stop viewing the roles")
             .setAuthor("Self Roles - PenguBot", msg.author.displayAvatarURL())
@@ -38,7 +38,7 @@ module.exports = class extends Command {
 
     async add(msg, [role]) {
         const { roles } = msg.guild.settings.selfroles;
-        if (!roles || !role) return msg.sendMessage(`${this.client.emotes.cross} ***This guild does not have any self assignable roles or you didn't mention any.***`);
+        if (!roles || !role) return msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("CMD_NO_SELFROLES")}***`);
         if (!roles.includes(role.id)) return msg.sendMessage(`${this.client.emotes.cross} ***That given role is not self assignable do \`${msg.guildSettings.prefix}selfroles list\` to know all the self assignable roles.***`);
 
         const myRole = msg.guild.me.roles.find(r => r.managed);

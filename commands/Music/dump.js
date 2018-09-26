@@ -17,8 +17,8 @@ module.exports = class extends MusicCommand {
     async run(msg) {
         const { music } = msg.guild;
         const { queue } = music;
-        if (await this.client.funcs.isUpvoter(msg.author)) return msg.sendMessage("<:penguError:435712890884849664> **You must be an upvoter in order to dump the queue:** <https://www.pengubot.com/upvote>");
-        if (!music.playing) return msg.sendMessage(`<:penguError:435712890884849664> ***There's currently no music playing!***`);
+        if (await this.client.funcs.isUpvoter(msg.author)) return msg.sendMessage(`${this.client.emotes.cross} **You must be an upvoter in order to dump the queue:** <https://www.pengubot.com/upvote>`);
+        if (!music.playing) return msg.sendMessage(`${this.client.emotes.cross} ***There's currently no music playing!***`);
 
         const raw = { info: "This file was created by PenguBot.com", songs: [] };
         for (const song of queue) {
@@ -26,7 +26,7 @@ module.exports = class extends MusicCommand {
         }
 
         const paste = await this.upload(raw);
-        return msg.sendMessage(`<:penguSuccess:435712876506775553> **Raw dump of current queue has been created:** ${paste}\n**Tip:** Save this URL to use with the \`play\` command to instantly load a queue.`);
+        return msg.sendMessage(`${this.client.emotes.check} **Raw dump of current queue has been created:** ${paste}\n**Tip:** Save this URL to use with the \`play\` command to instantly load a queue.`);
     }
 
     async upload(data) {

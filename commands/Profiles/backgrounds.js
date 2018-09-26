@@ -40,7 +40,7 @@ module.exports = class extends Command {
                 bgs.addPage(t => t.setDescription(curr.map(c => `• ${c}`)));
             }
 
-            bgs.run(await msg.sendMessage("<a:penguLoad:435712860744581120> Loading List..."), {
+            bgs.run(await msg.sendMessage(`${this.client.emotes.loading} Loading List...`), {
                 time: 120000,
                 filter: (reaction, user) => user === msg.author
             });
@@ -58,7 +58,7 @@ module.exports = class extends Command {
                     .setDescription(`**ID:** ${bg.c} | **Name:** ${bg.n} | **Price:** ${bg.p}`));
             }
 
-            bgs.run(await msg.sendMessage("<a:penguLoad:435712860744581120> Loading List..."), {
+            bgs.run(await msg.sendMessage(`${this.client.emotes.loading} Loading List...`), {
                 time: 120000,
                 filter: (reaction, user) => user === msg.author
             });
@@ -153,12 +153,12 @@ module.exports = class extends Command {
 
     async updateOwnership(msg, name, price) {
         await msg.author.settings.update([["snowflakes", msg.author.settings.snowflakes - price], ["backgrounds", name], ["profilebg", name]]);
-        return msg.sendMessage(`<:penguSuccess:435712876506775553> ***You just bought and set your background to \`${name}\` for ${price} Snowflakes.***`);
+        return msg.sendMessage(`${this.client.emotes.check} ***You just bought and set your background to \`${name}\` for ${price} Snowflakes.***`);
     }
 
     async updateBG(msg, name) {
         await msg.author.settings.update("profilebg", name);
-        return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Your Profile Background is now set to: \`${name}\`***`);
+        return msg.sendMessage(`${this.client.emotes.check} ***Your Profile Background is now set to: \`${name}\`***`);
     }
 
 };

@@ -289,7 +289,16 @@ module.exports = class extends Language {
             // Custom Messages
             ER_TRY_AGAIN: "I am very sorry but was an error, please try again or contact us at https://discord.gg/kWMcUNe",
             ER_MUSIC_TRIP: "I tripped on a wire! *Ouch!* It hurts but I'll recover, try again later or contact us at https://discord.gg/kWMcUNe",
-            ER_MUSIC_NF: "<:penguError:435712890884849664> I could not find any results for your query, please try again with a different one or contact us at https://discord.gg/kWMcUNe"
+            ER_MUSIC_NF: "<:penguError:435712890884849664> I could not find any results for your query, please try again with a different one or contact us at https://discord.gg/kWMcUNe",
+            ER_CATS_DOGS: "There was an error, I think a cat has cut the wire off, dogs don't do that.",
+            ER_API: "Unfortunately due to the provider of this command's API getting down, this command is temporarily disabled.",
+            ER_TINDER: "Can't match you with yourself...",
+            CMD_LOG_DISABLED: "logging is now Disabled.",
+            CMD_LOG_ENABLED: "logging is now Enabled.",
+            CMD_NO_SELFROLES: "This guild does not have any self assignable roles.",
+            CMD_SELF_ASSIGNABLE: "role is now self assignable.",
+            CMD_NO_ASSIGNABLE: "role is no longer self assignable.",
+            ER_NO_DM: "Can't send Direct Message to you because your DMs are not open."
         };
     }
 

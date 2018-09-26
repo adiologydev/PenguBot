@@ -13,7 +13,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [Page]) {
-        const load = await msg.sendMessage(`<a:penguLoad:435712860744581120> ***Let me process all that data through my igloo, give me a few...***`);
+        const load = await msg.sendMessage(`${this.client.emotes.loading} ***Let me process all that data through my igloo, give me a few...***`);
         const r = this.client.providers.default.db;
         let users;
         if (this.client.topCache.length) { users = this.client.topCache; } else {

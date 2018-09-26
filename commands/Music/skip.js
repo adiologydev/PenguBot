@@ -25,7 +25,7 @@ module.exports = class extends MusicCommand {
 
         const vote = this.votes.get(msg.guild.id);
         if (vote && vote.count >= 1) {
-            if (vote.users.some(user => user === msg.author.id)) return msg.reply("<:penguError:435712890884849664> You've already voted to skip this song.");
+            if (vote.users.some(user => user === msg.author.id)) return msg.reply(`${this.client.emotes.cross} You've already voted to skip this song.`);
 
             vote.count++;
             vote.users.push(msg.author.id);
@@ -61,7 +61,7 @@ module.exports = class extends MusicCommand {
 
         const [song] = guild.music.queue;
         guild.music.skip();
-        return `<:penguSuccess:435712876506775553> Skipped: **${song ? song.title : "N/A"}**`;
+        return `${this.client.emotes.check} Skipped: **${song ? song.title : "N/A"}**`;
     }
 
     setTimeout(textChannel, vote) {
@@ -69,7 +69,7 @@ module.exports = class extends MusicCommand {
         clearTimeout(vote.timeout);
         vote.timeout = setTimeout(() => {
             this.votes.delete(vote.guild);
-            textChannel.send("<:penguSuccess:435712876506775553> The vote to skip the current song has ended.");
+            textChannel.send(`${this.client.emotes.check} The vote to skip the current song has ended.`);
         }, time);
 
         return Math.round(time / 1000);

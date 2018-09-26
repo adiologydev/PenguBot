@@ -10,7 +10,7 @@ module.exports = class extends Command {
             cooldown: 5,
             requiredPermissions: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
             description: language => language.get("COMMAND_USERINFO_DESCRIPTION"),
-            usage: "[user:username]",
+            usage: "[user:membername]",
             extendedHelp: "No extended help available."
         });
         this.timestamp = new Timestamp("d MMMM YYYY");

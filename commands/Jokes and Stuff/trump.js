@@ -16,7 +16,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [user = msg.author]) {
-        const { body } = await get(`https://api.whatdoestrumpthink.com/api/v1/quotes/personalized?q=${encodeURI(user.username)}`).catch(() => msg.sendMessage("There was an error, I think a cat has cut the wire off, dogs don't do that."));
+        const { body } = await get(`https://api.whatdoestrumpthink.com/api/v1/quotes/personalized?q=${encodeURI(user.username)}`).catch(() => msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("ER_CATS_DOGS")}***`));
         if (!body.message) throw msg.language.get("ER_TRY_AGAIN");
         const embed = new MessageEmbed()
             .setDescription(`**Get Trumped**\n\n${body.message}`)

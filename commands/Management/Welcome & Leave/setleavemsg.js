@@ -18,7 +18,7 @@ module.exports = class extends Command {
 
     async run(msg, [message]) {
         return msg.guild.settings.update("messages.leave.message", message).then(() => {
-            msg.sendMessage(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_LEAVE_SET")}***`);
+            msg.sendMessage(`${this.client.emotes.check} ***${msg.language.get("MESSAGE_LEAVE_SET")}***`);
         });
     }
 
