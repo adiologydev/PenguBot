@@ -29,8 +29,8 @@ module.exports = class extends Command {
             if (user.bot) return msg.reply("You can not send Snowflakes to bot accounts.");
             if (msg.author.id === user.id) return msg.reply("You can not send Snowflakes to yourself.");
             const userSnowflakes = user.settings.snowflakes;
-            const confirm = await msg.awaitReply(`${msg.author}, Please confirm the transfer of ❄ **${amount.toLocaleString()} Snowflake(s)** to ${user} by typing \`YES\` or \`NO\`.`);
-            if (confirm.toLowerCase() === "yes" || confirm.toLowerCase() === "y") {
+            const confirm = await msg.prompt(`${msg.author}, Please confirm the transfer of ❄ **${amount.toLocaleString()} Snowflake(s)** to ${user} by typing \`YES\` or \`NO\`.`);
+            if (confirm.content.toLowerCase() === "yes" || confirm.content.toLowerCase() === "y") {
                 await user.settings.sync(true);
                 msg.author.settings.update("snowflakes", currSnowflakes - amount);
                 user.settings.update("snowflakes", userSnowflakes + amount);
