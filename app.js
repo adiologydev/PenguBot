@@ -40,7 +40,9 @@ Raven.context(() => {
         aliasFunctions: { returnRun: true, enabled: true, prefix: "funcs" },
         dashboardHooks: { apiPrefix: "/" },
         clientSecret: config.dashboard.secret,
-        clientID: config.dashboard.id
+        clientID: config.dashboard.id,
+        messageSweepInterval: 60,
+        commandMessageLifetime: 60
     }).login(config.main.token);
 });
 
