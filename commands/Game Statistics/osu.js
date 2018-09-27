@@ -1,4 +1,4 @@
-const { Command } = require("klasa");
+const Command = require("../../lib/structures/KlasaCommand");
 
 module.exports = class extends Command {
 
@@ -15,7 +15,7 @@ module.exports = class extends Command {
 
     async run(msg, [Username]) {
         const image = await this.client.idiotic.osu(Username).catch(() => null);
-        if (!image) return msg.reply("Either the user couldn't be found or we're having some issues.");
+        if (!image) return msg.reply(msg.language.get("CMD_OSU_ERR"));
         return msg.channel.sendFile(image);
     }
 

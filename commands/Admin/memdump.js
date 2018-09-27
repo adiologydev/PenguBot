@@ -1,4 +1,4 @@
-const { Command } = require("klasa");
+const Command = require("../../lib/structures/KlasaCommand");
 const { join } = require("path");
 const writeSnapshot = require("util")
     .promisify(require("heapdump").writeSnapshot);

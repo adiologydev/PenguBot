@@ -15,7 +15,7 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        if (msg.guild.settings.customcmds.cmds[0] === undefined) return msg.reply(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_NO_CMDS")}***`);
+        if (msg.guild.settings.customcmds.cmds[0] === undefined) return msg.reply(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_NO_CMDS")}***`);
         const prefix = msg.guild.settings.get("prefix");
         const names = msg.guild.settings.customcmds.cmds.map(cmd => cmd.name);
 
@@ -31,7 +31,7 @@ module.exports = class extends Command {
             cmds.addPage(t => t.setDescription(curr.map(c => `• ${prefix}${c}`)));
         }
 
-        cmds.run(await msg.sendMessage("<a:penguLoad:435712860744581120> Loading Commands..."), {
+        cmds.run(await msg.sendMessage(`${this.client.emotes.loading} Loading Commands...`), {
             time: 120000,
             filter: (reaction, user) => user === msg.author
         });

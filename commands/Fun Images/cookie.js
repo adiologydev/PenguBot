@@ -1,4 +1,4 @@
-const { Command } = require("klasa");
+const Command = require("../../lib/structures/KlasaCommand");
 const { MessageEmbed } = require("discord.js");
 
 const cookies = ["http://i.imgur.com/SLwEY66.gif", "http://i.imgur.com/K6VoNp3.gif", "http://i.imgur.com/knVM6Lb.gif",
@@ -27,7 +27,7 @@ module.exports = class extends Command {
             .setTimestamp()
             .setImage(cookies[Math.floor(Math.random() * cookies.length)])
             .setColor("RANDOM");
-        return msg.sendMessage(`***<@${user.id}>, you've been given a cookie by ${msg.author}!***`, { embed: embed });
+        return msg.sendMessage(`***<@${user.id}>, ${msg.language.get("CMD_FUN_COOKIE")} ${msg.author}!***`, { embed: embed });
     }
 
 };

@@ -1,4 +1,4 @@
-const { Command } = require("klasa");
+const Command = require("../../lib/structures/KlasaCommand");
 const { get } = require("snekfetch");
 const { MessageEmbed } = require("discord.js");
 
@@ -19,12 +19,12 @@ module.exports = class extends Command {
         const data = await get(`https://api.clashofclans.com/v1/players/${encodeURIComponent(tag.toUpperCase().replace(/O/g, "0"))}`)
             .set({ Accept: "application/json", Authorization: `Bearer ${this.client.config.keys.games.cocapi}` })
             .catch(error => {
-                if (error.reason === "notFound") msg.sendMessage("<:penguError:435712890884849664> ***Invalid Tag, please retry with a valid one which you can find under In-game.***");
+                if (error.reason === "notFound") msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("CMD_COC_TAG")}***`);
                 Error.captureStackTrace(error);
                 return null;
             });
 
-        if (!data) return msg.reply("Couldn't find your data, try again later.");
+        if (!data) return msg.reply(msg.language.get("CMD_COC_DATA"));
 
         const playerData = data.body;
 

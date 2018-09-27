@@ -1,4 +1,4 @@
-const { Command } = require("klasa");
+const Command = require("../../../lib/structures/KlasaCommand");
 module.exports = class extends Command {
 
     constructor(...args) {

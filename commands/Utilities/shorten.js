@@ -1,4 +1,4 @@
-const { Command } = require("klasa");
+const Command = require("../../lib/structures/KlasaCommand");
 const { get } = require("snekfetch");
 
 module.exports = class extends Command {

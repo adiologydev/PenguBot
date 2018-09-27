@@ -1,4 +1,4 @@
-const { Command } = require("klasa");
+const Command = require("../../lib/structures/KlasaCommand");
 
 module.exports = class extends Command {
 
@@ -17,15 +17,15 @@ module.exports = class extends Command {
     }
 
     async run(msg, [name, ...content]) {
-        if (this.client.commands.has(name)) return msg.reply(`<:penguError:435712890884849664> ***\`${name}\` ${msg.language.get("MESSAGE_CMD_EXISTS")}***`);
+        if (this.client.commands.has(name)) return msg.reply(`${this.client.emotes.cross} ***\`${name}\` ${msg.language.get("MESSAGE_CMD_EXISTS")}***`);
         const cmd = msg.guild.settings.customcmds.cmds.find(c => c.name === name);
         if (cmd) {
             await msg.guild.settings.update("customcmds.cmds", cmd, { action: "remove" }).then(() => {
                 msg.guild.settings.update("customcmds.cmds", { content: content.join(" "), name: cmd.name }, { action: "add" });
             });
-            return msg.sendMessage(`<:penguSuccess:435712876506775553> ***\`${name}\` ${msg.language.get("MESSAGE_CMD_UPDATED")} ${msg.author.tag}!***`);
+            return msg.sendMessage(`${this.client.emotes.check} ***\`${name}\` ${msg.language.get("MESSAGE_CMD_UPDATED")} ${msg.author.tag}!***`);
         } else {
-            return msg.reply(`<:penguError:435712890884849664> ***\`${name}\` ${msg.language.get("MESSAGE_CMD_NOTFOUND")}***`);
+            return msg.reply(`${this.client.emotes.cross} ***\`${name}\` ${msg.language.get("MESSAGE_CMD_NOTFOUND")}***`);
         }
     }
 

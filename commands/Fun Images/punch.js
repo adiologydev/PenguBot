@@ -1,4 +1,4 @@
-const { Command } = require("klasa");
+const Command = require("../../lib/structures/KlasaCommand");
 const { MessageEmbed } = require("discord.js");
 
 const punches = ["http://i.imgur.com/aGPHQ3E.gif", "http://i.imgur.com/FxFfdOZ.gif", "http://i.imgur.com/XA7PPiy.gif",
@@ -28,7 +28,7 @@ module.exports = class extends Command {
             .setTimestamp()
             .setImage(punches[Math.floor(Math.random() * punches.length)])
             .setColor("RANDOM");
-        return msg.sendMessage(`👊 | ***${user}, you just got punched by ${msg.author}!***`, { embed: embed });
+        return msg.sendMessage(`👊 | ***${user}, ${msg.language.get("CMD_FUN_PUNCH")} ${msg.author}!***`, { embed: embed });
     }
 
 };

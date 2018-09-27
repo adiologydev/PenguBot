@@ -1,4 +1,4 @@
-const { Command } = require("klasa");
+const Command = require("../../../lib/structures/KlasaCommand");
 const { RichDisplay } = require("klasa");
 const { MessageEmbed } = require("discord.js");
 

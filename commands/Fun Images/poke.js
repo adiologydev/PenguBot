@@ -1,4 +1,4 @@
-const { Command } = require("klasa");
+const Command = require("../../lib/structures/KlasaCommand");
 const { get } = require("snekfetch");
 const { MessageEmbed } = require("discord.js");
 
@@ -25,7 +25,7 @@ module.exports = class extends Command {
             .setTimestamp()
             .setImage(body.url)
             .setColor("RANDOM");
-        return msg.sendMessage(`👈 | ***${user}, you just got poked by ${msg.author}!***`, { embed: embed });
+        return msg.sendMessage(`👈 | ***${user}, ${msg.language.get("CMD_FUN_POKE")} ${msg.author}!***`, { embed: embed });
     }
 
 };

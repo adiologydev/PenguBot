@@ -1,4 +1,4 @@
-const { Command } = require("klasa");
+const Command = require("../../lib/structures/KlasaCommand");
 const { get } = require("snekfetch");
 const { MessageEmbed } = require("discord.js");
 
@@ -25,8 +25,8 @@ module.exports = class extends Command {
                 throw e;
             });
 
-        if (!data || !data.body) throw "<:penguError:435712890884849664> ***Invalid Username or Platform, please retry with either of these platforms: `pc`. `xbox`, `psn`.***";
-        if (data.body.error) throw "<:penguError:435712890884849664> ***There was an error in the Tracking API, please try again later.***";
+        if (!data || !data.body) throw `${this.client.emotes.cross} ***${msg.language.get("CMD_FORT_PLAT")}***`;
+        if (data.body.error) throw `${this.client.emotes.cross} ***${msg.language.get("CMD_FORT_ERR")}***`;
 
         return msg.sendMessage(new MessageEmbed()
             .setTitle("Fortnite Battle Royale Statistics - PenguBot")

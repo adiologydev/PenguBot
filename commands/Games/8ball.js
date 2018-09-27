@@ -1,4 +1,4 @@
-const { Command } = require("klasa");
+const Command = require("../../lib/structures/KlasaCommand");
 const answers = [
     "Maybe.", "Certainly not.", "I hope so.", "Not in your wildest dreams.",
     "There is a good chance.", "Quite likely.", "I think so.",

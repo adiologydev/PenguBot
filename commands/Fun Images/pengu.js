@@ -1,4 +1,4 @@
-const { Command } = require("klasa");
+const Command = require("../../lib/structures/KlasaCommand");
 const { MessageEmbed } = require("discord.js");
 
 const pics = ["http://i.imgur.com/Urfp335.png",
@@ -29,7 +29,7 @@ module.exports = class extends Command {
             .setTimestamp()
             .setImage(pics[Math.floor(Math.random() * pics.length)])
             .setColor("RANDOM");
-        return msg.sendMessage(`<:pengu:383632112323919872> | ***${msg.author}, here's the cute Pengu picture you requested!***`, { embed: embed });
+        return msg.sendMessage(`<:pengu:383632112323919872> | ***${msg.author}, ${msg.language.get("CMD_FUN_PENGU")}!***`, { embed: embed });
     }
 
 };

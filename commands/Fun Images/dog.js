@@ -1,4 +1,4 @@
-const { Command } = require("klasa");
+const Command = require("../../lib/structures/KlasaCommand");
 const { get } = require("snekfetch");
 const { MessageEmbed } = require("discord.js");
 
@@ -15,17 +15,21 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        const { body } = await get("http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=false").catch(e => {
-            Error.captureStackTrace(e);
-            return e;
-        });
-        const embed = new MessageEmbed()
-            .setFooter("© PenguBot.com")
-            .setTimestamp()
-            .setColor("RANDOM")
-            .setDescription(`**Dog Picture**`)
-            .setImage(body[0]);
-        return msg.sendEmbed(embed);
+        try {
+            const { body } = await get("http://shibe.online/api/shibes?count=1&urls=true&httpsUrls=false").catch(e => {
+                Error.captureStackTrace(e);
+                return e;
+            });
+            const embed = new MessageEmbed()
+                .setFooter("© PenguBot.com")
+                .setTimestamp()
+                .setColor("RANDOM")
+                .setDescription(`**Dog Picture**`)
+                .setImage(body[0]);
+            return msg.sendEmbed(embed);
+        } catch (e) {
+            return msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("ER_CATS_DOGS")}***`);
+        }
     }
 
 };

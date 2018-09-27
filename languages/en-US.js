@@ -298,7 +298,24 @@ module.exports = class extends Language {
             CMD_NO_SELFROLES: "This guild does not have any self assignable roles.",
             CMD_SELF_ASSIGNABLE: "role is now self assignable.",
             CMD_NO_ASSIGNABLE: "role is no longer self assignable.",
-            ER_NO_DM: "Can't send Direct Message to you because your DMs are not open."
+            ER_NO_DM: "Can't send Direct Message to you because your DMs are not open.",
+            CMD_FUN_COOKIE: "you've been given a cookie by",
+            CMD_FUN_CUDDLE: "you just got cuddled by",
+            CMD_FUN_FED: "you just got fed by",
+            CMD_FUN_HUG: "you just got hugged by",
+            CMD_FUN_KISS: "you just got kissed by",
+            CMD_FUN_PAT: "you just got patted by",
+            CMD_FUN_POKE: "you just got poked by",
+            CMD_FUN_PUNCH: "you just got punched by",
+            CMD_FUN_SLAP: "you just got slapped by",
+            CMD_FUN_TICKLE: "you just got tickled by",
+            CMD_FUN_PENGU: "here's the cute Pengu picture you requested",
+            CMD_COC_TAG: "Invalid Tag, please retry with a valid one which you can find under In-game.",
+            CMD_COC_DATA: "Couldn't find your data, try again later.",
+            CMD_FORT_PLAT: "Invalid Username or Platform, please retry with either of these platforms: `pc`. `xbox`, `psn`.",
+            CMD_FORT_ERR: "There was an error in the Tracking API, please try again later.",
+            CMD_OSU_ERR: "Either the user couldn't be found or we're having some issues.",
+            CMD_UPVOTE_ONLY: "You are not an up-voter of PenguBot, please visit <https://www.pengubot.com/upvote> to vote now and get access!"
         };
     }
 

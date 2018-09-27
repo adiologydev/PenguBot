@@ -1,4 +1,4 @@
-const { Command } = require("klasa");
+const Command = require("../../lib/structures/KlasaCommand");
 
 module.exports = class extends Command {
 
@@ -17,9 +17,9 @@ module.exports = class extends Command {
 
     async run(msg, [name]) {
         const cmd = msg.guild.settings.customcmds.cmds.find(c => c.name === name);
-        if (!cmd) return msg.reply(`<:penguError:435712890884849664> ***\`${name}\` ${msg.language.get("MESSAGE_CMD_NOTFOUND")}***`);
+        if (!cmd) return msg.reply(`${this.client.emotes.cross} ***\`${name}\` ${msg.language.get("MESSAGE_CMD_NOTFOUND")}***`);
         await msg.guild.settings.update("customcmds.cmds", cmd, { action: `remove` });
-        return msg.sendMessage(`<:penguSuccess:435712876506775553> ***\`${name}\` ${msg.language.get("MESSAGE_CMD_REMOVED")} ${msg.author.tag}!***`);
+        return msg.sendMessage(`${this.client.emotes.check} ***\`${name}\` ${msg.language.get("MESSAGE_CMD_REMOVED")} ${msg.author.tag}!***`);
     }
 
 };

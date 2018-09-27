@@ -1,4 +1,4 @@
-const { Command } = require("klasa");
+const Command = require("../../lib/structures/KlasaCommand");
 const { get } = require("snekfetch");
 const { MessageEmbed } = require("discord.js");
 
@@ -23,10 +23,10 @@ module.exports = class extends Command {
                 return e;
             });
         } catch (e) {
-            return msg.sendMessage("<:penguError:435712890884849664> ***Invalid Tag, please retry with a valid one which you can find under Game Settings.***");
+            return msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("ER_COC_TAG")}***`);
         }
 
-        if (!data || !data.body.stats) return msg.reply("There was an error, please try again later.");
+        if (!data || !data.body.stats) return msg.reply(msg.language.get("ER_COC_DATA"));
 
         const { body } = data;
         const embed = new MessageEmbed()

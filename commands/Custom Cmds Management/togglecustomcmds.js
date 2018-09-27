@@ -1,4 +1,4 @@
-const { Command } = require("klasa");
+const Command = require("../../lib/structures/KlasaCommand");
 
 module.exports = class extends Command {
 
@@ -17,11 +17,11 @@ module.exports = class extends Command {
     async run(msg) {
         if (msg.guild.settings.get("customcmds.enabled") === false) {
             return msg.guild.settings.update("customcmds.enabled", true).then(() => {
-                msg.sendMessage(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_COMMAND_CUSTOM_ENABLED")}***`);
+                msg.sendMessage(`${this.client.emotes.check} ***${msg.language.get("MESSAGE_COMMAND_CUSTOM_ENABLED")}***`);
             });
         } else {
             return msg.guild.settings.update("customcmds.enabled", false).then(() => {
-                msg.sendMessage(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_COMMAND_CUSTOM_DISABLED")}***`);
+                msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_COMMAND_CUSTOM_DISABLED")}***`);
             });
         }
     }

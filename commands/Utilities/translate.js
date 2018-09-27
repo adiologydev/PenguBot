@@ -1,4 +1,4 @@
-const { Command } = require("klasa");
+const Command = require("../../lib/structures/KlasaCommand");
 const translate = require("google-translate-api");
 
 module.exports = class extends Command {

@@ -1,4 +1,4 @@
-const { Command } = require("klasa");
+const Command = require("../../lib/structures/KlasaCommand");
 const Compliments = [
     "You're my kind of weird.", "I love you more than tea.", "You're a Michelin Star human.",
     "You're a chocolate Hobnob in a jar of Rich Teas.", "You've really nailed being a human. Good job.",
