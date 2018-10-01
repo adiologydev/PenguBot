@@ -3,9 +3,9 @@ const Song = require("../lib/structures/Song");
 const url = require("url");
 const { get } = require("snekfetch");
 
-/* eslint-disable no-useless-escape no-mixed-operators */
+/* eslint-disable no-mixed-operators */
 
-const playlist = /(\?|\&)list=(.*)/i; 
+const playlist = /(\?|\&)list=(.*)/i; // eslint-disable-line no-useless-escape
 const soundcloud = /https:\/\/soundcloud\.com\/.*/i;
 const scPlaylist = /https:\/\/?soundcloud.com\/.*\/.*\/.*/i;
 const wcSc = /scsearch:.*/;
