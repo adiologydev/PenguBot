@@ -1,4 +1,5 @@
 const Command = require("../../lib/structures/KlasaCommand");
+const { Argument } = require("klasa");
 const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
@@ -7,19 +8,20 @@ module.exports = class extends Command {
         super(...args, {
             runIn: ["text"],
             cooldown: 8,
-            permissionLevel: 0,
             requiredPermissions: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
             description: language => language.get("COMMAND_QUOTE_DESCRIPTION"),
-            usage: "<message:message>",
-            extendedHelp: "No extended help available."
+            usage: "[channel:channel] <message:str>"
         });
     }
 
-    async run(msg, [message]) {
-        const image = msg.attachments.size > 0 ? await this.checkAttachments(msg.attachments.array()[0].url) : null;
+    async run(msg, [channel = msg.channel, msgId]) {
+        if (!Argument.regex.snowflake.test(msgId)) throw "Invalid message ID. Use developer mode to copy IDs.";
+        const message = await channel.messages.fetch(msgId).catch(() => null);
+        if (!message) throw "Your message does not exist or is not in this channel. Try specifying the channel it is from.";
+        const image = message.attachments.size > 0 ? this.checkAttachments(message.attachments.first().url) : null;
         const embed = new MessageEmbed()
             .setColor("#FAFAFA")
-            .setDescription(`${message.content}`)
+            .setDescription(message.content)
             .setTimestamp(message.createdAt)
             .setAuthor(message.author.tag, message.author.displayAvatarURL());
         if (image) embed.setImage(image);
