@@ -26,27 +26,27 @@ module.exports = class extends Argument {
         if (!node) throw "Couldn't find an ideal region, please try changing your guild region and try again. If the error presists, contact us at: https://discord.gg/kWMcUNe";
 
         const isLink = this.isLink(arg);
-            if (isLink && playlist.exec(arg) || ( soundcloud.exec(arg) && scPlaylist.exec(arg) )) {
-                const playlistResults = await this.getTracks(node, arg);
-                if (!playlistResults.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
-                results.playlist = playlistResults.playlistInfo.name;
-                results.push(...playlistResults.tracks);
-            } else if (soundcloud.exec(arg) || wcYt.exec(arg) || wcSc.exec(arg)) {
-                    const scSingleRes = await this.getTracks(node, arg);
-                    if (!scSingleRes.tracks) throw msg.language.get("ER_MUSIC_NF");
-                    results.push(scSingleRes.tracks[0]);
-            } else if (paste.exec(arg)) {
-                const rawRes = await get(`https://paste.pengubot.com/raw/${paste.exec(arg)[1]}`);
-                if (!rawRes.body) throw msg.language.get("ER_MUSIC_NF");
-                for (const song of JSON.parse(rawRes.body).songs) {
-                    const songRes = await this.getTracks(node, song);
-                    results.push(songRes.tracks[0]);
-                }
-                results.playlist = "Custom PenguBot Playlist";
-            } else {
-                const httpRes = await this.getTracks(node, arg);
-                if (!httpRes.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
-                results.push(httpRes.tracks[0]);
+        if (isLink && playlist.exec(arg) || ( soundcloud.exec(arg) && scPlaylist.exec(arg) )) {
+            const playlistResults = await this.getTracks(node, arg);
+            if (!playlistResults.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
+            results.playlist = playlistResults.playlistInfo.name;
+            results.push(...playlistResults.tracks);
+        } else if (soundcloud.exec(arg) || wcYt.exec(arg) || wcSc.exec(arg)) {
+            const scSingleRes = await this.getTracks(node, arg);
+            if (!scSingleRes.tracks) throw msg.language.get("ER_MUSIC_NF");
+            results.push(scSingleRes.tracks[0]);
+        } else if (paste.exec(arg)) {
+            const rawRes = await get(`https://paste.pengubot.com/raw/${paste.exec(arg)[1]}`);
+            if (!rawRes.body) throw msg.language.get("ER_MUSIC_NF");
+            for (const song of JSON.parse(rawRes.body).songs) {
+                const songRes = await this.getTracks(node, song);
+                results.push(songRes.tracks[0]);
+            }
+            results.playlist = "Custom PenguBot Playlist";
+        } else if (isLink) {
+            const httpRes = await this.getTracks(node, arg);
+            if (!httpRes.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
+            results.push(httpRes.tracks[0]);
         } else if (jpop.exec(arg)) {
             const getJpop = await this.getTracks(node, "https://listen.moe/stream");
             if (!getJpop) throw msg.language.get("ER_MUSIC_NF");
