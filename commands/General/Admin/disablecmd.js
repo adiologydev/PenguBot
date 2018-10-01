@@ -19,10 +19,10 @@ module.exports = class extends Command {
     async run(msg, [cmd]) {
         if (msg.guild.settings.disabledCommands.indexOf(cmd) === -1) {
             await msg.guild.settings.update("disabledCommands", cmd.name, { action: "add" });
-            return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${cmd.name} command has been Disabled by ${msg.author.tag}!***`);
+            return msg.sendMessage(`${this.client.emotes.check} ***${cmd.name} command has been Disabled by ${msg.author.tag}!***`);
         } else {
             await msg.guild.settings.update("disabledCommands", cmd.name, { action: "remove" });
-            return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${cmd.name} command has been Enabled by ${msg.author.tag}!***`);
+            return msg.sendMessage(`${this.client.emotes.check} ***${cmd.name} command has been Enabled by ${msg.author.tag}!***`);
         }
     }
 

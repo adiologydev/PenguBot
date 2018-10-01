@@ -15,7 +15,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [move]) {
-        if (!move.match(/Rock|Paper|Scissors/i)) return msg.reply("That's an invalid move, please choose `rock`. `paper` or `scissors`.");
+        if (!move.match(/Rock|Paper|Scissors/i)) return msg.reply(`${msg.language.get("CMD_RPS_INVALID")} \`rock\`. \`paper\` or \`scissors\`.`);
         const outcome = choices[Math.floor(Math.random() * choices.length)];
         const choice = move.toLowerCase();
         if (choice === "rock") {

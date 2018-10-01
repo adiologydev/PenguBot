@@ -17,11 +17,11 @@ module.exports = class extends Command {
     async run(msg) {
         if (!msg.guild.settings.starboard.enabled) {
             return msg.guild.settings.update("starboard.enabled", true).then(() => {
-                msg.sendMessage(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_STAR_ENABLED")}***`);
+                msg.sendMessage(`${this.client.emotes.check} ***${msg.language.get("MESSAGE_STAR_ENABLED")}***`);
             });
         } else {
             return msg.guild.settings.update("starboard.enabled", false).then(() => {
-                msg.sendMessage(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_STAR_DISABLED")}***`);
+                msg.sendMessage(`${this.client.emotes.check} ***${msg.language.get("MESSAGE_STAR_DISABLED")}***`);
             });
         }
     }

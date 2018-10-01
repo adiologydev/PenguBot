@@ -18,18 +18,18 @@ module.exports = class extends Command {
     }
 
     async run(msg, [member, ...reason]) {
-        if (member.id === msg.author.id) return msg.reply(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_BAN_YOURSELF")}***`);
-        if (member.id === this.client.user.id) return msg.reply(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_BAN_PENGU")}***`);
-        if (!member.bannable) return msg.reply(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_BAN_CANT")}***`);
+        if (member.id === msg.author.id) return msg.reply(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_BAN_YOURSELF")}***`);
+        if (member.id === this.client.user.id) return msg.reply(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_BAN_PENGU")}***`);
+        if (!member.bannable) return msg.reply(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_BAN_CANT")}***`);
 
         reason = reason.length > 0 ? `${reason.join(" ")}\nBanned By: ${msg.author.tag}` : `No reason specified.\nBanned By: ${msg.author.tag}`;
         try {
             await member.ban({ reason: reason });
         } catch (e) {
-            throw "<:penguError:435712890884849664> There was an error, please try again.";
+            throw `${this.client.emotes.cross} There was an error, please try again.`;
         }
 
-        return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${member.user.tag} ${msg.language.get("MESSAGE_BANNED")}***`);
+        return msg.sendMessage(`${this.client.emotes.check} ***${member.user.tag} ${msg.language.get("MESSAGE_BANNED")}***`);
     }
 
 };

@@ -17,13 +17,13 @@ module.exports = class extends Command {
     }
 
     async run(msg, [cmd]) {
-        if (cmd.guarded) return msg.sendMessage(`<:penguError:435712890884849664> ***${cmd.category} commands category can not be disabled!***`);
+        if (cmd.guarded) return msg.sendMessage(`${this.client.emotes.cross} ***${cmd.category} commands category can not be disabled!***`);
         if (msg.guild.settings.disabledCommandsGroup.indexOf(cmd.category) === -1) {
             await msg.guild.settings.update("disabledCommandsGroup", cmd.category, { action: "add" });
-            return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${cmd.category} commands category has been Disabled by ${msg.author.tag}!***`);
+            return msg.sendMessage(`${this.client.emotes.check} ***${cmd.category} commands category has been Disabled by ${msg.author.tag}!***`);
         } else {
             await msg.guild.settings.update("disabledCommandsGroup", cmd.category, { action: "remove" });
-            return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${cmd.category} commands category has been Enabled by ${msg.author.tag}!***`);
+            return msg.sendMessage(`${this.client.emotes.check} ***${cmd.category} commands category has been Enabled by ${msg.author.tag}!***`);
         }
     }
 
