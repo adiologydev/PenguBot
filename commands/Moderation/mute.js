@@ -16,8 +16,8 @@ module.exports = class extends Command {
     }
 
     async run(msg, [member]) {
-        if (member.id === msg.author.id) return msg.reply(`<:penguError:435712890884849664> ***You can not mute yourself...***`);
-        if (member.id === this.client.user.id) return msg.reply(`<:penguError:435712890884849664> ***Why would you want to mute Pengu?***`);
+        if (member.id === msg.author.id) return msg.reply(`${this.client.emotes.cross} ***You can not mute yourself...***`);
+        if (member.id === this.client.user.id) return msg.reply(`${this.client.emotes.cross} ***Why would you want to mute Pengu?***`);
 
         if (!msg.guild.roles.find(r => r.name === "PENGU_MUTED")) {
             const newRole = await msg.guild.roles.create({
@@ -39,11 +39,11 @@ module.exports = class extends Command {
         if (member.roles.has(role.id)) {
             await member.roles.remove(role).catch(() => null);
             this.client.emit("customLogs", msg.guild, "unmute", { name: "mute", muter: msg.author }, member.user);
-            return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${member.user.tag} ${msg.language.get("MESSAGE_UNMUTED")}***`);
+            return msg.sendMessage(`${this.client.emotes.check} ***${member.user.tag} ${msg.language.get("MESSAGE_UNMUTED")}***`);
         } else {
             await member.roles.add(role).catch(() => null);
             this.client.emit("customLogs", msg.guild, "mute", { name: "mute", muter: msg.author }, member.user);
-            return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${member.user.tag} ${msg.language.get("MESSAGE_MUTED")}***`);
+            return msg.sendMessage(`${this.client.emotes.check} ***${member.user.tag} ${msg.language.get("MESSAGE_MUTED")}***`);
         }
     }
 

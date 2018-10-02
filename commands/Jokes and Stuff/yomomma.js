@@ -15,7 +15,7 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        const { text } = await get(`http://api.yomomma.info`).catch(() => msg.sendMessage("There was an error, I think a cat has cut the wire off, dogs don't do that."));
+        const { text } = await get(`http://api.yomomma.info`).catch(() => msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("ER_CATS_DOGS")}***`));
 
         const embed = new MessageEmbed()
             .setDescription(`**Yo Momma Joke**\n\n${JSON.parse(text).joke}`)

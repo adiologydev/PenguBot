@@ -21,12 +21,12 @@ module.exports = class extends Command {
         if (!afk.afk) {
             await msg.author.settings.update("afk.afk", true).then(() => {
                 msg.author.settings.update("afk.reason", reason, { action: "add" });
-                msg.sendMessage(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_AFK_TRUE")}***`);
+                msg.sendMessage(`${this.client.emotes.check} ***${msg.language.get("MESSAGE_AFK_TRUE")}***`);
             });
         } else {
             await msg.author.settings.update("afk.afk", false).then(() => {
                 msg.author.settings.update("afk.reason", null);
-                msg.sendMessage(`<:penguError:435712890884849664> ***${msg.language.get("MESSAGE_AFK_FALSE")}***`);
+                msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_AFK_FALSE")}***`);
             });
         }
     }
