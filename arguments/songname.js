@@ -3,6 +3,8 @@ const Song = require("../lib/structures/Song");
 const url = require("url");
 const { get } = require("snekfetch");
 
+/* eslint-disable no-mixed-operators */
+
 const playlist = /(\?|\&)list=(.*)/i; // eslint-disable-line no-useless-escape
 const soundcloud = /https:\/\/soundcloud\.com\/.*/i;
 const scPlaylist = /https:\/\/?soundcloud.com\/.*\/.*\/.*/i;
@@ -27,22 +29,15 @@ module.exports = class extends Argument {
 
         const isLink = this.isLink(arg);
         if (isLink) {
-            if (playlist.exec(arg)) {
+            if (playlist.exec(arg) || (soundcloud.exec(arg) && scPlaylist.exec(arg))) {
                 const playlistResults = await this.getTracks(node, arg);
                 if (!playlistResults.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
                 results.playlist = playlistResults.playlistInfo.name;
                 results.push(...playlistResults.tracks);
             } else if (soundcloud.exec(arg)) {
-                if (scPlaylist.exec(arg)) {
-                    const scPlaylistRes = await this.getTracks(node, arg);
-                    if (!scPlaylistRes.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
-                    results.playlist = scPlaylistRes.playlistInfo.name;
-                    results.push(...scPlaylistRes.tracks);
-                } else {
-                    const scSingleRes = await this.getTracks(node, arg);
-                    if (!scSingleRes.tracks) throw msg.language.get("ER_MUSIC_NF");
-                    results.push(scSingleRes.tracks[0]);
-                }
+                const scSingleRes = await this.getTracks(node, arg);
+                if (!scSingleRes.tracks) throw msg.language.get("ER_MUSIC_NF");
+                results.push(scSingleRes.tracks[0]);
             } else if (paste.exec(arg)) {
                 const rawRes = await get(`https://paste.pengubot.com/raw/${paste.exec(arg)[1]}`);
                 if (!rawRes.body) throw msg.language.get("ER_MUSIC_NF");
@@ -57,9 +52,9 @@ module.exports = class extends Argument {
                 results.push(httpRes.tracks[0]);
             }
         } else if (wcYt.exec(arg) || wcSc.exec(arg)) {
-            const wildcardRes = await this.getTracks(node, arg);
-            if (!wildcardRes.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
-            results.push(wildcardRes.tracks[0]);
+            const wcSearchRes = await this.getTracks(node, arg);
+            if (!wcSearchRes.tracks) throw msg.language.get("ER_MUSIC_NF");
+            results.push(wcSearchRes.tracks[0]);
         } else if (jpop.exec(arg)) {
             const getJpop = await this.getTracks(node, "https://listen.moe/stream");
             if (!getJpop) throw msg.language.get("ER_MUSIC_NF");
