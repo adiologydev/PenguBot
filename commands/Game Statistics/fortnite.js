@@ -29,7 +29,7 @@ module.exports = class extends Command {
         if (data.body.error) throw `${this.client.emotes.cross} ***${msg.language.get("CMD_FORT_ERR")}***`;
 
         return msg.sendMessage(new MessageEmbed()
-            .setTitle("Fortnite Battle Royale Statistics - PenguBot")
+            .setAuthor("Fortnite Battle Royale Statistics - PenguBot", "https://i.imgur.com/EER1jFB.png")
             .setFooter("© PenguBot.com")
             .setThumbnail("https://i.imgur.com/EER1jFB.png")
             .setColor("#151842")

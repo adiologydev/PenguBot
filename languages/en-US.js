@@ -275,6 +275,7 @@ module.exports = class extends Language {
             COMMAND_FORTNITE_DESCRIPTION: "Get Fortnite Game Statistics within Discord.",
             COMMAND_CRSTATS_DESCRIPTION: "Clash Royale Player Statistics within Discord.",
             COMMAND_COCSTATS_DESCRIPTION: "Clash of Clans Player Statistics within Discord.",
+            COMMAND_CSGO_DESCRIPTION: "Counter Strike Global Offensive Player Statistics",
 
             // Starboard
             COMMAND_TOGGLE_STARBOARD_DESCRPTION: "Allows Pengu Administrators and above to toggle Starboard in the guild.",
@@ -318,7 +319,9 @@ module.exports = class extends Language {
             CMD_UPVOTE_ONLY: "You are not an up-voter of PenguBot, please visit <https://www.pengubot.com/upvote> to vote now and get access! You can avoid upvoting by becoming a Patron today at <https://patreon.com/PenguBot>!",
             CMD_RPS_INVALID: "That's an invalid move, please choose",
             CMD_SLOTS_INVALID: "The specified amount of Snowflakes is invalid, please enter at least 1 or more Snowflakes.",
-            CMD_LOG_INVALID: "Invalid Option, please choose from"
+            CMD_LOG_INVALID: "Invalid Option, please choose from",
+            CMD_CSGO_NF: "That Username was not found on Steam, please try again with a different one.",
+            CMD_CSGO_ER: "There was an error, either your profile is PRIVATE or you haven't bought CSGO or the API bailed on us. Try again later."
         };
     }
 
