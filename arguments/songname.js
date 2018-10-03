@@ -34,7 +34,7 @@ module.exports = class extends Argument {
                 if (!playlistResults.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
                 results.playlist = playlistResults.playlistInfo.name;
                 results.push(...playlistResults.tracks);
-            } else if (soundcloud.exec(arg) || wcYt.exec(arg) || wcSc.exec(arg)) {
+            } else if (soundcloud.exec(arg)) {
                 const scSingleRes = await this.getTracks(node, arg);
                 if (!scSingleRes.tracks) throw msg.language.get("ER_MUSIC_NF");
                 results.push(scSingleRes.tracks[0]);
@@ -51,6 +51,10 @@ module.exports = class extends Argument {
                 if (!httpRes.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
                 results.push(httpRes.tracks[0]);
             }
+        } else if (wcYt.exec(arg) || wcSc.exec(arg)) {
+            const wcSearchRes = await this.getTracks(node, arg);
+            if (!wcSearchRes.tracks) throw msg.language.get("ER_MUSIC_NF");
+            results.push(wcSearchRes.tracks[0]);
         } else if (jpop.exec(arg)) {
             const getJpop = await this.getTracks(node, "https://listen.moe/stream");
             if (!getJpop) throw msg.language.get("ER_MUSIC_NF");
