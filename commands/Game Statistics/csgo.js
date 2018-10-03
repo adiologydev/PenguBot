@@ -16,7 +16,8 @@ module.exports = class extends Command {
     }
 
     async run(msg, [username]) {
-        const userData = await get(`http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=${this.client.config.keys.games.csgo}&vanityurl=${username}`)
+        const userData = await get(`http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/`)
+            .query({ key: this.client.config.keys.games.csgo, vanityurl: username })
             .catch(e => {
                 Error.captureStackTrace(e);
                 throw `${this.client.emotes.cross} ***${msg.language.get("CMD_CSGO_NF")}***`;
@@ -25,7 +26,8 @@ module.exports = class extends Command {
         if (userData.body.response.success !== 1) throw `${this.client.emotes.cross} ***${msg.language.get("CMD_CSGO_NF")}***`;
         const steamID = userData.body.response.steamid;
 
-        const userStats = await get(`http://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?key=${this.client.config.keys.games.csgo}&appid=730&steamid=${steamID}`)
+        const userStats = await get(`http://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/`)
+            .query({ key: this.client.config.keys.games.csgo, appid: 730, steamid: steamID })
             .catch(e => {
                 Error.captureStackTrace(e);
                 throw `${this.client.emotes.cross} ***${msg.language.get("CMD_CSGO_ER")}***`;
