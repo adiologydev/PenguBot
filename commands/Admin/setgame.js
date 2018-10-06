@@ -12,8 +12,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [game]) {
-        await this.client.user.setPresence({ activity: { name: game, status: "online" } });
-
+        await this.client.shard.broadcastEval(`this.user.setPresence({ activity: { name: '${game}', status: "online" }})`);
         return msg.sendMessage(`**Playing status has been changed to:** ${game}`);
     }
 
