@@ -42,7 +42,8 @@ Raven.context(() => {
         clientSecret: config.dashboard.secret,
         clientID: config.dashboard.id,
         messageSweepInterval: 60,
-        commandMessageLifetime: 60
+        messageCacheLifetime: 120,
+        commandMessageLifetime: 120
     }).login(config.main.token);
 });
 
