@@ -15,7 +15,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [reason]) {
-        reason = reason.length > 0 ? reason : "No Reason";
+        reason = reason || "No Reason";
 
         const afk = await msg.author.settings.get("afk");
         if (!afk.afk) {
