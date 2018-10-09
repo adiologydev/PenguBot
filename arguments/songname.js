@@ -13,6 +13,9 @@ const wcYt = /ytsearch:.*/;
 const jpop = /(listen.moe|listen moe|listen.moe jpop|listen moe jpop|jpop moe|jpop listen moe|jpop listen.moe|listen.moe\/jpop)/i;
 const kpop = /(listen.moe kpop|listen moe kpop|kpop moe|kpop listen moe|kpop listen.moe|listen.moe\/kpop)/i;
 const paste = /https:\/\/paste.pengubot.com\/(.*)/i;
+const spotifyList = /https?:\/\/(?:embed\.|open\.)(?:spotify\.com\/)(?:playlist\/|\?uri=spotify:playlist:)((\w|-){22})/i;
+const spotifyAlbum = /https?:\/\/(?:embed\.|open\.)(?:spotify\.com\/)(?:album\/|\?uri=spotify:album:)((\w|-){22})/i;
+const spotifyTrack = /https?:\/\/(?:embed\.|open\.)(?:spotify\.com\/)(?:track\/|\?uri=spotify:track:)((\w|-){22})/i;
 
 module.exports = class extends Argument {
 
@@ -43,9 +46,37 @@ module.exports = class extends Argument {
                 if (!rawRes.body) throw msg.language.get("ER_MUSIC_NF");
                 for (const song of JSON.parse(rawRes.body).songs) {
                     const songRes = await this.getTracks(node, song);
+                    if (!songRes.tracks[0]) continue;
                     results.push(songRes.tracks[0]);
                 }
                 results.playlist = "Custom PenguBot Playlist";
+            } else if (spotifyList.exec(arg)) {
+                const data = await get(`https://api.spotify.com/v1/playlists/${spotifyList.exec(arg)[1]}`)
+                    .set("Authorization", `Bearer ${this.client.config.keys.music.spotify}`);
+                if (data.status !== 200 || !data.body) throw msg.language.get("ER_MUSIC_NF");
+                for (const trackData of data.body.tracks.items) {
+                    const trackRes = await this.getTracks(node, `ytsearch:${trackData.track.artists[0].name} ${trackData.track.name} audio`);
+                    if (!trackRes.tracks[0]) continue;
+                    results.push(trackRes.tracks[0]);
+                }
+                results.playlist = `${data.body.name}`;
+            } else if (spotifyAlbum.exec(arg)) {
+                const data = await get(`https://api.spotify.com/v1/albums/${spotifyAlbum.exec(arg)[1]}`)
+                    .set("Authorization", `Bearer ${this.client.config.keys.music.spotify}`);
+                if (data.status !== 200 || !data.body) throw msg.language.get("ER_MUSIC_NF");
+                for (const track of data.body.tracks.items) {
+                    const trackRes = await this.getTracks(node, `ytsearch:${track.artists[0].name} ${track.name} audio`);
+                    if (!trackRes.tracks[0]) continue;
+                    results.push(trackRes.tracks[0]);
+                }
+                results.playlist = `${data.body.name}`;
+            } else if (spotifyTrack.exec(arg)) {
+                const data = await get(`https://api.spotify.com/v1/tracks/${spotifyTrack.exec(arg)[1]}`)
+                    .set("Authorization", `Bearer ${this.client.config.keys.music.spotify}`);
+                if (data.status !== 200 || !data.body) throw msg.language.get("ER_MUSIC_NF");
+                const spotRes = await this.getTracks(node, `ytsearch:${data.body.artists[0].name} ${data.body.name} audio`);
+                if (!spotRes.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
+                results.push(spotRes.tracks[0]);
             } else {
                 const httpRes = await this.getTracks(node, arg);
                 if (!httpRes.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
