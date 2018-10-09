@@ -30,6 +30,8 @@ module.exports = class extends Argument {
         const node = msg.guild.music.idealNode;
         if (!node) throw "Couldn't find an ideal region, please try changing your guild region and try again. If the error presists, contact us at: https://discord.gg/kWMcUNe";
 
+        if (!this.client.config.keys.music.spotify.token) await this.client.tasks.get("spotify").run();
+
         const isLink = this.isLink(arg);
         if (isLink) {
             if (playlist.exec(arg) || (soundcloud.exec(arg) && scPlaylist.exec(arg))) {
@@ -52,7 +54,7 @@ module.exports = class extends Argument {
                 results.playlist = "Custom PenguBot Playlist";
             } else if (spotifyList.exec(arg)) {
                 const data = await get(`https://api.spotify.com/v1/playlists/${spotifyList.exec(arg)[1]}`)
-                    .set("Authorization", `Bearer ${this.client.config.keys.music.spotify}`);
+                    .set("Authorization", `Bearer ${this.client.config.keys.music.spotify.token}`);
                 if (data.status !== 200 || !data.body) throw msg.language.get("ER_MUSIC_NF");
                 for (const trackData of data.body.tracks.items) {
                     const trackRes = await this.getTracks(node, `ytsearch:${trackData.track.artists[0].name} ${trackData.track.name} audio`);
@@ -62,7 +64,7 @@ module.exports = class extends Argument {
                 results.playlist = `${data.body.name}`;
             } else if (spotifyAlbum.exec(arg)) {
                 const data = await get(`https://api.spotify.com/v1/albums/${spotifyAlbum.exec(arg)[1]}`)
-                    .set("Authorization", `Bearer ${this.client.config.keys.music.spotify}`);
+                    .set("Authorization", `Bearer ${this.client.config.keys.music.spotify.token}`);
                 if (data.status !== 200 || !data.body) throw msg.language.get("ER_MUSIC_NF");
                 for (const track of data.body.tracks.items) {
                     const trackRes = await this.getTracks(node, `ytsearch:${track.artists[0].name} ${track.name} audio`);
@@ -72,7 +74,7 @@ module.exports = class extends Argument {
                 results.playlist = `${data.body.name}`;
             } else if (spotifyTrack.exec(arg)) {
                 const data = await get(`https://api.spotify.com/v1/tracks/${spotifyTrack.exec(arg)[1]}`)
-                    .set("Authorization", `Bearer ${this.client.config.keys.music.spotify}`);
+                    .set("Authorization", `Bearer ${this.client.config.keys.music.spotify.token}`);
                 if (data.status !== 200 || !data.body) throw msg.language.get("ER_MUSIC_NF");
                 const spotRes = await this.getTracks(node, `ytsearch:${data.body.artists[0].name} ${data.body.name} audio`);
                 if (!spotRes.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
