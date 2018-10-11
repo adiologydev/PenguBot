@@ -31,25 +31,26 @@ module.exports = class extends Command {
         const index = Page ? Page -= 1 : 0;
 
         if ((index > totalPages && !totalPages) || (totalPages && index + 1 > totalPages)) return msg.sendMessage(`There are only **${totalPages || 1}** page(s) in the leaderboard.`);
-        const pos = data.findIndex(i => i.id === msg.author.id);
+        const pos = data.findIndex(i => i.id.split(".")[1] === msg.author.id);
 
         const userProfiles = await Promise.all(data.slice(index * 10, (index + 1) * 10)
             .map(async user => {
                 const id = user.id.split(".");
-                const username = await this.client.users.fetch(id[1]).then(a => a.username).catch(() => null) || "N/A";
+                let username = await this.client.users.fetch(id[1]).then(a => a.username).catch(() => null) || "N/A";
+                if (id[1] === msg.author.id) username = `${username} | (YOU)`;
                 return { xp: user.xp ? user.xp : 0, username };
             }));
         for (let i = 0; i < userProfiles.length; i++) {
             const userData = userProfiles[i];
-            leaderboard.push(` • ${((index * 10) + (i + 1)).toString().padStart(2, " ")} | ${userData.username.padEnd(30, " ")}::  ${userData.xp.toLocaleString()} XP`);
+            leaderboard.push(`- [${((index * 10) + (i + 1))}] | ${userData.username}\n${userData.xp.toLocaleString().padStart(10, " ")} XP\n`);
         }
 
-        const posNum = pos !== -1 ? pos + 1 : 1;
-        leaderboard.push(`\n • ${posNum.toString().padStart(2, " ")} | ${msg.author.username.padEnd(30, " ")}::  ${msg.member.settings.xp.toLocaleString()} XP`);
+        const posNum = pos !== -1 ? pos + 1 : 0;
+        leaderboard.push(`\n+ [${posNum}] | ${msg.author.username}\n${msg.member.settings.xp.toLocaleString().padStart(10, " ")} XP`);
         leaderboard.push("--------------------------------------------------");
 
         load.delete();
-        return msg.channel.send(`🏅 **${msg.guild.name}** Guild Leaderboard\`\`\`asciidoc\n${leaderboard.join("\n")}\n Page ${index + 1} / ${(totalPages + 1).toLocaleString() || 1} - ${data.length.toLocaleString() || 1} Total Members\`\`\``);
+        return msg.channel.send(`🏅 **${msg.guild.name}** Guild Leaderboard\`\`\`diff\n${leaderboard.join("\n")}\n Page ${index + 1} / ${(totalPages + 1).toLocaleString() || 1} - ${data.length.toLocaleString() || 1} Total Member(s) in Leaderboard\`\`\``);
     }
 
 };

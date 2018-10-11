@@ -1,7 +1,7 @@
 {
   "name": "pengubot",
-  "version": "2.0.4",
-  "description": "PenguBot re-write for Performance and Stability.",
+  "version": "2.0.5",
+  "description": "PenguBot Rewrite for Performance and Stability.",
   "main": "start.js",
   "scripts": {
     "test": "eslint .",
