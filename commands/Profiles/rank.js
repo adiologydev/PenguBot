@@ -57,7 +57,7 @@ module.exports = class extends Command {
 
         const render = await new Canvas(1000, 300)
             // Initializing and Text
-            .addImage(bgImg, 20, 0, 300, 300)
+            .addImage(bgImg, 25, 0, 300, 300)
             .addImage(template, 10, 0, 1000, 300)
             .setTextFont("41.67px Roboto, NotoEmoji")
             .setColor("#212121")
