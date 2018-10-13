@@ -24,7 +24,7 @@ module.exports = class extends Command {
     async run(msg, [user = msg.member]) {
         if (user.bot) return msg.reply("Can not fetch bot's ranks.");
         const load = await msg.sendMessage(`${this.client.emotes.loading} ***Let me process all that data through my igloo, give me a few...***`);
-        msg.channel.sendFile(await this.createImage(user));
+        msg.sendMessage(`#⃣  **${msg.author.username}'s** Rank Card for **${msg.guild.name}**`, { files: [{ attachment: await this.createImage(user), name: `${msg.author.username}.png` }] });
         return load.delete();
     }
 
@@ -57,7 +57,7 @@ module.exports = class extends Command {
 
         const render = await new Canvas(1000, 300)
             // Initializing and Text
-            .addImage(bgImg, 25, 0, 300, 300)
+            .addImage(bgImg, 30, 0, 300, 300)
             .addImage(template, 10, 0, 1000, 300)
             .setTextFont("41.67px Roboto, NotoEmoji")
             .setColor("#212121")
