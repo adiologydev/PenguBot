@@ -245,6 +245,7 @@ module.exports = class extends Language {
             COMMAND_CHANGEBG_DESCRIPTION: "Change your Pengu Profile's Background.",
             COMMAND_LEADERBOARD_DESCRIPTION: "See who is winning the leaderboard for your guild.",
             COMMAND_BACKGROUND_DESCRIPTION: "Customize your PenguBot profile by buying and choosing different backgrounds.",
+            COMMAND_RANK_DESCRIPTION: "Server Based Member Rank Cards (Different for Each Server)",
 
             // Dev Commands
             COMMAND_EXEC_DESCRIPTION: "-BOT OWNER ONLY-",
