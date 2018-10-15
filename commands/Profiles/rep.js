@@ -26,6 +26,7 @@ module.exports = class extends Command {
         }
         if (msg.author.settings.repcooldown > 0) {
             await msg.author.settings.sync(true);
+            await user.settings.sync(true);
             const now = Date.now();
             const last = msg.author.settings.repcooldown;
             const diff = now - last;
