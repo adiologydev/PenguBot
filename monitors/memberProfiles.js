@@ -1,4 +1,7 @@
 const { Monitor } = require("klasa");
+const { Canvas } = require("canvas-constructor");
+const fs = require("fs-nextra");
+const { get } = require("snekfetch");
 
 const timeout = new Set();
 
@@ -25,12 +28,31 @@ module.exports = class extends Monitor {
         if (!msg.member.settings) return;
 
         const randomXP = this.client.funcs.randomNumber(1, 5);
+        const oldLvl = msg.member.settings.level;
         const newXP = msg.member.settings.xp + randomXP;
         const newLvl = Math.floor(0.2 * Math.sqrt(newXP));
         await msg.member.settings.update([["xp", newXP], ["level", newLvl]]);
 
         timeout.add(`${msg.author.id}-${msg.guild.id}`);
         setTimeout(() => timeout.delete(`${msg.author.id}-${msg.guild.id}`), 45000);
+
+        // Generate Level Up Images on Level Up
+        if (oldLvl !== newLvl) {
+            if (!msg.guild.settings.levelup) return;
+            if (msg.guild.settings.leveltype !== "user") return;
+            if (!msg.channel.postable) return;
+            const bgName = msg.author.settings.profilebg;
+            const bgImg = await fs.readFile(`${process.cwd()}/assets/profiles/bg/${bgName}.png`);
+            const avatar = await get(msg.author.displayAvatarURL({ format: "png", size: 128 })).then(res => res.body).catch(e => {
+                Error.captureStackTrace(e);
+                return e;
+            });
+            const img = await new Canvas(100, 100)
+                .addImage(bgImg, 0, 0, 530, 530)
+                .addImage(avatar, 22, 22, 57, 57)
+                .toBufferAsync();
+            msg.sendMessage(`🆙 | **${msg.author.tag}** has leveled up to **Level ${newLvl}** in **${msg.guild.name}**`, { files: [{ attachment: img, name: `${msg.author.id}.png` }] });
+        }
     }
 
 };

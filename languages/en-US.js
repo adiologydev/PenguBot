@@ -235,7 +235,7 @@ module.exports = class extends Language {
             COMMAND_QUOTE_DESCRIPTION: "Quote a message with it's Message ID.",
 
             // Profile Commands
-            COMMAND_LEVELUP_DESCRIPTION: "Enable/Disable Level Up Announcements of Users in your guild.",
+            COMMAND_LEVELUP_DESCRIPTION: "Manage Level Up settings of Users in your guild.",
             COMMAND_REP_DESCRIPTION: "Give your valuable rep point to someone to make them feel special.",
             COMMAND_PROFILE_DESCRIPTION: "Check yours or other users fancy profiles!",
             COMMAND_DAILY_DESCRIPTION: "Claim your daily 100 Snowflakes which you can use to buy cosmetics.",
@@ -269,7 +269,7 @@ module.exports = class extends Language {
             COMMAND_PAUSE_DESCRIPTION: "Pause/Resume the currently playing music.",
             COMMAND_VOLUME_DESCRIPTION: "Change the default volume of Pengu in your guild",
             COMMAND_DJONLY_DESCRIPTION: "Toggle Pengu DJ only mode for Music Commands.",
-            INHIBITOR_DJ_ONLY: "<:penguError:435712890884849664> ***This guild is configured to allow only Pengu DJ's to use Music Commands.***",
+            INHIBITOR_DJ_ONLY: "This guild is configured to allow only Pengu DJ's to use Music Commands.",
             COMMAND_DUMP_DESCRIPTION: "Dump your server queue in raw format to be used later!",
 
             // Game Stats

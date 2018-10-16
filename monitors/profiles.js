@@ -41,6 +41,7 @@ module.exports = class extends Monitor {
         // Generate Level Up Images on Level Up
         if (oldLvl !== newLvl) {
             if (!msg.guild.settings.levelup) return;
+            if (msg.guild.settings.leveltype !== "user") return;
             if (!msg.channel.postable) return;
             const bgName = msg.author.settings.profilebg;
             const bgImg = await fs.readFile(`${process.cwd()}/assets/profiles/bg/${bgName}.png`);
@@ -52,7 +53,7 @@ module.exports = class extends Monitor {
                 .addImage(bgImg, 0, 0, 530, 530)
                 .addImage(avatar, 22, 22, 57, 57)
                 .toBufferAsync();
-            msg.sendMessage(`🆙 | **${msg.author.tag} leveled up to Level ${newLvl}!**`, { files: [{ attachment: img, name: `${msg.author.id}.png` }] });
+            msg.sendMessage(`🆙 | **${msg.author.tag} has leveled up to Level ${newLvl}!**`, { files: [{ attachment: img, name: `${msg.author.id}.png` }] });
         }
     }
 
