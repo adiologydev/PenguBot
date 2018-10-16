@@ -38,20 +38,33 @@ module.exports = class extends Monitor {
 
         // Generate Level Up Images on Level Up
         if (oldLvl !== newLvl) {
-            if (!msg.guild.settings.levelup) return;
-            if (msg.guild.settings.leveltype !== "user") return;
-            if (!msg.channel.postable) return;
-            const bgName = msg.author.settings.profilebg;
-            const bgImg = await fs.readFile(`${process.cwd()}/assets/profiles/bg/${bgName}.png`);
-            const avatar = await get(msg.author.displayAvatarURL({ format: "png", size: 128 })).then(res => res.body).catch(e => {
-                Error.captureStackTrace(e);
-                return e;
-            });
-            const img = await new Canvas(100, 100)
-                .addImage(bgImg, 0, 0, 530, 530)
-                .addImage(avatar, 22, 22, 57, 57)
-                .toBufferAsync();
-            msg.sendMessage(`🆙 | **${msg.author.tag}** has leveled up to **Level ${newLvl}** in **${msg.guild.name}**`, { files: [{ attachment: img, name: `${msg.author.id}.png` }] });
+            if (msg.guild.settings.levelup) {
+                if (msg.guild.settings.leveltype !== "user") return;
+                if (!msg.channel.postable) return;
+                const bgName = msg.author.settings.profilebg;
+                const bgImg = await fs.readFile(`${process.cwd()}/assets/profiles/bg/${bgName}.png`);
+                const avatar = await get(msg.author.displayAvatarURL({ format: "png", size: 128 })).then(res => res.body).catch(e => {
+                    Error.captureStackTrace(e);
+                    return e;
+                });
+                const img = await new Canvas(100, 100)
+                    .addImage(bgImg, 0, 0, 530, 530)
+                    .addImage(avatar, 22, 22, 57, 57)
+                    .toBufferAsync();
+                msg.sendMessage(`🆙 | **${msg.author.tag}** has leveled up to **Level ${newLvl}** in **${msg.guild.name}**`, { files: [{ attachment: img, name: `${msg.author.id}.png` }] });
+            }
+            if (msg.guild.settings.levelroles.enabled) {
+                const { roles } = msg.guild.settings.levelroles;
+                if (roles.length === 0) return;
+                const levelRole = roles.find(r => r.lvl === newLvl);
+                if (!levelRole) return;
+                const role = msg.guild.roles.find(r => r.id === levelRole);
+                if (!role) return;
+                const myRole = msg.guild.me.roles.find(r => r.managed);
+                if (role.position > myRole.positon) return;
+                if (msg.member.roles.has(role)) return;
+                await msg.member.roles.add(role, "Level Based Role").catch(() => null);
+            }
         }
     }
 

@@ -24,7 +24,7 @@ module.exports = class extends Command {
         if (!roles.length) return msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("CMD_NO_SELFROLES")}***`);
         const pages = new RichDisplay(new MessageEmbed()
             .setTitle("Use the reactions to change pages, select a page, or stop viewing the roles")
-            .setAuthor("Self Roles - PenguBot", msg.author.displayAvatarURL())
+            .setAuthor("Self Roles - PenguBot", msg.guild.iconURL())
             .setDescription("Scroll between pages to see the self assignable roles.")
             .setColor("#428bca")
         );
@@ -44,6 +44,7 @@ module.exports = class extends Command {
         const myRole = msg.guild.me.roles.find(r => r.managed);
         if (role.position > myRole.positon) return msg.sendMessage(`${this.client.emotes.cross} ***That given role is above my role in the guild, please change the order.***`);
         if (msg.member.roles.has(role)) return msg.sendMessage(`${this.client.emotes.cross} ***You already have that role do \`${msg.guildSettings.prefix}selfroles remove ${role.name}\` to remove it.***`);
+
         const assigned = await msg.member.roles.add(role, "Self Assigned").catch(() => null);
         if (!assigned) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error, please try again later.***`);
         return msg.sendMessage(`${this.client.emotes.check} ***The role has been assigned.***`);
@@ -57,6 +58,7 @@ module.exports = class extends Command {
         const myRole = msg.guild.me.roles.find(r => r.managed);
         if (role.position > myRole.positon) return msg.sendMessage(`${this.client.emotes.cross} ***That given role is above my role in the guild, please change the order.***`);
         if (!msg.member.roles.has(role.id)) return msg.sendMessage(`${this.client.emotes.cross} ***You don't have that role do \`${msg.guildSettings.prefix}selfroles add ${role.name}\` to add it.***`);
+
         const assigned = await msg.member.roles.remove(role, "Self Deassigned").catch(() => null);
         if (!assigned) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error, please try again later.***`);
         return msg.sendMessage(`${this.client.emotes.cross} ***The role has been deassigned.***`);

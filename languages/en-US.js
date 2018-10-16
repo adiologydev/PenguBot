@@ -105,7 +105,7 @@ module.exports = class extends Language {
             MESSAGE_LOGCHAN_SET: "Logging channel has now been set!",
             COMMAND_LOG_DESCRPTION: "Enable/Disable Logging events if you're Pengu Admin or above.",
 
-            // Autoroles & Self Roles
+            // Autoroles, Level & Self Roles
             MESSAGE_AUTOROLES_ENABLED: "Auto Roles have been enabled in this guild!",
             MESSAGE_AUTOROLES_DISABLED: "Auto Roles have been disabled in this guild!",
             MESSAGE_AUTOROLE_REMOVED: "role was removed from the Auto Roles!",
@@ -113,6 +113,8 @@ module.exports = class extends Language {
             COMMAND_SELFROLES: "Assign or Deassign or list Self Roles from Yourself.",
             COMMAND_SELFROLES_MANAGE: "Add or Remove Self Roles from the server.",
             COMMAND_TOGGLE_SELFROLES: "Enable/Disable Self Roles on the server.",
+            MESSAGE_LEVELROLES_ENABLED: "Level Based Roles have been enabled in this guild!",
+            MESSAGE_LEVELROLES_DISABLED: "Level Based Roles have been disabled in this guild!",
 
             // Utilities Messages
             MESSAGE_NEW_REMINDER: "New Reminder has been created with ID:",
@@ -141,6 +143,9 @@ module.exports = class extends Language {
             COMMAND_CHANNEL_WELCOME_DESCRPTION: "Allows Pengu Administrators and above set welcome messages channel in the guild.",
             COMMAND_CHANNEL_LEAVE_DESCRPTION: "Allows Pengu Administrators and above set leave messages channel in the guild.",
             COMMAND_TOGGLE_ROLES_DESCRPTION: "Allows Pengu Administrators and above to enable or disable Auto Roles.",
+            COMMAND_TOGGLE_LVLROLES_DESCRPTION: "Allows Pengu Administrators and above to enable or disable Level Based Roles.",
+            COMMAND_LIST_LVLROLES_DESCRPTION: "List all the roles in the Level Based Roles List.",
+            COMMAND_LVLROLE_DESCRPTION: "ALLOWS Pengu Administrators and above to Add and Remove Level Based Roles for a guild.",
             COMMAND_ADD_ROLES_DESCRPTION: "Allows Pengu Administrators and above to add new Auto Roles.",
             COMMAND_REMIND_DESCRIPTION: "Make Pengu remind you things so you don't forget.",
             COMMAND_SHORTEN_DESCRIPTION: "Let Pengu shorten your Long URLs in one simple command.",
