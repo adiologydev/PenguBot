@@ -10,7 +10,8 @@ module.exports = class extends Command {
             cooldown: 8,
             requiredPermissions: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
             description: language => language.get("COMMAND_QUOTE_DESCRIPTION"),
-            usage: "[channel:channel] <message:str>"
+            usage: "[channel:channel] <message:str>",
+            usageDelim: " "
         });
     }
 

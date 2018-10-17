@@ -1,7 +1,7 @@
 {
   "name": "pengubot",
-  "version": "2.0.4",
-  "description": "PenguBot re-write for Performance and Stability.",
+  "version": "2.0.5",
+  "description": "PenguBot Rewrite for Performance and Stability.",
   "main": "start.js",
   "scripts": {
     "test": "eslint .",
@@ -27,11 +27,12 @@
   "homepage": "https://github.com/AdityaTD/PenguBot#readme",
   "dependencies": {
     "@discordjs/uws": "^10.149.0",
+    "breadtags": "^1.0.0",
     "canvas": "github:Automattic/node-canvas#92b192447e9b9ae98da0f801e4e34afdd1dc1ef8",
     "canvas-constructor": "github:kyranet/canvasConstructor",
     "cheerio": "^1.0.0-rc.2",
     "dblapi.js": "^2.2.0",
-    "discord.js": "github:discordjs/discord.js",
+    "discord.js": "github:discordjs/discord.js#60ad9053a3f7d0cfcfe9871bc5aa6eca791caf02",
     "discord.js-lavalink": "github:MrJacz/discord.js-lavalink",
     "erlpack": "github:discordapp/erlpack",
     "google-translate-api": "^2.3.0",
@@ -40,8 +41,10 @@
     "klasa": "github:dirigeants/klasa",
     "klasa-dashboard-hooks": "github:PenguBot/klasa-dashboard-hooks",
     "klasa-functions": "github:QuantumPlugin/klasa-functions-plugin",
+    "klasa-member-gateway": "github:dirigeants/klasa-member-gateway",
     "raven": "^2.6.3",
     "rethinkdbdash": "^2.3.31",
+    "twemoji": "^11.0.1",
     "zlib-sync": "^0.1.4"
   },
   "devDependencies": {

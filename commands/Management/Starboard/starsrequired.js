@@ -16,9 +16,9 @@ module.exports = class extends Command {
     }
 
     async run(msg, [Stars]) {
-        if (Stars < 1) return msg.sendMessage("***<:penguError:435712890884849664> Required Stars for Starboard can't be less than 1***");
+        if (Stars < 1) return msg.sendMessage(`***${this.client.emotes.cross} Required Stars for Starboard can't be less than 1***`);
         return msg.guild.settings.update("starboard.required", Stars).then(() => {
-            msg.sendMessage(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_STARS_REQUIRED_SET")}***`);
+            msg.sendMessage(`${this.client.emotes.check} ***${msg.language.get("MESSAGE_STARS_REQUIRED_SET")}***`);
         });
     }
 

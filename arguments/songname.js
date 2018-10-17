@@ -3,6 +3,8 @@ const Song = require("../lib/structures/Song");
 const url = require("url");
 const { get } = require("snekfetch");
 
+/* eslint-disable no-mixed-operators */
+
 const playlist = /(\?|\&)list=(.*)/i; // eslint-disable-line no-useless-escape
 const soundcloud = /https:\/\/soundcloud\.com\/.*/i;
 const scPlaylist = /https:\/\/?soundcloud.com\/.*\/.*\/.*/i;
@@ -11,6 +13,9 @@ const wcYt = /ytsearch:.*/;
 const jpop = /(listen.moe|listen moe|listen.moe jpop|listen moe jpop|jpop moe|jpop listen moe|jpop listen.moe|listen.moe\/jpop)/i;
 const kpop = /(listen.moe kpop|listen moe kpop|kpop moe|kpop listen moe|kpop listen.moe|listen.moe\/kpop)/i;
 const paste = /https:\/\/paste.pengubot.com\/(.*)/i;
+const spotifyList = /https?:\/\/(?:embed\.|open\.)(?:spotify\.com\/)(?:playlist\/|\?uri=spotify:playlist:)((\w|-){22})/i;
+const spotifyAlbum = /https?:\/\/(?:embed\.|open\.)(?:spotify\.com\/)(?:album\/|\?uri=spotify:album:)((\w|-){22})/i;
+const spotifyTrack = /https?:\/\/(?:embed\.|open\.)(?:spotify\.com\/)(?:track\/|\?uri=spotify:track:)((\w|-){22})/i;
 
 module.exports = class extends Argument {
 
@@ -25,41 +30,64 @@ module.exports = class extends Argument {
         const node = msg.guild.music.idealNode;
         if (!node) throw "Couldn't find an ideal region, please try changing your guild region and try again. If the error presists, contact us at: https://discord.gg/kWMcUNe";
 
+        if (!this.client.config.keys.music.spotify.token) await this.client.tasks.get("spotify").run();
+
         const isLink = this.isLink(arg);
         if (isLink) {
-            if (playlist.exec(arg)) {
+            if (playlist.exec(arg) || (soundcloud.exec(arg) && scPlaylist.exec(arg))) {
                 const playlistResults = await this.getTracks(node, arg);
                 if (!playlistResults.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
                 results.playlist = playlistResults.playlistInfo.name;
                 results.push(...playlistResults.tracks);
             } else if (soundcloud.exec(arg)) {
-                if (scPlaylist.exec(arg)) {
-                    const scPlaylistRes = await this.getTracks(node, arg);
-                    if (!scPlaylistRes.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
-                    results.playlist = scPlaylistRes.playlistInfo.name;
-                    results.push(...scPlaylistRes.tracks);
-                } else {
-                    const scSingleRes = await this.getTracks(node, arg);
-                    if (!scSingleRes.tracks) throw msg.language.get("ER_MUSIC_NF");
-                    results.push(scSingleRes.tracks[0]);
-                }
+                const scSingleRes = await this.getTracks(node, arg);
+                if (!scSingleRes.tracks) throw msg.language.get("ER_MUSIC_NF");
+                results.push(scSingleRes.tracks[0]);
             } else if (paste.exec(arg)) {
                 const rawRes = await get(`https://paste.pengubot.com/raw/${paste.exec(arg)[1]}`);
                 if (!rawRes.body) throw msg.language.get("ER_MUSIC_NF");
                 for (const song of JSON.parse(rawRes.body).songs) {
                     const songRes = await this.getTracks(node, song);
+                    if (!songRes.tracks[0]) continue;
                     results.push(songRes.tracks[0]);
                 }
                 results.playlist = "Custom PenguBot Playlist";
+            } else if (spotifyList.exec(arg)) {
+                const data = await get(`https://api.spotify.com/v1/playlists/${spotifyList.exec(arg)[1]}`)
+                    .set("Authorization", `Bearer ${this.client.config.keys.music.spotify.token}`);
+                if (data.status !== 200 || !data.body) throw msg.language.get("ER_MUSIC_NF");
+                for (const trackData of data.body.tracks.items) {
+                    const trackRes = await this.getTracks(node, `ytsearch:${trackData.track.artists[0].name} ${trackData.track.name} audio`);
+                    if (!trackRes.tracks[0]) continue;
+                    results.push(trackRes.tracks[0]);
+                }
+                results.playlist = `${data.body.name}`;
+            } else if (spotifyAlbum.exec(arg)) {
+                const data = await get(`https://api.spotify.com/v1/albums/${spotifyAlbum.exec(arg)[1]}`)
+                    .set("Authorization", `Bearer ${this.client.config.keys.music.spotify.token}`);
+                if (data.status !== 200 || !data.body) throw msg.language.get("ER_MUSIC_NF");
+                for (const track of data.body.tracks.items) {
+                    const trackRes = await this.getTracks(node, `ytsearch:${track.artists[0].name} ${track.name} audio`);
+                    if (!trackRes.tracks[0]) continue;
+                    results.push(trackRes.tracks[0]);
+                }
+                results.playlist = `${data.body.name}`;
+            } else if (spotifyTrack.exec(arg)) {
+                const data = await get(`https://api.spotify.com/v1/tracks/${spotifyTrack.exec(arg)[1]}`)
+                    .set("Authorization", `Bearer ${this.client.config.keys.music.spotify.token}`);
+                if (data.status !== 200 || !data.body) throw msg.language.get("ER_MUSIC_NF");
+                const spotRes = await this.getTracks(node, `ytsearch:${data.body.artists[0].name} ${data.body.name} audio`);
+                if (!spotRes.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
+                results.push(spotRes.tracks[0]);
             } else {
                 const httpRes = await this.getTracks(node, arg);
                 if (!httpRes.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
                 results.push(httpRes.tracks[0]);
             }
         } else if (wcYt.exec(arg) || wcSc.exec(arg)) {
-            const wildcardRes = await this.getTracks(node, arg);
-            if (!wildcardRes.tracks[0]) throw msg.language.get("ER_MUSIC_NF");
-            results.push(wildcardRes.tracks[0]);
+            const wcSearchRes = await this.getTracks(node, arg);
+            if (!wcSearchRes.tracks) throw msg.language.get("ER_MUSIC_NF");
+            results.push(wcSearchRes.tracks[0]);
         } else if (jpop.exec(arg)) {
             const getJpop = await this.getTracks(node, "https://listen.moe/stream");
             if (!getJpop) throw msg.language.get("ER_MUSIC_NF");

@@ -30,7 +30,7 @@ module.exports = class extends Command {
 
         const { body } = data;
         const embed = new MessageEmbed()
-            .setTitle("Clash Royale Player Statistics - PenguBot")
+            .setAuthor("Clash Royale Player Statistics - PenguBot", "https://i.imgur.com/4xXGK08.png")
             .setFooter("© PenguBot.com")
             .setThumbnail("https://i.imgur.com/4xXGK08.png")
             .setColor("#398ce7")

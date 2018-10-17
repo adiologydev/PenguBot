@@ -8,7 +8,6 @@ module.exports = class extends Command {
             runIn: ["text"],
             aliases: ["emoji"],
             bucket: 3,
-
             cooldown: 3,
             description: "Shows you an emote.",
             extendedHelp: "This command shows an image of an emote.",

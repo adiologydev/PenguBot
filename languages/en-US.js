@@ -105,7 +105,7 @@ module.exports = class extends Language {
             MESSAGE_LOGCHAN_SET: "Logging channel has now been set!",
             COMMAND_LOG_DESCRPTION: "Enable/Disable Logging events if you're Pengu Admin or above.",
 
-            // Autoroles & Self Roles
+            // Autoroles, Level & Self Roles
             MESSAGE_AUTOROLES_ENABLED: "Auto Roles have been enabled in this guild!",
             MESSAGE_AUTOROLES_DISABLED: "Auto Roles have been disabled in this guild!",
             MESSAGE_AUTOROLE_REMOVED: "role was removed from the Auto Roles!",
@@ -113,6 +113,8 @@ module.exports = class extends Language {
             COMMAND_SELFROLES: "Assign or Deassign or list Self Roles from Yourself.",
             COMMAND_SELFROLES_MANAGE: "Add or Remove Self Roles from the server.",
             COMMAND_TOGGLE_SELFROLES: "Enable/Disable Self Roles on the server.",
+            MESSAGE_LEVELROLES_ENABLED: "Level Based Roles have been enabled in this guild!",
+            MESSAGE_LEVELROLES_DISABLED: "Level Based Roles have been disabled in this guild!",
 
             // Utilities Messages
             MESSAGE_NEW_REMINDER: "New Reminder has been created with ID:",
@@ -141,6 +143,9 @@ module.exports = class extends Language {
             COMMAND_CHANNEL_WELCOME_DESCRPTION: "Allows Pengu Administrators and above set welcome messages channel in the guild.",
             COMMAND_CHANNEL_LEAVE_DESCRPTION: "Allows Pengu Administrators and above set leave messages channel in the guild.",
             COMMAND_TOGGLE_ROLES_DESCRPTION: "Allows Pengu Administrators and above to enable or disable Auto Roles.",
+            COMMAND_TOGGLE_LVLROLES_DESCRPTION: "Allows Pengu Administrators and above to enable or disable Level Based Roles.",
+            COMMAND_LIST_LVLROLES_DESCRPTION: "List all the roles in the Level Based Roles List.",
+            COMMAND_LVLROLE_DESCRPTION: "ALLOWS Pengu Administrators and above to Add and Remove Level Based Roles for a guild.",
             COMMAND_ADD_ROLES_DESCRPTION: "Allows Pengu Administrators and above to add new Auto Roles.",
             COMMAND_REMIND_DESCRIPTION: "Make Pengu remind you things so you don't forget.",
             COMMAND_SHORTEN_DESCRIPTION: "Let Pengu shorten your Long URLs in one simple command.",
@@ -235,7 +240,7 @@ module.exports = class extends Language {
             COMMAND_QUOTE_DESCRIPTION: "Quote a message with it's Message ID.",
 
             // Profile Commands
-            COMMAND_LEVELUP_DESCRIPTION: "Enable/Disable Level Up Announcements of Users in your guild.",
+            COMMAND_LEVELUP_DESCRIPTION: "Manage Level Up settings of Users in your guild.",
             COMMAND_REP_DESCRIPTION: "Give your valuable rep point to someone to make them feel special.",
             COMMAND_PROFILE_DESCRIPTION: "Check yours or other users fancy profiles!",
             COMMAND_DAILY_DESCRIPTION: "Claim your daily 100 Snowflakes which you can use to buy cosmetics.",
@@ -245,6 +250,7 @@ module.exports = class extends Language {
             COMMAND_CHANGEBG_DESCRIPTION: "Change your Pengu Profile's Background.",
             COMMAND_LEADERBOARD_DESCRIPTION: "See who is winning the leaderboard for your guild.",
             COMMAND_BACKGROUND_DESCRIPTION: "Customize your PenguBot profile by buying and choosing different backgrounds.",
+            COMMAND_RANK_DESCRIPTION: "Server Based Member Rank Cards (Different for Each Server)",
 
             // Dev Commands
             COMMAND_EXEC_DESCRIPTION: "-BOT OWNER ONLY-",
@@ -268,13 +274,14 @@ module.exports = class extends Language {
             COMMAND_PAUSE_DESCRIPTION: "Pause/Resume the currently playing music.",
             COMMAND_VOLUME_DESCRIPTION: "Change the default volume of Pengu in your guild",
             COMMAND_DJONLY_DESCRIPTION: "Toggle Pengu DJ only mode for Music Commands.",
-            INHIBITOR_DJ_ONLY: "<:penguError:435712890884849664> ***This guild is configured to allow only Pengu DJ's to use Music Commands.***",
+            INHIBITOR_DJ_ONLY: "This guild is configured to allow only Pengu DJ's to use Music Commands.",
             COMMAND_DUMP_DESCRIPTION: "Dump your server queue in raw format to be used later!",
 
             // Game Stats
             COMMAND_FORTNITE_DESCRIPTION: "Get Fortnite Game Statistics within Discord.",
             COMMAND_CRSTATS_DESCRIPTION: "Clash Royale Player Statistics within Discord.",
             COMMAND_COCSTATS_DESCRIPTION: "Clash of Clans Player Statistics within Discord.",
+            COMMAND_CSGO_DESCRIPTION: "Counter Strike Global Offensive Player Statistics",
 
             // Starboard
             COMMAND_TOGGLE_STARBOARD_DESCRPTION: "Allows Pengu Administrators and above to toggle Starboard in the guild.",
@@ -315,7 +322,13 @@ module.exports = class extends Language {
             CMD_FORT_PLAT: "Invalid Username or Platform, please retry with either of these platforms: `pc`. `xbox`, `psn`.",
             CMD_FORT_ERR: "There was an error in the Tracking API, please try again later.",
             CMD_OSU_ERR: "Either the user couldn't be found or we're having some issues.",
-            CMD_UPVOTE_ONLY: "You are not an up-voter of PenguBot, please visit <https://www.pengubot.com/upvote> to vote now and get access! You can avoid upvoting by becoming a Patron today at <https://patreon.com/PenguBot>!"
+            CMD_UPVOTE_ONLY: "You are not an up-voter of PenguBot, please visit <https://www.pengubot.com/upvote> to vote now and get access! You can avoid upvoting by becoming a Patron today at <https://patreon.com/PenguBot>!",
+            CMD_PATRON_ONLY: "This guild is not Premium. Please consider becoming a Patron at <https://patreon.com/PenguBot> in order to access this feature.",
+            CMD_RPS_INVALID: "That's an invalid move, please choose",
+            CMD_SLOTS_INVALID: "The specified amount of Snowflakes is invalid, please enter at least 1 or more Snowflakes.",
+            CMD_LOG_INVALID: "Invalid Option, please choose from",
+            CMD_CSGO_NF: "That Username was not found on Steam, please try again with a different one.",
+            CMD_CSGO_ER: "There was an error, either your profile is PRIVATE or you haven't bought CSGO or the API bailed on us. Try again later."
         };
     }
 
