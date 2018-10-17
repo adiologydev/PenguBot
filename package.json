@@ -1,6 +1,6 @@
 {
   "name": "pengubot",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "PenguBot Rewrite for Performance and Stability.",
   "main": "start.js",
   "scripts": {
@@ -27,7 +27,7 @@
   "homepage": "https://github.com/AdityaTD/PenguBot#readme",
   "dependencies": {
     "@discordjs/uws": "^10.149.0",
-    "breadtags": "^1.0.0",
+    "breadtags": "^1.0.2",
     "canvas": "github:Automattic/node-canvas#92b192447e9b9ae98da0f801e4e34afdd1dc1ef8",
     "canvas-constructor": "github:kyranet/canvasConstructor",
     "cheerio": "^1.0.0-rc.2",
