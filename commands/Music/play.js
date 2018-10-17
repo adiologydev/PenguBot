@@ -85,6 +85,7 @@ module.exports = class extends MusicCommand {
                 });
                 player.once("error", e => {
                     musicInterface.textChannel.send(`I am very sorry but was an error, please try again or contact us at https://discord.gg/kWMcUNe | Error: ${e.error}`);
+                    if (musicInterface.looping || musicInterface.queue.length < 2) musicInterface.destroy();
                 });
             });
     }
