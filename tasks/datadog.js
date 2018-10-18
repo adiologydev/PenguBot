@@ -3,6 +3,7 @@ const { Task } = require("klasa");
 module.exports = class MemorySweeper extends Task {
 
     async run() {
+        if (!this.client.ready || !this.client.lavalink) return;
         let [users, guilds, vc] = [0, 0, 0];
         const results = await this.client.shard.broadcastEval(`[this.guilds.reduce((prev, val) => val.memberCount + prev, 0), this.guilds.size, this.lavalink.map(u => u).filter(p => p.playing).length]`);
 
@@ -12,10 +13,10 @@ module.exports = class MemorySweeper extends Task {
             vc = +result[3];
         }
 
-        this.client.dogstats.gauge("pengubots.totalcommands", this.client.configs.counter.total);
+        this.client.dogstats.gauge("pengubots.totalcommands", this.client.settings.counter.total);
         this.client.dogstats.gauge("pengubot.users", users);
         this.client.dogstats.gauge("pengubot.guilds", guilds);
-        this.client.dogstats.gauge("pengubots.voicestreams", vc);
+        this.client.dogstats.gauge("pengubot.voicestreams", vc);
         return;
     }
 
