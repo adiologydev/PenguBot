@@ -21,7 +21,7 @@ module.exports = class MemorySweeper extends Task {
 
     async init() {
         if (this.client.user.id !== "303181184718995457") return this.disable();
-        if (!this.client.schedules.some(schedule => schedule.taskName === this.name)) {
+        if (!this.client.settings.schedules.some(schedule => schedule.taskName === this.name)) {
             await this.client.schedule.create("datadog", "*/1 * * * *");
         }
     }
