@@ -1,5 +1,11 @@
 const { Event } = require("klasa");
 const { Parser } = require("breadtags");
+const files = require("fs").readdirSync(`${process.cwd()}/lib/tags`);
+
+for (const file of files) {
+    if (file.includes("index")) continue;
+    Parser.loadTag(require(`${process.cwd()}/lib/tags/${file}`));
+}
 
 module.exports = class extends Event {
 
@@ -20,7 +26,7 @@ module.exports = class extends Event {
     }
 
     async init() {
-        this.parser = new Parser();
+        this.parser = new Parser({ throwErrors: true });
     }
 
 };
