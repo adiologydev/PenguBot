@@ -3,7 +3,7 @@ const { Event } = require("klasa");
 module.exports = class extends Event {
 
     async run(guild) {
-        this.client.datadog.increment("pengubot.guildsadded");
+        this.client.dogstats.increment("pengubot.guildsadded");
         // Patreon Checker
         if (this.client.config.main.patreon === true && this.client.user.id === "438049470094114816") {
             if (!this.client.settings.pGuilds.includes(guild.id)) {
