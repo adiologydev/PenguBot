@@ -10,7 +10,7 @@ module.exports = class MemorySweeper extends Task {
         for (const result of results) {
             users += result[0];
             guilds += result[1];
-            vc = +result[3];
+            vc += result[3];
         }
 
         this.client.dogstats.gauge("pengubots.totalcommands", this.client.settings.counter.total);
