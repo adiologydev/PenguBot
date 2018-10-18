@@ -51,6 +51,8 @@ module.exports = class extends Command {
         } else if (!user) {
             return msg.sendMessage("🏆 | ***You can now give a reputation point!***");
         } else {
+            await msg.author.settings.sync(true);
+            await user.settings.sync(true);
             msg.author.settings.update("repcooldown", Date.now());
             await user.settings.update("reps", user.settings.reps + 1);
             return msg.sendMessage(`🏆 | ***You have given a reputation point to ${user}!***`);
