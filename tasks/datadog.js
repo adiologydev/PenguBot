@@ -10,10 +10,10 @@ module.exports = class MemorySweeper extends Task {
         for (const result of results) {
             users += result[0];
             guilds += result[1];
-            vc += result[3];
+            vc += result[2];
         }
 
-        this.client.dogstats.gauge("pengubots.totalcommands", this.client.settings.counter.total);
+        this.client.dogstats.gauge("pengubot.totalcommands", this.client.settings.counter.total);
         this.client.dogstats.gauge("pengubot.users", users);
         this.client.dogstats.gauge("pengubot.guilds", guilds);
         this.client.dogstats.gauge("pengubot.voicestreams", vc);
@@ -21,7 +21,7 @@ module.exports = class MemorySweeper extends Task {
     }
 
     async init() {
-        if (this.client.user.id !== "303181184718995457") return this.disable();
+        if (this.client.user.id !== "303181184718995457" || this.client.shard.id !== 0) return this.disable();
         if (!this.client.settings.schedules.some(schedule => schedule.taskName === this.name)) {
             await this.client.schedule.create("datadog", "*/1 * * * *");
         }
