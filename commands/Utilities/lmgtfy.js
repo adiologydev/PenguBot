@@ -16,7 +16,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [query]) {
-        return msg.sendMessage(`<:blobsmilehappy:373821679132213248> | ***Here's your LMGTFY Link: <http://lmgtfy.com/?q=${query.replace(/ /g, "+")}>***`);
+        return msg.sendMessage(`<:blobsmilehappy:373821679132213248> | ***Here's your LMGTFY Link: <https://lmgtfy.com/?q=${query.replace(/ /g, "+")}>***`);
     }
 
 };
