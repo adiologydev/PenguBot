@@ -53,7 +53,9 @@ module.exports = class extends Argument {
                 }
                 results.playlist = "Custom PenguBot Playlist";
             } else if (spotifyList.exec(arg)) {
-                const data = await get(`https://api.spotify.com/v1/playlists/${spotifyList.exec(arg)[1]}`)
+                let argument = arg;
+                if (arg.contains("/user/")) argument = arg.replace(/\/user\/(\w)+/, "");
+                const data = await get(`https://api.spotify.com/v1/playlists/${spotifyList.exec(argument)[1]}`)
                     .set("Authorization", `Bearer ${this.client.config.keys.music.spotify.token}`);
                 if (data.status !== 200 || !data.body) throw msg.language.get("ER_MUSIC_NF");
                 for (const trackData of data.body.tracks.items) {
