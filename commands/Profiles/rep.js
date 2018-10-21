@@ -26,7 +26,6 @@ module.exports = class extends Command {
         }
         if (msg.author.settings.repcooldown > 0) {
             await msg.author.settings.sync(true);
-            await user.settings.sync(true);
             const now = Date.now();
             const last = msg.author.settings.repcooldown;
             const diff = now - last;
@@ -41,6 +40,7 @@ module.exports = class extends Command {
                 if (!user) {
                     return msg.sendMessage("🏆 | ***You can now give a reputation point!***");
                 } else {
+                    await user.settings.sync(true);
                     await msg.author.settings.update("repcooldown", Date.now());
                     await user.settings.update("reps", user.settings.reps + 1);
                     return msg.sendMessage(`🏆 | ***You have given a reputation point to ${user}!***`);

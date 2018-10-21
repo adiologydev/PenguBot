@@ -29,7 +29,7 @@ module.exports = class extends Argument {
 
         const node = msg.guild.music.idealNode;
         if (!node) throw "Couldn't find an ideal region, please try changing your guild region and try again. If the error presists, contact us at: https://discord.gg/kWMcUNe";
-
+        if (!node.ready) throw `${this.client.emotes.cross} ***The current node seems to be having an issue, please contact us at https://penugbot.com/support to resolve this issue.***`;
         if (!this.client.config.keys.music.spotify.token) await this.client.tasks.get("spotify").run();
 
         const isLink = this.isLink(arg);
