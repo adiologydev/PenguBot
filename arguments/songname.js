@@ -14,6 +14,7 @@ const jpop = /(listen.moe|listen moe|listen.moe jpop|listen moe jpop|jpop moe|jp
 const kpop = /(listen.moe kpop|listen moe kpop|kpop moe|kpop listen moe|kpop listen.moe|listen.moe\/kpop)/i;
 const paste = /https:\/\/paste.pengubot.com\/(.*)/i;
 const spotifyList = /https?:\/\/(?:embed\.|open\.)(?:spotify\.com\/)(?:playlist\/|\?uri=spotify:playlist:)((\w|-){22})/i;
+const spotUser = /https?:\/\/(?:embed\.|open\.)(?:spotify\.com\/user\/(\w))/i;
 const spotifyAlbum = /https?:\/\/(?:embed\.|open\.)(?:spotify\.com\/)(?:album\/|\?uri=spotify:album:)((\w|-){22})/i;
 const spotifyTrack = /https?:\/\/(?:embed\.|open\.)(?:spotify\.com\/)(?:track\/|\?uri=spotify:track:)((\w|-){22})/i;
 
@@ -52,7 +53,7 @@ module.exports = class extends Argument {
                     results.push(songRes.tracks[0]);
                 }
                 results.playlist = "Custom PenguBot Playlist";
-            } else if (spotifyList.exec(arg)) {
+            } else if (spotifyList.exec(arg) || spotUser.exec(arg)) {
                 let argument = arg;
                 if (arg.contains("/user/")) argument = arg.replace(/\/user\/(\w)+/, "");
                 const data = await get(`https://api.spotify.com/v1/playlists/${spotifyList.exec(argument)[1]}`)
