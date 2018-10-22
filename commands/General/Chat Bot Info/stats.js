@@ -1,5 +1,5 @@
 const { Command, Duration } = require("klasa");
-const { version: discordVersion, MessageEmbed } = require("discord.js");
+const { MessageEmbed } = require("discord.js");
 module.exports = class extends Command {
 
     constructor(...args) {
@@ -11,9 +11,9 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        let [users, guilds, channels, memory, vc, cpm] = [0, 0, 0, 0, 0, 0];
+        let [users, guilds, channels, memory, vc, cpm, listeners] = [0, 0, 0, 0, 0, 0, 0];
 
-        const results = await this.client.shard.broadcastEval(`[this.guilds.reduce((prev, val) => val.memberCount + prev, 0), this.guilds.size, this.channels.size, (process.memoryUsage().heapUsed / 1024 / 1024), this.lavalink.size, this.health.commands.cmdCount[59].count]`);
+        const results = await this.client.shard.broadcastEval(`[this.guilds.reduce((prev, val) => val.memberCount + prev, 0), this.guilds.size, this.channels.size, (process.memoryUsage().heapUsed / 1024 / 1024), this.lavalink.size, this.health.commands.cmdCount[59].count, this.guilds.filter(g => g.music.playing && g.me.voice.channel).map(g => g.me.voice.channel.members.filter(m => !m.user.bot).size).reduce((prev, val) => prev + val, 0)]`);
         for (const result of results) {
             users += result[0];
             guilds += result[1];
@@ -21,6 +21,7 @@ module.exports = class extends Command {
             memory += result[3];
             vc += result[4];
             cpm += result[5];
+            listeners += result[6];
         }
 
         const embed = new MessageEmbed()
@@ -35,7 +36,7 @@ module.exports = class extends Command {
             .addField("❯ Voice Streams", vc.toLocaleString(), true)
             .addField("❯ Total Commands Ran", this.client.settings.counter.total.toLocaleString(), true)
             .addField("❯ CPM", cpm, true)
-            .addField("❯ Discord.js", discordVersion, true)
+            .addField("❯ Listeners", listeners, true)
             .addField("❯ Shards", `${this.client.shard.id + 1} / ${this.client.shard.count}`, true)
             .setAuthor("PenguBot - Statistics", this.client.user.displayAvatarURL(), "https://www.pengubot.com");
 

@@ -1,4 +1,5 @@
 const { Route } = require("klasa-dashboard-hooks");
+const crypto = require("crypto");
 
 module.exports = class extends Route {
 
@@ -9,7 +10,10 @@ module.exports = class extends Route {
     /* Test File - Patreon Hooks Incoming? :O */
 
     async post(request, response) {
-        const { body } = request;
+        const hash = crypto.createHmac("md5", this.client.config.keys.patreon).update(request.body).digest("hex");
+        if (request.header["x-patreon-signature"] !== hash) return;
+
+        const { body, headers } = request;
         const patron = body.included.find(d => d.type === "user");
         if (!patron.attributes.social_connections.discord) {
             const me = await this.client.users.fetch("136549806079344640").catch(() => null);
@@ -24,9 +28,9 @@ module.exports = class extends Route {
             return response.end(421);
         }
 
-        if (body.data.relationships.currently_entitled_rewards.data.length > 0) {
+        if (headers["x-patreon-event"] === "members:pledge:create") {
             const me = await this.client.users.fetch("136549806079344640").catch(() => null);
-            await user.settings.update([["patreon.paying", true], ["patreon.tokens", user.settings.patreon.tokens + body.data.attributes.pledge_amount_cents], ["patreon.pledged", user.settings.patreon.pledged + body.data.attributes.pledge_amount_cents]])
+            await user.settings.update([["patreon.paying", true], ["patreon.tokens", user.settings.patreon.tokens + body.data.attributes.pledge_amount_cents], ["patreon.pledged", user.settings.patreon.pledged + body.data.attributes.pledge_amount_cents], ["patreon.current", body.data.attributes.pledge_amount_cents]])
                 .catch(async e => {
                     await me.send(`<:patreon:502495572721270791> ***User Update Error:*** \`${patron.attributes.email}\` | User: \`${user.id}\`\n\n**Error:**\n${e}`);
                     return response.end(421);
@@ -37,9 +41,9 @@ module.exports = class extends Route {
                     return response.end(421);
                 });
             return me.send(`<:patreon:502495572721270791> ***Created Pledge: \`${patron.attributes.email}\` | User: \`${user.id}\`***`);
-        } else {
+        } else if (headers["x-patreon-event"] === "members:pledge:delete") {
             const me = await this.client.users.fetch("136549806079344640").catch(() => null);
-            await user.settings.update("patreon.paying", false)
+            await user.settings.update([["patreon.paying", false], ["patreon.current", 0]])
                 .catch(async e => {
                     await me.send(`<:patreon:502495572721270791> ***User Update Error:*** ${patron.attributes.email}\n\n**Error:**\n${e}`);
                     return response.end(421);
@@ -50,6 +54,19 @@ module.exports = class extends Route {
                     return response.end(421);
                 });
             me.send(`<:patreon:502495572721270791> ***Cancelled Pledge: \`${patron.attributes.email}\` | User: \`${user.id}\`***`);
+        } else if (headers["x-patreon-event"] === "members:pledge:update") {
+            const me = await this.client.users.fetch("136549806079344640").catch(() => null);
+            await user.settings.update([["patreon.paying", true], ["patreon.tokens", user.settings.patreon.tokens + body.data.attributes.pledge_amount_cents], ["patreon.pledged", user.settings.patreon.pledged + body.data.attributes.pledge_amount_cents], ["patreon.current", body.data.attributes.pledge_amount_cents]])
+                .catch(async e => {
+                    await me.send(`<:patreon:502495572721270791> ***User Update Error:*** \`${patron.attributes.email}\` | User: \`${user.id}\`\n\n**Error:**\n${e}`);
+                    return response.end(421);
+                });
+            await this.client.settings.update("patrons.users", user, { action: "add" })
+                .catch(async e => {
+                    await me.send(`<:patreon:502495572721270791> ***Client Update Error:*** \`${patron.attributes.email}\` | User: \`${user.id}\`\n\n**Error:**\n${e}`);
+                    return response.end(421);
+                });
+            return me.send(`<:patreon:502495572721270791> ***Updated Pledge: \`${patron.attributes.email}\` | User: \`${user.id}\`***`);
         }
 
         return response.end();

@@ -4,19 +4,21 @@ module.exports = class MemorySweeper extends Task {
 
     async run() {
         if (!this.client.ready || !this.client.lavalink) return;
-        let [users, guilds, vc] = [0, 0, 0];
-        const results = await this.client.shard.broadcastEval(`[this.guilds.reduce((prev, val) => val.memberCount + prev, 0), this.guilds.size, this.lavalink.map(u => u).filter(p => p.playing).length]`);
+        let [users, guilds, vc, listeners] = [0, 0, 0, 0];
+        const results = await this.client.shard.broadcastEval(`[this.guilds.reduce((prev, val) => val.memberCount + prev, 0), this.guilds.size, this.lavalink.map(u => u).filter(p => p.playing).length, this.guilds.filter(g => g.music.playing && g.me.voice.channel).map(g => g.me.voice.channel.members.filter(m => !m.user.bot).size).reduce((prev, val) => prev + val, 0)]`);
 
         for (const result of results) {
             users += result[0];
             guilds += result[1];
             vc += result[2];
+            listeners += result[3];
         }
 
         this.client.dogstats.gauge("pengubot.totalcommands", this.client.settings.counter.total);
         this.client.dogstats.gauge("pengubot.users", users);
         this.client.dogstats.gauge("pengubot.guilds", guilds);
         this.client.dogstats.gauge("pengubot.voicestreams", vc);
+        this.client.dogstats.gauge("pengubot.listeners", listeners);
         return;
     }
 
