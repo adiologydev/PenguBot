@@ -11,7 +11,7 @@ module.exports = class extends Route {
 
     async post(request, response) {
         const hash = crypto.createHmac("md5", this.client.config.keys.patreon).update(request.body).digest("hex");
-        if (request.header["x-patreon-signature"] !== hash) return;
+        if (request.headers["x-patreon-signature"] !== hash) return;
 
         const { body, headers } = request;
         const patron = body.included.find(d => d.type === "user");
