@@ -10,7 +10,7 @@ module.exports = class extends Route {
     /* Test File - Patreon Hooks Incoming? :O */
 
     async post(request, response) {
-        const hash = crypto.createHmac("md5", this.client.config.keys.patreon).update(request.body).digest("hex");
+        const hash = crypto.createHmac("md5", this.client.config.keys.patreon).update(JSON.stringify(request.body)).digest("hex");
         if (request.headers["x-patreon-signature"] !== hash) return;
 
         const { body, headers } = request;
