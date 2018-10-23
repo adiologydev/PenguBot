@@ -16,7 +16,7 @@ module.exports = class extends Monitor {
     }
 
     async run(msg) {
-        if (!msg.guild) return;
+        if (!msg.guild || !msg.member) return;
         if (timeout.has(`${msg.author.id}-${msg.guild.id}`)) return;
 
         if (this.client.user.id !== "303181184718995457") {

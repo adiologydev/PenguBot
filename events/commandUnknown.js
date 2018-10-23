@@ -13,7 +13,8 @@ module.exports = class extends Event {
 
     async run(msg, command, prefixLength) {
         if (!msg.guild || !msg.guildSettings.customcmds.cmds.length) return;
-        const customCommand = msg.guildSettings.customcmds.cmds.find(c => c.name.match(new RegExp(command, "i")));
+        await msg.guild.settings.sync(true);
+        const customCommand = msg.guildSettings.customcmds.cmds.find(c => c.name.toLowerCase() === command);
         if (!customCommand) return;
 
         if (timeout.has(`${msg.author.id}-${msg.guild.id}`)) return msg.reply(`${this.client.emotes.cross} **Ooh, Not So Quickly. Please Wait and Try Again!`);
