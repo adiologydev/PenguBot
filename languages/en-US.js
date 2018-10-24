@@ -217,6 +217,7 @@ module.exports = class extends Language {
             COMMAND_BOOTY_DESCRIPTION: "-NOT SAFE FOR WORK- Booty images.",
             COMMAND_PUSSY_DESCRIPTION: "-NOT SAFE FOR WORK- Pussy images.",
             COMMAND_TEEN_DESCRIPTION: "-NOT SAFE FOR WORK- Teen images.",
+            COMMAND_HENTAI_DESCRIPTION: "-NOT SAFE FOR WORK- Hentai images.",
             COMMAND_SNAP_DESCRIPTION: "-NOT SAFE FOR WORK- Snapchat Images.",
             COMMAND_AMETEUR_DESCRIPTION: "-NOT SAFE FOR WORK- Ameteur Images.",
             COMMAND_GIFS_DESCRIPTION: "-NOT SAFE FOR WORK- Animated Gifs.",
