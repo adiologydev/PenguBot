@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/AdityaTD/PenguBot#readme",
   "dependencies": {
-    "@discordjs/uws": "^10.149.0",
+    "@discordjs/uws": "^11.149.0",
     "breadtags": "^1.0.2",
     "canvas": "github:Automattic/node-canvas#92b192447e9b9ae98da0f801e4e34afdd1dc1ef8",
     "canvas-constructor": "github:kyranet/canvasConstructor",
