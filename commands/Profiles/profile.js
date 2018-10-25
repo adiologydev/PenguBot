@@ -39,7 +39,6 @@ module.exports = class extends Command {
 
         const query = await r.db("pengubot").table("users").orderBy({ index: r.desc("xp") }).pluck("id", "xp").limit(10000).offsetsOf(r.row("id").eq(user.id))
             .run();
-        console.log(query);
         const pos = query.length ? `#${Number(query) + 1}` : "More Than 10,000";
 
         const bgName = user.settings.profilebg;

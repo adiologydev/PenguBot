@@ -252,6 +252,7 @@ module.exports = class extends Language {
             COMMAND_LEADERBOARD_DESCRIPTION: "See who is winning the leaderboard for your guild.",
             COMMAND_BACKGROUND_DESCRIPTION: "Customize your PenguBot profile by buying and choosing different backgrounds.",
             COMMAND_RANK_DESCRIPTION: "Server Based Member Rank Cards (Different for Each Server)",
+            COMMAND_MANAGEXP_DESCRIPTION: "Set/Reset/Add XP to a Guild Member (PenguAdmin or Above Required)",
 
             // Dev Commands
             COMMAND_EXEC_DESCRIPTION: "-BOT OWNER ONLY-",
