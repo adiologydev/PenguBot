@@ -161,6 +161,7 @@ module.exports = class extends Language {
             COMMAND_SHARDS_DESCRIPTION: "Check all the detailed shards information of PenguBot.",
             COMMAND_LMGTFY_DESCRIPTION: "Feeling lazy to google something? Let me google it for you.",
             COMMAND_UPVOTE_DESCRIPTION: "Vote for PenguBot on DBL and gain access to limited features in a second.",
+            COMMAND_CUSTOM_CMD_DESCRIPTION: "Manage the custom commands for your guild.",
 
             // Fun Commands Descriptions
             COMMAND_CAT_DESCRIPTION: "Cute Cat Photos and Facts with Pengu!",
