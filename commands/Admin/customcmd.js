@@ -1,4 +1,6 @@
 const Command = require("../../lib/structures/KlasaCommand");
+const { RichDisplay } = require("klasa");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
 
