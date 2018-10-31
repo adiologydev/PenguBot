@@ -1,6 +1,6 @@
 const Command = require("../../lib/structures/KlasaCommand");
 const { RichDisplay, util } = require("klasa");
-const { MessageEmbed, Permissions,  } = require("discord.js");
+const { MessageEmbed, Permissions } = require("discord.js");
 
 module.exports = class extends Command {
 
@@ -64,28 +64,25 @@ module.exports = class extends Command {
         const { prefix } = msg.guild.settings;
         const names = msg.guild.settings.customcmds.cmds.map(cmd => cmd.name);
         const PERMISSIONS_RICHDISPLAY = new Permissions([Permissions.FLAGS.MANAGE_MESSAGES, Permissions.FLAGS.ADD_REACTIONS, Permissions.FLAGS.EMBED_LINKS]);
-        if ( msg.channel.permissionsFor(this.client.user).has(PERMISSIONS_RICHDISPLAY)) {
-
-        const cmds = new RichDisplay(new MessageEmbed()
-            .setTitle("Use the reactions to change pages, select a page or stop viewing the commands.")
-            .setAuthor("Custom Commands - PenguBot", "https://i.imgur.com/DOuCQlY.png")
-            .setDescription("Scroll between pages to see the custom commands list.")
-            .setColor("#F75F4E")
-        );
-        for (let i = 0, temp = names.length; i < temp; i += 5) {
-            const curr = names.slice(i, i + 5);
-            cmds.addPage(t => t.setDescription(curr.map(c => `• ${prefix}${c}`)));
-        }
-        cmds.run(await msg.sendMessage(`${this.client.emotes.loading} Loading Commands...`), {
-            time: 120000,
-            filter: (reaction, user) => user === msg.author
-        });
-
+        if (msg.channel.permissionsFor(this.client.user).has(PERMISSIONS_RICHDISPLAY)) {
+            const cmds = new RichDisplay(new MessageEmbed()
+                .setTitle("Use the reactions to change pages, select a page or stop viewing the commands.")
+                .setAuthor("Custom Commands - PenguBot", "https://i.imgur.com/DOuCQlY.png")
+                .setDescription("Scroll between pages to see the custom commands list.")
+                .setColor("#F75F4E")
+            );
+            for (let i = 0, temp = names.length; i < temp; i += 5) {
+                const curr = names.slice(i, i + 5);
+                cmds.addPage(t => t.setDescription(curr.map(c => `• ${prefix}${c}`)));
+            }
+            cmds.run(await msg.sendMessage(`${this.client.emotes.loading} Loading Commands...`), {
+                time: 120000,
+                filter: (reaction, user) => user === msg.author
+            });
         } else {
-            const message = `** Custom Commands ** for ${msg.guild.name} \n ${util.codeBlock(names.map(name => message += `• ${prefix}${name}`).join("\n"))}`;
-            msg.sendMessage(message)
-        };
-
+            const message = `** Custom Commands ** for ${msg.guild.name} \n ${util.codeBlock(names.map(name => `• ${prefix}${name}`).join("\n"))}`;
+            msg.sendMessage(message);
+        }
     }
 
 
