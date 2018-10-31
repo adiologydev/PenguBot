@@ -12,7 +12,7 @@ module.exports = class extends Command {
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: language => language.get("COMMAND_CUSTOM_CMD_DESCRIPTION"),
-            usage: "<create|delete|toggle|list:default> <name:string> <content:string> [...]",
+            usage: "<create|delete|toggle|update|view|list:default> [name:string] [content:string] [...]",
             subcommands: true,
             usageDelim: " ",
             extendedHelp: "No extended help available."
@@ -57,6 +57,11 @@ module.exports = class extends Command {
         } else {
             return msg.reply(`${this.client.emotes.cross} ***\`${name}\` ${msg.language.get("MESSAGE_CMD_NOTFOUND")}***`);
         }
+    }
+
+    async view(msg, [name]) {
+        const cmd = msg.guildSettings.customcmds.cmds.find(c => c.name.toLowerCase() === name.toLowerCase());
+        msg.sendMessage(`\`${name}: ${cmd.content}\``);
     }
 
     async list(msg) {
