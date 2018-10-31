@@ -64,7 +64,7 @@ module.exports = class extends Command {
         const { prefix } = msg.guild.settings;
         const names = msg.guild.settings.customcmds.cmds.map(cmd => cmd.name);
         const PERMISSIONS_RICHDISPLAY = new Permissions([Permissions.FLAGS.MANAGE_MESSAGES, Permissions.FLAGS.ADD_REACTIONS, Permissions.FLAGS.EMBED_LINKS]);
-        if ( message.channel.permissionsFor(this.client.user).has(PERMISSIONS_RICHDISPLAY)) {
+        if ( msg.channel.permissionsFor(this.client.user).has(PERMISSIONS_RICHDISPLAY)) {
 
         const cmds = new RichDisplay(new MessageEmbed()
             .setTitle("Use the reactions to change pages, select a page or stop viewing the commands.")
