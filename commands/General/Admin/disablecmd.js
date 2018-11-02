@@ -17,7 +17,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [cmd]) {
-        if (msg.guild.settings.disabledCommands.indexOf(cmd) !== -1) {
+        if (msg.guild.settings.disabledCommands.indexOf(cmd.name) === -1) {
             await msg.guild.settings.update("disabledCommands", cmd.name, { action: "add" });
             return msg.sendMessage(`${this.client.emotes.check} ***${cmd.name} command has been Disabled by ${msg.author.tag}!***`);
         } else {
