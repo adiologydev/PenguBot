@@ -33,11 +33,11 @@ module.exports = class extends Command {
             await msg.guild.settings.update("leveltype", "user");
             return msg.sendMessage(`${this.client.emotes.check} **Global** type Level Up announcements have been Enabled!`);
         } else if (type.match(/guild/i)) {
-            if (msg.guild.settings.leveltype === "guild") throw `${this.client.emotes.check} **Guild** type of Level Ups are already set, try **user** instead.`;
+            if (msg.guild.settings.leveltype === "guild") throw `${this.client.emotes.check} **Guild** type of Level Ups are already set, try **global** instead.`;
             await msg.guild.settings.update("leveltype", "guild");
             return msg.sendMessage(`${this.client.emotes.check} **Guild** type Level Up announcements have been Enabled!`);
         } else {
-            return msg.sendMessage(`${this.client.emotes.cross} ***Invalid Type, choose from \`user\` or \`guild\` only.***`);
+            return msg.sendMessage(`${this.client.emotes.cross} ***Invalid Type, choose from \`global\` or \`guild\` only.***`);
         }
     }
 
