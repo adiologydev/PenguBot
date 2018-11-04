@@ -16,7 +16,6 @@ module.exports = class extends MusicCommand {
 
     async run(msg) {
         const { music } = msg.guild;
-        if (!msg.guild.me.voice.channel) return msg.sendMessage(`${this.client.emotes.cross} ***There's currently no music playing!***`);
 
         if (await msg.hasAtLeastPermissionLevel(3) || music.voiceChannel.members.size <= 3) {
             await music.destroy();
