@@ -10,7 +10,6 @@ module.exports = class extends Command {
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             usage: "[channel:channelname]",
-            usageDelim: "",
             description: language => language.get("COMMAND_CHANNEL_LEAVE_DESCRPTION"),
             extendedHelp: "No extended help available."
         });
