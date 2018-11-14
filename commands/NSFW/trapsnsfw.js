@@ -1,15 +1,15 @@
 const Command = require("../../lib/structures/KlasaCommand");
-const data = require("../../lib/constants/nsfw/gif");
+const data = require("../../lib/constants/nsfw/traps");
 
 module.exports = class extends Command {
 
     constructor(...args) {
         super(...args, {
             cooldown: 8,
-            aliases: ["nsfwgif"],
             upvoteOnly: true,
+            aliases: ["nsfwtraps"],
             requiredPermissions: ["ATTACH_IMAGES", "EMBED_LINKS"],
-            description: language => language.get("COMMAND_GIFS_DESCRIPTION"),
+            description: language => language.get("COMMAND_NSFWTRAPS_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
     }

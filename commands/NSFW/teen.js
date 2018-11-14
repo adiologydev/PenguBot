@@ -1,6 +1,5 @@
 const Command = require("../../lib/structures/KlasaCommand");
 const subReddits = ["legalteens", "collegesluts", "adorableporn", "legalteensXXX", "gonewild18", "18_19", "just18"];
-const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
 
@@ -24,12 +23,7 @@ module.exports = class extends Command {
             if (img.indexOf(".mp4")) {
                 img = await this.client.funcs.scrapeSubreddit(subReddits[Math.floor(Math.random() * subReddits.length)]);
             }
-            const embed = new MessageEmbed()
-                .setFooter("© PenguBot.com")
-                .setTimestamp()
-                .setImage(img)
-                .setColor("RANDOM");
-            return msg.sendMessage({ embed: embed });
+            return msg.sendMessage(img);
         } catch (e) {
             return msg.sendMessage(`There was an error, try again!`);
         }
