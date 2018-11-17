@@ -24,6 +24,7 @@ module.exports = class extends MusicCommand {
         if (queueOrSong === "song") {
             music.looping = !music.looping;
         } else {
+            if (music.queue.length * 2 > 1000) throw "The maximum queue size is 1000 songs.";
             music.queue = music.queue.concat(music.queue);
         }
         return msg.sendMessage(`⏯ | ***Song looping is now ${queueOrSong === "queue" ? "The whole queue will now repeat." : music.looping ? "Enabled" : "Disabled"}***`);
