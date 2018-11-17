@@ -340,7 +340,7 @@ module.exports = class extends Language {
             CMD_FORT_PLAT: "Invalid Username or Platform, please retry with either of these platforms: `pc`. `xbox`, `psn`.",
             CMD_FORT_ERR: "There was an error in the Tracking API, please try again later.",
             CMD_OSU_ERR: "Either the user couldn't be found or we're having some issues.",
-            CMD_UPVOTE_ONLY: "You are not an up-voter of PenguBot, please visit <http://bit.ly/VoteDBL> to vote now and get access! You can avoid upvoting by becoming a Patron today at <https://patreon.com/PenguBot>!",
+            CMD_UPVOTE_ONLY: "You are not an up-voter of PenguBot, please visit <http://bit.ly/VoteDBL> to vote now and get access!",
             CMD_PATRON_ONLY: "This guild is not Premium. Please consider becoming a Patron at <https://patreon.com/PenguBot> in order to access this feature.",
             CMD_RPS_INVALID: "That's an invalid move, please choose",
             CMD_SLOTS_INVALID: "The specified amount of Snowflakes is invalid, please enter at least 1 or more Snowflakes.",
