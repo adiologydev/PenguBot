@@ -16,9 +16,11 @@ module.exports = class extends Command {
     }
 
     async run(msg, [Option]) {
-        if (!Option) return msg.reply(`${msg.language.get("CMD_LOG_INVALID")} \`ban\`, \`kick\`, \`join\`, \`leave\`, \`channels\`, \`mute\`, \`messages\`, \`roles\`.`);
+        if (!Option) return msg.reply(`${msg.language.get("CMD_LOG_INVALID")} \`automod\`, \`ban\`, \`kick\`, \`join\`, \`leave\`, \`channels\`, \`mute\`, \`messages\`, \`roles\`.`);
         const opt = Option.toLowerCase();
         switch (opt) {
+            case "automod": this.update("automod", msg);
+                break;
             case "ban": this.update("ban", msg);
                 break;
             case "kick": this.update("kick", msg);
@@ -35,7 +37,7 @@ module.exports = class extends Command {
                 break;
             case "roles": this.update("roles", msg);
                 break;
-            default: msg.reply(`${msg.language.get("CMD_LOG_INVALID")} \`ban\`, \`kick\`, \`join\`, \`leave\`, \`channels\`, \`mute\`, \`messages\`, \`roles\`.`);
+            default: msg.reply(`${msg.language.get("CMD_LOG_INVALID")} \`automod\`, \`ban\`, \`kick\`, \`join\`, \`leave\`, \`channels\`, \`mute\`, \`messages\`, \`roles\`.`);
         }
     }
 

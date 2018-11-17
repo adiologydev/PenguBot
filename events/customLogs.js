@@ -42,6 +42,8 @@ module.exports = class extends Event {
                 break;
             case "roleUpdate": channel.send(this.generateEmbed(`🔄 **${data.role}** (${data.role.id}) role was \`updated\``, "#428bca", { footer: `Role Updated` }));
                 break;
+            case "automod": channel.send(this.generateEmbed(`**Content:**\n${data.content}`, "#d9534f", { footer: `Autmod Deleted in #${data.channel.name} for ${data.filter}`, title: `${user.tag} | ${user.id}`, avatar: user.displayAvatarURL(), image: data.image }));
+                break;
             default: break;
         }
     }
