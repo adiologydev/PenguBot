@@ -8,7 +8,8 @@ module.exports = class extends Monitor {
     }
 
     async run(msg) {
-        // if (!msg.guild || !msg.guild.settings.automod.enabled || !msg.content) return;
+        if (!msg.guild || !msg.guild.settings.automod.enabled || !msg.content) return;
+        if (msg.content.startsWith(msg.guild.settings.prefix) || this.mentionPrefix(msg)) return;
         const req = await post(`https://commentanalyzer.googleapis.com/v1alpha1/comments:analyze?key=${this.client.config.keys.perspective}`)
             .send({ comment: { text: msg.content }, requestedAttributes: { SEVERE_TOXICITY: {}, TOXICITY: {}, OBSCENE: {}, THREAT: {}, SEXUALLY_EXPLICIT: {}, SPAM: {}, PROFANITY: {} } });
 
@@ -26,6 +27,15 @@ module.exports = class extends Monitor {
                 }
             }
         }
+    }
+
+    mentionPrefix({ content }) {
+        const prefixMention = this.prefixMention.exec(content);
+        return prefixMention ? { length: prefixMention[0].length, regex: this.prefixMention } : null;
+    }
+
+    init() {
+        this.prefixMention = new RegExp(`^<@!?${this.client.user.id}>`);
     }
 
 };

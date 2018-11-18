@@ -162,6 +162,12 @@ module.exports = class extends Language {
             COMMAND_LMGTFY_DESCRIPTION: "Feeling lazy to google something? Let me google it for you.",
             COMMAND_UPVOTE_DESCRIPTION: "Vote for PenguBot on DBL and gain access to limited features in a second.",
 
+            // Automod
+            MESSAGE_AUTOMOD_ENABLED: "Auto moderation has now been Enabled with THREAT and SPAM filters by default. Change filters by doing `p!automod toggle <filter>`",
+            MESSAGE_AUTOMOD_DISABLED: "Auto moderation has now been Disabled.",
+            MESSAGE_AUTOMOD_TOGGLED: "filter has now been toggled",
+            COMMAND_AUTOMOD_DESCRPTION: "Manage Auto moderation Settings.",
+
             // Fun Commands Descriptions
             COMMAND_CAT_DESCRIPTION: "Cute Cat Photos and Facts with Pengu!",
             COMMAND_CHUCK_DESCRIPTION: "Chuck Norris Jokes just a command away!",
