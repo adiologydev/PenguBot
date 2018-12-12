@@ -31,8 +31,13 @@ module.exports = class extends Language {
                 "• **Database:** RethinkDB"
             ],
             COMMAND_DONATE: [
-                "PenguBot runs on multipe servers rented out across the globe and that requires the",
-                "rent.If you'd like to support PenguBot and it's financial costs please visit the following:",
+                "PenguBot runs on multipe servers rented out across the globe and that requires the rent. If you'd like to support PenguBot and it's financial costs in return for perks mentioned below please visit the following:",
+                "",
+                "__Perks__:",
+                "• Unlimited Access to Queue Lengths, Volume Adjustment and more!",
+                "• No Vote Locking - No Need To Upvote for Locked Commands",
+                "• Better Uptime with Patron Only Bot",
+                "• Special Role in Official Pengu Squad Server",
                 "",
                 "• **Patreon:** https://www.patreon.com/PenguBot",
                 "• **Crypto Donations:** https://1upcoin.com/donate/adityatd",
