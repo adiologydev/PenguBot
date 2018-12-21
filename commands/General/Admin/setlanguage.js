@@ -18,12 +18,14 @@ module.exports = class extends Command {
 
     async run(msg, [language]) {
         const currLang = msg.guild.settings.language;
-        if (language.exec(/english|en|en-us/i)) {
+        if (/english|inglese|en|en-us/i.test(language)) {
             if (currLang === "en-US") throw `${this.client.emotes.cross} ***${msg.language.get("ER_CURR_LANG")}***`;
-            await this.changeLanguage(msg.guild, "en-US");
-        } else if (language.exec(/italian|it|it-it/i)) {
+            await this.changeLanguage(msg, "en-US");
+        } else if (/italian|italiano|it|it-it/i.test(language)) {
             if (currLang === "it-IT") throw `${this.client.emotes.cross} ***${msg.language.get("ER_CURR_LANG")}***`;
-            await this.changeLanguage(msg.guild, "it-IT");
+            await this.changeLanguage(msg, "it-IT");
+        } else {
+            throw `${this.client.emotes.cross} ***${msg.language.get("ER_NO_LANG")}***`;
         }
     }
 

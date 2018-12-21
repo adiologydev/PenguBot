@@ -418,7 +418,13 @@ module.exports = class extends Language {
             COMMAND_CONF_REMOVE: (value, key) => `Rimosso con successo il valore \`${value}\` dalla chiave: **${key}**`,
             COMMAND_CONF_GET_NOEXT: key => `La chiave **${key}** non sembra esistere.`,
             COMMAND_CONF_GET: (key, value) => `Il valore per la chiave **${key}** è: \`${value}\``,
-            COMMAND_CONF_RESET: (key, response) => `La chiave **${key}** è stata ripristinata a: \`${response}\``
+            COMMAND_CONF_RESET: (key, response) => `La chiave **${key}** è stata ripristinata a: \`${response}\``,
+
+            // New Sentences
+            COMMAND_SETLANGUAGE_DESCRPTION: "Seleziona la lingua nella quale PenguBot parla sul tuo server.",
+            ER_CURR_LANG: "Errore: La lingua selezionata è quella attualmente in uso.",
+            ER_NO_LANG: "Seleziona una lingua tra quelle disponibili (English or Italiano).",
+            CONF_LANG_SET: "Lingua di PenguBot aggiornata correttamente."
         };
     }
 

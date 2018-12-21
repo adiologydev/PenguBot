@@ -422,6 +422,7 @@ module.exports = class extends Language {
             // New Sentences
             COMMAND_SETLANGUAGE_DESCRPTION: "Choose PenguBot's language to speak in your server.",
             ER_CURR_LANG: "That is already your current default language.",
+            ER_NO_LANG: "Please specify a language like `English` or `Italian`.",
             CONF_LANG_SET: "Default PenguBot Language has now changed."
         };
     }
