@@ -5,7 +5,7 @@ module.exports = class extends Language {
     constructor(...args) {
         super(...args);
         this.language = {
-            DEFAULT: key => `${key} no este istau galu postu in limba. Pompia https://discord.gg/u8WYw5r e pedi de che lu ponnere in su canale de su sopporto.`,
+            DEFAULT: key => `${key} no este istau galu postu in limba.`,
             INHIBITOR_DISABLED: "<:penguError:435712890884849664> ***Custu commandu este disabilitau.***",
             INHIBITOR_DISABLED_GROUP: "<:penguError:435712890884849664> ***Custu gruppo de commandoso suno disabilitadoso.***",
             COMMAND_UNLOAD: (type, name) => `<:penguSuccess:435712876506775553> Scaricadu ${type}: ${name}`,
