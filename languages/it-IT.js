@@ -5,7 +5,7 @@ module.exports = class extends Language {
     constructor(...args) {
         super(...args);
         this.language = {
-            DEFAULT: key => `${key} non è stato ancora tradotta. Connettiti a https://discord.gg/u8WYw5r e richiedilo nel canale di supporto.`,
+            DEFAULT: key => `${key} non è stato ancora tradotta.`,
             INHIBITOR_DISABLED: "<:penguError:435712890884849664> ***Questo comando è attualmente disabilitato.***",
             INHIBITOR_DISABLED_GROUP: "<:penguError:435712890884849664> ***Questo gruppo di comandi è attualmente disabilitato***",
             COMMAND_UNLOAD: (type, name) => `<:penguSuccess:435712876506775553> Scaricato ${type}: ${name}`,
