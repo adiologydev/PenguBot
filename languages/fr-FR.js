@@ -421,7 +421,15 @@ module.exports = class extends Language {
             
             
             // Music interface - hacked by Rex ;) (starting from 1st Jan)
-            MUSICIF_SONG_NOT_FOUND: "Song not found, please try with a different one"
+            MUSICIF_NO_MUSIC_PLAYING:"Aucune musique ne joue!",
+            MUSICIF_NOW_PLAYING_TITLE:"En cours de lecture..",            
+            MUSICIF_TITLE:"Title",            
+            MUSICIF_AUTHOR:"Auteur",
+            MUSICIF_SONG_LENGHT:"Durée",
+            MUSICIF_SONG_REQUESTED_BY:"Demandeur",
+            MUSICIF_SONG_LINK:"Link",
+            
+            MUSICIF_SONG_NOT_FOUND: "Chant non trouvé, veuillez essayer avec un autre."
             
             
         };
