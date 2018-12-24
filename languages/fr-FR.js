@@ -51,25 +51,25 @@ module.exports = class extends Language {
             COMMAND_TOGGLE_COMMAND_DESCRPTION: "Désactiver/Activer les Commandes dans ta guilde.",
             COMMAND_SUPPORT_DESCRIPTION: "Link to join PenguBot's Support Guild.",
 
-            // Pengu's Sentences
+            // Pengu's Sentences **
             MESSAGE_PREFIX_SET: "Mise à jour du préfixe de la guilde avec:",
             MESSAGE_CURRENT_PREFIX: "Le préfixe actuel de la guilde est:",
             MESSAGE_PENGU: "Voici.. !",
 
-            // Kick Messages
-            MESSAGE_KICKED: "a été frappé!",
+            // Kick Messages **
+            MESSAGE_KICKED: "a été mis dehors!!",
             MESSAGE_KICK_YOURSELF: "Tu ne peux pas mettre toi dehors!",
             MESSAGE_KICK_PENGU: "Pourquoi voudriez-vous me mettre dehors??",
             MESSAGE_KICK_CANT: "Cet utilisateur ne peut pas être expulsé.",
 
-            // Ban Messages
+            // Ban Messages **
             MESSAGE_BANNED: "a été banni! (ban)",
             MESSAGE_SOFTBANNED: "a été banni! (softban)",
             MESSAGE_BAN_YOURSELF: "Vous ne pouvez pas vous interdire!",
             MESSAGE_BAN_PENGU: "Pourquoi voudriez-vous m'interdire?",
             MESSAGE_BAN_CANT: "Cet utilisateur ne peut pas être banni!",
 
-            // Make Admin and Mod Messages
+            // Make Admin and Mod Messages **
             MESSAGE_ADMIN_ADD: "est maintenant un Administrateur Pengu!",
             MESSAGE_ADMIN_REMOVE: "n'est plus un Administrateur Pengu!",
             MESSAGE_MOD_ADD: "est maintenant un Modérateur Pengu!",
@@ -77,14 +77,14 @@ module.exports = class extends Language {
             MESSAGE_DJ_ADD: "est maintenant un Pengu DJ!",
             MESSAGE_DJ_REMOVE: "n'est plus un a Pengu DJ!",
 
-            // Mute Command Messages
+            // Mute Command Messages **
             MESSAGE_MUTED: "était en sourdine!",
             MESSAGE_UNMUTED: "était sans sourdine!",
 
             // Other Mod Commands Messages
             MESSAGE_PRUNE_DELETED: "message(s) were deleted!",
 
-            // Custom Commands Messages
+            // Custom Commands Messages **
             MESSAGE_CMD_ADDED: "commande a été ajoutée par",
             MESSAGE_CMD_UPDATED: "commande a été mise à jour par",
             MESSAGE_CMD_REMOVED: "commande a été supprimée par",
@@ -94,7 +94,7 @@ module.exports = class extends Language {
             MESSAGE_COMMAND_CUSTOM_ENABLED: "Les Commandes Personnalisées sont maintenant activées!",
             MESSAGE_COMMAND_CUSTOM_DISABLED: "Les Commandes Personnalisées sont maintenant désactivées!",
 
-            // Welcome & Leave messages
+            // Welcome & Leave messages **
             MESSAGE_WLCM_ENABLED: "Les Messages de Bienvenue sont maintenant activées!!",
             MESSAGE_WLCM_DISABLED: "Les Messages de Bienvenue sont maintenant désactivées!",
             MESSAGE_LEAVE_ENABLED: "Leave Messages de Adieu sont maintenant activées!!",
@@ -104,11 +104,11 @@ module.exports = class extends Language {
             MESSAGE_WELCOME_CHANNEL_SET: "Le canal des messages de bienvenue est maintenant défini!",
             MESSAGE_LEAVE_CHANNEL_SET: "Le canal des messages de adieu est maintenant défini!",
 
-            // Logging
+            // Logging **
             MESSAGE_LOGCHAN_SET: "Le canal de journalisation est maintenant défini!",
             COMMAND_LOG_DESCRPTION: "Activer/Désactiver les événements de journalisation. Si vous êtes Administrateur de Pengu ou supérieur.",
 
-            // Autoroles, Level & Self Roles
+            // Autoroles, Level & Self Roles **
             MESSAGE_AUTOROLES_ENABLED: "Les rôles automatiques ont été activés dans cette guilde!",
             MESSAGE_AUTOROLES_DISABLED: "Les rôles automatiques ont été desactivés dans cette guilde!",
             MESSAGE_AUTOROLE_REMOVED: "rôle a été retiré des Rôles-Automatiques!",
@@ -116,8 +116,8 @@ module.exports = class extends Language {
             COMMAND_SELFROLES: "Assigner/Désaffecter/Afficher soi-même les Rôles.",
             COMMAND_SELFROLES_MANAGE: "Attribuer ou désaffecter des Rôles-Automatiques du serveur.",
             COMMAND_TOGGLE_SELFROLES: "Activer/Désactiver les Rôles-Automatiques du serveur.",
-            MESSAGE_LEVELROLES_ENABLED: "Les rôles basés sur les niveaux ont été activés dans cette guilde!",
-            MESSAGE_LEVELROLES_DISABLED: "Les rôles basés sur les niveaux ont été desactivés dans cette guilde!",
+            MESSAGE_LEVELROLES_ENABLED: "Les Rôles basés sur les Niveaux ont été activés dans cette guilde!",
+            MESSAGE_LEVELROLES_DISABLED: "Les Rôles basés sur les Niveaux ont été desactivés dans cette guilde!",
 
             // Utilities Messages
             MESSAGE_NEW_REMINDER: "New Reminder has been created with ID:",
@@ -130,9 +130,9 @@ module.exports = class extends Language {
             MESSAGE_STARCHAN_SET: "Starboard channel has now been set.",
 
             // Pengu's Commands Descriptions
-            COMMAND_KICK_DESCRIPTION: "Allows moderators and above to kick users.",
-            COMMAND_BAN_DESCRIPTION: "Allows moderators and above to ban users.",
-            COMMAND_SOFTBAN_DESCRIPTION: "Allows moderators and above to softban users.",
+            COMMAND_KICK_DESCRIPTION: "Permet aux Modérateurs de mettre qlq au dehors.",
+            COMMAND_BAN_DESCRIPTION: "Permet aux Modérateursto ban users.",
+            COMMAND_SOFTBAN_DESCRIPTION: "Permet aux Modérateurs to softban users.",
             COMMAND_MAKE_ADMIN_DESCRIPTION: "Allows guild managers, admins and pengu admins to add new pengu admins.",
             COMMAND_MAKE_MOD_DESCRIPTION: "Allows guild managers, admins and pengu admins to add new pengu mods.",
             COMMAND_MUTE_DESCRIPTION: "Allows Pengu Moderators and above to Mute people.",
@@ -283,11 +283,11 @@ module.exports = class extends Language {
             COMMAND_EXEC_DESCRIPTION: "-BOT OWNER ONLY-",
             COMMAND_SG_DESCRIPTION: "-BOT OWNER ONLY-",
             COMMAND_TPG_DESCRIPTION: "-BOT OWNER ONLY-",
-            COMMAND_DONATE_DESCRIPTION: "Donate to PenguBot and help make something awesome!",
+            COMMAND_DONATE_DESCRIPTION: "Faites un don à PenguBot et aidez à faire quelque chose de génial!!",
 
             // Music Commands
-            COMMAND_DMSONG_DESCRIPTION: "Make Pengu send you the current song in your DMs.",
-            COMMAND_LOOP_DESCRIPTION: "Loop a song so it repeats when it finishes playing.",
+            COMMAND_DMSONG_DESCRIPTION: "Faites en sorte que Pengu vous envoie la chanson en cours dans votre DMs.",
+            COMMAND_LOOP_DESCRIPTION: "Répéter une chanson. Il répète la chanson quand il a fini de jouer.",
             COMMAND_LYRICS_DESCRIPTION: "Get a song's lyrics directly with Pengu.",
             COMMAND_MUSIC_DESCRIPTION: "Detailed information for all Music Commands.",
             COMMAND_NOWPLAYING_DESCRIPTION: "Know which song is currently playing and what is it's progress.",
