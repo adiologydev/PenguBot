@@ -422,13 +422,15 @@ module.exports = class extends Language {
             
             
             // Music interface - hacked by Rex ;) (starting from 1st Jan)
-            MUSICIF_SONG_NOT_FOUND: "Song not found, please try with a different one"
+            MUSICIF_NO_MUSIC_PLAYING:"There's currently no music playing!",
+            MUSICIF_NOW_PLAYING_TITLE:"Now Playing - PenguBot",            
+            MUSICIF_TITLE:"Title",            
+            MUSICIF_AUTHOR:"Author",
+            MUSICIF_SONG_LENGHT:"Duration",
+            MUSICIF_SONG_REQUESTED_BY:"Requested by",
+            MUSICIF_SONG_LINK:"Link",
             
-            
-            
-            
-            
-            
+            MUSICIF_SONG_NOT_FOUND: "Song not found, please try with a different one"            
         };
     }
 
