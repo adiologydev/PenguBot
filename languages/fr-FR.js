@@ -32,10 +32,10 @@ module.exports = class extends Language {
                 "PenguBot fonctionne sur plusieurs serveurs loués dans le monde entier, ce qui nécessite un loyer. Si vous souhaitez soutenir PenguBot et que ses coûts financiers sont en contrepartie des avantages mentionnés ci-dessous, veuillez visiter la page suivante:",
                 "",
                 "__Perks__:",
-                "• Accès illimité aux longueurs de file d'attente, réglage du volume et plus encore!",
-                "• Pas de verrouillage des votes - Pas besoin de passer au vote pour les commandes verrouillées",
+                "• Accès illimité a la durée de la play, réglage du volume et plus encore!",
+                "• Pas de verrouillage des votes - Pas besoin de vote pour quelques commandes",
                 "• Meilleure disponibilité avec un Bot pour le Patron",
-                "• Rôle spécial dans le serveur officiel de l'escouade Pengu",
+                "• Rôle spécial dans le serveur officiel de Pengu Squad",
                 "",
                 "• **Patreon:** https://www.patreon.com/PenguBot",
                 "• **Crypto Donations:** https://1upcoin.com/donate/adityatd",
@@ -58,7 +58,7 @@ module.exports = class extends Language {
 
             // Kick Messages **
             MESSAGE_KICKED: "a été mis dehors!!",
-            MESSAGE_KICK_YOURSELF: "Tu ne peux pas mettre toi dehors!",
+            MESSAGE_KICK_YOURSELF: "Tu ne peux pas mettre toi meme dehors!",
             MESSAGE_KICK_PENGU: "Pourquoi voudriez-vous me mettre dehors??",
             MESSAGE_KICK_CANT: "Cet utilisateur ne peut pas être expulsé.",
 
@@ -82,14 +82,14 @@ module.exports = class extends Language {
             MESSAGE_UNMUTED: "était sans sourdine!",
 
             // Other Mod Commands Messages
-            MESSAGE_PRUNE_DELETED: "message(s) were deleted!",
+            MESSAGE_PRUNE_DELETED: "messages ont été supprimés!",
 
             // Custom Commands Messages **
-            MESSAGE_CMD_ADDED: "commande a été ajoutée par",
-            MESSAGE_CMD_UPDATED: "commande a été mise à jour par",
-            MESSAGE_CMD_REMOVED: "commande a été supprimée par",
-            MESSAGE_CMD_NOTFOUND: "commande n'a pas été trouvée!",
-            MESSAGE_CMD_EXISTS: "commande avec ce nom existe déjà dans Pengu en tant que commande par défaut ou personnalisée!",
+            MESSAGE_CMD_ADDED: "- commande a été ajoutée par",
+            MESSAGE_CMD_UPDATED: "- commande a été mise à jour par",
+            MESSAGE_CMD_REMOVED: "- commande a été supprimée par",
+            MESSAGE_CMD_NOTFOUND: "- commande n'a pas été trouvée!",
+            MESSAGE_CMD_EXISTS: "- commande avec ce nom existe déjà dans Pengu en tant que commande par défaut ou personnalisée!",
             MESSAGE_NO_CMDS: "Votre guilde n'a pas de commandes personnalisées, demandez à un administrateur ou supérieur de vous en créer une!",
             MESSAGE_COMMAND_CUSTOM_ENABLED: "Les Commandes Personnalisées sont maintenant activées!",
             MESSAGE_COMMAND_CUSTOM_DISABLED: "Les Commandes Personnalisées sont maintenant désactivées!",
