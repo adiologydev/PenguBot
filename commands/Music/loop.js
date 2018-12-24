@@ -18,15 +18,18 @@ module.exports = class extends MusicCommand {
 
     async run(msg, [queueOrSong = "song"]) {
         const { music } = msg.guild;
-        if (!music.playing) return msg.sendMessage(`${this.client.emotes.cross} There's currently no music playing!`);
-        if (msg.member.voice.channel.id !== msg.guild.me.voice.channel.id) return msg.sendMessage(`${this.client.emotes.cross} You're currently not in a voice channel or there was an error, try again.`);
+        if (!music.playing) return msg.sendMessage(`${this.client.emotes.cross} ${msg.language.get("MUSICIF_NO_MUSIC_PLAYING")}`);
+        if (msg.member.voice.channel.id !== msg.guild.me.voice.channel.id) return msg.sendMessage(`${this.client.emotes.cross} ${msg.language.get("MUSICIF_NO_VOICE_CHANNEL")}`);
 
         if (queueOrSong === "song") {
             music.looping = !music.looping;
         } else {
-            if (music.queue.length * 2 > 1000 && !this.client.config.patreon) throw `${this.client.emotes.cross} **Sorry but the maximum queue size is 1000 songs. If you want to bypass this limit, consider becoming a Patron at <https://patreon.com/PenguBot>***`;
+            if (music.queue.length * 2 > 1000 && !this.client.config.patreon) throw `${this.client.emotes.cross} **${msg.language.get("MUSICIF_QUEUE_LIMIT_REACHED")} ***`;
             music.queue = music.queue.concat(music.queue);
         }
+        
+        // nice hacking, but IMPOSSIBLE TO TRANSLATE!!
+        // PLEASE: can we use something less math and more human? :)
         return msg.sendMessage(`⏯ | ***${queueOrSong === "song" ? "Song" : "Queue"} looping is now ${queueOrSong === "queue" ? "The whole queue will now repeat." : music.looping ? "Enabled" : "Disabled"}***`);
     }
 
