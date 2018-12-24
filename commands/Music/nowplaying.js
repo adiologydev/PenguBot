@@ -19,7 +19,7 @@ module.exports = class extends MusicCommand {
         if (!music.playing) return msg.sendMessage(`${this.client.emotes.cross} ***There's currently no music playing!***`);
 
         const [song] = queue;
-        if (!song) return msg.sendMessage(`${this.client.emotes.cross} ***Song not found, please try with a different one.***`);
+        if (!song) return msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("MUSICIF_SONG_NOT_FOUND")}***`);
         const embed = new MessageEmbed()
             .setColor("#5bc0de")
             .setTitle("⏯ | Now Playing - PenguBot")
