@@ -416,7 +416,14 @@ module.exports = class extends Language {
             COMMAND_CONF_REMOVE: (value, key) => `La valeur \`${value}\` a été otée avec succès de la clef : **${key}**`,
             COMMAND_CONF_GET_NOEXT: key => `La clef **${key}** ne semble pas exister.`,
             COMMAND_CONF_GET: (key, value) => `La valeur pour la clef **${key}** est : \`${value}\``,
-            COMMAND_CONF_RESET: (key, response) => `La clef **${key}** a été réinitialisée à : \`${response}\``
+            COMMAND_CONF_RESET: (key, response) => `La clef **${key}** a été réinitialisée à : \`${response}\``,
+            
+            
+            
+            // Music interface - hacked by Rex ;) (starting from 1st Jan)
+            MUSICIF_SONG_NOT_FOUND: "Song not found, please try with a different one"
+            
+            
         };
     }
 
