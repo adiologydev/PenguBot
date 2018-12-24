@@ -58,66 +58,66 @@ module.exports = class extends Language {
 
             // Kick Messages
             MESSAGE_KICKED: "a été frappé!",
-            MESSAGE_KICK_YOURSELF: "Tu ne peux pas te botter!",
-            MESSAGE_KICK_PENGU: "Pourquoi voudriez-vous me donner un coup de pied?",
+            MESSAGE_KICK_YOURSELF: "Tu ne peux pas mettre toi dehors!",
+            MESSAGE_KICK_PENGU: "Pourquoi voudriez-vous me mettre dehors??",
             MESSAGE_KICK_CANT: "Cet utilisateur ne peut pas être expulsé.",
 
             // Ban Messages
-            MESSAGE_BANNED: "was banned!",
-            MESSAGE_SOFTBANNED: "was soft banned!",
-            MESSAGE_BAN_YOURSELF: "You can not ban yourself!",
-            MESSAGE_BAN_PENGU: "Why would you want to ban me?",
-            MESSAGE_BAN_CANT: "This user can't be banned!",
+            MESSAGE_BANNED: "a été banni! (ban)",
+            MESSAGE_SOFTBANNED: "a été banni! (softban)",
+            MESSAGE_BAN_YOURSELF: "Vous ne pouvez pas vous interdire!",
+            MESSAGE_BAN_PENGU: "Pourquoi voudriez-vous m'interdire?",
+            MESSAGE_BAN_CANT: "Cet utilisateur ne peut pas être banni!",
 
             // Make Admin and Mod Messages
-            MESSAGE_ADMIN_ADD: "is now a Pengu Admin!",
-            MESSAGE_ADMIN_REMOVE: "is no longer a Pengu Admin!",
-            MESSAGE_MOD_ADD: "is now a Pengu Moderator!",
-            MESSAGE_MOD_REMOVE: "is no longer a Pengu Moderator!",
-            MESSAGE_DJ_ADD: "is now a Pengu DJ!",
-            MESSAGE_DJ_REMOVE: "is no longer a Pengu DJ!",
+            MESSAGE_ADMIN_ADD: "est maintenant un Administrateur Pengu!",
+            MESSAGE_ADMIN_REMOVE: "n'est plus un Administrateur Pengu!",
+            MESSAGE_MOD_ADD: "est maintenant un Modérateur Pengu!",
+            MESSAGE_MOD_REMOVE: "n'est plus un Modérateur Pengu!",
+            MESSAGE_DJ_ADD: "est maintenant un Pengu DJ!",
+            MESSAGE_DJ_REMOVE: "n'est plus un a Pengu DJ!",
 
             // Mute Command Messages
-            MESSAGE_MUTED: "was muted!",
-            MESSAGE_UNMUTED: "was un-muted!",
+            MESSAGE_MUTED: "était en sourdine!",
+            MESSAGE_UNMUTED: "était sans sourdine!",
 
             // Other Mod Commands Messages
             MESSAGE_PRUNE_DELETED: "message(s) were deleted!",
 
             // Custom Commands Messages
-            MESSAGE_CMD_ADDED: "command was added by",
-            MESSAGE_CMD_UPDATED: "command was updated by",
-            MESSAGE_CMD_REMOVED: "command was removed by",
-            MESSAGE_CMD_NOTFOUND: "command was not found!",
-            MESSAGE_CMD_EXISTS: "command with this name already exists in Pengu as a default or custom command!",
-            MESSAGE_NO_CMDS: "Your guild has no custom commands, ask an admin or above to make one!",
-            MESSAGE_COMMAND_CUSTOM_ENABLED: "Custom Commands are now Enabled!",
-            MESSAGE_COMMAND_CUSTOM_DISABLED: "Custom Commands are now Disabled!",
+            MESSAGE_CMD_ADDED: "commande a été ajoutée par",
+            MESSAGE_CMD_UPDATED: "commande a été mise à jour par",
+            MESSAGE_CMD_REMOVED: "commande a été supprimée par",
+            MESSAGE_CMD_NOTFOUND: "commande n'a pas été trouvée!",
+            MESSAGE_CMD_EXISTS: "commande avec ce nom existe déjà dans Pengu en tant que commande par défaut ou personnalisée!",
+            MESSAGE_NO_CMDS: "Votre guilde n'a pas de commandes personnalisées, demandez à un administrateur ou supérieur de vous en créer une!",
+            MESSAGE_COMMAND_CUSTOM_ENABLED: "Les Commandes Personnalisées sont maintenant activées!",
+            MESSAGE_COMMAND_CUSTOM_DISABLED: "Les Commandes Personnalisées sont maintenant désactivées!",
 
             // Welcome & Leave messages
-            MESSAGE_WLCM_ENABLED: "Welcome Messages are now Enabeld!",
-            MESSAGE_WLCM_DISABLED: "Welcome Messages are now Disabled!",
-            MESSAGE_LEAVE_ENABLED: "Leave Messages are now Enabeld!",
-            MESSAGE_LEAVE_DISABLED: "Leave Messages are now Disabled!",
-            MESSAGE_WELCOME_SET: "Welcome message has now been set!",
-            MESSAGE_LEAVE_SET: "Leave message has now been set!",
-            MESSAGE_WELCOME_CHANNEL_SET: "Welcome messages channel has now been set!",
-            MESSAGE_LEAVE_CHANNEL_SET: "Leave messages channel has now been set!",
+            MESSAGE_WLCM_ENABLED: "Les Messages de Bienvenue sont maintenant activées!!",
+            MESSAGE_WLCM_DISABLED: "Les Messages de Bienvenue sont maintenant désactivées!",
+            MESSAGE_LEAVE_ENABLED: "Leave Messages de Adieu sont maintenant activées!!",
+            MESSAGE_LEAVE_DISABLED: "Leave Messages de Adieu sont maintenant désactivéesd!",
+            MESSAGE_WELCOME_SET: "Le Message de Bienvenue est maintenant défini!",
+            MESSAGE_LEAVE_SET: "Le Message de Adieu est maintenant défini!",
+            MESSAGE_WELCOME_CHANNEL_SET: "Le canal des messages de bienvenue est maintenant défini!",
+            MESSAGE_LEAVE_CHANNEL_SET: "Le canal des messages de adieu est maintenant défini!",
 
             // Logging
-            MESSAGE_LOGCHAN_SET: "Logging channel has now been set!",
-            COMMAND_LOG_DESCRPTION: "Enable/Disable Logging events if you're Pengu Admin or above.",
+            MESSAGE_LOGCHAN_SET: "Le canal de journalisation est maintenant défini!",
+            COMMAND_LOG_DESCRPTION: "Activer/Désactiver les événements de journalisation. Si vous êtes Administrateur de Pengu ou supérieur.",
 
             // Autoroles, Level & Self Roles
-            MESSAGE_AUTOROLES_ENABLED: "Auto Roles have been enabled in this guild!",
-            MESSAGE_AUTOROLES_DISABLED: "Auto Roles have been disabled in this guild!",
-            MESSAGE_AUTOROLE_REMOVED: "role was removed from the Auto Roles!",
-            MESSAGE_AUTOROLE_ADDED: "role was added in the Auto Roles!",
-            COMMAND_SELFROLES: "Assign or Deassign or list Self Roles from Yourself.",
-            COMMAND_SELFROLES_MANAGE: "Add or Remove Self Roles from the server.",
-            COMMAND_TOGGLE_SELFROLES: "Enable/Disable Self Roles on the server.",
-            MESSAGE_LEVELROLES_ENABLED: "Level Based Roles have been enabled in this guild!",
-            MESSAGE_LEVELROLES_DISABLED: "Level Based Roles have been disabled in this guild!",
+            MESSAGE_AUTOROLES_ENABLED: "Les rôles automatiques ont été activés dans cette guilde!",
+            MESSAGE_AUTOROLES_DISABLED: "Les rôles automatiques ont été desactivés dans cette guilde!",
+            MESSAGE_AUTOROLE_REMOVED: "rôle a été retiré des Rôles-Automatiques!",
+            MESSAGE_AUTOROLE_ADDED: "rôle a été ajouté dans les Rôles-Automatiques!",
+            COMMAND_SELFROLES: "Assigner/Désaffecter/Afficher soi-même les Rôles.",
+            COMMAND_SELFROLES_MANAGE: "Attribuer ou désaffecter des Rôles-Automatiques du serveur.",
+            COMMAND_TOGGLE_SELFROLES: "Activer/Désactiver les Rôles-Automatiques du serveur.",
+            MESSAGE_LEVELROLES_ENABLED: "Les rôles basés sur les niveaux ont été activés dans cette guilde!",
+            MESSAGE_LEVELROLES_DISABLED: "Les rôles basés sur les niveaux ont été desactivés dans cette guilde!",
 
             // Utilities Messages
             MESSAGE_NEW_REMINDER: "New Reminder has been created with ID:",
