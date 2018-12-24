@@ -429,6 +429,15 @@ module.exports = class extends Language {
             MUSICIF_SONG_LENGHT:"Duration",
             MUSICIF_SONG_REQUESTED_BY:"Requested by",
             MUSICIF_SONG_LINK:"Link",
+            MUSICIF_QUEUE_TITLE:"Queue.. ",
+            MUSICIF_QUEUE_HINT:"Scroll between pages to see the song queue.",
+            MUSICIF_QUEUE_TITLE:"Use the reactions to change pages, select a page, or stop viewing the queue",
+            MUSICIF_QUEUE_LOADING:"Loading Queue...",
+            MUSICIF_NO_VOICE_CHANNEL:"You're currently not in a voice channel or there was an error, try again.",
+            MUSICIF_QUEUE_LIMIT_REACHED:"Sorry but the maximum queue size is 1000 songs. If you want to bypass this limit, consider becoming a Patron at <https://patreon.com/PenguBot>",
+            MUSICIF_TOGGLE_SONG_LOOP:"Toggled single song repeat.",
+            MUSICIF_TOGGLE_QUEUE_LOOP:"Now all queue will repeat.",
+            
             
             MUSICIF_SONG_NOT_FOUND: "Song not found, please try with a different one"            
         };
