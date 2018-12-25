@@ -22,14 +22,12 @@ module.exports = class extends MusicCommand {
         if (!song) return msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("MUSICIF_SONG_NOT_FOUND")}***`);
         const embed = new MessageEmbed()
             .setColor("#5bc0de")
-            .setTitle("⏯ | ${msg.language.get("MUSICIF_NOW_PLAYING_TITLE")}")
+            .setTitle(`⏯ | ${msg.language.get("MUSICIF_NOW_PLAYING_TITLE")}`)
             .setTimestamp()
             .setFooter("© PenguBot.com")
             .setDescription(`• **${msg.language.get("MUSICIF_TITLE")}:** ${song.title}
-
 • **${msg.language.get("MUSICIF_AUTHOR")}:** ${song.author}
 • **${msg.language.get("MUSICIF_SONG_LENGHT")}:** ${song.friendlyDuration}
-
 • **${msg.language.get("MUSICIF_SONG_REQUESTED_BY")}:** ${song.requester}
 • **${msg.language.get("MUSICIF_SONG_LINK")}:** ${song.url}`);
         return msg.sendEmbed(embed);

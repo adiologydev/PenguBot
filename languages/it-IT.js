@@ -418,7 +418,26 @@ module.exports = class extends Language {
             COMMAND_CONF_REMOVE: (value, key) => `Rimosso con successo il valore \`${value}\` dalla chiave: **${key}**`,
             COMMAND_CONF_GET_NOEXT: key => `La chiave **${key}** non sembra esistere.`,
             COMMAND_CONF_GET: (key, value) => `Il valore per la chiave **${key}** è: \`${value}\``,
-            COMMAND_CONF_RESET: (key, response) => `La chiave **${key}** è stata ripristinata a: \`${response}\``
+            COMMAND_CONF_RESET: (key, response) => `La chiave **${key}** è stata ripristinata a: \`${response}\``,
+
+            // Music interface - hacked by Rex ;) (starting from 1st Jan)
+            MUSICIF_NO_MUSIC_PLAYING: "Non sta suonando alcuna musica!",
+            MUSICIF_NOW_PLAYING_TITLE: "In riproduzione.. - PenguBot",
+            MUSICIF_TITLE: "Titolo",
+            MUSICIF_AUTHOR: "Autore",
+            MUSICIF_SONG_LENGHT: "Lunghezza",
+            MUSICIF_SONG_REQUESTED_BY: "Richiedente",
+            MUSICIF_SONG_LINK: "Link",
+            MUSICIF_SONG_NOT_FOUND: "Canzone non trovata. Provane un'altra, o aggiungi argomenti ..",
+
+            // Requires Translation
+            MUSICIF_QUEUE_HINT: "Scroll between pages to see the song queue.",
+            MUSICIF_QUEUE_TITLE: "Use the reactions to change pages, select a page, or stop viewing the queue",
+            MUSICIF_QUEUE_LOADING: "Loading Queue...",
+            MUSICIF_NO_VOICE_CHANNEL: "You're currently not in a voice channel or there was an error, try again.",
+            MUSICIF_QUEUE_LIMIT_REACHED: "Sorry but the maximum queue size is 1000 songs. If you want to bypass this limit, consider becoming a Patron at <https://patreon.com/PenguBot>",
+            MUSICIF_TOGGLE_SONG_LOOP: "Toggled single song repeat.",
+            MUSICIF_TOGGLE_QUEUE_LOOP: "Now all queue will repeat."
         };
     }
 

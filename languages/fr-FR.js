@@ -417,21 +417,20 @@ module.exports = class extends Language {
             COMMAND_CONF_GET_NOEXT: key => `La clef **${key}** ne semble pas exister.`,
             COMMAND_CONF_GET: (key, value) => `La valeur pour la clef **${key}** est : \`${value}\``,
             COMMAND_CONF_RESET: (key, response) => `La clef **${key}** a été réinitialisée à : \`${response}\``,
-            
-            
-            
-            // Music interface - hacked by Rex ;) (starting from 1st Jan)
-            MUSICIF_NO_MUSIC_PLAYING:"Aucune musique ne joue!",
-            MUSICIF_NOW_PLAYING_TITLE:"En cours de lecture..",            
-            MUSICIF_TITLE:"Title",            
-            MUSICIF_AUTHOR:"Auteur",
-            MUSICIF_SONG_LENGHT:"Durée",
-            MUSICIF_SONG_REQUESTED_BY:"Demandeur",
-            MUSICIF_SONG_LINK:"Link",
-            
+
+
+            // Music interface
+            MUSICIF_NO_MUSIC_PLAYING: "Aucune musique ne joue!",
+            MUSICIF_NOW_PLAYING_TITLE: "En cours de lecture..",
+            MUSICIF_TITLE: "Title",
+            MUSICIF_AUTHOR: "Auteur",
+            MUSICIF_SONG_LENGHT: "Durée",
+            MUSICIF_SONG_REQUESTED_BY: "Demandeur",
+            MUSICIF_SONG_LINK: "Link",
+
             MUSICIF_SONG_NOT_FOUND: "Chant non trouvé, veuillez essayer avec un autre."
-            
-            
+
+
         };
     }
 

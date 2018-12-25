@@ -418,13 +418,10 @@ module.exports = class extends Language {
             COMMAND_CONF_GET_NOEXT: key => `La clave **${key}** no parece existir.`,
             COMMAND_CONF_GET: (key, value) => `El valor para la clave **${key}** es: \`${value}\`.`,
             COMMAND_CONF_RESET: (key, response) => `La clave **${key}** ha sido restaurado a: \`${response}\`.`,
-            
-            
-            
-            // Music interface - hacked by Rex ;) (starting from 1st Jan)
+
+
+            // Music interface
             MUSICIF_SONG_NOT_FOUND: "Canción no encontrada, por favor intente con una diferente"
-            
-            
         };
     }
 
