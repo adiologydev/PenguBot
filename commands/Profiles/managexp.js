@@ -18,14 +18,12 @@ module.exports = class extends Command {
 
     async set(msg, [member, amount]) {
         if (!amount) throw `${this.client.emotes.cross} ***Amount not specified.***`;
-        if (typeof Number(amount) !== Number) throw `${this.client.emotes.cross} ***Invalid Amount.***`;
         await member.settings.update("xp", amount);
         return msg.sendMessage(`${this.client.emotes.check} ***XP Amount Set to \`${amount}\` XP(s) for ${member.user.tag}.***`);
     }
 
     async add(msg, [member, amount]) {
         if (!amount) throw `${this.client.emotes.cross} ***Amount not specified.***`;
-        if (typeof Number(amount) !== Number) throw `${this.client.emotes.cross} ***Invalid Amount.***`;
         await member.settings.update("xp", member.settings.xp + amount);
         return msg.sendMessage(`${this.client.emotes.check} ***\` ${amount}\` XP(s) Added to ${member.user.tag}.***`);
     }

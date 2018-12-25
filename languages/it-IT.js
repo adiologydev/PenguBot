@@ -418,21 +418,7 @@ module.exports = class extends Language {
             COMMAND_CONF_REMOVE: (value, key) => `Rimosso con successo il valore \`${value}\` dalla chiave: **${key}**`,
             COMMAND_CONF_GET_NOEXT: key => `La chiave **${key}** non sembra esistere.`,
             COMMAND_CONF_GET: (key, value) => `Il valore per la chiave **${key}** è: \`${value}\``,
-            COMMAND_CONF_RESET: (key, response) => `La chiave **${key}** è stata ripristinata a: \`${response}\``,
-            
-            
-            
-            // Music interface - hacked by Rex ;) (starting from 1st Jan)
-            MUSICIF_NO_MUSIC_PLAYING:"Non sta suonando alcuna musica!",
-            MUSICIF_NOW_PLAYING_TITLE:"In riproduzione.. - PenguBot",            
-            MUSICIF_TITLE:"Titolo",            
-            MUSICIF_AUTHOR:"Autore",
-            MUSICIF_SONG_LENGHT:"Lunghezza",
-            MUSICIF_SONG_REQUESTED_BY:"Richiedente",
-            MUSICIF_SONG_LINK:"Link",
-            MUSICIF_SONG_NOT_FOUND: "Canzone non trovata. Provane un'altra, o aggiungi argomenti .."
-            
-            
+            COMMAND_CONF_RESET: (key, response) => `La chiave **${key}** è stata ripristinata a: \`${response}\``
         };
     }
 

@@ -7,7 +7,7 @@ module.exports = class extends MusicCommand {
         super(...args, {
             requireDJ: true,
             cooldown: 5,
-            aliases: ["musicplay"],
+            aliases: ["musicplay", "suona", "accoda", "joue", "toca", "spielt"],
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS", "ATTACH_FILES"],
             description: language => language.get("COMMAND_PLAY_DESCRIPTION"),
             usage: "<song:songname>",
