@@ -5,121 +5,119 @@ module.exports = class extends Language {
     constructor(...args) {
         super(...args);
         this.language = {
-            DEFAULT: key => `${key} has not been localized for en-US yet. Please report this on https://discord.gg/u8WYw5r in the support channel for a fix.`,
-            INHIBITOR_DISABLED: "<:penguError:435712890884849664> ***This command is currently disabled***",
-            INHIBITOR_DISABLED_GROUP: "<:penguError:435712890884849664> ***This command group is currently disabled***",
-            COMMAND_UNLOAD: (type, name) => `<:penguSuccess:435712876506775553> Unloaded ${type}: ${name}`,
-            COMMAND_TRANSFER_ERROR: "<:penguError:435712890884849664> That file has been transfered already or never existed.",
-            COMMAND_RELOAD: (type, name) => `<:penguSuccess:435712876506775553> Reloaded ${type}: ${name}`,
-            COMMAND_RELOAD_ALL: type => `<:penguSuccess:435712876506775553> Reloaded all ${type}.`,
-            COMMAND_LOAD: (time, type, name) => `<:penguSuccess:435712876506775553> Successfully loaded ${type}: ${name}. (Took: ${time})`,
-            COMMAND_LOAD_ERROR: (type, name, error) => `<:penguError:435712890884849664> Failed to load ${type}: ${name}. Reason:${util.codeBlock("js", error)}`,
-            COMMAND_INVITE: `**👉 | Invite PenguBot to your Discord Guild:** <https://www.PenguBot.com/invite>`,
+            DEFAULT: key => `${key} n'a pas encore été localisé pour fr-FR.`,
+            INHIBITOR_DISABLED: "<:penguError:435712890884849664> ***Cette commande est actuellement désactivée***",
+            INHIBITOR_DISABLED_GROUP: "<:penguError:435712890884849664> ***Ce groupe de commandes est actuellement désactivé***",
+            COMMAND_UNLOAD: (type, name) => `<:penguSuccess:435712876506775553> Déchargé ${type}: ${name}`,
+            COMMAND_TRANSFER_ERROR: "<:penguError:435712890884849664> Ce fichier a déjà été transféré ou n'a jamais existé.",
+            COMMAND_RELOAD: (type, name) => `<:penguSuccess:435712876506775553> Rechargé ${type}: ${name}`,
+            COMMAND_RELOAD_ALL: type => `<:penguSuccess:435712876506775553> Rechargé tous ${type}.`,
+            COMMAND_LOAD: (time, type, name) => `<:penguSuccess:435712876506775553> Chargé avec succès ${type}: ${name}. (J'ai employé: ${time})`,
+            COMMAND_LOAD_ERROR: (type, name, error) => `<:penguError:435712890884849664> Échec du chargement ${type}: ${name}. Raison:${util.codeBlock("js", error)}`,
+            COMMAND_INVITE: `**👉 | Inviter PenguBot dans votre Discord guilde:** <https://www.PenguBot.com/invite>`,
             COMMAND_SUPPORT: `**__PenguBot Support Guild__**\n• **Invite Link:** https://discord.gg/u8WYw5r`,
-            COMMAND_INVITE_DESCRIPTION: "Displays the join server link of the bot.",
+            COMMAND_INVITE_DESCRIPTION: "Voir le lien d'invitation pour le bot.",
             COMMAND_INFO: [
-                "PenguBot is a Multi-Purpose Discord Bot which is filled with features ranging from",
-                "Moderation, Fun, Utilities and more. It is developed in NodeJS using many different",
-                "technologies such as RethinkDB, JavaScript and Linux.",
+                "PenguBot est un bot Discord multi-usages rempli de fonctionnalités quels Modération, amusement, utilitaires et plus. Il est développé dans NodeJS en utilisant de nombreuses technologies différentes telles que RethinkDB, JavaScript and Linux.",
                 "",
-                "• **Author:** [AdityaTD#5346](https://www.AdityaTD.me)",
+                "• **Auteur:** [AdityaTD#5346](https://www.AdityaTD.me)",
                 `• **Version:** ${require("../package").version}`,
-                "• **Website:** <https://www.PenguBot.com>",
+                "• **Site Internet:** <https://www.PenguBot.com>",
                 "• **Patreon:** <https://www.Patreon.com/PenguBot>",
-                "• **Discord Guild:** <https://discord.gg/6KpTfqR>",
+                "• **Discord Guilde:** <https://discord.gg/6KpTfqR>",
                 "• **GitHub:** <https://www.github.com/AdityaTD/PenguBot>",
                 "• **Database:** RethinkDB"
             ],
             COMMAND_DONATE: [
-                "PenguBot runs on multipe servers rented out across the globe and that requires the rent. If you'd like to support PenguBot and it's financial costs in return for perks mentioned below please visit the following:",
+                "PenguBot fonctionne sur plusieurs serveurs loués dans le monde entier, ce qui nécessite un loyer. Si vous souhaitez soutenir PenguBot et que ses coûts financiers sont en contrepartie des avantages mentionnés ci-dessous, veuillez visiter la page suivante:",
                 "",
                 "__Perks__:",
-                "• Unlimited Access to Queue Lengths, Volume Adjustment and more!",
-                "• No Vote Locking - No Need To Upvote for Locked Commands",
-                "• Better Uptime with Patron Only Bot",
-                "• Special Role in Official Pengu Squad Server",
+                "• Accès illimité a la durée de la play, réglage du volume et plus encore!",
+                "• Pas de verrouillage des votes - Pas besoin de vote pour quelques commandes",
+                "• Meilleure disponibilité avec un Bot pour le Patron",
+                "• Rôle spécial dans le serveur officiel de Pengu Squad",
                 "",
                 "• **Patreon:** https://www.patreon.com/PenguBot",
                 "• **Crypto Donations:** https://1upcoin.com/donate/adityatd",
                 "• **PenguBot's Donation Page:** https://www.PenguBot.com/donate"
             ],
-            COMMAND_HELP_NODM: "📪 | You have DMs disabled, I couldn't send you the commands in DMs so here's a link to all the commands: <https://www.pengubot.com/commands>",
-            COMMAND_UPVOTE: ["Want PenguBot to become bigger and be available in more guilds you visit?",
-                "Then vote for PenguBot via the link below and also unlock access to",
-                "limited features that only upvoters can have access to!",
+            COMMAND_HELP_NODM: "📪 | Vous avez les DM désactivés, je ne pouvais pas vous envoyer les commandes dans les DM alors voici un lien vers toutes les commandes: <https://www.pengubot.com/commands>",
+            COMMAND_UPVOTE: ["Voulez-vous que PenguBot devienne plus grand et soit disponible dans plus de guildes que vous visitez?",
+                "Ensuite, votez pour PenguBot via le lien ci-dessous et débloquez également l'accès à",
+                "fonctionnalités limitées que seuls les votants peuvent avoir accès!",
                 "",
                 "• **Vote:** https://www.pengubot.com/upvote"],
-            COMMAND_TOGGLE_GROUP_DESCRPTION: "Disable/Enable Command Categories.",
-            COMMAND_TOGGLE_COMMAND_DESCRPTION: "Disable/Enable Commands in your guild.",
+            COMMAND_TOGGLE_GROUP_DESCRPTION: "Désactiver/Activer les Catégories de Commandes.",
+            COMMAND_TOGGLE_COMMAND_DESCRPTION: "Désactiver/Activer les Commandes dans ta guilde.",
             COMMAND_SUPPORT_DESCRIPTION: "Link to join PenguBot's Support Guild.",
 
-            // Pengu's Sentences
-            MESSAGE_PREFIX_SET: "Successfully updated the guild's prefix to:",
-            MESSAGE_CURRENT_PREFIX: "Guild's current prefix is:",
-            MESSAGE_PENGU: "here you go!",
+            // Pengu's Sentences **
+            MESSAGE_PREFIX_SET: "Mise à jour du préfixe de la guilde avec:",
+            MESSAGE_CURRENT_PREFIX: "Le préfixe actuel de la guilde est:",
+            MESSAGE_PENGU: "Voici.. !",
 
-            // Kick Messages
-            MESSAGE_KICKED: "was kicked!",
-            MESSAGE_KICK_YOURSELF: "You can not kick yourself!",
-            MESSAGE_KICK_PENGU: "Why would you want to kick me?",
-            MESSAGE_KICK_CANT: "This user can't be kicked.",
+            // Kick Messages **
+            MESSAGE_KICKED: "a été mis dehors!!",
+            MESSAGE_KICK_YOURSELF: "Tu ne peux pas mettre toi meme dehors!",
+            MESSAGE_KICK_PENGU: "Pourquoi voudriez-vous me mettre dehors??",
+            MESSAGE_KICK_CANT: "Cet utilisateur ne peut pas être expulsé.",
 
-            // Ban Messages
-            MESSAGE_BANNED: "was banned!",
-            MESSAGE_SOFTBANNED: "was soft banned!",
-            MESSAGE_BAN_YOURSELF: "You can not ban yourself!",
-            MESSAGE_BAN_PENGU: "Why would you want to ban me?",
-            MESSAGE_BAN_CANT: "This user can't be banned!",
+            // Ban Messages **
+            MESSAGE_BANNED: "a été banni! (ban)",
+            MESSAGE_SOFTBANNED: "a été banni! (softban)",
+            MESSAGE_BAN_YOURSELF: "Vous ne pouvez pas vous interdire!",
+            MESSAGE_BAN_PENGU: "Pourquoi voudriez-vous m'interdire?",
+            MESSAGE_BAN_CANT: "Cet utilisateur ne peut pas être banni!",
 
-            // Make Admin and Mod Messages
-            MESSAGE_ADMIN_ADD: "is now a Pengu Admin!",
-            MESSAGE_ADMIN_REMOVE: "is no longer a Pengu Admin!",
-            MESSAGE_MOD_ADD: "is now a Pengu Moderator!",
-            MESSAGE_MOD_REMOVE: "is no longer a Pengu Moderator!",
-            MESSAGE_DJ_ADD: "is now a Pengu DJ!",
-            MESSAGE_DJ_REMOVE: "is no longer a Pengu DJ!",
+            // Make Admin and Mod Messages **
+            MESSAGE_ADMIN_ADD: "est maintenant un Administrateur Pengu!",
+            MESSAGE_ADMIN_REMOVE: "n'est plus un Administrateur Pengu!",
+            MESSAGE_MOD_ADD: "est maintenant un Modérateur Pengu!",
+            MESSAGE_MOD_REMOVE: "n'est plus un Modérateur Pengu!",
+            MESSAGE_DJ_ADD: "est maintenant un Pengu DJ!",
+            MESSAGE_DJ_REMOVE: "n'est plus un a Pengu DJ!",
 
-            // Mute Command Messages
-            MESSAGE_MUTED: "was muted!",
-            MESSAGE_UNMUTED: "was un-muted!",
+            // Mute Command Messages **
+            MESSAGE_MUTED: "était en sourdine!",
+            MESSAGE_UNMUTED: "était sans sourdine!",
 
             // Other Mod Commands Messages
-            MESSAGE_PRUNE_DELETED: "message(s) were deleted!",
+            MESSAGE_PRUNE_DELETED: "messages ont été supprimés!",
 
-            // Custom Commands Messages
-            MESSAGE_CMD_ADDED: "command was added by",
-            MESSAGE_CMD_UPDATED: "command was updated by",
-            MESSAGE_CMD_REMOVED: "command was removed by",
-            MESSAGE_CMD_NOTFOUND: "command was not found!",
-            MESSAGE_CMD_EXISTS: "command with this name already exists in Pengu as a default or custom command!",
-            MESSAGE_NO_CMDS: "Your guild has no custom commands, ask an admin or above to make one!",
-            MESSAGE_COMMAND_CUSTOM_ENABLED: "Custom Commands are now Enabled!",
-            MESSAGE_COMMAND_CUSTOM_DISABLED: "Custom Commands are now Disabled!",
+            // Custom Commands Messages **
+            MESSAGE_CMD_ADDED: "- commande a été ajoutée par",
+            MESSAGE_CMD_UPDATED: "- commande a été mise à jour par",
+            MESSAGE_CMD_REMOVED: "- commande a été supprimée par",
+            MESSAGE_CMD_NOTFOUND: "- commande n'a pas été trouvée!",
+            MESSAGE_CMD_EXISTS: "- commande avec ce nom existe déjà dans Pengu en tant que commande par défaut ou personnalisée!",
+            MESSAGE_NO_CMDS: "Votre guilde n'a pas de commandes personnalisées, demandez à un administrateur ou supérieur de vous en créer une!",
+            MESSAGE_COMMAND_CUSTOM_ENABLED: "Les Commandes Personnalisées sont maintenant activées!",
+            MESSAGE_COMMAND_CUSTOM_DISABLED: "Les Commandes Personnalisées sont maintenant désactivées!",
 
-            // Welcome & Leave messages
-            MESSAGE_WLCM_ENABLED: "Welcome Messages are now Enabeld!",
-            MESSAGE_WLCM_DISABLED: "Welcome Messages are now Disabled!",
-            MESSAGE_LEAVE_ENABLED: "Leave Messages are now Enabeld!",
-            MESSAGE_LEAVE_DISABLED: "Leave Messages are now Disabled!",
-            MESSAGE_WELCOME_SET: "Welcome message has now been set!",
-            MESSAGE_LEAVE_SET: "Leave message has now been set!",
-            MESSAGE_WELCOME_CHANNEL_SET: "Welcome messages channel has now been set!",
-            MESSAGE_LEAVE_CHANNEL_SET: "Leave messages channel has now been set!",
+            // Welcome & Leave messages **
+            MESSAGE_WLCM_ENABLED: "Les Messages de Bienvenue sont maintenant activées!!",
+            MESSAGE_WLCM_DISABLED: "Les Messages de Bienvenue sont maintenant désactivées!",
+            MESSAGE_LEAVE_ENABLED: "Leave Messages de Adieu sont maintenant activées!!",
+            MESSAGE_LEAVE_DISABLED: "Leave Messages de Adieu sont maintenant désactivéesd!",
+            MESSAGE_WELCOME_SET: "Le Message de Bienvenue est maintenant défini!",
+            MESSAGE_LEAVE_SET: "Le Message de Adieu est maintenant défini!",
+            MESSAGE_WELCOME_CHANNEL_SET: "Le canal des messages de bienvenue est maintenant défini!",
+            MESSAGE_LEAVE_CHANNEL_SET: "Le canal des messages de adieu est maintenant défini!",
 
-            // Logging
-            MESSAGE_LOGCHAN_SET: "Logging channel has now been set!",
-            COMMAND_LOG_DESCRPTION: "Enable/Disable Logging events if you're Pengu Admin or above.",
+            // Logging **
+            MESSAGE_LOGCHAN_SET: "Le canal de journalisation est maintenant défini!",
+            COMMAND_LOG_DESCRPTION: "Activer/Désactiver les événements de journalisation. Si vous êtes Administrateur de Pengu ou supérieur.",
 
-            // Autoroles, Level & Self Roles
-            MESSAGE_AUTOROLES_ENABLED: "Auto Roles have been enabled in this guild!",
-            MESSAGE_AUTOROLES_DISABLED: "Auto Roles have been disabled in this guild!",
-            MESSAGE_AUTOROLE_REMOVED: "role was removed from the Auto Roles!",
-            MESSAGE_AUTOROLE_ADDED: "role was added in the Auto Roles!",
-            COMMAND_SELFROLES: "Assign or Deassign or list Self Roles from Yourself.",
-            COMMAND_SELFROLES_MANAGE: "Add or Remove Self Roles from the server.",
-            COMMAND_TOGGLE_SELFROLES: "Enable/Disable Self Roles on the server.",
-            MESSAGE_LEVELROLES_ENABLED: "Level Based Roles have been enabled in this guild!",
-            MESSAGE_LEVELROLES_DISABLED: "Level Based Roles have been disabled in this guild!",
+            // Autoroles, Level & Self Roles **
+            MESSAGE_AUTOROLES_ENABLED: "Les rôles automatiques ont été activés dans cette guilde!",
+            MESSAGE_AUTOROLES_DISABLED: "Les rôles automatiques ont été desactivés dans cette guilde!",
+            MESSAGE_AUTOROLE_REMOVED: "rôle a été retiré des Rôles-Automatiques!",
+            MESSAGE_AUTOROLE_ADDED: "rôle a été ajouté dans les Rôles-Automatiques!",
+            COMMAND_SELFROLES: "Assigner/Désaffecter/Afficher soi-même les Rôles.",
+            COMMAND_SELFROLES_MANAGE: "Attribuer ou désaffecter des Rôles-Automatiques du serveur.",
+            COMMAND_TOGGLE_SELFROLES: "Activer/Désactiver les Rôles-Automatiques du serveur.",
+            MESSAGE_LEVELROLES_ENABLED: "Les Rôles basés sur les Niveaux ont été activés dans cette guilde!",
+            MESSAGE_LEVELROLES_DISABLED: "Les Rôles basés sur les Niveaux ont été desactivés dans cette guilde!",
 
             // Utilities Messages
             MESSAGE_NEW_REMINDER: "New Reminder has been created with ID:",
@@ -132,9 +130,9 @@ module.exports = class extends Language {
             MESSAGE_STARCHAN_SET: "Starboard channel has now been set.",
 
             // Pengu's Commands Descriptions
-            COMMAND_KICK_DESCRIPTION: "Allows moderators and above to kick users.",
-            COMMAND_BAN_DESCRIPTION: "Allows moderators and above to ban users.",
-            COMMAND_SOFTBAN_DESCRIPTION: "Allows moderators and above to softban users.",
+            COMMAND_KICK_DESCRIPTION: "Permet aux Modérateurs de mettre qlq au dehors.",
+            COMMAND_BAN_DESCRIPTION: "Permet aux Modérateursto ban users.",
+            COMMAND_SOFTBAN_DESCRIPTION: "Permet aux Modérateurs to softban users.",
             COMMAND_MAKE_ADMIN_DESCRIPTION: "Allows guild managers, admins and pengu admins to add new pengu admins.",
             COMMAND_MAKE_MOD_DESCRIPTION: "Allows guild managers, admins and pengu admins to add new pengu mods.",
             COMMAND_MUTE_DESCRIPTION: "Allows Pengu Moderators and above to Mute people.",
@@ -285,11 +283,11 @@ module.exports = class extends Language {
             COMMAND_EXEC_DESCRIPTION: "-BOT OWNER ONLY-",
             COMMAND_SG_DESCRIPTION: "-BOT OWNER ONLY-",
             COMMAND_TPG_DESCRIPTION: "-BOT OWNER ONLY-",
-            COMMAND_DONATE_DESCRIPTION: "Donate to PenguBot and help make something awesome!",
+            COMMAND_DONATE_DESCRIPTION: "Faites un don à PenguBot et aidez à faire quelque chose de génial!!",
 
             // Music Commands
-            COMMAND_DMSONG_DESCRIPTION: "Make Pengu send you the current song in your DMs.",
-            COMMAND_LOOP_DESCRIPTION: "Loop a song so it repeats when it finishes playing.",
+            COMMAND_DMSONG_DESCRIPTION: "Faites en sorte que Pengu vous envoie la chanson en cours dans votre DMs.",
+            COMMAND_LOOP_DESCRIPTION: "Répéter une chanson. Il répète la chanson quand il a fini de jouer.",
             COMMAND_LYRICS_DESCRIPTION: "Get a song's lyrics directly with Pengu.",
             COMMAND_MUSIC_DESCRIPTION: "Detailed information for all Music Commands.",
             COMMAND_NOWPLAYING_DESCRIPTION: "Know which song is currently playing and what is it's progress.",
@@ -418,7 +416,22 @@ module.exports = class extends Language {
             COMMAND_CONF_REMOVE: (value, key) => `La valeur \`${value}\` a été otée avec succès de la clef : **${key}**`,
             COMMAND_CONF_GET_NOEXT: key => `La clef **${key}** ne semble pas exister.`,
             COMMAND_CONF_GET: (key, value) => `La valeur pour la clef **${key}** est : \`${value}\``,
-            COMMAND_CONF_RESET: (key, response) => `La clef **${key}** a été réinitialisée à : \`${response}\``
+            COMMAND_CONF_RESET: (key, response) => `La clef **${key}** a été réinitialisée à : \`${response}\``,
+            
+            
+            
+            // Music interface - hacked by Rex ;) (starting from 1st Jan)
+            MUSICIF_NO_MUSIC_PLAYING:"Aucune musique ne joue!",
+            MUSICIF_NOW_PLAYING_TITLE:"En cours de lecture..",            
+            MUSICIF_TITLE:"Title",            
+            MUSICIF_AUTHOR:"Auteur",
+            MUSICIF_SONG_LENGHT:"Durée",
+            MUSICIF_SONG_REQUESTED_BY:"Demandeur",
+            MUSICIF_SONG_LINK:"Link",
+            
+            MUSICIF_SONG_NOT_FOUND: "Chant non trouvé, veuillez essayer avec un autre."
+            
+            
         };
     }
 

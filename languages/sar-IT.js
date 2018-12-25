@@ -5,41 +5,41 @@ module.exports = class extends Language {
     constructor(...args) {
         super(...args);
         this.language = {
-            DEFAULT: key => `${key} non è stato ancora tradotta.`,
-            INHIBITOR_DISABLED: "<:penguError:435712890884849664> ***Questo comando è attualmente disabilitato.***",
-            INHIBITOR_DISABLED_GROUP: "<:penguError:435712890884849664> ***Questo gruppo di comandi è attualmente disabilitato***",
-            COMMAND_UNLOAD: (type, name) => `<:penguSuccess:435712876506775553> Scaricato ${type}: ${name}`,
-            COMMAND_TRANSFER_ERROR: "<:penguError:435712890884849664> Questo file è stato spostato ovvero non è mai esistito.",
-            COMMAND_RELOAD: (type, name) => `<:penguSuccess:435712876506775553> Ricaricato ${type}: ${name}`,
-            COMMAND_RELOAD_ALL: type => `<:penguSuccess:435712876506775553> Ricaricati tutti i ${type}.`,
-            COMMAND_LOAD: (time, type, name) => `<:penguSuccess:435712876506775553> Caricato correttamente ${type}: ${name}. (Ho impiegato: ${time})`,
-            COMMAND_LOAD_ERROR: (type, name, error) => `<:penguError:435712890884849664> Impossibile caricare ${type}: ${name}. Motivo:${util.codeBlock("js", error)}`,
-            COMMAND_INVITE: `**ðŸ‘‰ | Invita PenguBot sul tuo server discord:** <https://www.PenguBot.com/invite>`,
-            COMMAND_SUPPORT: `**__PenguBot - Server di Supporto__**\nâ€¢ **Link di Invito:** https://discord.gg/u8WYw5r`,
-            COMMAND_INVITE_DESCRIPTION: "Visualizza il link per unirti al server di supporto PenguBot",
+            DEFAULT: key => `${key} no este istau galu postu in limba.`,
+            INHIBITOR_DISABLED: "<:penguError:435712890884849664> ***Custu commandu este disabilitau.***",
+            INHIBITOR_DISABLED_GROUP: "<:penguError:435712890884849664> ***Custu gruppo de commandoso suno disabilitadoso.***",
+            COMMAND_UNLOAD: (type, name) => `<:penguSuccess:435712876506775553> Scaricadu ${type}: ${name}`,
+            COMMAND_TRANSFER_ERROR: "<:penguError:435712890884849664> Custu file este istau moghiu. Non b'este..",
+            COMMAND_RELOAD: (type, name) => `<:penguSuccess:435712876506775553> Ricaricadu ${type}: ${name}`,
+            COMMAND_RELOAD_ALL: type => `<:penguSuccess:435712876506775553> Ricaricadoso tottu sos ${type}.`,
+            COMMAND_LOAD: (time, type, name) => `<:penguSuccess:435712876506775553> Carricadu correttamente ${type}: ${name}. (B'appo postu: ${time})`,
+            COMMAND_LOAD_ERROR: (type, name, error) => `<:penguError:435712890884849664> Impossibile de carrigare ${type}: ${name}. Motivu:${util.codeBlock("js", error)}`,
+            COMMAND_INVITE: `**ðŸ‘‰ | Invita PenguBot in su server discord tuo:** <https://www.PenguBot.com/invite>`,
+            COMMAND_SUPPORT: `**__PenguBot - Server de Supporto__**\nâ€¢ **Link de Invitu:** https://discord.gg/u8WYw5r`,
+            COMMAND_INVITE_DESCRIPTION: "Ammustra su link pro ti che unire a su server de supporto de PenguBot",
             COMMAND_INFO: [
-                "PenguBot è un bot multi-funzione per Discord ricco di funzionalità quali Moderazione, Divertimento, Utilità di sistema ed altro.. Sviluppato in NodeJS utilizzando diverse tecnologie quali RethinkDB, JavaScript e Linux.",
+                "PenguBot este uno multi-funtzione pro Discord prenu de funtzionalidadese commente: Moderatzione, Divertimentu, Utilidades de sistema et atteru.. Sviluppadu chin NodeJS utilisande diversasa tecnologiasa commente RethinkDB, JavaScript et Linux.",
                 "",
                 "â€¢ **Autore:** [AdityaTD#5346](https://www.AdityaTD.me)",
                 `â€¢ **Versione:** ${require("../package").version}`,
-                "â€¢ **Sito Web:** <https://www.PenguBot.com>",
+                "â€¢ **Situ Web:** <https://www.PenguBot.com>",
                 "â€¢ **Patreon:** <https://www.Patreon.com/PenguBot>",
                 "â€¢ **Server Discord:** <https://discord.gg/6KpTfqR>",
                 "â€¢ **GitHub:** <https://www.github.com/AdityaTD/PenguBot>",
                 "â€¢ **Database:** RethinkDB"
             ],
             COMMAND_DONATE: [
-                "PenguBot funziona su vari server attorno al mondo e questo richiede un costo. Se ti andasse di supportare PenguBot in questi costi, verrai ricompensato nei seguenti modi:",
+                "PenguBot funtziona in varios servers in su mundu. Custa cosa costata in denaru. Si cherese podes supportare PenguBot chin minuju. Asa a che picare carchi pretziosu poterese:",
                 "",
                 "__Perks__:",
-                "â€¢ Accesso illimitato alla lunghezza della Playlist, regolazione Volume ed altro..",
-                "â€¢ Nessun blocco dai voti - Nessun bisogno di voti per sbloccare i comandi bloccati.",
-                "â€¢ Tempo di uptime migliorato, con un Bot dedicato ai Patrons",
-                "â€¢ Ruolo speciale nel server della Official Pengu Squad",
+                "â€¢ Accessu chentza limitese a sa Playlist, regolatzione de su Volume et atteru..",
+                "â€¢ Nessun blocco dae sos votoso - Non servini votos pro che usare sos commandoso bloccadoso.",
+                "â€¢ Tempu de traballu metzorau, chin unu Bot dedicadu a sos Patronese",
+                "â€¢ Ruolo ispeciale in su server de sa Official Pengu Squad",
                 "",
                 "â€¢ **Patreon:** https://www.patreon.com/PenguBot",
                 "â€¢ **Crypto Donazioni:** https://1upcoin.com/donate/adityatd",
-                "â€¢ **Pagina di PenguBot per le donazioni:** https://www.PenguBot.com/donate"
+                "â€¢ **Paghina de PenguBot pro sas donatzionese:** https://www.PenguBot.com/donate"
             ],
             COMMAND_HELP_NODM: "ðŸ“ª | Hai disabilitato i messaggi personali. Non posso inviarti i comandi in privato. Questo il link per la lista dei comandi disponibili : <https://www.pengubot.com/commands>",
             COMMAND_UPVOTE: ["Vuoi che PenguBot sia più grande e disponbile su più server che frequenti?",
@@ -418,7 +418,12 @@ module.exports = class extends Language {
             COMMAND_CONF_REMOVE: (value, key) => `Rimosso con successo il valore \`${value}\` dalla chiave: **${key}**`,
             COMMAND_CONF_GET_NOEXT: key => `La chiave **${key}** non sembra esistere.`,
             COMMAND_CONF_GET: (key, value) => `Il valore per la chiave **${key}** è: \`${value}\``,
-            COMMAND_CONF_RESET: (key, response) => `La chiave **${key}** è stata ripristinata a: \`${response}\``
+            COMMAND_CONF_RESET: (key, response) => `La chiave **${key}** è stata ripristinata a: \`${response}\``,
+            
+            
+            
+            // Music interface - hacked by Rex ;) (starting from 1st Jan)
+            MUSICIF_SONG_NOT_FOUND: "Song not found, please try with a different one"
         };
     }
 
