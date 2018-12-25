@@ -24,7 +24,7 @@ Join <a href="https://discord.gg/u8WYw5r">Discord</a> for Support and Developmen
 
 [Stitch](https://github.com/Soumil07) - Emote Command and Modified Quote Command
 
-[RexShardane] (https://github.com/alearegis) - Translations in IT | FR | ES | DE | SAR
+[RexShardane](https://github.com/alearegis) - Translations in IT | FR | ES | DE | SAR
 
 
 ## Acknowledgement
