@@ -334,7 +334,7 @@ module.exports = class extends Language {
             CMD_SELF_ASSIGNABLE: "il ruolo adesso è auto-assegnabile.",
             CMD_NO_ASSIGNABLE: "il ruolo adesso non è più auto-assegnabile.",
             ER_NO_DM: "Non posso mandarti Messaggi Diretti poichè non ne ho la possibilità. Abilita i Messaggi Diretti nelle tue preferenze personali.",
-
+            ER_CURR_LANG: "PenguBot è già impostato per parlare Italiano!",
             CMD_FUN_COOKIE: "Ti è stato mandato un biscotto da ",
             CMD_FUN_CUDDLE: "Qualcuno ti coccolerebbe:",
             CMD_FUN_FED: "Ti è stato dato da mangiare! Ci ha pensato ",
