@@ -335,6 +335,7 @@ module.exports = class extends Language {
             CMD_SELF_ASSIGNABLE: "role is now self assignable.",
             CMD_NO_ASSIGNABLE: "role is no longer self assignable.",
             ER_NO_DM: "Can't send Direct Message to you because your DMs are not open.",
+            ER_CURR_LANG: "Pengu Bot ya habla español!",
             CMD_FUN_COOKIE: "you've been given a cookie by",
             CMD_FUN_CUDDLE: "you just got cuddled by",
             CMD_FUN_FED: "you just got fed by",
