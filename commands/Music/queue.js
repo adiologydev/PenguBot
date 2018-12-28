@@ -17,7 +17,7 @@ module.exports = class extends MusicCommand {
     async run(msg) {
         const { music } = msg.guild;
         const { queue } = music;
-        if (!music.playing) return msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("MUSICIF_SONG_NOT_FOUND")}***`);
+        if (!music.playing) return msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("MUSICIF_NO_MUSIC_PLAYING")}***`);
 
         const pages = new RichDisplay(new MessageEmbed()
             .setTitle(`${msg.language.get("MUSICIF_QUEUE_TITLE")}`)
