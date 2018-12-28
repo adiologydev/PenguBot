@@ -5,7 +5,7 @@ module.exports = class extends Language {
     constructor(...args) {
         super(...args);
         this.language = {
-            DEFAULT: key => `${key} has not been localized for en-US yet.`,
+            DEFAULT: key => `${key} has not been already localized for en-US.`,
             INHIBITOR_DISABLED: "<:penguError:435712890884849664> ***This command is currently disabled***",
             INHIBITOR_DISABLED_GROUP: "<:penguError:435712890884849664> ***This command group is currently disabled***",
             COMMAND_UNLOAD: (type, name) => `<:penguSuccess:435712876506775553> Unloaded ${type}: ${name}`,
@@ -43,7 +43,9 @@ module.exports = class extends Language {
                 "• **Crypto Donations:** https://1upcoin.com/donate/adityatd",
                 "• **PenguBot's Donation Page:** https://www.PenguBot.com/donate"
             ],
-            COMMAND_HELP_NODM: "📪 | You have DMs disabled, I couldn't send you the commands in DMs so here's a link to all the commands: <https://www.pengubot.com/commands>",
+            COMMAND_HELP_NODM: "📪 | You probably have DMs disabled.",
+                "I couldn't send you the commands in DMs. ",
+                "To see a list of all available commands visit : <https://www.pengubot.com/commands>",
             COMMAND_UPVOTE: ["Want PenguBot to become bigger and be available in more guilds you visit?",
                 "Then vote for PenguBot via the link below and also unlock access to",
                 "limited features that only upvoters can have access to!",
@@ -419,6 +421,11 @@ module.exports = class extends Language {
             COMMAND_CONF_GET: (key, value) => `The value for the key **${key}** is: \`${value}\``,
             COMMAND_CONF_RESET: (key, response) => `The key **${key}** has been reset to: \`${response}\``,
 
+            
+            
+            // Languages stuff:: (may I add some stuff here? :) -- Rex) 
+            CONF_LANG_SET: "Current language is English",
+            
             // Music interface
             MUSICIF_NO_MUSIC_PLAYING: "There's currently no music playing!",
             MUSICIF_NOW_PLAYING_TITLE: "Now Playing - PenguBot",
