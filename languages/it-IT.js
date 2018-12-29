@@ -419,7 +419,17 @@ module.exports = class extends Language {
             COMMAND_CONF_GET_NOEXT: key => `La chiave **${key}** non sembra esistere.`,
             COMMAND_CONF_GET: (key, value) => `Il valore per la chiave **${key}** è: \`${value}\``,
             COMMAND_CONF_RESET: (key, response) => `La chiave **${key}** è stata ripristinata a: \`${response}\``,
-
+            
+            
+            // while translating ... 
+            COMMAND_PING_DESCRIPTION: "Pinga il server PenguBot ..",
+            COMMAND_HELP_DESCRIPTION: "Leggi questi messaggi di aiuto.",
+            COMMAND_INFO_DESCRIPTION: "Informazioni sul progetto PenguBot",
+            COMMAND_STATS_DESCRIPTION: "Statistiche di PenguBot",
+            COMMAND_CONF_USER_DESCRIPTION: "Informazioni di configurazione locale PenguBot",
+            COMMAND_SETLANGUAGE_DESCRPTION: "(Admin) Imposta la lingua di sistema tra quelle disponibili.",
+            
+            
             // Music interface - hacked by Rex ;) (starting from 1st Jan)
             MUSICIF_NO_MUSIC_PLAYING: "Non sta suonando alcuna musica!",
             MUSICIF_NOW_PLAYING_TITLE: "In riproduzione.. - PenguBot",
