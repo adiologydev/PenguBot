@@ -418,7 +418,15 @@ module.exports = class extends Language {
             COMMAND_CONF_GET_NOEXT: key => `La clef **${key}** ne semble pas exister.`,
             COMMAND_CONF_GET: (key, value) => `La valeur pour la clef **${key}** est : \`${value}\``,
             COMMAND_CONF_RESET: (key, response) => `La clef **${key}** a été réinitialisée à : \`${response}\``,
-
+            
+            
+            // while translating ... 
+            COMMAND_PING_DESCRIPTION: "Ping le server PenguBot ..",
+            COMMAND_HELP_DESCRIPTION: "Vous recevrez ces messages d'aide.",
+            COMMAND_INFO_DESCRIPTION: "Informations sur le projet de PenguBot",
+            COMMAND_STATS_DESCRIPTION: "Statistiques de PenguBot",
+            COMMAND_CONF_USER_DESCRIPTION: "Informations sur la configuration actuelle",
+            COMMAND_SETLANGUAGE_DESCRPTION: "(Admin) Choisir la langue de PenguBot parmi les disponibles.",
 
             // Music interface
             MUSICIF_NO_MUSIC_PLAYING: "Aucune musique ne joue!",
