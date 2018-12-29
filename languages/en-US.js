@@ -419,6 +419,15 @@ module.exports = class extends Language {
             COMMAND_CONF_GET: (key, value) => `The value for the key **${key}** is: \`${value}\``,
             COMMAND_CONF_RESET: (key, response) => `The key **${key}** has been reset to: \`${response}\``,
 
+            
+            // while translating ... 
+            COMMAND_PING_DESCRIPTION: "Ping PenguBot server ..",
+            COMMAND_HELP_DESCRIPTION: "You'll get this help messages.",
+            COMMAND_INFO_DESCRIPTION: "Informations about PenguBot project",
+            COMMAND_STATS_DESCRIPTION: "PenguBot Statistics",
+            COMMAND_CONF_USER_DESCRIPTION: "PenguBot Guild informations",
+            COMMAND_SETLANGUAGE_DESCRPTION: "(Admin) Set PenguBot language from availables.",
+
             // Music interface
             MUSICIF_NO_MUSIC_PLAYING: "There's currently no music playing!",
             MUSICIF_NOW_PLAYING_TITLE: "Now Playing - PenguBot",
