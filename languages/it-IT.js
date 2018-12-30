@@ -420,7 +420,7 @@ module.exports = class extends Language {
             COMMAND_CONF_GET: (key, value) => `Il valore per la chiave **${key}** è: \`${value}\``,
             COMMAND_CONF_RESET: (key, response) => `La chiave **${key}** è stata ripristinata a: \`${response}\``,
 
-            // Music interface - hacked by Rex ;) (starting from 1st Jan)
+            // Music interface
             MUSICIF_NO_MUSIC_PLAYING: "Non sta suonando alcuna musica!",
             MUSICIF_NOW_PLAYING_TITLE: "In riproduzione.. - PenguBot",
             MUSICIF_TITLE: "Titolo",
@@ -429,8 +429,6 @@ module.exports = class extends Language {
             MUSICIF_SONG_REQUESTED_BY: "Richiedente",
             MUSICIF_SONG_LINK: "Link",
             MUSICIF_SONG_NOT_FOUND: "Canzone non trovata. Provane un'altra, o aggiungi argomenti ..",
-
-            // Requires Translation
             MUSICIF_QUEUE_HINT: "Sfoglia le pagine della playlist..",
             MUSICIF_QUEUE_TITLE: "Usa le reazioni per interagire con la playlist.",
             MUSICIF_QUEUE_LOADING: "Carico la playlist ..",
@@ -439,7 +437,18 @@ module.exports = class extends Language {
             MUSICIF_TOGGLE_SONG_LOOP: "Abilitata/Disabilita la ripetizione della singola traccia.",
             MUSICIF_TOGGLE_SONG_LOOP_ON: "Abilitata la ripetizione della singola traccia.",
             MUSICIF_TOGGLE_SONG_LOOP_OFF: "Disabilita la ripetizione della singola traccia.",
-            MUSICIF_TOGGLE_QUEUE_LOOP: "Tutta la playlist verrà ripetuta."
+            MUSICIF_TOGGLE_QUEUE_LOOP: "Tutta la playlist verrà ripetuta.",
+
+            // 30th December 2018
+            HELP_SET_LANGUAGE: ["Please select a Language you Want **PenguBot** to Speak in.",
+                "",
+                ":flag_gb: English",
+                ":flag_it: Italian",
+                ":flag_fr: French",
+                ":flag_es: Espanol",
+                ":flag_de: Deutch",
+                "",
+                "Type `p!setlanguage <Name>` to change your language."]
         };
     }
 

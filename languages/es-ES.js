@@ -421,7 +421,19 @@ module.exports = class extends Language {
 
 
             // Music interface
-            MUSICIF_SONG_NOT_FOUND: "Canción no encontrada, por favor intente con una diferente"
+            MUSICIF_NO_MUSIC_PLAYING: "There's currently no music playing!",
+            MUSICIF_SONG_NOT_FOUND: "Canción no encontrada, por favor intente con una diferente",
+
+            // 30th December 2018
+            HELP_SET_LANGUAGE: ["Please select a Language you Want **PenguBot** to Speak in.",
+                "",
+                ":flag_gb: English",
+                ":flag_it: Italian",
+                ":flag_fr: French",
+                ":flag_es: Espanol",
+                ":flag_de: Deutch",
+                "",
+                "Type `p!setlanguage <Name>` to change your language."]
         };
     }
 

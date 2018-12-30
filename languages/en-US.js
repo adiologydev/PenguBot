@@ -434,7 +434,18 @@ module.exports = class extends Language {
             MUSICIF_QUEUE_LIMIT_REACHED: "Sorry but the maximum queue size is 1000 songs. If you want to bypass this limit, consider becoming a Patron at <https://patreon.com/PenguBot>",
             MUSICIF_TOGGLE_SONG_LOOP: "Toggled single song repeat.",
             MUSICIF_TOGGLE_QUEUE_LOOP: "Now all queue will repeat.",
-            MUSICIF_SONG_NOT_FOUND: "Song not found, please try with a different one"
+            MUSICIF_SONG_NOT_FOUND: "Song not found, please try with a different one",
+
+            // 30th December 2018
+            HELP_SET_LANGUAGE: ["Please select a Language you Want **PenguBot** to Speak in.",
+                "",
+                ":flag_gb: English",
+                ":flag_it: Italian",
+                ":flag_fr: French",
+                ":flag_es: Espanol",
+                ":flag_de: Deutch",
+                "",
+                "Type `p!setlanguage <Name>` to change your language."]
         };
     }
 

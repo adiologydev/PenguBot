@@ -428,8 +428,18 @@ module.exports = class extends Language {
             MUSICIF_SONG_LENGHT: "Durée",
             MUSICIF_SONG_REQUESTED_BY: "Demandeur",
             MUSICIF_SONG_LINK: "Link",
+            MUSICIF_SONG_NOT_FOUND: "Chant non trouvé, veuillez essayer avec un autre.",
 
-            MUSICIF_SONG_NOT_FOUND: "Chant non trouvé, veuillez essayer avec un autre."
+            // 30th December 2018
+            HELP_SET_LANGUAGE: ["**PenguBot** peut parler une des langues disponibles.",
+                "",
+                ":flag_gb: Anglais",
+                ":flag_it: Italien",
+                ":flag_fr: Français",
+                ":flag_es: Espagnol",
+                ":flag_de: Deutch",
+                "",
+                "Type `p!setlanguage <Name>` to change your language."]
 
 
         };

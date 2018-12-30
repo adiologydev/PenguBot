@@ -421,8 +421,20 @@ module.exports = class extends Language {
             COMMAND_CONF_RESET: (key, response) => `La chiave **${key}** è stata ripristinata a: \`${response}\``,
 
 
-            // Music interface
-            MUSICIF_SONG_NOT_FOUND: "Song not found, please try with a different one"
+            // Requires Translation
+            MUSICIF_NO_MUSIC_PLAYING: "There's currently no music playing!",
+            MUSICIF_SONG_NOT_FOUND: "Song not found, please try with a different one",
+
+            // 30th December 2018
+            HELP_SET_LANGUAGE: ["Issepera una limba dae cussas disponibilese pro **PenguBot**.",
+                "",
+                ":flag_gb: Inglesu",
+                ":flag_it: Italianu",
+                ":flag_fr: Frantzesu",
+                ":flag_es: Ispagnolu",
+                ":flag_de: Tedescu",
+                "",
+                "Usa `p!setlanguage <Numene>` pro che cambiare sa limba de PenguBot."]
         };
     }
 
