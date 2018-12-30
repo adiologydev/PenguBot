@@ -439,7 +439,8 @@ module.exports = class extends Language {
                 ":flag_fr: Français (fr-FR)",
                 ":flag_es: Espagnol (es-ES)",
                 "",
-                "Type `p!setlanguage <Name>` to change your language."]
+                "Type `p!setlanguage <Name>` to change your language."],
+            CONF_LANG_SET: "est la langue par défaut pour PenguBot sur ce serveur."
 
 
         };

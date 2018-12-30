@@ -434,7 +434,8 @@ module.exports = class extends Language {
                 ":flag_fr: Frantzesu (fr-FR)",
                 ":flag_es: Ispagnolu (es-ES)",
                 "",
-                "Usa `p!setlanguage <Numene>` pro che cambiare sa limba de PenguBot."]
+                "Usa `p!setlanguage <Numene>` pro che cambiare sa limba de PenguBot."],
+            CONF_LANG_SET: "este sa limba de PenguBot in custu server."
         };
     }
 

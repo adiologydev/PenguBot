@@ -42,7 +42,7 @@ module.exports = class extends Command {
 
     async changeLanguage(msg, language) {
         await msg.guild.settings.update("language", language);
-        return msg.sendMessage(`${this.client.emotes.check} ***${msg.language.get("CONF_LANG_SET")}***`);
+        return msg.sendMessage(`${this.client.emotes.check} \`${language}\` ***${msg.language.get("CONF_LANG_SET")}***`);
     }
 
 };
