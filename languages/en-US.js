@@ -437,7 +437,9 @@ module.exports = class extends Language {
             MUSICIF_SONG_NOT_FOUND: "Song not found, please try with a different one",
 
             // 30th December 2018
-            HELP_SET_LANGUAGE: ["Please select a Language you Want **PenguBot** to Speak in.",
+            HELP_LANGUAGE_NOT_FOUND: "Language indicated is not available.",
+            HELP_MY_CURRENT_LANGUAGE: [":flag_gb: I currently speak English!",""],
+            HELP_SET_LANGUAGE: ["**PenguBot** can speak one of the following languages:",
                 "",
                 ":flag_gb: English (en-US)",
                 ":flag_it: Italian (it-IT)",
@@ -445,7 +447,7 @@ module.exports = class extends Language {
                 ":flag_fr: French (fr-FR)",
                 ":flag_es: Espanol (es-ES)",
                 "",
-                "Type `p!setlanguage <Name>` to change your language."],
+                "Use `p!setlanguage <name>` to change your language."],
             CONF_LANG_SET: "is now set as the default PenguBot language in this guild."
         };
     }
