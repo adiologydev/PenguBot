@@ -433,11 +433,11 @@ module.exports = class extends Language {
             // 30th December 2018
             HELP_SET_LANGUAGE: ["**PenguBot** peut parler une des langues disponibles.",
                 "",
-                ":flag_gb: Anglais",
-                ":flag_it: Italien",
-                ":flag_fr: Français",
-                ":flag_es: Espagnol",
-                ":flag_de: Deutch",
+                ":flag_gb: Anglais (en-US)",
+                ":flag_it: Italien (it-IT)",
+                ":flag_it: Sardinian (sar-IT)",
+                ":flag_fr: Français (fr-FR)",
+                ":flag_es: Espagnol (es-ES)",
                 "",
                 "Type `p!setlanguage <Name>` to change your language."]
 

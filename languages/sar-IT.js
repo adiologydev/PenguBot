@@ -428,11 +428,11 @@ module.exports = class extends Language {
             // 30th December 2018
             HELP_SET_LANGUAGE: ["Issepera una limba dae cussas disponibilese pro **PenguBot**.",
                 "",
-                ":flag_gb: Inglesu",
-                ":flag_it: Italianu",
-                ":flag_fr: Frantzesu",
-                ":flag_es: Ispagnolu",
-                ":flag_de: Tedescu",
+                ":flag_gb: Inglesu (en-US)",
+                ":flag_it: Italianu (it-IT)",
+                ":flag_it: Sardinian (sar-IT)",
+                ":flag_fr: Frantzesu (fr-FR)",
+                ":flag_es: Ispagnolu (es-ES)",
                 "",
                 "Usa `p!setlanguage <Numene>` pro che cambiare sa limba de PenguBot."]
         };
