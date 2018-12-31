@@ -21,7 +21,7 @@ module.exports = class extends MusicCommand {
 
         const pages = new RichDisplay(new MessageEmbed()
             .setTitle(`${msg.language.get("MUSICIF_QUEUE_TITLE")}`)
-            .setAuthor(`${msg.language.get("MUSICIF_QUEUE_AUTHOR")}", "https://i.imgur.com/IS8hX4t.png`)
+            .setAuthor(`PenguBot - Music Queue`, "https://i.imgur.com/IS8hX4t.png")
             .setDescription(`"${msg.language.get("MUSICIF_QUEUE_HINT")}`)
             .setColor("#428bca")
         );
