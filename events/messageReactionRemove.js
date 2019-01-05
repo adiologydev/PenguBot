@@ -23,7 +23,7 @@ module.exports = class extends Event {
                 .setColor(starEmbed.color)
                 .setAuthor(`${msg.author.tag} in #${msg.channel.name}`, msg.author.displayAvatarURL())
                 .setTimestamp()
-                .setFooter(`⭐ ${msg.reactions.get("⭐").count} | ${msg.id}`);
+                .setFooter(`⭐ ${msg.reactions.get("⭐") ? msg.reactions.get("⭐").count : 0} | ${msg.id}`);
             if (image) embed.setImage(image);
             if (starEmbed.description) embed.setDescription(starEmbed.description);
             const oldMsg = await starChannel.messages.fetch(starMsg.id);

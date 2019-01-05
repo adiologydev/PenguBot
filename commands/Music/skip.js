@@ -18,6 +18,8 @@ module.exports = class extends MusicCommand {
     async run(msg) {
         const { music } = msg.guild;
         const { queue } = music;
+
+        if (!music.voiceChannel) throw `${this.client.emotes.cross} ***PenguBot is not connected to a voice channel.***`;
         const threshold = Math.ceil(music.voiceChannel.members.size / 3);
         const force = threshold <= 1 || music.voiceChannel < threshold || await msg.hasAtLeastPermissionLevel(3);
 

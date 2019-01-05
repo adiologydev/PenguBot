@@ -5,10 +5,12 @@ module.exports = class extends Event {
 
     /* eslint-disable complexity */
     async run(guild, type, data, user) {
-        if (!guild.settings.loggingChannel || !guild.channels.get(guild.settings.loggingChannel) || !guild.channels.get(guild.settings.loggingChannel).postable) return;
+        if (!guild.settings.loggingChannel) return;
         if (!guild.settings.get(`logs.${data.name}`)) return;
 
         const channel = guild.channels.get(guild.settings.loggingChannel);
+        if (!channel || !channel.postable) return;
+
         switch (type) {
             case "join": channel.send(this.generateEmbed(`📥 ${user} has joined **${guild.name}**.`, "#5cb85c", { footer: "Member Joined", title: `${user.tag} | ${user.id}`, avatar: user.displayAvatarURL() }));
                 break;

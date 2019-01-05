@@ -28,8 +28,7 @@ module.exports = class extends Command {
 
         messages = messages.array().slice(0, limit);
         await msg.channel.bulkDelete(messages, true).catch(() => msg.reply("I tried my best but some messages were older than 14 days so I couldn't delete them!"));
-        const m = await msg.sendMessage(`${this.client.emotes.check} ***${messages.length} ${msg.language.get("MESSAGE_PRUNE_DELETED")}***`);
-        m.delete({ timeout: 5000 });
+        return msg.sendMessage(`${this.client.emotes.check} ***${messages.length} ${msg.language.get("MESSAGE_PRUNE_DELETED")}***`);
     }
 
     getFilter(msg, filter, user) {

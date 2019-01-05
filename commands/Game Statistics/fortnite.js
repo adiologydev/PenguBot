@@ -35,12 +35,12 @@ module.exports = class extends Command {
             .setColor("#151842")
             .setTimestamp()
             .setDescription([`❯ **Epic Username:** ${data.body.epicUserHandle}`,
-                `❯ **Score:** ${data.body.lifeTimeStats.find(a => a.key === "Score").value ? data.body.lifeTimeStats.find(a => a.key === "Score").value : "N/A"}`,
-                `❯ **Matches Played:** ${data.body.lifeTimeStats.find(a => a.key === "Matches Played").value ? data.body.lifeTimeStats.find(a => a.key === "Matches Played").value : "N/A"}`,
-                `❯ **Kills:** ${data.body.lifeTimeStats.find(a => a.key === "Kills").value ? data.body.lifeTimeStats.find(a => a.key === "Kills").value : "N/A"}`,
-                `❯ **Wins:** ${data.body.lifeTimeStats.find(a => a.key === "Wins").value ? data.body.lifeTimeStats.find(a => a.key === "Wins").value : "N/A"}`,
-                `❯ **K/D:** ${data.body.lifeTimeStats.find(a => a.key === "K/d").value ? data.body.lifeTimeStats.find(a => a.key === "K/d").value : "N/A"}`,
-                `❯ **Top 3s:** ${data.body.lifeTimeStats.find(a => a.key === "Top 3s").value ? data.body.lifeTimeStats.find(a => a.key === "Top 3s").value : "N/A"}`,
+                `❯ **Score:** ${data.body.lifeTimeStats.find(a => a.key === "Score") ? data.body.lifeTimeStats.find(a => a.key === "Score").value.toLocaleString() : "N/A"}`,
+                `❯ **Matches Played:** ${data.body.lifeTimeStats.find(a => a.key === "Matches Played") ? data.body.lifeTimeStats.find(a => a.key === "Matches Played").value.toLocaleString() : "N/A"}`,
+                `❯ **Kills:** ${data.body.lifeTimeStats.find(a => a.key === "Kills") ? data.body.lifeTimeStats.find(a => a.key === "Kills").value.toLocaleString() : "N/A"}`,
+                `❯ **Wins:** ${data.body.lifeTimeStats.find(a => a.key === "Wins") ? data.body.lifeTimeStats.find(a => a.key === "Wins").value.toLocaleString() : "N/A"}`,
+                `❯ **K/D:** ${data.body.lifeTimeStats.find(a => a.key === "K/d") ? data.body.lifeTimeStats.find(a => a.key === "K/d").value : "N/A"}`,
+                `❯ **Top 3s:** ${data.body.lifeTimeStats.find(a => a.key === "Top 3s") ? data.body.lifeTimeStats.find(a => a.key === "Top 3s").value.toLocaleString() : "N/A"}`,
                 `❯ **Platform:** ${data.body.platformNameLong}`]));
     }
 
