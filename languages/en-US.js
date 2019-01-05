@@ -26,6 +26,7 @@ module.exports = class extends Language {
                 `• **Version:** ${require("../package").version}`,
                 "• **Website:** <https://www.PenguBot.com>",
                 "• **Patreon:** <https://www.Patreon.com/PenguBot>",
+                "• **PayPal:** <https://www.paypal.me/adityatripathid>",
                 "• **Discord Guild:** <https://discord.gg/6KpTfqR>",
                 "• **GitHub:** <https://www.github.com/AdityaTD/PenguBot>",
                 "• **Database:** RethinkDB"
@@ -40,6 +41,7 @@ module.exports = class extends Language {
                 "• Special Role in Official Pengu Squad Server",
                 "",
                 "• **Patreon:** https://www.patreon.com/PenguBot",
+                "• **PayPal:** https://www.paypal.me/adityatripathid",
                 "• **Crypto Donations:** https://1upcoin.com/donate/adityatd",
                 "• **PenguBot's Donation Page:** https://www.PenguBot.com/donate"
             ],
@@ -352,7 +354,7 @@ module.exports = class extends Language {
             CMD_FORT_ERR: "There was an error in the Tracking API, please try again later.",
             CMD_OSU_ERR: "Either the user couldn't be found or we're having some issues.",
             CMD_UPVOTE_ONLY: "You are not an up-voter of PenguBot, please visit <http://bit.ly/VoteDBL> to vote now and get access!",
-            CMD_PATRON_ONLY: "This guild is not Premium. Please consider becoming a Patron at <https://patreon.com/PenguBot> in order to access this feature.",
+            CMD_PATRON_ONLY: "This command is locked for Patrons Only. If you want to become a Patron please visit <https://patreon.com/PenguBot> and gain access to the Premium Bot.",
             CMD_RPS_INVALID: "That's an invalid move, please choose",
             CMD_SLOTS_INVALID: "The specified amount of Snowflakes is invalid, please enter at least 1 or more Snowflakes.",
             CMD_LOG_INVALID: "Invalid Option, please choose from",

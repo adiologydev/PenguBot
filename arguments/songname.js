@@ -45,6 +45,7 @@ module.exports = class extends Argument {
                 if (!scSingleRes.tracks) throw msg.language.get("ER_MUSIC_NF");
                 results.push(scSingleRes.tracks[0]);
             } else if (paste.exec(arg)) {
+                if (!this.client.config.main.patreon) throw msg.language.get("ER_MUSIC_PATRON");
                 const rawRes = await get(`https://paste.pengubot.com/raw/${paste.exec(arg)[1]}`);
                 if (!rawRes.body) throw msg.language.get("ER_MUSIC_NF");
                 for (const song of JSON.parse(rawRes.body).songs) {

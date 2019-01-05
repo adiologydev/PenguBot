@@ -435,7 +435,10 @@ module.exports = class extends Language {
                 ":flag_es: Ispagnolu (es-ES)",
                 "",
                 "Usa `p!setlanguage <Numene>` pro che cambiare sa limba de PenguBot."],
-            CONF_LANG_SET: "este sa limba de PenguBot in custu server."
+            CONF_LANG_SET: "este sa limba de PenguBot in custu server.",
+
+            // January 2019
+            ER_MUSIC_PATRON: "This paste feature has been locked for Premium Guilds only, if you want to gain access become a Patron at <https://www.patreon.com/PenguBot> or Donate at <https://www.paypal.me/adityatripathid> with your Discord Username as a Message."
         };
     }
 

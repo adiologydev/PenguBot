@@ -6,7 +6,7 @@ module.exports = class extends MusicCommand {
     constructor(...args) {
         super(...args, {
             requireMusic: true,
-            upvoteOnly: true,
+            patronOnly: true,
             cooldown: 8,
             aliases: ["dumpplaylist", "savesongs", "save"],
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],

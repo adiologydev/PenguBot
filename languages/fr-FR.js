@@ -351,7 +351,7 @@ module.exports = class extends Language {
             CMD_FORT_ERR: "There was an error in the Tracking API, please try again later.",
             CMD_OSU_ERR: "Either the user couldn't be found or we're having some issues.",
             CMD_UPVOTE_ONLY: "You are not an up-voter of PenguBot, please visit <http://bit.ly/VoteDBL> to vote now and get access!",
-            CMD_PATRON_ONLY: "This guild is not Premium. Please consider becoming a Patron at <https://patreon.com/PenguBot> in order to access this feature.",
+            CMD_PATRON_ONLY: "Cette commande est verrouillée pour les utilisateurs uniquement. Si vous souhaitez devenir Patron, rendez-vous sur https://patreon.com/PenguBot et accédez au bot Premium.",
             CMD_RPS_INVALID: "That's an invalid move, please choose",
             CMD_SLOTS_INVALID: "The specified amount of Snowflakes is invalid, please enter at least 1 or more Snowflakes.",
             CMD_LOG_INVALID: "Invalid Option, please choose from",
@@ -440,9 +440,10 @@ module.exports = class extends Language {
                 ":flag_es: Espagnol (es-ES)",
                 "",
                 "Type `p!setlanguage <Name>` to change your language."],
-            CONF_LANG_SET: "est la langue par défaut pour PenguBot sur ce serveur."
+            CONF_LANG_SET: "est la langue par défaut pour PenguBot sur ce serveur.",
 
-
+            // January 2019
+            ER_MUSIC_PATRON: "This paste feature has been locked for Premium Guilds only, if you want to gain access become a Patron at <https://www.patreon.com/PenguBot> or Donate at <https://www.paypal.me/adityatripathid> with your Discord Username as a Message."
         };
     }
 
