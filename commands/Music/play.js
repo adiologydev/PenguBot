@@ -117,7 +117,7 @@ module.exports = class extends MusicCommand {
             .setTimestamp()
             .setFooter("© PenguBot.com")
             .setColor("#eedc2f")
-            .setThumbnail(song.artwork)
+            .setThumbnail(song.artwork || "https://i.imgur.com/50dTpEN.png")
             .setDescription(`• **Title:** ${song.title}
 • **Author:** ${song.author}
 • **Length:** ${song.friendlyDuration}

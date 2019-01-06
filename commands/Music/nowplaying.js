@@ -24,6 +24,7 @@ module.exports = class extends MusicCommand {
             .setColor("#5bc0de")
             .setTitle(`⏯ | ${msg.language.get("MUSICIF_NOW_PLAYING_TITLE")}`)
             .setTimestamp()
+            .setThumbnail(song.artwork || "https://i.imgur.com/50dTpEN.png")
             .setFooter("© PenguBot.com")
             .setDescription(`• **${msg.language.get("MUSICIF_TITLE")}:** ${song.title}
 • **${msg.language.get("MUSICIF_AUTHOR")}:** ${song.author}

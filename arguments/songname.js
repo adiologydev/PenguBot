@@ -57,12 +57,11 @@ module.exports = class extends Argument {
             } else if (spotifyList.exec(arg) || spotUser.exec(arg)) {
                 let argument = arg;
                 if (arg.match(/user/i)) argument = arg.replace(/\/user\/(\w)+/, "");
-                if (!spotifyList.exec(argument)[1]) throw msg.language.get("ER_MUSIC_NF");
-                const data = await get(`https://api.spotify.com/v1/playlists/${spotifyList.exec(argument)[1]}`)
+                const data = await get(`https://api.spotify.com/v1/playlists/${spotifyList.exec(argument)[1] || spotUser.exec(argument)[1]}`)
                     .set("Authorization", `Bearer ${this.client.config.keys.music.spotify.token}`);
                 if (data.status !== 200 || !data.body) throw msg.language.get("ER_MUSIC_NF");
                 for (const trackData of data.body.tracks.items) {
-                    const trackRes = await this.getTracks(node, `ytsearch:${trackData.track.artists[0].name} ${trackData.track.name} audio`);
+                    const trackRes = await this.getTracks(node, `ytsearch:${trackData.track.artists ? trackData.track.artists[0].name : ""} ${trackData.track.name} audio`);
                     if (!trackRes.tracks[0]) continue;
                     results.push(trackRes.tracks[0]);
                 }
