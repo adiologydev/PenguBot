@@ -26,7 +26,11 @@ module.exports = class extends Event {
             member: msg.member,
             channel: msg.channel,
             args
-        });
+        }).catch(e => e);
+
+        if (typeof parsed === Error) {
+            throw `Hey, there was an Error with this Custom Command's Content. Please Screenshot the following error and Share in <https://pengubot.com/support>\n\n**Error Stack:**\`\`\`${parsed}\`\`\``;
+        }
 
         await msg.channel.send(parsed);
         timeout.add(`${msg.author.id}-${msg.guild.id}`);

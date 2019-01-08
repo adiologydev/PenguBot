@@ -20,7 +20,7 @@ module.exports = class extends Event {
 
     autoroles(member) {
         if (!member.guild.settings.autoroles.enabled) return;
-        if (!member.guild.me.permissions.has("MANAGE_ROLES")) return;
+        if (!member.guild.me || !member.guild.me.permissions.has("MANAGE_ROLES")) return;
         return member.roles.add(member.guild.settings.autoroles.roles, "PenguBot - AutoRole Feature").catch(() => null);
     }
 
