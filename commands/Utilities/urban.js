@@ -23,7 +23,7 @@ module.exports = class extends Command {
             return e;
         });
 
-        if (!text || !text.list) return msg.reply(`${this.client.emotes.cross} ***That word could not be found on Urban Dictionary.***`);
+        if (!text || !JSON.parse(text).list) return msg.reply(`${this.client.emotes.cross} ***That word could not be found on Urban Dictionary.***`);
 
         const result = JSON.parse(text).list[0];
         const defination = result.definition.length <= 1800 ? result.definition : `${result.definition.substring(0, 1800)}...`;
