@@ -7,7 +7,7 @@
 <a href="https://status.pengubot.com"><img src="https://img.shields.io/uptimerobot/status/m780330569-1daeafa104787e3a94da7007.svg?style=for-the-badge"></a>
 <a href="https://github.com/AdityaTD/PenguBot/blob/master/LICENSE"><img src="https://img.shields.io/github/license/mashape/apistatus.svg?style=for-the-badge"></a>
 </p>
-<p align="center">PenguBot is a community developed Discord Bot with over 30,000 guilds<br>
+<p align="center">PenguBot is a community developed Discord Bot with over 35,000 guilds<br>
 Join <a href="https://discord.gg/u8WYw5r">Discord</a> for Support and Development Discussions</p>
 </div>
 
@@ -24,8 +24,10 @@ Join <a href="https://discord.gg/u8WYw5r">Discord</a> for Support and Developmen
 
 [Stitch](https://github.com/Soumil07) - Emote Command and Modified Quote Command
 
-[RexShardane](https://github.com/alearegis) - Translations in IT | FR | ES | DE | SAR
+## Translators
+[RexShardane](https://github.com/alearegis) - IT, SAR
 
+[Rudolfet](https://github.com/Rudolfet) - FR
 
 ## Acknowledgement
 [Klasa Pieces](https://github.com/dirigeants/klasa-pieces/)
@@ -47,5 +49,5 @@ We're proudly hosted by [GalaxyGate](https://bit.ly/GalaxyGate). Visit the link 
 
 ## Vote on Bot Lists to Support
 [![Discord Bots](https://discordbots.org/api/widget/303181184718995457.svg)](https://discordbots.org/bot/303181184718995457/vote)
-[![Bots For Discord](https://botsfordiscord.com/api/v1/bots/303181184718995457/embed?theme=dark)](https://www.pengubot.com/upvote)
+[![Bots for Discord](https://botsfordiscord.com/api/bot/303181184718995457/widget)](https://botsfordiscord.com/bots/303181184718995457)
 [![Discord Bot List](https://discordbotlist.com/bots/303181184718995457/widget)](https://discordbotlist.com/bots/303181184718995457/upvote)
