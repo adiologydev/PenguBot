@@ -35,7 +35,7 @@
     "discord.js-lavalink": "github:MrJacz/discord.js-lavalink",
     "erlpack": "github:discordapp/erlpack",
     "google-translate-api": "^2.3.0",
-    "hot-shots": "^5.9.1",
+    "hot-shots": "^6.1.1",
     "idiotic-api": "github:YorkAARGH/Idiotic-Wrapper",
     "klasa": "github:dirigeants/klasa",
     "klasa-dashboard-hooks": "github:PenguBot/klasa-dashboard-hooks",
