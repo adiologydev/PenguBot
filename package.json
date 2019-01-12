@@ -4,6 +4,7 @@
   "description": "PenguBot Rewrite for Performance and Stability.",
   "main": "start.js",
   "scripts": {
+    "start": "node start",
     "test": "eslint .",
     "lint": "eslint --fix ."
   },
@@ -37,7 +38,7 @@
     "google-translate-api": "^2.3.0",
     "hot-shots": "^6.1.1",
     "idiotic-api": "github:YorkAARGH/Idiotic-Wrapper",
-    "klasa": "github:dirigeants/klasa",
+    "klasa": "github:dirigeants/klasa#96cc12de8480df163e82744599dacfc719bb4c12",
     "klasa-dashboard-hooks": "github:PenguBot/klasa-dashboard-hooks",
     "klasa-functions": "github:PenguBot/klasa-functions-plugin",
     "klasa-member-gateway": "github:dirigeants/klasa-member-gateway",

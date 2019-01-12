@@ -34,7 +34,7 @@ Raven.context(() => {
         },
         console: { useColor: true },
         production: config.main.production,
-        presence: { activity: { name: "❤ p!donate For Exclusive Patron Bot Access ➖ p!help", type: "PLAYING" } },
+        presence: { activity: { name: "❤ p!donate for PenguBot Premium Access ➖ p!help | PenguBot.com", type: "PLAYING" } },
         prefixCaseInsensitive: true,
         noPrefixDM: true,
         aliasFunctions: { returnRun: true, enabled: true, prefix: "funcs" },

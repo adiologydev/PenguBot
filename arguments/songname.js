@@ -1,6 +1,5 @@
 const { Argument } = require("klasa");
 const Song = require("../lib/structures/Song");
-const url = require("url");
 const { get } = require("snekfetch");
 
 /* eslint-disable no-mixed-operators */
@@ -131,12 +130,15 @@ module.exports = class extends Argument {
     /**
      * Returns a valid URl that can be accepted by Lavalink
      * @param {string} arg URL which you want to verify
-     * @returns {string}
+     * @returns {boolean}
      */
     isLink(arg) {
-        const res = url.parse(arg);
-        const goodUrl = res.protocol && res.hostname;
-        return goodUrl && (res.protocol === "https:" || res.protocol === "http:");
+        try {
+            new URL(arg); // eslint-disable-line no-new
+            return true;
+        } catch (e) {
+            return false;
+        }
     }
 
 };
