@@ -18,9 +18,9 @@ module.exports = class extends Language {
             COMMAND_SUPPORT: `**__PenguBot Destek Sunucusu__**\n• **Invite Link:** https://discord.gg/u8WYw5r`,
             COMMAND_INVITE_DESCRIPTION: "Botu sunucunuza eklemek için kullanacağınız davet bağlantısını gösterir.",
             COMMAND_INFO: [
-                "PenguBot is a Multi-Purpose Discord Bot which is filled with features ranging from",
-                "Moderation, Fun, Utilities and more. It is developed in NodeJS using many different",
-                "technologies such as RethinkDB, JavaScript and Linux.",
+                "PenguBot içinde Yönetim, Eğlence, Araçlar ve daha fazlasını bir çok fonksiyonel",
+                "Discord Botu. Node.js ile geliştirilmiş olup, RethinkDB, Javascript ve Linux",
+                "gibi bir çok farklı teknolojiyi kullanır.",
                 "",
                 "• **Yapımcı:** [AdityaTD#5346](https://www.AdityaTD.me)",
                 `• **Sürüm:** ${require("../package").version}`,
@@ -113,18 +113,18 @@ module.exports = class extends Language {
             COMMAND_LOG_DESCRPTION: "Bir Pengu Yöneticisi veya daha üstüysen kayıt eylemlerini aç/kapa.",
 
             // Autoroles, Level & Self Roles
-            MESSAGE_AUTOROLES_ENABLED: "Auto Roles have been enabled in this guild!",
-            MESSAGE_AUTOROLES_DISABLED: "Auto Roles have been disabled in this guild!",
-            MESSAGE_AUTOROLE_REMOVED: "role was removed from the Auto Roles!",
-            MESSAGE_AUTOROLE_ADDED: "role was added in the Auto Roles!",
+            MESSAGE_AUTOROLES_ENABLED: "Otoroller bu sunucuda aktifleştiridi!",
+            MESSAGE_AUTOROLES_DISABLED: "Otoroller bu sunucuda devre dışı bırakıldı!",
+            MESSAGE_AUTOROLE_REMOVED: "rolü otorollerden çıkarıldı!",
+            MESSAGE_AUTOROLE_ADDED: "rolü otorollere eklendi!",
             COMMAND_SELFROLES: "Assign or Deassign or list Self Roles from Yourself.",
             COMMAND_SELFROLES_MANAGE: "Add or Remove Self Roles from the server.",
             COMMAND_TOGGLE_SELFROLES: "Enable/Disable Self Roles on the server.",
-            MESSAGE_LEVELROLES_ENABLED: "Level Based Roles have been enabled in this guild!",
-            MESSAGE_LEVELROLES_DISABLED: "Level Based Roles have been disabled in this guild!",
+            MESSAGE_LEVELROLES_ENABLED: "Seviye tabanlı roller bu sunucuda aktifleştirildi!",
+            MESSAGE_LEVELROLES_DISABLED: "Seviye tabanlı roller bu sunucuda aktifleştirildi devre dışı bırakıldı!",
 
             // Utilities Messages
-            MESSAGE_NEW_REMINDER: "New Reminder has been created with ID:",
+            MESSAGE_NEW_REMINDER: "Yeni hatırlatıcı şu ID ile oluşturuldu:",
             MESSAGE_LINK_SHORTEN: "İşte kısa bağlantın:",
             MESSAGE_AVATAR: "Avatar: ",
             MESSAGE_AFK_TRUE: "Durumunu Klavyeden Uzakta (AFK) olarak ayarla!",
@@ -182,7 +182,7 @@ module.exports = class extends Language {
             COMMAND_COOKIE_DESCRIPTION: "Ağız sulandıran ve karnını daha da çok acıktıracak kurabiye fotoğrafları!",
             COMMAND_DADJOKE_DESCRIPTION: "Herkes esprileri sever fakat Soğuk Esprilere ne dersin?",
             COMMAND_DOG_DESCRIPTION: "Gününü gün edecek tatlı mı tatlı köpek fotoğrafları!",
-            COMMAND_FML_DESCRIPTION: "İnsanlara "Ulan Hayatımı S*keyim" dedirten şeyler!",
+            COMMAND_FML_DESCRIPTION: "İnsanlara \"Ulan Hayatımı S*keyim\" dedirten şeyler!",
             COMMAND_HUG_DESCRIPTION: "Birinin sarılmaya mı ihtiyacı var? Neden bekliyorsun ki, sarıl gitsin!",
             COMMAND_PENGU_DESCRIPTION: "Tatlı Penguen fotoğrafları!",
             COMMAND_8BALL_DESCRIPTION: "Sorularını sihirli 8topu'na sor!",
@@ -222,7 +222,7 @@ module.exports = class extends Language {
             COMMAND_MISSING_DESCRIPTION: "Has your dear one went missing? Get them a poster.",
             COMMAND_SNAPCHAT_DESCRIPTION: "Bir Snapchat Mem Resmi yap.",
             COMMAND_OSU_DESCRIPTION: "Kıyak bir şekilde osu! istatistikleri edin!",
-            COMMAND_CMM_DESCRIPTION: "Hoş bir "Fikrimi Değiştir" memi yap!",
+            COMMAND_CMM_DESCRIPTION: "Hoş bir \"Fikrimi Değiştir\" memi yap!",
 
             // NSFW Commands
             COMMAND_ANAL_DESCRIPTION: "-İŞ İÇİN UYGUN DEĞİL- Anal Resimleri.",
