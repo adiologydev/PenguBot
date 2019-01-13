@@ -69,6 +69,7 @@ module.exports = class extends MusicCommand {
         const [song] = musicInterface.queue;
 
         if (!song) {
+            if (!musicInterface.textChannel || !musicInterface.textChannel.postable) return musicInterface.destroy();
             return musicInterface.textChannel.send(this.stopEmbed).then(() => musicInterface.destroy());
         }
 
@@ -117,7 +118,7 @@ module.exports = class extends MusicCommand {
             .setTimestamp()
             .setFooter("© PenguBot.com")
             .setColor("#eedc2f")
-            .setThumbnail(song.artwork || "https://i.imgur.com/50dTpEN.png")
+            .setThumbnail(song ? song.artwork || "https://i.imgur.com/50dTpEN.png" : "https://i.imgur.com/50dTpEN.png")
             .setDescription(`• **Title:** ${song.title}
 • **Author:** ${song.author}
 • **Length:** ${song.friendlyDuration}

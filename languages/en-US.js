@@ -448,7 +448,11 @@ module.exports = class extends Language {
                 ":flag_es: Espanol (es-ES)",
                 "",
                 "Type `p!setlanguage <Name>` to change your language."],
-            CONF_LANG_SET: "is now set as the default PenguBot language in this guild."
+            CONF_LANG_SET: "is now set as the default PenguBot language in this guild.",
+
+            // January 2019
+            ER_MUSIC_PATRON: "This paste feature has been locked for Premium Guilds only, if you want to gain access become a Patron at <https://www.patreon.com/PenguBot> or Donate at <https://www.paypal.me/adityatripathid> with your Discord Username as a Message.",
+            ERR_TRY_AGAIN: "There was an oopsie, please try again!"
         };
     }
 

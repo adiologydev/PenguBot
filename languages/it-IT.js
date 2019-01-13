@@ -452,7 +452,8 @@ module.exports = class extends Language {
             CONF_LANG_SET: "è la lingua di default per PenguBot su questo server.",
 
             // January 2019
-            ER_MUSIC_PATRON: "This paste feature has been locked for Premium Guilds only, if you want to gain access become a Patron at <https://www.patreon.com/PenguBot> or Donate at <https://www.paypal.me/adityatripathid> with your Discord Username as a Message."
+            ER_MUSIC_PATRON: "This paste feature has been locked for Premium Guilds only, if you want to gain access become a Patron at <https://www.patreon.com/PenguBot> or Donate at <https://www.paypal.me/adityatripathid> with your Discord Username as a Message.",
+            ERR_TRY_AGAIN: "There was an oopsie, please try again!"
         };
     }
 

@@ -25,7 +25,7 @@ module.exports = class extends Command {
             .setAuthor("Twitch Channel Statistics", "https://i.imgur.com/krTbTeD.png")
             .setTimestamp()
             .setFooter("© PenguBot.com")
-            .setDescription(`❯ **Channel Name:** ${body.display_name}
+            .setDescription(`❯ **Channel Name:** ${body.display_name || name}
 ❯ **Channel Status:** ${body.status}
 ❯ **Partnered:** ${body.partner}\n
 ❯ **Followers Count:** ${parseInt(body.followers).toLocaleString()}

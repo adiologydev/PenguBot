@@ -12,10 +12,11 @@ module.exports = class extends Inhibitor {
 
         const force = "force" in msg.flags;
 
-        await msg.guild.members.fetch(msg.author);
+        const m = await msg.guild.members.fetch(msg.author).catch(() => null);
+        if (!m) throw "There was a technical oopsie, please try again!";
 
-        if (!msg.member.voice.channel && !force) throw "You are not connected in a voice channel.";
-        if (!msg.guild.me.voice.channel) throw "I am not connected in a voice channel.";
+        if ((!msg.member.voice.channel && !force) || !msg.member.voice) throw "You are not connected in a voice channel.";
+        if (!msg.guild.me || !msg.guild.me.voice || !msg.guild.me.voice.channel) throw "I am not connected in a voice channel.";
         if (msg.member.voice.channel !== msg.guild.me.voice.channel && !force) throw "You must be in the same voice channel as me.";
     }
 
