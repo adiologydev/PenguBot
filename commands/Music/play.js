@@ -6,6 +6,7 @@ module.exports = class extends MusicCommand {
     constructor(...args) {
         super(...args, {
             requireDJ: true,
+            requireMusic: true,
             cooldown: 5,
             aliases: ["musicplay", "suona", "accoda", "joue", "toca", "spielt"],
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS", "ATTACH_FILES"],

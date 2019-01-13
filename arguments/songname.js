@@ -21,6 +21,7 @@ module.exports = class extends Argument {
 
     /* eslint-disable complexity */
     async run(arg, possible, msg) {
+        if (!arg) throw "Please enter a link, word, artist name, song name, etc. to play.";
         arg = arg.replace(/<(.+)>/g, "$1");
         if (!msg.guild) return null;
 
