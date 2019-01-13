@@ -4,7 +4,9 @@ const inviteRegex = /(https?:\/\/)?(www\.)?(discord\.(gg|li|me|io)|discordapp\.c
 module.exports = class extends Monitor {
 
     constructor(...args) {
-        super(...args, { ignoreOthers: true });
+        super(...args, { ignoreBots: false,
+            ignoreSelf: true,
+            ignoreOthers: false });
     }
 
     async run(msg) {
