@@ -15,7 +15,7 @@ module.exports = class extends Command {
         });
     }
 
-    async run(msg, [choices]) {
+    async run(msg, choices) {
         return msg.reply(choices.length === 1 ? `${this.client.emotes.cross} ***${msg.language.get("ER_CHOICES_SENSE")}***` : `${this.client.emotes.check} ${msg.language.get("CHOICE_SELECT")} ***"${choices[Math.floor(Math.random() * choices.length)]}"***`);
     }
 
