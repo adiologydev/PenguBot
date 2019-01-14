@@ -10,6 +10,7 @@ module.exports = class extends Command {
             requiredPermissions: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
             description: language => language.get("COMMAND_CHOOSE_DESCRIPTION"),
             usage: "<choices:string> [...]",
+            usageDelim: "|",
             extendedHelp: "No extended help available."
         });
     }
