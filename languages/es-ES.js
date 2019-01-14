@@ -440,7 +440,10 @@ module.exports = class extends Language {
 
             // January 2019
             ER_MUSIC_PATRON: "This paste feature has been locked for Premium Guilds only, if you want to gain access become a Patron at <https://www.patreon.com/PenguBot> or Donate at <https://www.paypal.me/adityatripathid> with your Discord Username as a Message.",
-            ERR_TRY_AGAIN: "There was an oopsie, please try again!"
+            ERR_TRY_AGAIN: "There was an oopsie, please try again!",
+            ER_CHOICES_SENSE: "You want me to choose from a single option? That makes sense...",
+            CHOICE_SELECT: "My gut feeling says, go with",
+            COMMAND_CHOOSE_DESCRIPTION: "Need help in selecting an option? PenguBot to the rescue!"
         };
     }
 
