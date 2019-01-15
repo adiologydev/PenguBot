@@ -13,7 +13,7 @@ const jpop = /(listen.moe|listen moe|listen.moe jpop|listen moe jpop|jpop moe|jp
 const kpop = /(listen.moe kpop|listen moe kpop|kpop moe|kpop listen moe|kpop listen.moe|listen.moe\/kpop)/i;
 const paste = /https:\/\/paste.pengubot.com\/(.*)/i;
 const spotifyList = /https?:\/\/(?:embed\.|open\.)(?:spotify\.com\/)(?:playlist\/|\?uri=spotify:playlist:)((\w|-){22})/i;
-const spotUser = /https?:\/\/(?:embed\.|open\.)(?:spotify\.com\/user\/(\w))/i;
+// const spotUser = /https?:\/\/(?:embed\.|open\.)(?:spotify\.com\/user\/(\w))/i;
 const spotifyAlbum = /https?:\/\/(?:embed\.|open\.)(?:spotify\.com\/)(?:album\/|\?uri=spotify:album:)((\w|-){22})/i;
 const spotifyTrack = /https?:\/\/(?:embed\.|open\.)(?:spotify\.com\/)(?:track\/|\?uri=spotify:track:)((\w|-){22})/i;
 
@@ -54,11 +54,11 @@ module.exports = class extends Argument {
                     results.push(songRes.tracks[0]);
                 }
                 results.playlist = "Custom PenguBot Playlist";
-            } else if (spotifyList.exec(arg) || spotUser.exec(arg)) {
+            } else if (spotifyList.exec(arg)) {
                 let argument = arg;
                 if (arg.match(/user/i)) argument = arg.replace(/\/user\/(\w)+/, "");
-                if (!spotifyList.exec(argument) || !spotUser.exec(argument)) throw msg.language.get("ER_MUSIC_NF");
-                const data = await get(`https://api.spotify.com/v1/playlists/${spotifyList.exec(argument)[1] || spotUser.exec(argument)[1]}`)
+                if (!spotifyList.exec(argument)[1]) throw msg.language.get("ER_MUSIC_NF");
+                const data = await get(`https://api.spotify.com/v1/playlists/${spotifyList.exec(argument)[1]}`)
                     .set("Authorization", `Bearer ${this.client.config.keys.music.spotify.token}`);
                 if (data.status !== 200 || !data.body) throw msg.language.get("ER_MUSIC_NF");
                 for (const trackData of data.body.tracks.items) {
