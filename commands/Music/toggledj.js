@@ -6,6 +6,7 @@ module.exports = class extends MusicCommand {
         super(...args, {
             requireDJ: false,
             requireMusic: false,
+            permissionLevel: 5,
             cooldown: 8,
             aliases: ["djonly", "enabledjonly", "disabledjonly"],
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
