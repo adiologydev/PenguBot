@@ -26,7 +26,7 @@ module.exports = class extends Command {
             });
 
         if (!data || !data.body) throw `${this.client.emotes.cross} ***${msg.language.get("CMD_FORT_PLAT")}***`;
-        if (data.body.error) throw `${this.client.emotes.cross} ***${msg.language.get("CMD_FORT_ERR")}***`;
+        if (data.body.error || data.status !== 200) throw `${this.client.emotes.cross} ***${msg.language.get("CMD_FORT_ERR")}***`;
 
         return msg.sendMessage(new MessageEmbed()
             .setAuthor("Fortnite Battle Royale Statistics - PenguBot", "https://i.imgur.com/EER1jFB.png")

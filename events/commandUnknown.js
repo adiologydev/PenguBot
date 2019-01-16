@@ -32,6 +32,7 @@ module.exports = class extends Event {
             throw `Hey, there was an Error with this Custom Command's Content. Please Screenshot the following error and Share in <https://pengubot.com/support>\n\n**Error Stack:**\`\`\`${parsed}\`\`\``;
         }
 
+        if (!parsed || !parsed.length) return;
         await msg.channel.send(parsed);
         timeout.add(`${msg.author.id}-${msg.guild.id}`);
         setTimeout(() => timeout.delete(`${msg.author.id}-${msg.guild.id}`), 3500);

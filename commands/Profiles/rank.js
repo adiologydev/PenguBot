@@ -25,7 +25,7 @@ module.exports = class extends Command {
         if (user.bot) return msg.reply("Can not fetch bot's ranks.");
         const load = await msg.sendMessage(`${this.client.emotes.loading} ***Let me process all that data through my igloo, give me a few...***`);
         msg.sendMessage(`#⃣  **${user.user.username}'s** Rank Card for **${msg.guild.name}**`, { files: [{ attachment: await this.createImage(user), name: `${msg.author.username}.png` }] });
-        return load.delete();
+        return load.delete().catch(() => null);
     }
 
     async createImage(member) {
