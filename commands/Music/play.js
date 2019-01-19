@@ -94,6 +94,7 @@ module.exports = class extends MusicCommand {
 
     resolvePermissions(msg, voiceChannel) {
         const permissions = voiceChannel.permissionsFor(msg.guild.me);
+        if (voiceChannel.userLimit > 0 && voiceChannel.userLimit <= voiceChannel.members.size) throw "Ooopsie... Your channel's user limit is very low, there's no space for me to join!";
         if (permissions.has("CONNECT") === false) throw "I don't have permissions to join your Voice Channel. I am missing the `CONNECT` permission.";
         if (permissions.has("SPEAK") === false) throw "I can connect... but not speak. Please turn on this permission so I can spit some bars.";
     }
