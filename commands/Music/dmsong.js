@@ -31,7 +31,7 @@ module.exports = class extends MusicCommand {
 • **Requested By:** ${song.requester}
 • **Link:** ${song.url}`);
         if (!msg.author.send) return msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("ER_NO_DM")}***`);
-        return msg.author.send({ embed });
+        return msg.author.send({ embed }).catch(() => null);
     }
 
 };

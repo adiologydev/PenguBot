@@ -12,7 +12,7 @@ module.exports = class extends Command {
             description: language => language.get("COMMAND_ADD_CMD_DESCRIPTION"),
             usage: "<name:string> <content:string> [...]",
             usageDelim: " ",
-            extendedHelp: "No extended help available."
+            extendedHelp: "More Information can be Found Here: https://bit.ly/PenguCustomCommands"
         });
     }
 
