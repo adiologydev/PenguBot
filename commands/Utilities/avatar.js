@@ -16,7 +16,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [person = msg.author]) {
-        return msg.sendMessage(`<:blobsmilehappy:373821679132213248> | ***${msg.language.get("MESSAGE_AVATAR")} ${person.tag}: ${person.displayAvatarURL({ size: 2048 })}***`);
+        return msg.sendMessage(`<:blobsmilehappy:373821679132213248> | ***${msg.language.get("MESSAGE_AVATAR")} ${person.tag}:*** ${person.displayAvatarURL({ size: 2048 })}`);
     }
 
 };
