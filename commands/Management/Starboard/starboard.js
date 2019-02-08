@@ -49,7 +49,7 @@ module.exports = class extends Command {
                 .setTimestamp(new Date(Message.createdTimestamp))
                 .setFooter(`⭐ ${Message.reactions.get("⭐").count} | ${Message.id}`);
             if (image) embed.setImage(image);
-            if (msg.content) embed.setDescription(`${jumpString}${Message.content}`);
+            if (Message.content) embed.setDescription(`${jumpString}${Message.content}`);
             await starChannel.send({ embed });
         }
     }

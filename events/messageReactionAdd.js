@@ -28,7 +28,7 @@ module.exports = class extends Event {
                 .setTimestamp(new Date(msg.createdTimestamp))
                 .setFooter(`⭐ ${msg.reactions.get("⭐").count} | ${msg.id}`);
             if (image) embed.setImage(image);
-            if (msg.content) embed.setDescription(`${jumpString}${msg.description}`);
+            if (msg.content) embed.setDescription(`${jumpString}${msg.content}`);
             else embed.setDescription(jumpString);
             const oldMsg = await starChannel.messages.fetch(starMsg.id);
             if (oldMsg.author.id !== this.client.user.id) return;
