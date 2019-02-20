@@ -17,6 +17,7 @@ module.exports = class extends Command {
 
         this
             .createCustomResolver("customemote", (arg, possible) => {
+                if (!arg) throw "No Emoji Provided, please provide one in order to use this command.";
                 const id = /^(?:<a?:\w{2,32}:)?(\d{17,19})>?$/.exec(arg);
                 if (id) {
                     const extension = /^(?:<a:\w{2,32}:)?(\d{17,19})>?$/.test(arg) ? "gif" : "png";

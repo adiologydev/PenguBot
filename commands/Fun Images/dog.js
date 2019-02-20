@@ -20,7 +20,7 @@ module.exports = class extends Command {
                 Error.captureStackTrace(e);
                 return e;
             });
-            if (!body || body[0]) throw msg.language.get("ERR_TRY_AGAIN");
+            if (!body || !body[0]) throw msg.language.get("ERR_TRY_AGAIN");
             const embed = new MessageEmbed()
                 .setFooter("© PenguBot.com")
                 .setTimestamp()
