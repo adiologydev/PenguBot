@@ -39,7 +39,7 @@ module.exports = class extends Command {
         const xpProg = Math.round(((xp - oldLvl) / (nextLvl - oldLvl)) * 645);
 
         const data = await r.table("members")
-            .getAll(member.guiild.id, { index: "guildID" })
+            .getAll(member.guild.id, { index: "guildID" })
             .orderBy(r.desc("xp"))
             .run();
 
