@@ -17,7 +17,7 @@ module.exports = class extends Command {
         const r = this.client.providers.default.db;
 
         const data = await r.table("members")
-            .getAll("335717997161349120", { index: "guildID" })
+            .getAll(msg.guild.id, { index: "guildID" })
             .orderBy(r.desc("xp"))
             .run();
 
