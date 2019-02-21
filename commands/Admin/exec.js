@@ -7,6 +7,7 @@ module.exports = class extends Command {
             aliases: ["execute"],
             description: "-BOT OWNER ONLY-",
             guarded: true,
+            hidden: true,
             permissionLevel: 10,
             usage: "<expression:string>"
         });

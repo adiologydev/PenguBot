@@ -6,6 +6,7 @@ module.exports = class extends Command {
         super(...args, {
             usageDelim: " ",
             subcommands: true,
+            hidden: true,
             aliases: ["sg"],
             permissionLevel: 10,
             usage: "<text|stream> <game:string> [...]",

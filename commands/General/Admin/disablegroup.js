@@ -7,6 +7,7 @@ module.exports = class extends Command {
             runIn: ["text"],
             cooldown: 10,
             guarded: true,
+            hidden: true,
             aliases: ["enablegroup", "disablecommandgroup", "enablecommandgroup", "disablecommandcategory", "enablecommandcategory"],
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],

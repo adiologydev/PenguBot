@@ -7,6 +7,7 @@ module.exports = class extends Command {
             runIn: ["text"],
             cooldown: 10,
             guarded: true,
+            hidden: true,
             aliases: ["language", "selectlanguage"],
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
