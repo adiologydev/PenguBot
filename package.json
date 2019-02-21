@@ -29,7 +29,7 @@
   "dependencies": {
     "@discordjs/uws": "^11.149.1",
     "breadtags": "^1.0.2",
-    "canvas": "github:Automattic/node-canvas#92b192447e9b9ae98da0f801e4e34afdd1dc1ef8",
+    "canvas": "^2.3.1",
     "canvas-constructor": "github:kyranet/canvasConstructor",
     "cheerio": "^1.0.0-rc.2",
     "discord.js": "github:discordjs/discord.js#60ad9053a3f7d0cfcfe9871bc5aa6eca791caf02",
