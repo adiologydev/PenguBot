@@ -40,7 +40,7 @@
     "idiotic-api": "github:YorkAARGH/Idiotic-Wrapper",
     "klasa": "github:dirigeants/klasa#1a13c417c4b0722c5c04bb54d99e5dccf4093b92",
     "klasa-dashboard-hooks": "github:PenguBot/klasa-dashboard-hooks",
-    "klasa-functions": "github:PenguBot/klasa-functions-plugin",
+    "klasa-functions": "github:KlasaCommunityPlugins/functions",
     "klasa-member-gateway": "github:dirigeants/klasa-member-gateway",
     "raven": "^2.6.4",
     "rethinkdbdash": "^2.3.31",
