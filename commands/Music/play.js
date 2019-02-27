@@ -70,7 +70,7 @@ module.exports = class extends MusicCommand {
         const [song] = musicInterface.queue;
 
         if (!song) {
-            if (musicInterface.textChannel ? musicInterface.textChannel.postable : false) return musicInterface.destroy();
+            if (!musicInterface.textChannel || musicInterface.textChannel.deleted) return musicInterface.destroy();
             return musicInterface.textChannel.send(this.stopEmbed).then(() => musicInterface.destroy());
         }
 
@@ -122,7 +122,7 @@ module.exports = class extends MusicCommand {
             .setColor("#eedc2f")
             .setThumbnail(song ? song.artwork || "https://i.imgur.com/50dTpEN.png" : "https://i.imgur.com/50dTpEN.png")
             .setDescription(`• **Title:** ${song ? song.title : "No Name"}
-• **Author:** ${song.author}
+• **Author:** ${song ? song.author : "No Name"}
 • **Length:** ${song.friendlyDuration}
 • **Requested By:** ${song.requester}
 • **Link:** ${song.url}`);
