@@ -1,5 +1,4 @@
-const { Argument } = require("klasa");
-const Song = require("../lib/structures/Song");
+const { Argument, Song } = require("../index");
 const { get } = require("snekfetch");
 
 /* eslint-disable no-mixed-operators */

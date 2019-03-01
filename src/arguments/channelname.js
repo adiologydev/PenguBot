@@ -1,27 +1,17 @@
-const { Argument, util: { regExpEsc } } = require("klasa");
-const { Channel, Message } = require("discord.js");
+const { Argument, klasaUtil: { regExpEsc }, Channel, Message } = require("../index");
 
 const CHANNEL_REGEXP = Argument.regex.channel;
-
-function resolveChannel(query, guild) {
-    if (query instanceof Channel) return guild.channels.has(query.id) ? query : null;
-    if (query instanceof Message) return query.guild.id === guild.id ? query.channel : null;
-    if (typeof query === "string" && CHANNEL_REGEXP.test(query)) return guild.channels.get(CHANNEL_REGEXP.exec(query)[1]);
-    return null;
-}
 
 module.exports = class extends Argument {
 
     async run(arg, possible, msg) {
         if (!msg.guild) return this.channel(arg, possible, msg);
-        const resChannel = resolveChannel(arg, msg.guild);
+        const resChannel = this.resolveChannel(arg, msg.guild);
         if (resChannel) return resChannel;
 
         const results = [];
         const reg = new RegExp(regExpEsc(arg), "i");
-        for (const channel of msg.guild.channels.values()) {
-            if (reg.test(channel.name)) results.push(channel);
-        }
+        for (const channel of msg.guild.channels.values()) if (reg.test(channel.name)) results.push(channel);
 
         let querySearch;
         if (results.length > 0) {
@@ -37,6 +27,13 @@ module.exports = class extends Argument {
             case 1: return querySearch[0];
             default: throw `Found multiple matches: \`${querySearch.map(channel => channel.name).join("`, `")}\``;
         }
+    }
+
+    resolveChannel(query, guild) {
+        if (query instanceof Channel) return guild.channels.has(query.id) ? query : null;
+        if (query instanceof Message) return query.guild.id === guild.id ? query.channel : null;
+        if (typeof query === "string" && CHANNEL_REGEXP.test(query)) return guild.channels.get(CHANNEL_REGEXP.exec(query)[1]);
+        return null;
     }
 
 };

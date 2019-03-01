@@ -1,5 +1,4 @@
-const { Argument, util: { regExpEsc } } = require("klasa");
-const { GuildMember, User } = require("discord.js");
+const { Argument, klasaUtil: { regExpEsc }, GuildMember, User } = require("../index");
 
 const USER_REGEXP = Argument.regex.userOrMember;
 
@@ -12,9 +11,7 @@ module.exports = class extends Argument {
 
         const results = [];
         const reg = new RegExp(regExpEsc(arg), "i");
-        for (const member of msg.guild.members.values()) {
-            if (reg.test(member.user.username)) results.push(member.user);
-        }
+        for (const member of msg.guild.members.values()) if (reg.test(member.user.username)) results.push(member.user);
 
         let querySearch;
         if (results.length > 0) {

@@ -1,5 +1,4 @@
-const { Argument, util: { regExpEsc } } = require("klasa");
-const { GuildMember, User } = require("discord.js");
+const { Argument, klasaUtil: { regExpEsc }, GuildMember, User } = require("../index");
 
 const USER_REGEXP = Argument.regex.userOrMember;
 
