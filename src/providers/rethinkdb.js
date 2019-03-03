@@ -1,4 +1,4 @@
-const { Provider, util: { mergeDefault, chunk } } = require("klasa");
+const { Provider, klasaUtil: { mergeDefault, chunk } } = require("../index");
 const rethink = require("rethinkdbdash");
 
 module.exports = class extends Provider {

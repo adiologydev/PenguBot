@@ -1,4 +1,4 @@
-const { Route } = require("klasa-dashboard-hooks");
+const { Route } = require("../index");
 
 module.exports = class extends Route {
 
@@ -22,7 +22,7 @@ module.exports = class extends Route {
         if (user && user.send) user.send(`<:penguSuccess:435712876506775553> ***Thank you for Upvoting PenguBot on DiscordBots.org, you've recieved ❄ \`${amount}\` Snowflakes as a bonus! You can do this again after 12 hours at <https://www.pengubot.com/upvote>. You can use these Snowflakes to play games, give them to other people, buy profile backgrounds or save up for upcoming features!***\n\n**Tip: **\`Voting on Weekends will give you double reward than usual so don't forget to upvote then as well!\``).catch(() => null);
         await user.settings.update([["snowflakes", user.settings.snowflakes + amount], ["lastUpvote", Date.now()]]);
 
-        res.end();
+        return res.end();
     }
 
 };

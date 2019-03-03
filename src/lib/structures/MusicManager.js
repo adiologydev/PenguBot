@@ -1,4 +1,4 @@
-const { Guild, Collection } = require("discord.js");
+const { Guild, Collection } = require("../../index");
 const MusicInterface = require("./MusicInterface");
 
 class MusicManager extends Collection {

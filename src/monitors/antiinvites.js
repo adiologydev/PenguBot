@@ -1,4 +1,4 @@
-const { Monitor } = require("klasa");
+const { Monitor } = require("../index");
 const inviteRegex = /(https?:\/\/)?(www\.)?(discord\.(gg|li|me|io)|discordapp\.com\/invite)\/.+/;
 
 module.exports = class extends Monitor {

@@ -1,10 +1,6 @@
-const RawEvent = require("../lib/structures/RawEvent");
+const { RawEvent } = require("../index");
 
 class VoiceStateUpdate extends RawEvent {
-
-    constructor(...args) {
-        super(...args, { name: "VOICE_STATE_UPDATE" });
-    }
 
     async run(data) {
         const guild = this.client.guilds.get(data.guild_id);
@@ -12,7 +8,7 @@ class VoiceStateUpdate extends RawEvent {
 
         await guild.members.fetch(data.user_id).catch(() => null);
 
-        guild.voiceStates.add(data);
+        return guild.voiceStates.add(data);
     }
 
 }

@@ -1,4 +1,4 @@
-const { Task } = require("klasa");
+const { Task } = require("../index");
 const { post } = require("snekfetch");
 
 module.exports = class extends Task {

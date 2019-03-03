@@ -1,4 +1,4 @@
-const KlasaCommand = require("klasa").Command;
+const { Command: KlasaCommand } = require("klasa");
 
 class Command extends KlasaCommand {
 

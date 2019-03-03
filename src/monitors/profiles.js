@@ -1,4 +1,4 @@
-const { Monitor } = require("klasa");
+const { Monitor } = require("../index");
 const { Canvas } = require("canvas-constructor");
 const fs = require("fs-nextra");
 const { get } = require("snekfetch");

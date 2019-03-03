@@ -1,4 +1,4 @@
-const { Task } = require("klasa");
+const { Task } = require("../index");
 
 module.exports = class MemorySweeper extends Task {
 

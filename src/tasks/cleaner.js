@@ -1,5 +1,4 @@
-const { Task, Colors } = require("klasa");
-const { util: { binaryToID } } = require("discord.js");
+const { Task, Colors, discordUtil: { binaryToID } } = require("../index");
 
 // THRESHOLD equals to 30 minutes in milliseconds:
 //     - 1000 milliseconds = 1 second

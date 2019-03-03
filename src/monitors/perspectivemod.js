@@ -1,4 +1,4 @@
-const { Monitor } = require("klasa");
+const { Monitor } = require("../index");
 const { post } = require("snekfetch");
 
 module.exports = class extends Monitor {

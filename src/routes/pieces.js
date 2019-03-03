@@ -1,4 +1,4 @@
-const { Route } = require("klasa-dashboard-hooks");
+const { Route } = require("../index");
 
 module.exports = class extends Route {
 

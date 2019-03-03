@@ -4,12 +4,14 @@
 class Song {
 
     /**
+     * LavalinkTrack Information
      * @typedef {Object} LavalinkTrack
      * @property {string} track Base64 track string from Lavalink REST API
      * @property {LavalinkTrackInfo} info A bunch of info relating to the track
      */
 
     /**
+     * Information about the Track itself.
       * @typedef {Object} LavalinkTrackInfo
       * @property {string} identifier The track identifier depending on the source
       * @property {boolean} isSeekable Whether the track is seekable or not
@@ -23,6 +25,7 @@ class Song {
       */
 
     /**
+     * Information about the Song.
      * @typedef {Object} SongInfo
      * @property {string} track Base64 track string from Lavalink REST API
      * @property {string} title Song title
@@ -38,6 +41,7 @@ class Song {
      */
 
     /**
+     * Constructor params
      * @param {LavalinkTrack} data Track data from Lavalink
      * @param {User} requester Person who requested the track
      */
