@@ -1,7 +1,7 @@
 const { Client } = require("klasa");
 const { Client: IdioticAPI } = require("idiotic-api");
 const { WebhookClient } = require("discord.js");
-const config = require("../../config");
+const config = require("../../../config.json");
 const { StatsD } = require("hot-shots");
 
 // Custom
