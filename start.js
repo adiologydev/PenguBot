@@ -3,7 +3,7 @@ const { main } = require("./config.json");
 
 require("./src/lib/extensions/Shard");
 
-const manager = new ShardingManager(`./app.js`, { totalShards: main.shards, token: main.token, respawn: true });
+const manager = new ShardingManager(`./src/PenguBot.js`, { totalShards: main.shards, token: main.token, respawn: true });
 
 manager.spawn(manager.totalShards, 5500, false);
 manager.on("shardCreate", shard => {

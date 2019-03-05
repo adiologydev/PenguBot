@@ -1,5 +1,5 @@
 const PenguClient = require("./lib/structures/PenguClient");
-const config = require("./config.json");
+const config = require("../config.json");
 const Raven = require("raven");
 
 Raven.config(config.keys.sentry, { captureUnhandledRejections: true }).install();
