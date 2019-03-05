@@ -9,7 +9,7 @@ module.exports = {
     ...kdh,
     Util: require("./lib/util/Util"),
     util: require("./lib/util/Util"),
-    config: require("../config.js"),
+    config: require("../config.json"),
     klasaUtil: klasa.util,
     discordUtil: discord.Util,
     kdhUtil: kdh.Util,
