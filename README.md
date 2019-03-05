@@ -40,7 +40,7 @@ Join <a href="https://discord.gg/u8WYw5r">Discord</a> for Support and Developmen
 
 [random-puppy](https://github.com/dylang/random-puppy/)
 
-[Jacz](https://github.com/MrJacz) Expressed permission to use modified or exact code from the private Trident repository [Screenshot](https://i.imgur.com/9YmMNUF.png)
+[Jacz](https://github.com/MrJacz) For the lovely company since August 2017
 
 ## Hosting
 We're proudly hosted by [GalaxyGate](https://bit.ly/GalaxyGate). Visit the link by clicking the image below to know more!
