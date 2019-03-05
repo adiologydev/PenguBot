@@ -1,7 +1,7 @@
 const { ShardingManager } = require("discord.js");
 const { main } = require("./config.json");
 
-require("./lib/extensions/Shard");
+require(".src/lib/extensions/Shard");
 
 const manager = new ShardingManager(`./app.js`, { totalShards: main.shards, token: main.token, respawn: true });
 
