@@ -1,6 +1,6 @@
 const MusicCommand = require("../../lib/structures/MusicCommand");
 const { MessageEmbed } = require("discord.js");
-const lyrics = require("../../lib/utils/lyrics.js");
+const lyrics = require("../../lib/util/lyrics.js");
 
 module.exports = class extends MusicCommand {
 

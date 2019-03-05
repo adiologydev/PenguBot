@@ -1,10 +1,10 @@
 const { Event } = require("klasa");
 const { Parser } = require("breadtags");
-const files = require("fs").readdirSync(`${process.cwd()}/lib/tags`);
+const files = require("fs").readdirSync(`${process.cwd()}/src/lib/tags`);
 
 for (const file of files) {
     if (file.includes("index")) continue;
-    Parser.loadTag(require(`${process.cwd()}/lib/tags/${file}`));
+    Parser.loadTag(require(`${process.cwd()}/src/lib/tags/${file}`));
 }
 
 const timeout = new Set();
