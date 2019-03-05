@@ -1,4 +1,4 @@
-const { Language, util } = require("klasa");
+const { Language, klasaUtil: util, version } = require("../index");
 
 module.exports = class extends Language {
 
@@ -23,7 +23,7 @@ module.exports = class extends Language {
                 "technologies such as RethinkDB, JavaScript and Linux.",
                 "",
                 "• **Author:** [AdityaTD#5346](https://www.AdityaTD.me)",
-                `• **Version:** ${require("../package").version}`,
+                `• **Version:** ${version}`,
                 "• **Website:** <https://www.PenguBot.com>",
                 "• **Patreon:** <https://www.Patreon.com/PenguBot>",
                 "• **PayPal:** <https://www.paypal.me/adityatripathid>",

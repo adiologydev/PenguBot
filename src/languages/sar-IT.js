@@ -1,4 +1,4 @@
-const { Language, util } = require("klasa");
+const { Language, klasaUtil: util, version } = require("../index");
 
 module.exports = class extends Language {
 
@@ -21,7 +21,7 @@ module.exports = class extends Language {
                 "PenguBot este uno multi-funtzione pro Discord prenu de funtzionalidadese commente: Moderatzione, Divertimentu, Utilidades de sistema et atteru.. Sviluppadu chin NodeJS utilisande diversasa tecnologiasa commente RethinkDB, JavaScript et Linux.",
                 "",
                 "â€¢ **Autore:** [AdityaTD#5346](https://www.AdityaTD.me)",
-                `â€¢ **Versione:** ${require("../package").version}`,
+                `â€¢ **Versione:** ${version}`,
                 "â€¢ **Situ Web:** <https://www.PenguBot.com>",
                 "â€¢ **Patreon:** <https://www.Patreon.com/PenguBot>",
                 "â€¢ **Server Discord:** <https://discord.gg/6KpTfqR>",
