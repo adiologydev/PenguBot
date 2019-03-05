@@ -28,7 +28,7 @@
   "homepage": "https://github.com/AdityaTD/PenguBot#readme",
   "dependencies": {
     "@discordjs/uws": "^11.149.1",
-    "breadtags": "^1.0.2",
+    "breadtags": "^1.0.3",
     "canvas": "^2.3.1",
     "canvas-constructor": "github:kyranet/canvasConstructor",
     "cheerio": "^1.0.0-rc.2",
@@ -48,7 +48,7 @@
     "zlib-sync": "^0.1.4"
   },
   "devDependencies": {
-    "eslint": "5.14.1",
+    "eslint": "5.15.0",
     "eslint-plugin-node": "^8.0.0",
     "eslint-plugin-promise": "^4.0.1"
   }
