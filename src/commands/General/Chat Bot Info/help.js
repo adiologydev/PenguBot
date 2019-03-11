@@ -1,4 +1,5 @@
 const { Command, util: { isFunction } } = require("klasa");
+const { MessageEmbed } = require("../../../index");
 
 module.exports = class extends Command {
 
@@ -6,6 +7,7 @@ module.exports = class extends Command {
         super(...args, {
             aliases: ["commands"],
             guarded: true,
+            requiredPermissions: ["EMBED_LINKS"],
             description: language => language.get("COMMAND_HELP_DESCRIPTION"),
             usage: "(Command:cmd)"
         });
@@ -19,51 +21,28 @@ module.exports = class extends Command {
     async run(msg, [cmd]) {
         const method = this.client.user.bot ? "author" : "channel";
         if (cmd) {
-            const info = [
-                `= ${cmd.name} = `,
-                isFunction(cmd.description) ? cmd.description(msg.language) : cmd.description,
-                msg.language.get("COMMAND_HELP_USAGE", cmd.usage.fullUsage(msg)),
-                msg.language.get("COMMAND_HELP_EXTENDED"),
-                isFunction(cmd.extendedHelp) ? cmd.extendedHelp(msg.language) : cmd.extendedHelp
-            ].join("\n");
-            return msg.sendMessage(info, { code: "asciidoc" });
-        }
-        const help = await this.buildHelp(msg);
-        const categories = Object.keys(help);
-        const helpMessage = [];
-        helpMessage.push("**📘 __PenguBot Help Command__**\n");
-        for (let cat = 0; cat < categories.length; cat++) {
-            helpMessage.push(`**${categories[cat]} Commands**:`, "```asciidoc");
-            const subCategories = Object.keys(help[categories[cat]]);
-            for (let subCat = 0; subCat < subCategories.length; subCat++) helpMessage.push(`= ${subCategories[subCat]} =`, `${help[categories[cat]][subCategories[subCat]].join("\n")}\n`);
-            helpMessage.push("```", "\u200b");
+            const cmdEmbed = new MessageEmbed()
+                .setDescription([`❯ **Command:** ${cmd.name}`,
+                    `❯ **Description:** ${isFunction(cmd.description) ? cmd.description(msg.language) : cmd.description}`,
+                    `❯ **Usage:** ${cmd.usage.fullUsage(msg)}`,
+                    `❯ **Extended Help:** ${isFunction(cmd.extendedHelp) ? cmd.extendedHelp(msg.language) : cmd.extendedHelp}`]);
+            return msg.sendEmbed(cmdEmbed);
         }
 
-        return msg[method].send(helpMessage, { split: { char: "\u200b" } })
+        const embed = new MessageEmbed()
+            .setAuthor("PenguBot - Help", this.client.user.displayAvatarURL(), "https://www.pengubot.com")
+            .setDescription([`PenguBot's Prefix ${msg.guild ? `in ${msg.guild.name} is \`${msg.guild.settings.prefix}\`. i.e. \`${msg.guild.settings.prefix}dog\`` : `is \`p!\`. i.e. \`p!dog\``}`,
+                `❯ **All Commands:** [PenguBot.com/commands](https://www.pengubot.com/commands)`,
+                `❯ **PenguBot Discord:** [PenguBot.com/support](https://www.pengubot.com/support)`,
+                `❯ **Invite/Add PenguBot:** [PenguBot.com/invite](https://www.pengubot.com/invite)`,
+                `❯ **Support PenguBot and Premium Access:** [PenguBot.com/donate](https://pengubot.com/donate)`])
+            .setTimestamp()
+            .setColor("RANDOM")
+            .setFooter("PenguBot.com");
+
+        return msg[method].sendEmbed(embed)
             .then(() => { if (msg.channel.type !== "dm" && this.client.user.bot) msg.sendMessage(msg.language.get("COMMAND_HELP_DM")); })
             .catch(() => { if (msg.channel.type !== "dm" && this.client.user.bot) msg.sendMessage(msg.language.get("COMMAND_HELP_NODM")); });
-    }
-
-    async buildHelp(msg) {
-        const help = {};
-
-        const commandNames = [...this.client.commands.keys()];
-        const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
-
-        await Promise.all(this.client.commands.map(command =>
-            this.client.inhibitors.run(msg, command, true)
-                .then(() => {
-                    if (!help.hasOwnProperty(command.category)) help[command.category] = {};
-                    if (!help[command.category].hasOwnProperty(command.subCategory)) help[command.category][command.subCategory] = [];
-                    const description = isFunction(command.description) ? command.description(msg.language) : command.description;
-                    help[command.category][command.subCategory].push(`${msg.guildSettings.prefix}${command.name.padEnd(longest)} :: ${description}`);
-                })
-                .catch(() => {
-                    // noop
-                })
-        ));
-
-        return help;
     }
 
 };
