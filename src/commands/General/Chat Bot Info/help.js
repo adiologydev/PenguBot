@@ -1,5 +1,4 @@
-const { Command, util: { isFunction } } = require("klasa");
-const { MessageEmbed } = require("../../../index");
+const { Command, klasaUtil: { isFunction }, MessageEmbed } = require("../../../index");
 
 module.exports = class extends Command {
 
@@ -19,7 +18,6 @@ module.exports = class extends Command {
     }
 
     async run(msg, [cmd]) {
-        const method = this.client.user.bot ? "author" : "channel";
         if (cmd) {
             const cmdEmbed = new MessageEmbed()
                 .setDescription([`❯ **Command:** ${cmd.name}`,
@@ -40,9 +38,9 @@ module.exports = class extends Command {
             .setColor("RANDOM")
             .setFooter("PenguBot.com");
 
-        return msg[method].sendEmbed(embed)
-            .then(() => { if (msg.channel.type !== "dm" && this.client.user.bot) msg.sendMessage(msg.language.get("COMMAND_HELP_DM")); })
-            .catch(() => { if (msg.channel.type !== "dm" && this.client.user.bot) msg.sendMessage(msg.language.get("COMMAND_HELP_NODM")); });
+        return msg.author.sendEmbed(embed)
+            .then(() => { if (msg.channel.type !== "dm") msg.sendMessage(msg.language.get("COMMAND_HELP_DM")); })
+            .catch(() => { if (msg.channel.type !== "dm") msg.sendMessage(msg.language.get("COMMAND_HELP_NODM")); });
     }
 
 };
