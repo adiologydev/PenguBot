@@ -1,55 +1,55 @@
-const { Provider, klasaUtil: { mergeDefault, chunk } } = require("../index");
-const rethink = require("rethinkdbdash");
+// Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
+const { Provider, util: { mergeDefault, chunk } } = require("klasa");
+const { r } = require("rethinkdb-ts"); // eslint-disable-line id-length
 
 module.exports = class extends Provider {
 
     constructor(...args) {
         super(...args);
-        this.db = rethink(mergeDefault({
-            db: "pengubot",
-            silent: false
-        }, this.client.options.providers.rethinkdb));
+
+        this.db = r;
     }
 
     async init() {
-        const { db } = this.db._poolMaster._options;
-        return this.db.branch(this.db.dbList().contains(db), null, this.db.dbCreate(db));
-    }
+        const options = mergeDefault({
+            db: "pengubot",
+            silent: false
+        }, this.client.options.providers.rethinkdb);
 
-    get exec() {
-        return this.db;
+        this.pool = await r.connectPool(options);
+        await this.db.branch(this.db.dbList().contains(options.db), null, this.db.dbCreate(options.db)).run();
     }
 
     async ping() {
         const now = Date.now();
-        return await this.db.now() - now;
+        return (await this.db.now().run()).getTime() - now;
     }
 
-    async shutdown() {
-        return this.db.getPoolMaster().drain();
+    shutdown() {
+        return this.pool.drain();
     }
 
     /* Table methods */
 
-    async hasTable(table) {
+    hasTable(table) {
         return this.db.tableList().contains(table).run();
     }
 
-    async createTable(table) {
+    createTable(table) {
         return this.db.tableCreate(table).run();
     }
 
-    async deleteTable(table) {
+    deleteTable(table) {
         return this.db.tableDrop(table).run();
     }
 
-    async sync(table) {
+    sync(table) {
         return this.db.table(table).sync().run();
     }
 
     /* Document methods */
 
-    async getAll(table, entries = []) {
+    async getAll(table, entries) {
         if (entries.length) {
             const chunks = chunk(entries, 50000);
             const output = [];
@@ -59,7 +59,7 @@ module.exports = class extends Provider {
         return this.db.table(table).run();
     }
 
-    async getKeys(table, entries = []) {
+    async getKeys(table, entries) {
         if (entries.length) {
             const chunks = chunk(entries, 50000);
             const output = [];
@@ -69,31 +69,31 @@ module.exports = class extends Provider {
         return this.db.table(table)("id").run();
     }
 
-    async get(table, id) {
+    get(table, id) {
         return this.db.table(table).get(id).run();
     }
 
-    async has(table, id) {
+    has(table, id) {
         return this.db.table(table).get(id).ne(null).run();
     }
 
-    async getRandom(table) {
+    getRandom(table) {
         return this.db.table(table).sample(1).run();
     }
 
-    async create(table, id, value = {}) {
+    create(table, id, value) {
         return this.db.table(table).insert({ ...this.parseUpdateInput(value), id }).run();
     }
 
-    async update(table, id, value = {}) {
+    update(table, id, value) {
         return this.db.table(table).get(id).update(this.parseUpdateInput(value)).run();
     }
 
-    async replace(table, id, value = {}) {
+    replace(table, id, value) {
         return this.db.table(table).get(id).replace({ ...this.parseUpdateInput(value), id }).run();
     }
 
-    async delete(table, id) {
+    delete(table, id) {
         return this.db.table(table).get(id).delete().run();
     }
 

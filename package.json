@@ -43,7 +43,7 @@
     "klasa-functions": "github:KlasaCommunityPlugins/functions",
     "klasa-member-gateway": "github:dirigeants/klasa-member-gateway",
     "raven": "^2.6.4",
-    "rethinkdbdash": "^2.3.31",
+    "rethinkdb-ts": "^2.4.0-rc.12",
     "twemoji": "^11.0.1",
     "zlib-sync": "^0.1.4"
   },
