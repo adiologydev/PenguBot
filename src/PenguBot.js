@@ -29,7 +29,7 @@ Raven.context(() => {
         },
         providers: {
             default: "rethinkdb",
-            rethinkdb: { db: "pengubot", servers: [{ host: config.database.host, port: config.database.port }] }
+            rethinkdb: { db: "pengubot", host: config.database.host, port: config.database.port }
         },
         console: { useColor: true },
         production: config.main.production,
