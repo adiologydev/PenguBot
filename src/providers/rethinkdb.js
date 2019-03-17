@@ -17,7 +17,7 @@ module.exports = class extends Provider {
             silent: false
         }, this.client.options.providers.rethinkdb);
 
-        this.pool = await r.connect(options);
+        this.pool = await r.connectPool(options);
         await this.db.branch(this.db.dbList().contains(options.db), null, this.db.dbCreate(options.db)).run();
     }
 
