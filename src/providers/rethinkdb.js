@@ -8,7 +8,6 @@ module.exports = class extends Provider {
         super(...args);
 
         this.db = r;
-        this.pool = null;
     }
 
     async init() {
