@@ -1,4 +1,4 @@
-const PenguClient = require("./lib/structures/PenguClient");
+/* const PenguClient = require("./lib/structures/PenguClient");
 const config = require("../config.json");
 const Raven = require("raven");
 
@@ -50,3 +50,14 @@ process.on("uncaughtException", err => {
     console.error(`uncaughtException:\n${err.stack}`);
     Raven.captureException(err);
 });
+ */
+
+const { BaseCluster } = require("kurasuta");
+
+module.exports = class extends BaseCluster {
+
+    launch() {
+        this.client.login(this.manager.token);
+    }
+
+};
