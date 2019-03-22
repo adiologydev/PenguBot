@@ -37,7 +37,7 @@ module.exports = class extends Command {
             .addField("❯ Total Commands Ran", this.client.settings.counter.total.toLocaleString(), true)
             .addField("❯ CPM", cpm, true)
             .addField("❯ Listeners", listeners, true)
-            .addField("❯ Sharding", `**Cluster:** ${Number(process.env.CLUSTER_ID) + 1} / ${process.env.CLUSTER_CLUSTER_COUNT} | **Shard:** ${this.client.shard.id + 1} / ${this.client.shard.shardCount}`, true) // eslint-disable-line no-process-env
+            .addField("❯ Sharding", `**Cluster:** ${Number(process.env.CLUSTER_ID) + 1} / ${this.client.shard.clusterCount} | **Shard:** ${this.client.shard.id + 1} / ${this.client.shard.shardCount}`, true) // eslint-disable-line no-process-env
             .setAuthor("PenguBot - Statistics", this.client.user.displayAvatarURL(), "https://www.pengubot.com");
 
         return msg.sendMessage({ embed });

@@ -45,7 +45,7 @@ const sharder = new ShardingManager(`${process.cwd()}/src/PenguBot.js`, {
         messageCacheLifetime: 120,
         commandMessageLifetime: 120
     },
-    shardCount: "auto"
+    shardCount: config.main.shards
 });
 
 sharder.spawn();
