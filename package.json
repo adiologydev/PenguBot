@@ -4,7 +4,7 @@
   "description": "PenguBot Rewrite for Performance and Stability.",
   "main": "start.js",
   "scripts": {
-    "start": "node start",
+    "start": "node src/main",
     "test": "eslint .",
     "lint": "eslint --fix ."
   },
