@@ -1,15 +1,13 @@
 const { BaseCluster } = require("kurasuta");
 const Raven = require("raven");
-const config = require("../config.json");
+const { keys } = require("../config.json");
 
-Raven.config(config.keys.sentry, { captureUnhandledRejections: true }).install();
+Raven.config(keys.sentry, { captureUnhandledRejections: true }).install();
 
 module.exports = class extends BaseCluster {
 
     launch() {
-        Raven.context(() => {
-            this.client.login(config.main.token);
-        });
+        Raven.context(() => this.client.login(this.manager.token));
     }
 
 };
