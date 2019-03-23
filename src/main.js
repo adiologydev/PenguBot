@@ -46,7 +46,8 @@ const sharder = new ShardingManager(join(__dirname, "PenguBot"), {
         messageCacheLifetime: 120,
         commandMessageLifetime: 120
     },
-    shardCount: config.main.shards
+    shardCount: config.main.shards,
+    ipcSocket: config.main.patreon ? 9545 : 9454
 });
 
 sharder.spawn();
