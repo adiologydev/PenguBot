@@ -39,7 +39,7 @@ module.exports = class extends Event {
         const files = await fs.readdir("./lib/tags");
         for (const file of files) {
             if (file.includes("index")) continue;
-            Parser.loadTag(require(`./lib/tags/${file}`));
+            Parser.loadTag(require(`../lib/tags/${file}`));
         }
     }
 
