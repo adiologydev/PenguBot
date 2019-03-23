@@ -44,7 +44,7 @@ module.exports = class extends Monitor {
             if (msg.guild.settings.leveltype !== "user") return;
             if (!msg.channel.postable) return;
             const bgName = msg.author.settings.profilebg;
-            const bgImg = await fs.readFile(`${process.cwd()}/assets/profiles/bg/${bgName}.png`);
+            const bgImg = await fs.readFile(`./assets/profiles/bg/${bgName}.png`);
             const avatar = await get(msg.author.displayAvatarURL({ format: "png", size: 128 })).then(res => res.body).catch(e => {
                 Error.captureStackTrace(e);
                 return e;

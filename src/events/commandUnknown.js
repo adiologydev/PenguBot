@@ -1,11 +1,6 @@
 const { Event } = require("klasa");
 const { Parser } = require("breadtags");
-const files = require("fs").readdirSync(`${process.cwd()}/src/lib/tags`);
-
-for (const file of files) {
-    if (file.includes("index")) continue;
-    Parser.loadTag(require(`${process.cwd()}/src/lib/tags/${file}`));
-}
+const fs = require("fs-nextra");
 
 const timeout = new Set();
 
@@ -41,6 +36,11 @@ module.exports = class extends Event {
 
     async init() {
         this.parser = new Parser({ throwErrors: true });
+        this.files = fs.readdirSync("../lib/tags");
+        for (const file of this.files) {
+            if (file.includes("index")) continue;
+            Parser.loadTag(require(`../lib/tags/${file}`));
+        }
     }
 
 };
