@@ -17,7 +17,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [user = msg.author]) {
-        const lio = await fs.readFile(`./assets/manipulation/lio.png`);
+        const lio = await fs.readFile(`../assets/manipulation/lio.png`);
         const avi = await get(user.displayAvatarURL({ format: "png", sze: 128 })).then(res => res.body)
             .catch(() => null);
 

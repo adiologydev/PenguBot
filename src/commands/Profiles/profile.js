@@ -3,10 +3,10 @@ const { Canvas } = require("canvas-constructor");
 const fs = require("fs-nextra");
 const { get } = require("snekfetch");
 
-Canvas.registerFont(`./assets/fonts/Roboto-Regular.ttf`, "Roboto");
-Canvas.registerFont(`./assets/fonts/RobotoCondensed-Regular.ttf`, "Roboto Condensed");
-Canvas.registerFont(`./assets/fonts/RobotoMono-Light.ttf`, "Roboto Mono");
-Canvas.registerFont(`./assets/fonts/NotoEmoji-Regular.ttf`, "NotoEmoji");
+Canvas.registerFont(`../assets/fonts/Roboto-Regular.ttf`, "Roboto");
+Canvas.registerFont(`../assets/fonts/RobotoCondensed-Regular.ttf`, "Roboto Condensed");
+Canvas.registerFont(`../assets/fonts/RobotoMono-Light.ttf`, "Roboto Mono");
+Canvas.registerFont(`../assets/fonts/NotoEmoji-Regular.ttf`, "NotoEmoji");
 
 module.exports = class extends Command {
 
@@ -42,7 +42,7 @@ module.exports = class extends Command {
         const pos = query.length ? `#${Number(query) + 1}` : "More Than 10,000";
 
         const bgName = user.settings.profilebg;
-        const bgImg = await fs.readFile(`./assets/profiles/bg/${bgName}.png`);
+        const bgImg = await fs.readFile(`../assets/profiles/bg/${bgName}.png`);
         const avatar = await get(user.displayAvatarURL({ format: "png", sze: 256 })).then(res => res.body).catch(e => {
             Error.captureStackTrace(e);
             return e;

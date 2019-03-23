@@ -3,10 +3,10 @@ const { Canvas } = require("canvas-constructor");
 const fs = require("fs-nextra");
 const { get } = require("snekfetch");
 
-Canvas.registerFont(`./assets/fonts/Roboto-Regular.ttf`, "Roboto");
-Canvas.registerFont(`./assets/fonts/RobotoCondensed-Regular.ttf`, "Roboto Condensed");
-Canvas.registerFont(`./assets/fonts/RobotoMono-Light.ttf`, "Roboto Mono");
-Canvas.registerFont(`./assets/fonts/NotoEmoji-Regular.ttf`, "NotoEmoji");
+Canvas.registerFont(`../assets/fonts/Roboto-Regular.ttf`, "Roboto");
+Canvas.registerFont(`../assets/fonts/RobotoCondensed-Regular.ttf`, "Roboto Condensed");
+Canvas.registerFont(`../assets/fonts/RobotoMono-Light.ttf`, "Roboto Mono");
+Canvas.registerFont(`../assets/fonts/NotoEmoji-Regular.ttf`, "NotoEmoji");
 
 module.exports = class extends Command {
 
@@ -46,9 +46,9 @@ module.exports = class extends Command {
         const rank = data.findIndex(i => i.id.split(".")[1] === member.user.id) + 1;
 
         const bgName = member.user.settings.profilebg;
-        const bgImg = await fs.readFile(`./assets/profiles/backgrounds/${bgName}.png`);
-        const template = await fs.readFile(`./assets/profiles/backgrounds/template.png`);
-        const pbar = await fs.readFile(`./assets/profiles/backgrounds/progressbar.png`);
+        const bgImg = await fs.readFile(`../assets/profiles/backgrounds/${bgName}.png`);
+        const template = await fs.readFile(`../assets/profiles/backgrounds/template.png`);
+        const pbar = await fs.readFile(`../assets/profiles/backgrounds/progressbar.png`);
         const avatar = await get(member.user.displayAvatarURL({ format: "png", sze: 256 })).then(res => res.body).catch(e => {
             Error.captureStackTrace(e);
             return e;

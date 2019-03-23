@@ -3,9 +3,9 @@ const { Canvas } = require("canvas-constructor");
 const fs = require("fs-nextra");
 const { get } = require("snekfetch");
 
-Canvas.registerFont(`./assets/fonts/Roboto-Regular.ttf`, "Roboto");
-Canvas.registerFont(`./assets/fonts/RobotoCondensed-Regular.ttf`, "Roboto Condensed");
-Canvas.registerFont(`./assets/fonts/RobotoMono-Light.ttf`, "Roboto Mono");
+Canvas.registerFont(`../assets/fonts/Roboto-Regular.ttf`, "Roboto");
+Canvas.registerFont(`../assets/fonts/RobotoCondensed-Regular.ttf`, "Roboto Condensed");
+Canvas.registerFont(`../assets/fonts/RobotoMono-Light.ttf`, "Roboto Mono");
 
 module.exports = class extends Command {
 
@@ -62,9 +62,9 @@ module.exports = class extends Command {
             }
 
             const bg = await this.getBase(icon);
-            const cond = await fs.readFile(`./assets/weather/icons/${theme}/${icon}.png`);
-            const hum = await fs.readFile(`./assets/weather/icons/${theme}/humidity.png`);
-            const precip = await fs.readFile(`./assets/weather/icons/${theme}/precip.png`);
+            const cond = await fs.readFile(`../assets/weather/icons/${theme}/${icon}.png`);
+            const hum = await fs.readFile(`../assets/weather/icons/${theme}/humidity.png`);
+            const precip = await fs.readFile(`../assets/weather/icons/${theme}/precip.png`);
 
             const img = await new Canvas(400, 180)
                 .addImage(bg, 0, 0, 400, 180)
@@ -94,21 +94,21 @@ module.exports = class extends Command {
 
     async getBase(icon) {
         if (icon === "clear-day" || icon === "partly-cloudy-day") {
-            return `./assets/weather/base/day.png`;
+            return `../assets/weather/base/day.png`;
         } else if (icon === "clear-night" || icon === "partly-cloudy-night") {
-            return `./assets/weather/base/night.png`;
+            return `../assets/weather/base/night.png`;
         } else if (icon === "rain") {
-            return `./assets/weather/base/rain.png`;
+            return `../assets/weather/base/rain.png`;
         } else if (icon === "thunderstorm") {
-            return `./assets/weather/base/thunderstorm.png`;
+            return `../assets/weather/base/thunderstorm.png`;
         } else if (icon === "snow" || icon === "sleet" || icon === "fog") {
-            return `./assets/weather/base/snow.png`;
+            return `../assets/weather/base/snow.png`;
         } else if (icon === "wind" || icon === "tornado") {
-            return `./assets/weather/base/windy.png`;
+            return `../assets/weather/base/windy.png`;
         } else if (icon === "cloudy") {
-            return `./assets/weather/base/cloudy.png`;
+            return `../assets/weather/base/cloudy.png`;
         } else {
-            return `./assets/weather/base/cloudy.png`;
+            return `../assets/weather/base/cloudy.png`;
         }
     }
 
