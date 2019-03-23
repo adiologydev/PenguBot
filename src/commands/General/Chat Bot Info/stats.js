@@ -24,7 +24,7 @@ module.exports = class extends Command {
             listeners += result[6];
         }
 
-        const shardID = msg.guild ? this.client.ws.shards.get(msg.guild.shardID).id + 1 : 1;
+        const shardID = msg.guild ? msg.guild.shardID + 1 : 1;
 
         const embed = new MessageEmbed()
             .setColor("RANDOM")
