@@ -42,7 +42,7 @@
     "klasa-dashboard-hooks": "github:PenguBot/klasa-dashboard-hooks",
     "klasa-functions": "klasaCommunityPlugins/functions#180bb0a3bc2a57ea25612346dd7a1175f0e25d48",
     "klasa-member-gateway": "github:dirigeants/klasa-member-gateway",
-    "kurasuta": "^0.2.16",
+    "kurasuta": "^0.2.17",
     "raven": "^2.6.4",
     "rethinkdb-ts": "^2.4.0-rc.12",
     "twemoji": "^11.0.1",
