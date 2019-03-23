@@ -36,7 +36,7 @@ module.exports = class extends Event {
 
     async init() {
         this.parser = new Parser({ throwErrors: true });
-        this.files = fs.readdirSync("../lib/tags");
+        this.files = await fs.readdir("../lib/tags");
         for (const file of this.files) {
             if (file.includes("index")) continue;
             Parser.loadTag(require(`../lib/tags/${file}`));
