@@ -62,7 +62,7 @@ module.exports = class extends MusicCommand {
             musicInterface.queue.push(...songs.tracks);
             if (!musicInterface.playing) return;
             musicInterface.playing = true;
-            return msg.send(this.queueEmbed(songs.tracks[0]));
+            return msg.send(this.queueEmbed(songs.tracks[0], musicInterface.queue));
         }
     }
 
@@ -79,7 +79,7 @@ module.exports = class extends MusicCommand {
         return musicInterface.play(song.track)
             .then(async player => {
                 musicInterface.playing = true;
-                if (!musicInterface.looping) await musicInterface.textChannel.send(this.playEmbed(song));
+                if (!musicInterface.looping) await musicInterface.textChannel.send(this.playEmbed(song, musicInterface.queue));
                 player.once("end", data => {
                     if (data.reason === "REPLACED") return;
                     if (!musicInterface.looping) musicInterface.skip(false);
@@ -100,32 +100,32 @@ module.exports = class extends MusicCommand {
     }
 
     // Response Embeds
-    playEmbed(song) {
+    playEmbed(song, queue) {
         return new MessageEmbed()
             .setTitle("⏯ | Now Playing - PenguBot")
             .setTimestamp()
             .setFooter("© PenguBot.com")
             .setColor("#5cb85c")
             .setThumbnail(song.artwork)
-            .setDescription(`• **Title:** ${song.title}
-• **Author:** ${song.author}
-• **Length:** ${song.friendlyDuration}
-• **Requested By:** ${song.requester}
-• **Link:** ${song.url}`);
+            .addField("Author", song ? song.author : "No Name", true)
+            .addField("Time", song.friendlyDuration, true)
+            .addField("Songs Left", queue.size - 1, true)
+            .addField("Requested By", song.requester, true)
+            .setDescription(`[**${song ? song.title : "No Name"}**](${song.url})`);
     }
 
-    queueEmbed(song) {
+    queueEmbed(song, queue) {
         return new MessageEmbed()
             .setTitle("🗒 | Song Queued - PenguBot")
             .setTimestamp()
             .setFooter("© PenguBot.com")
-            .setColor("#eedc2f")
             .setThumbnail(song ? song.artwork || "https://i.imgur.com/50dTpEN.png" : "https://i.imgur.com/50dTpEN.png")
-            .setDescription(`• **Title:** ${song ? song.title : "No Name"}
-• **Author:** ${song ? song.author : "No Name"}
-• **Length:** ${song.friendlyDuration}
-• **Requested By:** ${song.requester}
-• **Link:** ${song.url}`);
+            .setColor("#eedc2f")
+            .addField("Author", song ? song.author : "No Name", true)
+            .addField("Time", song.friendlyDuration, true)
+            .addField("Queue Position", queue.findIndex(song.track) + 1, true)
+            .addField("Requested By", song.requester, true)
+            .setDescription(`[**${song ? song.title : "No Name"}**](${song.url})`);
     }
 
     get stopEmbed() {

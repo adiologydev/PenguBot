@@ -28,7 +28,7 @@ module.exports = class extends MusicCommand {
 
         for (let i = 0; i < queue.length; i += 12) {
             const curr = queue.slice(i, i + 12);
-            pages.addPage(t => t.setDescription(curr.map(y => `\`-\` [${y.title.replace(/\*/g, "\\*")}](${y.url}) (${y.friendlyDuration})`).join("\n")));
+            pages.addPage(t => t.setDescription(curr.map(y => `\`${queue.findIndex(y.id) + 1}\` [${y.title.replace(/\*/g, "\\*")}](${y.url}) (${y.friendlyDuration})`).join("\n")));
         }
         pages.run(await msg.sendMessage(`${this.client.emotes.loading} ${msg.language.get("MUSICIF_QUEUE_LOADING")}`), {
             time: 120000,
