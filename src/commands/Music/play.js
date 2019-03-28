@@ -109,7 +109,7 @@ module.exports = class extends MusicCommand {
             .setThumbnail(song.artwork)
             .addField("Author", song ? song.author : "No Name", true)
             .addField("Time", song.friendlyDuration, true)
-            .addField("Songs Left", queue.size ? queue.size - 1 : 0, true)
+            .addField("Songs Left", queue.length ? queue.length - 1 : 0, true)
             .addField("Requested By", song.requester, true)
             .setDescription(`[**${song ? song.title : "No Name"}**](${song.url})`);
     }
