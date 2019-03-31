@@ -1,4 +1,4 @@
-const { Function } = require("klasa-functions");
+const { Function } = require("@kcp/functions");
 
 module.exports = class extends Function {
 

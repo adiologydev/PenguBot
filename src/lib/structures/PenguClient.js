@@ -10,7 +10,7 @@ const MusicManager = require("./MusicManager");
 const RawEventStore = require("./RawEventStore");
 
 // Plugins
-Client.use(require("klasa-functions").Client);
+Client.use(require("@kcp/functions").Client);
 Client.use(require("klasa-member-gateway"));
 if (!config.main.patreon) Client.use(require("klasa-dashboard-hooks"));
 

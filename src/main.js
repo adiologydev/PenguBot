@@ -38,7 +38,7 @@ const sharder = new ShardingManager(join(__dirname, "PenguBot"), {
         presence: { activity: { name: "❤ p!donate for PenguBot Premium Access ➖ p!help | PenguBot.com", type: "PLAYING" } },
         prefixCaseInsensitive: true,
         noPrefixDM: true,
-        aliasFunctions: { returnRun: true, enabled: true, prefix: "funcs" },
+        aliasFunctions: { returnMethod: "run", enabled: true, prefix: "funcs" },
         dashboardHooks: { apiPrefix: "/" },
         clientSecret: config.dashboard.secret,
         clientID: config.dashboard.id,
