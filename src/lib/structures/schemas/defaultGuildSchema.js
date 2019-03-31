@@ -18,15 +18,11 @@ module.exports = KlasaClient.defaultGuildSchema
     // Logging
     .add("loggingChannel", "textchannel")
     .add("logs", folder => folder
-        .add("kick", "boolean", { default: false })
-        .add("ban", "boolean", { default: false })
         .add("join", "boolean", { default: false })
         .add("leave", "boolean", { default: false })
         .add("channels", "boolean", { default: false })
         .add("messages", "boolean", { default: false })
-        .add("roles", "boolean", { default: false })
-        .add("automod", "boolean", { default: false })
-        .add("mute", "boolean", { default: false }))
+        .add("roles", "boolean", { default: false }))
 
     // Starboard
     .add("starboard", folder => folder
@@ -48,8 +44,11 @@ module.exports = KlasaClient.defaultGuildSchema
     // Permissions
     .add("permissions", folder => folder
         .add("dj", "user", { array: true })
+        .add("djRole", "role", { array: true })
         .add("admins", "user", { array: true })
-        .add("mods", "user", { array: true }))
+        .add("adminsRole", "role", { array: true })
+        .add("mods", "user", { array: true })
+        .add("modsRole", "role", { array: true }))
 
     // Automod
     .add("automod", folder => folder
@@ -83,4 +82,20 @@ module.exports = KlasaClient.defaultGuildSchema
     .add("musicVolume", "integer", { default: 100, max: 100, min: 0 })
     .add("djOnly", "boolean", { default: false })
     .add("levelup", "boolean", { default: false })
-    .add("leveltype", "string", { default: "guild", configurable: false });
+    .add("leveltype", "string", { default: "guild", configurable: false })
+
+    // Mod Logs
+    .add("modlogs", folder => folder
+        .add("logs", "any", { array: true, configurable: false })
+        .add("logsEnabled", logs => logs
+            .add("kick", "boolean", { default: true })
+            .add("ban", "boolean", { default: true })
+            .add("automod", "boolean", { default: true })
+            .add("mute", "boolean", { default: true })))
+
+    .add("channels", folder => folder
+        .add("modlogs", "textchannel")
+        .add("starboard", "textchannel")
+        .add("join", "textchannel")
+        .add("leave", "textchannel")
+        .add("logs", "textchannel"));
