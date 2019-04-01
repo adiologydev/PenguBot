@@ -443,7 +443,8 @@ module.exports = class extends Language {
             ERR_TRY_AGAIN: "There was an oopsie, please try again!",
             ER_CHOICES_SENSE: "You want me to choose from a single option? That makes sense...",
             CHOICE_SELECT: "My gut feeling says, go with",
-            COMMAND_CHOOSE_DESCRIPTION: "Need help in selecting an option? PenguBot to the rescue!"
+            COMMAND_CHOOSE_DESCRIPTION: "Need help in selecting an option? PenguBot to the rescue!",
+            COMMAND_CASE_DESCRIPTION: "Get information about a specific moderation case with it's ID."
         };
     }
 

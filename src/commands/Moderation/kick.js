@@ -1,4 +1,4 @@
-const Command = require("../../lib/structures/KlasaCommand");
+const { Command, ModLog } = require("../../index");
 
 module.exports = class extends Command {
 
@@ -7,7 +7,7 @@ module.exports = class extends Command {
             runIn: ["text"],
             cooldown: 10,
             aliases: ["kickmember"],
-            permissionLevel: 5,
+            permissionLevel: 4,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "KICK_MEMBERS"],
             description: language => language.get("COMMAND_KICK_DESCRIPTION"),
             quotedStringSupport: false,
@@ -18,14 +18,27 @@ module.exports = class extends Command {
     }
 
     async run(msg, [member, ...reason]) {
+        reason = reason.length > 0 ? reason.join(" ") : null;
+
         if (member.id === msg.author.id) return msg.reply(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_KICK_YOURSELF")}***`);
         if (member.id === this.client.user.id) return msg.reply(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_KICK_PENGU")}***`);
-        if (!member.kickable) return msg.reply(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_KICK_CANT")}***`);
 
-        reason = reason.length > 0 ? `${reason.join(" ")}\nBanned By: ${msg.author.tag}` : `No reason specified. Kicked By: ${msg.author.tag}`;
+        if (member.roles.highest.position >= msg.member.roles.highest.position) {
+            return msg.send(`${this.client.emotes.cross} ***Target member is higher in role hierarchy than you.***`);
+        } else if (member.kickable === false) {
+            return msg.send(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_KICK_CANT")}***`);
+        }
+
         await member.kick(reason);
 
-        this.client.emit("customLogs", msg.guild, "kick", { name: "kick", reason: reason, kicker: msg.author }, member.user);
+        if (msg.guild.settings.channels.modlogs) {
+            new ModLog(msg.guild)
+                .setType("kick")
+                .setModerator(msg.author)
+                .setUser(member.user)
+                .setReason(reason)
+                .send();
+        }
 
         return msg.sendMessage(`${this.client.emotes.check} ***${member.user.tag} ${msg.language.get("MESSAGE_KICKED")}***`);
     }

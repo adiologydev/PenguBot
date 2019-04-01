@@ -11,6 +11,7 @@ module.exports = class ModLog {
         this.moderator = null;
         this.reason = null;
         this.case = null;
+        this.timestamp = null;
     }
 
     /**
@@ -81,11 +82,11 @@ module.exports = class ModLog {
             .setAuthor(this.moderator.tag, this.moderator.avatar)
             .setColor(this.color(this.type))
             .setDescription([
-                `**Type**: ${this.type[0].toUpperCase() + this.type.slice(1)}`,
-                `**User**: ${this.user.tag} (${this.user.id})`,
-                `**Reason**: ${this.reason || `Use \`${this.guild.settings.prefix}reason ${this.case}\` to claim this log.`}`
+                `**❯ Type**: ${this.type[0].toUpperCase() + this.type.slice(1)}`,
+                `**❯ User**: ${this.user.tag} (${this.user.id})`,
+                `**❯ Reason**: ${this.reason || `Use \`${this.guild.settings.prefix}reason ${this.case}\` to claim this log.`}`
             ])
-            .setFooter(`Case ${this.case}`)
+            .setFooter(`Case: ${this.case}`)
             .setTimestamp();
     }
 
@@ -95,6 +96,7 @@ module.exports = class ModLog {
      */
     async getCase() {
         this.case = this.guild.settings.modlogs.logs.length;
+        this.timestamp = new Date().getTime();
         const { errors } = await this.guild.settings.update("modlogs", this.caseInfo);
         if (errors.length) throw errors[0];
         return this.case;
@@ -110,7 +112,8 @@ module.exports = class ModLog {
             user: this.user.id,
             moderator: this.moderator.id,
             reason: this.reason,
-            case: this.case
+            case: this.case,
+            timestamp: this.timestamp
         };
     }
 
