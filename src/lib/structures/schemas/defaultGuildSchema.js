@@ -93,6 +93,7 @@ module.exports = KlasaClient.defaultGuildSchema
             .add("automod", "boolean", { default: true })
             .add("mute", "boolean", { default: true })))
 
+    // All Channels
     .add("channels", folder => folder
         .add("modlogs", "textchannel")
         .add("starboard", "textchannel")
