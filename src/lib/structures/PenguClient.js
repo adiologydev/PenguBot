@@ -1,6 +1,5 @@
 const { Client } = require("klasa");
 const { Client: IdioticAPI } = require("idiotic-api");
-const { WebhookClient } = require("discord.js");
 const config = require("../../../config.json");
 const { StatsD } = require("hot-shots");
 
@@ -32,7 +31,6 @@ class PenguClient extends Client {
         this.lavalink = null;
         this.idiotic = new IdioticAPI(this.config.keys.idiotic, { dev: true });
         this.music = new MusicManager();
-        this.whStatus = new WebhookClient("451318929814716426", this.config.webhooks.status);
         this.topCache = [];
         this.health = Object.seal({
             commands: {
