@@ -11,14 +11,14 @@ module.exports = class extends Command {
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "KICK_MEMBERS"],
             description: language => language.get("COMMAND_KICK_DESCRIPTION"),
             quotedStringSupport: false,
-            usage: "<member:membername> [reason:string] [...]",
+            usage: "<member:membername> [reason:string]",
             usageDelim: " ",
             extendedHelp: "No extended help available."
         });
     }
 
-    async run(msg, [member, ...reason]) {
-        reason = reason.length > 0 ? reason.join(" ") : null;
+    async run(msg, [member, reason]) {
+        reason = reason ? reason : null;
 
         if (member.id === msg.author.id) return msg.reply(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_KICK_YOURSELF")}***`);
         if (member.id === this.client.user.id) return msg.reply(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_KICK_PENGU")}***`);

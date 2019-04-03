@@ -18,8 +18,8 @@ module.exports = class extends Command {
     }
 
     // eslint-disable-next-line complexity
-    async run(msg, [user, ...reason]) {
-        reason = reason.length > 0 ? reason.join(" ") : null;
+    async run(msg, [user, reason]) {
+        reason = reason ? reason : null;
 
         if (user.id === msg.author.id) return msg.reply(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_BAN_YOURSELF")}***`);
         if (user.id === this.client.user.id) return msg.reply(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_BAN_PENGU")}***`);

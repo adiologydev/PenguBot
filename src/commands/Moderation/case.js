@@ -4,7 +4,6 @@ module.exports = class extends Command {
 
     constructor(...args) {
         super(...args, {
-            name: "case",
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
             permissionLevel: 4,
             runIn: ["text"],
@@ -14,8 +13,8 @@ module.exports = class extends Command {
     }
 
     async run(msg, [selected]) {
-        const log = msg.guild.settings.modlogs[selected];
-        if (!log) return msg.send(`${this.client.emotes.check} ${msg.author}, That case could not be found, please try another ID.`);
+        const log = msg.guild.settings.modlogs.logs[selected];
+        if (!log) return msg.send(`${this.client.emotes.cross} ${msg.author}, That case could not be found, please try another ID.`);
 
         const [user, moderator] = await Promise.all([
             this.client.users.fetch(log.user),

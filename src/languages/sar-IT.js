@@ -443,7 +443,10 @@ module.exports = class extends Language {
             ER_CHOICES_SENSE: "You want me to choose from a single option? That makes sense...",
             CHOICE_SELECT: "My gut feeling says, go with",
             COMMAND_CHOOSE_DESCRIPTION: "Need help in selecting an option? PenguBot to the rescue!",
-            COMMAND_CASE_DESCRIPTION: "Get information about a specific moderation case with it's ID."
+            COMMAND_CASE_DESCRIPTION: "Get information about a specific moderation case with it's ID.",
+            COMMAND_WARN_DESCRIPTION: "Warn a user for an infraction and log it.",
+            COMMAND_HISTORY_DESCRIPTION: "Get a user's infraction history from mod logs.",
+            COMMAND_REASON_DESCRIPTION: "Allow a moderator to set a case's history in mod logs."
         };
     }
 

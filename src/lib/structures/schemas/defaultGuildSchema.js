@@ -48,7 +48,8 @@ module.exports = KlasaClient.defaultGuildSchema
         .add("admins", "user", { array: true })
         .add("adminsRole", "role", { array: true })
         .add("mods", "user", { array: true })
-        .add("modsRole", "role", { array: true }))
+        .add("modsRole", "role", { array: true })
+        .add("mutedRole", "role", { configurable: false }))
 
     // Automod
     .add("automod", folder => folder

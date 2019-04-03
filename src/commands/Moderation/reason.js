@@ -1,0 +1,68 @@
+const { Command, ModLog, klasaUtil } = require("../../index");
+
+module.exports = class extends Command {
+
+    constructor(...args) {
+        super(...args, {
+            requiredPermissions: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
+            permissionLevel: 4,
+            runIn: ["text"],
+            description: language => language.get("COMMAND_REASON_DESCRIPTION"),
+            usage: "<selected:integer> [reason:string]",
+            usageDelim: " "
+        });
+    }
+
+    async run(msg, [selected, reason]) {
+        reason = reason ? reason : null;
+
+        const { logs } = msg.guild.settings.modlogs;
+        const log = logs[selected];
+
+        if (!log) return msg.send(`${this.client.emotes.cross} ${msg.author}, That case could not be found, please try another ID.`);
+
+        const channel = msg.guild.channels.get(msg.guild.settings.channels.modlogs);
+        if (!channel) return msg.send(`${this.client.emotes.cross} Modlogs channel not found. Please do \`${msg.guild.settings.prefix}modlogschannel <channel>\` to set it.`);
+
+        const messages = await channel.messages.fetch({ limit: 100 });
+        const message = messages.find(mes => mes.author.id === this.client.user.id &&
+            mes.embeds.length > 0 &&
+            mes.embeds[0].type === "rich" &&
+            mes.embeds[0].footer && mes.embeds[0].footer.text === `Case: ${selected}`
+        );
+
+        if (message) {
+            const embed = message.embeds[0];
+            const [type, user] = embed.description.split("\n");
+            embed.description = [
+                type,
+                user,
+                `**❯ Reason**: ${reason}`
+            ].join("\n");
+            await message.edit({ embed });
+        } else {
+            const embed = new this.client.methods.Embed()
+                .setAuthor(log.moderator.tag)
+                .setColor(ModLog.colour(log.type))
+                .setDescription([
+                    `**❯ Type**: ${log.type}`,
+                    `**❯ User**: ${log.user.tag} (${log.user.id})`,
+                    `**❯ Reason**: ${reason}`
+                ])
+                .setFooter(`Case: ${selected}`)
+                .setTimestamp();
+            await channel.send({ embed });
+        }
+
+        const oldReason = log.reason;
+
+        logs[selected].reason = reason;
+        await msg.guild.settings.update("modlogs", logs);
+
+        return msg.send(`${this.client.emotes.check} Case ${selected} has been updated.${klasaUtil.codeBlock("http", [
+            `Old reason : ${oldReason || "No Reason Specified."}`,
+            `New reason : ${reason}`
+        ].join("\n"))}`);
+    }
+
+};
