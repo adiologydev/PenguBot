@@ -8,13 +8,13 @@ module.exports = class extends Command {
             permissionLevel: 4,
             runIn: ["text"],
             description: language => language.get("COMMAND_WARN_DESCRIPTION"),
-            usage: "<member:membername> [reason:string]",
+            usage: "<member:membername> [reason:string] [...]",
             usageDelim: " "
         });
     }
 
-    async run(msg, [member, reason]) {
-        reason = reason ? reason : null;
+    async run(msg, [member, ...reason]) {
+        reason = reason ? reason.join(" ") : null;
 
         if (member.roles.highest.position >= msg.member.roles.highest.position) {
             return msg.reply(`${this.client.emotes.cross} ***Target member is higher in role hierarchy than you.***`);
@@ -29,7 +29,12 @@ module.exports = class extends Command {
                 .send();
         }
 
-        return msg.send(`${this.client.emotes.check} ***This user has been sucessfully warned:*** ${member.user.tag}${reason ? `\nReason: ${reason}` : ""}`);
+        await member.user.sendCode("http", [
+            `You've been warned in ${msg.guild.name}`,
+            `Reason : ${reason ? reason : "No Reason Specified"}`
+        ]).catch(() => null);
+
+        return msg.send(`${this.client.emotes.check} ***This user has been sucessfully warned:*** ${member.user.tag}${reason ? `\n***Reason:*** ${reason}` : ""}`);
     }
 
 };

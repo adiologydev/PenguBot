@@ -23,9 +23,9 @@ module.exports = class extends Command {
 
         const embed = new MessageEmbed()
             .setDescription([
-                `❯ User: ${user.tag} (${user.id})`,
-                `❯ Moderator: ${moderator.tag} (${moderator.id})`,
-                `❯ Reason: ${log.reason || `No Reason Specified. Use \`${this.guild.settings.prefix}reason ${this.case}\` to claim this log.`}`
+                `❯ **User**: ${user.tag} (${user.id})`,
+                `❯ **Moderator**: ${moderator.tag} (${moderator.id})`,
+                `❯ **Reason**: ${log.reason || `No Reason Specified. Use \`${msg.guild.settings.prefix}reason ${log.case}\` to claim this log.`}`
             ])
             .setTimestamp(log.timestamp)
             .setFooter("PenguBot.com - Case Date")

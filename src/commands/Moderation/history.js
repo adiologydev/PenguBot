@@ -30,13 +30,13 @@ module.exports = class extends Command {
 
         const embed = new MessageEmbed()
             .setDescription([
-                `❯ User: ${user.tag} (${user.id})`,
-                `❯ Ban(s): ${actions.ban}`,
-                `❯ Unban(s): ${actions.unban}`,
-                `❯ Mute(s): ${actions.mute}`,
-                `❯ Unmute(s): ${actions.unmute}`,
-                `❯ Warn(s): ${actions.warn}`,
-                `❯ Kick(s): ${actions.kick}`
+                `❯ **User**: ${user.tag} (${user.id})`,
+                `❯ **Ban**: ${actions.ban}`,
+                `❯ **Unban**: ${actions.unban}`,
+                `❯ **Mute**: ${actions.mute}`,
+                `❯ **Unmute**: ${actions.unmute}`,
+                `❯ **Warn**: ${actions.warn}`,
+                `❯ **Kick**: ${actions.kick}`
             ])
             .setTimestamp()
             .setFooter("PenguBot.com")

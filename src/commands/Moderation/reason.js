@@ -1,4 +1,4 @@
-const { Command, ModLog, klasaUtil } = require("../../index");
+const { Command, ModLog, klasaUtil, MessageEmbed } = require("../../index");
 
 module.exports = class extends Command {
 
@@ -8,13 +8,13 @@ module.exports = class extends Command {
             permissionLevel: 4,
             runIn: ["text"],
             description: language => language.get("COMMAND_REASON_DESCRIPTION"),
-            usage: "<selected:integer> [reason:string]",
+            usage: "<selected:integer> [reason:string] [...]",
             usageDelim: " "
         });
     }
 
-    async run(msg, [selected, reason]) {
-        reason = reason ? reason : null;
+    async run(msg, [selected, ...reason]) {
+        reason = reason ? reason.join(" ") : null;
 
         const { logs } = msg.guild.settings.modlogs;
         const log = logs[selected];
@@ -23,6 +23,9 @@ module.exports = class extends Command {
 
         const channel = msg.guild.channels.get(msg.guild.settings.channels.modlogs);
         if (!channel) return msg.send(`${this.client.emotes.cross} Modlogs channel not found. Please do \`${msg.guild.settings.prefix}modlogschannel <channel>\` to set it.`);
+
+        const mod = await this.client.users.fetch(log.moderator);
+        const muser = await this.client.users.fetch(log.user);
 
         const messages = await channel.messages.fetch({ limit: 100 });
         const message = messages.find(mes => mes.author.id === this.client.user.id &&
@@ -41,12 +44,12 @@ module.exports = class extends Command {
             ].join("\n");
             await message.edit({ embed });
         } else {
-            const embed = new this.client.methods.Embed()
-                .setAuthor(log.moderator.tag)
-                .setColor(ModLog.colour(log.type))
+            const embed = new MessageEmbed()
+                .setAuthor(mod.tag)
+                .setColor(ModLog.color(log.type))
                 .setDescription([
-                    `**❯ Type**: ${log.type}`,
-                    `**❯ User**: ${log.user.tag} (${log.user.id})`,
+                    `**❯ Type**: ${log.type[0].toUpperCase() + log.type.slice(1)}`,
+                    `**❯ User**: ${muser.tag} (${muser.id})`,
                     `**❯ Reason**: ${reason}`
                 ])
                 .setFooter(`Case: ${selected}`)

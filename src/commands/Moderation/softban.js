@@ -11,15 +11,15 @@ module.exports = class extends Command {
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "BAN_MEMBERS"],
             description: language => language.get("COMMAND_SOFTBAN_DESCRIPTION"),
             quotedStringSupport: false,
-            usage: "<member:membername> [reason:string]",
+            usage: "<member:membername> [reason:string] [...]",
             usageDelim: " ",
             extendedHelp: "--messages <1-7> - Days of messages"
         });
     }
 
     // eslint-disable-next-line complexity
-    async run(msg, [user, reason]) {
-        reason = reason ? reason : null;
+    async run(msg, [user, ...reason]) {
+        reason = reason ? reason.join(" ") : null;
 
         if (user.id === msg.author.id) return msg.reply(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_BAN_YOURSELF")}***`);
         if (user.id === this.client.user.id) return msg.reply(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_BAN_PENGU")}***`);

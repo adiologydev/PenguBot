@@ -67,10 +67,10 @@ module.exports = class ModLog {
      * @returns {Promise<KlasaMessage>}
      */
     async send() {
-        const channel = this.guild.channels.get(this.guild.settings.channels.modlog);
+        const channel = this.guild.channels.get(this.guild.settings.channels.modlogs);
         if (!channel) throw "Modlogs channel not found.";
         await this.getCase();
-        return channel.send({ embed: this.embed });
+        return channel.sendEmbed(this.embed);
     }
 
     /**
@@ -78,7 +78,7 @@ module.exports = class ModLog {
      * @returns {KlasaMessage}
      */
     get embed() {
-        return new MessageEmbed()
+        const embed = new MessageEmbed()
             .setAuthor(this.moderator.tag, this.moderator.avatar)
             .setColor(this.color(this.type))
             .setDescription([
@@ -88,6 +88,7 @@ module.exports = class ModLog {
             ])
             .setFooter(`Case: ${this.case}`)
             .setTimestamp();
+        return embed;
     }
 
     /**
@@ -97,7 +98,7 @@ module.exports = class ModLog {
     async getCase() {
         this.case = this.guild.settings.modlogs.logs.length;
         this.timestamp = new Date().getTime();
-        const { errors } = await this.guild.settings.update("modlogs", this.caseInfo);
+        const { errors } = await this.guild.settings.update("modlogs.logs", this.caseInfo);
         if (errors.length) throw errors[0];
         return this.case;
     }
