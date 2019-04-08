@@ -26,7 +26,7 @@ module.exports = class extends Command {
             if (amount <= 0) return msg.reply("Invalid amount of snowflakes, minimum 1 snowflake.");
             await msg.author.settings.sync(true);
             const currSnowflakes = msg.author.settings.snowflakes;
-            if (amount >= currSnowflakes) return msg.reply("Your account balance is low, please enter an amount which you have.");
+            if (amount > currSnowflakes) return msg.reply("Your account balance is low, please enter an amount which you have.");
             if (user.bot) return msg.reply("You can not send Snowflakes to bot accounts.");
             if (msg.author.id === user.id) return msg.reply("You can not send Snowflakes to yourself.");
             const userSnowflakes = user.settings.snowflakes;
