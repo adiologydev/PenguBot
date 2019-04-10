@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("../../index");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = class ModLog {
 
@@ -131,7 +131,7 @@ module.exports = class ModLog {
      * @param {string} type the type of case
      * @returns {string}
      */
-    static color(type) {
+    color(type) {
         switch (type) {
             case "ban": return "#d9534f";
             case "unban": return "#ab9292";

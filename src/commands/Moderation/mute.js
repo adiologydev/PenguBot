@@ -47,7 +47,7 @@ module.exports = class extends Command {
         if (member.roles.has(role.id)) {
             await member.roles.remove(role).catch(() => null);
             if (msg.guild.settings.channels.modlogs) {
-                new ModLog(msg.guild)
+                await new ModLog(msg.guild)
                     .setType("unmute")
                     .setModerator(msg.author)
                     .setReason(reason)
@@ -58,7 +58,7 @@ module.exports = class extends Command {
         } else {
             await member.roles.add(role).catch(() => null);
             if (msg.guild.settings.channels.modlogs) {
-                new ModLog(msg.guild)
+                await new ModLog(msg.guild)
                     .setType("mute")
                     .setModerator(msg.author)
                     .setReason(reason)
