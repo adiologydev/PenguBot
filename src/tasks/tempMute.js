@@ -19,7 +19,7 @@ module.exports = class extends Task {
 
         if (!unmute) return;
         if (guild.settings.channels.modlogs) {
-            new ModLog(guild)
+            await new ModLog(guild)
                 .setType("unmute")
                 .setModerator(this.client.user)
                 .setReason("Timed Mute Limit Over")

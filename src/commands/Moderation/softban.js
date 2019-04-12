@@ -36,8 +36,8 @@ module.exports = class extends Command {
             target = user;
         }
 
-        const msgDays = msg.flags.messages || msg.flags.msg || 0;
-        if (!typeof Number(msgDays) === Number || (Number(msgDays) < 1 || Number(msgDays) >= 8)) throw `${this.client.emotes.cross} ***Invalid days of messages to be deleted, 1-7 only.***`;
+        const msgDays = "messages" in msg.flags ? Number(msg.flags.messages) : 7;
+        if (msgDays < 1 || msgDays >= 8) throw `${this.client.emotes.cross} ***Invalid days of messages to be deleted, 1-7 only.***`;
 
         await msg.guild.members.ban(target, { reason: reason ? reason : `No Reason Specified - ${msg.author.tag}`, days: msgDays }).catch(() => msg.reply(`${this.client.emotes.cross} There was an error.`));
         await msg.guild.members.unban(target, "PenguBot Softban");

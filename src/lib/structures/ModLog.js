@@ -46,7 +46,7 @@ module.exports = class ModLog {
         this.moderator = {
             id: user.id,
             tag: user.tag,
-            avatar: user.displayAvatarURL()
+            avatar: user.displayAvatarURL({ size: 2048, format: "png" })
         };
         return this;
     }
@@ -78,7 +78,7 @@ module.exports = class ModLog {
      * @returns {KlasaMessage}
      */
     get embed() {
-        const embed = new MessageEmbed()
+        return new MessageEmbed()
             .setAuthor(this.moderator.tag, this.moderator.avatar)
             .setColor(this.color(this.type))
             .setDescription([
@@ -88,7 +88,6 @@ module.exports = class ModLog {
             ])
             .setFooter(`Case: ${this.case}`)
             .setTimestamp();
-        return embed;
     }
 
     /**
