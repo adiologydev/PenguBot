@@ -451,7 +451,8 @@ module.exports = class extends Language {
             COMMAND_CASE_DESCRIPTION: "Get information about a specific moderation case with it's ID.",
             COMMAND_WARN_DESCRIPTION: "Warn a user for an infraction and log it.",
             COMMAND_HISTORY_DESCRIPTION: "Get a user's infraction history from mod logs.",
-            COMMAND_REASON_DESCRIPTION: "Allow a moderator to set a case's history in mod logs."
+            COMMAND_REASON_DESCRIPTION: "Allow a moderator to set a case's history in mod logs.",
+            COMMAND_MODLOG_DESCRIPTION: "Change the Mod Logs setting in the server."
         };
     }
 
