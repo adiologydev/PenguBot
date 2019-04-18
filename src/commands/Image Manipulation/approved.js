@@ -13,7 +13,8 @@ module.exports = class extends Command {
     }
 
     async run(msg, [ApproveWho = msg.author]) {
-        const image = await this.client.idiotic.approved(ApproveWho.displayAvatarURL({ format: "png", size: 512 }))
+        const image = await this.client.funcs.images("overlays/approved", { avatar: ApproveWho.displayAvatarURL({ format: "png", size: 512 }) })
+            .then(res => Buffer.from(res.data))
             .catch(() => null);
         if (!image) return msg.reply(msg.language.get("ER_TRY_AGAIN"));
         return msg.channel.sendFile(image);
