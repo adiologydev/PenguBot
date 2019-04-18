@@ -41,7 +41,7 @@ module.exports = class extends Command {
         const data = await r.table("members")
             .getAll(member.guild.id, { index: "guildID" })
             .orderBy(r.desc("xp"))
-            .run();
+            .run(this.client.providers.default.connection);
 
         const rank = data.findIndex(i => i.id.split(".")[1] === member.user.id) + 1;
 
