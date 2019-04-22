@@ -38,7 +38,7 @@ module.exports = class extends Command {
 
         const role = msg.guild.roles.get(roleID);
         if (!role) return msg.reply("There was an error, I couldn't find the `PENGUMUTED` role! Please try again or contact us at: https://discord.gg/kWMcUNe");
-        const myRole = msg.guild.me.roles.find(r => r.managed);
+        const myRole = msg.guild.me.roles.highest;
         if (role.position > myRole.positon) return msg.sendMessage(`${this.client.emotes.cross} ***The \`PENGUMUTED\` role is above my role in the guild, please change the order.***`);
 
         const time = msg.flags.time || msg.flags.duration || msg.flags.tempmute;
@@ -46,7 +46,7 @@ module.exports = class extends Command {
 
         if (member.roles.has(role.id)) {
             await member.roles.remove(role).catch(() => null);
-            if (msg.guild.settings.channels.modlogs) {
+            if (msg.guild.settings.channels.modlogs && msg.guild.settings.modlogs.logsEnabled.unmute) {
                 await new ModLog(msg.guild)
                     .setType("unmute")
                     .setModerator(msg.author)
@@ -57,7 +57,7 @@ module.exports = class extends Command {
             return msg.sendMessage(`${this.client.emotes.check} ***${member.user.tag} ${msg.language.get("MESSAGE_UNMUTED")}***`);
         } else {
             await member.roles.add(role).catch(() => null);
-            if (msg.guild.settings.channels.modlogs) {
+            if (msg.guild.settings.channels.modlogs && msg.guild.settings.modlogs.logsEnabled.mute) {
                 await new ModLog(msg.guild)
                     .setType("mute")
                     .setModerator(msg.author)

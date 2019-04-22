@@ -20,7 +20,7 @@ module.exports = class extends Command {
             return msg.reply(`${this.client.emotes.cross} ***Target member is higher in role hierarchy than you.***`);
         }
 
-        if (msg.guild.settings.channels.modlogs) {
+        if (msg.guild.settings.channels.modlogs && msg.guild.settings.modlogs.logsEnabled.warn) {
             await new ModLog(msg.guild)
                 .setType("warn")
                 .setModerator(msg.author)

@@ -41,7 +41,7 @@ module.exports = class extends Command {
         if (!roles || !role) return msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("CMD_NO_SELFROLES")}***`);
         if (!roles.includes(role.id)) return msg.sendMessage(`${this.client.emotes.cross} ***That given role is not self assignable do \`${msg.guildSettings.prefix}selfroles list\` to know all the self assignable roles.***`);
 
-        const myRole = msg.guild.me.roles.find(r => r.managed);
+        const myRole = msg.guild.me.roles.highest;
         if (role.position > myRole.positon) return msg.sendMessage(`${this.client.emotes.cross} ***That given role is above my role in the guild, please change the order.***`);
         if (msg.member.roles.has(role)) return msg.sendMessage(`${this.client.emotes.cross} ***You already have that role do \`${msg.guildSettings.prefix}selfroles remove ${role.name}\` to remove it.***`);
 
@@ -55,7 +55,7 @@ module.exports = class extends Command {
         if (!roles || !role) return msg.sendMessage(`${this.client.emotes.cross} ***This guild does not have any self assignable roles or you didn't mention any.***`);
         if (!roles.includes(role.id)) return msg.sendMessage(`${this.client.emotes.cross} ***That given role is not self assignable do \`${msg.guildSettings.prefix}selfroles list\` to know all the self assignable roles.***`);
 
-        const myRole = msg.guild.me.roles.find(r => r.managed);
+        const myRole = msg.guild.me.roles.highest;
         if (role.position > myRole.positon) return msg.sendMessage(`${this.client.emotes.cross} ***That given role is above my role in the guild, please change the order.***`);
         if (!msg.member.roles.has(role.id)) return msg.sendMessage(`${this.client.emotes.cross} ***You don't have that role do \`${msg.guildSettings.prefix}selfroles add ${role.name}\` to add it.***`);
 

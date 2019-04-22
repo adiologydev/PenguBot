@@ -44,7 +44,7 @@ module.exports = class extends Command {
 
         await msg.guild.members.ban(target, { reason: reason ? reason : `No Reason Specified - ${msg.author.tag}`, days: msgDays }).catch(() => msg.reply(`${this.client.emotes.cross} There was an error.`));
 
-        if (msg.guild.settings.channels.modlogs) {
+        if (msg.guild.settings.channels.modlogs && msg.guild.settings.modlogs.logsEnabled.ban) {
             await new ModLog(msg.guild)
                 .setType("ban")
                 .setModerator(msg.author)

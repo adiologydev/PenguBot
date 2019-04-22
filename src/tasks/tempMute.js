@@ -12,13 +12,13 @@ module.exports = class extends Task {
         const role = await guild.roles.get(roleID);
 
         if (!role) return;
-        const myRole = guild.me.roles.find(r => r.managed);
+        const myRole = guild.me.roles.highest;
         if (role.position > myRole.positon) return;
 
         const unmute = await member.roles.remove(role).catch(() => null);
 
         if (!unmute) return;
-        if (guild.settings.channels.modlogs) {
+        if (guild.settings.channels.modlogs && guild.settings.modlogs.logsEnabled.unmute) {
             await new ModLog(guild)
                 .setType("unmute")
                 .setModerator(this.client.user)

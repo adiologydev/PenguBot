@@ -60,7 +60,7 @@ module.exports = class extends Monitor {
                 if (!levelRole) return;
                 const role = msg.guild.roles.find(r => r.id === levelRole);
                 if (!role) return;
-                const myRole = msg.guild.me.roles.find(r => r.managed);
+                const myRole = msg.guild.me.roles.highest;
                 if (role.position > myRole.positon) return;
                 if (msg.member.roles.has(role)) return;
                 await msg.member.roles.add(role, "Level Based Role").catch(() => null);

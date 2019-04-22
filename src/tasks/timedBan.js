@@ -10,7 +10,7 @@ module.exports = class extends Task {
 
         const unban = await guild.members.unban(user).catch(() => null);
         if (!unban) return;
-        if (guild.settings.channels.modlogs) {
+        if (guild.settings.channels.modlogs && guild.settings.modlogs.logsEnabled.unban) {
             await new ModLog(guild)
                 .setType("unban")
                 .setModerator(this.client.user)

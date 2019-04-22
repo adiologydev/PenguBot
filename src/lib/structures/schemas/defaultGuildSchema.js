@@ -89,6 +89,7 @@ module.exports = KlasaClient.defaultGuildSchema
     .add("modlogs", folder => folder
         .add("logs", "any", { array: true, configurable: false })
         .add("logsEnabled", logs => logs
+            .add("warn", "boolean", { default: true })
             .add("kick", "boolean", { default: true })
             .add("ban", "boolean", { default: true })
             .add("unban", "boolean", { default: true })

@@ -22,7 +22,7 @@ module.exports = class extends Command {
         const { roles } = msg.guild.settings.levelroles;
         if (roles.find(r => r.id === role.id)) throw `${this.client.emotes.cross} ***This role already exists in the leveled roles.***`;
 
-        const myRole = msg.guild.me.roles.find(r => r.managed);
+        const myRole = msg.guild.me.roles.highest;
         if (role.position > myRole.positon) throw `${this.client.emotes.cross} ***That given role is above my role in the guild, please change the order.***`;
 
         await msg.guild.settings.update("levelroles.roles", { id: role.id, lvl: level });
