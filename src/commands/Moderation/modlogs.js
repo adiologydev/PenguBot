@@ -19,31 +19,17 @@ module.exports = class extends Command {
     }
 
     channel(msg, [Channel = msg.channel]) {
-        return msg.guild.settings.update("loggingChannel", Channel.id).then(() => {
-            msg.sendMessage(`${this.client.emotes.check} ***${msg.language.get("MESSAGE_LOGCHAN_SET")}***`);
-        });
+        return msg.guild.settings.update("loggingChannel", Channel.id)
+            .then(() => msg.sendMessage(`${this.client.emotes.check} ***${msg.language.get("MESSAGE_LOGCHAN_SET")}***`))
+            .catch(e => msg.reply(`${this.client.emotes.cross} ***There was an error: ${e}***`));
     }
 
     async toggle(msg, [logtype]) {
         if (!logtype) return msg.reply(`${this.client.emotes.cross} ***You forgot to mention the type of modlog, please choose from the following:\n\`${logtypes.join("`, ")}\``);
-        const type = logtype.toLowerCase();
-        switch (type) {
-            case "ban": await this.updateToggle(msg, "ban");
-                break;
-            case "unban": await this.updateToggle(msg, "unban");
-                break;
-            case "softban": await this.updateToggle(msg, "softban");
-                break;
-            case "kick": await this.updateToggle(msg, "kick");
-                break;
-            case "mute": await this.updateToggle(msg, "mute");
-                break;
-            case "unmute": await this.updateToggle(msg, "unmute");
-                break;
-            case "warn": await this.updateToggle(msg, "warn");
-                break;
-            default: return msg.reply(`${this.client.emotes.cross} ***You forgot to mention the type of modlog, please choose from the following:\n\`${logtypes.join("`, ")}\``);
-        }
+        logtype = logtype.toLowerCase();
+
+        if (!logtypes.find(type => type === logtype)) return msg.reply(`${this.client.emotes.cross} ***You forgot to mention the type of modlog, please choose from the following:\n\`${logtypes.join("`, ")}\``);
+        return this.updateToggle(msg, logtype);
     }
 
     updateToggle(msg, type) {

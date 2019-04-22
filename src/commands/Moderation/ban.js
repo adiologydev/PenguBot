@@ -42,7 +42,8 @@ module.exports = class extends Command {
         if (msgDays && (!typeof Number(msgDays) === Number || (Number(msgDays) < 1 || Number(msgDays) >= 8))) throw `${this.client.emotes.cross} ***Invalid days of messages to be deleted, 1-7 only.***`;
         if (banDays && (duration.offset < 1 || duration.offset > 2592000000)) throw `${this.client.emotes.cross} ***Invalid temporary ban days, maximum 30 days only.***`;
 
-        await msg.guild.members.ban(target, { reason: reason ? reason : `No Reason Specified - ${msg.author.tag}`, days: msgDays }).catch(() => msg.reply(`${this.client.emotes.cross} There was an error.`));
+        await msg.guild.members.ban(target, { reason: reason ? reason : `No Reason Specified - ${msg.author.tag}`, days: msgDays })
+            .catch(e => msg.reply(`${this.client.emotes.cross} ***There was an error: ${e}***`));
 
         if (msg.guild.settings.channels.modlogs && msg.guild.settings.modlogs.logsEnabled.ban) {
             await new ModLog(msg.guild)

@@ -29,7 +29,8 @@ module.exports = class extends Command {
             return msg.send(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_KICK_CANT")}***`);
         }
 
-        await member.kick(reason);
+        await member.kick(reason)
+            .catch(e => msg.reply(`${this.client.emotes.cross} ***There was an error: ${e}***`));
 
         if (msg.guild.settings.channels.modlogs && msg.guild.settings.modlogs.logsEnabled.kick) {
             await new ModLog(msg.guild)

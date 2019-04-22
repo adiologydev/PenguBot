@@ -45,7 +45,8 @@ module.exports = class extends Command {
         if (time && (new Duration(time).offset < 1 || new Duration(time).offset > 2592000000)) throw `${this.client.emotes.cross} ***Duration is invalid, try something like 1 hour, 1 day, etc. Maximum 30 days.***`;
 
         if (member.roles.has(role.id)) {
-            await member.roles.remove(role).catch(() => null);
+            await member.roles.remove(role)
+                .catch(e => msg.reply(`${this.client.emotes.cross} ***There was an error: ${e}***`));
             if (msg.guild.settings.channels.modlogs && msg.guild.settings.modlogs.logsEnabled.unmute) {
                 await new ModLog(msg.guild)
                     .setType("unmute")
@@ -56,7 +57,8 @@ module.exports = class extends Command {
             }
             return msg.sendMessage(`${this.client.emotes.check} ***${member.user.tag} ${msg.language.get("MESSAGE_UNMUTED")}***`);
         } else {
-            await member.roles.add(role).catch(() => null);
+            await member.roles.add(role)
+                .catch(e => msg.reply(`${this.client.emotes.cross} ***There was an error: ${e}***`));
             if (msg.guild.settings.channels.modlogs && msg.guild.settings.modlogs.logsEnabled.mute) {
                 await new ModLog(msg.guild)
                     .setType("mute")
