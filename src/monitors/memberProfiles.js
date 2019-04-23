@@ -53,9 +53,10 @@ module.exports = class extends Monitor {
                     .toBufferAsync();
                 msg.sendMessage(`🆙 | **${msg.author.tag}** has leveled up to **Level ${newLvl}** in **${msg.guild.name}**`, { files: [{ attachment: img, name: `${msg.author.id}.png` }] });
             }
+
             if (msg.guild.settings.levelroles.enabled) {
                 const { roles } = msg.guild.settings.levelroles;
-                if (roles.length === 0) return;
+                if (!roles.length) return;
                 const levelRole = roles.find(r => r.lvl === newLvl);
                 if (!levelRole) return;
                 const role = msg.guild.roles.find(r => r.id === levelRole);
