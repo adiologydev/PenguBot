@@ -19,10 +19,7 @@ module.exports = class extends Monitor {
         if (!msg.guild) return;
         if (timeout.has(msg.author.id)) return;
 
-        if (this.client.user.id !== "303181184718995457") {
-            const mainBot = msg.guild.members.get("303181184718995457");
-            if (mainBot) return;
-        }
+        if (this.client.user.id !== "303181184718995457" && await msg.guild.members.fetch("303181184718995457").catch(() => null)) return;
 
         await msg.author.settings.sync(true);
         if (!msg.author.settings) return;

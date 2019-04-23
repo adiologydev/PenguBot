@@ -12,10 +12,7 @@ module.exports = class extends Monitor {
         if (msg.content.startsWith(msg.guild.settings.prefix) || this.mentionPrefix(msg)) return;
         if (await msg.hasAtLeastPermissionLevel(4)) return;
 
-        if (this.client.user.id !== "303181184718995457") {
-            const mainBot = await msg.guild.members.fetch("303181184718995457").catch(() => null);
-            if (mainBot) return;
-        }
+        if (this.client.user.id !== "303181184718995457" && await msg.guild.members.fetch("303181184718995457").catch(() => null)) return;
 
         const req = await post(`https://commentanalyzer.googleapis.com/v1alpha1/comments:analyze?key=${this.client.config.keys.perspective}`)
             .send({ comment: { text: msg.content }, requestedAttributes: { SEVERE_TOXICITY: {}, TOXICITY: {}, OBSCENE: {}, THREAT: {}, SEXUALLY_EXPLICIT: {}, SPAM: {}, PROFANITY: {} } })

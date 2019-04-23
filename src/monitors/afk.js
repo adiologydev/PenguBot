@@ -9,10 +9,7 @@ module.exports = class extends Monitor {
     async run(msg) {
         if (!msg.guild || !msg.channel.postable || msg.author.id === this.client.user.id) return;
 
-        if (this.client.user.id !== "303181184718995457") {
-            const mainBot = await msg.guild.members.fetch("303181184718995457").catch(() => null);
-            if (mainBot) return;
-        }
+        if (this.client.user.id !== "303181184718995457" && await msg.guild.members.fetch("303181184718995457").catch(() => null)) return;
 
         if (msg.mentions.users.size) {
             const mentioned = msg.mentions.users.first();
