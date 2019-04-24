@@ -10,15 +10,6 @@ module.exports = KlasaClient.defaultGuildSchema
         .add("roles", "role", { array: true })
         .add("enabled", "boolean", { default: true }))
 
-    // Logging
-    .add("loggingChannel", "textchannel") // delete after transfer
-    .add("logs", folder => folder
-        .add("join", "boolean", { default: false })
-        .add("leave", "boolean", { default: false })
-        .add("channels", "boolean", { default: false })
-        .add("messages", "boolean", { default: false })
-        .add("roles", "boolean", { default: false }))
-
     // Permissions - delete after transfer
     .add("permissions", folder => folder
         .add("dj", "user", { array: true })
@@ -34,6 +25,8 @@ module.exports = KlasaClient.defaultGuildSchema
         .add("roles", "role", { array: true })
         .add("enabled", "boolean", { default: true }))
 
+    .add("loggingChannel", "textchannel") // delete after transfer
+
     // Level Roles
     .add("levelroles", folder => folder // delete after transfer
         .add("roles", "any", { array: true, configurable: false })
@@ -43,6 +36,14 @@ module.exports = KlasaClient.defaultGuildSchema
     .add("levelup", "boolean", { default: false }) // delete after transfer
 
 // DEPRECATED END ---------------------
+
+    // Logging
+    .add("logs", folder => folder
+        .add("join", "boolean", { default: false })
+        .add("leave", "boolean", { default: false })
+        .add("channels", "boolean", { default: false })
+        .add("messages", "boolean", { default: false })
+        .add("roles", "boolean", { default: false }))
 
     // Custom Commands
     .add("customcmds", folder => folder
