@@ -26,6 +26,14 @@ module.exports = KlasaClient.defaultGuildSchema
         .add("enabled", "boolean", { default: true }))
 
     .add("loggingChannel", "textchannel") // delete after transfer
+    .add("logsEnabled", logs => logs // delete after transfer
+        .add("kick", "boolean", { default: true })
+        .add("ban", "boolean", { default: true })
+        .add("unban", "boolean", { default: true })
+        .add("softban", "boolean", { default: true })
+        .add("unmute", "boolean", { default: true })
+        .add("automod", "boolean", { default: true })
+        .add("mute", "boolean", { default: true }))
 
     // Level Roles
     .add("levelroles", folder => folder // delete after transfer
