@@ -15,7 +15,7 @@ module.exports = class extends Command {
         const afk = await msg.author.settings.get("afk");
 
         if (afk.time) {
-            await msg.author.settings.reset(["afk.time", "afk.reason"]);
+            await msg.author.settings.reset("afk");
             return msg.sendLocale("COMMAND_AFK_REMOVED", [msg.author.username]);
         }
 

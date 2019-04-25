@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/AdityaTD/PenguBot#readme",
   "dependencies": {
+    "@discordjs/uws": "^11.149.1",
     "breadtags": "^1.0.3",
     "canvas": "^2.3.1",
     "canvas-constructor": "github:kyranet/canvasConstructor",
@@ -35,21 +36,21 @@
     "discord.js-lavalink": "github:MrJacz/discord.js-lavalink",
     "erlpack": "github:discordapp/erlpack",
     "google-translate-api": "^2.3.0",
-    "hot-shots": "^6.2.0",
+    "hot-shots": "^6.1.1",
     "idiotic-api": "github:YorkAARGH/Idiotic-Wrapper",
     "klasa": "github:dirigeants/klasa",
     "klasa-dashboard-hooks": "github:PenguBot/klasa-dashboard-hooks",
     "klasa-functions": "klasaCommunityPlugins/functions#180bb0a3bc2a57ea25612346dd7a1175f0e25d48",
     "klasa-member-gateway": "github:dirigeants/klasa-member-gateway",
-    "kurasuta": "^0.2.18",
+    "kurasuta": "^0.2.17",
     "raven": "^2.6.4",
-    "rethinkdb-ts": "^2.4.0-rc.13",
-    "twemoji": "^12.0.1",
+    "rethinkdb-ts": "^2.4.0-rc.12",
+    "twemoji": "^12.0.0",
     "zlib-sync": "^0.1.4"
   },
   "devDependencies": {
     "eslint": "5.16.0",
-    "eslint-plugin-node": "^8.0.1",
-    "eslint-plugin-promise": "^4.1.1"
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^4.0.1"
   }
 }
