@@ -123,10 +123,6 @@ module.exports = class extends Language {
             MESSAGE_NEW_REMINDER: "Nuovo Promemoria creato con ID:",
             MESSAGE_LINK_SHORTEN: "Ecco la tua URL:",
             MESSAGE_AVATAR: "Ecco l'avatar di",
-            MESSAGE_AFK_TRUE: "Imposta il tuo stato in AFK - Assente!",
-            MESSAGE_AFK_FALSE: "Rimuove il tuo stato di AFS - Assente!",
-            MESSAGE_IS_AFK: "è attualmente AFK - Assente poichè:",
-            MESSAGE_AFK_REMOVED: "è stato rimosso dallo stato di AFK - Assente!",
             MESSAGE_STARCHAN_SET: "Il canale Starboard è stato impostato correttamente.",
 
             // Pengu's Commands Descriptions
