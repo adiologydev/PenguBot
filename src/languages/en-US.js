@@ -453,6 +453,7 @@ module.exports = class extends Language {
             CHOICE_SELECT: "My gut feeling says, go with",
             COMMAND_CHOOSE_DESCRIPTION: "Need help in selecting an option? PenguBot to the rescue!",
 
+            // Commands (Start of cleaning up Language files)
             COMMAND_AFK_REMOVED: username => `Dear ${username}, I've successfully removed you from AFK.`,
             COMMAND_AFK_SET: (username, reason) => `Dear ${username}, I've set you afk for \`${reason}\``,
 
