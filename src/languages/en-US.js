@@ -127,8 +127,6 @@ module.exports = class extends Language {
             MESSAGE_NEW_REMINDER: "New Reminder has been created with ID:",
             MESSAGE_LINK_SHORTEN: "Here's your Short URL:",
             MESSAGE_AVATAR: "Here's the avatar of",
-            MESSAGE_AFK_TRUE: "Set your status to Away From Keyboard!",
-            MESSAGE_AFK_FALSE: "Set your status to no longer Aaway From Keyboard!",
             MESSAGE_IS_AFK: "is currently AFK for:",
             MESSAGE_AFK_REMOVED: "was removed from the AFK status!",
             MESSAGE_STARCHAN_SET: "Starboard channel has now been set.",
@@ -455,7 +453,10 @@ module.exports = class extends Language {
             ERR_TRY_AGAIN: "There was an oopsie, please try again!",
             ER_CHOICES_SENSE: "You want me to choose from a single option? That makes sense...",
             CHOICE_SELECT: "My gut feeling says, go with",
-            COMMAND_CHOOSE_DESCRIPTION: "Need help in selecting an option? PenguBot to the rescue!"
+            COMMAND_CHOOSE_DESCRIPTION: "Need help in selecting an option? PenguBot to the rescue!",
+
+            COMMAND_AFK_REMOVED: username => `Dear ${username}, I've successfully removed you from AFK.`,
+            COMMAND_AFK_SET: (username, reason) => `Dear ${username}, I've set you afk for \`${reason}\``
         };
     }
 
