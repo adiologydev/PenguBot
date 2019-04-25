@@ -23,9 +23,9 @@ module.exports = class extends Monitor {
 
         for (const key of Object.keys(body.attributeScores)) {
             if (!filters[key].enabled) continue;
-            if (!body.attributeScores[key].summaryScore.value >= filters[key].threshold) return;
+            if (body.attributeScores[key].summaryScore.value <= filters[key].threshold) return;
             await msg.delete().catch(() => null);
-            this.client.emit("customLogs", msg.guild, "automod", { filter: key, channel: msg.channel, name: "automod", content: msg.content, image: msg.attachments.size > 0 ? await this.checkAttachments(msg.attachments.first()) : null }, msg.author);
+            this.client.emit("customLogs", msg.guild, "automod", { filter: key, channel: msg.channel, name: "automod", content: msg.content, image: msg.attachments.size > 0 ? this.checkAttachments(msg.attachments.first()) : null }, msg.author);
         }
     }
 

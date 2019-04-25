@@ -16,7 +16,7 @@ module.exports = class extends Monitor {
     }
 
     async checkAfk(msg) {
-        await msg.author.settings.reset("afk");
+        await msg.author.settings.reset(["afk.time", "afk.reason"]);
 
         const message = await msg.sendLocale("MONITOR_AFK_REMOVED", [msg.author.username]);
         return message.delete({ timeout: 10000, reason: "Pengubot AFK Feature" }).catch(() => null);

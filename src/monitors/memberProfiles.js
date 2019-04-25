@@ -18,8 +18,8 @@ module.exports = class extends Monitor {
     async run(msg) {
         if (!msg.guild) return;
         if (timeout.has(`${msg.author.id}-${msg.guild.id}`)) return;
-
         if (this.client.user.id !== "303181184718995457" && await msg.guild.members.fetch("303181184718995457").catch(() => null)) return;
+
         await msg.member.settings.sync(true);
 
         const randomXP = this.client.funcs.randomNumber(1, 5);
