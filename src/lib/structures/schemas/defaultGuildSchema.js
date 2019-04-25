@@ -135,6 +135,7 @@ module.exports = KlasaClient.defaultGuildSchema
     .add("users", users => users
         .add("admin", "user", { array: true })
         .add("mod", "user", { array: true })
+        .add("staff", "user", { array: true })
         .add("dj", "user", { array: true }))
     .add("roles", roles => roles
         .add("autorole", "role", { array: true })
@@ -142,5 +143,6 @@ module.exports = KlasaClient.defaultGuildSchema
         .add("leveledrole", "any", { array: true, configurable: false })
         .add("admin", "role")
         .add("mod", "role")
+        .add("staff", "role")
         .add("dj", "role")
         .add("muted", "role", { configurable: false }));
