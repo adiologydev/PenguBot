@@ -19,8 +19,8 @@ module.exports = class extends Task {
         return Promise.all([
             snekfetch.post(`https://discordbots.org/api/bots/${this.client.user.id}/stats`)
                 .set("Authorization", this.client.config.keys.dbl).send(stats),
-            snekfetch.post(`https://bots.discord.pw/api/bots/${this.client.user.id}/stats`)
-                .set("Authorization", this.client.config.keys.dbpw).send(stats),
+            snekfetch.post(`https://bots.ondiscord.xyz/bot-api/bots/${this.client.user.id}/guilds`)
+                .set("Authorization", this.client.config.keys.dbpw).send({ guildCount: guilds }),
             snekfetch.post(`https://discordbotlist.com/api/bots/${this.client.user.id}/stats`)
                 .set("Authorization", `Bot ${this.client.config.keys.ogdbl}`).send({ guilds: guilds, users: users, shard_id: 0, voice_connections: vc }),
             snekfetch.post(`https://botsfordiscord.com/api/bot/${this.client.user.id}`)
