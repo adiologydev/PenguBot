@@ -47,17 +47,23 @@ module.exports = class extends Monitor {
     }
 
     async leveledroles(msg) {
-        const levelRole = msg.guild.settings.levelroles.roles.find(r => r.lvl === msg.member.settings.level);
-        if (!levelRole) return;
+        const levelRoles = msg.guild.settings.levelroles.roles.filter(leveledRole => msg.member.settings.level >= leveledRole.lvl);
+        if (!levelRoles.length) return;
 
-        if (msg.member.roles.has(levelRole.id)) return;
+        const promises = [];
 
-        const role = msg.guild.roles.get(levelRole.id);
-        if (!role) return;
+        for (const levelRole of levelRoles) {
+            if (msg.member.roles.has(levelRole.id)) continue;
 
-        if (role.position >= msg.guild.me.roles.highest.position) return;
+            const role = msg.guild.roles.get(levelRole.id);
+            if (!role) continue;
 
-        await msg.member.roles.add(role, "Level Based Role").catch(() => null);
+            if (role.position >= msg.guild.me.roles.highest.position) continue;
+
+            promises.push(msg.member.roles.add(role, "Level Based Role").catch(() => null));
+        }
+
+        await Promise.all(promises);
     }
 
     async generateLevelUpImage(background, userAvatar) {
