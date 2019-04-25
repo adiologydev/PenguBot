@@ -5,16 +5,17 @@ module.exports = class extends Task {
 
     async run() {
         if (this.client.user.id !== "303181184718995457") return;
-        const stats = { server_count: this.client.guilds.size, shard_count: this.client.shard.shardCount };
+        if (this.client.shard.id !== 0) return;
 
         let [guilds, vc, users] = [0, 0, 0];
-
         const results = await this.client.shard.broadcastEval(`[this.guilds.reduce((prev, val) => val.memberCount + prev, 0), this.guilds.size, this.lavalink.map(u => u).filter(p => p.playing).length]`);
         for (const result of results) {
             users += result[0];
             guilds += result[1];
             vc += result[2];
         }
+
+        const stats = { server_count: guilds, shard_count: this.client.shard.shardCount };
 
         return Promise.all([
             snekfetch.post(`https://discordbots.org/api/bots/${this.client.user.id}/stats`)
