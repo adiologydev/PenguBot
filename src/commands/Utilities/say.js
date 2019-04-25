@@ -6,7 +6,7 @@ module.exports = class extends Command {
         super(...args, {
             runIn: ["text"],
             cooldown: 5,
-            permissionLevel: 4,
+            permissionLevel: 3,
             requiredPermissions: ["MANAGE_MESSAGES", "USE_EXTERNAL_EMOJIS"],
             description: language => language.get("COMMAND_SAY_DESCRIPTION"),
             usage: "<message:string>",

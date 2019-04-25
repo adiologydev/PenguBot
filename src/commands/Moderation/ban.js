@@ -7,7 +7,7 @@ module.exports = class extends Command {
             runIn: ["text"],
             cooldown: 10,
             aliases: ["banmember"],
-            permissionLevel: 4,
+            permissionLevel: 5,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "BAN_MEMBERS"],
             description: language => language.get("COMMAND_BAN_DESCRIPTION"),
             quotedStringSupport: false,

@@ -5,7 +5,7 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
-            permissionLevel: 4,
+            permissionLevel: 3,
             runIn: ["text"],
             description: language => language.get("COMMAND_HISTORY_DESCRIPTION"),
             usage: "<user:username>"

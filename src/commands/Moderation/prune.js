@@ -7,7 +7,7 @@ module.exports = class extends Command {
             runIn: ["text"],
             cooldown: 10,
             aliases: ["clean", "purge"],
-            permissionLevel: 4,
+            permissionLevel: 3,
             requiredPermissions: ["MANAGE_MESSAGES", "USE_EXTERNAL_EMOJIS"],
             description: language => language.get("COMMAND_PRUNE_DESCRIPTION"),
             usage: "[limit:integer] [link|links|invite|invites|bots|pengu|me|upload|uploads|user:user]",

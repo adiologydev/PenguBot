@@ -7,7 +7,7 @@ module.exports = class extends Command {
             runIn: ["text"],
             cooldown: 8,
             aliases: ["togglemute", "unmute"],
-            permissionLevel: 4,
+            permissionLevel: 3,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: language => language.get("COMMAND_MUTE_DESCRPTION"),
             usage: "<member:membername> [reason:string] [...]",
