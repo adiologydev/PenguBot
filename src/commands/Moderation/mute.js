@@ -21,7 +21,7 @@ module.exports = class extends Command {
         if (member.id === msg.author.id) return msg.reply(`${this.client.emotes.cross} ***You can not mute yourself...***`);
         if (member.id === this.client.user.id) return msg.reply(`${this.client.emotes.cross} ***Why would you want to mute Pengu?***`);
 
-        const roleID = msg.guild.settings.permissions.mutedRole;
+        const roleID = msg.guild.settings.roles.muted;
 
         if (!msg.guild.roles.get(roleID)) {
             const newRole = await msg.guild.roles.create({
@@ -30,7 +30,7 @@ module.exports = class extends Command {
                     permissions: ["READ_MESSAGES"]
                 }
             });
-            await msg.guild.settings.update("permissions.mutedRole", newRole.id);
+            await msg.guild.settings.update("roles.muted", newRole.id);
             for (const chs of msg.guild.channels.values()) {
                 await chs.updateOverwrite(newRole, { SEND_MESSAGES: false, ADD_REACTIONS: false, CONNECT: false }, `Mute Command Executed By ${msg.author.tag}`).catch(() => null);
             }
@@ -47,7 +47,7 @@ module.exports = class extends Command {
         if (member.roles.has(role.id)) {
             await member.roles.remove(role)
                 .catch(e => msg.reply(`${this.client.emotes.cross} ***There was an error: ${e}***`));
-            if (msg.guild.settings.channels.modlogs && msg.guild.settings.modlogs.logsEnabled.unmute) {
+            if (msg.guild.settings.channels.modlogs) {
                 await new ModLog(msg.guild)
                     .setType("unmute")
                     .setModerator(msg.author)
@@ -59,7 +59,7 @@ module.exports = class extends Command {
         } else {
             await member.roles.add(role)
                 .catch(e => msg.reply(`${this.client.emotes.cross} ***There was an error: ${e}***`));
-            if (msg.guild.settings.channels.modlogs && msg.guild.settings.modlogs.logsEnabled.mute) {
+            if (msg.guild.settings.channels.modlogs) {
                 await new ModLog(msg.guild)
                     .setType("mute")
                     .setModerator(msg.author)
