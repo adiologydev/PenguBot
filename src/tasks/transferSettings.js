@@ -11,7 +11,11 @@ module.exports = class extends Task {
             const settings = {};
             settings.id = guild.id;
 
-            const { customcmds, logs, disabledCommandsGroup, automod, permissions, autoroles, starboard, selfroles, levelroles, musicVolume, leveltype, messages: { join, leave }, loggingChannel, djOnly, levelup } = guild;
+            const { prefix, language, disabledCommands, customcmds, logs, disabledCommandsGroup, automod, permissions, autoroles, starboard, selfroles, levelroles, musicVolume, leveltype, messages: { join, leave }, loggingChannel, djOnly, levelup } = guild;
+            if (prefix) settings.prefix = prefix;
+            if (language) settings.language = language;
+            if (disabledCommands) settings.disabledCommands = disabledCommands;
+
             if (!permissions) continue;
             if (permissions.mods) settings.users.mod = permissions.mods;
             if (permissions.admins) settings.users.admin = permissions.admins;
