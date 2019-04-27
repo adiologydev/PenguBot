@@ -18,7 +18,7 @@ module.exports = class extends Task {
         const unmute = await member.roles.remove(role).catch(() => null);
 
         if (!unmute) return;
-        if (guild.settings.channels.modlogs && guild.settings.modlogs.logsEnabled.unmute) {
+        if (guild.settings.channels.modlogs) {
             await new ModLog(guild)
                 .setType("unmute")
                 .setModerator(this.client.user)

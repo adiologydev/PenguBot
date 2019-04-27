@@ -13,7 +13,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [selected]) {
-        const log = msg.guild.settings.modlogs.logs[selected];
+        const log = msg.guild.settings.modlogs[selected];
         if (!log) return msg.send(`${this.client.emotes.cross} ${msg.author}, That case could not be found, please try another ID.`);
 
         const [user, moderator] = await Promise.all([
@@ -26,7 +26,7 @@ module.exports = class extends Command {
                 `❯ **User**: ${user.tag} (${user.id})`,
                 `❯ **Moderator**: ${moderator.tag} (${moderator.id})`,
                 `❯ **Reason**: ${log.reason || `No Reason Specified. Use \`${msg.guild.settings.prefix}reason ${log.case}\` to claim this log.`}`
-            ])
+            ].join("\n"))
             .setTimestamp(log.timestamp)
             .setFooter("PenguBot.com - Case Date")
             .setAuthor(`Case: ${log.case}`, this.client.user.displayAvatarURL())

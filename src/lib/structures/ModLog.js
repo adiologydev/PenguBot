@@ -69,7 +69,6 @@ module.exports = class ModLog {
     async send() {
         const channel = this.guild.channels.get(this.guild.settings.channels.modlogs);
         if (!channel) throw "Modlogs channel not found.";
-        if (!this.guilds.settings.get(`modlogs.toggles.${this.type}`)) return;
         await this.getCase();
         return channel.sendEmbed(this.embed);
     }
@@ -86,7 +85,7 @@ module.exports = class ModLog {
                 `**❯ Type**: ${this.type[0].toUpperCase() + this.type.slice(1)}`,
                 `**❯ User**: ${this.user.tag} (${this.user.id})`,
                 `**❯ Reason**: ${this.reason || `Use \`${this.guild.settings.prefix}reason ${this.case}\` to claim this log.`}`
-            ])
+            ].join("\n"))
             .setFooter(`Case: ${this.case}`)
             .setTimestamp();
     }
@@ -96,9 +95,9 @@ module.exports = class ModLog {
      * @returns {KlasaMessage}
      */
     async getCase() {
-        this.case = this.guild.settings.modlogs.logs.length;
+        this.case = this.guild.settings.modlogs.length;
         this.timestamp = new Date().getTime();
-        const { errors } = await this.guild.settings.update("modlogs.logs", this.caseInfo);
+        const { errors } = await this.guild.settings.update("modlogs", this.caseInfo);
         if (errors.length) throw errors[0];
         return this.case;
     }
@@ -131,7 +130,7 @@ module.exports = class ModLog {
      * @param {string} type the type of case
      * @returns {string}
      */
-    color(type) {
+    static color(type) {
         switch (type) {
             case "ban": return "#d9534f";
             case "unban": return "#ab9292";

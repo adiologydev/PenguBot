@@ -3,20 +3,15 @@ const { Task } = require("klasa");
 
 module.exports = class extends Task {
 
-    constructor(...args) {
-        super(...args);
-        this.provider = this.client.providers.default;
-    }
-
     async run() {
-        const guilds = this.provider.getAll("guilds");
+        const guilds = await this.provider.getAll("guilds");
 
         const promises = [];
         for (const guild of guilds) {
             const settings = {};
             settings.id = guild.id;
 
-            const { disabledCommandsGroup, automod, permissions, autoroles, selfroles, levelroles, musicVolume, leveltype, messages: { join, leave }, loggingChannel, djOnly, levelup } = guild;
+            const { customcmds, logs, disabledCommandsGroup, automod, permissions, autoroles, starboard, selfroles, levelroles, musicVolume, leveltype, messages: { join, leave }, loggingChannel, djOnly, levelup } = guild;
             if (!permissions) continue;
             if (permissions.mods) settings.users.mod = permissions.mods;
             if (permissions.admins) settings.users.admin = permissions.admins;
@@ -58,9 +53,27 @@ module.exports = class extends Task {
             settings.toggles.djmode = djOnly;
             settings.toggles.levelup = levelup;
 
+            if (!customcmds) continue;
+            if (customcmds.cmds) settings.customcmds = customcmds.cmds;
+            settings.toggles.customcmds = customcmds.enabled;
+
+            if (!starboard) continue;
+            if (starboard.channel) settings.starboard.channel = starboard.channel;
+            if (starboard.required) settings.starboard.required = starboard.required;
+            settings.toggles.starboard = starboard.enabled;
+
+            if (!logs) continue;
+            settings.serverlogs = logs;
+
             promises.push(this.provider.replace("guild", guild.id, settings));
         }
+
+        console.log(`[TRANSFER] Transferring Settings for ${promises.length} Guilds.`);
         await Promise.all(promises);
+    }
+
+    get provider() {
+        return this.client.providers.default;
     }
 
 };

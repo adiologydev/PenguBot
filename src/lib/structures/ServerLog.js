@@ -79,7 +79,7 @@ module.exports = class ServerLog {
      * @param {string} type the type of case
      * @returns {string}
      */
-    color(type) {
+    static color(type) {
         switch (type) {
             case "join": return "#d9534f";
             case "leave": return "#ab9292";

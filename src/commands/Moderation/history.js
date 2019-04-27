@@ -13,7 +13,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [user]) {
-        const userlogs = msg.guild.settings.modlogs.logs.filter(log => log.user === user.id);
+        const userlogs = msg.guild.settings.modlogs.filter(log => log.user === user.id);
         if (!userlogs) return msg.send(`${this.client.emotes.cross} ***No history for this user could be found in the mod logs.***`);
         const actions = {
             ban: 0,

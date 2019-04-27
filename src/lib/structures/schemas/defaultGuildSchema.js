@@ -3,15 +3,8 @@ const { KlasaClient } = require("klasa");
 
 module.exports = KlasaClient.defaultGuildSchema
 
-// DEPRECATED START -------------------
-
-    .add("djOnly", "boolean", { default: false }) // delete after transfer
-    .add("levelup", "boolean", { default: false }) // delete after transfer
-
-// DEPRECATED END ---------------------
-
     // Logging
-    .add("logs", folder => folder
+    .add("serverlogs", folder => folder
         .add("join", "boolean", { default: false })
         .add("leave", "boolean", { default: false })
         .add("channels", "boolean", { default: false })
@@ -19,13 +12,10 @@ module.exports = KlasaClient.defaultGuildSchema
         .add("roles", "boolean", { default: false }))
 
     // Custom Commands
-    .add("customcmds", folder => folder
-        .add("cmds", "any", { array: true, configurable: false })
-        .add("enabled", "boolean", { default: true })) // delete after transfer
+    .add("customcmds", "any", { array: true, configurable: false })
 
     // Starboard
     .add("starboard", folder => folder
-        .add("enabled", "boolean", { default: true }) // delete after transfer
         .add("channel", "textchannel")
         .add("required", "integer", { default: 3 }))
 
@@ -51,10 +41,8 @@ module.exports = KlasaClient.defaultGuildSchema
 
     // Patreon
     .add("patreon", folder => folder
-        .add("enabled", "boolean", { default: false, configurable: false })
+        .add("premium", "boolean", { default: false, configurable: false })
         .add("patron", "user", { configurable: false }))
-
-// New Schema Start -------
 
     // Misc
     .add("misc", folder => folder
@@ -62,17 +50,7 @@ module.exports = KlasaClient.defaultGuildSchema
         .add("volume", "integer", { default: 100, max: 100, min: 0 }))
 
     // Mod Logs
-    .add("modlogs", folder => folder
-        .add("logs", "any", { array: true, configurable: false })
-        .add("toggles", logs => logs
-            .add("warn", "boolean", { default: true })
-            .add("kick", "boolean", { default: true })
-            .add("ban", "boolean", { default: true })
-            .add("unban", "boolean", { default: true })
-            .add("softban", "boolean", { default: true })
-            .add("unmute", "boolean", { default: true })
-            .add("automod", "boolean", { default: true })
-            .add("mute", "boolean", { default: true })))
+    .add("modlogs", "any", { array: true, configurable: false })
 
     // All Channels
     .add("channels", folder => folder
@@ -87,7 +65,9 @@ module.exports = KlasaClient.defaultGuildSchema
         .add("leavemsg", "boolean", { default: true })
         .add("autorole", "boolean", { default: true })
         .add("perspective", "boolean", { default: true })
+        .add("customcmds", "boolean", { default: true })
         .add("levelroles", "boolean", { default: true })
+        .add("modlogs", "boolean", { default: true })
         .add("djmode", "boolean", { default: false })
         .add("levelup", "boolean", { default: false })
         .add("selfrole", "boolean", { default: true }))
@@ -107,4 +87,4 @@ module.exports = KlasaClient.defaultGuildSchema
         .add("mod", "role")
         .add("staff", "role")
         .add("dj", "role")
-        .add("muted", "role", { configurable: false }));
+        .add("muted", "role"));
