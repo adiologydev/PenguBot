@@ -1,4 +1,4 @@
-const { Language, klasaUtil: util, version } = require("../index");
+const { Language, klasaUtil: util, version, Duration } = require("../index");
 
 module.exports = class extends Language {
 
@@ -123,10 +123,6 @@ module.exports = class extends Language {
             MESSAGE_NEW_REMINDER: "Nuovo Promemoria creato con ID:",
             MESSAGE_LINK_SHORTEN: "Ecco la tua URL:",
             MESSAGE_AVATAR: "Ecco l'avatar di",
-            MESSAGE_AFK_TRUE: "Imposta il tuo stato in AFK - Assente!",
-            MESSAGE_AFK_FALSE: "Rimuove il tuo stato di AFS - Assente!",
-            MESSAGE_IS_AFK: "è attualmente AFK - Assente poichè:",
-            MESSAGE_AFK_REMOVED: "è stato rimosso dallo stato di AFK - Assente!",
             MESSAGE_STARCHAN_SET: "Il canale Starboard è stato impostato correttamente.",
 
             // Pengu's Commands Descriptions
@@ -447,7 +443,15 @@ module.exports = class extends Language {
             COMMAND_WARN_DESCRIPTION: "Warn a user for an infraction and log it.",
             COMMAND_HISTORY_DESCRIPTION: "Get a user's infraction history from mod logs.",
             COMMAND_REASON_DESCRIPTION: "Allow a moderator to set a case's history in mod logs.",
-            COMMAND_MODLOG_DESCRIPTION: "Change the Mod Logs setting in the server."
+            COMMAND_MODLOG_DESCRIPTION: "Change the Mod Logs setting in the server.",
+
+            // Commands (Start of cleaning up Language files)
+            COMMAND_AFK_REMOVED: username => `Dear ${username}, I've successfully removed you from AFK.`,
+            COMMAND_AFK_SET: (username, reason) => `Dear ${username}, I've set you afk for \`${reason}\``,
+
+            // Monitors
+            MONITOR_AFK_REMOVED: username => `Welcome back **${username}**, I have removed you from AFK.`,
+            MONITOR_AFK_ISAFK: (username, reason, time) => `**${username}** is currently AFK for \`${reason}\` - ${Duration.toNow(time)} ago`
         };
     }
 

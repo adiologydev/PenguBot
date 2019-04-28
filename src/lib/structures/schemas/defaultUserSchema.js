@@ -16,7 +16,7 @@ module.exports = KlasaClient.defaultUserSchema
 
     // AFK
     .add("afk", folder => folder
-        .add("afk", "boolean", { default: false, configurable: false })
+        .add("time", "integer", { configurable: false })
         .add("reason", "string", { configurable: false }))
 
     // Patreon
