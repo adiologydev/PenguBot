@@ -33,7 +33,7 @@ module.exports = class extends Monitor {
         timeout.add(`${msg.guild.id}-${msg.author.id}`);
         setTimeout(() => timeout.delete(`${msg.guild.id}-${msg.author.id}`), 45000);
 
-        if (oldLevel === newLevel || !msg.guild.settings.levelup || msg.guild.settings.leveltype !== "user" || !msg.channel.postable) return;
+        if (oldLevel === newLevel || !msg.guild.settings.toggles.levelup || msg.guild.settings.misc.leveluptype !== "user" || !msg.channel.postable) return;
 
         const image = await this.generateLevelUpImage(msg.author.settings.profilebg, msg.author.displayAvatarURL({ format: "png", size: 128 }));
         return msg.sendMessage(`🆙 | **${msg.author.tag} has leveled up to Level ${newLevel}!**`, { files: [{ attachment: image, name: `${msg.author.id}.png` }] });

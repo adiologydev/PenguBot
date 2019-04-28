@@ -8,8 +8,8 @@ module.exports = class extends Monitor {
     }
 
     async run(msg) {
-        if (!msg.guild || !msg.content || msg.command || !msg.guild.settings.automod.enabled) return;
-        if (await msg.hasAtLeastPermissionLevel(4)) return;
+        if (!msg.guild || !msg.content || msg.command || !msg.guild.settings.toggles.perspective) return;
+        if (msg.guild.settings.toggles.staffbypass && await msg.hasAtLeastPermissionLevel(3)) return;
         if (this.client.user.id !== "303181184718995457" && await msg.guild.members.fetch("303181184718995457").catch(() => null)) return;
 
         const { body } = await post(`https://commentanalyzer.googleapis.com/v1alpha1/comments:analyze?key=${this.client.config.keys.perspective}`)
@@ -18,11 +18,11 @@ module.exports = class extends Monitor {
 
         if (!body) return;
 
-        const { filters } = msg.guild.settings.automod;
+        const { perspective } = msg.guild.settings.automod;
 
         for (const key of Object.keys(body.attributeScores)) {
-            if (!filters[key].enabled) continue;
-            if (body.attributeScores[key].summaryScore.value <= filters[key].threshold) return;
+            if (!perspective[key].enabled) continue;
+            if (body.attributeScores[key].summaryScore.value <= perspective[key].threshold) return;
             await msg.delete().catch(() => null);
             this.client.emit("customLogs", msg.guild, "automod", { filter: key, channel: msg.channel, name: "automod", content: msg.content, image: msg.attachments.size > 0 ? await this.checkAttachments(msg.attachments.first()) : null }, msg.author);
         }

@@ -70,6 +70,7 @@ module.exports = KlasaClient.defaultGuildSchema
         .add("modlogs", "boolean", { default: true })
         .add("djmode", "boolean", { default: false })
         .add("levelup", "boolean", { default: false })
+        .add("staffbypass", "boolean", { default: true })
         .add("selfrole", "boolean", { default: true }))
 
     // Permissions
