@@ -11,7 +11,7 @@ module.exports = class extends Event {
         const customCommand = msg.guildSettings.customcmds.cmds.find(c => c.name.toLowerCase() === command);
         if (!customCommand) return;
 
-        if (timeout.has(`${msg.author.id}-${msg.guild.id}`)) return msg.reply(`${this.client.emotes.cross} **Ooh, Not So Quickly. Please Wait and Try Again!`);
+        if (timeout.has(`${msg.author.id}-${msg.guild.id}`)) return msg.reply(`${this.client.emotes.cross} **Ooh, Not so quickly. Please wait and try again!**`);
 
         const args = msg.content.slice(prefixLength).trim().split(" ").slice(1);
         const parsed = await this.parser.parse(customCommand.content, {
@@ -29,7 +29,7 @@ module.exports = class extends Event {
 
     async init() {
         this.parser = new Parser();
-        this.parser.loadAll("../lib/tags");
+        this.parser.loadAll(`${process.cwd()}/lib/tags`);
     }
 
 };
