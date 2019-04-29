@@ -1,5 +1,5 @@
 const { Task } = require("klasa");
-const ModLog = require("../../lib/structures/ModLog");
+const ModLog = require("../lib/structures/ModLog");
 
 module.exports = class extends Task {
 
@@ -8,7 +8,7 @@ module.exports = class extends Task {
         const member = await guild.members.fetch(userID).catch(() => null);
         if (!guild || !member) return;
 
-        const roleID = guild.settings.permissions.mutedRole;
+        const roleID = guild.settings.roles.muted;
         const role = await guild.roles.get(roleID);
 
         if (!role) return;

@@ -107,7 +107,7 @@ class MusicInterface {
     }
 
     get volume() {
-        return this.guild.settings.musicVolume;
+        return this.guild.settings.misc.volume;
     }
 
     /**

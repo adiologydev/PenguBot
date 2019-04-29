@@ -1,5 +1,5 @@
 const { Task } = require("klasa");
-const ModLog = require("../../lib/structures/ModLog");
+const ModLog = require("../lib/structures/ModLog");
 
 module.exports = class extends Task {
 

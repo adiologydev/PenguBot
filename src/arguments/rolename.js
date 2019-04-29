@@ -1,4 +1,6 @@
-const { Argument, klasaUtil: { regExpEsc }, Role } = require("../index");
+// Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
+const { Argument, util: { regExpEsc } } = require("klasa");
+const { Role } = require("discord.js");
 
 const ROLE_REGEXP = Argument.regex.role;
 
@@ -25,7 +27,9 @@ module.exports = class extends Argument {
         switch (querySearch.length) {
             case 0: throw `${possible.name} Must be a valid name, id or role mention`;
             case 1: return querySearch[0];
-            default: throw `Found multiple matches: \`${querySearch.map(role => role.name).join("`, `")}\``;
+            default:
+                if (querySearch[0].name.toLowerCase() === arg.toLowerCase()) return querySearch[0];
+                throw `Found multiple matches: \`${querySearch.map(role => role.name).join("`, `")}\``;
         }
     }
 

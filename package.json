@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/AdityaTD/PenguBot#readme",
   "dependencies": {
-    "breadtags": "^2.0.0",
+    "breadtags": "github:Soumil07/bread-tags",
     "bufferutil": "^4.0.1",
     "canvas": "^2.4.1",
     "canvas-constructor": "github:kyranet/canvasConstructor",
