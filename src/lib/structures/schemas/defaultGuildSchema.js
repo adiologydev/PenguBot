@@ -63,15 +63,16 @@ module.exports = KlasaClient.defaultGuildSchema
     .add("toggles", folder => folder
         .add("joinmsg", "boolean", { default: true })
         .add("leavemsg", "boolean", { default: true })
-        .add("autorole", "boolean", { default: true })
+        .add("autoroles", "boolean", { default: true })
         .add("perspective", "boolean", { default: true })
         .add("customcmds", "boolean", { default: true })
+        .add("starboard", "boolean", { default: true })
         .add("levelroles", "boolean", { default: true })
         .add("modlogs", "boolean", { default: true })
         .add("djmode", "boolean", { default: false })
         .add("levelup", "boolean", { default: false })
         .add("staffbypass", "boolean", { default: true })
-        .add("selfrole", "boolean", { default: true }))
+        .add("selfroles", "boolean", { default: true }))
 
     // Permissions
     .add("users", users => users

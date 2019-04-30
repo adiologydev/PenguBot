@@ -20,7 +20,7 @@ module.exports = class extends Command {
     }
 
     async list(msg) {
-        const { roles } = msg.guild.settings.selfroles;
+        const roles = msg.guild.settings.roles.selfrole;
         if (!roles.length) return msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("CMD_NO_SELFROLES")}***`);
         const pages = new RichDisplay(new MessageEmbed()
             .setTitle("Use the reactions to change pages, select a page, or stop viewing the roles")
@@ -37,7 +37,7 @@ module.exports = class extends Command {
     }
 
     async add(msg, [role]) {
-        const { roles } = msg.guild.settings.selfroles;
+        const roles = msg.guild.settings.roles.selfrole;
         if (!roles || !role) return msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("CMD_NO_SELFROLES")}***`);
         if (!roles.includes(role.id)) return msg.sendMessage(`${this.client.emotes.cross} ***That given role is not self assignable do \`${msg.guildSettings.prefix}selfroles list\` to know all the self assignable roles.***`);
 
@@ -51,7 +51,7 @@ module.exports = class extends Command {
     }
 
     async remove(msg, [role]) {
-        const { roles } = msg.guild.settings.selfroles;
+        const roles = msg.guild.settings.roles.selfrole;
         if (!roles || !role) return msg.sendMessage(`${this.client.emotes.cross} ***This guild does not have any self assignable roles or you didn't mention any.***`);
         if (!roles.includes(role.id)) return msg.sendMessage(`${this.client.emotes.cross} ***That given role is not self assignable do \`${msg.guildSettings.prefix}selfroles list\` to know all the self assignable roles.***`);
 

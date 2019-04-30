@@ -15,12 +15,12 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        if (msg.guild.settings.get("selfroles.enabled") === false) {
-            return msg.guild.settings.update("autoroles.enabled", true).then(() => {
+        if (msg.guild.settings.get("toggles.selfroles") === false) {
+            return msg.guild.settings.update("toggles.selfroles", true).then(() => {
                 msg.sendMessage(`${this.client.emotes.check} ***${msg.language.get("MESSAGE_AUTOROLES_ENABLED")}***`);
             });
         } else {
-            return msg.guild.settings.update("selfroles.enabled", false).then(() => {
+            return msg.guild.settings.update("toggles.selfroles", false).then(() => {
                 msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_AUTOROLES_DISABLED")}***`);
             });
         }

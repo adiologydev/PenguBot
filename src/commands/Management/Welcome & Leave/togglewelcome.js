@@ -15,14 +15,14 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        if (!msg.guild.settings.messages.welcome.enabled) {
-            if (!msg.guild.channels.get(msg.guild.settings.messages.welcome.channel)) { await msg.guild.settings.update("messages.welcome.channel", msg.channel.id); }
-            if (!msg.guild.settings.messages.welcome.message) { await msg.guild.settings.update("messages.welcome.message", "Welcome {MENTION} to {GUILD_NAME}, we hope you enjoy your stay!", { action: "add" }); }
-            return msg.guild.settings.update("messages.welcome.enabled", true).then(() => {
+        if (!msg.guild.settings.toggles.joinmsg) {
+            if (!msg.guild.channels.get(msg.guild.settings.channels.join)) { await msg.guild.settings.update("channels.join", msg.channel.id); }
+            if (!msg.guild.settings.messages.join) { await msg.guild.settings.update("messages.join", "Welcome {MENTION} to {GUILD_NAME}, we hope you enjoy your stay!", { action: "add" }); }
+            return msg.guild.settings.update("toggles.joinmsg", true).then(() => {
                 msg.sendMessage(`${this.client.emotes.check} ***${msg.language.get("MESSAGE_WLCM_ENABLED")}***`);
             });
         } else {
-            return msg.guild.settings.update("messages.welcome.enabled", false).then(() => {
+            return msg.guild.settings.update("toggles.joinmsg", false).then(() => {
                 msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_WLCM_DISABLED")}***`);
             });
         }

@@ -19,7 +19,7 @@ module.exports = class extends Command {
     async add(msg, [role, level]) {
         if (!level) throw `${this.client.emotes.cross} ***You must enter a level at which you want to award this role.***`;
         if (level <= 0) throw `${this.client.emotes.cross} ***You can't give people levels if they are level ZERO or Lower, use Autoroles instead.***`;
-        const { roles } = msg.guild.settings.levelroles;
+        const roles = msg.guild.settings.roles.levelrole;
         if (roles.find(r => r.id === role.id)) throw `${this.client.emotes.cross} ***This role already exists in the leveled roles.***`;
 
         const myRole = msg.guild.me.roles.highest;

@@ -7,7 +7,7 @@ module.exports = class extends Event {
         const msg = reaction.message;
         const { guild } = msg;
         if (!guild) return;
-        if (!guild.settings.starboard.enabled || !guild.settings.starboard.channel) return;
+        if (!guild.settings.toggles.starboard || !guild.settings.starboard.channel) return;
         if (reaction.emoji.name !== "⭐") return;
 
         const starChannel = msg.guild.channels.find(c => c.id === msg.guild.settings.starboard.channel);

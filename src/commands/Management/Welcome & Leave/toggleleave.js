@@ -15,14 +15,14 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        if (!msg.guild.settings.messages.leave.enabled) {
-            if (!msg.guild.channels.get(msg.guild.settings.messages.leave.channel)) { await msg.guild.settings.update("messages.leave.channel", msg.channel.id); }
-            if (!msg.guild.settings.messages.leave.message) { await msg.guild.settings.update("messages.leave.message", "It's sad to see you leaving **{USERNAME}**!", { action: "add" }); }
-            return msg.guild.settings.update("messages.leave.enabled", true).then(() => {
+        if (!msg.guild.settings.toggles.leavemsg) {
+            if (!msg.guild.channels.get(msg.guild.settings.channels.leave)) { await msg.guild.settings.update("channels.leave", msg.channel.id); }
+            if (!msg.guild.settings.messages.leave) { await msg.guild.settings.update("messages.leave", "It's sad to see you leaving **{USERNAME}**!", { action: "add" }); }
+            return msg.guild.settings.update("toggles.leavemsg", true).then(() => {
                 msg.sendMessage(`${this.client.emotes.check} ***${msg.language.get("MESSAGE_LEAVE_ENABLED")}***`);
             });
         } else {
-            return msg.guild.settings.update("messages.leave.enabled", false).then(() => {
+            return msg.guild.settings.update("toggles.leavemsg", false).then(() => {
                 msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_LEAVE_DISABLED")}***`);
             });
         }

@@ -15,12 +15,12 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        if (!msg.guild.settings.starboard.enabled) {
-            return msg.guild.settings.update("starboard.enabled", true).then(() => {
+        if (!msg.guild.settings.toggles.starboard) {
+            return msg.guild.settings.update("toggles.starboard", true).then(() => {
                 msg.sendMessage(`${this.client.emotes.check} ***${msg.language.get("MESSAGE_STAR_ENABLED")}***`);
             });
         } else {
-            return msg.guild.settings.update("starboard.enabled", false).then(() => {
+            return msg.guild.settings.update("toggles.starboard", false).then(() => {
                 msg.sendMessage(`${this.client.emotes.check} ***${msg.language.get("MESSAGE_STAR_DISABLED")}***`);
             });
         }

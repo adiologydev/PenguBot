@@ -17,12 +17,12 @@ module.exports = class extends Command {
 
     async run(msg, [toggle, filter, threshold]) {
         if (toggle && !filter) {
-            if (msg.guild.settings.get("automod.enabled") === false) {
-                return msg.guild.settings.update("automod.enabled", true).then(() => {
+            if (msg.guild.settings.get("toggles.perspective") === false) {
+                return msg.guild.settings.update("toggles.perspective", true).then(() => {
                     msg.sendMessage(`${this.client.emotes.check} ***${msg.language.get("MESSAGE_AUTOMOD_ENABLED")}***`);
                 });
             } else {
-                return msg.guild.settings.update("automod.enabled", false).then(() => {
+                return msg.guild.settings.update("toggles.perspective", false).then(() => {
                     msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_AUTOMOD_DISABLED")}***`);
                 });
             }
@@ -39,7 +39,7 @@ module.exports = class extends Command {
             const obj = filters[filter.toUpperCase()];
             const newObj = { enabled: !obj.enabled, threshold: threshold ? threshold : obj.threshold };
 
-            return msg.guild.settings.update(`automod.filters.${filter.toUpperCase()}`, newObj, { action: "overwrite" }).then(() => {
+            return msg.guild.settings.update(`automod.perspective.${filter.toUpperCase()}`, newObj, { action: "overwrite" }).then(() => {
                 msg.sendMessage(`${!obj.enabled ? this.client.emotes.check : this.client.emotes.cross} \`${filter}\` ***${msg.language.get("MESSAGE_AUTOMOD_TOGGLED")} ${threshold ? `with \`${threshold}\` Threshold.` : "."}***`);
             });
         }
