@@ -7,13 +7,25 @@ module.exports = class ServerLog {
         this.client = guild.client;
 
         this.type = null;
+        this.embedColor = null;
+        this.name = null;
         this.user = null;
         this.data = null;
     }
 
     /**
-     * Gives a type to the server log
-     * @param {string} type type of case
+     * Gives a color to the server log
+     * @param {string} type type of log
+     * @returns {ServerLog}
+     */
+    setColor(type) {
+        this.embedColor = this.color(type);
+        return this;
+    }
+
+    /**
+     * Gets the type of log
+     * @param {string} type type of log
      * @returns {ServerLog}
      */
     setType(type) {
@@ -43,6 +55,17 @@ module.exports = class ServerLog {
     }
 
     /**
+     * Sets the name
+     * @param {string} name log message
+     * @returns {ServerLog}
+     */
+    setName(name = null) {
+        if (Array.isArray(name)) name = name.join(" ");
+        this.name = name;
+        return this;
+    }
+
+    /**
      * Sends an embed with all the details of the server log
      * @returns {Promise<KlasaMessage>}
      */
@@ -59,8 +82,9 @@ module.exports = class ServerLog {
      */
     get embed() {
         const embed = new MessageEmbed()
-            .setColor(this.color(this.type))
+            .setColor(this.embedColor)
             .setDescription(this.message)
+            .setFooter(this.name)
             .setTimestamp();
 
         if (this.data && this.data.author) embed.setAuthor(this.data.author);
@@ -81,14 +105,11 @@ module.exports = class ServerLog {
      */
     static color(type) {
         switch (type) {
-            case "join": return "#d9534f";
-            case "leave": return "#ab9292";
-            case "channels": return "#d9534f";
-            case "messages": return "#ab9292";
-            case "roles": return "#fbe400";
-            case "user": return "#d9534f";
-            case "guild": return "#d87370";
-            default: return "#d9534f";
+            case "red": return "#d9534f";
+            case "green": return "#5cb85c";
+            case "blue": return "#428bca";
+            case "yellow": return "#d8d94f";
+            default: return "#428bca";
         }
     }
 

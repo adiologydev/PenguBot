@@ -7,6 +7,7 @@ module.exports = KlasaClient.defaultGuildSchema
     .add("serverlogs", folder => folder
         .add("join", "boolean", { default: false })
         .add("leave", "boolean", { default: false })
+        .add("moderation", "boolean", { default: false })
         .add("channels", "boolean", { default: false })
         .add("messages", "boolean", { default: false })
         .add("roles", "boolean", { default: false }))

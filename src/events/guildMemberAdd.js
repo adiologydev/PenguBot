@@ -1,10 +1,15 @@
 const { Event } = require("klasa");
+const ServerLog = require("../lib/structures/ServerLog");
 
 module.exports = class extends Event {
 
     async run(member) {
-        // Logging
-        this.client.emit("customLogs", member.guild, "join", { name: "join" }, member.user);
+        await new ServerLog(member.guild)
+            .setColor("green")
+            .setType("join")
+            .setName("Member Joined")
+            .setMessage(`📥 ${member.user} (${member.id}) has joined **${member.guild.name}**.`)
+            .send();
 
         await this.welcomeMessage(member);
         await this.autoroles(member);
