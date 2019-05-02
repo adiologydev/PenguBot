@@ -1,4 +1,4 @@
-const { Monitor } = require("../index");
+const { Monitor, ServerLog } = require("../index");
 const { post } = require("snekfetch");
 
 module.exports = class extends Monitor {
@@ -24,12 +24,14 @@ module.exports = class extends Monitor {
             if (!perspective[key].enabled) continue;
             if (body.attributeScores[key].summaryScore.value <= perspective[key].threshold) return;
             await msg.delete().catch(() => null);
-            this.client.emit("customLogs", msg.guild, "automod", { filter: key, channel: msg.channel, name: "automod", content: msg.content, image: msg.attachments.size > 0 ? await this.checkAttachments(msg.attachments.first()) : null }, msg.author);
+            await new ServerLog(msg.guild)
+                .setColor("red")
+                .setType("automod")
+                .setName(`Automod - Perspective | ${key}`)
+                .setAuthor(`${msg.author.tag} in #${msg.channel.name}`, msg.author.displayAvatarURL())
+                .setMessage(`**Content:**\n${msg.content}`)
+                .send();
         }
-    }
-
-    checkAttachments(attachment) {
-        return attachment && attachment.height ? attachment : null;
     }
 
 };

@@ -20,6 +20,7 @@ module.exports = {
     discordConstants: discord.Constants,
     Command: require("./lib/structures/KlasaCommand"),
     ModLog: require("./lib/structures/ModLog"),
+    ServerLog: require("./lib/structures/ServerLog"),
     Song: require("./lib/structures/Song"),
     RawEvent: require("./lib/structures/RawEvent")
 };

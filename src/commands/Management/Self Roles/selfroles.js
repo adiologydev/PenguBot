@@ -38,8 +38,8 @@ module.exports = class extends Command {
 
     async add(msg, [role]) {
         const roles = msg.guild.settings.roles.selfrole;
-        if (!roles || !role) return msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("CMD_NO_SELFROLES")}***`);
-        if (!roles.includes(role.id)) return msg.sendMessage(`${this.client.emotes.cross} ***That given role is not self assignable do \`${msg.guildSettings.prefix}selfroles list\` to know all the self assignable roles.***`);
+        if (!roles.length) return msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("CMD_NO_SELFROLES")}***`);
+        if (!roles.includes(role.id) || !role) return msg.sendMessage(`${this.client.emotes.cross} ***That given role is not self assignable do \`${msg.guildSettings.prefix}selfroles list\` to know all the self assignable roles.***`);
 
         const myRole = msg.guild.me.roles.highest;
         if (role.position > myRole.positon) return msg.sendMessage(`${this.client.emotes.cross} ***That given role is above my role in the guild, please change the order.***`);
@@ -52,8 +52,8 @@ module.exports = class extends Command {
 
     async remove(msg, [role]) {
         const roles = msg.guild.settings.roles.selfrole;
-        if (!roles || !role) return msg.sendMessage(`${this.client.emotes.cross} ***This guild does not have any self assignable roles or you didn't mention any.***`);
-        if (!roles.includes(role.id)) return msg.sendMessage(`${this.client.emotes.cross} ***That given role is not self assignable do \`${msg.guildSettings.prefix}selfroles list\` to know all the self assignable roles.***`);
+        if (!roles.length) return msg.sendMessage(`${this.client.emotes.cross} ***This guild does not have any self assignable roles or you didn't mention any.***`);
+        if (!roles.includes(role.id) || !role) return msg.sendMessage(`${this.client.emotes.cross} ***That given role is not self assignable do \`${msg.guildSettings.prefix}selfroles list\` to know all the self assignable roles.***`);
 
         const myRole = msg.guild.me.roles.highest;
         if (role.position > myRole.positon) return msg.sendMessage(`${this.client.emotes.cross} ***That given role is above my role in the guild, please change the order.***`);

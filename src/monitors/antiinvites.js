@@ -1,4 +1,4 @@
-const { Monitor } = require("../index");
+const { Monitor, ServerLog } = require("../index");
 const inviteRegex = /(https?:\/\/)?(www\.)?(discord\.(gg|li|me|io)|discordapp\.com\/invite)\/.+/;
 
 module.exports = class extends Monitor {
@@ -19,7 +19,15 @@ module.exports = class extends Monitor {
 
         if (!inviteRegex.test(msg.content)) return;
 
-        return msg.delete().catch(err => this.client.emit("log", err, "error"));
+        const deleted = await msg.delete().catch(() => null);
+        if (!deleted) return;
+        await new ServerLog(msg.guild)
+            .setColor("red")
+            .setType("automod")
+            .setName("Automod - Invite Deleted")
+            .setAuthor(`${msg.author.tag} in #${msg.channel.name}`, msg.author.displayAvatarURL())
+            .setMessage(`**Content:**\n${msg.content}`)
+            .send();
     }
 
 };
