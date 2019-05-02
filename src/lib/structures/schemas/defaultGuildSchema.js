@@ -10,6 +10,7 @@ module.exports = KlasaClient.defaultGuildSchema
         .add("moderation", "boolean", { default: false })
         .add("channels", "boolean", { default: false })
         .add("messages", "boolean", { default: false })
+        .add("automod", "boolean", { default: false })
         .add("roles", "boolean", { default: false }))
 
     // Custom Commands

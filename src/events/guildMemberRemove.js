@@ -15,10 +15,10 @@ module.exports = class extends Event {
     }
 
     leaveMessage(member) {
-        if (!member.guild.settings.messages.leave.enabled) return;
-        const channel = member.guild.channels.get(member.guild.settings.messages.leave.channel);
+        if (!member.guild.settings.toggles.leavemsg) return;
+        const channel = member.guild.channels.get(member.guild.settings.channels.leave);
         if (!channel || (channel && !channel.postable)) return;
-        return channel.send(this.replace(member.guild.settings.messages.leave.message, member));
+        return channel.send(this.replace(member.guild.settings.messages.leave, member));
     }
 
     replace(text, member) {

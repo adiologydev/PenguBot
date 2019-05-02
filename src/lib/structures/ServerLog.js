@@ -10,7 +10,7 @@ module.exports = class ServerLog {
         this.embedColor = null;
         this.name = null;
         this.user = null;
-        this.data = null;
+        this.data = {};
     }
 
     /**
@@ -44,6 +44,17 @@ module.exports = class ServerLog {
     }
 
     /**
+     * Sets author for an embed
+     * @param {string} name name of author
+     * @param {string} iconurl display avatar link
+     * @returns {ServerLog}
+     */
+    setAuthor(name = null, iconurl = null) {
+        this.data.author = { name, avatar: iconurl };
+        return this;
+    }
+
+    /**
      * Sets the message
      * @param {string} message log message
      * @returns {ServerLog}
@@ -70,7 +81,7 @@ module.exports = class ServerLog {
      * @returns {Promise<KlasaMessage>}
      */
     async send() {
-        if (!this.guild.settings.get(`logs.${this.type}`)) return;
+        if (!this.guild.settings.get(`serverlogs.${this.type}`)) return;
         const channel = this.guild.channels.get(this.guild.settings.channels.logs);
         if (!channel) throw "Server logs channel not found.";
         return channel.sendEmbed(this.embed);
@@ -87,7 +98,7 @@ module.exports = class ServerLog {
             .setFooter(this.name)
             .setTimestamp();
 
-        if (this.data && this.data.author) embed.setAuthor(this.data.author);
+        if (this.data && this.data.author) embed.setAuthor(this.data.author.name, this.data.author.avatar ? this.data.author.avatar : "");
         if (this.data && this.data.thumbnail) embed.setThumbnail(this.data.thumbnail);
         if (this.data && this.data.fields) {
             for (const field of this.data.fields) {
@@ -103,7 +114,7 @@ module.exports = class ServerLog {
      * @param {string} type the type of case
      * @returns {string}
      */
-    static color(type) {
+    color(type) {
         switch (type) {
             case "red": return "#d9534f";
             case "green": return "#5cb85c";

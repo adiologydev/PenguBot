@@ -16,7 +16,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [Channel = msg.channel]) {
-        return msg.guild.settings.update("channels.loggingchannel", Channel.id).then(() => {
+        return msg.guild.settings.update("channels.logs", Channel.id).then(() => {
             msg.sendMessage(`${this.client.emotes.check} ***${msg.language.get("MESSAGE_LOGCHAN_SET")}***`);
         });
     }
