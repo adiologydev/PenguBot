@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "eslint": "5.16.0",
-    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-node": "^9.0.0",
     "eslint-plugin-promise": "^4.0.1"
   }
 }
