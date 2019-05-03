@@ -11,7 +11,7 @@ module.exports = class extends Task {
             const settings = {};
             settings.id = guild.id;
 
-            const { prefix, language, disabledCommands, customcmds, logs, disabledCommandsGroup, automod, permissions, autoroles, starboard, selfroles, levelroles, musicVolume, leveltype, messages: { join, leave }, loggingChannel, djOnly, levelup } = guild;
+            const { prefix, language, disabledCommands, customcmds, logs, disabledCommandsGroup, automod, permissions, autoroles, starboard, selfroles, levelroles, musicVolume, leveltype, messages: { welcome, leave }, loggingChannel, djOnly, levelup } = guild;
             if (prefix) settings.prefix = prefix;
             if (language) settings.language = language;
             if (disabledCommands) settings.disabledCommands = disabledCommands;
@@ -37,10 +37,10 @@ module.exports = class extends Task {
                 settings.toggles.levelroles = levelroles.enabled;
             }
 
-            if (join) {
-                if (join.channel) settings.channels.join = join.channel;
-                if (join.message) settings.messages.join = join.message;
-                settings.toggles.joinmsg = join.enabled;
+            if (welcome) {
+                if (welcome.channel) settings.channels.join = welcome.channel;
+                if (welcome.message) settings.messages.join = welcome.message;
+                settings.toggles.joinmsg = welcome.enabled;
             }
 
             if (leave) {

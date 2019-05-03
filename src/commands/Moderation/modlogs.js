@@ -17,16 +17,16 @@ module.exports = class extends Command {
         });
     }
 
-    channel(msg, [Channel = msg.channel]) {
-        return msg.guild.settings.update("loggingChannel", Channel.id)
-            .then(() => msg.sendMessage(`${this.client.emotes.check} ***${msg.language.get("MESSAGE_LOGCHAN_SET")}***`))
-            .catch(e => msg.reply(`${this.client.emotes.cross} ***There was an error: ${e}***`));
+    async channel(msg, [Channel = msg.channel]) {
+        const { errors } = await msg.guild.settings.update("channels.logs", Channel.id);
+        if (errors.length) return msg.reply(`${this.client.emotes.cross} ***There was an error: ${errors.first()}***`);
+        return msg.sendMessage(`${this.client.emotes.check} ***${msg.language.get("MESSAGE_LOGCHAN_SET")}***`);
     }
 
     async toggle(msg) {
-        return msg.guild.settings.update("toggles.modlogs", !msg.guild.settings.toggles.modlogs)
-            .then(() => msg.reply(`${this.client.emotes.check} ***Mod logs have been ${msg.guild.settings.toggles.modlogs ? "Enabled" : "Disabled"}.***`))
-            .catch(e => msg.reply(`${this.client.emotes.cross} ***There was an error: ${e}***`));
+        const { errors } = await msg.guild.settings.update("toggles.modlogs", !msg.guild.settings.toggles.modlogs);
+        if (errors.length) return msg.reply(`${this.client.emotes.cross} ***There was an error: ${errors.first()}***`);
+        return msg.reply(`${this.client.emotes.check} ***Mod logs have been ${msg.guild.settings.toggles.modlogs ? "Enabled" : "Disabled"}.***`);
     }
 
 };
