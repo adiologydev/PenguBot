@@ -15,12 +15,12 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        if (msg.guild.settings.get("customcmds.enabled") === false) {
-            return msg.guild.settings.update("customcmds.enabled", true).then(() => {
+        if (msg.guild.settings.get("toggles.customcmds") === false) {
+            return msg.guild.settings.update("toggles.customcmds", true).then(() => {
                 msg.sendMessage(`${this.client.emotes.check} ***${msg.language.get("MESSAGE_COMMAND_CUSTOM_ENABLED")}***`);
             });
         } else {
-            return msg.guild.settings.update("customcmds.enabled", false).then(() => {
+            return msg.guild.settings.update("toggles.customcmds", false).then(() => {
                 msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_COMMAND_CUSTOM_DISABLED")}***`);
             });
         }

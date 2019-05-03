@@ -12,7 +12,7 @@ module.exports = class extends Event {
             .setType("messages")
             .setName("Message Updated")
             .setAuthor(`${oldMessage.author.tag} in #${oldMessage.channel.name}`, oldMessage.author.displayAvatarURL())
-            .setMessage(`[► View The Message](https://discordapp.com/channels/${oldMessage.guild.id}/${oldMessage.channel.id}/${oldMessage.id})\n**Old:**\n${oldMessage.content}\n\n**New:**\n${newMessage.content}`)
+            .setMessage(`[► View The Message](https://discordapp.com/channels/${oldMessage.guild.id}/${oldMessage.channel.id}/${oldMessage.id})\n\n**Old:**\n${oldMessage.content}\n\n**New:**\n${newMessage.content}`)
             .send();
     }
 

@@ -16,12 +16,12 @@ module.exports = class extends MusicCommand {
     }
 
     async run(msg) {
-        if (!msg.hasAtLeastPermissionLevel(3)) return msg.reply(`${this.client.emotes.cross} You are not a **Pengu DJ** to change the volume.`);
-        if (msg.guild.settings.djOnly) {
-            await msg.guild.settings.update("djOnly", false);
+        if (!await msg.hasAtLeastPermissionLevel(3)) return msg.reply(`${this.client.emotes.cross} You are not a **Pengu DJ** to change the volume.`);
+        if (msg.guild.settings.toggles.djmode) {
+            await msg.guild.settings.update("toggles.djmode", false);
             return msg.sendMessage(`${this.client.emotes.cross} ***Pengu DJ only Mode has been Disabled.***`);
         } else {
-            await msg.guild.settings.update("djOnly", true);
+            await msg.guild.settings.update("toggles.djmode", true);
             return msg.sendMessage(`${this.client.emotes.check} ***Pengu DJ only Mode has been Enabled.***`);
         }
     }
