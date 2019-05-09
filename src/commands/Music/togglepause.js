@@ -9,7 +9,7 @@ module.exports = class extends MusicCommand {
             upvoteOnly: true,
             cooldown: 8,
             aliases: ["pause", "resume"],
-            permissionLevel: 3,
+            permissionLevel: 2,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: language => language.get("COMMAND_PAUSE_DESCRIPTION"),
             extendedHelp: "No extended help available."

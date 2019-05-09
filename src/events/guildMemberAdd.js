@@ -1,27 +1,32 @@
 const { Event } = require("klasa");
+const ServerLog = require("../lib/structures/ServerLog");
 
 module.exports = class extends Event {
 
     async run(member) {
-        // Logging
-        this.client.emit("customLogs", member.guild, "join", { name: "join" }, member.user);
+        await new ServerLog(member.guild)
+            .setColor("green")
+            .setType("join")
+            .setName("Member Joined")
+            .setMessage(`📥 ${member.user} (${member.id}) has joined **${member.guild.name}**.`)
+            .send();
 
         await this.welcomeMessage(member);
         await this.autoroles(member);
     }
 
     welcomeMessage(member) {
-        if (!member.guild.settings.messages.welcome.enabled) return;
-        const channel = member.guild.channels.get(member.guild.settings.messages.welcome.channel);
+        if (!member.guild.settings.messages.toggles.joinmsg) return;
+        const channel = member.guild.channels.get(member.guild.settings.channels.join);
         if (!channel) return;
         if (!channel.postable) return;
-        return channel.send(this.replace(member.guild.settings.messages.welcome.message, member));
+        return channel.send(this.replace(member.guild.settings.messages.join, member));
     }
 
     autoroles(member) {
-        if (!member.guild.settings.autoroles.enabled) return;
+        if (!member.guild.settings.toggles.autoroles) return;
         if (!member.guild.me || !member.guild.me.permissions.has("MANAGE_ROLES")) return;
-        return member.roles.add(member.guild.settings.autoroles.roles, "PenguBot - AutoRole Feature").catch(() => null);
+        return member.roles.add(member.guild.settings.autoroles, "PenguBot - AutoRole Feature").catch(() => null);
     }
 
     replace(text, member) {

@@ -8,7 +8,7 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             runIn: ["text"],
-            aliases: ["server"],
+            aliases: ["server", "guildinfo", "sererinfo"],
             cooldown: 5,
             requiredPermissions: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
             description: language => language.get("COMMAND_GUILDINFO_DESCRIPTION"),

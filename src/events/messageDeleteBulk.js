@@ -1,11 +1,17 @@
 const { Event } = require("klasa");
+const ServerLog = require("../lib/structures/ServerLog");
 
 module.exports = class extends Event {
 
     async run(messages) {
-        const { guild } = messages.first();
-        if (!guild) return;
-        this.client.emit("customLogs", messages.first().guild, "msgBulkDelete", { channel: messages.first().channel, name: "messages", count: messages.size });
+        if (!messages.first().guild) return;
+
+        await new ServerLog(messages.first().guild)
+            .setColor("red")
+            .setType("messages")
+            .setName("Bulk Messages Deleted")
+            .setMessage(`❌ \`${messages.count}\` Messages Deleted in ${messages.first().channel}`)
+            .send();
     }
 
 

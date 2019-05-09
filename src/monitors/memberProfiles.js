@@ -35,8 +35,8 @@ module.exports = class extends Monitor {
 
         const { settings } = msg.guild;
 
-        if (settings.levelup && settings.leveltype === "guild") await this.handleLevelup(msg);
-        if (settings.levelroles.enabled && settings.levelroles.roles.length) await this.leveledroles(msg);
+        if (settings.toggles.levelup && settings.misc.leveluptype === "guild") await this.handleLevelup(msg);
+        if (settings.toggles.levelroles && settings.roles.levelrole.length) await this.leveledroles(msg);
     }
 
     async handleLevelup(msg) {
@@ -47,7 +47,7 @@ module.exports = class extends Monitor {
     }
 
     async leveledroles(msg) {
-        const levelRoles = msg.guild.settings.levelroles.roles.filter(leveledRole => msg.member.settings.level >= leveledRole.lvl);
+        const levelRoles = msg.guild.settings.roles.levelrole.filter(leveledRole => msg.member.settings.level >= leveledRole.lvl);
         if (!levelRoles.length) return;
 
         const promises = [];

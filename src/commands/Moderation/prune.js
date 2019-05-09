@@ -7,7 +7,7 @@ module.exports = class extends Command {
             runIn: ["text"],
             cooldown: 10,
             aliases: ["clean", "purge"],
-            permissionLevel: 4,
+            permissionLevel: 3,
             requiredPermissions: ["MANAGE_MESSAGES", "USE_EXTERNAL_EMOJIS"],
             description: language => language.get("COMMAND_PRUNE_DESCRIPTION"),
             usage: "[limit:integer] [link|links|invite|invites|bots|pengu|me|upload|uploads|user:user]",
@@ -27,7 +27,8 @@ module.exports = class extends Command {
         }
 
         messages = messages.array().slice(0, limit);
-        await msg.channel.bulkDelete(messages, true).catch(() => msg.reply("I tried my best but some messages were older than 14 days so I couldn't delete them!"));
+        await msg.channel.bulkDelete(messages, true)
+            .catch(() => msg.reply("I tried my best but some messages were older than 14 days so I couldn't delete them!"));
         return msg.sendMessage(`${this.client.emotes.check} ***${messages.length} ${msg.language.get("MESSAGE_PRUNE_DELETED")}***`);
     }
 

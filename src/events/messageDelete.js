@@ -1,18 +1,18 @@
 const { Event } = require("klasa");
+const ServerLog = require("../lib/structures/ServerLog");
 
 module.exports = class extends Event {
 
     async run(message) {
         if (!message.guild || message.author.bot) return;
-        this.client.emit("customLogs", message.guild, "msgDelete", { channel: message.channel, name: "messages", content: message.content, image: message.attachments.size > 0 ? await this.checkAttachments(message.attachments.array()[0].url) : null }, message.author);
-    }
 
-    checkAttachments(attachment) {
-        const imageLink = attachment.split(".");
-        const typeOfImage = imageLink[imageLink.length - 1];
-        const image = /(jpg|jpeg|png|gif)/gi.test(typeOfImage);
-        if (!image) return null;
-        return attachment;
+        await new ServerLog(message.guild)
+            .setColor("red")
+            .setType("messages")
+            .setName("Message Deleted")
+            .setAuthor(`${message.author.tag} in #${message.channel.name}`, message.author.displayAvatarURL())
+            .setMessage(`**Content:**\n${message.content}`)
+            .send();
     }
 
 };
