@@ -51,4 +51,4 @@ High Quality Affordable Hosting [GalaxyGate](https://bit.ly/GalaxyGate). Visit t
 [![Discord Bots](https://discordbots.org/api/widget/303181184718995457.svg)](https://discordbots.org/bot/303181184718995457/vote)
 [![Bots for Discord](https://botsfordiscord.com/api/bot/303181184718995457/widget)](https://botsfordiscord.com/bots/303181184718995457)
 [![Discord Bot List](https://discordbotlist.com/bots/303181184718995457/widget)](https://discordbotlist.com/bots/303181184718995457/upvote)
-[!Discord Boats(https://discord.boats/api/widget/303181184718995457)](https://discord.boats/bot/303181184718995457/vote)
+[![Discord Boats](https://discord.boats/api/widget/303181184718995457)](https://discord.boats/bot/303181184718995457/vote)

@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/AdityaTD/PenguBot#readme",
   "dependencies": {
-    "breadtags": "github:Soumil07/bread-tags",
+    "breadtags": "github:PenguBot/bread-tags",
     "bufferutil": "^4.0.1",
     "canvas": "^2.4.1",
     "canvas-constructor": "github:kyranet/canvasConstructor",
@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "eslint": "5.16.0",
-    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-node": "^9.0.0",
     "eslint-plugin-promise": "^4.0.1"
   }
 }
