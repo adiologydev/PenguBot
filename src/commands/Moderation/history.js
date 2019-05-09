@@ -25,11 +25,9 @@ module.exports = class extends Command {
             unmute: 0
         };
 
-        for (const log of userlogs) {
-            actions[log.type]++;
-        }
+        for (const log of userlogs) actions[log.type]++;
 
-        const embed = new MessageEmbed()
+        return msg.sendEmbed(new MessageEmbed()
             .setDescription([
                 `❯ **User**: ${user.tag} (${user.id})`,
                 `❯ **Ban**: ${actions.ban}`,
@@ -38,13 +36,11 @@ module.exports = class extends Command {
                 `❯ **Unmute**: ${actions.unmute}`,
                 `❯ **Warn**: ${actions.warn}`,
                 `❯ **Kick**: ${actions.kick}`
-            ])
+            ].join("\n"))
             .setTimestamp()
             .setFooter("PenguBot.com")
             .setAuthor(`User History`, this.client.user.displayAvatarURL())
-            .setColor("#52c6ff");
-
-        return msg.sendEmbed(embed);
+            .setColor("#52c6ff"));
     }
 
 };

@@ -1,7 +1,5 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
-const { Argument, util: { regExpEsc } } = require("klasa");
-const { Role } = require("discord.js");
-
+const { Argument, klasaUtil: { regExpEsc }, Role } = require("../index");
 const ROLE_REGEXP = Argument.regex.role;
 
 module.exports = class extends Argument {

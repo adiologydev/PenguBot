@@ -27,23 +27,20 @@ module.exports = class extends Command {
         let target = await msg.guild.members.fetch(user.id).catch(() => null);
 
         if (target) {
-            if (target.roles.highest.position >= msg.member.roles.highest.position) {
-                return msg.reply(`${this.client.emotes.cross} ***Target member is higher in role hierarchy than you.***`);
-            } else if (!target.bannable) {
-                return msg.reply(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_BAN_CANT")}***`);
-            }
+            if (target.roles.highest.position >= msg.member.roles.highest.position) return msg.reply(`${this.client.emotes.cross} ***Target member is higher in role hierarchy than you.***`);
+            else if (!target.bannable) return msg.reply(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_BAN_CANT")}***`);
         } else {
             target = user;
         }
 
-        const msgDays = msg.flags.messages || msg.flags.msg;
+        let msgDays = msg.flags.messages || msg.flags.msg;
+        msgDays = Number(msgDays);
         const banDays = msg.flags.duration || msg.flag.tempban || msg.flag.time;
         const duration = new Duration(banDays);
-        if (msgDays && (!typeof Number(msgDays) === Number || (Number(msgDays) < 1 || Number(msgDays) >= 8))) throw `${this.client.emotes.cross} ***Invalid days of messages to be deleted, 1-7 only.***`;
+        if (msgDays && (!typeof msgDays === Number || msgDays < 1 || msgDays >= 8)) throw `${this.client.emotes.cross} ***Invalid days of messages to be deleted, 1-7 only.***`;
         if (banDays && (duration.offset < 1 || duration.offset > 2592000000)) throw `${this.client.emotes.cross} ***Invalid temporary ban days, maximum 30 days only.***`;
 
-        await msg.guild.members.ban(target, { reason: reason ? reason : `No Reason Specified - ${msg.author.tag}`, days: msgDays })
-            .catch(e => msg.reply(`${this.client.emotes.cross} ***There was an error: ${e}***`));
+        await msg.guild.members.ban(target, { reason: reason ? reason : `No Reason Specified - ${msg.author.tag}`, days: msgDays });
 
         if (msg.guild.settings.channels.modlogs) {
             await new ModLog(msg.guild)

@@ -43,7 +43,7 @@ module.exports = class extends Command {
 
         const myRole = msg.guild.me.roles.highest;
         if (role.position > myRole.positon) return msg.sendMessage(`${this.client.emotes.cross} ***That given role is above my role in the guild, please change the order.***`);
-        if (msg.member.roles.has(role)) return msg.sendMessage(`${this.client.emotes.cross} ***You already have that role do \`${msg.guildSettings.prefix}selfroles remove ${role.name}\` to remove it.***`);
+        if (msg.member.roles.has(role.id)) return msg.sendMessage(`${this.client.emotes.cross} ***You already have that role do \`${msg.guildSettings.prefix}selfroles remove ${role.name}\` to remove it.***`);
 
         const assigned = await msg.member.roles.add(role, "Self Assigned").catch(() => null);
         if (!assigned) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error, please try again later.***`);

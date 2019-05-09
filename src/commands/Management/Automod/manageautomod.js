@@ -27,21 +27,19 @@ module.exports = class extends Command {
                 });
             }
         } else {
+            filter = filter.toUpperCase();
             if (threshold && threshold >= 1 || threshold <= 0) return msg.sendMessage(`${this.client.emotes.cross} ***Threshold can't be more than 0 or less than 0. i.e. 0.93***`); // eslint-disable-line no-mixed-operators
             const { perspective } = msg.guild.settings.automod;
-            const keys = [];
-            for (const k of Object.keys(perspective)) {
-                keys.push(k);
-            }
+            const keys = Object.keys(perspective);
 
-            if (!keys.includes(filter.toUpperCase())) return msg.sendMessage(`${this.client.emotes.cross} ***That is an Invalid Filter, please choose from \`${keys.join("`, `")}\`.***`);
+            if (!keys.includes(filter)) return msg.sendMessage(`${this.client.emotes.cross} ***That is an Invalid Filter, please choose from \`${keys.join("`, `")}\`.***`);
 
-            const obj = perspective[filter.toUpperCase()];
+            const obj = perspective[filter];
             const newObj = { enabled: !obj.enabled, threshold: threshold ? threshold : obj.threshold };
 
-            return msg.guild.settings.update(`automod.perspective.${filter.toUpperCase()}`, newObj, { action: "overwrite" }).then(() => {
-                msg.sendMessage(`${!obj.enabled ? this.client.emotes.check : this.client.emotes.cross} \`${filter}\` ***${msg.language.get("MESSAGE_AUTOMOD_TOGGLED")} ${threshold ? `with \`${threshold}\` Threshold.` : "."}***`);
-            });
+            const { errors } = await msg.guild.settings.update(`automod.perspective.${filter}`, newObj, { action: "overwrite" });
+            if (errors.length) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error:*** ${errors[0]}`);
+            return msg.sendMessage(`${!obj.enabled ? this.client.emotes.check : this.client.emotes.cross} \`${filter}\` ***${msg.language.get("MESSAGE_AUTOMOD_TOGGLED")} ${threshold ? `with \`${threshold}\` Threshold.` : "."}***`);
         }
     }
 

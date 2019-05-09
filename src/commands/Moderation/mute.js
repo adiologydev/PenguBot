@@ -23,7 +23,8 @@ module.exports = class extends Command {
 
         const roleID = msg.guild.settings.roles.muted;
 
-        if (!msg.guild.roles.get(roleID)) {
+        if (!msg.guild.roles.has(roleID)) {
+            if (!msg.guild.me.permissions.has("MANAGE_ROLES")) return msg.sendMessage(`${this.client.emotes.cross} ***I do not have \`MANAGE ROLES\` permissions. Please give me it first for this to work.`);
             const newRole = await msg.guild.roles.create({
                 data: {
                     name: "PENGUMUTED",
@@ -31,18 +32,19 @@ module.exports = class extends Command {
                 }
             });
             await msg.guild.settings.update("roles.muted", newRole.id);
-            for (const chs of msg.guild.channels.values()) {
-                await chs.updateOverwrite(newRole, { SEND_MESSAGES: false, ADD_REACTIONS: false, CONNECT: false }, `Mute Command Executed By ${msg.author.tag}`).catch(() => null);
-            }
+            const promises = [];
+            for (const channel of msg.guild.channels.values()) promises.push(channel.updateOverwrite(newRole, { SEND_MESSAGES: false, ADD_REACTIONS: false, CONNECT: false }, `Mute Command Executed By ${msg.author.tag}`));
+            await Promise.all(promises);
         }
 
         const role = msg.guild.roles.get(roleID);
-        if (!role) return msg.reply("There was an error, I couldn't find the `PENGUMUTED` role! Please try again or contact us at: https://discord.gg/kWMcUNe");
+        if (!role) return msg.reply("There was an error, I couldn't find the Muted role! Please try again or contact us at: https://discord.gg/kWMcUNe");
         const myRole = msg.guild.me.roles.highest;
         if (role.position > myRole.positon) return msg.sendMessage(`${this.client.emotes.cross} ***The \`PENGUMUTED\` role is above my role in the guild, please change the order.***`);
 
         const time = msg.flags.time || msg.flags.duration || msg.flags.tempmute;
-        if (time && (new Duration(time).offset < 1 || new Duration(time).offset > 2592000000)) throw `${this.client.emotes.cross} ***Duration is invalid, try something like 1 hour, 1 day, etc. Maximum 30 days.***`;
+        const duration = new Duration(time);
+        if (time && (duration.offset < 1 || duration.offset > 2592000000)) throw `${this.client.emotes.cross} ***Duration is invalid, try something like 1 hour, 1 day, etc. Maximum 30 days.***`;
 
         if (member.roles.has(role.id)) {
             await member.roles.remove(role)

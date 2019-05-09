@@ -19,13 +19,13 @@ module.exports = class extends Command {
 
     async channel(msg, [Channel = msg.channel]) {
         const { errors } = await msg.guild.settings.update("channels.logs", Channel.id);
-        if (errors.length) return msg.reply(`${this.client.emotes.cross} ***There was an error: ${errors.first()}***`);
+        if (errors.length) return msg.reply(`${this.client.emotes.cross} ***There was an error: ${errors[0]}***`);
         return msg.sendMessage(`${this.client.emotes.check} ***${msg.language.get("MESSAGE_LOGCHAN_SET")}***`);
     }
 
     async toggle(msg) {
         const { errors } = await msg.guild.settings.update("toggles.modlogs", !msg.guild.settings.toggles.modlogs);
-        if (errors.length) return msg.reply(`${this.client.emotes.cross} ***There was an error: ${errors.first()}***`);
+        if (errors.length) return msg.reply(`${this.client.emotes.cross} ***There was an error: ${errors[0]}***`);
         return msg.reply(`${this.client.emotes.check} ***Mod logs have been ${msg.guild.settings.toggles.modlogs ? "Enabled" : "Disabled"}.***`);
     }
 

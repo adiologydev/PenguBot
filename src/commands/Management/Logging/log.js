@@ -38,13 +38,14 @@ module.exports = class extends Command {
     }
 
     async update(key, msg) {
-        if (msg.guild.settings.get(`serverlogs.${key}`)) {
+        const serverlogs = msg.guild.settings.get("serverlogs");
+        if (serverlogs[key]) {
             const { errors } = await msg.guild.settings.update(`serverlogs.${key}`, false).catch(() => null);
-            if (errors.length) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error:*** \`${errors.first()}\``);
+            if (errors.length) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error:*** \`${errors[0]}\``);
             return msg.sendMessage(`${this.client.emotes.cross} ***\`${key}\` ${msg.language.get("CMD_LOG_DISABLED")}***`);
         } else {
             const { errors } = await msg.guild.settings.update(`serverlogs.${key}`, true).catch(() => null);
-            if (errors.length) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error:*** \`${errors.first()}\``);
+            if (errors.length) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error:*** \`${errors[0]}\``);
             return msg.sendMessage(`${this.client.emotes.check} ***\`${key}\` ${msg.language.get("CMD_LOG_ENABLED")}***`);
         }
     }

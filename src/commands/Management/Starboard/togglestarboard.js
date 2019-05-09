@@ -15,15 +15,9 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        if (!msg.guild.settings.toggles.starboard) {
-            return msg.guild.settings.update("toggles.starboard", true).then(() => {
-                msg.sendMessage(`${this.client.emotes.check} ***${msg.language.get("MESSAGE_STAR_ENABLED")}***`);
-            });
-        } else {
-            return msg.guild.settings.update("toggles.starboard", false).then(() => {
-                msg.sendMessage(`${this.client.emotes.check} ***${msg.language.get("MESSAGE_STAR_DISABLED")}***`);
-            });
-        }
+        const toggle = !msg.guild.settings.toggles.starboard;
+        await msg.guild.settings.update("toggles.starboard", toggle);
+        return msg.sendMessage(`${toggle ? this.client.emotes.check : this.client.emotes.cross} ***${toggle ? msg.language.get("MESSAGE_STAR_ENABLED") : msg.language.get("MESSAGE_STAR_DISABLED")}`);
     }
 
 };

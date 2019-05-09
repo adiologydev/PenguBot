@@ -21,7 +21,7 @@ module.exports = class extends Command {
             this.client.users.fetch(log.moderator)
         ]);
 
-        const embed = new MessageEmbed()
+        return msg.sendEmbed(new MessageEmbed()
             .setDescription([
                 `❯ **User**: ${user.tag} (${user.id})`,
                 `❯ **Moderator**: ${moderator.tag} (${moderator.id})`,
@@ -30,9 +30,7 @@ module.exports = class extends Command {
             .setTimestamp(log.timestamp)
             .setFooter("PenguBot.com - Case Date")
             .setAuthor(`Case: ${log.case}`, this.client.user.displayAvatarURL())
-            .setColor("#52c6ff");
-
-        return msg.sendEmbed(embed);
+            .setColor("#52c6ff"));
     }
 
 };

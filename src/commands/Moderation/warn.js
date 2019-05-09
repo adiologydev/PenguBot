@@ -32,7 +32,7 @@ module.exports = class extends Command {
         await member.user.sendCode("http", [
             `You've been warned in ${msg.guild.name}`,
             `Reason : ${reason ? reason : "No Reason Specified"}`
-        ]).catch(() => null);
+        ].join("\n")).catch(() => null);
 
         return msg.send(`${this.client.emotes.check} ***This user has been sucessfully warned:*** ${member.user.tag}${reason ? `\n***Reason:*** ${reason}` : ""}`);
     }

@@ -22,7 +22,7 @@ module.exports = class extends Command {
         if (!log) return msg.send(`${this.client.emotes.cross} ${msg.author}, That case could not be found, please try another ID.`);
 
         const channel = msg.guild.channels.get(msg.guild.settings.channels.modlogs);
-        if (!channel) return msg.send(`${this.client.emotes.cross} Modlogs channel not found. Please do \`${msg.guild.settings.prefix}modlogschannel <channel>\` to set it.`);
+        if (!channel) return msg.send(`${this.client.emotes.cross} Modlogs channel not found. Please do \`${msg.guildSettings.prefix}modlogschannel <channel>\` to set it.`);
 
         const mod = await this.client.users.fetch(log.moderator);
         const muser = await this.client.users.fetch(log.user);
@@ -35,7 +35,7 @@ module.exports = class extends Command {
         );
 
         if (message) {
-            const embed = message.embeds[0];
+            const [embed] = message.embeds;
             const [type, user] = embed.description.split("\n");
             embed.description = [
                 type,
@@ -51,7 +51,7 @@ module.exports = class extends Command {
                     `**❯ Type**: ${log.type[0].toUpperCase() + log.type.slice(1)}`,
                     `**❯ User**: ${muser.tag} (${muser.id})`,
                     `**❯ Reason**: ${reason}`
-                ])
+                ].join("\n"))
                 .setFooter(`Case: ${selected}`)
                 .setTimestamp();
             await channel.send({ embed });
