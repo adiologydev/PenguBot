@@ -26,7 +26,9 @@ module.exports = class extends Task {
             snekfetch.post(`https://botsfordiscord.com/api/bot/${this.client.user.id}`)
                 .set("Authorization", this.client.config.keys.b4d).send({ server_count: guilds }),
             snekfetch.post(`https://api.discordbots.group/v1/bot/${this.client.user.id}`)
-                .set("Authorization", this.client.config.keys.dbg).send({ server_count: guilds })
+                .set("Authorization", this.client.config.keys.dbg).send({ server_count: guilds }),
+            snekfetch.post(`https://discord.boats/api/bot/${this.client.user.id}`)
+                .set("Authorization", this.client.config.keys.dboats).send({ server_count: guilds })
         ]);
     }
 
