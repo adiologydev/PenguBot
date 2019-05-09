@@ -34,16 +34,6 @@ module.exports = class ServerLog {
     }
 
     /**
-     * Gives a type to the server log
-     * @param {Object} data type of case
-     * @returns {ServerLog}
-     */
-    setData(data) {
-        this.data = data;
-        return this;
-    }
-
-    /**
      * Sets author for an embed
      * @param {string} name name of author
      * @param {string} iconurl display avatar link

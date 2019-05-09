@@ -17,15 +17,9 @@ module.exports = class extends Command {
 
     async run(msg, [toggle, filter, threshold]) {
         if (toggle && !filter) {
-            if (msg.guild.settings.get("toggles.perspective") === false) {
-                return msg.guild.settings.update("toggles.perspective", true).then(() => {
-                    msg.sendMessage(`${this.client.emotes.check} ***${msg.language.get("MESSAGE_AUTOMOD_ENABLED")}***`);
-                });
-            } else {
-                return msg.guild.settings.update("toggles.perspective", false).then(() => {
-                    msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_AUTOMOD_DISABLED")}***`);
-                });
-            }
+            const mode = !msg.guild.settings.toggles.perspective;
+            await msg.guild.settings.update("toggles.perspective", mode);
+            return msg.sendMessage(`${mode ? this.client.emotes.check : this.client.emotes.cross} ***${mode ? msg.language.get("MESSAGE_AUTOMOD_ENABLED") : msg.language.get("MESSAGE_AUTOMOD_DISABLED")}`);
         } else {
             filter = filter.toUpperCase();
             if (threshold && threshold >= 1 || threshold <= 0) return msg.sendMessage(`${this.client.emotes.cross} ***Threshold can't be more than 0 or less than 0. i.e. 0.93***`); // eslint-disable-line no-mixed-operators
