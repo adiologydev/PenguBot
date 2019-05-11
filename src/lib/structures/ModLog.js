@@ -1,4 +1,5 @@
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed, Permissions } = require("discord.js");
+const requiredPermissions = new Permissions(["SEND_MESSAGES", "VIEW_CHANNEL", "EMBED_LINKS"]);
 
 module.exports = class ModLog {
 
@@ -69,6 +70,8 @@ module.exports = class ModLog {
     async send() {
         const channel = this.guild.channels.get(this.guild.settings.channels.modlogs);
         if (!channel) throw "Modlogs channel not found.";
+        if (channel.permissionsFor(this.guild.me).has(requiredPermissions, true)) return;
+
         await this.getCase();
         return channel.sendEmbed(this.embed);
     }
