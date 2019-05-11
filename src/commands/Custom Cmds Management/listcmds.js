@@ -17,7 +17,7 @@ module.exports = class extends Command {
     async run(msg) {
         if (!msg.guild.settings.customcmds.length) return msg.reply(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_NO_CMDS")}***`);
         const prefix = msg.guild.settings.get("prefix");
-        const names = msg.guild.settings.customcmds.map(cmd => cmd.name);
+        const names = msg.guild.settings.customcmds.map(cmd => cmd.name.toLowerCase());
 
         const cmds = new RichDisplay(new MessageEmbed()
             .setTitle("Use the reactions to change pages, select a page or stop viewing the commands.")

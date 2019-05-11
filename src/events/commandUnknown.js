@@ -8,10 +8,11 @@ module.exports = class extends Event {
     async run(msg, command, prefixLength) {
         if (!msg.guild || !msg.guildSettings.customcmds.length) return;
         await msg.guild.settings.sync(true);
+        command = command.toLowerCase();
         const customCommand = msg.guildSettings.customcmds.find(c => c.name.toLowerCase() === command);
         if (!customCommand) return;
 
-        if (timeout.has(`${msg.author.id}-${msg.guild.id}`)) return msg.reply(`${this.client.emotes.cross} **Ooh, Not so quickly. Please wait and try again!**`);
+        if (timeout.has(`${msg.author.id}-${msg.guild.id}`)) return msg.sendMessage(`${this.client.emotes.cross} **Ooh, Not so quickly. Please wait and try again!**`);
 
         const args = msg.content.slice(prefixLength).trim().split(" ").slice(1);
         const parsed = await this.parser.parse(customCommand.content, {
@@ -21,7 +22,8 @@ module.exports = class extends Event {
             channel: msg.channel,
             args
         });
-        await msg.channel.send(parsed);
+
+        await msg.channel.send(parsed ? parsed : customCommand.content);
         timeout.add(`${msg.author.id}-${msg.guild.id}`);
         setTimeout(() => timeout.delete(`${msg.author.id}-${msg.guild.id}`), 3500);
         return;

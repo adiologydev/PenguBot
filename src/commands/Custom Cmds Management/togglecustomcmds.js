@@ -17,7 +17,7 @@ module.exports = class extends Command {
     async run(msg) {
         const toggle = !msg.guild.settings.toggles.customcmds;
         await msg.guild.settings.update("toggles.customcmds", toggle);
-        return msg.sendMessage(`${toggle ? this.client.emotes.check : this.client.emotes.cross} ***${toggle ? msg.language.get("MESSAGE_COMMAND_CUSTOM_ENABLED") : msg.language.get("MESSAGE_COMMAND_CUSTOM_DISABLED")}`);
+        return msg.sendMessage(`${toggle ? this.client.emotes.check : this.client.emotes.cross} ***${toggle ? msg.language.get("MESSAGE_COMMAND_CUSTOM_ENABLED") : msg.language.get("MESSAGE_COMMAND_CUSTOM_DISABLED")}***`);
     }
 
 };
