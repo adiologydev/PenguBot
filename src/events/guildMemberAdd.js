@@ -16,7 +16,7 @@ module.exports = class extends Event {
     }
 
     welcomeMessage(member) {
-        if (!member.guild.settings.messages.toggles.joinmsg) return;
+        if (!member.guild.settings.toggles.joinmsg) return;
         const channel = member.guild.channels.get(member.guild.settings.channels.join);
         if (!channel) return;
         if (!channel.postable) return;
