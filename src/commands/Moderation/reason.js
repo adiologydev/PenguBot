@@ -16,7 +16,7 @@ module.exports = class extends Command {
     async run(msg, [selected, ...reason]) {
         reason = reason ? reason.join(" ") : null;
 
-        const { logs } = msg.guild.settings.modlogs;
+        const logs = msg.guild.settings.modlogs;
         const log = logs[selected];
 
         if (!log) return msg.send(`${this.client.emotes.cross} ${msg.author}, That case could not be found, please try another ID.`);

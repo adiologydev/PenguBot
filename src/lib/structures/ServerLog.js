@@ -74,7 +74,7 @@ module.exports = class ServerLog {
     async send() {
         if (!this.guild.settings.get(`serverlogs.${this.type}`)) return;
         const channel = this.guild.channels.get(this.guild.settings.channels.logs);
-        if (!channel) throw "Server logs channel not found.";
+        if (!channel) return;
         if (channel.permissionsFor(this.guild.me).has(requiredPermissions, true)) return;
 
         return channel.sendEmbed(this.embed);

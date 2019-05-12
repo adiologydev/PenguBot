@@ -108,7 +108,7 @@ module.exports = class extends MusicCommand {
             .setColor("#5cb85c")
             .setThumbnail(song.artwork)
             .addField("Author", song ? song.author : "No Name", true)
-            .addField("Time", song.friendlyDuration, true)
+            .addField("Time", song.friendlyDuration || "N/A", true)
             .addField("Songs Left", queue.length ? queue.length - 1 : 0, true)
             .addField("Requested By", song.requester, true)
             .setDescription(`[**${song ? song.title : "No Name"}**](${song.url})`);
@@ -122,7 +122,7 @@ module.exports = class extends MusicCommand {
             .setThumbnail(song ? song.artwork || "https://i.imgur.com/50dTpEN.png" : "https://i.imgur.com/50dTpEN.png")
             .setColor("#eedc2f")
             .addField("Author", song ? song.author : "No Name", true)
-            .addField("Time", song.friendlyDuration, true)
+            .addField("Time", song.friendlyDuration || "N/A", true)
             .addField("Queue Position", queue.findIndex(s => s.track === song.track) + 1, true)
             .addField("Requested By", song.requester, true)
             .setDescription(`[**${song ? song.title : "No Name"}**](${song.url})`);

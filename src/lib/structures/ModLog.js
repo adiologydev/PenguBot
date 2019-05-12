@@ -69,7 +69,7 @@ module.exports = class ModLog {
      */
     async send() {
         const channel = this.guild.channels.get(this.guild.settings.channels.modlogs);
-        if (!channel) throw "Modlogs channel not found.";
+        if (!channel) return;
         if (channel.permissionsFor(this.guild.me).has(requiredPermissions, true)) return;
 
         await this.getCase();
