@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 const { Command, ModLog, Duration } = require("../../index");
 
 module.exports = class extends Command {
@@ -35,8 +36,10 @@ module.exports = class extends Command {
 
         let msgDays = msg.flags.messages || msg.flags.msg;
         msgDays = Number(msgDays);
-        const banDays = msg.flags.duration || msg.flags.tempban || msg.flags.time;
-        const duration = new Duration(banDays);
+        const banDays = msg.flags.duration || msg.flags.tempban || msg.flags.time || null;
+        let duration;
+        banDays ? duration = new Duration(banDays) : null;
+
         if (msgDays && (!typeof msgDays === Number || msgDays < 1 || msgDays >= 8)) throw `${this.client.emotes.cross} ***Invalid days of messages to be deleted, 1-7 only.***`;
         if (banDays && (duration.offset < 1 || duration.offset > 2592000000)) throw `${this.client.emotes.cross} ***Invalid temporary ban days, maximum 30 days only.***`;
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 const { Command, ModLog, Duration } = require("../../index");
 
 module.exports = class extends Command {
@@ -43,7 +44,8 @@ module.exports = class extends Command {
         if (role.position > myRole.positon) return msg.sendMessage(`${this.client.emotes.cross} ***The \`PENGUMUTED\` role is above my role in the guild, please change the order.***`);
 
         const time = msg.flags.time || msg.flags.duration || msg.flags.tempmute;
-        const duration = new Duration(time);
+        let duration = null;
+        time ? duration = new Duration(time) : null;
         if (time && (duration.offset < 1 || duration.offset > 2592000000)) throw `${this.client.emotes.cross} ***Duration is invalid, try something like 1 hour, 1 day, etc. Maximum 30 days.***`;
 
         if (member.roles.has(role.id)) {
