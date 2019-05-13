@@ -49,7 +49,7 @@ module.exports = KlasaClient.defaultGuildSchema
     // Misc
     .add("misc", folder => folder
         .add("leveluptype", "string", { default: "guild", configurable: false })
-        .add("volume", "integer", { default: 100, max: 100, min: 0 }))
+        .add("volume", "integer", { default: 100, max: 100, min: 0, configurable: false }))
 
     // Mod Logs
     .add("modlogs", "any", { array: true, configurable: false })
