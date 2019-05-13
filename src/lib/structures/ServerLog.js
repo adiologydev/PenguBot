@@ -73,10 +73,12 @@ module.exports = class ServerLog {
      */
     async send() {
         if (!this.guild.settings.get(`serverlogs.${this.type}`)) return;
+        if (!this.guild.settings.channels.logs) return;
+
         const channel = this.guild.channels.get(this.guild.settings.channels.logs);
         if (!channel) return;
 
-        if (channel.permissionsFor(this.guild.me).has(requiredPermissions, true)) return;
+        if (!channel.permissionsFor(this.guild.me).has(requiredPermissions, true)) return;
         return channel.sendEmbed(this.embed);
     }
 

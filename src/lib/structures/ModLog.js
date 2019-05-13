@@ -68,11 +68,13 @@ module.exports = class ModLog {
      * @returns {Promise<KlasaMessage>}
      */
     async send() {
-        await this.getCase();
+        if (!this.guild.settings.channels.modlogs) return;
         const channel = this.guild.channels.get(this.guild.settings.channels.modlogs);
         if (!channel) return;
 
-        if (channel.permissionsFor(this.guild.me).has(requiredPermissions, true)) return;
+        await this.getCase();
+
+        if (!channel.permissionsFor(this.guild.me).has(requiredPermissions, true)) return;
         return channel.sendEmbed(this.embed);
     }
 
