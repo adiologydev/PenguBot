@@ -23,24 +23,22 @@ module.exports = class extends Command {
         const fetch = await starChannel.messages.fetch({ limit: 100 });
         const starMsg = fetch.find(m => m.embeds[0] && m.embeds[0].footer && m.embeds[0].footer.text.startsWith("⭐") && m.embeds[0].footer.text.endsWith(Message.id));
 
-        const jumpString = `[► View The Original Message](https://discordapp.com/channels/${Message.guild.id}/${Message.channel.id}/${Message.id})\n`;
-
         if (starMsg) {
             const star = /^\⭐\s([0-9]{1,3})\s\|\s([0-9]{17,20})/.exec(starMsg.embeds[0].footer.text); // eslint-disable-line
             const starEmbed = starMsg.embeds[0];
-            const image = Message.attachments.size > 0 ? await this.checkAttachments(Message.attachments.array()[0].url) : null;
+            const image = Message.attachments.size > 0 ? await this.checkAttachments(Message.attachments.first().url) : null;
             const embed = new MessageEmbed()
                 .setColor(starEmbed.color)
                 .setAuthor(`${Message.author.tag} in #${Message.channel.name}`, Message.author.displayAvatarURL())
                 .setTimestamp(new Date(Message.createdTimestamp))
                 .setFooter(`⭐ ${Message.reactions.get("⭐").count} | ${msg.id}`);
             if (image) embed.setImage(image);
-            if (starEmbed.description) embed.setDescription(`${jumpString}${starEmbed.description}`);
-            else embed.setDescription(jumpString);
+            if (starEmbed.description) embed.setDescription(`${Message.url}${starEmbed.description}`);
+            else embed.setDescription(Message.url);
             const oldMsg = await starChannel.messages.fetch(starMsg.id);
             await oldMsg.edit({ embed });
         } else {
-            const image = Message.attachments.size > 0 ? await this.checkAttachments(Message.attachments.array()[0].url) : null;
+            const image = Message.attachments.size > 0 ? await this.checkAttachments(Message.attachments.first().url) : null;
             if (!image && Message.content.length < 1) return msg.reply("Can not star an Empty Message.");
             await Message.react("⭐");
             const embed = new MessageEmbed()
@@ -49,7 +47,7 @@ module.exports = class extends Command {
                 .setTimestamp(new Date(Message.createdTimestamp))
                 .setFooter(`⭐ ${Message.reactions.get("⭐").count} | ${Message.id}`);
             if (image) embed.setImage(image);
-            if (Message.content) embed.setDescription(`${jumpString}${Message.content}`);
+            if (Message.content) embed.setDescription(`${Message.url}${Message.content}`);
             await starChannel.send({ embed });
         }
     }
