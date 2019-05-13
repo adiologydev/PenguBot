@@ -16,8 +16,3 @@ module.exports = class extends BaseCluster {
     }
 
 };
-
-process.on("uncaughtException", err => {
-    console.error(`uncaughtException:\n${err.stack}`);
-    Raven.captureException(err);
-});
