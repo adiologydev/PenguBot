@@ -8,7 +8,7 @@ module.exports = class extends Provider {
         super(...args);
 
         this.db = r;
-        this.connection = null;
+        this.pool = null;
     }
 
     async init() {
@@ -17,35 +17,35 @@ module.exports = class extends Provider {
             silent: false
         }, this.client.options.providers.rethinkdb);
 
-        this.connection = await r.connect(options);
-        await this.db.branch(this.db.dbList().contains(options.db), null, this.db.dbCreate(options.db)).run(this.connection);
+        this.pool = await r.connectPool(options);
+        await this.db.branch(this.db.dbList().contains(options.db), null, this.db.dbCreate(options.db)).run();
     }
 
     async ping() {
         const now = Date.now();
-        return (await this.db.now().run(this.connection)).getTime() - now;
+        return (await this.db.now().run()).getTime() - now;
     }
 
     shutdown() {
-        return this.connection.close();
+        return this.pool.drain();
     }
 
     /* Table methods */
 
     hasTable(table) {
-        return this.db.tableList().contains(table).run(this.connection);
+        return this.db.tableList().contains(table).run();
     }
 
     createTable(table) {
-        return this.db.tableCreate(table).run(this.connection);
+        return this.db.tableCreate(table).run();
     }
 
     deleteTable(table) {
-        return this.db.tableDrop(table).run(this.connection);
+        return this.db.tableDrop(table).run();
     }
 
     sync(table) {
-        return this.db.table(table).sync().run(this.connection);
+        return this.db.table(table).sync().run();
     }
 
     /* Document methods */
@@ -54,48 +54,48 @@ module.exports = class extends Provider {
         if (entries.length) {
             const chunks = chunk(entries, 50000);
             const output = [];
-            for (const myChunk of chunks) output.push(...await this.db.table(table).getAll(...myChunk).run(this.connection));
+            for (const myChunk of chunks) output.push(...await this.db.table(table).getAll(...myChunk).run());
             return output;
         }
-        return this.db.table(table).run(this.connection);
+        return this.db.table(table).run();
     }
 
     async getKeys(table, entries = []) {
         if (entries.length) {
             const chunks = chunk(entries, 50000);
             const output = [];
-            for (const myChunk of chunks) output.push(...await this.db.table(table).getAll(...myChunk)("id").run(this.connection));
+            for (const myChunk of chunks) output.push(...await this.db.table(table).getAll(...myChunk)("id").run());
             return output;
         }
-        return this.db.table(table)("id").run(this.connection);
+        return this.db.table(table)("id").run();
     }
 
     get(table, id) {
-        return this.db.table(table).get(id).run(this.connection);
+        return this.db.table(table).get(id).run();
     }
 
     has(table, id) {
-        return this.db.table(table).get(id).ne(null).run(this.connection);
+        return this.db.table(table).get(id).ne(null).run();
     }
 
     getRandom(table) {
-        return this.db.table(table).sample(1).run(this.connection);
+        return this.db.table(table).sample(1).run();
     }
 
     create(table, id, value = {}) {
-        return this.db.table(table).insert({ ...this.parseUpdateInput(value), id }).run(this.connection);
+        return this.db.table(table).insert({ ...this.parseUpdateInput(value), id }).run();
     }
 
     update(table, id, value) {
-        return this.db.table(table).get(id).update(this.parseUpdateInput(value)).run(this.connection);
+        return this.db.table(table).get(id).update(this.parseUpdateInput(value)).run();
     }
 
     replace(table, id, value) {
-        return this.db.table(table).get(id).replace({ ...this.parseUpdateInput(value), id }).run(this.connection);
+        return this.db.table(table).get(id).replace({ ...this.parseUpdateInput(value), id }).run();
     }
 
     delete(table, id) {
-        return this.db.table(table).get(id).delete().run(this.connection);
+        return this.db.table(table).get(id).delete().run();
     }
 
 };

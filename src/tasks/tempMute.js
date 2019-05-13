@@ -19,7 +19,7 @@ module.exports = class extends Task {
 
         if (!unmute) return;
 
-        if (this.guild.settings.channels.modlogs) {
+        if (guild.settings.channels.modlogs) {
             await new ModLog(guild)
                 .setType("unmute")
                 .setModerator(this.client.user)
