@@ -19,7 +19,7 @@ module.exports = class extends Command {
         const data = await r.table("members")
             .getAll(msg.guild.id, { index: "guildID" })
             .orderBy(r.desc("xp"))
-            .run(this.client.providers.default.connection);
+            .run();
 
         if (!data) throw `${this.client.emotes.cross} ***There exists no members in this guild's leaderboard, try again later.***`;
         await msg.member.settings.sync(true);
