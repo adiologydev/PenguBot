@@ -32,12 +32,14 @@ module.exports = class extends Command {
         await member.kick(reason)
             .catch(e => msg.reply(`${this.client.emotes.cross} ***There was an error: ${e}***`));
 
-        await new ModLog(msg.guild)
-            .setType("kick")
-            .setModerator(msg.author)
-            .setUser(member.user)
-            .setReason(reason)
-            .send();
+        if (this.guild.settings.channels.modlogs) {
+            await new ModLog(msg.guild)
+                .setType("kick")
+                .setModerator(msg.author)
+                .setUser(member.user)
+                .setReason(reason)
+                .send();
+        }
 
 
         return msg.sendMessage(`${this.client.emotes.check} ***${member.user.tag} ${msg.language.get("MESSAGE_KICKED")}***`);

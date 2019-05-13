@@ -18,11 +18,11 @@ module.exports = class extends Command {
 
         const logs = msg.guild.settings.modlogs;
         const log = logs[selected];
+        if (!log) return msg.sendMessage(`${this.client.emotes.cross} ${msg.author}, That case could not be found, please try another ID.`);
 
-        if (!log) return msg.send(`${this.client.emotes.cross} ${msg.author}, That case could not be found, please try another ID.`);
-
+        if (!this.guild.settings.channels.modlogs) return msg.sendMessage(`${this.client.emotes.cross} Modlogs channel not found. Please do \`${msg.guildSettings.prefix}modlogschannel <channel>\` to set it.`);
         const channel = msg.guild.channels.get(msg.guild.settings.channels.modlogs);
-        if (!channel) return msg.send(`${this.client.emotes.cross} Modlogs channel not found. Please do \`${msg.guildSettings.prefix}modlogschannel <channel>\` to set it.`);
+        if (!channel) return msg.sendMessage(`${this.client.emotes.cross} Modlogs channel not found. Please do \`${msg.guildSettings.prefix}modlogschannel <channel>\` to set it.`);
 
         const mod = await this.client.users.fetch(log.moderator);
         const muser = await this.client.users.fetch(log.user);

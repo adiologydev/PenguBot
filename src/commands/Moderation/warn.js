@@ -20,12 +20,14 @@ module.exports = class extends Command {
             return msg.sendMessage(`${this.client.emotes.cross} ***Target member is higher in role hierarchy than you.***`);
         }
 
-        await new ModLog(msg.guild)
-            .setType("warn")
-            .setModerator(msg.author)
-            .setUser(member.user)
-            .setReason(reason)
-            .send();
+        if (this.guild.settings.channels.modlogs) {
+            await new ModLog(msg.guild)
+                .setType("warn")
+                .setModerator(msg.author)
+                .setUser(member.user)
+                .setReason(reason)
+                .send();
+        }
 
         await member.user.sendCode("http", [
             `You've been warned in ${msg.guild.name}`,

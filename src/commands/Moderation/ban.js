@@ -45,12 +45,14 @@ module.exports = class extends Command {
 
         await msg.guild.members.ban(target, { reason: reason ? reason : `No Reason Specified - ${msg.author.tag}`, days: msgDays });
 
-        await new ModLog(msg.guild)
-            .setType("ban")
-            .setModerator(msg.author)
-            .setReason(reason)
-            .setUser(user)
-            .send();
+        if (this.guild.settings.channels.modlogs) {
+            await new ModLog(msg.guild)
+                .setType("ban")
+                .setModerator(msg.author)
+                .setReason(reason)
+                .setUser(user)
+                .send();
+        }
 
         if (banDays) await this.client.schedule.create("timedBan", duration, { data: { guildID: msg.guild.id, userID: user.id }, catchUp: true });
 

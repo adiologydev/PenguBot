@@ -19,12 +19,14 @@ module.exports = class extends Task {
 
         if (!unmute) return;
 
-        await new ModLog(guild)
-            .setType("unmute")
-            .setModerator(this.client.user)
-            .setReason("Timed Mute Limit Over")
-            .setUser(member.user)
-            .send();
+        if (this.guild.settings.channels.modlogs) {
+            await new ModLog(guild)
+                .setType("unmute")
+                .setModerator(this.client.user)
+                .setReason("Timed Mute Limit Over")
+                .setUser(member.user)
+                .send();
+        }
     }
 
 };
