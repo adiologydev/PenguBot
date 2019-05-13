@@ -17,11 +17,9 @@ module.exports = class extends Event {
         const fetch = await starChannel.messages.fetch({ limit: 100 });
         const starMsg = fetch.find(m => m.embeds.length && m.embeds[0].footer && m.embeds[0].footer.text.startsWith("⭐") && m.embeds[0].footer.text.endsWith(msg.id));
 
-        const jumpString = `[► View The Original Message](https://discordapp.com/channels/${msg.guild.id}/${msg.channel.id}/${msg.id})\n`;
-
         if (starMsg) {
             const starEmbed = starMsg.embeds[0];
-            const image = msg.attachments.size > 0 ? this.checkAttachments(msg.attachments.array()[0].url) : null;
+            const image = msg.attachments.size > 0 ? this.checkAttachments(msg.attachments.first().url) : null;
 
             const embed = new MessageEmbed()
                 .setColor(starEmbed.color)
@@ -29,8 +27,8 @@ module.exports = class extends Event {
                 .setTimestamp(new Date(msg.createdTimestamp))
                 .setFooter(`⭐ ${msg.reactions.get("⭐").count} | ${msg.id}`);
             if (image) embed.setImage(image);
-            if (msg.content) embed.setDescription(`${jumpString}${msg.content}`);
-            else embed.setDescription(jumpString);
+            if (msg.content) embed.setDescription(`${msg.url}${msg.content}`);
+            else embed.setDescription(msg.url);
 
             const oldMsg = await starChannel.messages.fetch(starMsg.id).catch(() => null);
             if (!oldMsg) return;
@@ -38,7 +36,7 @@ module.exports = class extends Event {
 
             await oldMsg.edit({ embed });
         } else {
-            const image = msg.attachments.size > 0 ? this.checkAttachments(msg.attachments.array()[0].url) : null;
+            const image = msg.attachments.size > 0 ? this.checkAttachments(msg.attachments.first().url) : null;
             if (!image && !msg.content) return;
 
             const embed = new MessageEmbed()
@@ -47,8 +45,8 @@ module.exports = class extends Event {
                 .setTimestamp(new Date(msg.createdTimestamp))
                 .setFooter(`⭐ ${msg.reactions.get("⭐").count} | ${msg.id}`);
             if (image) embed.setImage(image);
-            if (msg.content) embed.setDescription(`${jumpString}${msg.content}`);
-            else embed.setDescription(jumpString);
+            if (msg.content) embed.setDescription(`${msg.url}${msg.content}`);
+            else embed.setDescription(msg.url);
 
             await starChannel.send({ embed });
         }
