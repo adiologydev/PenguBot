@@ -10,14 +10,12 @@ module.exports = class extends Task {
 
         const unban = await guild.members.unban(user).catch(() => null);
         if (!unban) return;
-        if (guild.settings.channels.modlogs) {
-            await new ModLog(guild)
-                .setType("unban")
-                .setModerator(this.client.user)
-                .setReason("Timed Ban Limit Over")
-                .setUser(user)
-                .send();
-        }
+        await new ModLog(guild)
+            .setType("unban")
+            .setModerator(this.client.user)
+            .setReason("Timed Ban Limit Over")
+            .setUser(user)
+            .send();
     }
 
 };

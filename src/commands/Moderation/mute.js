@@ -51,26 +51,23 @@ module.exports = class extends Command {
         if (member.roles.has(role.id)) {
             await member.roles.remove(role)
                 .catch(e => msg.reply(`${this.client.emotes.cross} ***There was an error: ${e}***`));
-            if (msg.guild.settings.channels.modlogs) {
-                await new ModLog(msg.guild)
-                    .setType("unmute")
-                    .setModerator(msg.author)
-                    .setReason(reason)
-                    .setUser(member.user)
-                    .send();
-            }
+            await new ModLog(msg.guild)
+                .setType("unmute")
+                .setModerator(msg.author)
+                .setReason(reason)
+                .setUser(member.user)
+                .send();
             return msg.sendMessage(`${this.client.emotes.check} ***${member.user.tag} ${msg.language.get("MESSAGE_UNMUTED")}***`);
         } else {
             await member.roles.add(role)
                 .catch(e => msg.reply(`${this.client.emotes.cross} ***There was an error: ${e}***`));
-            if (msg.guild.settings.channels.modlogs) {
-                await new ModLog(msg.guild)
-                    .setType("mute")
-                    .setModerator(msg.author)
-                    .setReason(reason)
-                    .setUser(member.user)
-                    .send();
-            }
+            await new ModLog(msg.guild)
+                .setType("mute")
+                .setModerator(msg.author)
+                .setReason(reason)
+                .setUser(member.user)
+                .send();
+
             if (time) await this.client.schedule.create("timedMute", new Duration(time), { data: { guildID: msg.guild.id, userID: member.id }, catchUp: true });
             return msg.sendMessage(`${this.client.emotes.check} ***${member.user.tag} ${msg.language.get("MESSAGE_MUTED")}${time ? ` Temp Mute for: ${time}` : ""}***`);
         }

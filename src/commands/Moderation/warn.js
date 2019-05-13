@@ -17,24 +17,22 @@ module.exports = class extends Command {
         reason = reason ? reason.join(" ") : null;
 
         if (member.roles.highest.position >= msg.member.roles.highest.position) {
-            return msg.reply(`${this.client.emotes.cross} ***Target member is higher in role hierarchy than you.***`);
+            return msg.sendMessage(`${this.client.emotes.cross} ***Target member is higher in role hierarchy than you.***`);
         }
 
-        if (msg.guild.settings.channels.modlogs) {
-            await new ModLog(msg.guild)
-                .setType("warn")
-                .setModerator(msg.author)
-                .setUser(member.user)
-                .setReason(reason)
-                .send();
-        }
+        await new ModLog(msg.guild)
+            .setType("warn")
+            .setModerator(msg.author)
+            .setUser(member.user)
+            .setReason(reason)
+            .send();
 
         await member.user.sendCode("http", [
             `You've been warned in ${msg.guild.name}`,
             `Reason : ${reason ? reason : "No Reason Specified"}`
         ].join("\n")).catch(() => null);
 
-        return msg.send(`${this.client.emotes.check} ***This user has been sucessfully warned:*** ${member.user.tag}${reason ? `\n***Reason:*** ${reason}` : ""}`);
+        return msg.sendMessage(`${this.client.emotes.check} ***This user has been sucessfully warned:*** ${member.user.tag}${reason ? `\n***Reason:*** ${reason}` : ""}`);
     }
 
 };

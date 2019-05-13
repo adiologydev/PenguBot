@@ -18,14 +18,13 @@ module.exports = class extends Task {
         const unmute = await member.roles.remove(role).catch(() => null);
 
         if (!unmute) return;
-        if (guild.settings.channels.modlogs) {
-            await new ModLog(guild)
-                .setType("unmute")
-                .setModerator(this.client.user)
-                .setReason("Timed Mute Limit Over")
-                .setUser(member.user)
-                .send();
-        }
+
+        await new ModLog(guild)
+            .setType("unmute")
+            .setModerator(this.client.user)
+            .setReason("Timed Mute Limit Over")
+            .setUser(member.user)
+            .send();
     }
 
 };
