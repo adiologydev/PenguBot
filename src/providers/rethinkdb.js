@@ -27,7 +27,8 @@ module.exports = class extends Provider {
     }
 
     shutdown() {
-        return this.pool.drain();
+        // We dont want to shutdown.
+        return null;
     }
 
     /* Table methods */
