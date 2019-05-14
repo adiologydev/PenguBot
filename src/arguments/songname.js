@@ -102,7 +102,7 @@ module.exports = class extends Argument {
             results.push(getKpop.tracks[0]);
         } else {
             let searchRes = await this.getTracks(node, `ytsearch:${arg}`).catch(() => null);
-            if (!searchRes || !searchRes.tracks) searchRes = await this.getTracks(node, `scsearch:${arg}`);
+            if (!searchRes || !searchRes.tracks) searchRes = await this.getTracks(node, `scsearch:${arg}`).catch(() => null);
             if (!searchRes || !searchRes.tracks) throw msg.language.get("ER_MUSIC_NF");
             const options = searchRes.tracks.slice(0, 5);
             const selection = await msg.prompt([`🎵 | **Select a Song - PenguBot**\n`,
