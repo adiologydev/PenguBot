@@ -6,7 +6,6 @@ const { StatsD } = require("hot-shots");
 // Custom
 const permissionLevels = require(`./permissionLevels`);
 const MusicManager = require("./MusicManager");
-const RawEventStore = require("./RawEventStore");
 
 // Plugins
 Client.use(require("klasa-functions").Client);
@@ -44,8 +43,6 @@ class PenguClient extends Client {
                 })
             }
         });
-        this.rawEvents = new RawEventStore(this);
-        this.registerStore(this.rawEvents);
         this.emotes = { check: "<:penguSuccess:435712876506775553>", cross: "<:penguError:435712890884849664>", loading: "<a:penguLoad:435712860744581120>" };
         this.dogstats = new StatsD("localhost", 8125);
     }

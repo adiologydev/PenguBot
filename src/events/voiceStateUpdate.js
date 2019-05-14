@@ -1,6 +1,13 @@
-const { RawEvent } = require("../index");
+const { Event } = require("../index.js");
 
-class VoiceStateUpdate extends RawEvent {
+module.exports = class extends Event {
+
+    constructor(...args) {
+        super(...args, {
+            name: "VOICE_STATE_UPDATE",
+            emitter: "ws"
+        });
+    }
 
     async run(data) {
         const guild = this.client.guilds.get(data.guild_id);
@@ -11,6 +18,4 @@ class VoiceStateUpdate extends RawEvent {
         return guild.voiceStates.add(data);
     }
 
-}
-
-module.exports = VoiceStateUpdate;
+};

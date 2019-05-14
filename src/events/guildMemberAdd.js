@@ -20,7 +20,7 @@ module.exports = class extends Event {
         const channel = member.guild.channels.get(member.guild.settings.channels.join);
         if (!channel) return;
         if (!channel.postable) return;
-        return channel.send(this.replace(member.guild.settings.messages.join, member));
+        return channel.send(this.replaceText(member.guild.settings.messages.join, member));
     }
 
     autoroles(member) {
@@ -29,16 +29,22 @@ module.exports = class extends Event {
         return member.roles.add(member.guild.settings.autoroles, "PenguBot - AutoRole Feature").catch(() => null);
     }
 
-    replace(text, member) {
-        return text
-            .replace(/{GUILD_NAME}/g, member.guild.name)
-            .replace(/{USERNAME}/g, member.user.username)
-            .replace(/{DISPLAYNAME}/g, member.displayName)
-            .replace(/{ID}/g, member.id)
-            .replace(/{MENTION}/g, member.toString())
-            .replace(/{SERVER}/g, member.guild.name)
-            .replace(/{USER}/g, member.user.tag)
-            .replace(/{TAG}/g, member.user.tag);
+    replaceText(str, member) {
+        return str.replace(/\{(mention|server|server\.id|username|user\.tag|user\.id|id|size|members|count)\}/gi, (__, match) => {
+            switch (match.toLowerCase()) {
+                case "mention": return member.toString();
+                case "server": return member.guild.name;
+                case "server.id": return member.guild.id;
+                case "username": return member.user.username;
+                case "user.tag": return member.user.tag;
+                case "user.id":
+                case "id": return member.id;
+                case "size":
+                case "members":
+                case "count": return member.guild.memberCount;
+                default: return __;
+            }
+        });
     }
 
 };
