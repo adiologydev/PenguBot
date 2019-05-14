@@ -45,9 +45,6 @@ class PenguClient extends Client {
         });
         this.emotes = { check: "<:penguSuccess:435712876506775553>", cross: "<:penguError:435712890884849664>", loading: "<a:penguLoad:435712860744581120>" };
         this.dogstats = new StatsD("localhost", 8125);
-
-        this.version = "2.0.0";
-        this.userAgent = `PenguBot/${this.version}/${this.options.production ? "Production" : "Development"}`;
     }
 
 }

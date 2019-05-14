@@ -1,5 +1,3 @@
-const { showSeconds } = require("../util/Util");
-
 /**
  * Used for easy access to infomation about a lavalink track.
  */
@@ -99,15 +97,15 @@ class Song {
          */
         this.position = data.info.position;
         /**
-         * The Artwork URl of the song
-         * @type {string}
-         */
-        this.artwork = data.info.artwork;
-        /**
          * The amount of skips for the song
          * @type {Set}
          */
         this.skips = new Set();
+        /**
+         * The Artwork URl of the song
+         * @type {string}
+         */
+        this.artwork = data.info.artwork;
     }
 
     /**
@@ -116,23 +114,10 @@ class Song {
      * @readonly
      */
     get friendlyDuration() {
-        return this.stream ? "Live Stream" : showSeconds(this.duration);
-    }
-
-    toJSON() {
-        return {
-            track: this.track,
-            info: {
-                identifier: this.id,
-                isSeekable: this.seekable,
-                author: this.author,
-                length: this.duration,
-                isStream: this.stream,
-                position: this.position,
-                title: this.title,
-                uri: this.url
-            }
-        };
+        const sec = Math.floor((this.duration / 1000) % 60).toString();
+        const min = Math.floor((this.duration / (1000 * 60)) % 60).toString();
+        const hrs = Math.floor(this.duration / (1000 * 60 * 60)).toString();
+        return this.stream ? "Live Stream" : `${hrs.padStart(2, "0")}:${min.padStart(2, "0")}:${sec.padStart(2, "0")}`;
     }
 
 }

@@ -1,13 +1,17 @@
-const { Argument, Song, config } = require("../index");
+const { Argument, Song } = require("../index");
+const { get } = require("snekfetch");
 
 /* eslint-disable no-mixed-operators */
 
+const playlist = /(\?|\&)list=(.*)/i; // eslint-disable-line no-useless-escape
+const soundcloud = /https:\/\/soundcloud\.com\/.*/i;
+const scPlaylist = /https:\/\/?soundcloud.com\/.*\/.*\/.*/i;
 const wcSc = /scsearch:.*/;
 const wcYt = /ytsearch:.*/;
 const jpop = /(listen.moe|listen moe|listen.moe jpop|listen moe jpop|jpop moe|jpop listen moe|jpop listen.moe|listen.moe\/jpop)/i;
 const kpop = /(listen.moe kpop|listen moe kpop|kpop moe|kpop listen moe|kpop listen.moe|listen.moe\/kpop)/i;
 const paste = /https:\/\/paste.pengubot.com\/(.*)/i;
-const spotifyList = /https?:\/\/(?:embed\.|open\.)(?:spotify\.com\/)(?:playlist\/|user\/spotify\/playlist\/|\?uri=spotify:playlist:)([1-z]{22})/i;
+const spotifyList = /https?:\/\/(?:embed\.|open\.)(?:spotify\.com\/)(?:playlist\/|\?uri=spotify:playlist:)((\w|-){22})/i;
 const spotifyUser = /https?:\/\/(?:embed\.|open\.)(?:spotify\.com\/user\/(\w))/i;
 const spotifyAlbum = /https?:\/\/(?:embed\.|open\.)(?:spotify\.com\/)(?:album\/|\?uri=spotify:album:)((\w|-){22})/i;
 const spotifyTrack = /https?:\/\/(?:embed\.|open\.)(?:spotify\.com\/)(?:track\/|\?uri=spotify:track:)((\w|-){22})/i;
@@ -21,13 +25,33 @@ module.exports = class extends Argument {
         if (!msg.guild) return null;
 
         const results = [];
-        let playlistName = null;
+        results.playlist = null;
+
+        const node = msg.guild.music.idealNode;
+        if (!node) throw "Couldn't find an ideal region, please try changing your guild region and try again. If the error presists, contact us at: https://discord.gg/kWMcUNe";
+        if (!node.ready) throw `${this.client.emotes.cross} ***The current node seems to be having an issue, please contact us at https://penugbot.com/support to resolve this issue.***`;
+        if (!this.client.config.keys.music.spotify.token) await this.client.tasks.get("spotify").run();
 
         const isLink = this.isLink(arg);
         if (isLink) {
-            if (paste.exec(arg)) {
-                const tracks = await this.pasteDump(msg, arg);
-                results.push(...tracks);
+            if (playlist.exec(arg) || (soundcloud.exec(arg) && scPlaylist.exec(arg))) {
+                const playlistResults = await this.getTracks(node, arg).catch(() => null);
+                if (!playlistResults || !playlistResults.tracks) throw msg.language.get("ER_MUSIC_NF");
+                results.playlist = playlistResults.playlistInfo.name;
+                results.push(...playlistResults.tracks);
+            } else if (soundcloud.exec(arg)) {
+                const scSingleRes = await this.getTracks(node, arg).catch(() => null);
+                if (!scSingleRes || !scSingleRes.tracks) throw msg.language.get("ER_MUSIC_NF");
+                results.push(scSingleRes.tracks[0]);
+            } else if (paste.exec(arg)) {
+                if (!this.client.config.main.patreon) throw msg.language.get("ER_MUSIC_PATRON");
+                const rawRes = await get(`https://paste.pengubot.com/raw/${paste.exec(arg)[1]}`);
+                if (!rawRes.body) throw msg.language.get("ER_MUSIC_NF");
+                for (const song of JSON.parse(rawRes.body).songs) {
+                    const songRes = await this.getTracks(node, song);
+                    if (!songRes || !songRes.tracks) continue;
+                    results.push(songRes.tracks[0]);
+                }
                 results.playlist = "Custom PenguBot Playlist";
             } else if (spotifyList.exec(arg) || spotifyUser.exec(arg)) {
                 let argument = arg;
@@ -43,13 +67,22 @@ module.exports = class extends Argument {
                 }
                 results.playlist = `${data.body.name}`;
             } else if (spotifyAlbum.exec(arg)) {
-                const spotifyAlbumResult = await this.spotifyAlbum(msg, arg);
-
-                results.push(...spotifyAlbumResult.tracks);
-                playlistName = spotifyAlbumResult.playlist;
+                const data = await get(`https://api.spotify.com/v1/albums/${spotifyAlbum.exec(arg)[1]}`)
+                    .set("Authorization", `Bearer ${this.client.config.keys.music.spotify.token}`);
+                if (data.status !== 200 || !data.body) throw msg.language.get("ER_MUSIC_NF");
+                for (const track of data.body.tracks.items) {
+                    const trackRes = await this.getTracks(node, `ytsearch:${track.artists[0].name} ${track.name} audio`);
+                    if (!trackRes || !trackRes.tracks) continue;
+                    results.push(trackRes.tracks[0]);
+                }
+                results.playlist = `${data.body.name}`;
             } else if (spotifyTrack.exec(arg)) {
-                const spotifyTrackResult = await this.spotifyTrack(msg, arg);
-                results.push(spotifyTrackResult);
+                const data = await get(`https://api.spotify.com/v1/tracks/${spotifyTrack.exec(arg)[1]}`)
+                    .set("Authorization", `Bearer ${this.client.config.keys.music.spotify.token}`);
+                if (data.status !== 200 || !data.body) throw msg.language.get("ER_MUSIC_NF");
+                const spotRes = await this.getTracks(node, `ytsearch:${data.body.artists ? data.body.artists[0].name : ""} ${data.body.name} audio`);
+                if (!spotRes || !spotRes.tracks) throw msg.language.get("ER_MUSIC_NF");
+                results.push(spotRes.tracks[0]);
             } else {
                 const httpRes = await this.getTracks(node, arg).catch(() => null);
                 if (!httpRes || !httpRes.tracks) throw msg.language.get("ER_MUSIC_NF");
@@ -82,69 +115,24 @@ module.exports = class extends Argument {
         }
 
         if (!results.length) throw msg.language.get("ER_MUSIC_NF");
-        return { tracks: results.map(track => new Song(track, msg.author)), playlistName };
+        return { tracks: results.filter(a => a && a.track !== undefined).map(track => new Song(track, msg.author)), playlist: results.playlist };
     }
 
-    async fetchTracks(search) {
-        const result = await this.client.lavalink.resolveTracks(search);
-
-        if (result.loadType === "LOAD_FAILED") throw "There was an error trying to search for that song";
-
-        return { tracks: result.tracks, playlist: "name" in result.playlistInfo ? result.playlistInfo : null };
+    /**
+     * Gets an array of tracks from lavalink REST API
+     * @param {Object} node The node to use for REST searches
+     * @param {string} search The search string
+     * @returns {Array<Object>}
+     */
+    getTracks(node, search) {
+        return this.client.lavalink.getSongs(node, search);
     }
 
-    async spotifyPlaylist(msg, arg) {
-        const data = await this.fetchURL(`https://api.spotify.com/v1/playlists/${spotifyList.exec(arg)[1]}`,
-            { headers: { Authorization: `Bearer ${config.keys.music.spotify.token}` } });
-        if (!data) throw msg.language.get("ER_MUSIC_NF");
-
-        const tracks = [];
-
-        for (const track of data.tracks.items) {
-            const searchResult = await this.fetchTracks(`ytsearch:${track.artists[0].name} ${track.name} audio`);
-            if (!searchResult.tracks.length) continue;
-            tracks.push(searchResult.tracks[0]);
-        }
-
-        return { tracks, playlist: data.name };
-    }
-
-    async spotifyTrack(msg, arg) {
-        const data = await this.fetchURL(`https://api.spotify.com/v1/tracks/${spotifyTrack.exec(arg)[1]}`,
-            { headers: { Authorization: `Bearer ${config.keys.music.spotify.token}` } });
-        if (!data) throw msg.language.get("ER_MUSIC_NF");
-
-        const [artist] = data.artists;
-
-        const searchResult = await this.getTracks(`ytsearch:${artist ? artist.name : ""} ${data.name} audio`);
-        if (!searchResult.tracks.length) throw msg.language.get("ER_MUSIC_NF");
-
-        return searchResult.tracks[0];
-    }
-
-    async spotifyAlbum(msg, arg) {
-        const data = await this.fetchURL(`https://api.spotify.com/v1/albums/${spotifyAlbum.exec(arg)[1]}`,
-            { headers: { Authorization: `Bearer ${config.keys.music.spotify.token}` } });
-        if (!data) throw msg.language.get("ER_MUSIC_NF");
-
-        const tracks = [];
-
-        for (const track of data.tracks.items) {
-            const searchResult = await this.fetchTracks(`ytsearch:${track.artists[0].name} ${track.name} audio`);
-            if (!searchResult.tracks.length) continue;
-            tracks.push(searchResult.tracks[0]);
-        }
-
-        return { tracks, playlist: data.name };
-    }
-
-    async pasteDump(msg, arg) {
-        if (!config.main.patreon) throw msg.language.get("ER_MUSIC_PATRON");
-        const tracks = await this.fetchURL(`https://paste.pengubot.com/raw/${paste.exec(arg)[1]}`);
-        if (!tracks) throw msg.language.get("ER_MUSIC_NF");
-        return tracks;
-    }
-
+    /**
+     * Returns a valid URl that can be accepted by Lavalink
+     * @param {string} arg URL which you want to verify
+     * @returns {boolean}
+     */
     isLink(arg) {
         try {
             new URL(arg); // eslint-disable-line no-new
