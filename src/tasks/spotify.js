@@ -1,5 +1,7 @@
-const { Task } = require("../index");
+const { Task, config } = require("../index");
 const { post } = require("snekfetch");
+
+const CREDENTIALS = `${Buffer.from(`${config.keys.music.spotify.id}:${config.keys.music.spotify.secret}`).toString("base64")}`;
 
 module.exports = class extends Task {
 
@@ -9,7 +11,7 @@ module.exports = class extends Task {
                 grant_type: "client_credentials"
             },
             headers: {
-                Authorization: `Basic ${Buffer.from(`${this.client.config.keys.music.spotify.id}:${this.client.config.keys.music.spotify.secret}`).toString("base64")}`,
+                Authorization: `Basic ${CREDENTIALS}`,
                 "Content-Type": "application/x-www-form-urlencoded"
             }
         });
@@ -19,6 +21,7 @@ module.exports = class extends Task {
     }
 
     async init() {
+        await this.run();
         if (!this.client.settings.schedules.some(schedule => schedule.taskName === this.name)) {
             await this.client.schedule.create("spotify", "*/30 * * * *");
         }
