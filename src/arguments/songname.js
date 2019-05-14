@@ -35,12 +35,12 @@ module.exports = class extends Argument {
         const isLink = this.isLink(arg);
         if (isLink) {
             if (playlist.exec(arg) || (soundcloud.exec(arg) && scPlaylist.exec(arg))) {
-                const playlistResults = await this.getTracks(node, arg);
+                const playlistResults = await this.getTracks(node, arg).catch(() => null);
                 if (!playlistResults || !playlistResults.tracks) throw msg.language.get("ER_MUSIC_NF");
                 results.playlist = playlistResults.playlistInfo.name;
                 results.push(...playlistResults.tracks);
             } else if (soundcloud.exec(arg)) {
-                const scSingleRes = await this.getTracks(node, arg);
+                const scSingleRes = await this.getTracks(node, arg).catch(() => null);
                 if (!scSingleRes || !scSingleRes.tracks) throw msg.language.get("ER_MUSIC_NF");
                 results.push(scSingleRes.tracks[0]);
             } else if (paste.exec(arg)) {
@@ -84,24 +84,24 @@ module.exports = class extends Argument {
                 if (!spotRes || !spotRes.tracks) throw msg.language.get("ER_MUSIC_NF");
                 results.push(spotRes.tracks[0]);
             } else {
-                const httpRes = await this.getTracks(node, arg);
+                const httpRes = await this.getTracks(node, arg).catch(() => null);
                 if (!httpRes || !httpRes.tracks) throw msg.language.get("ER_MUSIC_NF");
                 results.push(httpRes.tracks[0]);
             }
         } else if (wcYt.exec(arg) || wcSc.exec(arg)) {
-            const wcSearchRes = await this.getTracks(node, arg);
+            const wcSearchRes = await this.getTracks(node, arg).catch(() => null);
             if (!wcSearchRes || !wcSearchRes.tracks) throw msg.language.get("ER_MUSIC_NF");
             results.push(wcSearchRes.tracks[0]);
         } else if (jpop.exec(arg)) {
-            const getJpop = await this.getTracks(node, "https://listen.moe/stream");
+            const getJpop = await this.getTracks(node, "https://listen.moe/stream").catch(() => null);
             if (!getJpop || !getJpop.tracks) throw msg.language.get("ER_MUSIC_NF");
             results.push(getJpop.tracks[0]);
         } else if (kpop.exec(arg)) {
-            const getKpop = await this.getTracks(node, "https://listen.moe/kpop/stream");
+            const getKpop = await this.getTracks(node, "https://listen.moe/kpop/stream").catch(() => null);
             if (!getKpop || !getKpop.tracks) throw msg.language.get("ER_MUSIC_NF");
             results.push(getKpop.tracks[0]);
         } else {
-            let searchRes = await this.getTracks(node, `ytsearch:${arg}`);
+            let searchRes = await this.getTracks(node, `ytsearch:${arg}`).catch(() => null);
             if (!searchRes || !searchRes.tracks) searchRes = await this.getTracks(node, `scsearch:${arg}`);
             if (!searchRes || !searchRes.tracks) throw msg.language.get("ER_MUSIC_NF");
             const options = searchRes.tracks.slice(0, 5);
