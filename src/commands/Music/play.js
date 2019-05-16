@@ -49,6 +49,7 @@ module.exports = class extends MusicCommand {
     async handleSongs(msg, songs) {
         const musicInterface = msg.guild.music;
         const isUpvoter = await this.client.funcs.isUpvoter(msg.author);
+
         if (songs.tracks.length > 1) {
             const limit = this.client.config.main.patreon && isUpvoter ? 1000 : 74;
             const limitedSongs = songs.tracks.slice(0, limit);
@@ -56,13 +57,13 @@ module.exports = class extends MusicCommand {
             if (songs.tracks.length >= 75 && !this.client.config.main.patreon && !isUpvoter) {
                 return msg.sendEmbed(this.supportEmbed(songs.playlist));
             } else {
-                return msg.send(`🎧 | **Queue:** Added **${songs.tracks.length}** songs from **${songs.playlist}** to the queue based on your playlist.`);
+                return msg.send(`🎧 | **Queue:** Added **${songs.tracks.length}** songs ${songs.playlist ? `from **${songs.playlist}** ` : ""}to the queue based on your playlist.`);
             }
         } else {
-            musicInterface.queue.push(...songs.tracks);
+            musicInterface.queue.push(songs.tracks);
             if (!musicInterface.playing) return;
             musicInterface.playing = true;
-            return msg.send(this.queueEmbed(songs.tracks[0], musicInterface.queue));
+            return msg.send(this.queueEmbed(songs.tracks, musicInterface.queue));
         }
     }
 
@@ -106,7 +107,6 @@ module.exports = class extends MusicCommand {
             .setTimestamp()
             .setFooter("© PenguBot.com")
             .setColor("#5cb85c")
-            .setThumbnail(song.artwork)
             .addField("Author", song ? song.author : "No Name", true)
             .addField("Time", song ? song.friendlyDuration : "N/A", true)
             .addField("Songs Left", queue.length ? queue.length - 1 : 0, true)
@@ -119,7 +119,6 @@ module.exports = class extends MusicCommand {
             .setTitle("🗒 | Song Queued - PenguBot")
             .setTimestamp()
             .setFooter("© PenguBot.com")
-            .setThumbnail(song ? song.artwork || "https://i.imgur.com/50dTpEN.png" : "https://i.imgur.com/50dTpEN.png")
             .setColor("#eedc2f")
             .addField("Author", song ? song.author : "No Name", true)
             .addField("Time", song ? song.friendlyDuration : "N/A", true)
@@ -143,7 +142,7 @@ module.exports = class extends MusicCommand {
             .setTitle("Support us!")
             .setColor("#f96854")
             .setDescription(`🎧 | **Queue:** Playlist **${playlistName}** has been added to the queue.\n This playlist has more than 75 songs but only 75 were added.
-If you wish bypass this limit become our Patreon today at https://patreon.com/PenguBot and use our Patron Only Bot.`);
+If you wish bypass this limit become our Patreon today at https://patreon.com/PenguBot and use our **Premium Version**.`);
     }
 
 };
