@@ -21,6 +21,5 @@ module.exports = {
     Command: require("./lib/structures/KlasaCommand"),
     ModLog: require("./lib/structures/ModLog"),
     ServerLog: require("./lib/structures/ServerLog"),
-    Song: require("./lib/structures/Song"),
-    RawEvent: require("./lib/structures/RawEvent")
+    Song: require("./lib/structures/Song")
 };
