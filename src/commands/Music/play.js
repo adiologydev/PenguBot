@@ -60,10 +60,10 @@ module.exports = class extends MusicCommand {
                 return msg.send(`🎧 | **Queue:** Added **${songs.tracks.length}** songs ${songs.playlist ? `from **${songs.playlist}** ` : ""}to the queue based on your playlist.`);
             }
         } else {
-            musicInterface.queue.push(songs.tracks);
+            musicInterface.queue.push(...songs.tracks);
             if (!musicInterface.playing) return;
             musicInterface.playing = true;
-            return msg.send(this.queueEmbed(songs.tracks, musicInterface.queue));
+            return msg.send(this.queueEmbed(songs.tracks[0], musicInterface.queue));
         }
     }
 

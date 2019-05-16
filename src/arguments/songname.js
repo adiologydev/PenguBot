@@ -2,8 +2,6 @@ const { Argument, Song, config } = require("../index");
 
 const wildcard = /(?:scsearch:|ytsearch:).*/i;
 const paste = /https:\/\/paste.pengubot.com\/(.*)/i;
-const ytPlaylist = /(\?|&)list=(.*)/i;
-const scPlaylist = /https:\/\/?soundcloud.com\/.*\/.*\/.*/i;
 const spotifyList = /https?:\/\/(?:embed\.|open\.)(?:spotify\.com\/)(?:playlist\/|user\/spotify\/playlist\/|\?uri=spotify:playlist:)([1-z]{22})/i;
 const spotifyAlbum = /https?:\/\/(?:embed\.|open\.)(?:spotify\.com\/)(?:album\/|\?uri=spotify:album:)((\w|-){22})/i;
 const spotifyTrack = /https?:\/\/(?:embed\.|open\.)(?:spotify\.com\/)(?:track\/|\?uri=spotify:track:)((\w|-){22})/i;
@@ -15,18 +13,47 @@ module.exports = class extends Argument {
         arg = arg.replace(/<(.+)>/g, "$1");
         if (!msg.guild) return null;
 
+        const results = [];
+        results.playlist = null;
+
         const validLink = this.isLink(arg);
         if (validLink) {
-            if (paste.exec(arg)) return this.pasteDump(msg, arg);
-            if (ytPlaylist.exec(arg) || scPlaylist.exec(arg)) return this.handlePlaylist(msg, arg);
-            if (spotifyTrack.exec(arg)) return this.spotifyTrack(msg, arg);
-            if (spotifyList.exec(arg)) return this.spotifyPlaylist(msg, arg);
-            if (spotifyAlbum.exec(arg)) return this.spotifyAlbum(msg, arg);
-            else return this.httpTrack(msg, arg);
+            if (paste.test(arg)) {
+                const res = await this.pasteDump(msg, arg);
+                results.push(...res);
+                results.playlist = "PenguBot Dump";
+            } else if (spotifyTrack.test(arg)) {
+                const res = await this.spotifyTrack(msg, arg);
+                results.push(res);
+            } else if (spotifyList.test(arg)) {
+                const res = await this.spotifyPlaylist(msg, arg);
+                results.push(...res.tracks);
+                results.playlist = res.playlist;
+            } else if (spotifyAlbum.test(arg)) {
+                const res = await this.spotifyAlbum(msg, arg);
+                results.push(...res.tracks);
+                results.playlist = res.playlist;
+            } else {
+                const result = await this.fetchTracks(arg);
+                if (result.tracks.length) {
+                    results.push(...result.tracks);
+                    if (result.playlist) results.playlist = result.playlist.name;
+                }
+            }
         }
 
-        if (wildcard.exec(arg)) return this.wildcardTrack(msg, arg);
-        else return this.searchTrack(msg, arg);
+        if (wildcard.test(arg) && !validLink) {
+            const res = await this.wildcardTrack(msg, arg);
+            results.push(res);
+        }
+
+        if (!validLink) {
+            const res = await this.searchTrack(msg, arg);
+            results.push(res);
+        }
+
+        if (!results.length) throw msg.language.get("ER_MUSIC_NF");
+        return { tracks: results.map(track => new Song(track, msg.author)), playlist: results.playlist };
     }
 
     async searchTrack(msg, arg) {
@@ -41,28 +68,14 @@ module.exports = class extends Argument {
 
         if (!selection) throw `${this.client.emotes.cross} ***Invalid Option Selected, please select one number between \`1-5\`. Cancelled song selection.***`;
         if (!options[selection]) throw `${this.client.emotes.cross} ***Specified track could not be found, please try again with a different one.***`;
-        return { tracks: new Song(options[selection], msg.author) };
-    }
-
-    async httpTrack(msg, arg) {
-        const data = await this.fetchTracks(arg);
-        if (!data || !data.tracks.length) throw msg.language.get("ER_MUSIC_NF");
-
-        return { tracks: new Song(data.tracks[0], msg.author) };
+        return options[selection];
     }
 
     async wildcardTrack(msg, arg) {
         const data = await this.fetchTracks(wildcard.exec(arg)[0]);
         if (!data || !data.tracks.length) throw msg.language.get("ER_MUSIC_NF");
 
-        return { tracks: new Song(data.tracks[0], msg.author) };
-    }
-
-    async handlePlaylist(msg, arg) {
-        const data = await this.fetchTracks(arg);
-        if (!data || !data.tracks.length) throw msg.language.get("ER_MUSIC_NF");
-
-        return { tracks: data.tracks.map(track => new Song(track, msg.author)), playlist: data.playlist.name };
+        return data.tracks[0];
     }
 
     async spotifyPlaylist(msg, arg) {
@@ -76,7 +89,7 @@ module.exports = class extends Argument {
         for (const { track } of data.tracks.items) {
             const searchResult = await this.fetchTracks(`ytsearch:${track.album.artists[0].name || track.artists[0].name} ${track.name} audio`);
             if (!searchResult.tracks.length) continue;
-            tracks.push(new Song(searchResult.tracks[0], msg.author));
+            tracks.push(searchResult.tracks[0]);
         }
 
         await loading.delete().catch(() => null);
@@ -90,12 +103,10 @@ module.exports = class extends Argument {
 
         const [artist] = data.artists;
 
-        console.log(data);
-
         const searchResult = await this.fetchTracks(`ytsearch:${artist ? artist.name : ""} ${data.name} audio`);
         if (!searchResult.tracks.length) throw msg.language.get("ER_MUSIC_NF");
 
-        return { tracks: new Song(searchResult.tracks[0], msg.author) };
+        return searchResult.tracks[0];
     }
 
     async spotifyAlbum(msg, arg) {
@@ -109,7 +120,7 @@ module.exports = class extends Argument {
         for (const track of data.tracks.items) {
             const searchResult = await this.fetchTracks(`ytsearch:${track.artists[0].name} ${track.name} audio`);
             if (!searchResult.tracks.length) continue;
-            tracks.push(new Song(searchResult.tracks[0], msg.author));
+            tracks.push(searchResult.tracks[0]);
         }
 
         await loading.delete().catch(() => null);
@@ -121,7 +132,7 @@ module.exports = class extends Argument {
         const tracks = await this.fetchURL(`https://paste.pengubot.com/raw/${paste.exec(arg)[1]}`);
         if (!tracks) throw msg.language.get("ER_MUSIC_NF");
 
-        return { tracks };
+        return tracks;
     }
 
     async fetchTracks(search) {
