@@ -1,7 +1,7 @@
 const { Task, config } = require("../index");
 const { post } = require("snekfetch");
 
-const CREDENTIALS = Buffer.from(`${config.apis.spotify.id}:${config.apis.spotify.secret}`).toString("base64")
+const CREDENTIALS = Buffer.from(`${config.apis.spotify.id}:${config.apis.spotify.secret}`).toString("base64");
 
 module.exports = class extends Task {
 
