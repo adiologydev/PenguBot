@@ -1,11 +1,11 @@
 const { BaseCluster } = require("kurasuta");
 const Raven = require("raven");
-const { main: { production }, keys: { sentry } } = require("../config.json");
+const config = require("../config.js");
 const { execSync } = require("child_process");
 
-Raven.config(sentry, {
+Raven.config(config.apis.sentry, {
     captureUnhandledRejections: true,
-    environment: production ? "production" : "development",
+    environment: config.production ? "production" : "development",
     release: execSync("git rev-parse HEAD")
 }).install();
 

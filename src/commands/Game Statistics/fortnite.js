@@ -1,6 +1,5 @@
-const Command = require("../../lib/structures/KlasaCommand");
+const { Command, MessageEmbed, config } = require("../../index");
 const { get } = require("snekfetch");
-const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
 
@@ -19,7 +18,7 @@ module.exports = class extends Command {
 
     async run(msg, [platform, ...username]) {
         const data = await get(`https://api.fortnitetracker.com/v1/profile/${platform}/${encodeURIComponent(username.join(" "))}`)
-            .set("TRN-Api-Key", this.client.config.keys.games.fortnite)
+            .set("TRN-Api-Key", config.apis.fortnite)
             .catch(e => {
                 Error.captureStackTrace(e);
                 throw e;

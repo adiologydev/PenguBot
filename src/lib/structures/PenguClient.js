@@ -1,6 +1,6 @@
 const { Client } = require("klasa");
 const { Client: IdioticAPI } = require("idiotic-api");
-const config = require("../../../config.json");
+const config = require("../../../config.js");
 const { StatsD } = require("hot-shots");
 
 // Custom
@@ -10,7 +10,7 @@ const MusicManager = require("./MusicManager");
 // Plugins
 Client.use(require("klasa-functions").Client);
 Client.use(require("klasa-member-gateway"));
-if (!config.main.patreon) Client.use(require("klasa-dashboard-hooks"));
+if (!config.patreon) Client.use(require("klasa-dashboard-hooks"));
 
 // Schemas
 const defaultGuildSchema = require(`./schemas/defaultGuildSchema`);
@@ -26,9 +26,8 @@ class PenguClient extends Client {
     constructor(options) {
         super({ ...options, permissionLevels, defaultGuildSchema, defaultClientSchema, defaultUserSchema, defaultMemberSchema });
 
-        this.config = config;
         this.lavalink = null;
-        this.idiotic = new IdioticAPI(this.config.keys.idiotic, { dev: true });
+        this.idiotic = new IdioticAPI(config.apis.idiotic, { dev: true });
         this.music = new MusicManager();
         this.topCache = [];
         this.health = Object.seal({
