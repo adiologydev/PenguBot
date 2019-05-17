@@ -1,5 +1,4 @@
-const MusicCommand = require("../../lib/structures/MusicCommand");
-const { MessageEmbed } = require("discord.js");
+const { MusicCommand, MessageEmbed, config } = require("../../index");
 
 module.exports = class extends MusicCommand {
 
@@ -50,10 +49,10 @@ module.exports = class extends MusicCommand {
         const musicInterface = msg.guild.music;
         const isUpvoter = await this.client.funcs.isUpvoter(msg.author);
         if (songs.tracks.length > 1) {
-            const limit = this.client.config.main.patreon && isUpvoter ? 1000 : 74;
+            const limit = config.patreon && isUpvoter ? 1000 : 74;
             const limitedSongs = songs.tracks.slice(0, limit);
             musicInterface.queue.push(...limitedSongs);
-            if (songs.tracks.length >= 75 && !this.client.config.main.patreon && !isUpvoter) {
+            if (songs.tracks.length >= 75 && !config.patreon && !isUpvoter) {
                 return msg.sendEmbed(this.supportEmbed(songs.playlist));
             } else {
                 return msg.send(`🎧 | **Queue:** Added **${songs.tracks.length}** songs from **${songs.playlist}** to the queue based on your playlist.`);

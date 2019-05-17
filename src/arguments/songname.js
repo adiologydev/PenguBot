@@ -1,4 +1,4 @@
-const { Argument, Song } = require("../index");
+const { Argument, Song, config } = require("../index");
 const { get } = require("snekfetch");
 
 /* eslint-disable no-mixed-operators */
@@ -30,7 +30,7 @@ module.exports = class extends Argument {
         const node = msg.guild.music.idealNode;
         if (!node) throw "Couldn't find an ideal region, please try changing your guild region and try again. If the error presists, contact us at: https://discord.gg/kWMcUNe";
         if (!node.ready) throw `${this.client.emotes.cross} ***The current node seems to be having an issue, please contact us at https://penugbot.com/support to resolve this issue.***`;
-        if (!this.client.config.keys.music.spotify.token) await this.client.tasks.get("spotify").run();
+        if (!config.apis.spotify.token) await this.client.tasks.get("spotify").run();
 
         const isLink = this.isLink(arg);
         if (isLink) {
@@ -44,7 +44,7 @@ module.exports = class extends Argument {
                 if (!scSingleRes || !scSingleRes.tracks) throw msg.language.get("ER_MUSIC_NF");
                 results.push(scSingleRes.tracks[0]);
             } else if (paste.exec(arg)) {
-                if (!this.client.config.main.patreon) throw msg.language.get("ER_MUSIC_PATRON");
+                if (!config.patreon) throw msg.language.get("ER_MUSIC_PATRON");
                 const rawRes = await get(`https://paste.pengubot.com/raw/${paste.exec(arg)[1]}`);
                 if (!rawRes.body) throw msg.language.get("ER_MUSIC_NF");
                 for (const song of JSON.parse(rawRes.body).songs) {
@@ -58,7 +58,7 @@ module.exports = class extends Argument {
                 if (arg.match(/user/i)) argument = arg.replace(/\/user\/(\w)+/, "");
                 if (!spotifyList.exec(argument)) throw msg.language.get("ER_MUSIC_NF");
                 const data = await get(`https://api.spotify.com/v1/playlists/${spotifyList.exec(argument)[1]}`)
-                    .set("Authorization", `Bearer ${this.client.config.keys.music.spotify.token}`);
+                    .set("Authorization", `Bearer ${config.apis.spotify.token}`);
                 if (data.status !== 200 || !data.body) throw msg.language.get("ER_MUSIC_NF");
                 for (const trackData of data.body.tracks.items) {
                     const trackRes = await this.getTracks(node, `ytsearch:${trackData.track.artists ? trackData.track.artists[0].name : ""} ${trackData.track.name} audio`);

@@ -1,6 +1,5 @@
-const Command = require("../../lib/structures/KlasaCommand");
+const { Command, MessageEmbed, config } = require("../../index");
 const { get } = require("snekfetch");
-const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
 
@@ -17,7 +16,7 @@ module.exports = class extends Command {
 
     async run(msg, [tag]) {
         const data = await get(`https://api.clashofclans.com/v1/players/${encodeURIComponent(tag.toUpperCase().replace(/O/g, "0"))}`)
-            .set({ Accept: "application/json", Authorization: `Bearer ${this.client.config.keys.games.cocapi}` })
+            .set({ Accept: "application/json", Authorization: `Bearer ${config.apis.cocapi}` })
             .catch(error => {
                 if (error.reason === "notFound") msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("CMD_COC_TAG")}***`);
                 Error.captureStackTrace(error);

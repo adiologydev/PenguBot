@@ -1,7 +1,7 @@
-const Command = require("../../lib/structures/KlasaCommand");
+const { Command, config } = require("../../index");
+const { get } = require("snekfetch");
 const { Canvas } = require("canvas-constructor");
 const fs = require("fs-nextra");
-const { get } = require("snekfetch");
 
 Canvas.registerFont(`../assets/fonts/Roboto-Regular.ttf`, "Roboto");
 Canvas.registerFont(`../assets/fonts/RobotoCondensed-Regular.ttf`, "Roboto Condensed");
@@ -24,7 +24,7 @@ module.exports = class extends Command {
     async run(msg, [location]) {
         try {
             const locationURI = encodeURIComponent(location.replace(/ /g, "+"));
-            const a = await get(`https://maps.googleapis.com/maps/api/geocode/json?address=${locationURI}&key=${this.client.config.keys.weather.google}`).catch(e => {
+            const a = await get(`https://maps.googleapis.com/maps/api/geocode/json?address=${locationURI}&key=${config.apis.google}`).catch(e => {
                 Error.captureStackTrace(e);
                 return e;
             });
@@ -42,7 +42,7 @@ module.exports = class extends Command {
             const city = locality || governing || country || continent || {};
             const state = locality && governing ? governing : locality ? country : {};
 
-            const b = await get(`https://api.darksky.net/forecast/${this.client.config.keys.weather.darksky}/${params}?exclude=minutely,hourly,flags&units=auto`).catch(e => {
+            const b = await get(`https://api.darksky.net/forecast/${config.apis.darksky}/${params}?exclude=minutely,hourly,flags&units=auto`).catch(e => {
                 Error.captureStackTrace(e);
                 return e;
             });

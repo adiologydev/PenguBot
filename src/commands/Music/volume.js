@@ -1,4 +1,4 @@
-const MusicCommand = require("../../lib/structures/MusicCommand");
+const { MusicCommand, config } = require("../../index");
 
 module.exports = class extends MusicCommand {
 
@@ -16,7 +16,7 @@ module.exports = class extends MusicCommand {
     }
 
     async run(msg, [volume]) {
-        if (!this.client.config.main.patreon) throw msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("CMD_PATRON_ONLY")}***`);
+        if (!config.patreon) throw msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("CMD_PATRON_ONLY")}***`);
         if (!volume) return msg.sendMessage(`🔈 | ***Guild's Current Music Volume is:*** ${msg.guild.settings.misc.volume}`);
         if (!await msg.hasAtLeastPermissionLevel(3)) return msg.reply(`${this.client.emotes.cross} You are not a **Pengu DJ** to change the volume.`);
         if (volume < 0 || volume > 100) return msg.sendMessage(`${this.client.emotes.cross} ***Volume can not be lower than 0 or higher than 100.***`);
