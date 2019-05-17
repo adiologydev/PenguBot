@@ -30,9 +30,10 @@ module.exports = class extends Event {
     }
 
     replaceText(str, member) {
-        return str.replace(/\{(mention|server|server\.id|username|user\.tag|user\.id|id|size|members|count)\}/gi, (__, match) => {
+        return str.replace(/\{(mention|guild_name|server|server\.id|username|user\.tag|user\.id|id|size|members|count)\}/gi, (__, match) => {
             switch (match.toLowerCase()) {
                 case "mention": return member.toString();
+                case "guild_name":
                 case "server": return member.guild.name;
                 case "server.id": return member.guild.id;
                 case "username": return member.user.username;
