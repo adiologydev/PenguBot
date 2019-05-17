@@ -1,7 +1,7 @@
 const snekfetch = require("snekfetch");
 const cheerio = require("cheerio");
 const config = require("../../../config");
-const key = config.keys.music.lyrics;
+const key = config.apis.lyrics;
 
 class Lyrics {
 
