@@ -447,6 +447,8 @@ module.exports = class extends Language {
             COMMAND_REASON_DESCRIPTION: "Allow a moderator to set a case's history in mod logs.",
             COMMAND_MODLOG_DESCRIPTION: "Change the Mod Logs setting in the server.",
 
+            COMMAND_MEME_DESCRIPTION: "Grabs you a random meme from the interwebs.",
+
             // Commands (Start of cleaning up Language files)
             COMMAND_AFK_REMOVED: username => `Dear ${username}, I've successfully removed you from AFK.`,
             COMMAND_AFK_SET: (username, reason) => `Dear ${username}, I've set you afk for \`${reason}\``,
