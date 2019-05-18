@@ -1,7 +1,7 @@
 const { Task, config } = require("../index");
 const { post } = require("snekfetch");
 
-const CREDENTIALS = `${Buffer.from(`${config.keys.music.spotify.id}:${config.keys.music.spotify.secret}`).toString("base64")}`;
+const CREDENTIALS = Buffer.from(`${config.apis.spotify.id}:${config.apis.spotify.secret}`).toString("base64");
 
 module.exports = class extends Task {
 
@@ -17,7 +17,7 @@ module.exports = class extends Task {
         });
 
         if (res.status !== 200) return;
-        this.client.config.keys.music.spotify.token = res.body.access_token;
+        config.apis.spotify.token = res.body.access_token;
     }
 
     async init() {

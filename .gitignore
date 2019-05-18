@@ -58,7 +58,7 @@ typings/
 .env
 
 # config file
-config.json
+config.js
 
 # npm lock file
 package-lock.json

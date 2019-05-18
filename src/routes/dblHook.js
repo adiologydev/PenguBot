@@ -1,4 +1,4 @@
-const { Route } = require("../index");
+const { Route, config } = require("../index");
 
 module.exports = class extends Route {
 
@@ -9,7 +9,7 @@ module.exports = class extends Route {
     }
 
     async post(req, res) {
-        if (req.headers.authorization !== this.client.config.keys.dbl) return res.end(403);
+        if (req.headers.authorization !== config.apis.dbl) return res.end(403);
         const data = req.body;
 
         const user = await this.client.users.fetch(data.user).catch(() => null);

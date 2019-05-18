@@ -1,4 +1,4 @@
-const { Task } = require("../index");
+const { Task, config } = require("../index");
 const snekfetch = require("snekfetch");
 
 module.exports = class extends Task {
@@ -19,17 +19,17 @@ module.exports = class extends Task {
 
         return Promise.all([
             snekfetch.post(`https://discordbots.org/api/bots/${this.client.user.id}/stats`)
-                .set("Authorization", this.client.config.keys.dbl).send(stats),
+                .set("Authorization", config.apis.dbl).send(stats),
             snekfetch.post(`https://bots.ondiscord.xyz/bot-api/bots/${this.client.user.id}/guilds`)
-                .set("Authorization", this.client.config.keys.dbpw).send({ guildCount: guilds }),
+                .set("Authorization", config.apis.dbpw).send({ guildCount: guilds }),
             snekfetch.post(`https://discordbotlist.com/api/bots/${this.client.user.id}/stats`)
-                .set("Authorization", `Bot ${this.client.config.keys.ogdbl}`).send({ guilds: guilds, users: users, shard_id: 0, voice_connections: vc }),
+                .set("Authorization", `Bot ${config.apis.ogdbl}`).send({ guilds: guilds, users: users, shard_id: 0, voice_connections: vc }),
             snekfetch.post(`https://botsfordiscord.com/api/bot/${this.client.user.id}`)
-                .set("Authorization", this.client.config.keys.b4d).send({ server_count: guilds }),
+                .set("Authorization", config.apis.b4d).send({ server_count: guilds }),
             snekfetch.post(`https://api.discordbots.group/v1/bot/${this.client.user.id}`)
-                .set("Authorization", this.client.config.keys.dbg).send({ server_count: guilds }),
+                .set("Authorization", config.apis.dbg).send({ server_count: guilds }),
             snekfetch.post(`https://discord.boats/api/bot/${this.client.user.id}`)
-                .set("Authorization", this.client.config.keys.dboats).send({ server_count: guilds })
+                .set("Authorization", config.apis.dboats).send({ server_count: guilds })
         ]);
     }
 

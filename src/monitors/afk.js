@@ -1,4 +1,4 @@
-const { Monitor } = require("../index");
+const { Monitor, config } = require("../index");
 
 module.exports = class extends Monitor {
 
@@ -8,7 +8,9 @@ module.exports = class extends Monitor {
 
     async run(msg) {
         if (!msg.guild || !msg.channel.postable) return;
-        if (this.client.user.id !== "303181184718995457" && await msg.guild.members.fetch("303181184718995457").catch(() => null)) return;
+
+        const patreonBotMember = await msg.guild.members.fetch("438049470094114816").catch(() => null);
+        if (!config.main.patreon && patreonBotMember) return;
 
         if (msg.author.settings.afk.time) await this.checkAfk(msg);
         if (msg.mentions.users.size) await this.afkMentioned(msg);

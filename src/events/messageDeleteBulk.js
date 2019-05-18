@@ -10,7 +10,7 @@ module.exports = class extends Event {
             .setColor("red")
             .setType("messages")
             .setName("Bulk Messages Deleted")
-            .setMessage(`❌ \`${messages.count}\` Messages Deleted in ${messages.first().channel}`)
+            .setMessage(`❌ \`${messages.size}\` Messages Deleted in ${messages.first().channel}`)
             .send();
     }
 

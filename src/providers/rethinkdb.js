@@ -1,51 +1,50 @@
 // Copyright (c) 2017-2019 dirigeants. All rights reserved. MIT license.
 const { Provider, util: { mergeDefault, chunk } } = require("klasa");
-const { r } = require("rethinkdb-ts"); // eslint-disable-line id-length
+const rethink = require("rethinkdbdash");
 
 module.exports = class extends Provider {
 
     constructor(...args) {
         super(...args);
-
-        this.db = r;
-        this.pool = null;
+        this.db = rethink(mergeDefault({
+            db: "pengubot",
+            silent: false
+        }, this.client.options.providers.rethinkdb));
     }
 
     async init() {
-        const options = mergeDefault({
-            db: "pengubot",
-            silent: false
-        }, this.client.options.providers.rethinkdb);
+        const { db } = this.db._poolMaster._options;
+        await this.db.branch(this.db.dbList().contains(db), null, this.db.dbCreate(db)).run();
+    }
 
-        this.pool = await r.connectPool(options);
-        await this.db.branch(this.db.dbList().contains(options.db), null, this.db.dbCreate(options.db)).run();
+    get exec() {
+        return this.db;
     }
 
     async ping() {
         const now = Date.now();
-        return (await this.db.now().run()).getTime() - now;
+        return await this.db.now() - now;
     }
 
-    shutdown() {
-        // We dont want to shutdown.
-        return null;
+    async shutdown() {
+        return this.db.getPoolMaster().drain();
     }
 
     /* Table methods */
 
-    hasTable(table) {
+    async hasTable(table) {
         return this.db.tableList().contains(table).run();
     }
 
-    createTable(table) {
+    async createTable(table) {
         return this.db.tableCreate(table).run();
     }
 
-    deleteTable(table) {
+    async deleteTable(table) {
         return this.db.tableDrop(table).run();
     }
 
-    sync(table) {
+    async sync(table) {
         return this.db.table(table).sync().run();
     }
 
@@ -71,31 +70,31 @@ module.exports = class extends Provider {
         return this.db.table(table)("id").run();
     }
 
-    get(table, id) {
+    async get(table, id) {
         return this.db.table(table).get(id).run();
     }
 
-    has(table, id) {
+    async has(table, id) {
         return this.db.table(table).get(id).ne(null).run();
     }
 
-    getRandom(table) {
+    async getRandom(table) {
         return this.db.table(table).sample(1).run();
     }
 
-    create(table, id, value = {}) {
+    async create(table, id, value = {}) {
         return this.db.table(table).insert({ ...this.parseUpdateInput(value), id }).run();
     }
 
-    update(table, id, value) {
+    async update(table, id, value = {}) {
         return this.db.table(table).get(id).update(this.parseUpdateInput(value)).run();
     }
 
-    replace(table, id, value) {
+    async replace(table, id, value = {}) {
         return this.db.table(table).get(id).replace({ ...this.parseUpdateInput(value), id }).run();
     }
 
-    delete(table, id) {
+    async delete(table, id) {
         return this.db.table(table).get(id).delete().run();
     }
 
