@@ -1,5 +1,4 @@
-const { Command, Timestamp } = require("klasa");
-const { MessageEmbed } = require("discord.js");
+const { Command, Timestamp, MessageEmbed } = require("../../index");
 
 module.exports = class extends Command {
 
@@ -13,7 +12,7 @@ module.exports = class extends Command {
             usage: "[user:membername]",
             extendedHelp: "No extended help available."
         });
-        this.timestamp = new Timestamp("d MMMM YYYY");
+        this.timestamp = new Timestamp("DD MMMM YYYY");
     }
 
     async run(msg, [user]) {
@@ -25,12 +24,11 @@ module.exports = class extends Command {
             .setThumbnail(user.user.displayAvatarURL())
             .addField("❯ Name", user.user.tag, true)
             .addField("❯ ID", user.id, true)
-            .addField("❯ Discord Join Date", this.timestamp.display(user.user.createdAt), true)
-            .addField("❯ Server Join Date", user.joinedTimestamp ? this.timestamp.display(user.joinedTimestamp) : "Unknown", true)
+            .addField("❯ Discord Join Date", `${this.timestamp.display(user.user.createdAt)} ${user.user.createdAt.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })}`, true)
+            .addField("❯ Server Join Date", user.joinedTimestamp ? `${this.timestamp.display(user.joinedTimestamp)} ${msg.member.joinedAt.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })}` : "Unknown", true)
             .addField("❯ Nickname", user.nickname || "None", true)
             .addField("❯ Bot?", user.bot ? "Yes" : "No", true)
-            .addField("❯ Highest Role", user.roles.highest.id !== msg.guild.defaultRole.id ? user.roles.highest.name : "None", true)
-            .addField("❯ Hoist Role", user.roles.hoist ? user.roles.hoist.name : "None", true));
+            .addField(`❯ Roles [${user.roles.size}]`, user.roles.size ? `<@&${user.roles.map(r => r.id).filter(r => r !== msg.guild.defaultRole.id).join(">, <@&")}>` : "None"));
     }
 
 };
