@@ -19,7 +19,7 @@ module.exports = class extends Route {
             cpm += result[5];
         }
 
-        return response.status(200).end(JSON.stringify({
+        return response.status(200).json({
             users: users,
             guilds: guilds,
             channels: channels,
@@ -32,7 +32,7 @@ module.exports = class extends Route {
             cpm: cpm,
             invite: this.client.invite,
             ...this.client.application
-        }));
+        });
     }
 
 };
