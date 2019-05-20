@@ -13,7 +13,7 @@ module.exports = class extends Route {
         if (name === "all") return response.end(JSON.stringify(store.array()));
         const piece = store.get(name);
         if (!piece) return response.end("{}");
-        return response.end(JSON.stringify(piece));
+        return response.status(200).end(JSON.stringify(piece));
     }
 
 };

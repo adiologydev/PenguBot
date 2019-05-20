@@ -13,7 +13,7 @@ module.exports = class extends Route {
         const guild = await this.client.shard.fetchGuild(id).catch(() => null);
 
         if (!guild) return response.status(200).json({ error: "Guild not found" });
-        return response.end(JSON.stringify(guild));
+        return response.status(200).json(guild);
     }
 
 };

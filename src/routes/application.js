@@ -19,7 +19,7 @@ module.exports = class extends Route {
             cpm += result[5];
         }
 
-        return response.end(JSON.stringify({
+        return response.status(200).end(JSON.stringify({
             users: users,
             guilds: guilds,
             channels: channels,
