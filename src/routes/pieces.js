@@ -9,10 +9,10 @@ module.exports = class extends Route {
     get(request, response) {
         const { type, name } = request.params;
         const store = this.client.pieceStores.get(type);
-        if (!store) response.end("[]");
+        if (!store) response.status(200).json("[]");
         if (name === "all") return response.status(200).json(store.array());
         const piece = store.get(name);
-        if (!piece) return response.end("{}");
+        if (!piece) return response.status(200).json("{}");
         return response.status(200).json(piece);
     }
 

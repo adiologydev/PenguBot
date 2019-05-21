@@ -8,7 +8,7 @@ module.exports = class extends Route {
 
     async get(request, response) {
         const { id } = request.params;
-        if (!id) return response.end("No ID parameter passed");
+        if (!id) return response.status(200).json({ error: "No ID parameter passed" });
 
         const guild = await this.client.shard.fetchGuild(id).catch(() => null);
 
