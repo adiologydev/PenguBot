@@ -85,7 +85,7 @@ module.exports = class ModLog {
     get embed() {
         return new MessageEmbed()
             .setAuthor(this.moderator.tag, this.moderator.avatar)
-            .setColor(this.color(this.type))
+            .setColor(ModLog.color(this.type))
             .setDescription([
                 `**❯ Type**: ${this.type[0].toUpperCase() + this.type.slice(1)}`,
                 `**❯ User**: ${this.user.tag} (${this.user.id})`,
