@@ -1,7 +1,16 @@
 const { DashboardClient } = require("klasa-dashboard-hooks");
+const { DataStore } = require("discord.js");
 
-require("./KDHUser");
+const DashboardUser = require("./KDHUser");
 
-class KDHClient extends DashboardClient {}
+class KDHClient extends DashboardClient {
+
+    constructor(...args) {
+        super(...args);
+
+        this.dashboardUsers = new DataStore(this, undefined, DashboardUser);
+    }
+
+}
 
 module.exports = KDHClient;
