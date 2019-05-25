@@ -23,23 +23,11 @@ module.exports = class extends Command {
         if (member.id === this.client.user.id) return msg.reply(`${this.client.emotes.cross} ***Why would you want to mute Pengu?***`);
 
         const roleID = msg.guild.settings.roles.muted;
+        if (!roleID || !msg.guild.roles.has(roleID)) await this.createRole(msg);
 
-        if (!msg.guild.roles.has(roleID)) {
-            if (!msg.guild.me.permissions.has("MANAGE_ROLES")) return msg.sendMessage(`${this.client.emotes.cross} ***I do not have \`MANAGE ROLES\` permissions. Please give me it first for this to work.`);
-            const newRole = await msg.guild.roles.create({
-                data: {
-                    name: "PENGUMUTED",
-                    permissions: ["READ_MESSAGES"]
-                }
-            });
-            await msg.guild.settings.update("roles.muted", newRole.id);
-            const promises = [];
-            for (const channel of msg.guild.channels.values()) promises.push(channel.updateOverwrite(newRole, { SEND_MESSAGES: false, ADD_REACTIONS: false, CONNECT: false }, `Mute Command Executed By ${msg.author.tag}`));
-            await Promise.all(promises);
-        }
+        const role = await msg.guild.roles.fetch(msg.guild.settings.roles.muted).catch(() => null);
+        if (!role) return msg.sendMessage("There was an error, I couldn't find the Muted role! Please try again or contact us at: https://discord.gg/kWMcUNe");
 
-        const role = msg.guild.roles.get(roleID);
-        if (!role) return msg.reply("There was an error, I couldn't find the Muted role! Please try again or contact us at: https://discord.gg/kWMcUNe");
         const myRole = msg.guild.me.roles.highest;
         if (role.position > myRole.positon) return msg.sendMessage(`${this.client.emotes.cross} ***The \`PENGUMUTED\` role is above my role in the guild, please change the order.***`);
 
@@ -78,6 +66,24 @@ module.exports = class extends Command {
             if (time) await this.client.schedule.create("timedMute", new Duration(time), { data: { guildID: msg.guild.id, userID: member.id }, catchUp: true });
             return msg.sendMessage(`${this.client.emotes.check} ***${member.user.tag} ${msg.language.get("MESSAGE_MUTED")}${time ? ` Temp Mute for: ${time}` : ""}***`);
         }
+    }
+
+    async createRole(msg) {
+        if (!msg.guild.me.permissions.has("MANAGE_ROLES")) return msg.sendMessage(`${this.client.emotes.cross} ***I do not have \`MANAGE ROLES\` permissions. Please give me it first for this to work.`);
+
+        const newRole = await msg.guild.roles.create({
+            data: {
+                name: "PENGUMUTED",
+                permissions: ["READ_MESSAGES"]
+            }
+        }).catch(e => msg.reply(`There was an error: ${e}`));
+
+        const { errors } = await msg.guild.settings.update("roles.muted", newRole.id);
+        if (errors.length) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: ${errors[0]}***`);
+
+        const promises = [];
+        for (const channel of msg.guild.channels.values()) promises.push(channel.updateOverwrite(newRole, { SEND_MESSAGES: false, ADD_REACTIONS: false, CONNECT: false }, `Mute Command Executed By ${msg.author.tag}`));
+        await Promise.all(promises);
     }
 
 };
