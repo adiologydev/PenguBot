@@ -1,7 +1,7 @@
 const klasa = require("klasa");
 const discord = require("discord.js");
 const kdh = require("klasa-dashboard-hooks");
-const klasaFunctions = require("klasa-functions");
+const klasaFunctions = require("@kcp/functions");
 const { version } = require("../package.json");
 
 module.exports = {
