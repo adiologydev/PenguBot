@@ -7,7 +7,7 @@
 <a href="https://status.pengubot.com"><img src="https://img.shields.io/uptimerobot/status/m781763015-e93639facd06b3a9001144c3.svg?style=for-the-badge"></a>
 <a href="https://github.com/AdityaTD/PenguBot/blob/master/LICENSE"><img src="https://img.shields.io/github/license/mashape/apistatus.svg?style=for-the-badge"></a>
 </p>
-<p align="center">PenguBot is a community developed Discord Bot with over 35,000 guilds<br>
+<p align="center">PenguBot is mutli-purpose Discord Bot with over 42,000 guilds<br>
 Join <a href="https://discord.gg/u8WYw5r">Discord</a> for Support and Development Discussions</p>
 </div>
 
@@ -40,10 +40,10 @@ Join <a href="https://discord.gg/u8WYw5r">Discord</a> for Support and Developmen
 
 [random-puppy](https://github.com/dylang/random-puppy/)
 
-[Jacz](https://github.com/MrJacz) For the lovely company since August 2017
+[Jacz](https://github.com/MrJacz)
 
 ## Hosting
-We're proudly hosted by [GalaxyGate](https://bit.ly/GalaxyGate). Visit the link by clicking the image below to know more!
+High Quality Affordable Hosting [GalaxyGate](https://bit.ly/GalaxyGate). Visit the link by clicking the image below to know more!
 
 [![GalaxyGate](https://i.imgur.com/tTbWta8.png)](https://bit.ly/GalaxyGate)
 
@@ -51,3 +51,4 @@ We're proudly hosted by [GalaxyGate](https://bit.ly/GalaxyGate). Visit the link 
 [![Discord Bots](https://discordbots.org/api/widget/303181184718995457.svg)](https://discordbots.org/bot/303181184718995457/vote)
 [![Bots for Discord](https://botsfordiscord.com/api/bot/303181184718995457/widget)](https://botsfordiscord.com/bots/303181184718995457)
 [![Discord Bot List](https://discordbotlist.com/bots/303181184718995457/widget)](https://discordbotlist.com/bots/303181184718995457/upvote)
+[![Discord Boats](https://discord.boats/api/widget/303181184718995457)](https://discord.boats/bot/303181184718995457/vote)

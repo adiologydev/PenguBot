@@ -1,4 +1,4 @@
-const MusicCommand = require("../../lib/structures/MusicCommand");
+const { MusicCommand, config } = require("../../index");
 
 module.exports = class extends MusicCommand {
 
@@ -10,8 +10,6 @@ module.exports = class extends MusicCommand {
             aliases: ["loopsong", "repeat", "ripeti", "répéte", "repite"],
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: language => language.get("COMMAND_LOOP_DESCRIPTION"),
-            extendedHelp: "No extended help available.",
-
             usage: "[queue|song]"
         });
     }
@@ -24,8 +22,8 @@ module.exports = class extends MusicCommand {
         if (queueOrSong === "song") {
             music.looping = !music.looping;
         } else {
-            if (music.queue.length * 2 > 1000 && !this.client.config.patreon) throw `${this.client.emotes.cross} **Sorry but the maximum queue size is 1000 songs. If you want to bypass this limit, consider becoming a Patron at <https://patreon.com/PenguBot>***`;
-            if (music.queue.length * 2 > 1000 && !this.client.config.patreon) throw `${this.client.emotes.cross} **${msg.language.get("MUSICIF_QUEUE_LIMIT_REACHED")} ***`;
+            if (music.queue.length * 2 > 1000 && !config.patreon) throw `${this.client.emotes.cross} **Sorry but the maximum queue size is 1000 songs. If you want to bypass this limit, consider becoming a Patron at <https://patreon.com/PenguBot>***`;
+            if (music.queue.length * 2 > 1000 && !config.patreon) throw `${this.client.emotes.cross} **${msg.language.get("MUSICIF_QUEUE_LIMIT_REACHED")} ***`;
             music.queue = music.queue.concat(music.queue);
         }
 

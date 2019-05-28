@@ -1,4 +1,4 @@
-const { Language, klasaUtil: util, version } = require("../index");
+const { Language, klasaUtil: util, version, Duration } = require("../index");
 
 module.exports = class extends Language {
 
@@ -123,18 +123,15 @@ module.exports = class extends Language {
             MESSAGE_NEW_REMINDER: "Nuovo Promemoria creato con ID:",
             MESSAGE_LINK_SHORTEN: "Ecco la tua URL:",
             MESSAGE_AVATAR: "Ecco l'avatar di",
-            MESSAGE_AFK_TRUE: "Imposta il tuo stato in AFK - Assente!",
-            MESSAGE_AFK_FALSE: "Rimuove il tuo stato di AFS - Assente!",
-            MESSAGE_IS_AFK: "è attualmente AFK - Assente poichè:",
-            MESSAGE_AFK_REMOVED: "è stato rimosso dallo stato di AFK - Assente!",
             MESSAGE_STARCHAN_SET: "Il canale Starboard è stato impostato correttamente.",
 
             // Pengu's Commands Descriptions
             COMMAND_KICK_DESCRIPTION: "(Moderatore) Disconnette gli utenti. (kick)",
             COMMAND_BAN_DESCRIPTION: "(Moderatore) Bandisce gli utenti. (ban)",
             COMMAND_SOFTBAN_DESCRIPTION: "(Moderatore) Bandisce momentaneamente gli utenti. (softban)",
-            COMMAND_MAKE_ADMIN_DESCRIPTION: "(Admin) Crea ulteriori Amministratori.",
-            COMMAND_MAKE_MOD_DESCRIPTION: "(Moderatore) Aggiungi nuove mods a PenguBot.",
+            COMMAND_MAKE_ADMIN_DESCRIPTION: "Allows guild managers, admins and pengu admins to add/remove new pengu admins.",
+            COMMAND_MAKE_MOD_DESCRIPTION: "Allows guild managers, admins and pengu admins to add/remove new pengu mods.",
+            COMMAND_MAKE_STAFF_DESCRPTION: "Allows guild managers, admins and pengu admins to add/remove new pengu staff.",
             COMMAND_MUTE_DESCRIPTION: "(Moderatore) Zittisci gli utenti. (mute)",
             COMMAND_SAY_DESCRIPTION: "(Moderatore) Fai parlare PenguBot.",
             COMMAND_ADD_CMD_DESCRIPTION: "(Admin) Aggiungi Comandi Personalizzati al server locale.",
@@ -296,7 +293,7 @@ module.exports = class extends Language {
             COMMAND_QUEUE_DESCRIPTION: "Percorri la traccia in coda in maniera interattiva ..",
             COMMAND_SKIP_DESCRIPTION: "Salta la traccia corrente o richiedi una votazione per farlo (se presenti più di 3 utenti)",
             COMMAND_STOP_DESCRIPTION: "Ferma la riproduzione e pulisci la playlist (Se sei un Pengu-DJ ovvero IL SOLO all'ascolto)",
-            COMMAND_MAKE_DJ_DESCRPTION: "Rendi un utente un Pengu-DJ.",
+            COMMAND_MAKE_DJ_DESCRPTION: "Allows guild managers, admins and pengu admins to add/remove new pengu dj.",
             COMMAND_LEAVE_DESCRIPTION: "Obbliga PenguBot ad abbandonare forzatamente il canale vocale.",
             COMMAND_PAUSE_DESCRIPTION: "Pausa/Riprendi l'attuale riproduzione musicale.",
             COMMAND_VOLUME_DESCRIPTION: "Modifica il volume di default di PenguBot per tutti gli utenti del server.",
@@ -456,7 +453,23 @@ module.exports = class extends Language {
             ERR_TRY_AGAIN: "There was an oopsie, please try again!",
             ER_CHOICES_SENSE: "You want me to choose from a single option? That makes sense...",
             CHOICE_SELECT: "My gut feeling says, go with",
-            COMMAND_CHOOSE_DESCRIPTION: "Need help in selecting an option? PenguBot to the rescue!"
+            COMMAND_CHOOSE_DESCRIPTION: "Need help in selecting an option? PenguBot to the rescue!",
+            COMMAND_CASE_DESCRIPTION: "Get information about a specific moderation case with it's ID.",
+            COMMAND_WARN_DESCRIPTION: "Warn a user for an infraction and log it.",
+            COMMAND_HISTORY_DESCRIPTION: "Get a user's infraction history from mod logs.",
+            COMMAND_REASON_DESCRIPTION: "Allow a moderator to set a case's history in mod logs.",
+            COMMAND_MODLOG_DESCRIPTION: "Change the Mod Logs setting in the server.",
+
+            COMMAND_MEME_DESCRIPTION: "Grabs you a random meme from the interwebs.",
+            COMMAND_ROLEINFO_DESCRIPTION: "Get information about a role in a server.",
+
+            // Commands (Start of cleaning up Language files)
+            COMMAND_AFK_REMOVED: username => `Dear ${username}, I've successfully removed you from AFK.`,
+            COMMAND_AFK_SET: (username, reason) => `Dear ${username}, I've set you afk for \`${reason}\``,
+
+            // Monitors
+            MONITOR_AFK_REMOVED: username => `Welcome back **${username}**, I have removed you from AFK.`,
+            MONITOR_AFK_ISAFK: (username, reason, time) => `**${username}** is currently AFK for \`${reason}\` - ${Duration.toNow(time)} ago`
         };
     }
 

@@ -1,15 +1,17 @@
 const klasa = require("klasa");
 const discord = require("discord.js");
 const kdh = require("klasa-dashboard-hooks");
+const klasaFunctions = require("klasa-functions");
 const { version } = require("../package.json");
 
 module.exports = {
     ...klasa,
     ...discord,
     ...kdh,
+    ...klasaFunctions,
     Util: require("./lib/util/Util"),
     util: require("./lib/util/Util"),
-    config: require("../config.json"),
+    config: require("../config.js"),
     klasaUtil: klasa.util,
     discordUtil: discord.Util,
     kdhUtil: kdh.Util,
@@ -19,6 +21,8 @@ module.exports = {
     klasaConstants: klasa.constants,
     discordConstants: discord.Constants,
     Command: require("./lib/structures/KlasaCommand"),
-    Song: require("./lib/structures/Song"),
-    RawEvent: require("./lib/structures/RawEvent")
+    MusicCommand: require("./lib/structures/MusicCommand"),
+    ModLog: require("./lib/structures/ModLog"),
+    ServerLog: require("./lib/structures/ServerLog"),
+    Song: require("./lib/structures/Song")
 };

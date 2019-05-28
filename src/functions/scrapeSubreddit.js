@@ -9,6 +9,7 @@ module.exports = class extends Function {
             .then(res => {
                 if (!res.body.data) return;
                 const img = res.body.data[Math.floor(Math.random() * res.body.data.length)];
+                if (!img) return null;
                 return `http://imgur.com/${img.hash}${img.ext.replace(/\?.*/, "")}`;
             });
     }

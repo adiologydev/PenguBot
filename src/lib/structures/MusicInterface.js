@@ -1,3 +1,5 @@
+const { config } = require("../../index");
+
 class MusicInterface {
 
     constructor(guild) {
@@ -46,7 +48,7 @@ class MusicInterface {
 
         const [song] = this.queue;
         this.player.play(song.track);
-        if (this.client.config.main.patreon) this.player.volume(this.volume);
+        if (config.patreon) this.player.volume(this.volume);
         this.playing = true;
         return this.player;
     }
@@ -107,7 +109,7 @@ class MusicInterface {
     }
 
     get volume() {
-        return this.guild.settings.musicVolume;
+        return this.guild.settings.misc.volume;
     }
 
     /**

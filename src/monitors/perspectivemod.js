@@ -1,4 +1,4 @@
-const { Monitor } = require("../index");
+const { Monitor, ServerLog, config } = require("../index");
 const { post } = require("snekfetch");
 
 module.exports = class extends Monitor {
@@ -8,44 +8,31 @@ module.exports = class extends Monitor {
     }
 
     async run(msg) {
-        if (!msg.guild || !msg.guild.settings.automod.enabled || !msg.content) return;
-        if (msg.content.startsWith(msg.guild.settings.prefix) || this.mentionPrefix(msg)) return;
-        if (await msg.hasAtLeastPermissionLevel(4)) return;
+        if (!msg.guild || !msg.content || msg.command || !msg.guild.settings.toggles.perspective) return;
+        //       if (msg.guild.settings.toggles.staffbypass && await msg.hasAtLeastPermissionLevel(3)) return;
+        //       if (this.client.user.id !== "303181184718995457" && await msg.guild.members.fetch("303181184718995457").catch(() => null)) return;
 
-        if (this.client.user.id !== "303181184718995457") {
-            const mainBot = await msg.guild.members.fetch("303181184718995457").catch(() => null);
-            if (mainBot) return;
-        }
-
-        const req = await post(`https://commentanalyzer.googleapis.com/v1alpha1/comments:analyze?key=${this.client.config.keys.perspective}`)
+        const { body } = await post(`https://commentanalyzer.googleapis.com/v1alpha1/comments:analyze?key=${config.apis.perspective}`)
             .send({ comment: { text: msg.content }, requestedAttributes: { SEVERE_TOXICITY: {}, TOXICITY: {}, OBSCENE: {}, THREAT: {}, SEXUALLY_EXPLICIT: {}, SPAM: {}, PROFANITY: {} } })
-            .catch(() => null);
+            .catch(() => ({ body: null }));
 
-        if (!req) return;
+        if (!body) return;
 
-        const { filters } = msg.guild.settings.automod;
+        const { perspective } = msg.guild.settings.automod;
 
-        for (const key of Object.keys(req.body.attributeScores)) {
-            if (filters[key].enabled) {
-                if (req.body.attributeScores[key].summaryScore.value >= filters[key].threshold) {
-                    try {
-                        msg.delete();
-                        this.client.emit("customLogs", msg.guild, "automod", { filter: key, channel: msg.channel, name: "automod", content: msg.content, image: msg.attachments.size > 0 ? await this.checkAttachments(msg.attachments.array()[0].url) : null }, msg.author);
-                    } catch (e) {
-                        return;
-                    }
-                }
+        for (const key of Object.keys(body.attributeScores)) {
+            if (!perspective[key].enabled) continue;
+            if (body.attributeScores[key].summaryScore.value >= perspective[key].threshold) {
+                await msg.delete().catch(() => null);
+                await new ServerLog(msg.guild)
+                    .setColor("red")
+                    .setType("automod")
+                    .setName(`Automod - Perspective | ${key}`)
+                    .setAuthor(`${msg.author.tag} in #${msg.channel.name}`, msg.author.displayAvatarURL())
+                    .setMessage(`**Content:**\n${msg.content}`)
+                    .send();
             }
         }
-    }
-
-    mentionPrefix({ content }) {
-        const prefixMention = this.prefixMention.exec(content);
-        return prefixMention ? { length: prefixMention[0].length, regex: this.prefixMention } : null;
-    }
-
-    init() {
-        this.prefixMention = new RegExp(`^<@!?${this.client.user.id}>`);
     }
 
 };

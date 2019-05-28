@@ -1,4 +1,5 @@
 const { Event } = require("klasa");
+const ServerLog = require("../lib/structures/ServerLog");
 
 module.exports = class extends Event {
 
@@ -10,7 +11,12 @@ module.exports = class extends Event {
             }
             return;
         } else if (channel.type === "text") {
-            return this.client.emit("customLogs", channel.guild, "channelDelete", { name: "channels", channel: channel });
+            await new ServerLog(channel.guild)
+                .setColor("red")
+                .setType("channels")
+                .setName("Channel Deleted")
+                .setMessage(`📕 **#${channel.name}** (${channel.id}) channel was \`deleted\``)
+                .send();
         }
         return;
     }

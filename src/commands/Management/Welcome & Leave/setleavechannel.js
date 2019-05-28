@@ -16,7 +16,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [channel = msg.channel]) {
-        return msg.guild.settings.update("messages.leave.channel", channel.id).then(() => {
+        return msg.guild.settings.update("channels.leave", channel.id).then(() => {
             msg.sendMessage(`${this.client.emotes.check} ***${msg.language.get("MESSAGE_LEAVE_CHANNEL_SET")}***`);
         });
     }

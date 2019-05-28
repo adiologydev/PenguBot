@@ -1,6 +1,5 @@
-const Command = require("../../lib/structures/KlasaCommand");
+const { Command, MessageEmbed, config } = require("../../index");
 const { get } = require("snekfetch");
-const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
 
@@ -18,7 +17,7 @@ module.exports = class extends Command {
     async run(msg, [Tag]) {
         let data;
         try {
-            data = await get(`https://api.royaleapi.com/player/${Tag.toUpperCase()}`).set("auth", `${this.client.config.keys.games.crapi}`).catch(e => {
+            data = await get(`https://api.royaleapi.com/player/${Tag.toUpperCase()}`).set("auth", `${config.apis.crapi}`).catch(e => {
                 Error.captureStackTrace(e);
                 return e;
             });

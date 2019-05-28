@@ -7,7 +7,7 @@ module.exports = class extends Command {
             runIn: ["text"],
             cooldown: 10,
             aliases: ["adblock", "antiinvites"],
-            permissionLevel: 4,
+            permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: language => language.get("COMMAND_ADBLOCK_DESCRIPTION"),
             quotedStringSupport: false,
@@ -16,13 +16,9 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        if (msg.guild.settings.get("automod.invites") === true) {
-            await msg.guild.settings.update("automod.invites", false);
-            return msg.sendMessage(`${this.client.emotes.check} ***Anti-invites have been Disabled!***`);
-        } else {
-            await msg.guild.settings.update("automod.invites", true);
-            return msg.sendMessage(`${this.client.emotes.check} ***Anti-invites have been Enabled!***`);
-        }
+        const toggle = !msg.guild.settings.automod.invites;
+        await msg.guild.settings.update("automod.invites", toggle);
+        return msg.sendMessage(`${toggle ? this.client.emotes.check : this.client.emotes.cross} ***Anti-invites have been ${toggle ? "Enabled" : "Disabled"}***`);
     }
 
 };

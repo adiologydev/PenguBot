@@ -1,4 +1,4 @@
-const Command = require("../../../lib/structures/KlasaCommand");
+const { Command } = require("../../../index");
 
 module.exports = class extends Command {
 
@@ -9,40 +9,50 @@ module.exports = class extends Command {
             aliases: ["automod", "automodfilters", "toggleautomod"],
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
+            subcommands: true,
             description: language => language.get("COMMAND_AUTOMOD_DESCRPTION"),
-            usage: "<toggle> [filter:string] [threshold:float]",
+            usage: "<toggle|threshold> [filter:string] [threshold:float]",
             usageDelim: " "
         });
     }
 
-    async run(msg, [toggle, filter, threshold]) {
-        if (toggle && !filter) {
-            if (msg.guild.settings.get("automod.enabled") === false) {
-                return msg.guild.settings.update("automod.enabled", true).then(() => {
-                    msg.sendMessage(`${this.client.emotes.check} ***${msg.language.get("MESSAGE_AUTOMOD_ENABLED")}***`);
-                });
-            } else {
-                return msg.guild.settings.update("automod.enabled", false).then(() => {
-                    msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_AUTOMOD_DISABLED")}***`);
-                });
-            }
+    async toggle(msg, [filter]) {
+        if (!filter) {
+            const mode = !msg.guild.settings.toggles.perspective;
+            await msg.guild.settings.update("toggles.perspective", mode);
+            return msg.sendMessage(`${mode ? this.client.emotes.check : this.client.emotes.cross} ***${mode ? msg.language.get("MESSAGE_AUTOMOD_ENABLED") : msg.language.get("MESSAGE_AUTOMOD_DISABLED")}***`);
         } else {
-            if (threshold && threshold >= 1 || threshold <= 0) return msg.sendMessage(`${this.client.emotes.cross} ***Threshold can't be more than 0 or less than 0. i.e. 0.93***`); // eslint-disable-line no-mixed-operators
-            const { filters } = msg.guild.settings.automod;
-            const keys = [];
-            for (const k of Object.keys(filters)) {
-                keys.push(k);
-            }
+            filter = filter.toUpperCase();
+            const { perspective } = msg.guild.settings.automod;
+            const keys = Object.keys(perspective);
 
-            if (!keys.includes(filter.toUpperCase())) return msg.sendMessage(`${this.client.emotes.cross} ***That is an Invalid Filter, please choose from \`${keys.join("`, `")}\`.***`);
+            if (!keys.includes(filter)) return msg.sendMessage(`${this.client.emotes.cross} ***That is an Invalid Filter, please choose from \`${keys.join("`, `")}\`.***`);
 
-            const obj = filters[filter.toUpperCase()];
-            const newObj = { enabled: !obj.enabled, threshold: threshold ? threshold : obj.threshold };
+            const obj = perspective[filter];
+            obj.enabled = !obj.enabled;
 
-            return msg.guild.settings.update(`automod.filters.${filter.toUpperCase()}`, newObj, { action: "overwrite" }).then(() => {
-                msg.sendMessage(`${!obj.enabled ? this.client.emotes.check : this.client.emotes.cross} \`${filter}\` ***${msg.language.get("MESSAGE_AUTOMOD_TOGGLED")} ${threshold ? `with \`${threshold}\` Threshold.` : "."}***`);
-            });
+            const { errors } = await msg.guild.settings.update(`automod.perspective.${filter}`, obj, { action: "overwrite" });
+            if (errors.length) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error:*** ${errors[0]}`);
+            return msg.sendMessage(`${obj.enabled ? this.client.emotes.check : this.client.emotes.cross} \`${filter}\` ***${msg.language.get("MESSAGE_AUTOMOD_TOGGLED")}.***`);
         }
+    }
+
+    async threshold(msg, [filter, threshold]) {
+        if (!filter || !threshold) return msg.sendMessage(`${this.client.emotes.cross} ***Filter or Threshold are required arguments.***`);
+        filter = filter.toUpperCase();
+
+        const { perspective } = msg.guild.settings.get("automod");
+        const keys = Object.keys(perspective);
+
+        if (!keys.includes(filter)) return msg.sendMessage(`${this.client.emotes.cross} ***That is an Invalid Filter, please choose from \`${keys.join("`, `")}\`.***`);
+        if (threshold && (threshold > 1 || threshold <= 0)) return msg.sendMessage(`${this.client.emotes.cross} ***Threshold can't be more than 1 or less than 0. i.e. 0.93***`);
+
+        const obj = perspective[filter];
+        obj.threshold = threshold;
+
+        const { errors } = await msg.guild.settings.update(`automod.perspective.${filter}`, obj, { action: "overwrite" });
+        if (errors.length) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error:*** ${errors[0]}`);
+        return msg.sendMessage(`${this.client.emotes.check} \`${filter}\` ***${msg.language.get("MESSAGE_AUTOMOD_TOGGLED")} with \`${threshold}\` threshold.***`);
     }
 
 };
