@@ -1,4 +1,4 @@
-const { Inhibitor } = require("klasa");
+const { Inhibitor, config } = require("../index");
 
 module.exports = class extends Inhibitor {
 
@@ -8,7 +8,7 @@ module.exports = class extends Inhibitor {
 
     async run(msg, cmd) {
         if (!cmd.upvoteOnly) return;
-        if (this.client.funcs.isUpvoter(msg.author) || this.client.config.main.patreon) return;
+        if (this.client.funcs.isUpvoter(msg.author) || config.patreon) return;
         throw `🔒 ***${msg.language.get("CMD_UPVOTE_ONLY")}***`;
     }
 

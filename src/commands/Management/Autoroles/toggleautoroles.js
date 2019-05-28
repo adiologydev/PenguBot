@@ -15,15 +15,9 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        if (msg.guild.settings.get("autoroles.enabled") === false) {
-            return msg.guild.settings.update("autoroles.enabled", true).then(() => {
-                msg.sendMessage(`${this.client.emotes.check} ***${msg.language.get("MESSAGE_AUTOROLES_ENABLED")}***`);
-            });
-        } else {
-            return msg.guild.settings.update("autoroles.enabled", false).then(() => {
-                msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_AUTOROLES_DISABLED")}***`);
-            });
-        }
+        const toggle = !msg.guild.settings.toggles.autoroles;
+        await msg.guild.settings.update("toggles.autoroles", toggle);
+        return msg.sendMessage(`${toggle ? this.client.emotes.check : this.client.emotes.cross} ***${toggle ? msg.language.get("MESSAGE_AUTOROLES_ENABLED") : msg.language.get("MESSAGE_AUTOROLES_DISABLED")}`);
     }
 
 };

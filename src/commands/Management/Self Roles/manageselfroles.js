@@ -15,13 +15,13 @@ module.exports = class extends Command {
     }
 
     async run(msg, [role]) {
-        const { roles } = msg.guild.settings.selfroles;
+        const roles = msg.guild.settings.roles.selfrole;
         if (!roles) return msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("CMD_NO_SELFROLES")}***`);
         if (!roles.includes(role.id)) {
-            await msg.guild.settings.update("selfroles.roles", role, msg.guild);
+            await msg.guild.settings.update("roles.selfrole", role, msg.guild);
             return msg.sendMessage(`${this.client.emotes.check} ***\`${role.name}\` ${msg.language.get("CMD_SELF_ASSIGNABLE")}***`);
         } else {
-            await msg.guild.settings.update("selfroles.roles", role, msg.guild);
+            await msg.guild.settings.update("roles.selfrole", role, msg.guild);
             return msg.sendMessage(`${this.client.emotes.cross} ***\`${role.name}\` ${msg.language.get("CMD_NO_ASSIGNABLE")}***`);
         }
     }

@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 const { Event } = require("klasa");
 const { MessageEmbed } = require("discord.js");
 
@@ -6,22 +7,22 @@ module.exports = class extends Event {
     async run(reaction) {
         const msg = reaction.message;
         const { guild } = msg;
-        if (!guild) return;
-        if (!guild.settings.starboard.enabled || !guild.settings.starboard.channel) return;
-        if (reaction.emoji.name !== "⭐") return;
+        if (!guild || reaction.emoji.name !== "⭐") return;
+        if (!guild.settings.toggles.starboard || !guild.settings.starboard.channel) return;
         if (msg.reactions.get("⭐").count < guild.settings.starboard.required) return;
 
-        const starChannel = msg.guild.channels.find(c => c.id === msg.guild.settings.starboard.channel);
-        if (!starChannel || !starChannel.postable) return;
+        const starChannel = msg.guild.channels.get(msg.guild.settings.starboard.channel);
+        if (!starChannel || !starChannel.postable || !starChannel.embedable) return;
         if (!starChannel.nsfw && msg.channel.nsfw) return;
         const fetch = await starChannel.messages.fetch({ limit: 100 });
-        const starMsg = fetch.find(m => m.embeds[0] && m.embeds[0].footer && m.embeds[0].footer.text.startsWith("⭐") && m.embeds[0].footer.text.endsWith(msg.id));
+        const starMsg = fetch.find(m => m.embeds.length && m.embeds[0].footer && m.embeds[0].footer.text.startsWith("⭐") && m.embeds[0].footer.text.endsWith(msg.id));
 
         const jumpString = `[► View The Original Message](https://discordapp.com/channels/${msg.guild.id}/${msg.channel.id}/${msg.id})\n`;
 
         if (starMsg) {
             const starEmbed = starMsg.embeds[0];
-            const image = msg.attachments.size > 0 ? await this.checkAttachments(msg.attachments.array()[0].url) : null;
+            const image = msg.attachments.size > 0 ? this.checkAttachments(msg.attachments.array()[0].url) : null;
+
             const embed = new MessageEmbed()
                 .setColor(starEmbed.color)
                 .setAuthor(`${msg.author.tag} in #${msg.channel.name}`, msg.author.displayAvatarURL())
@@ -30,12 +31,16 @@ module.exports = class extends Event {
             if (image) embed.setImage(image);
             if (msg.content) embed.setDescription(`${jumpString}${msg.content}`);
             else embed.setDescription(jumpString);
-            const oldMsg = await starChannel.messages.fetch(starMsg.id);
+
+            const oldMsg = await starChannel.messages.fetch(starMsg.id).catch(() => null);
+            if (!oldMsg) return;
             if (oldMsg.author.id !== this.client.user.id) return;
+
             await oldMsg.edit({ embed });
         } else {
-            const image = msg.attachments.size > 0 ? await this.checkAttachments(msg.attachments.array()[0].url) : null;
-            if (!image && msg.content.length < 1) return;
+            const image = msg.attachments.size > 0 ? this.checkAttachments(msg.attachments.array()[0].url) : null;
+            if (!image && !msg.content) return;
+
             const embed = new MessageEmbed()
                 .setColor(15844367)
                 .setAuthor(`${msg.author.tag} in #${msg.channel.name}`, msg.author.displayAvatarURL())
@@ -44,6 +49,7 @@ module.exports = class extends Event {
             if (image) embed.setImage(image);
             if (msg.content) embed.setDescription(`${jumpString}${msg.content}`);
             else embed.setDescription(jumpString);
+
             await starChannel.send({ embed });
         }
     }

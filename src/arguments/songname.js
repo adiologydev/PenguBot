@@ -1,4 +1,4 @@
-const { Argument, Song } = require("../index");
+const { Argument, Song, config } = require("../index");
 const { get } = require("snekfetch");
 
 /* eslint-disable no-mixed-operators */
@@ -30,21 +30,21 @@ module.exports = class extends Argument {
         const node = msg.guild.music.idealNode;
         if (!node) throw "Couldn't find an ideal region, please try changing your guild region and try again. If the error presists, contact us at: https://discord.gg/kWMcUNe";
         if (!node.ready) throw `${this.client.emotes.cross} ***The current node seems to be having an issue, please contact us at https://penugbot.com/support to resolve this issue.***`;
-        if (!this.client.config.keys.music.spotify.token) await this.client.tasks.get("spotify").run();
+        if (!config.apis.spotify.token) await this.client.tasks.get("spotify").run();
 
         const isLink = this.isLink(arg);
         if (isLink) {
             if (playlist.exec(arg) || (soundcloud.exec(arg) && scPlaylist.exec(arg))) {
-                const playlistResults = await this.getTracks(node, arg);
+                const playlistResults = await this.getTracks(node, arg).catch(() => null);
                 if (!playlistResults || !playlistResults.tracks) throw msg.language.get("ER_MUSIC_NF");
                 results.playlist = playlistResults.playlistInfo.name;
                 results.push(...playlistResults.tracks);
             } else if (soundcloud.exec(arg)) {
-                const scSingleRes = await this.getTracks(node, arg);
+                const scSingleRes = await this.getTracks(node, arg).catch(() => null);
                 if (!scSingleRes || !scSingleRes.tracks) throw msg.language.get("ER_MUSIC_NF");
                 results.push(scSingleRes.tracks[0]);
             } else if (paste.exec(arg)) {
-                if (!this.client.config.main.patreon) throw msg.language.get("ER_MUSIC_PATRON");
+                if (!config.patreon) throw msg.language.get("ER_MUSIC_PATRON");
                 const rawRes = await get(`https://paste.pengubot.com/raw/${paste.exec(arg)[1]}`);
                 if (!rawRes.body) throw msg.language.get("ER_MUSIC_NF");
                 for (const song of JSON.parse(rawRes.body).songs) {
@@ -58,7 +58,7 @@ module.exports = class extends Argument {
                 if (arg.match(/user/i)) argument = arg.replace(/\/user\/(\w)+/, "");
                 if (!spotifyList.exec(argument)) throw msg.language.get("ER_MUSIC_NF");
                 const data = await get(`https://api.spotify.com/v1/playlists/${spotifyList.exec(argument)[1]}`)
-                    .set("Authorization", `Bearer ${this.client.config.keys.music.spotify.token}`);
+                    .set("Authorization", `Bearer ${config.apis.spotify.token}`);
                 if (data.status !== 200 || !data.body) throw msg.language.get("ER_MUSIC_NF");
                 for (const trackData of data.body.tracks.items) {
                     const trackRes = await this.getTracks(node, `ytsearch:${trackData.track.artists ? trackData.track.artists[0].name : ""} ${trackData.track.name} audio`);
@@ -84,25 +84,25 @@ module.exports = class extends Argument {
                 if (!spotRes || !spotRes.tracks) throw msg.language.get("ER_MUSIC_NF");
                 results.push(spotRes.tracks[0]);
             } else {
-                const httpRes = await this.getTracks(node, arg);
+                const httpRes = await this.getTracks(node, arg).catch(() => null);
                 if (!httpRes || !httpRes.tracks) throw msg.language.get("ER_MUSIC_NF");
                 results.push(httpRes.tracks[0]);
             }
         } else if (wcYt.exec(arg) || wcSc.exec(arg)) {
-            const wcSearchRes = await this.getTracks(node, arg);
+            const wcSearchRes = await this.getTracks(node, arg).catch(() => null);
             if (!wcSearchRes || !wcSearchRes.tracks) throw msg.language.get("ER_MUSIC_NF");
             results.push(wcSearchRes.tracks[0]);
         } else if (jpop.exec(arg)) {
-            const getJpop = await this.getTracks(node, "https://listen.moe/stream");
+            const getJpop = await this.getTracks(node, "https://listen.moe/stream").catch(() => null);
             if (!getJpop || !getJpop.tracks) throw msg.language.get("ER_MUSIC_NF");
             results.push(getJpop.tracks[0]);
         } else if (kpop.exec(arg)) {
-            const getKpop = await this.getTracks(node, "https://listen.moe/kpop/stream");
+            const getKpop = await this.getTracks(node, "https://listen.moe/kpop/stream").catch(() => null);
             if (!getKpop || !getKpop.tracks) throw msg.language.get("ER_MUSIC_NF");
             results.push(getKpop.tracks[0]);
         } else {
-            let searchRes = await this.getTracks(node, `ytsearch:${arg}`);
-            if (!searchRes || !searchRes.tracks) searchRes = await this.getTracks(node, `scsearch:${arg}`);
+            let searchRes = await this.getTracks(node, `ytsearch:${arg}`).catch(() => null);
+            if (!searchRes || !searchRes.tracks) searchRes = await this.getTracks(node, `scsearch:${arg}`).catch(() => null);
             if (!searchRes || !searchRes.tracks) throw msg.language.get("ER_MUSIC_NF");
             const options = searchRes.tracks.slice(0, 5);
             const selection = await msg.prompt([`🎵 | **Select a Song - PenguBot**\n`,

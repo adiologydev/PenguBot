@@ -4,31 +4,23 @@ module.exports = class extends Command {
 
     constructor(...args) {
         super(...args, {
-            runIn: ["text", "dm"],
             cooldown: 5,
-            permissionLevel: 0,
-            requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: language => language.get("COMMAND_AFK_DESCRIPTION"),
-            usage: "[reason:string]",
-            extendedHelp: "No extended help available."
+            extendedHelp: "No extended help available.",
+            usage: "[reason:string]"
         });
     }
 
-    async run(msg, [reason]) {
-        reason = reason || "No reason";
-
+    async run(msg, [reason = "No reason"]) {
         const afk = await msg.author.settings.get("afk");
-        if (!afk.afk) {
-            await msg.author.settings.update("afk.afk", true).then(() => {
-                msg.author.settings.update("afk.reason", reason, { action: "add" });
-                msg.sendMessage(`${this.client.emotes.check} ***${msg.language.get("MESSAGE_AFK_TRUE")}***`);
-            });
-        } else {
-            await msg.author.settings.update("afk.afk", false).then(() => {
-                msg.author.settings.update("afk.reason", null);
-                msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_AFK_FALSE")}***`);
-            });
+
+        if (afk.time) {
+            await msg.author.settings.reset(["afk.time", "afk.reason"]);
+            return msg.sendLocale("COMMAND_AFK_REMOVED", [msg.author.username]);
         }
+
+        await msg.author.settings.update([["afk.time", Date.now()], ["afk.reason", reason]]);
+        return msg.sendLocale("COMMAND_AFK_SET", [msg.author.username, reason]);
     }
 
 };

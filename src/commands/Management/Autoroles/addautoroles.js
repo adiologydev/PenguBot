@@ -16,12 +16,12 @@ module.exports = class extends Command {
     }
 
     async run(msg, [role]) {
-        if (msg.guild.settings.get("autoroles.roles").indexOf(role.id) !== -1) {
-            return msg.guild.settings.update("autoroles.roles", role, msg.guild).then(() => {
+        if (msg.guild.settings.get("roles.autorole").indexOf(role.id) !== -1) {
+            return msg.guild.settings.update("roles.autorole", role, msg.guild).then(() => {
                 msg.sendMessage(`${this.client.emotes.cross} ***${role.name} ${msg.language.get("MESSAGE_AUTOROLE_REMOVED")}***`);
             });
         } else {
-            return msg.guild.settings.update("autoroles.roles", role, msg.guild).then(() => {
+            return msg.guild.settings.update("roles.autorole", role, msg.guild).then(() => {
                 msg.sendMessage(`${this.client.emotes.check} ***${role.name} ${msg.language.get("MESSAGE_AUTOROLE_ADDED")}***`);
             });
         }

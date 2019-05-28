@@ -1,6 +1,5 @@
-const Command = require("../../lib/structures/KlasaCommand");
+const { Command, MessageEmbed, config } = require("../../index");
 const { get } = require("snekfetch");
-const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
 
@@ -17,7 +16,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [name]) {
-        const { body } = await get(`https://api.twitch.tv/kraken/channels/${name}?client_id=${this.client.config.keys.music.twitch}`)
+        const { body } = await get(`https://api.twitch.tv/kraken/channels/${name}?client_id=${config.apis.twitch}`)
             .catch(() => msg.reply(`<:penguError:435712890884849664> I couldn't find your channel while searching it on Twitch, please try again!`));
 
         const embed = new MessageEmbed()

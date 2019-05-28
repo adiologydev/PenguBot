@@ -1,18 +1,17 @@
 const { ShardingManager } = require("kurasuta");
-
-const config = require("../config.json");
-const PenguClient = require("./lib/structures/PenguClient");
 const { join } = require("path");
+const config = require("../config.js");
+const PenguClient = require("./lib/structures/PenguClient");
 
 const sharder = new ShardingManager(join(__dirname, "PenguBot"), {
-    token: config.main.token,
+    token: config.token,
     client: PenguClient,
     clientOptions: {
         prefix: "p!",
         commandEditing: true,
         disableEveryone: true,
         regexPrefix: /^((?:Hey |Ok )?Pengu(?:,|!| ))/i,
-        typing: true,
+        typing: false,
         disabledEvents: [
             "GUILD_SYNC",
             "CHANNEL_PINS_UPDATE",
@@ -31,23 +30,24 @@ const sharder = new ShardingManager(join(__dirname, "PenguBot"), {
         },
         providers: {
             default: "rethinkdb",
-            rethinkdb: { db: "pengubot", host: config.database.host, port: config.database.port }
+            rethinkdb: config.database
         },
         console: { useColor: true },
-        production: config.main.production,
-        presence: { activity: { name: "❤ p!donate for PenguBot Premium Access ➖ p!help | PenguBot.com", type: "PLAYING" } },
+        production: config.production,
+        presence: { activity: { name: "❤ PenguBot.com | p!donate for PenguBot Premium Access ➖ p!help", type: "PLAYING" } },
         prefixCaseInsensitive: true,
         noPrefixDM: true,
         aliasFunctions: { returnMethod: "run", enabled: true, prefix: "funcs" },
         dashboardHooks: { apiPrefix: "/" },
         clientSecret: config.dashboard.secret,
         clientID: config.dashboard.id,
-        messageSweepInterval: 60,
+        messageSweepInterval: 480,
         messageCacheLifetime: 120,
         commandMessageLifetime: 120
     },
-    shardCount: config.main.shards,
-    ipcSocket: config.main.patreon ? 9545 : 9454
+    shardCount: config.shards,
+    ipcSocket: config.patreon ? 9545 : 9454,
+    timeout: 60000
 });
 
 sharder.spawn();
