@@ -1,4 +1,4 @@
-const Command = require("../../lib/structures/KlasaCommand");
+const { Command } = require("../../index");
 
 module.exports = class extends Command {
 
@@ -14,7 +14,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [GarbageWho = msg.author]) {
-        const image = await this.client.idiotic.garbage(GarbageWho.displayAvatarURL({ format: "png", size: 128 }))
+        const image = await this.client.funcs.images("generate/changemymind", { avatar: GarbageWho.displayAvatarURL({ format: "png", size: 256 }) })
             .catch(() => null);
         if (!image) return msg.reply(msg.language.get("ER_TRY_AGAIN"));
         return msg.channel.sendFile(image);
