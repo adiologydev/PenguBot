@@ -18,27 +18,10 @@ module.exports = class extends Argument {
 
         const validLink = this.isLink(arg);
         if (validLink) {
-            if (paste.test(arg)) {
-                const res = await this.pasteDump(msg, arg);
-                results.push(...res);
-                results.playlist = "PenguBot Dump";
-            } else if (spotifyTrack.test(arg)) {
-                const res = await this.spotifyTrack(msg, arg);
-                results.push(res);
-            } else if (spotifyList.test(arg)) {
-                const res = await this.spotifyPlaylist(msg, arg);
-                results.push(...res.tracks);
-                results.playlist = res.playlist;
-            } else if (spotifyAlbum.test(arg)) {
-                const res = await this.spotifyAlbum(msg, arg);
-                results.push(...res.tracks);
-                results.playlist = res.playlist;
-            } else {
-                const result = await this.fetchTracks(arg);
-                if (result.tracks.length) {
-                    results.push(...result.tracks);
-                    if (result.playlist) results.playlist = result.playlist.name;
-                }
+            const result = await this.validLinkSearch(msg, arg);
+            if (result.tracks.length) {
+                results.push(...result.tracks);
+                if (result.playlist) results.playlist = result.playlist;
             }
         }
 
@@ -54,6 +37,15 @@ module.exports = class extends Argument {
 
         if (!results.length) throw msg.language.get("ER_MUSIC_NF");
         return { tracks: results.map(track => new Song(track, msg.author)), playlist: results.playlist };
+    }
+
+    validLinkSearch(msg, arg) {
+        if (paste.test(arg)) return this.pasteDump(msg, arg);
+        if (spotifyTrack.test(arg)) return this.spotifyTrack(msg, arg);
+        if (spotifyList.test(arg)) return this.spotifyPlaylist(msg, arg);
+        if (spotifyAlbum.test(arg)) return this.spotifyAlbum(msg, arg);
+
+        return this.fetchTracks(arg);
     }
 
     async searchTrack(msg, arg) {
@@ -106,7 +98,7 @@ module.exports = class extends Argument {
         const searchResult = await this.fetchTracks(`ytsearch:${artist ? artist.name : ""} ${data.name} audio`);
         if (!searchResult.tracks.length) throw msg.language.get("ER_MUSIC_NF");
 
-        return searchResult.tracks[0];
+        return { tracks: [searchResult.tracks[0]] };
     }
 
     async spotifyAlbum(msg, arg) {
@@ -132,14 +124,14 @@ module.exports = class extends Argument {
         const tracks = await this.fetchURL(`https://paste.pengubot.com/raw/${paste.exec(arg)[1]}`);
         if (!tracks) throw msg.language.get("ER_MUSIC_NF");
 
-        return tracks;
+        return { tracks, playlist: "PenguBot Dumb" };
     }
 
     async fetchTracks(search) {
         const result = await this.client.lavalink.resolveTracks(search);
 
         if (result.loadType === "LOAD_FAILED") throw "There was an error trying to search for that song";
-        return { tracks: result.tracks, playlist: "name" in result.playlistInfo ? result.playlistInfo : null };
+        return { tracks: result.tracks, playlist: "name" in result.playlistInfo ? result.playlistInfo.name : null };
     }
 
     isLink(arg) {
