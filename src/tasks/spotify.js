@@ -21,6 +21,7 @@ module.exports = class extends Task {
     }
 
     async init() {
+        await this.run();
         if (!this.client.settings.schedules.some(schedule => schedule.taskName === this.name)) {
             await this.client.schedule.create("spotify", "*/30 * * * *");
         }

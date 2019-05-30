@@ -1,5 +1,5 @@
-const snekfetch = require("snekfetch");
 const { PlayerManager } = require("discord.js-lavalink");
+const { fetch } = require("../util/Util");
 
 class LavalinkClient extends PlayerManager {
 
@@ -14,20 +14,16 @@ class LavalinkClient extends PlayerManager {
 
     /**
      * Search for tracks from lavalink rest api
-     * @param {Object} node The node to use to query the track
-     * @param {string} search Search query
-     * @returns {Promise<?Array<Object>>}
+     * @param {string} identifier Search query
+     * @returns {Promise<Object>}
      */
-    getSongs(node, search) {
-        if (!node) node = this.client.lavalink.nodes.first();
-        return snekfetch.get(`http://${node.host}:${node.port}/loadtracks`)
-            .set("Authorization", node.password)
-            .query({ identifier: search })
-            .then(res => res.body)
+    resolveTracks(identifier) {
+        const node = this.nodes.first();
+        return fetch(`http://${node.host}:${node.port}/loadtracks`, { query: { identifier }, headers: { Authorization: node.password } })
             .catch(error => {
                 Error.captureStackTrace(error);
-                this.client.console.error(error);
-                return [];
+                this.client.emit("error", error);
+                return {};
             });
     }
 
