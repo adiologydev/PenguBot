@@ -24,6 +24,5 @@ module.exports = {
     MusicCommand: require("./lib/structures/MusicCommand"),
     ModLog: require("./lib/structures/ModLog"),
     ServerLog: require("./lib/structures/ServerLog"),
-    Song: require("./lib/structures/Song"),
-    MusicCommand: require("./lib/structures/MusicCommand")
+    Song: require("./lib/structures/Song")
 };

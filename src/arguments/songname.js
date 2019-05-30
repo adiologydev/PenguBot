@@ -72,7 +72,7 @@ module.exports = class extends Argument {
 
     async spotifyPlaylist(msg, arg) {
         const data = await this.fetchURL(`https://api.spotify.com/v1/playlists/${spotifyList.exec(arg)[1]}`,
-            { headers: { Authorization: `Bearer ${config.keys.music.spotify.token}` } });
+            { headers: { Authorization: `Bearer ${config.apis.spotify.token}` } });
         if (!data) throw msg.language.get("ER_MUSIC_NF");
 
         const loading = await msg.sendMessage(`${this.client.emotes.loading} ***Spotify Playlist is Loading...***`);
@@ -90,7 +90,7 @@ module.exports = class extends Argument {
 
     async spotifyTrack(msg, arg) {
         const data = await this.fetchURL(`https://api.spotify.com/v1/tracks/${spotifyTrack.exec(arg)[1]}`,
-            { headers: { Authorization: `Bearer ${config.keys.music.spotify.token}` } });
+            { headers: { Authorization: `Bearer ${config.apis.spotify.token}` } });
         if (!data) throw msg.language.get("ER_MUSIC_NF");
 
         const [artist] = data.artists;
@@ -103,7 +103,7 @@ module.exports = class extends Argument {
 
     async spotifyAlbum(msg, arg) {
         const data = await this.fetchURL(`https://api.spotify.com/v1/albums/${spotifyAlbum.exec(arg)[1]}`,
-            { headers: { Authorization: `Bearer ${config.keys.music.spotify.token}` } });
+            { headers: { Authorization: `Bearer ${config.apis.spotify.token}` } });
         if (!data) throw msg.language.get("ER_MUSIC_NF");
 
         const loading = await msg.sendMessage(`${this.client.emotes.loading} ***Spotify Album is Loading...***`);
@@ -120,7 +120,7 @@ module.exports = class extends Argument {
     }
 
     async pasteDump(msg, arg) {
-        if (!config.main.patreon) throw msg.language.get("ER_MUSIC_PATRON");
+        if (!config.patreon) throw msg.language.get("ER_MUSIC_PATRON");
         const tracks = await this.fetchURL(`https://paste.pengubot.com/raw/${paste.exec(arg)[1]}`);
         if (!tracks) throw msg.language.get("ER_MUSIC_NF");
 
