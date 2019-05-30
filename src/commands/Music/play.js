@@ -50,7 +50,7 @@ module.exports = class extends MusicCommand {
         const isUpvoter = await this.client.funcs.isUpvoter(msg.author);
 
         if (songs.tracks.length > 1) {
-            const limit = config.patreon && isUpvoter ? 1000 : 74;
+            const limit = config.patreon && isUpvoter ? 1000 : 75;
             const limitedSongs = songs.tracks.slice(0, limit);
             musicInterface.queue.push(...limitedSongs);
             if (songs.tracks.length >= 75 && !config.patreon && !isUpvoter) {
