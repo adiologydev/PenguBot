@@ -21,10 +21,4 @@ module.exports = class extends Command {
         return msg.channel.sendFile(image);
     }
 
-    async createImage(text) {
-        const image = await this.client.funcs.images("generate/illegal", { text: text })
-            .catch(() => null);
-        return image;
-    }
-
 };

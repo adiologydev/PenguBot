@@ -14,7 +14,7 @@ module.exports = class extends Command {
 
     async run(msg, [MatchWith]) {
         if (MatchWith.id === msg.author.id) return msg.reply(msg.language.get("ER_TINDER"));
-        const image = await this.client.idiotic.tinderMatch(msg.author.displayAvatarURL({ format: "png", size: 256 }), MatchWith.displayAvatarURL({ format: "png", size: 256 }))
+        const image = await this.client.funcs.images("generate/tinder", { avatar1: msg.author.displayAvatarURL({ format: "png", size: 256 }), avatar2: MatchWith.displayAvatarURL({ format: "png", size: 256 }) })
             .catch(() => null);
         if (!image) return msg.reply(msg.language.get("ER_TRY_AGAIN"));
         return msg.channel.sendFile(image);

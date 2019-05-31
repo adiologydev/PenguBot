@@ -14,7 +14,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [user = msg.author]) {
-        const image = await this.client.idiotic.tattoo(user.displayAvatarURL({ format: "png", size: 128 }))
+        const image = await this.client.funcs.images("generate/tattoo", { avatar: user.displayAvatarURL({ format: "png", size: 512 }) })
             .catch(() => null);
         if (!image) return msg.reply(msg.language.get("ER_TRY_AGAIN"));
         return msg.channel.sendFile(image);
