@@ -10,7 +10,7 @@ const sharder = new ShardingManager(join(__dirname, "PenguBot"), {
         prefix: "p!",
         commandEditing: true,
         disableEveryone: true,
-        regexPrefix: /^((?:Hey |Ok )?Pengu(?:,|!| ))/i,
+        regexPrefix: /^((?:Hey |Ok |Yo )?Pengu(?:,|!| ))/i,
         typing: false,
         disabledEvents: [
             "GUILD_SYNC",
