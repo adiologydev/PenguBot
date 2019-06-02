@@ -29,14 +29,13 @@
   "dependencies": {
     "breadtags": "github:PenguBot/bread-tags",
     "bufferutil": "^4.0.1",
-    "canvas": "^2.4.1",
+    "canvas": "^2.5.0",
     "canvas-constructor": "github:kyranet/canvasConstructor",
     "cheerio": "^1.0.0-rc.3",
     "discord.js": "github:discordjs/discord.js",
     "discord.js-lavalink": "github:MrJacz/discord.js-lavalink",
     "erlpack": "github:discordapp/erlpack",
-    "google-translate-api": "^2.3.0",
-    "hot-shots": "^6.2.0",
+    "hot-shots": "^6.3.0",
     "idiotic-api": "github:YorkAARGH/Idiotic-Wrapper",
     "klasa": "github:dirigeants/klasa",
     "klasa-dashboard-hooks": "github:PenguBot/klasa-dashboard-hooks",
@@ -45,12 +44,11 @@
     "kurasuta": "^0.2.18",
     "raven": "^2.6.4",
     "rethinkdbdash": "^2.3.31",
-    "twemoji": "^12.0.1",
     "zlib-sync": "^0.1.4"
   },
   "devDependencies": {
     "eslint": "5.16.0",
-    "eslint-plugin-node": "^9.0.0",
-    "eslint-plugin-promise": "^4.0.1"
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.1.1"
   }
 }
