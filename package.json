@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/AdityaTD/PenguBot#readme",
   "dependencies": {
+    "@k3rn31p4nic/google-translate-api": "^1.0.5",
     "breadtags": "github:PenguBot/bread-tags",
     "bufferutil": "^4.0.1",
     "canvas": "^2.5.0",
