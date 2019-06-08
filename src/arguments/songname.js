@@ -54,12 +54,11 @@ module.exports = class extends Argument {
         if (!data || !data.tracks.length) throw msg.language.get("ER_MUSIC_NF");
 
         const options = data.tracks.slice(0, 5);
-        let selection = await msg.prompt([`🎵 | **Select a Song - PenguBot**\n`,
+        const selection = await msg.prompt([`🎵 | **Select a Song - PenguBot**\n`,
             `${options.map((o, index) => `➡ \`${++index}\` ${o.info.title} - ${o.info.author} (${this.client.funcs.friendlyDuration(o.info.length)})`).join("\n")}`,
             `\n${msg.author}, Please select a track by replying from range \`1-5\` to add it to the queue.`].join("\n"), 20000).catch(() => null);
 
         if (!selection) throw `${this.client.emotes.cross} ***Invalid Option Selected, please select one number between \`1-5\`. Cancelled song selection.***`;
-        selection++;
 
         if (!options[selection]) throw `${this.client.emotes.cross} ***Specified track could not be found, please try again with a different one.***`;
         return options[selection];
