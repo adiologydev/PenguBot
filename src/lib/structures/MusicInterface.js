@@ -105,34 +105,19 @@ class MusicInterface {
     }
 
     get player() {
-        return this.client.lavalink.get(this.guild.id) || null;
+        return this.client.lavalink.players.get(this.guild.id) || null;
     }
 
     get volume() {
-        return this.guild.settings.misc.volume;
+        return this.guild.settings.get("misc.volume");
     }
 
-    /**
-     * Gets the ideal Node based on the load
-     * @returns {LavalinkNode}
-     */
     get idealNode() {
-        const nodes = this.client.lavalink.nodes.filter(node => node.ready);
-        const selectedNode = nodes.sort((a, b) => {
-            const aload = a.stats.cpu ? (a.stats.cpu.systemLoad / a.stats.cpu.cores) * 100 : 0;
-            const bload = b.stats.cpu ? (b.stats.cpu.systemLoad / b.stats.cpu.cores) * 100 : 0;
-            return aload - bload;
-        }).first();
-        return selectedNode || nodes.first();
+        return this.client.lavalink.idealNodes.first();
     }
 
-    /**
-     * Check if a guild member is listening to music
-     * @param {GuildMember} member The member you want to check
-     * @returns {boolean}
-     */
     isListening(member) {
-        return !member.voice.deaf && member.voice.channel.id === this.voice.channel.id;
+        return !member.voice.deaf && member.voice.channel.id === this.voiceChannel.id;
     }
 
 }
