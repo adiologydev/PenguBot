@@ -35,7 +35,7 @@ module.exports = class extends MusicCommand {
             .addField(`• ${prefix}toggledj`, "Allow Pengu-Mod and above to make music commands Pengu-DJ Mode only.")
             .addField(`• ${prefix}shuffle`, "Shuffle the song queue to randomize it.")
             .addField(`• ${prefix}volume`, "Change Volume of PenguBot in Voice Channel.")
-            .addField("\u200B", `**Support PenguBot, Become a Patron**\nWant to get access to exclusive features while supporting PenguBot? Consider becoming a Patron today: [Patreon](https://www.patreon.com/PenguBot)\n\n**Note:** This feature does go through constant development mostly all the time. If you have bugs, please report them on our support server \`${prefix}support\` for link.`); // eslint-disable-line max-len
+            .addField("\u200B", `**Support PenguBot, Become a Patron**\nWant to get access to exclusive features while supporting PenguBot? Consider becoming a Patron today: [Patreon](https://www.patreon.com/PenguBot)\n\n**Note:** This feature does go through constant development mostly all the time. If you find any bugs please head over to https://discord.gg/NQCTdEc and report them to us!`); // eslint-disable-line max-len
 
         return msg.sendEmbed(embed);
     }

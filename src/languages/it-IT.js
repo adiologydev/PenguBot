@@ -425,16 +425,16 @@ module.exports = class extends Language {
             MUSICIF_SONG_LENGHT: "Lunghezza",
             MUSICIF_SONG_REQUESTED_BY: "Richiedente",
             MUSICIF_SONG_LINK: "Link",
-            MUSICIF_SONG_NOT_FOUND: "Canzone non trovata. Provane un'altra, o aggiungi argomenti ..",
+            MUSIC_NO_SONGS_IN_QUEUE: "Canzone non trovata. Provane un'altra, o aggiungi argomenti ..",
             MUSICIF_QUEUE_HINT: "Sfoglia le pagine della playlist..",
             MUSICIF_QUEUE_TITLE: "Usa le reazioni per interagire con la playlist.",
             MUSICIF_QUEUE_LOADING: "Carico la playlist ..",
             MUSICIF_NO_VOICE_CHANNEL: "Non sei connesso ad un canale al quale io possa accedere. Riprova.",
-            MUSICIF_QUEUE_LIMIT_REACHED: "Siamo spiacenti ma la lunghezza massima della coda è di 1000 elementi. Se vuoi non avere questo limite, considera di diventare un nostro Patron su <https://patreon.com/PenguBot>",
             MUSICIF_TOGGLE_SONG_LOOP: "Abilitata/Disabilita la ripetizione della singola traccia.",
             MUSICIF_TOGGLE_SONG_LOOP_ON: "Abilitata la ripetizione della singola traccia.",
             MUSICIF_TOGGLE_SONG_LOOP_OFF: "Disabilita la ripetizione della singola traccia.",
             MUSICIF_TOGGLE_QUEUE_LOOP: "Tutta la playlist verrà ripetuta.",
+            COMMAND_MUSIC_LOOP_MAX_QUEUE: "Siamo spiacenti ma la lunghezza massima della coda è di 1000 elementi. Se vuoi non avere questo limite, considera di diventare un nostro Patron su <https://patreon.com/PenguBot>",
 
             // 30th December 2018
             HELP_SET_LANGUAGE: ["Please select a Language you Want **PenguBot** to Speak in.",

@@ -16,9 +16,10 @@ module.exports = class extends MusicCommand {
 
     async run(msg) {
         const { music } = msg.guild;
-        if (!music.playing) return msg.sendMessage(`${this.client.emotes.cross} ***There's currently no music playing!***`);
+        if (!music.playing) return msg.sendMessage(msg.language.get("MUSIC_NOT_PLAYING"));
+        if (!music.queue.length) return msg.sendMessage(msg.language.get("MUSIC_NO_SONGS_IN_QUEUE"));
 
-        const paste = await haste(JSON.stringify(music.queue));
+        const paste = await haste(JSON.stringify(music.queue), "json");
         return msg.sendMessage(`${this.client.emotes.check} **Raw dump of current queue has been created:** ${paste}\n**Tip:** Save this URL to use with the \`play\` command to instantly load a queue.`);
     }
 

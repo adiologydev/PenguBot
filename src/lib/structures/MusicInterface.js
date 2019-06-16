@@ -14,26 +14,25 @@ class MusicInterface {
     }
 
     join(voiceChannel) {
+        if (!this.idealNode) throw new Error("NO_NODES_AVAILABLE: There are no nodes available to use.");
         return this.client.lavalink.join({
             guild: this.guild.id,
-            channel: voiceChannel.id,
+            channel: voiceChannel,
             host: this.idealNode.host
         }, { selfdeaf: true });
     }
 
-    async leave(force = true) {
-        if (this.player && (this.playing || force)) this.player.stop();
+    async leave() {
         await this.client.lavalink.leave(this.guild.id);
         this.playing = false;
-        return this;
     }
 
     async play() {
-        if (!this.player) throw "No! Something went wrong, try again.";
-        else if (!this.queue.length) throw "Can't play songs from an empty queue.";
+        if (!this.player) throw "Something went wrong, try again.";
+        else if (!this.queue.length) throw "Can't play songs from an empty queue. Queue up some songs!";
 
         const [song] = this.queue;
-        const volume = config.patreon ? { volume: this.guild.settings.get("misc.volume") } : {};
+        const volume = config.patreon ? { volume: this.volume } : {};
 
         await this.player.play(song.track, volume);
 
@@ -41,21 +40,24 @@ class MusicInterface {
         return this.player;
     }
 
-    async pause(pause = true) {
-        if (!this.player) return null;
-        await this.player.pause(pause);
-        this.paused = pause;
-        return this.paused;
-    }
-
-    resume() {
-        return this.pause(false);
-    }
-
     async skip(force = true) {
         if (this.player && force) await this.player.stop();
         else this.queue.shift();
-        return this;
+    }
+
+
+    async pause() {
+        if (!this.player) return null;
+        const paused = !this.paused;
+        await this.player.pause(paused);
+        this.paused = paused;
+        return paused;
+    }
+
+    async setVolume(volume) {
+        await this.guild.settings.update("misc.volume", volume);
+        if (this.playing) await this.player.volume(volume);
+        return volume;
     }
 
     clearQueue() {
@@ -83,8 +85,12 @@ class MusicInterface {
         return this.client.lavalink.players.get(this.guild.id) || null;
     }
 
+    get volume() {
+        return this.guild.settings.get("misc.volume");
+    }
+
     get idealNode() {
-        return this.client.lavalink.idealNodes.first();
+        return this.client.lavalink.idealNodes.first() || null;
     }
 
 }
