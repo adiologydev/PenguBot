@@ -21,7 +21,7 @@ module.exports = class extends MusicCommand {
         if (music.voiceChannel.members.size > 4) {
             if ("force" in msg.flags) {
                 const hasPermission = await msg.hasAtLeastPermissionLevel(2);
-                if (hasPermission === false) throw "You can't execute this command with the force flag. You must be at least a Moderator Member.";
+                if (hasPermission === false) throw "You can't execute this command with the force flag. You must be a DJ.";
             } else {
                 const response = this.handleSkips(music, msg.author.id);
                 if (response) return msg.send(response);
