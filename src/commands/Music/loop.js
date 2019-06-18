@@ -25,7 +25,7 @@ module.exports = class extends MusicCommand {
             music.queue = music.queue.concat(music.queue);
         }
 
-        return msg.sendMessage(`${queueOrSong === "song" ? "Song" : "Queue"} looping is now ${queueOrSong === "queue" ? "The whole queue will now repeat." : music.looping ? "enabled" : "disabled"}`);
+        return msg.sendMessage(`🎧 ${queueOrSong === "song" ? "Song" : "Queue"} looping is now ${queueOrSong === "queue" ? "The whole queue will now repeat." : music.looping ? "enabled" : "disabled"}.`);
     }
 
 };

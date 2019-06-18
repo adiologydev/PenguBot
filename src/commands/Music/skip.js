@@ -31,7 +31,7 @@ module.exports = class extends MusicCommand {
         const [song] = music.queue;
         await music.skip(true);
 
-        return msg.send(`Skipped ${song.title}`);
+        return msg.sendMessage(`🎧 **Skipped Track:** ${song.title}`);
     }
 
     handleSkips(musicInterface, user) {

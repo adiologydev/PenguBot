@@ -30,7 +30,7 @@ module.exports = class extends MusicCommand {
             .addField(`• ${prefix}lyrics`, "Enter a song name and get lyrics for it on the go easily.")
             .addField(`• ${prefix}nowplaying`, "Get information about the currently playing song.")
             .addField(`• ${prefix}dmsong`, "Direct Messages you the information about the currently playing song.")
-            .addField(`• ${prefix}createdj`, "Tag a user to make them admin, requires Pengu-Mod or above.")
+            .addField(`• ${prefix}managedj`, "Tag a user to make them admin, requires Pengu-Mod or above.")
             .addField(`• ${prefix}loop`, "Loop a song to repeat everytime it finishes.")
             .addField(`• ${prefix}toggledj`, "Allow Pengu-Mod and above to make music commands Pengu-DJ Mode only.")
             .addField(`• ${prefix}shuffle`, "Shuffle the song queue to randomize it.")
