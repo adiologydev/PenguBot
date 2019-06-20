@@ -1,4 +1,4 @@
-const { Argument, Song, config } = require("../index");
+const { Argument, Song, util: { showSeconds }, config } = require("../index");
 
 const wildcard = /(?:scsearch:|ytsearch:).*/i;
 const paste = /https:\/\/paste.pengubot.com\/(.*)/i;
@@ -53,16 +53,21 @@ module.exports = class extends Argument {
         if (!data || !data.tracks.length) data = await this.fetchTracks(`scsearch:${arg}`);
         if (!data || !data.tracks.length) throw msg.language.get("ER_MUSIC_NF");
 
-        const options = data.tracks.slice(0, 5);
-        let selection = await msg.prompt([`🎵 | **Select a Song - PenguBot**\n`,
-            `${options.map((o, index) => `➡ \`${++index}\` ${o.info.title} - ${o.info.author} (${this.client.funcs.friendlyDuration(o.info.length)})`).join("\n")}`,
-            `\n${msg.author}, Please select a track by replying from range \`1-5\` to add it to the queue.`].join("\n"), 20000).catch(() => null);
+        const songs = data.tracks.slice(0, 5);
 
-        if (!selection || isNaN(selection.content)) throw `${this.client.emotes.cross} ***Invalid Option Selected, please select one number between \`1-5\`. Cancelled song selection.***`;
-        selection = Number(selection.content) - 1;
+        const selectionMessage = await msg.prompt(`
+🎵 | **Select a Song - PenguBot**
 
-        if (!options[selection]) throw `${this.client.emotes.cross} ***Specified track could not be found, please try again with a different one.***`;
-        return options[selection];
+${songs.map((song, index) => `➡ \`${++index}\` ${song.info.title} - ${song.info.author} (${showSeconds(song.info.length)})`).join("\n")}
+
+${msg.author}, Please select a track by replying from range \`1-5\` to add it to the queue.`, 15000);
+
+        let selection = Number(selectionMessage.content);
+        if (isNaN(selection) || selection <= 0 || selection > 5) throw `${this.client.emotes.cross} ***Invalid Option Selected, please select one number between \`1-5\`. Cancelled song selection.***`;
+        selection -= 1;
+
+        if (!songs[selection]) throw `${this.client.emotes.cross} ***Specified track could not be found, please try again with a different one.***`;
+        return songs[selection];
     }
 
     async wildcardTrack(msg, arg) {

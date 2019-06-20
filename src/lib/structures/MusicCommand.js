@@ -1,4 +1,4 @@
-const Command = require("../../lib/structures/KlasaCommand");
+const Command = require("./KlasaCommand");
 
 class MusicCommand extends Command {
 
