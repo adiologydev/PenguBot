@@ -13,66 +13,89 @@ class MusicInterface {
         this.looping = false;
     }
 
+    /**
+     * Joins the voice channel which the bot will play tracks in
+     * @param {VoiceChannel} voiceChannel The voice channel the bot is connected to
+     * @returns {string}
+     */
     join(voiceChannel) {
-        if (!this.idealNode) throw new Error("NO_NODES_AVAILABLE: There are no nodes available to use.");
         return this.client.lavalink.join({
             guild: this.guild.id,
-            channel: voiceChannel,
+            channel: voiceChannel.id,
             host: this.idealNode.host
         }, { selfdeaf: true });
     }
 
-    async leave() {
+    /**
+     * Leaves the voice channel the bot is connected to
+     * @param {boolean} force Force leave option
+     * @returns {MusicInterface}
+     */
+    async leave(force = true) {
+        if (this.player && (this.playing || force)) this.player.stop();
         await this.client.lavalink.leave(this.guild.id);
         this.playing = false;
+        return this;
     }
 
+    /**
+     * Gets the most ideal region based on specified guild region.
+     * @returns {Player}
+     */
     async play() {
-        if (!this.player) throw "Something went wrong, try again.";
-        else if (!this.queue.length) throw "Can't play songs from an empty queue. Queue up some songs!";
+        if (!this.player) throw "No! Something went wrong, try again.";
+        else if (!this.queue.length) throw "Can't play songs from an empty queue.";
 
         const [song] = this.queue;
-        const volume = config.patreon ? { volume: this.volume } : {};
-
-        await this.player.play(song.track, volume);
-
+        this.player.play(song.track);
+        if (config.patreon) this.player.volume(this.volume);
         this.playing = true;
         return this.player;
     }
 
-    async skip(force = true) {
-        if (this.player && force) await this.player.stop();
+    /**
+     * Pause/Resume the player
+     * @returns {boolean}
+     */
+    pause() {
+        if (!this.player) return false;
+        this.player.pause(!this.paused);
+        this.paused = !this.paused;
+        return true;
+    }
+
+    /**
+     * Skips the current song in the queue
+     * @param {boolean} force Force skip option
+     * @returns {MusicInterface}
+     */
+    skip(force = true) {
+        if (this.player && force) this.player.stop();
         else this.queue.shift();
+        return this;
     }
 
-
-    async pause() {
-        if (!this.player) return null;
-        const paused = !this.paused;
-        await this.player.pause(paused);
-        this.paused = paused;
-        return paused;
-    }
-
-    async setVolume(volume) {
-        await this.guild.settings.update("misc.volume", volume);
-        if (this.playing) await this.player.volume(volume);
-        return volume;
-    }
-
+    /**
+     * Clears the current queue
+     * @returns {MusicInterface}
+     */
     clearQueue() {
         this.queue = [];
         return this;
     }
 
+    /**
+     * Destroys the current interface
+     * @returns {void}
+     */
     async destroy() {
-        this.queue = null;
+        this.queue = [];
         this.playing = null;
         this.paused = null;
         this.textChannel = null;
         this.looping = null;
 
-        if (this.player) await this.player.destroy();
+        if (this.player) this.player.destroy();
         await this.leave();
         this.client.music.delete(this.guild.id);
     }
@@ -82,15 +105,34 @@ class MusicInterface {
     }
 
     get player() {
-        return this.client.lavalink.players.get(this.guild.id) || null;
+        return this.client.lavalink.get(this.guild.id) || null;
     }
 
     get volume() {
-        return this.guild.settings.get("misc.volume");
+        return this.guild.settings.misc.volume;
     }
 
+    /**
+     * Gets the ideal Node based on the load
+     * @returns {LavalinkNode}
+     */
     get idealNode() {
-        return this.client.lavalink.idealNodes.first() || null;
+        const nodes = this.client.lavalink.nodes.filter(node => node.ready);
+        const selectedNode = nodes.sort((a, b) => {
+            const aload = a.stats.cpu ? (a.stats.cpu.systemLoad / a.stats.cpu.cores) * 100 : 0;
+            const bload = b.stats.cpu ? (b.stats.cpu.systemLoad / b.stats.cpu.cores) * 100 : 0;
+            return aload - bload;
+        }).first();
+        return selectedNode || nodes.first();
+    }
+
+    /**
+     * Check if a guild member is listening to music
+     * @param {GuildMember} member The member you want to check
+     * @returns {boolean}
+     */
+    isListening(member) {
+        return !member.voice.deaf && member.voice.channel.id === this.voice.channel.id;
     }
 
 }

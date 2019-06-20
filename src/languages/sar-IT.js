@@ -420,7 +420,7 @@ module.exports = class extends Language {
 
             // Requires Translation
             MUSICIF_NO_MUSIC_PLAYING: "There's currently no music playing!",
-            MUSIC_NO_SONGS_IN_QUEUE: "There are no songs queued up. Queue up some songs!",
+            MUSICIF_SONG_NOT_FOUND: "Song not found, please try with a different one",
 
             // 30th December 2018
             HELP_SET_LANGUAGE: ["Issepera una limba dae cussas disponibilese pro **PenguBot**.",
