@@ -16,19 +16,21 @@ module.exports = class extends MusicCommand {
 
     async run(msg) {
         const { music } = msg.guild;
-        const { queue } = music;
-        if (!music.playing) return msg.sendMessage(`${this.client.emotes.cross} There's currently no music playing!`);
-        if (queue.length <= 2) return msg.sendMessage(`${this.client.emotes.cross} Your queue has less than two songs, add more to shuffle!`);
+        if (!music.playing) return msg.sendMessage(msg.language.get("MUSIC_NOT_PLAYING"));
+        if (music.queue.length <= 2) return msg.sendMessage(`${this.client.emotes.cross} Your queue has less than two songs, add more to shuffle!`);
 
-        this.shuffleArray(queue);
+        this.shuffleArray(music.queue);
         return msg.sendMessage(`${this.client.emotes.check} ***Queue has now been shuffled!***`);
     }
 
     shuffleArray(array) {
+        const [first] = array;
+        array.shift();
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
         }
+        array.unshift(first);
     }
 
 };

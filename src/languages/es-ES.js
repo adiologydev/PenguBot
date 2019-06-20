@@ -421,7 +421,7 @@ module.exports = class extends Language {
 
             // Music interface
             MUSICIF_NO_MUSIC_PLAYING: "There's currently no music playing!",
-            MUSICIF_SONG_NOT_FOUND: "Canción no encontrada, por favor intente con una diferente",
+            MUSIC_NO_SONGS_IN_QUEUE: "Canción no encontrada, por favor intente con una diferente",
 
             // 30th December 2018
             HELP_SET_LANGUAGE: ["Please select a Language you Want **PenguBot** to Speak in.",

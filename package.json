@@ -34,7 +34,7 @@
     "canvas-constructor": "github:kyranet/canvasConstructor",
     "cheerio": "^1.0.0-rc.3",
     "discord.js": "github:discordjs/discord.js",
-    "discord.js-lavalink": "github:MrJacz/discord.js-lavalink",
+    "discord.js-lavalink": "github:MrJacz/discord.js-lavalink#v3",
     "erlpack": "github:discordapp/erlpack",
     "hot-shots": "^6.3.0",
     "idiotic-api": "github:YorkAARGH/Idiotic-Wrapper",

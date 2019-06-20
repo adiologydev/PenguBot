@@ -4,8 +4,6 @@ module.exports = class extends MusicCommand {
 
     constructor(...args) {
         super(...args, {
-            requireDJ: false,
-            requireMusic: false,
             permissionLevel: 5,
             cooldown: 8,
             aliases: ["djonly", "enabledjonly", "disabledjonly"],
