@@ -425,7 +425,7 @@ module.exports = class extends Language {
             MUSICIF_SONG_LENGHT: "Durée",
             MUSICIF_SONG_REQUESTED_BY: "Demandeur",
             MUSICIF_SONG_LINK: "Link",
-            MUSIC_NO_SONGS_IN_QUEUE: "Chant non trouvé, veuillez essayer avec un autre.",
+            MUSICIF_SONG_NOT_FOUND: "Chant non trouvé, veuillez essayer avec un autre.",
 
             // 30th December 2018
             HELP_SET_LANGUAGE: ["**PenguBot** peut parler une des langues disponibles.",

@@ -419,7 +419,7 @@ module.exports = class extends Language {
             COMMAND_CONF_RESET: (key, response) => `The key **${key}** has been reset to: \`${response}\``,
 
             // Music interface
-            MUSIC_NOT_PLAYING: "There is currently no music playing, queue up some songs to get the party going!",
+            MUSICIF_NO_MUSIC_PLAYING: "There's currently no music playing!",
             MUSICIF_NOW_PLAYING_TITLE: "Now Playing - PenguBot",
             MUSICIF_TITLE: "Title",
             MUSICIF_AUTHOR: "Author",
@@ -430,10 +430,10 @@ module.exports = class extends Language {
             MUSICIF_QUEUE_TITLE: "Use the reactions to change pages, select a page, or stop viewing the queue",
             MUSICIF_QUEUE_LOADING: "Loading Queue...",
             MUSICIF_NO_VOICE_CHANNEL: "You're currently not in a voice channel or there was an error, try again.",
+            MUSICIF_QUEUE_LIMIT_REACHED: "Sorry but the maximum queue size is 1000 songs. If you want to bypass this limit, consider becoming a Patron at <https://patreon.com/PenguBot>",
             MUSICIF_TOGGLE_SONG_LOOP: "Toggled single song repeat.",
             MUSICIF_TOGGLE_QUEUE_LOOP: "Now all queue will repeat.",
-            MUSIC_NO_SONGS_IN_QUEUE: "There are no songs queued up. Queue up some songs!",
-            COMMAND_MUSIC_LOOP_MAX_QUEUE: "Sorry but the maximum queue size is 1000 songs. If you want to bypass this limit, consider becoming a Patron at <https://patreon.com/PenguBot>",
+            MUSICIF_SONG_NOT_FOUND: "Song not found, please try with a different one",
 
             // 30th December 2018
             HELP_SET_LANGUAGE: ["Please select a Language you Want **PenguBot** to Speak in.",
