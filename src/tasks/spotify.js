@@ -20,11 +20,8 @@ module.exports = class extends Task {
         config.apis.spotify.token = res.body.access_token;
     }
 
-    async init() {
-        await this.run();
-        if (!this.client.settings.schedules.some(schedule => schedule.taskName === this.name)) {
-            await this.client.schedule.create("spotify", "*/30 * * * *");
-        }
+    init() {
+        return this.run();
     }
 
 };

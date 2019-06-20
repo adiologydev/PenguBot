@@ -8,7 +8,7 @@ module.exports = class extends Task {
         if (!this.client.ready) return;
 
         let [guilds, vc, users] = [0, 0, 0];
-        const results = await this.client.shard.broadcastEval(`[this.guilds.reduce((prev, val) => val.memberCount + prev, 0), this.guilds.size, this.lavalink.map(u => u).filter(p => p.playing).length]`);
+        const results = await this.client.shard.broadcastEval(`[this.guilds.reduce((prev, val) => val.memberCount + prev, 0), this.guilds.size, this.music.filter(music => music.playing).size]`);
         for (const result of results) {
             users += result[0];
             guilds += result[1];
@@ -31,12 +31,6 @@ module.exports = class extends Task {
             snekfetch.post(`https://discord.boats/api/bot/${this.client.user.id}`)
                 .set("Authorization", config.apis.dboats).send({ server_count: guilds })
         ]);
-    }
-
-    async init() {
-        if (!this.client.settings.schedules.some(schedule => schedule.taskName === this.name)) {
-            await this.client.schedule.create(this.name, "*/15 * * * *");
-        }
     }
 
 };

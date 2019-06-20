@@ -1,12 +1,10 @@
-const { Task, Colors, discordUtil: { binaryToID } } = require("../index");
+const { Task, Colors, SnowflakeUtil } = require("../index");
 
 // THRESHOLD equals to 30 minutes in milliseconds:
 //     - 1000 milliseconds = 1 second
 //     - 60 seconds        = 1 minute
-//     - 30 minutes
-const THRESHOLD = 1000 * 60 * 30,
-    EPOCH = 1420070400000,
-    EMPTY = "0000100000000000000000";
+//     - 10 minutes
+const THRESHOLD = 1000 * 60 * 10;
 
 module.exports = class MemorySweeper extends Task {
 
@@ -25,8 +23,8 @@ module.exports = class MemorySweeper extends Task {
     }
 
     async run() {
-        const OLD_SNOWFLAKE = binaryToID(((Date.now() - THRESHOLD) - EPOCH).toString(2).padStart(42, "0") + EMPTY);
-        let presences = 0, guildMembers = 0, emojis = 0, lastMessages = 0, users = 0;
+        const OLD_SNOWFLAKE = SnowflakeUtil.generate(Date.now() - THRESHOLD);
+        let presences = 0, guildMembers = 0, voiceStates = 0, emojis = 0, lastMessages = 0, users = 0;
 
         // Per-Guild sweeper
         for (const guild of this.client.guilds.values()) {
@@ -41,6 +39,8 @@ module.exports = class MemorySweeper extends Task {
                 if (member.voice.channelID) continue;
                 if (member.lastMessageID && member.lastMessageID > OLD_SNOWFLAKE) continue;
                 guildMembers++;
+                voiceStates++;
+                guild.voiceStates.delete(id);
                 guild.members.delete(id);
             }
 
@@ -60,18 +60,17 @@ module.exports = class MemorySweeper extends Task {
         for (const user of this.client.users.values()) {
             if (user.lastMessageID && user.lastMessageID > OLD_SNOWFLAKE) continue;
             this.client.users.delete(user.id);
-            this.client.gateways.users.cache.delete(user.id);
             users++;
         }
 
         // Emit a log
-        this.client.emit("verbose",
-            `${this.header} ${
-                this.setColor(presences)} [Presence]s | ${
-                this.setColor(guildMembers)} [GuildMember]s | ${
-                this.setColor(users)} [User]s | ${
-                this.setColor(emojis)} [Emoji]s | ${
-                this.setColor(lastMessages)} [Last Message]s.`);
+        this.client.console.verbose(`${this.header} ${
+            this.setColor(presences)} [Presence]s | ${
+            this.setColor(guildMembers)} [GuildMember]s | ${
+            this.setColor(voiceStates)} [VoiceState]s | ${
+            this.setColor(users)} [User]s | ${
+            this.setColor(emojis)} [Emoji]s | ${
+            this.setColor(lastMessages)} [Last Message]s.`);
     }
 
     /**
@@ -91,13 +90,6 @@ module.exports = class MemorySweeper extends Task {
         if (number > 100) return this.colors.yellow.format(text);
         // Green color
         return this.colors.green.format(text);
-    }
-
-    // Init
-    async init() {
-        if (!this.client.settings.schedules.some(schedule => schedule.taskName === this.name)) {
-            await this.client.schedule.create("cleaner", "*/8 * * * *");
-        }
     }
 
 };

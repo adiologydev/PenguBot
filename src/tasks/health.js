@@ -11,10 +11,4 @@ module.exports = class extends Task {
         };
     }
 
-    async init() {
-        if (!this.client.settings.schedules.some(task => task.taskName === this.name)) {
-            await this.client.schedule.create(this.name, "* * * * *");
-        }
-    }
-
 };
