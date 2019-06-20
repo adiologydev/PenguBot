@@ -62,12 +62,11 @@ ${songs.map((song, index) => `➡ \`${++index}\` ${song.info.title} - ${song.inf
 
 ${msg.author}, Please select a track by replying from range \`1-5\` to add it to the queue.`, 15000);
 
-        let selection = Number(selectionMessage.content);
-        if (isNaN(selection) || selection <= 0 || selection > 5) throw `${this.client.emotes.cross} ***Invalid Option Selected, please select one number between \`1-5\`. Cancelled song selection.***`;
-        selection -= 1;
+        const selection = Number(selectionMessage.content);
+        if (isNaN(selection) || selection < 1 || selection > 5) throw `${this.client.emotes.cross} ***Invalid Option Selected, please select one number between \`1-5\`. Cancelled song selection.***`;
 
-        if (!songs[selection]) throw `${this.client.emotes.cross} ***Specified track could not be found, please try again with a different one.***`;
-        return songs[selection];
+        if (!songs[selection - 1]) throw `${this.client.emotes.cross} ***Specified track could not be found, please try again with a different one.***`;
+        return songs[selection - 1];
     }
 
     async wildcardTrack(msg, arg) {
