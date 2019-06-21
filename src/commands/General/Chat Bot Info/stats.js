@@ -13,7 +13,7 @@ module.exports = class extends Command {
     async run(msg) {
         let [users, guilds, channels, memory, vc, cpm, listeners] = [0, 0, 0, 0, 0, 0, 0];
 
-        const results = await this.client.shard.broadcastEval(`[this.guilds.reduce((prev, val) => val.memberCount + prev, 0), this.guilds.size, this.channels.size, (process.memoryUsage().heapUsed / 1024 / 1024), this.lavalink.map(u => u).filter(p => p.playing).length, this.health.commands.cmdCount[59].count, this.guilds.filter(g => g.music.playing && g.me.voice.channel).map(g => g.me.voice.channel.members.filter(m => !m.user.bot).size).reduce((prev, val) => prev + val, 0)]`);
+        const results = await this.client.shard.broadcastEval(`[this.guilds.reduce((prev, val) => val.memberCount + prev, 0), this.guilds.size, this.channels.size, (process.memoryUsage().heapUsed / 1024 / 1024), this.music.filter(music => music.playing).size, this.health.commands.cmdCount[59].count, this.music.filter(music => music.playing && music.voiceChannel).map(music => music.voiceChannel.members.filter(mem => !mem.user.bot).size).reduce((prev, val) => prev + val, 0)]`);
         for (const result of results) {
             users += result[0];
             guilds += result[1];
