@@ -1,42 +1,44 @@
-const { Command, MessageEmbed, config } = require("../../index");
-const { get } = require("snekfetch");
+const { Command, Timestamp, MessageEmbed, config } = require("../../index");
 
 module.exports = class extends Command {
 
     constructor(...args) {
         super(...args, {
-            runIn: ["text", "dm"],
-            aliases: ["youtubestats"],
-            cooldown: 5,
-            requiredPermissions: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
-            description: language => language.get("COMMAND_YTSTATS_DESCRIPTION"),
-            usage: "<name:string>",
+            cooldown: 25,
+            aliases: ["ytstats", "youtubesubs", "youtubeinfo", "ytinfo"],
+            requiredPermissions: ["EMBED_LINKS"],
+            description: "Get youTube channel statisitcs directly from youTube.",
+            usage: "<channel:url|channel:string>",
             extendedHelp: "No extended help available."
         });
+
+        this.timestamp = new Timestamp("d MMMM YYYY");
     }
 
-    async run(msg, [name]) {
-        const snippet = await get(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${name}&key=${config.apis.youtube}&maxResults=1&type=channel`)
-            .catch(e => msg.reply(`<:penguError:435712890884849664> Your channel was too powerful that I couldn't handle it, try again! Error: ${e}`));
-        if (!snippet.body.items[0]) return msg.reply(msg.language.get("ER_TRY_AGAIN"));
+    async run(msg, [channel]) {
+        const { items: [channelInfo] } = await this.fetchURL("https://www.googleapis.com/youtube/v3/search",
+            { query: { part: "snippet", q: channel, key: config.apis.google, maxResults: 1, type: "channel" } })
+            .catch(() => { throw "I'm having trouble communicating with youtube, make sure you entered the right channel."; });
 
-        const data = await get(`https://www.googleapis.com/youtube/v3/channels?part=snippet,contentDetails,statistics,brandingSettings&id=${snippet.body.items[0].id.channelId}&key=${config.apis.youtube}`)
-            .catch(e => msg.reply(`<:penguError:435712890884849664> Your channel was too powerful that I couldn't handle it, try again! Error: ${e}`));
+        if (!channelInfo) return msg.sendMessage("I could not find that channel, make sure the channel name is entered correctly.");
 
-        const embed = new MessageEmbed()
-            .setColor("#ea5655")
-            .setAuthor("YouTube Channel Statistics", "https://i.imgur.com/1sLSPUr.png")
+        const { items: [channelStats] } = await this.fetchURL("https://www.googleapis.com/youtube/v3/channels",
+            { query: { part: "snippet,contentDetails,statistics,brandingSettings", id: channelInfo.id.channelId, key: config.apis.google } })
+            .catch(() => { throw "I'm having trouble communicating with youtube, make sure you entered the right channel."; });
+
+        if (!channelStats) return msg.sendMessage("I could not find information about that channel. Make sure the channel name is entered correctly.");
+
+        return msg.sendEmbed(new MessageEmbed()
+            .setFooter("YouTube Channel Statistics")
             .setTimestamp()
-            .setFooter("© PenguBot.com")
-            .setThumbnail(snippet.body.items[0].snippet.thumbnails.high.url)
-            .setDescription(`❯ **Channel Name:** ${snippet.body.items[0].snippet.channelTitle}
-❯ **Channel Description:** ${snippet.body.items[0].snippet.description}\n
-❯ **Subscribers Count:** ${parseInt(data.body.items[0].statistics.subscriberCount).toLocaleString()}
-❯ **Total Views:** ${parseInt(data.body.items[0].statistics.viewCount).toLocaleString()}
-❯ **Total Videos:** ${parseInt(data.body.items[0].statistics.videoCount).toLocaleString()}
-❯ **Channel Created:** ${new Date(snippet.body.items[0].snippet.publishedAt).toDateString()}\n
-❯ **Link:** [YouTube.com/${snippet.body.items[0].snippet.channelTitle}](https://www.youtube.com/channel/${snippet.body.items[0].id.channelId})`);
-        return msg.sendEmbed(embed);
+            .setColor("#1976D2")
+            .setAuthor(channelInfo.snippet.channelTitle, channelInfo.snippet.thumbnails.high.url, `https://www.youtube.com/channel/${channelInfo.id.channelId}`)
+            .setDescription(`**Channel Description:** ${channelInfo.snippet.description}`)
+            .addField("Subsciber Count:", Number(channelStats.statistics.subscriberCount).toLocaleString(), true)
+            .addField("View Count:", Number(channelStats.statistics.viewCount).toLocaleString(), true)
+            .addField("Video Count:", Number(channelStats.statistics.videoCount).toLocaleString(), true)
+            .addField("Created At:", this.timestamp.display(channelInfo.snippet.publishedAt), true)
+            .setThumbnail(channelInfo.snippet.thumbnails.high.url));
     }
 
 };
