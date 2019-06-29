@@ -1,7 +1,4 @@
-const Command = require("../../lib/structures/KlasaCommand");
-const fs = require("fs-nextra");
-const { Canvas } = require("canvas-constructor");
-const { get } = require("snekfetch");
+const { Command } = require("../../index");
 
 module.exports = class extends Command {
 
@@ -17,16 +14,10 @@ module.exports = class extends Command {
     }
 
     async run(msg, [user = msg.author]) {
-        const lio = await fs.readFile(`../assets/manipulation/lio.png`);
-        const avi = await get(user.displayAvatarURL({ format: "png", sze: 128 })).then(res => res.body)
+        const image = await this.client.funcs.images("generate/lio", { avatar: user.displayAvatarURL({ format: "png", size: 256 }) })
             .catch(() => null);
-
-        if (!avi) return msg.reply(msg.language.get("ER_TRY_AGAIN"));
-        const img = await new Canvas(512, 512)
-            .addImage(lio, 0, 0, 512, 512)
-            .addImage(avi, 160, 25.5, 250, 250, { type: "round", radius: 120 })
-            .toBufferAsync();
-        return msg.channel.sendFile(img);
+        if (!image) return msg.reply(msg.language.get("ER_TRY_AGAIN"));
+        return msg.channel.sendFile(image);
     }
 
 };

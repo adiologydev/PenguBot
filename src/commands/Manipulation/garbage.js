@@ -14,7 +14,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [GarbageWho = msg.author]) {
-        const image = await this.client.funcs.images("generate/changemymind", { avatar: GarbageWho.displayAvatarURL({ format: "png", size: 256 }) })
+        const image = await this.client.funcs.images("generate/garbage", { avatar: GarbageWho.displayAvatarURL({ format: "png", size: 256 }) })
             .catch(() => null);
         if (!image) return msg.reply(msg.language.get("ER_TRY_AGAIN"));
         return msg.channel.sendFile(image);

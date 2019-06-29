@@ -14,8 +14,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [user]) {
-        const image = await this.client.idiotic.superPunch(msg.author.displayAvatarURL({ format: "png", size: 128 }),
-            user.displayAvatarURL({ format: "png", size: 128 }))
+        const image = await this.client.funcs.images("generate/superpunch", { avatar1: msg.author.displayAvatarURL({ format: "png", size: 128 }), avatar2: user.displayAvatarURL({ format: "png", size: 128 }) })
             .catch(() => null);
         if (!image) return msg.reply(msg.language.get("ER_TRY_AGAIN"));
         return msg.channel.sendFile(image);

@@ -13,7 +13,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [RejectWho = msg.author]) {
-        const image = await this.client.funcs.images("generate/respect", { avatar: RejectWho.displayAvatarURL({ format: "png", size: 512 }) })
+        const image = await this.client.funcs.images("overlay/rejected", { avatar: RejectWho.displayAvatarURL({ format: "png", size: 512 }) })
             .catch(() => null);
         if (!image) return msg.reply(msg.language.get("ER_TRY_AGAIN"));
         return msg.channel.sendFile(image);
