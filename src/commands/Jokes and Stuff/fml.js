@@ -21,8 +21,9 @@ module.exports = class extends Command {
             Error.captureStackTrace(e);
             return e;
         });
+
         const $ = load(html);
-        const article = $("p").find("a").first().text();
+        const article = $("article").find("a").first().text();
 
         const embed = new MessageEmbed()
             .setDescription(`**F*ck My Life**\n${article}`)

@@ -46,7 +46,7 @@ module.exports = class extends Language {
                 "Ensuite, votez pour PenguBot via le lien ci-dessous et débloquez également l'accès à",
                 "fonctionnalités limitées que seuls les votants peuvent avoir accès!",
                 "",
-                "• **Vote:** https://www.pengubot.com/upvote"],
+                "• **Vote:** https://discordbots.org/bot/PenguBot/vote"],
             COMMAND_TOGGLE_GROUP_DESCRPTION: "Désactiver/Activer les Catégories de Commandes.",
             COMMAND_TOGGLE_COMMAND_DESCRPTION: "Désactiver/Activer les Commandes dans ta guilde.",
             COMMAND_SUPPORT_DESCRIPTION: "Link to join PenguBot's Support Guild.",
@@ -347,7 +347,7 @@ module.exports = class extends Language {
             CMD_FORT_PLAT: "Invalid Username or Platform, please retry with either of these platforms: `pc`. `xbox`, `psn`.",
             CMD_FORT_ERR: "There was an error in the Tracking API, please try again later.",
             CMD_OSU_ERR: "Either the user couldn't be found or we're having some issues.",
-            CMD_UPVOTE_ONLY: "You are not an up-voter of PenguBot, please visit <http://bit.ly/VoteDBL> to vote now and get access!",
+            CMD_UPVOTE_ONLY: "You are not an up-voter of PenguBot, please visit <https://discordbots.org/bot/PenguBot/vote> to vote now and get access!",
             CMD_PATRON_ONLY: "Cette commande est verrouillée pour les utilisateurs uniquement. Si vous souhaitez devenir Patron, rendez-vous sur https://patreon.com/PenguBot et accédez au bot Premium.",
             CMD_RPS_INVALID: "That's an invalid move, please choose",
             CMD_SLOTS_INVALID: "The specified amount of Snowflakes is invalid, please enter at least 1 or more Snowflakes.",
@@ -425,7 +425,7 @@ module.exports = class extends Language {
             MUSICIF_SONG_LENGHT: "Durée",
             MUSICIF_SONG_REQUESTED_BY: "Demandeur",
             MUSICIF_SONG_LINK: "Link",
-            MUSICIF_SONG_NOT_FOUND: "Chant non trouvé, veuillez essayer avec un autre.",
+            MUSIC_NO_SONGS_IN_QUEUE: "Chant non trouvé, veuillez essayer avec un autre.",
 
             // 30th December 2018
             HELP_SET_LANGUAGE: ["**PenguBot** peut parler une des langues disponibles.",

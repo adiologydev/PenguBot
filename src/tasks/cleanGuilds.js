@@ -6,11 +6,8 @@ module.exports = class extends Task {
         return Promise.all(this.client.guilds.filter(g => !this.client.settings.pGuilds.includes(g.id)).map(g => g.leave()));
     }
 
-    async init() {
+    init() {
         if (this.client.user.id === "303181184718995457" || !config.patreon) return this.disable();
-        if (!this.client.settings.schedules.some(schedule => schedule.taskName === this.name)) {
-            await this.client.schedule.create("cleanGuilds", "0 0 * * *");
-        }
     }
 
 };

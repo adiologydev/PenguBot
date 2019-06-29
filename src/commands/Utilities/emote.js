@@ -1,5 +1,4 @@
-const { Command } = require("klasa");
-const { convert: { toCodePoint } } = require("twemoji");
+const { Command, discordUtil: { parseEmoji }, util: { toCodePoint, fetch } } = require("../../index");
 
 module.exports = class extends Command {
 
@@ -17,23 +16,19 @@ module.exports = class extends Command {
         this
             .createCustomResolver("customemote", arg => {
                 if (!arg) throw "No Emoji Provided, please provide one in order to use this command.";
-                const extension = /^(?:<a:\w{2,32}:)?(\d{17,19})>?$/.test(arg) ? "gif" : "png";
-                const id = /^(?:<a?:\w{2,32}:)?(\d{17,19})>?$/.exec(arg);
-                if (id) {
-                    return `https://cdn.discordapp.com/emojis/${id[1]}.${extension}`;
-                } else {
-                    try {
-                        if (extension) return arg;
-                        const codepoint = toCodePoint(arg);
-                        return `https://raw.githubusercontent.com/twitter/twemoji/gh-pages/2/72x72/${codepoint}.png`;
-                    } catch (err) {
-                        throw `The provided emoji is invalid. Please try a different one.`;
-                    }
-                }
+                const discordEmoji = parseEmoji(arg);
+                if (discordEmoji && discordEmoji.id) return `https://cdn.discordapp.com/emojis/${discordEmoji.id}.${discordEmoji.animated ? "gif" : "png"}`;
+
+                const unicode = toCodePoint(arg);
+                return `https://twemoji.maxcdn.com/2/72x72/${unicode}.png`;
             });
     }
 
     async run(msg, [emote]) {
+        const emoji = await fetch(emote, { type: "buffer" }).catch(() => null);
+
+        if (emoji === null) throw `The provided emoji is invalid. Please try a different one.`;
+
         return msg.channel.sendFile(emote);
     }
 
