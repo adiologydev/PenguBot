@@ -27,8 +27,8 @@
   },
   "homepage": "https://github.com/AdityaTD/PenguBot#readme",
   "dependencies": {
-    "@kcp/functions": "^1.0.0",
     "@k3rn31p4nic/google-translate-api": "^1.0.5",
+    "@kcp/functions": "^1.0.0",
     "breadtags": "github:PenguBot/bread-tags",
     "bufferutil": "^4.0.1",
     "canvas": "^2.5.0",
@@ -38,7 +38,6 @@
     "discord.js-lavalink": "github:MrJacz/discord.js-lavalink#v3",
     "erlpack": "github:discordapp/erlpack",
     "hot-shots": "^6.3.0",
-    "idiotic-api": "github:YorkAARGH/Idiotic-Wrapper",
     "klasa": "github:dirigeants/klasa",
     "klasa-dashboard-hooks": "github:PenguBot/klasa-dashboard-hooks",
     "klasa-member-gateway": "github:dirigeants/klasa-member-gateway",
