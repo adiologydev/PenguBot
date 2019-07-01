@@ -1,5 +1,4 @@
 const { Task, config } = require("../index");
-const fetch = require("node-fetch");
 
 module.exports = class extends Task {
 
@@ -15,7 +14,7 @@ module.exports = class extends Task {
             vc += result[2];
         }
 
-        return fetch("https://server.pengubot.com/bot/statposting", { method: "POST", body: { servers: guilds, shards: this.client.shard.shardCount, voice: vc, users: users }, headers: { authorization: config.apis.pengu } });
+        return this.fetchURL("https://server.pengubot.com/bot/statposting", { method: "POST", body: { servers: guilds, shards: this.client.shard.shardCount, voice: vc, users: users }, headers: { authorization: config.apis.pengu } });
     }
 
 };

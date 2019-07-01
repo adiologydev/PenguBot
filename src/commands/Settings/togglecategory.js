@@ -12,7 +12,7 @@ module.exports = class extends Command {
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: language => language.get("COMMAND_TOGGLE_GROUP_DESCRPTION"),
-            usage: "<category:cat>",
+            usage: "(category:cat)",
             extendedHelp: "No extended help available."
         });
 
@@ -24,13 +24,9 @@ module.exports = class extends Command {
     }
 
     async run(msg, [category]) {
-        if (!msg.guild.settings.disabledCommandsGroup.includes(category)) {
-            await msg.guild.settings.update("disabledCommandsGroup", category, { action: "add" });
-            return msg.sendMessage(`${this.client.emotes.check} ***${category} commands category has been Disabled by ${msg.author.tag}!***`);
-        } else {
-            await msg.guild.settings.update("disabledCommandsGroup", category, { action: "remove" });
-            return msg.sendMessage(`${this.client.emotes.check} ***${category} commands category has been Enabled by ${msg.author.tag}!***`);
-        }
+        await msg.guild.settings.update("disabledCommandsGroup", category);
+        const exists = msg.guild.settings.get("disabledCommandsGroup").includes(category);
+        return msg.sendMessage(`${exists ? this.client.emotes.cross : this.client.emotes.check} ***${category[0].toUpperCase() + category.slice(1)} commands category has been ${exists ? "Disabled" : "Enabled"} by ${msg.author.tag}!***`);
     }
 
 };
