@@ -16,7 +16,7 @@ module.exports = class extends MusicCommand {
 
     async run(msg) {
         const { music } = msg.guild;
-        if (!music.queue || !music.queue.length) return msg.sendMessage(`${this.client.emotes.cross} ***There are No Songs in the Queue at the momemnt.***`);
+        if (!music.queue || !music.queue.length) return msg.sendMessage(`${this.client.emotes.cross} ***There are no songs in the queue at the moment.***`);
 
         const vc = music.voiceChannel ? music.voiceChannel.members.size <= 4 : true;
         if (await msg.hasAtLeastPermissionLevel(3) || vc) {
