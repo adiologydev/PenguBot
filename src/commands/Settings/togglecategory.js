@@ -16,7 +16,6 @@ module.exports = class extends Command {
             extendedHelp: "No extended help available."
         });
 
-        this.categories = [...new Set(this.client.commands.map(u => u.category.toLowerCase()))];
         this.createCustomResolver("cat", arg => {
             if (!this.categories.includes(arg.toLowerCase())) throw "That is not a valid category.";
             return arg;
@@ -27,6 +26,10 @@ module.exports = class extends Command {
         await msg.guild.settings.update("disabledCommandsGroup", category);
         const exists = msg.guild.settings.get("disabledCommandsGroup").includes(category);
         return msg.sendMessage(`${exists ? this.client.emotes.cross : this.client.emotes.check} ***${category[0].toUpperCase() + category.slice(1)} commands category has been ${exists ? "Disabled" : "Enabled"} by ${msg.author.tag}!***`);
+    }
+
+    get categories() {
+        return [...new Set(this.client.commands.map(u => u.category.toLowerCase()))];
     }
 
 };

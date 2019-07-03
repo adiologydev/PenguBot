@@ -1,5 +1,4 @@
-const { Function } = require("@kcp/functions");
-const { util: { fetch } } = require("../index");
+const { util: { fetch }, Function } = require("../index");
 
 module.exports = class extends Function {
 
