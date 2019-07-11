@@ -14,7 +14,7 @@ module.exports = class extends Command {
 
     async run(msg) {
         const embed = new MessageEmbed()
-            .setAuthor("PenguBot's Music Nodes Information", this.client.user.avatarURL(), "https://www.pengubot.com")
+            .setAuthor("PenguBot's Music Nodes Information", this.client.user.displayAvatarURL(), "https://www.pengubot.com")
             .setTimestamp()
             .setFooter("© PenguBot.com");
         for (const node of this.client.lavalink.nodes.values()) {
