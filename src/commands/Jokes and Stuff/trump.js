@@ -17,7 +17,7 @@ module.exports = class extends Command {
 
     async run(msg, [user = msg.author]) {
         const { body } = await get(`https://api.whatdoestrumpthink.com/api/v1/quotes/personalized?q=${encodeURI(user.username)}`).catch(() => msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("ER_CATS_DOGS")}***`));
-        if (!body || !body.message) throw msg.language.get("ER_TRY_AGAIN");
+        if (!body.message) throw msg.language.get("ER_TRY_AGAIN");
         const embed = new MessageEmbed()
             .setDescription(`**Get Trumped**\n\n${body.message}`)
             .setThumbnail("https://i.imgur.com/lGJbGy6.png")
