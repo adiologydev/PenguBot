@@ -18,6 +18,9 @@ const defaultClientSchema = require(`./schemas/defaultClientSchema`);
 const defaultUserSchema = require(`./schemas/defaultUserSchema`);
 const defaultMemberSchema = require(`./schemas/defaultMemberSchema`);
 
+// Extensions
+require("../extensions/PenguGuild");
+
 class PenguClient extends Client {
 
     constructor(options) {
