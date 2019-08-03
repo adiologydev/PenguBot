@@ -1,5 +1,5 @@
 const { Monitor, ServerLog } = require("../index");
-const inviteRegex = /(https?:\/\/)?(www\.)?(discord\.(gg|li|me|io)|discordapp\.com\/invite)\/.+/;
+const inviteRegex = /(https?:\/\/)?(www\.)?(discord\.(gg|li|me|io)|discordapp\.com\/invite|inivte\.gg)\/.+/;
 
 module.exports = class extends Monitor {
 
