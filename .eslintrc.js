@@ -13,6 +13,7 @@ module.exports = {
         "node"
     ],
     rules: {
+        "require-atomic-updates": "off",
         "no-extra-parens": [
             "warn",
             "all",
