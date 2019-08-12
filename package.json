@@ -39,7 +39,7 @@
     "hot-shots": "^6.3.0",
     "klasa": "github:dirigeants/klasa#master",
     "klasa-dashboard-hooks": "github:PenguBot/klasa-dashboard-hooks",
-    "klasa-member-gateway": "github:dirigeants/klasa-member-gateway",
+    "klasa-member-gateway": "github:MrJacz/klasa-member-gateway",
     "kurasuta": "^0.2.18",
     "node-fetch": "^2.6.0",
     "raven": "^2.6.4",
