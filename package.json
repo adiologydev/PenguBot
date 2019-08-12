@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/AdityaTD/PenguBot#readme",
   "dependencies": {
-    "@k3rn31p4nic/google-translate-api": "^1.0.5",
+    "@k3rn31p4nic/google-translate-api": "^1.1.0",
     "breadtags": "github:PenguBot/bread-tags",
     "bufferutil": "^4.0.1",
     "canvas": "^2.5.0",
@@ -35,7 +35,6 @@
     "cheerio": "^1.0.0-rc.3",
     "discord.js": "github:discordjs/discord.js",
     "discord.js-lavalink": "github:MrJacz/discord.js-lavalink#v3",
-    "erlpack": "github:discordapp/erlpack",
     "hot-shots": "^6.3.0",
     "idiotic-api": "github:YorkAARGH/Idiotic-Wrapper",
     "klasa": "github:dirigeants/klasa",
@@ -45,11 +44,12 @@
     "kurasuta": "^0.2.18",
     "raven": "^2.6.4",
     "rethinkdbdash": "^2.3.31",
-    "zlib-sync": "^0.1.4"
+    "utf-8-validate": "^5.0.2",
+    "zlib-sync": "^0.1.5"
   },
   "devDependencies": {
-    "eslint": "5.16.0",
+    "eslint": "6.1.0",
     "eslint-plugin-node": "^9.1.0",
-    "eslint-plugin-promise": "^4.1.1"
+    "eslint-plugin-promise": "^4.2.1"
   }
 }
