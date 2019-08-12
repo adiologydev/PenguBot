@@ -8,13 +8,21 @@ module.exports = class extends Route {
 
     async get(request, response) {
         const { id } = request.params;
-        if (!id) return response.end("No ID parameter passed");
+        if (!id) {
+            response.statusCode = 400;
+            return response.end(JSON.stringify({ message: "No id provided" }));
+        }
 
-        const guildArray = await this.client.shard.broadcastEval(`this.guilds.get("${id}")`);
-        const foundGuild = guildArray.find(guild => guild);
+        const guild = await this.client.shard.fetchGuild(id)
+            .catch(() => null);
 
-        if (!foundGuild) return response.end("Guild not found");
-        return response.end(JSON.stringify(foundGuild));
+        if (!guild) {
+            response.statusCode = 404;
+            return response.end(JSON.stringify({ message: "Guild not found" }));
+        }
+
+        response.statusCode = 200;
+        return response.end(JSON.stringify(guild));
     }
 
 };
