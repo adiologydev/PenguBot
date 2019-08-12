@@ -3,7 +3,6 @@ const { util: { fetch }, Function } = require("../index");
 module.exports = class extends Function {
 
     run(subreddit = "puppies") {
-        subreddit = typeof subreddit === "string" && subreddit.length !== 0 ? subreddit : "puppies";
         return fetch(`https://imgur.com/r/${subreddit}/hot.json`)
             .then(res => {
                 if (!res.data) return;
