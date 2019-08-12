@@ -2,11 +2,12 @@ const Command = require("../../lib/structures/KlasaCommand");
 const { Canvas } = require("canvas-constructor");
 const fs = require("fs-nextra");
 const { get } = require("snekfetch");
+const { join } = require("path");
 
-Canvas.registerFont(`../assets/fonts/Roboto-Regular.ttf`, "Roboto");
-Canvas.registerFont(`../assets/fonts/RobotoCondensed-Regular.ttf`, "Roboto Condensed");
-Canvas.registerFont(`../assets/fonts/RobotoMono-Light.ttf`, "Roboto Mono");
-Canvas.registerFont(`../assets/fonts/NotoEmoji-Regular.ttf`, "NotoEmoji");
+Canvas.registerFont(join(__dirname, "..", "..", "..", "assets", "fonts", "Roboto-Regular.ttf"), "Roboto");
+Canvas.registerFont(join(__dirname, "..", "..", "..", "assets", "fonts", "RobotoCondensed-Regular.ttf"), "Roboto Condensed");
+Canvas.registerFont(join(__dirname, "..", "..", "..", "assets", "fonts", "RobotoMono-Light.ttf"), "Roboto Mono");
+Canvas.registerFont(join(__dirname, "..", "..", "..", "assets", "fonts", "NotoEmoji-Regular.ttf"), "NotoEmoji");
 
 module.exports = class extends Command {
 

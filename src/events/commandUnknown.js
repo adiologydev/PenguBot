@@ -1,5 +1,6 @@
 const { Event } = require("klasa");
 const Parser = require("breadtags");
+const { join } = require("path");
 
 const timeout = new Set();
 
@@ -31,7 +32,7 @@ module.exports = class extends Event {
 
     async init() {
         this.parser = new Parser();
-        this.parser.loadAll(`${process.cwd()}/lib/tags`);
+        this.parser.loadAll(join(__dirname, "..", "lib", "tags"));
     }
 
 };
