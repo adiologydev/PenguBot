@@ -9,7 +9,7 @@ const MusicManager = require("./MusicManager");
 // Plugins
 Client.use(require("@kcp/functions").Client);
 Client.use(require("klasa-member-gateway"));
-if (!config.patreon) Client.use(require("klasa-dashboard-hooks"));
+if (!config.patreon) Client.use(require("klasa-api"));
 
 // Schemas
 const defaultGuildSchema = require(`./schemas/defaultGuildSchema`);

@@ -38,7 +38,7 @@
     "discord.js-lavalink": "github:MrJacz/discord.js-lavalink#v3",
     "hot-shots": "^6.3.0",
     "klasa": "github:dirigeants/klasa#master",
-    "klasa-dashboard-hooks": "github:PenguBot/klasa-dashboard-hooks",
+    "klasa-api": "TridentBot/klasa-api#v1-alpha",
     "klasa-member-gateway": "github:MrJacz/klasa-member-gateway",
     "kurasuta": "^0.2.18",
     "node-fetch": "^2.6.0",

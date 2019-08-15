@@ -38,9 +38,10 @@ const sharder = new ShardingManager(join(__dirname, "PenguBot"), {
         prefixCaseInsensitive: true,
         noPrefixDM: true,
         aliasFunctions: { returnMethod: "run", enabled: true, prefix: "funcs" },
-        dashboardHooks: { apiPrefix: "/" },
-        clientSecret: config.dashboard.secret,
-        clientID: config.dashboard.id,
+        api: {
+            port: 4000,
+            prefix: "/"
+        },
         messageSweepInterval: 480,
         messageCacheLifetime: 120,
         commandMessageLifetime: 120

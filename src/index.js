@@ -1,20 +1,19 @@
 const klasa = require("klasa");
 const discord = require("discord.js");
-const kdh = require("klasa-dashboard-hooks");
+const klasaApi = require("klasa-api");
 const klasaFunctions = require("@kcp/functions");
 const { version } = require("../package.json");
 
 module.exports = {
     ...klasa,
     ...discord,
-    ...kdh,
+    ...klasaApi,
     ...klasaFunctions,
     Util: require("./lib/util/Util"),
     util: require("./lib/util/Util"),
     config: require("../config.js"),
     klasaUtil: klasa.util,
     discordUtil: discord.Util,
-    kdhUtil: kdh.Util,
     version,
     klasaVersion: klasa.version,
     discordVersion: discord.version,
