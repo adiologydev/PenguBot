@@ -41,13 +41,7 @@ module.exports = new PermissionLevels()
     }, { fetch: true })
 
     // Allows the Bot Owner to use any lower commands
-    .add(9, ({ author, client }) => {
-        if (!client || !author) return false;
-        return author === client.owner;
-    }, { break: true })
+    .add(9, ({ author, client }) => client.owners.has(author), { break: true })
 
     // Allows the bot owner to use Bot Owner only commands, which silently fail for other users.
-    .add(10, ({ author, client }) => {
-        if (!client || !author) return false;
-        return author === client.owner;
-    });
+    .add(10, ({ author, client }) => client.owners.has(author));
