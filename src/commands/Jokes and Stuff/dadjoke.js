@@ -15,11 +15,11 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        const { text } = await get("https://icanhazdadjoke.com/").set("Accept", "text/plain").catch(e => {
+        const { body } = await get("https://icanhazdadjoke.com/").set("Accept", "application/json").catch(e => {
             Error.captureStackTrace(e);
             return e;
         });
-        const desc = text.length < 1900 ? text : `${text.substring(0, 1900)}...`;
+        const desc = body.joke && body.joke.length < 1900 ? body.joke : `${body.joke.substring(0, 1900)}...`;
         const embed = new MessageEmbed()
             .setDescription(`**Dad Joke Alert**\n\n${desc}`)
             .setThumbnail("https://i.imgur.com/IxosIBh.png")
