@@ -1,25 +1,21 @@
-const snekfetch = require("snekfetch");
+const { util: { fetch }, config } = require("../../index");
 const cheerio = require("cheerio");
-const config = require("../../../config");
 const key = config.apis.lyrics;
 
 class Lyrics {
 
     static async request(path) {
-        return snekfetch.get(`https://api.genius.com/${path}`)
-            .set("Authorization", `Bearer ${key}`)
-            .then(res => res.body)
+        return fetch(`https://api.genius.com/${path}`, { headers: { Authorization: `Bearer ${key}` } })
             .catch(error => {
                 if (error.body.error) throw new Error(`${error.body.error}: ${error.body.error_description}`);
                 throw error;
             });
     }
 
-    static scrape(url) {
-        return snekfetch.get(url).then(res => {
-            const $ = cheerio.load(res.text);
-            return $(".lyrics") ? $(".lyrics").text().trim() : null;
-        });
+    static async scrape(url) {
+        const data = await fetch(url, { }, "text");
+        const $ = cheerio.load(data);
+        return $(".lyrics") ? $(".lyrics").text().trim() : null;
     }
 
 }
