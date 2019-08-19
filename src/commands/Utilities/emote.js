@@ -1,4 +1,4 @@
-const { Command, discordUtil: { parseEmoji }, util: { toCodePoint, fetch } } = require("../../index");
+const { Command, discordUtil: { parseEmoji }, util: { toCodePoint } } = require("../../index");
 
 module.exports = class extends Command {
 
@@ -25,7 +25,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [emote]) {
-        const emoji = await fetch(emote, { type: "buffer" }).catch(() => null);
+        const emoji = await this.fetchURL(emote, { type: "buffer" }).catch(() => null);
 
         if (emoji === null) throw `The provided emoji is invalid. Please try a different one.`;
 
