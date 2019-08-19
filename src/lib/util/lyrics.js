@@ -13,9 +13,10 @@ class Lyrics {
     }
 
     static async scrape(url) {
-        const data = await fetch(url, { }, "text");
+        const data = await fetch(url, "text");
         const $ = cheerio.load(data);
-        return $(".lyrics") ? $(".lyrics").text().trim() : null;
+        const lyrics = $(".lyrics");
+        return lyrics ? lyrics.text().trim() : null;
     }
 
 }
