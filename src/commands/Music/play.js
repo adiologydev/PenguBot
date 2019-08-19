@@ -38,9 +38,9 @@ module.exports = class extends MusicCommand {
             await musicInterface.join(msg.member.voice.channel.id);
             return this.play(musicInterface);
         } catch (error) {
-            this.client.console.error(error);
-            await musicInterface.destroy();
-            return musicInterface.textChannel.send(`There was an error: ${error}`);
+            this.client.emit("error", error);
+            await musicInterface.textChannel.send(`There was an error: ${error}`);
+            return musicInterface.destroy();
         }
     }
 
