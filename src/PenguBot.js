@@ -6,7 +6,7 @@ const { execSync } = require("child_process");
 Raven.config(config.apis.sentry, {
     captureUnhandledRejections: true,
     environment: config.production ? "production" : "development",
-    release: execSync("git rev-parse HEAD")
+    release: execSync("git rev-parse HEAD").toString()
 }).install();
 
 module.exports = class extends BaseCluster {
