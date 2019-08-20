@@ -1,6 +1,4 @@
-const Command = require("../../lib/structures/KlasaCommand");
-const { get } = require("snekfetch");
-const { MessageEmbed } = require("discord.js");
+const { Command, MessageEmbed } = require("../../index");
 
 module.exports = class extends Command {
 
@@ -15,16 +13,12 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        const { body } = await get("https://icanhazdadjoke.com/").set("Accept", "application/json").catch(e => {
-            Error.captureStackTrace(e);
-            return e;
-        });
-        const desc = body.joke && body.joke.length < 1900 ? body.joke : `${body.joke.substring(0, 1900)}...`;
-        const embed = new MessageEmbed()
-            .setDescription(`**Dad Joke Alert**\n\n${desc}`)
+        const { joke } = await this.fetchURL("https://icanhazdadjoke.com/", { headers: { Accept: "application/json" } });
+
+        return msg.sendEmbed(new MessageEmbed()
+            .setDescription(`**Dad Joke Alert**\n\n${joke.length < 1900 ? joke : `${joke.substring(0, 1900)}...`}`)
             .setThumbnail("https://i.imgur.com/IxosIBh.png")
-            .setColor("RANDOM");
-        return msg.sendMessage({ embed: embed });
+            .setColor("RANDOM"));
     }
 
 };

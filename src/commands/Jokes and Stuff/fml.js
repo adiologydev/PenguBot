@@ -1,7 +1,5 @@
-const Command = require("../../lib/structures/KlasaCommand");
-const { get } = require("snekfetch");
+const { Command, MessageEmbed } = require("../../index");
 const { load } = require("cheerio");
-const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
 
@@ -16,20 +14,15 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        if (msg.guild && !msg.channel.permissionsFor(msg.guild.me).has(["VIEW_CHANNEL"])) return;
-        const { text: html } = await get("http://www.fmylife.com/random").catch(e => {
-            Error.captureStackTrace(e);
-            return e;
-        });
+        const html = await this.fetchURL("http://www.fmylife.com/random", { type: "text" });
 
         const $ = load(html);
         const article = $("article").find("a").first().text();
 
-        const embed = new MessageEmbed()
+        return msg.sendEmbed(new MessageEmbed()
             .setDescription(`**F*ck My Life**\n${article}`)
             .setThumbnail("https://i.imgur.com/XW16vXq.png")
-            .setColor("RANDOM");
-        return msg.sendMessage({ embed: embed });
+            .setColor("RANDOM"));
     }
 
 };

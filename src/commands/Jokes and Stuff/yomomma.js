@@ -1,6 +1,4 @@
-const Command = require("../../lib/structures/KlasaCommand");
-const { get } = require("snekfetch");
-const { MessageEmbed } = require("discord.js");
+const { Command, MessageEmbed } = require("../../index");
 
 module.exports = class extends Command {
 
@@ -15,13 +13,12 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        const { text } = await get(`http://api.yomomma.info`).catch(() => msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("ER_CATS_DOGS")}***`));
+        const { joke } = await this.fetchURL("http://api.yomomma.info");
 
-        const embed = new MessageEmbed()
-            .setDescription(`**Yo Momma Joke**\n\n${JSON.parse(text).joke}`)
+        return msg.sendEmbed(new MessageEmbed()
+            .setDescription(`**Yo Momma Joke**\n\n${joke}`)
             .setThumbnail("https://i.imgur.com/ordRh9e.png")
-            .setColor("RANDOM");
-        return msg.sendMessage({ embed: embed });
+            .setColor("RANDOM"));
     }
 
 };

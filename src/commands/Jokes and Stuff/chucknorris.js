@@ -1,6 +1,4 @@
-const Command = require("../../lib/structures/KlasaCommand");
-const { get } = require("snekfetch");
-const { MessageEmbed } = require("discord.js");
+const { Command, MessageEmbed } = require("../../index");
 
 module.exports = class extends Command {
 
@@ -14,15 +12,12 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        const { body } = await get("http://api.chucknorris.io/jokes/random").catch(e => {
-            Error.captureStackTrace(e);
-            return e;
-        });
-        const embed = new MessageEmbed()
+        const { value } = await this.fetchURL("http://api.chucknorris.io/jokes/random");
+
+        return msg.sendEmbed(new MessageEmbed()
             .setColor("RANDOM")
-            .setDescription(`**Chuck Norris Joke**\n\n${body.value}`)
-            .setThumbnail("https://i.imgur.com/3wIvF42.png");
-        return msg.sendEmbed(embed);
+            .setDescription(`**Chuck Norris Joke**\n\n${value}`)
+            .setThumbnail("https://i.imgur.com/3wIvF42.png"));
     }
 
 };

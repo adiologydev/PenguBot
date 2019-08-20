@@ -1,4 +1,4 @@
-const { util: { fetch }, Command, MessageEmbed } = require("../../index");
+const { Command, MessageEmbed } = require("../../index");
 
 module.exports = class extends Command {
 
@@ -13,16 +13,12 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        try {
-            const data = await fetch("https://uselessfacts.jsph.pl/random.json");
-            const embed = new MessageEmbed()
-                .setDescription(`**Random Fact**\n\n${data.text}`)
-                .setThumbnail("https://i.imgur.com/fJiD9Jo.png")
-                .setColor("RANDOM");
-            return msg.sendMessage({ embed: embed });
-        } catch (e) {
-            return msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("ER_CATS_DOGS")}***`);
-        }
+        const data = await this.fetchURL("https://uselessfacts.jsph.pl/random.json");
+
+        return msg.sendEmbed(new MessageEmbed()
+            .setDescription(`**Random Fact**\n\n${data.text}`)
+            .setThumbnail("https://i.imgur.com/fJiD9Jo.png")
+            .setColor("RANDOM"));
     }
 
 };
