@@ -49,7 +49,7 @@
     "zlib-sync": "^0.1.5"
   },
   "devDependencies": {
-    "eslint": "6.1.0",
+    "eslint": "6.2.2",
     "eslint-plugin-node": "^9.1.0",
     "eslint-plugin-promise": "^4.2.1"
   }
