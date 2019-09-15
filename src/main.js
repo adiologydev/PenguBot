@@ -34,7 +34,7 @@ const sharder = new ShardingManager(join(__dirname, "PenguBot"), {
         },
         console: { useColor: true },
         production: config.production,
-        presence: { activity: { name: "❤ PenguBot.com | p!donate for PenguBot Premium Access ➖ p!help", type: "PLAYING" } },
+        presence: { activity: { name: "❤ p!donate for PenguBot Premium Access ➖ p!help | PenguBot.com", type: "PLAYING" } },
         prefixCaseInsensitive: true,
         noPrefixDM: true,
         aliasFunctions: { returnMethod: "run", enabled: true, prefix: "funcs" },
@@ -45,7 +45,7 @@ const sharder = new ShardingManager(join(__dirname, "PenguBot"), {
         messageSweepInterval: 480,
         messageCacheLifetime: 120,
         commandMessageLifetime: 120,
-        owners: ["136549806079344640", "272689325521502208"]
+        owners: ["136549806079344640"]
     },
     shardCount: config.shards,
     ipcSocket: config.patreon ? 9545 : 9454,
