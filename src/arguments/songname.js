@@ -86,7 +86,7 @@ ${msg.author}, Please select a track by replying from range \`1-5\` to add it to
         const tracks = [];
 
         for (const { track } of data.tracks.items) {
-            const searchResult = await this.fetchTracks(`ytsearch:${track.album.artists[0].name || track.artists[0].name} ${track.name} audio`);
+            const searchResult = await this.fetchTracks(`scsearch:${track.album.artists[0].name || track.artists[0].name} ${track.name} audio`);
             if (!searchResult.tracks.length) continue;
             tracks.push(searchResult.tracks[0]);
         }
@@ -102,7 +102,7 @@ ${msg.author}, Please select a track by replying from range \`1-5\` to add it to
 
         const [artist] = data.artists;
 
-        const searchResult = await this.fetchTracks(`ytsearch:${artist ? artist.name : ""} ${data.name} audio`);
+        const searchResult = await this.fetchTracks(`scsearch:${artist ? artist.name : ""} ${data.name} audio`);
         if (!searchResult.tracks.length) throw msg.language.get("ER_MUSIC_NF");
 
         return { tracks: [searchResult.tracks[0]] };
@@ -117,7 +117,7 @@ ${msg.author}, Please select a track by replying from range \`1-5\` to add it to
         const tracks = [];
 
         for (const track of data.tracks.items) {
-            const searchResult = await this.fetchTracks(`ytsearch:${track.artists[0].name} ${track.name} audio`);
+            const searchResult = await this.fetchTracks(`scsearch:${track.artists[0].name} ${track.name} audio`);
             if (!searchResult.tracks.length) continue;
             tracks.push(searchResult.tracks[0]);
         }
