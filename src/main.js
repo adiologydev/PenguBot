@@ -3,6 +3,8 @@ const { join } = require("path");
 const config = require("../config.js");
 const PenguClient = require("./lib/structures/PenguClient");
 
+const status = config.patreon ? "💟 Thanks For Supporting - PenguBot.com - p!help" : "❤ p!donate for PenguBot Premium Access ➖ p!help | PenguBot.com";
+
 const sharder = new ShardingManager(join(__dirname, "PenguBot"), {
     token: config.token,
     client: PenguClient,
@@ -34,7 +36,7 @@ const sharder = new ShardingManager(join(__dirname, "PenguBot"), {
         },
         console: { useColor: true },
         production: config.production,
-        presence: { activity: { name: "❤ p!donate for PenguBot Premium Access ➖ p!help | PenguBot.com", type: "PLAYING" } },
+        presence: { activity: { name: status, type: "PLAYING" } },
         prefixCaseInsensitive: true,
         noPrefixDM: true,
         aliasFunctions: { returnMethod: "run", enabled: true, prefix: "funcs" },
