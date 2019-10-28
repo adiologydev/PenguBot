@@ -19,7 +19,7 @@ module.exports = class extends Argument {
 
         const validLink = this.isLink(arg);
         if (validLink) {
-            if (yt.test(arg)) throw `> ${this.client.emotes.cross} ***Due to recent change in YouTube's API, all Discord Bots and similar services are unable to play any YouTube videos/streams normally. PenguBot Premium still allows you to play YouTube without any issues, visit <https://www.pengubot.com/donate> for more information.***`;
+            if (yt.test(arg) && !this.client.patreon) throw `> ${this.client.emotes.cross} ***Due to recent change in YouTube's API, all Discord Bots and similar services are unable to play any YouTube videos/streams normally. PenguBot Premium still allows you to play YouTube without any issues, visit <https://www.pengubot.com/donate> for more information.***`;
             const result = await this.validLinkSearch(msg, arg);
             if (result.tracks.length) {
                 results.push(...result.tracks);
