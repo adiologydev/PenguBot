@@ -51,7 +51,7 @@ module.exports = class extends Argument {
     }
 
     async searchTrack(msg, arg) {
-        const data = await this.fetchTracks(`scsearch:${arg}`);
+        const data = await this.fetchTracks(`${config.patreon ? `ytsearch:${arg}` : `scsearch:${arg}`}`);
         if (!data || !data.tracks.length) throw msg.language.get("ER_MUSIC_NF");
 
         const songs = data.tracks.slice(0, 5);
