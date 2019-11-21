@@ -7,6 +7,7 @@ module.exports = class extends Task {
         if (!this.client.ready) return;
 
         let [guilds, vc, users] = [0, 0, 0];
+        const scount = this.client.shard.shardCount;
         const results = await this.client.shard.broadcastEval(`[this.guilds.reduce((prev, val) => val.memberCount + prev, 0), this.guilds.size, this.music.filter(music => music.playing).size]`);
         for (const result of results) {
             users += result[0];
@@ -14,7 +15,7 @@ module.exports = class extends Task {
             vc += result[2];
         }
 
-        return this.fetchURL("https://server.pengubot.com/bot/statposting", { method: "POST", body: { servers: guilds, shards: this.client.shard.shardCount, voice: vc, users: users }, headers: { authorization: config.apis.pengu } });
+        return this.fetchURL("https://server.pengubot.com/bot/statposting", { method: "POST", headers: { authorization: config.apis.pengu, "Content-Type": "application/json" }, body: { servers: guilds, shards: scount, voice: vc, users: users } });
     }
 
 };

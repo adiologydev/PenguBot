@@ -17,28 +17,26 @@ module.exports = class extends Command {
     }
 
     async run(msg, [user, amount]) {
-        if (!user) {
-            await msg.author.settings.sync(true);
-            return msg.reply(`❄ | **Your account balance is:** ${msg.author.settings.snowflakes.toLocaleString()} Snowflakes.`);
-        } else if (!amount) {
-            return msg.reply("You've not specified the amount of **Snowflake(s)** to send.");
+        await msg.author.settings.sync(true);
+        if (!user) return msg.reply(`❄ | **Your account balance is:** ${msg.author.settings.snowflakes.toLocaleString()} Snowflakes.`);
+        if (!amount) return msg.reply("You've not specified the amount of **Snowflake(s)** to send.");
+        if (amount <= 0) return msg.reply("Invalid amount of snowflakes, minimum 1 snowflake.");
+
+        const currSnowflakes = msg.author.settings.get("snowflakes");
+        if (amount > currSnowflakes) return msg.reply("Your account balance is low, please enter an amount which you have available.");
+        if (user.bot) return msg.reply("You can not send Snowflakes to bots.");
+        if (msg.author.id === user.id) return msg.reply("You can not send Snowflakes to yourself.");
+
+        const userSnowflakes = user.settings.get("snowflakes");
+        const confirm = await msg.prompt(`${msg.author}, Please confirm the transfer of ❄ **${amount.toLocaleString()} Snowflake(s)** to ${user} by typing \`YES\` or \`NO\`.`);
+
+        if (confirm.content.toLowerCase() === "yes" || confirm.content.toLowerCase() === "y") {
+            await user.settings.sync(true);
+            await msg.author.settings.update("snowflakes", currSnowflakes - amount);
+            await user.settings.update("snowflakes", userSnowflakes + amount);
+            return msg.reply(`❄ | **You've sent \`${amount}\` Snowflake(s) to ${user}!**`);
         } else {
-            if (amount <= 0) return msg.reply("Invalid amount of snowflakes, minimum 1 snowflake.");
-            await msg.author.settings.sync(true);
-            const currSnowflakes = msg.author.settings.snowflakes;
-            if (amount > currSnowflakes) return msg.reply("Your account balance is low, please enter an amount which you have.");
-            if (user.bot) return msg.reply("You can not send Snowflakes to bot accounts.");
-            if (msg.author.id === user.id) return msg.reply("You can not send Snowflakes to yourself.");
-            const userSnowflakes = user.settings.snowflakes;
-            const confirm = await msg.prompt(`${msg.author}, Please confirm the transfer of ❄ **${amount.toLocaleString()} Snowflake(s)** to ${user} by typing \`YES\` or \`NO\`.`);
-            if (confirm.content.toLowerCase() === "yes" || confirm.content.toLowerCase() === "y") {
-                await user.settings.sync(true);
-                msg.author.settings.update("snowflakes", currSnowflakes - amount);
-                user.settings.update("snowflakes", userSnowflakes + amount);
-                return msg.reply(`❄ | **You've sent \`${amount}\` Snowflake(s) to ${user}!**`);
-            } else {
-                return msg.reply(`❄ | **You've cancelled the transaction or the input was invalid.**`);
-            }
+            return msg.reply(`❄ | **You've cancelled the transaction or the input was invalid.**`);
         }
     }
 

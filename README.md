@@ -7,7 +7,7 @@
 <a href="https://status.pengubot.com"><img src="https://img.shields.io/uptimerobot/status/m781763015-e93639facd06b3a9001144c3.svg?style=for-the-badge"></a>
 <a href="https://github.com/AdityaTD/PenguBot/blob/master/LICENSE"><img src="https://img.shields.io/github/license/mashape/apistatus.svg?style=for-the-badge"></a>
 </p>
-<p align="center">PenguBot is mutli-purpose Discord Bot with over 42,000 guilds<br>
+<p align="center">PenguBot is mutli-purpose Discord Bot with over 43,000 guilds and 2,000,000 users.<br>
 Join <a href="https://discord.gg/u8WYw5r">Discord</a> for Support and Development Discussions</p>
 </div>
 

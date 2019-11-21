@@ -436,7 +436,7 @@ module.exports = class extends Language {
             CONF_LANG_SET: "und die standardsprache für PenguBot für Ihren server.",
 
             // January 2019
-            ER_MUSIC_PATRON: "This paste feature has been locked for Premium Guilds only, if you want to gain access become a Patron at <https://www.patreon.com/PenguBot> or Donate at <https://www.paypal.me/adityatripathid> with your Discord Username as a Message.",
+            ER_MUSIC_PATRON: "This feature has been locked for Premium Guilds only, if you want to gain access become a Patron at <https://www.patreon.com/PenguBot> or Donate at <https://www.paypal.me/adityatripathid> with your Discord Username and ID as a message or contact us at <https://www.pengubot.com/support>",
             ERR_TRY_AGAIN: "There was an oopsie, please try again!",
             ER_CHOICES_SENSE: "You want me to choose from a single option? That makes sense...",
             CHOICE_SELECT: "My gut feeling says, go with",
