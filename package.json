@@ -40,7 +40,7 @@
     "klasa": "github:dirigeants/klasa#v1.0.0-alpha",
     "klasa-api": "TridentBot/klasa-api#v1-alpha",
     "klasa-member-gateway": "github:MrJacz/klasa-member-gateway",
-    "kurasuta": "^1.0.0",
+    "kurasuta": "^2.0.0",
     "node-fetch": "^2.6.0",
     "raven": "^2.6.4",
     "rethinkdbdash": "^2.3.31",
