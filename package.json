@@ -36,7 +36,7 @@
     "cheerio": "^1.0.0-rc.3",
     "discord.js": "github:discordjs/discord.js#master",
     "discord.js-lavalink": "github:MrJacz/discord.js-lavalink#v3",
-    "hot-shots": "^6.3.0",
+    "hot-shots": "^7.1.0",
     "klasa": "github:dirigeants/klasa#v1.0.0-alpha",
     "klasa-api": "TridentBot/klasa-api#v1-alpha",
     "klasa-member-gateway": "github:MrJacz/klasa-member-gateway",
