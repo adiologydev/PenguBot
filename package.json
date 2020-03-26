@@ -34,7 +34,7 @@
     "canvas": "^2.6.1",
     "canvas-constructor": "github:kyranet/canvasConstructor",
     "cheerio": "^1.0.0-rc.3",
-    "discord.js": "github:discordjs/discord.js#fe7df708e44e0280dfaf0f8e457b154781bb5140",
+    "discord.js": "^12.0.2",
     "discord.js-lavalink": "^3.0.1",
     "hot-shots": "^7.2.0",
     "klasa": "github:dirigeants/klasa#f8530d1d1fc3117d537a0b74b9b8e9cdc87c374c",
