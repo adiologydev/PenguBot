@@ -5,7 +5,8 @@ module.exports = class extends Command {
 
     constructor(...args) {
         super(...args, {
-            cooldown: 5,
+            cooldown: 10,
+            bucket: 2,
             aliases: ["wholesome", "aww"],
             requiredPermissions: ["ATTACH_IMAGES", "EMBED_LINKS"],
             description: language => language.get("COMMAND_WHOLESOME_DESCRIPTION"),
