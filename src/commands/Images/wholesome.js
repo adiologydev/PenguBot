@@ -19,7 +19,10 @@ module.exports = class extends Command {
         let img = await this.client.funcs.scrapeSubreddit(subReddit);
         if (img && img.includes(".mp4")) img = await this.client.funcs.scrapeSubreddit(subReddit);
         if (!img || img.includes(".mp4")) return msg.sendMessage(`Too fast, too furious, try again!`);
-        return msg.sendEmbed(new MessageEmbed().setImage(img).setFooter(`/r/${subReddit} - PenguBot.com`));
+        return msg.sendEmbed(new MessageEmbed()
+            .setImage(img)
+            .setFooter(`/r/${subReddit} - PenguBot.com`)
+        );
     }
 
 };
