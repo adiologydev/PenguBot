@@ -1,5 +1,6 @@
 const { Command, MessageEmbed } = require("../../index");
-const subReddits = ["wholesome", "aww", "AnimalsBeingBros"];
+
+const SUB_REDDITS = ["wholesome", "aww", "AnimalsBeingBros"];
 module.exports = class extends Command {
 
     constructor(...args) {
