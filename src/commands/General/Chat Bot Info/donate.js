@@ -7,7 +7,7 @@ module.exports = class extends Command {
         super(...args, {
             aliases: ["patreon", "patron"],
             guarded: true,
-            requiredPermissions: ["EMBED_LINKS", "ATTACH_IMAGES"],
+            requiredPermissions: ["EMBED_LINKS", "ATTACH_FILES"],
             description: language => language.get("COMMAND_DONATE_DESCRIPTION")
         });
     }

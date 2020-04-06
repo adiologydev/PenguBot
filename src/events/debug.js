@@ -8,7 +8,7 @@ module.exports = class extends Event {
          * if all options are default, you can omit the constructor completely
          */
         super(...args, {
-            enabled: config.debug || false
+            enabled: "debug" in config ? config.debug : false
         });
     }
 

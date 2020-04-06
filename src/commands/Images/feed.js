@@ -8,7 +8,7 @@ module.exports = class extends Command {
         super(...args, {
             cooldown: 8,
             aliases: ["sendfood"],
-            requiredPermissions: ["ATTACH_IMAGES", "EMBED_LINKS"],
+            requiredPermissions: ["ATTACH_FILES", "EMBED_LINKS"],
             description: language => language.get("COMMAND_FEED_DESCRIPTION"),
             extendedHelp: "No extended help available.",
             usage: "<user:username>"

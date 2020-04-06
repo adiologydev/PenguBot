@@ -6,7 +6,7 @@ module.exports = class extends Command {
     constructor(...args) {
         super(...args, {
             guarded: true,
-            requiredPermissions: ["EMBED_LINKS", "ATTACH_IMAGES"],
+            requiredPermissions: ["EMBED_LINKS", "ATTACH_FILES"],
             description: language => language.get("COMMAND_UPVOTE_DESCRIPTION")
         });
     }

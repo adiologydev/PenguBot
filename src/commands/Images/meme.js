@@ -7,7 +7,7 @@ module.exports = class extends Command {
         super(...args, {
             cooldown: 5,
             aliases: ["memes", "randommeme"],
-            requiredPermissions: ["ATTACH_IMAGES", "EMBED_LINKS"],
+            requiredPermissions: ["ATTACH_FILES", "EMBED_LINKS"],
             description: language => language.get("COMMAND_MEME_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });

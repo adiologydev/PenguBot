@@ -9,7 +9,7 @@ module.exports = class extends Command {
             cooldown: 8,
             upvoteOnly: true,
             aliases: ["amateurnsfw"],
-            requiredPermissions: ["ATTACH_IMAGES", "EMBED_LINKS"],
+            requiredPermissions: ["ATTACH_FILES", "EMBED_LINKS"],
             description: language => language.get("COMMAND_AMETEUR_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });

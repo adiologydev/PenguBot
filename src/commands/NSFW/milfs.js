@@ -8,7 +8,7 @@ module.exports = class extends Command {
             cooldown: 8,
             upvoteOnly: true,
             aliases: ["milf"],
-            requiredPermissions: ["ATTACH_IMAGES", "EMBED_LINKS"],
+            requiredPermissions: ["ATTACH_FILES", "EMBED_LINKS"],
             description: language => language.get("COMMAND_MILF_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });

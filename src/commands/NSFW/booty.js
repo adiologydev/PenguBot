@@ -8,7 +8,7 @@ module.exports = class extends Command {
             cooldown: 8,
             upvoteOnly: true,
             aliases: ["ass", "booties", "butt"],
-            requiredPermissions: ["ATTACH_IMAGES", "EMBED_LINKS"],
+            requiredPermissions: ["ATTACH_FILES", "EMBED_LINKS"],
             description: language => language.get("COMMAND_BOOTY_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
