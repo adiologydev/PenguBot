@@ -20,6 +20,27 @@ class LavalinkClient extends PlayerManager {
             });
     }
 
+    async _attemptConnection(guildId) {
+        const server = this.voiceServers.get(guildId);
+        const state = this.voiceStates.get(guildId);
+
+        if (!server) return false;
+
+        const guild = this.client.guilds.get(guildId);
+        if (!guild) return false;
+        const player = this.players.get(guildId);
+        if (!player) return false;
+
+        await player.connect({ sessionId: state ? state.session_id : player.voiceUpdateState.sessionId, event: server });
+        return true;
+    }
+
+    sendWS(data) {
+        const guild = this.client.guilds.get(data.d.guild_id);
+        if (!guild) return;
+        return guild.shard.send(data);
+    }
+
 }
 
 module.exports = LavalinkClient;
