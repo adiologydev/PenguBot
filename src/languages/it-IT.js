@@ -461,6 +461,7 @@ module.exports = class extends Language {
             COMMAND_MODLOG_DESCRIPTION: "Change the Mod Logs setting in the server.",
 
             COMMAND_MEME_DESCRIPTION: "Grabs you a random meme from the interwebs.",
+            COMMAND_WHOLESOME_DESCRIPTION: "Grabs you a random wholesome image from the interwebs.",
             COMMAND_ROLEINFO_DESCRIPTION: "Get information about a role in a server.",
 
             // Commands (Start of cleaning up Language files)
