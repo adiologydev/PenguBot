@@ -1,7 +1,6 @@
 const { Monitor } = require("../index");
 const { Canvas } = require("canvas-constructor");
 const fs = require("fs-nextra");
-const { get } = require("snekfetch");
 
 const timeout = new Set();
 
@@ -16,8 +15,7 @@ module.exports = class extends Monitor {
     }
 
     async run(msg) {
-        if (!msg.guild) return;
-        if (timeout.has(`${msg.author.id}-${msg.guild.id}`)) return;
+        if (!msg.guild || timeout.has(`${msg.author.id}-${msg.guild.id}`)) return;
         if (this.client.user.id !== "303181184718995457" && await msg.guild.members.fetch("303181184718995457").catch(() => null)) return;
 
         await msg.member.settings.sync(true);
@@ -69,7 +67,7 @@ module.exports = class extends Monitor {
     async generateLevelUpImage(background, userAvatar) {
         const [backgroundImage, avatar] = await Promise.all([
             fs.readFile(`../assets/profiles/bg/${background}.png`),
-            get(userAvatar).then(res => res.body).catch(() => null)
+            this.fetchURL(userAvatar, { type: "buffer" }).catch(() => null)
         ]);
 
         return new Canvas(100, 100)

@@ -1,11 +1,11 @@
-const { get } = require("snekfetch");
+const { util: { fetch } } = require("../../index");
 
 module.exports = {
     name: "getjson",
     run: async ctx => {
         const [str, propPath] = ctx.value;
-        const { body } = await get(str);
-        if (!body || body instanceof Buffer) throw "Malformed JSON.";
+        const body = await fetch(str);
+        if (!body) throw "No JSON found.";
         if (!propPath) return JSON.stringify(body);
         return getProp(body, propPath);
     }

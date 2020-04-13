@@ -1,38 +1,37 @@
-const { Command, MessageEmbed, config } = require("../../index");
-const { get } = require("snekfetch");
+const { Command, MessageEmbed, Timestamp, config: { apis } } = require("../../index");
+
+const timestamp = new Timestamp("d MMMM YYYY");
 
 module.exports = class extends Command {
 
     constructor(...args) {
         super(...args, {
-            runIn: ["text", "dm"],
-            aliases: ["twitchstats"],
-            cooldown: 5,
-            requiredPermissions: ["EMBED_LINKS", "USE_EXTERNAL_EMOJIS"],
-            description: language => language.get("COMMAND_TWSTATS_DESCRIPTION"),
-            usage: "<name:string>",
+            cooldown: 15,
+            aliases: ["twitchstats", "twitchstatistics"],
+            requiredPermissions: ["EMBED_LINKS"],
+            description: "Get twitch channel statisitcs directly from twitch.",
+            usage: "<channel:...string>",
             extendedHelp: "No extended help available."
         });
+
     }
+    async run(msg, [channel]) {
+        const body = await this.fetchURL(`https://api.twitch.tv/kraken/channels/${channel}`, { query: { client_id: apis.twitch } })
+            .catch(() => { throw "I'm having trouble communicating with twitch, make sure you entered the right username."; });
 
-    async run(msg, [name]) {
-        const { body } = await get(`https://api.twitch.tv/kraken/channels/${name}?client_id=${config.apis.twitch}`)
-            .catch(() => msg.reply(`<:penguError:435712890884849664> I couldn't find your channel while searching it on Twitch, please try again!`));
-
-        const embed = new MessageEmbed()
-            .setColor(6570406)
-            .setAuthor("Twitch Channel Statistics", "https://i.imgur.com/krTbTeD.png")
+        return msg.sendEmbed(new MessageEmbed()
+            .setColor("#1976D2")
+            .setAuthor(body.display_name, body.logo, body.url)
             .setTimestamp()
-            .setFooter("© PenguBot.com")
-            .setDescription(`❯ **Channel Name:** ${body.display_name || name}
-❯ **Channel Status:** ${body.status}
-❯ **Partnered:** ${body.partner}\n
-❯ **Followers Count:** ${parseInt(body.followers).toLocaleString()}
-❯ **Total Views:** ${parseInt(body.views).toLocaleString()}
-❯ **Channel Created:** ${new Date(body.created_at).toDateString()}\n
-❯ **Link:** ${body.url}`);
-        if (body.logo) embed.setThumbnail(body.logo);
-        return msg.sendEmbed(embed);
+            .setFooter(`Requested by ${msg.author.tag}`)
+            .setDescription(`
+❯ **Views:** ${body.views.toLocaleString()}
+❯ **Followers:** ${body.followers.toLocaleString()}
+❯ **Game:** ${body.game}
+❯ **Status:** ${body.status}
+❯ **Mature?:** ${body.mature ? "Yes" : "No"}
+❯ **Created At:** ${timestamp.display(body.created_at)}
+            `));
     }
 
 };

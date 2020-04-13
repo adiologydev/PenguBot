@@ -1,5 +1,4 @@
 const { Command, MessageEmbed, config } = require("../../index");
-const { get } = require("snekfetch");
 
 module.exports = class extends Command {
 
@@ -15,39 +14,35 @@ module.exports = class extends Command {
     }
 
     async run(msg, [tag]) {
-        const data = await get(`https://api.clashofclans.com/v1/players/${encodeURIComponent(tag.toUpperCase().replace(/O/g, "0"))}`)
-            .set({ Accept: "application/json", Authorization: `Bearer ${config.apis.cocapi}` })
-            .catch(error => {
-                if (error.reason === "notFound") msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("CMD_COC_TAG")}***`);
-                Error.captureStackTrace(error);
-                return null;
-            });
+        const playerData = await this.fetchURL(`https://api.clashofclans.com/v1/players/${encodeURIComponent(tag.toUpperCase().replace(/O/g, "0"))}`, {
+            headers: { Accept: "application/json", Authorization: `Bearer ${config.apis.cocapi}` }
+        }).catch(() => {
+            throw `${this.client.emotes.cross} ***${msg.language.get("CMD_COC_TAG")}***`;
+        });
 
-        if (!data) return msg.reply(msg.language.get("CMD_COC_DATA"));
-
-        const playerData = data.body;
+        if (!playerData) return msg.reply(msg.language.get("CMD_COC_DATA"));
 
         const embed = new MessageEmbed()
             .setColor("#FCCF6E")
             .setAuthor(playerData.name, playerData.league ? playerData.league.iconUrls.small : null)
-            .setThumbnail(`https://coc.guide/static/imgs/other/town-hall-${playerData.townHallLevel}.png`);
-
-        if (playerData.clan) embed.setFooter(`${playerData.role} of ${playerData.clan.name}\u200e ${playerData.clan.tag}`, playerData.clan.badgeUrls.small);
-
-        embed.addField("❯ League", playerData.league ? playerData.league.name : "N/A", true)
+            .setThumbnail(`https://coc.guide/static/imgs/other/town-hall-${playerData.townHallLevel}.png`)
+            .addField("❯ League", playerData.league ? playerData.league.name : "N/A", true)
             .addField("❯ Trophies", playerData.trophies, true)
             .addField("❯ War Stars", playerData.warStars, true)
             .addField("❯ Best Trophies", playerData.bestTrophies, true);
+
+        if (playerData.clan) embed.setFooter(`${playerData.role} of ${playerData.clan.name}\u200e ${playerData.clan.tag}`, playerData.clan.badgeUrls.small);
+
         let troopLevels = "", spellLevels = "", heroLevels = "";
 
-        playerData.troops.forEach(troop => troopLevels += `${troop.name}: ${troop.level} ${troop.level === troop.maxLevel ? "🔥\n" : "\n"}`); // eslint-disable-line
+        for (const troop of playerData.troops) troopLevels += `${troop.name}: ${troop.level} ${troop.level === troop.maxLevel ? "🔥\n" : "\n"}`;
+        for (const spell of playerData.spells) spellLevels += `${spell.name}: ${spell.level} ${spell.level === spell.maxLevel ? "🔥\n" : "\n"}`;
+        for (const hero of playerData.heroes) heroLevels += `${hero.name}: ${hero.level} ${hero.level === hero.maxLevel ? "🔥\n" : "\n"}`;
+
         if (troopLevels) embed.addField("❯ Troop Levels", troopLevels, true);
-
-        playerData.spells.forEach(spell => spellLevels += `${spell.name}: ${spell.level} ${spell.level === spell.maxLevel ? "🔥\n" : "\n"}`); // eslint-disable-line
         if (spellLevels) embed.addField("❯ Spell Levels", spellLevels, true);
-
-        playerData.heroes.forEach(hero => heroLevels += `${hero.name}: ${hero.level} ${hero.level === hero.maxLevel ? "🔥\n" : "\n"}`); // eslint-disable-line
         if (heroLevels) embed.addField("❯ Hero Levels", heroLevels, true);
+
         return msg.sendMessage(embed);
     }
 

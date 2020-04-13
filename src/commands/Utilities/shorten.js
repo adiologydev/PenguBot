@@ -1,5 +1,4 @@
-const Command = require("../../lib/structures/KlasaCommand");
-const { get } = require("snekfetch");
+const { Command } = require("../../index");
 
 module.exports = class extends Command {
 
@@ -17,11 +16,8 @@ module.exports = class extends Command {
     }
 
     async run(msg, [link]) {
-        const data = await get(`https://is.gd/create.php?format=json&url=${encodeURIComponent(link)}`).catch(e => {
-            Error.captureStackTrace(e);
-            throw msg.language.get("ER_TRY_AGAIN");
-        });
-        return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_LINK_SHORTEN")}*** ${JSON.parse(data.text).shorturl}`);
+        const data = await this.fetchURL(`https://is.gd/create.php?format=json&url=${encodeURIComponent(link)}`);
+        return msg.sendMessage(`<:penguSuccess:435712876506775553> ***${msg.language.get("MESSAGE_LINK_SHORTEN")}*** ${data.shorturl}`);
     }
 
 };

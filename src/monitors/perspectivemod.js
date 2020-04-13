@@ -1,5 +1,4 @@
 const { Monitor, ServerLog, config } = require("../index");
-const { post } = require("snekfetch");
 
 module.exports = class extends Monitor {
 
@@ -12,9 +11,9 @@ module.exports = class extends Monitor {
         //       if (msg.guild.settings.toggles.staffbypass && await msg.hasAtLeastPermissionLevel(3)) return;
         //       if (this.client.user.id !== "303181184718995457" && await msg.guild.members.fetch("303181184718995457").catch(() => null)) return;
 
-        const { body } = await post(`https://commentanalyzer.googleapis.com/v1alpha1/comments:analyze?key=${config.apis.perspective}`)
-            .send({ comment: { text: msg.content }, requestedAttributes: { SEVERE_TOXICITY: {}, TOXICITY: {}, OBSCENE: {}, THREAT: {}, SEXUALLY_EXPLICIT: {}, SPAM: {}, PROFANITY: {} } })
-            .catch(() => ({ body: null }));
+        const body = await this.fetchURL(`https://commentanalyzer.googleapis.com/v1alpha1/comments:analyze?key=${config.apis.perspective}`, {
+            body: { comment: { text: msg.content }, requestedAttributes: { SEVERE_TOXICITY: {}, TOXICITY: {}, OBSCENE: {}, THREAT: {}, SEXUALLY_EXPLICIT: {}, SPAM: {}, PROFANITY: {} } }
+        });
 
         if (!body) return;
 

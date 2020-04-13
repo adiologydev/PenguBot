@@ -1,7 +1,5 @@
-const Command = require("../../lib/structures/KlasaCommand");
-const { get } = require("snekfetch");
+const { Command, MessageEmbed } = require("../../index");
 const cheerio = require("cheerio");
-const { MessageEmbed } = require("discord.js");
 
 module.exports = class extends Command {
 
@@ -16,20 +14,16 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        try {
-            const { text } = await get("http://explosm.net/rcg/").catch(() => msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("ER_CATS_DOGS")}***`));
-            const $ = cheerio.load(text);
+        const { text } = await this.fetchURL("http://explosm.net/rcg/", { type: "text" })
+            .catch(() => { throw `${this.client.emotes.cross} ***${msg.language.get("ER_CATS_DOGS")}***`; });
+        const $ = cheerio.load(text);
 
-            const embed = new MessageEmbed()
-                .setFooter("© PenguBot.com")
-                .setTimestamp()
-                .setColor("RANDOM")
-                .setDescription(`**Random Comic**`)
-                .setImage(`http:${$("#rcg-comic").first().find("img").first().attr("src").replace(/\\/g, "/")}`);
-            return msg.sendEmbed(embed);
-        } catch (e) {
-            return msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("ER_CATS_DOGS")}***`);
-        }
+        return msg.sendEmbed(new MessageEmbed()
+            .setFooter("© PenguBot.com")
+            .setTimestamp()
+            .setColor("RANDOM")
+            .setDescription(`**Random Comic**`)
+            .setImage(`http:${$("#rcg-comic").first().find("img").first().attr("src").replace(/\\/g, "/")}`));
     }
 
 };

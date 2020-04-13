@@ -1,5 +1,4 @@
 const { Command, MessageEmbed, config } = require("../../index");
-const { get } = require("snekfetch");
 
 module.exports = class extends Command {
 
@@ -15,25 +14,18 @@ module.exports = class extends Command {
     }
 
     async run(msg, [username]) {
-        const userData = await get(`http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/`)
-            .query({ key: config.apis.csgo, vanityurl: username })
-            .catch(e => {
-                Error.captureStackTrace(e);
-                throw `${this.client.emotes.cross} ***${msg.language.get("CMD_CSGO_NF")}***`;
-            });
+        const userData = await this.fetchURL(`http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/`, {
+            query: { key: config.apis.csgo, vanityurl: username }
+        });
 
-        if (userData.body.response.success !== 1) throw `${this.client.emotes.cross} ***${msg.language.get("CMD_CSGO_NF")}***`;
-        const steamID = userData.body.response.steamid;
+        if (userData.response.success !== 1) throw `${this.client.emotes.cross} ***${msg.language.get("CMD_CSGO_NF")}***`;
+        const steamID = userData.response.steamid;
 
-        const userStats = await get(`http://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/`)
-            .query({ key: config.apis.csgo, appid: 730, steamid: steamID })
-            .catch(e => {
-                Error.captureStackTrace(e);
-                throw `${this.client.emotes.cross} ***${msg.language.get("CMD_CSGO_ER")}***`;
-            });
+        const userStats = await this.fetchURL(`http://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/`, {
+            query: { key: config.apis.csgo, appid: 730, steamid: steamID }
+        });
 
-        if (userStats.status !== 200) throw `${this.client.emotes.cross} ***${msg.language.get("CMD_CSGO_ER")}***`;
-        const { stats } = userStats.body.playerstats;
+        const { stats } = userStats.playerstats;
         return msg.sendMessage(new MessageEmbed()
             .setAuthor("Counter Strike : Global Offensive - PenguBot", "https://i.imgur.com/0S2t2qQ.png")
             .setFooter("© PenguBot.com")

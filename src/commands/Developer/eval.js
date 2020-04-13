@@ -1,6 +1,5 @@
-const { Command, Stopwatch, Type, util } = require("klasa");
+const { Command, Stopwatch, Type, klasaUtil: util, util: { haste } } = require("../../index");
 const { inspect } = require("util");
-const { post } = require("snekfetch");
 
 module.exports = class extends Command {
 
@@ -39,7 +38,7 @@ module.exports = class extends Command {
             }
             case "haste":
             case "hastebin": {
-                if (!options.url) options.url = await this.getHaste(result).catch(() => null);
+                if (!options.url) options.url = await haste(result).catch(() => null);
                 if (options.url) return msg.sendMessage(`**Output:**\n${options.url}\n\n**Type:**${footer}\n${time}`);
                 options.hastebinUnavailable = true;
                 await this.getTypeOutput(msg, options);
@@ -124,14 +123,6 @@ module.exports = class extends Command {
 
     formatTime(syncTime, asyncTime) {
         return asyncTime ? `⏱ ${asyncTime}<${syncTime}>` : `⏱ ${syncTime}`;
-    }
-
-    async getHaste(result) {
-        const { body } = await post("https://hastebin.com/documents").send(result).catch(e => {
-            Error.captureStackTrace(e);
-            return e;
-        });
-        return `https://hastebin.com/${body.key}.js`;
     }
 
 };
