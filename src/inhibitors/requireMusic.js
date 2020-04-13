@@ -10,7 +10,7 @@ module.exports = class extends Inhibitor {
         if (!msg.guild) throw "This command may be only executed in a server.";
         if (cmd.requireMusic !== true) return;
 
-        const force = "force" in msg.flags;
+        const force = "force" in msg.flagArgs;
 
         await msg.guild.members.fetch(msg.author).catch(() => null);
 

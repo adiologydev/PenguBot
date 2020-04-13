@@ -34,9 +34,9 @@ module.exports = class extends Command {
             target = user;
         }
 
-        let msgDays = msg.flags.messages || msg.flags.msg;
+        let msgDays = msg.flagArgs.messages || msg.flagArgs.msg;
         msgDays = Number(msgDays);
-        const banDays = msg.flags.duration || msg.flags.tempban || msg.flags.time || null;
+        const banDays = msg.flagArgs.duration || msg.flagArgs.tempban || msg.flagArgs.time || null;
         let duration;
         banDays ? duration = new Duration(banDays) : null;
 
