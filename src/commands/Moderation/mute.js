@@ -31,7 +31,7 @@ module.exports = class extends Command {
         const myRole = msg.guild.me.roles.highest;
         if (role.position > myRole.positon) return msg.sendMessage(`${this.client.emotes.cross} ***The \`PENGUMUTED\` role is above my role in the guild, please change the order.***`);
 
-        const time = msg.flags.time || msg.flags.duration || msg.flags.tempmute;
+        const time = msg.flagArgs.time || msg.flagArgs.duration || msg.flagArgs.tempmute;
         let duration = null;
         time ? duration = new Duration(time) : null;
         if (time && (duration.offset < 1 || duration.offset > 2592000000)) throw `${this.client.emotes.cross} ***Duration is invalid, try something like 1 hour, 1 day, etc. Maximum 30 days.***`;

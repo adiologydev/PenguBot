@@ -19,7 +19,7 @@ module.exports = class extends MusicCommand {
         const { music } = msg.guild;
 
         if (music.voiceChannel.members.size > 4) {
-            if ("force" in msg.flags) {
+            if ("force" in msg.flagArgs) {
                 const hasPermission = await msg.hasAtLeastPermissionLevel(2);
                 if (hasPermission === false) throw "You can't execute this command with the force flag. You must be a DJ.";
             } else {
