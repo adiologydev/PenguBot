@@ -1,5 +1,4 @@
 const { Command, MessageEmbed, config } = require("../../index");
-const { get } = require("snekfetch");
 
 module.exports = class extends Command {
 
@@ -14,33 +13,23 @@ module.exports = class extends Command {
         });
     }
 
-    async run(msg, [Tag]) {
-        let data;
-        try {
-            data = await get(`https://api.royaleapi.com/player/${Tag.toUpperCase()}`).set("auth", `${config.apis.crapi}`).catch(e => {
-                Error.captureStackTrace(e);
-                return e;
-            });
-        } catch (e) {
-            return msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("ER_COC_TAG")}***`);
-        }
+    async run(msg, [tag]) {
+        const data = await this.fetchURL(`https://api.royaleapi.com/player/${tag.toUpperCase()}`, {
+            headers: { auth: config.apis.crapi }
+        });
 
-        if (!data || !data.body.stats) return msg.reply(msg.language.get("ER_COC_DATA"));
-
-        const { body } = data;
-        const embed = new MessageEmbed()
+        return msg.sendEmbed(new MessageEmbed()
             .setAuthor("Clash Royale Player Statistics - PenguBot", "https://i.imgur.com/4xXGK08.png")
             .setFooter("© PenguBot.com")
             .setThumbnail("https://i.imgur.com/4xXGK08.png")
             .setColor("#398ce7")
             .setTimestamp()
-            .setDescription([`❯ **Name | Tag:** ${body.name} | ${body.tag}`,
-                `❯ **Trophies / Max Trophies:** ${body.trophies ? body.trophies.toLocaleString() : 0} / ${body.stats.maxTrophies ? body.stats.maxTrophies.toLocaleString() : 0}`,
-                `❯ **Rank:** ${body.rank ? body.rank.toLocaleString() : "N/A"}`,
-                `❯ **Arena:** ${body.arena.name} - ${body.arena.arena}`,
-                `❯ **Total / Wins / Draws / Losses:** ${body.games.total} / ${body.games.wins} / ${body.games.draws} / ${body.games.losses}`,
-                `❯ **Deck:** [View User's Current Deck](${body.deckLink})`]);
-        return msg.sendMessage(embed);
+            .setDescription([`❯ **Name | Tag:** ${data.name} | ${data.tag}`,
+                `❯ **Trophies / Max Trophies:** ${data.trophies ? data.trophies.toLocaleString() : 0} / ${data.stats.maxTrophies ? data.stats.maxTrophies.toLocaleString() : 0}`,
+                `❯ **Rank:** ${data.rank ? data.rank.toLocaleString() : "N/A"}`,
+                `❯ **Arena:** ${data.arena.name} - ${data.arena.arena}`,
+                `❯ **Total / Wins / Draws / Losses:** ${data.games.total} / ${data.games.wins} / ${data.games.draws} / ${data.games.losses}`,
+                `❯ **Deck:** [View User's Current Deck](${data.deckLink})`]));
     }
 
 };

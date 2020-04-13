@@ -1,6 +1,4 @@
-const Command = require("../../lib/structures/KlasaCommand");
-const { get } = require("snekfetch");
-const { MessageEmbed } = require("discord.js");
+const { Command, MessageEmbed } = require("../../index");
 
 module.exports = class extends Command {
 
@@ -15,18 +13,15 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        const { body } = await get("https://catfact.ninja/fact").catch(e => {
-            Error.captureStackTrace(e);
-            return e;
-        });
-        if (!body) throw msg.language.get("ERR_TRY_AGAIN");
-        const embed = new MessageEmbed()
+        const { fact } = await this.fetchURL("https://catfact.ninja/fact");
+        if (!fact) throw msg.language.get("ERR_TRY_AGAIN");
+
+        return msg.sendEmbed(new MessageEmbed()
             .setFooter("© PenguBot.com")
             .setTimestamp()
             .setColor("RANDOM")
-            .setDescription(`**Cat Image & Fact**\n${body.fact}`)
-            .setImage(`http://thecatapi.com/api/images/get?format=src&type=jpg&size=med&${Date.now()}`);
-        return msg.sendEmbed(embed);
+            .setDescription(`**Cat Image & Fact**\n${fact}`)
+            .setImage(`http://thecatapi.com/api/images/get?format=src&type=jpg&size=med&${Date.now()}`));
     }
 
 };

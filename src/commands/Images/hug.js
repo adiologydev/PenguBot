@@ -1,6 +1,4 @@
-const Command = require("../../lib/structures/KlasaCommand");
-const { get } = require("snekfetch");
-const { MessageEmbed } = require("discord.js");
+const { Command, MessageEmbed } = require("../../index");
 
 module.exports = class extends Command {
 
@@ -16,17 +14,14 @@ module.exports = class extends Command {
     }
 
     async run(msg, [user]) {
-        const { body } = await get("https://nekos.life/api/v2/img/hug").catch(e => {
-            Error.captureStackTrace(e);
-            return e;
-        });
-        if (!body.url) throw msg.language.get("ERR_TRY_AGAIN");
+        const { url } = await this.fetchURL("https://nekos.life/api/v2/img/hug");
+        if (!url) throw msg.language.get("ERR_TRY_AGAIN");
         const embed = new MessageEmbed()
             .setFooter("© PenguBot.com")
             .setTimestamp()
-            .setImage(body.url)
+            .setImage(url)
             .setColor("RANDOM");
-        return msg.sendMessage(`🤗 | ***${user}, ${msg.language.get("CMD_FUN_HUG")} ${msg.author}!***`, { embed: embed });
+        return msg.sendMessage(`🤗 | ***${user}, ${msg.language.get("CMD_FUN_HUG")} ${msg.author}!***`, { embed });
     }
 
 };

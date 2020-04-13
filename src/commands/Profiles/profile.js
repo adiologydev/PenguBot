@@ -1,7 +1,6 @@
 const Command = require("../../lib/structures/KlasaCommand");
 const { Canvas } = require("canvas-constructor");
 const fs = require("fs-nextra");
-const { get } = require("snekfetch");
 const { join } = require("path");
 
 Canvas.registerFont(join(__dirname, "..", "..", "..", "assets", "fonts", "Roboto-Regular.ttf"), "Roboto");
@@ -44,10 +43,7 @@ module.exports = class extends Command {
 
         const bgName = user.settings.profilebg;
         const bgImg = await fs.readFile(`../assets/profiles/bg/${bgName}.png`);
-        const avatar = await get(user.displayAvatarURL({ format: "png", sze: 256 })).then(res => res.body).catch(e => {
-            Error.captureStackTrace(e);
-            return e;
-        });
+        const avatar = await this.fetchURL(user.displayAvatarURL({ format: "png", sze: 256 }), "buffer");
 
         return await new Canvas(300, 300)
             // Initializing & Avatar

@@ -1,47 +1,43 @@
-const Command = require("../../lib/structures/KlasaCommand");
-const { get } = require("snekfetch");
-const { MessageEmbed } = require("discord.js");
+const { Command, MessageEmbed } = require("../../index");
 
 module.exports = class extends Command {
 
     constructor(...args) {
         super(...args, {
-            runIn: ["text", "dm"],
-            aliases: ["urband", "urbandictionary"],
             cooldown: 10,
-            requiredPermissions: ["EMBED_LINKS", "ATTACH_FILES"],
-            description: language => language.get("COMMAND_URBAN_DESCRIPTION"),
-            usage: "<word:string>",
-            extendedHelp: "No extended help available."
+            aliases: ["urband", "ud"],
+            description: "Get meaning for a word from Urban Dictionary.",
+            usage: "<word:...string>",
+            nsfw: true
         });
     }
 
     async run(msg, [word]) {
-        if (!msg.channel.nsfw) return msg.sendMessage(`${this.client.emotes.cross} ***This channel is not NSFW and you know how Urban Dictionary is. I can't send it here, sorry.***`);
-        const { text } = await get(`http://api.urbandictionary.com/v0/define?term=${encodeURIComponent(word)}`).catch(e => {
-            Error.captureStackTrace(e);
-            return e;
-        });
+        const info = await this.getDefinition(word);
 
-        if (!text || !JSON.parse(text).list || !JSON.parse(text).list[0].definition) return msg.reply(`${this.client.emotes.cross} ***That word could not be found on Urban Dictionary.***`);
-
-        const result = JSON.parse(text).list[0];
-        const defination = result.definition.length <= 1800 ? result.definition : `${result.definition.substring(0, 1800)}...`;
-
-        const embed = new MessageEmbed()
+        return msg.sendEmbed(new MessageEmbed()
+            .setAuthor(`Word: ${info.word}`, info.link)
+            .setDescription(`**Definition:** ${info.definition}`)
             .setColor("RANDOM")
-            .setTimestamp()
-            .setFooter("© PenguBot.com")
-            .setTitle("Urban Dictionary")
-            .setThumbnail("https://i.imgur.com/roNW5D3.png")
-            .setDescription(`**❯ Word:** ${result.word}
-
-❯ **Definition:** ${defination}
-
-❯ **Votes:** 👍 ${result.thumbs_up} 👎 ${result.thumbs_down}
-
-❯ **Permalink:** ${result.permalink}`);
-        return msg.sendEmbed(embed);
+            .setFooter("Urban Dictionary", this.client.user.displayAvatarURL())
+            .addField("Votes", `👍 ${info.thumbsUp} **|** 👎 ${info.thumbsDown}`, true)
+            .addField("Example", info.example, true));
     }
 
-};
+    async getDefinition(term) {
+        const { list: [word] } = await this.fetchURL(`http://api.urbandictionary.com/v0/define`, { query: { term } });
+
+        if (!word) throw "No entry found";
+
+        return {
+            definition: word.definition.length >= 1984 ? `${word.definition.substr(0, 1984)}...` : word.definition,
+            word: word.word,
+            link: word.permalink,
+            thumbsUp: word.thumbs_up,
+            thumbsDown: word.thumbs_down,
+            example: word.example,
+            author: word.author
+        };
+    }
+
+}

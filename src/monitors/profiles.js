@@ -1,7 +1,6 @@
 const { Monitor } = require("../index");
 const { Canvas } = require("canvas-constructor");
 const fs = require("fs-nextra");
-const { get } = require("snekfetch");
 
 const timeout = new Set();
 
@@ -42,7 +41,7 @@ module.exports = class extends Monitor {
     async generateLevelUpImage(background, userAvatar) {
         const [backgroundImage, avatar] = await Promise.all([
             fs.readFile(`../assets/profiles/bg/${background}.png`),
-            get(userAvatar).then(res => res.body).catch(() => null)
+            this.fetchURL(userAvatar, { type: "buffer" }).catch(() => null)
         ]);
 
         return new Canvas(100, 100)

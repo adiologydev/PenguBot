@@ -1,6 +1,4 @@
-const Command = require("../../lib/structures/KlasaCommand");
-const { get } = require("snekfetch");
-const { MessageEmbed } = require("discord.js");
+const { Command, MessageEmbed } = require("../../index");
 
 module.exports = class extends Command {
 
@@ -15,18 +13,15 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        const { body } = await get("https://randomfox.ca/floof/").catch(e => {
-            Error.captureStackTrace(e);
-            return e;
-        });
-        if (!body.image) throw msg.language.get("ERR_TRY_AGAIN");
-        const embed = new MessageEmbed()
+        const { image } = await this.fetchURL("https://randomfox.ca/floof/");
+        if (!image) throw msg.language.get("ERR_TRY_AGAIN");
+
+        return msg.sendEmbed(new MessageEmbed()
             .setFooter("© PenguBot.com")
             .setTimestamp()
             .setColor("RANDOM")
             .setDescription(`**Fox Picture**`)
-            .setImage(body.image);
-        return msg.sendEmbed(embed);
+            .setImage(image));
     }
 
 };

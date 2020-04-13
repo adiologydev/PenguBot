@@ -44,7 +44,6 @@
     "node-fetch": "^2.6.0",
     "raven": "^2.6.4",
     "rethinkdbdash": "^2.3.31",
-    "snekfetch": "^4.0.4",
     "utf-8-validate": "^5.0.2",
     "zlib-sync": "^0.1.6"
   },
