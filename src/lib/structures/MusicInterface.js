@@ -18,7 +18,7 @@ class MusicInterface {
         return this.client.lavalink.join({
             guild: this.guild.id,
             channel: voiceChannel,
-            host: this.idealNode.host
+            node: this.idealNode.id
         }, { selfdeaf: true });
     }
 
@@ -90,7 +90,7 @@ class MusicInterface {
     }
 
     get idealNode() {
-        return this.client.lavalink.idealNodes.first() || null;
+        return this.client.lavalink.idealNodes[0] || null;
     }
 
 }

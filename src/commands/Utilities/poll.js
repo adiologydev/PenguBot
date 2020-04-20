@@ -17,6 +17,7 @@ module.exports = class extends Command {
     async run(msg, [title, ...options]) {
         try {
             const data = await this.fetchURL("https://www.strawpoll.me/api/v2/polls", {
+                method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: {
                     title,
