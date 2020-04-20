@@ -9,7 +9,7 @@ module.exports = class extends Event {
     }
 
     async run(info) {
-        console.log(`[DEBUG] ${info}`);
+        this.client.console.debug(info);
     }
 
 };
