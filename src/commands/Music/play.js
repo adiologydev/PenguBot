@@ -36,6 +36,7 @@ module.exports = class extends MusicCommand {
             else return this.handleSongs(msg, songs);
 
             await musicInterface.join(msg.member.voice.channel.id);
+            await sleep(500);
             return this.play(musicInterface);
         } catch (error) {
             this.client.emit("error", error);
@@ -74,7 +75,7 @@ module.exports = class extends MusicCommand {
             return musicInterface.destroy();
         }
 
-        await sleep(300);
+        await sleep(450);
 
         const player = await musicInterface.play(song.track);
         if (!musicInterface.looping) await musicInterface.textChannel.send(this.playEmbed(song, musicInterface.queue));
@@ -85,8 +86,7 @@ module.exports = class extends MusicCommand {
             await this.play(musicInterface);
         }).once("error", async event => {
             this.client.console.error(event);
-            await musicInterface.textChannel.send(`I am very sorry but was an error, please try again or contact us at https://discord.gg/kWMcUNe | Error: ${event.error}`);
-            await musicInterface.destroy();
+            await musicInterface.textChannel.send(`I am very sorry but was an error, please try again or contact us at https://discord.gg/kWMcUNe | Error: ${event.reason}`);
         });
     }
 

@@ -23,13 +23,15 @@ class MusicInterface {
     }
 
     async leave() {
-        await this.client.lavalink.leave(this.guild.id);
+        const d = await this.client.lavalink.leave(this.guild.id);
         this.playing = false;
+        return d;
     }
 
     async play() {
+        if (!this.voiceChannel) throw "The bot isnt in the voice channel so it can't play you any songs";
         if (!this.player) throw "Something went wrong, try again.";
-        else if (!this.queue.length) throw "Can't play songs from an empty queue. Queue up some songs!";
+        if (!this.queue.length) throw "Can't play songs from an empty queue. Queue up some songs!";
 
         const [song] = this.queue;
         const volume = config.patreon ? { volume: this.volume } : {};
@@ -72,7 +74,6 @@ class MusicInterface {
         this.textChannel = null;
         this.looping = null;
 
-        if (this.player) await this.player.destroy();
         await this.leave();
         this.client.music.delete(this.guild.id);
     }

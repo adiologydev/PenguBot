@@ -4,7 +4,7 @@ const ModLog = require("../lib/structures/ModLog");
 module.exports = class extends Task {
 
     async run({ guildID, userID }) {
-        const guild = this.client.guilds.get(guildID);
+        const guild = this.client.guilds.cache.get(guildID);
         const member = await guild.members.fetch(userID).catch(() => null);
         if (!guild || !member) return;
 
