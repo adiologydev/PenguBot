@@ -10,7 +10,7 @@ module.exports = class extends Monitor {
         if (!msg.guild || !msg.content || msg.command) return;
         if (!msg.guild.settings.toggles.perspective) return;
 
-        const body = await this.fetchURL(`https://commentanalyzer.googleapis.com/v1alpha1/comments:analyze?key=${config.apis.perspective}`, {
+        const body = await this.fetchURL("https://commentanalyzer.googleapis.com/v1alpha1/comments:analyze", {
             query: { key: config.apis.perspective },
             headers: { "Content-Type": "application/json" },
             method: "POST",
