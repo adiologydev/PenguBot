@@ -66,7 +66,7 @@ module.exports = KlasaClient.defaultGuildSchema
         .add("joinmsg", "boolean", { default: true })
         .add("leavemsg", "boolean", { default: true })
         .add("autoroles", "boolean", { default: true })
-        .add("perspective", "boolean", { default: true })
+        .add("perspective", "boolean", { default: false })
         .add("customcmds", "boolean", { default: true })
         .add("starboard", "boolean", { default: true })
         .add("levelroles", "boolean", { default: true })
