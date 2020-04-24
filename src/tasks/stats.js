@@ -15,7 +15,11 @@ module.exports = class extends Task {
             vc += result[2];
         }
 
-        return this.fetchURL("https://server.pengubot.com/bot/statposting", { method: "POST", headers: { authorization: config.apis.pengu, "Content-Type": "application/json" }, body: { servers: guilds, shards: scount, voice: vc, users: users } });
+        return this.fetchURL("https://server.pengubot.com/bot/statposting", {
+            method: "POST",
+            headers: { authorization: config.apis.pengu, "Content-Type": "application/json" },
+            body: JSON.stringify({ servers: guilds, shards: scount, voice: vc, users: users })
+        });
     }
 
 };
