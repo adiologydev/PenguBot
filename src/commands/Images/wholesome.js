@@ -8,14 +8,14 @@ module.exports = class extends Command {
             cooldown: 10,
             bucket: 2,
             aliases: ["wholesome", "aww"],
-            requiredPermissions: ["ATTACH_IMAGES", "EMBED_LINKS"],
+            requiredPermissions: ["EMBED_LINKS"],
             description: language => language.get("COMMAND_WHOLESOME_DESCRIPTION"),
             extendedHelp: "No extended help available."
         });
     }
 
     async run(msg) {
-        const subReddit = subReddits[Math.floor(Math.random() * subReddits.length)];
+        const subReddit = SUB_REDDITS[Math.floor(Math.random() * SUB_REDDITS.length)];
         let img = await this.client.funcs.scrapeSubreddit(subReddit);
         if (img && img.includes(".mp4")) img = await this.client.funcs.scrapeSubreddit(subReddit);
         if (!img || img.includes(".mp4")) return msg.sendMessage(`Too fast, too furious, try again!`);

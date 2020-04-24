@@ -6,9 +6,8 @@ module.exports = class extends Task {
 
     async run() {
         const res = await this.fetchURL(`https://accounts.spotify.com/api/token`, {
-            body: {
-                grant_type: "client_credentials"
-            },
+            method: "POST",
+            body: "grant_type=client_credentials",
             headers: {
                 Authorization: `Basic ${CREDENTIALS}`,
                 "Content-Type": "application/x-www-form-urlencoded"
