@@ -10,6 +10,8 @@ module.exports = class extends Monitor {
         if (!msg.guild || !msg.content || msg.command) return;
         if (!msg.guild.settings.toggles.perspective) return;
 
+        if (msg.guild.settings.toggles.staffbypass && await msg.hasAtLeastPermissionLevel(3)) return;
+
         const body = await this.fetchURL("https://commentanalyzer.googleapis.com/v1alpha1/comments:analyze", {
             query: { key: config.apis.perspective },
             headers: { "Content-Type": "application/json" },
