@@ -43,7 +43,7 @@ module.exports = class extends Command {
 
         const bgName = user.settings.profilebg;
         const bgImg = await fs.readFile(`../assets/profiles/bg/${bgName}.png`);
-        const avatar = await this.fetchURL(user.displayAvatarURL({ format: "png", sze: 256 }), "buffer");
+        const avatar = await this.fetchURL(user.displayAvatarURL({ format: "png", sze: 256 }), { type: "buffer" });
 
         return await new Canvas(300, 300)
             // Initializing & Avatar
