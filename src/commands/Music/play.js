@@ -18,13 +18,12 @@ module.exports = class extends MusicCommand {
     async run(msg, [songs]) {
         if (!msg.member) await msg.guild.members.fetch(msg.author.id).catch(() => { throw msg.language.get("ER_MUSIC_TRIP"); });
 
-        if (!msg.member.voice.channel) throw "I'm sorry but you need to be in a voice channel to play music!";
-
-        if (!msg.member.voice.channel.joinable) throw "I do not have enough permissions to connect to your voice channel. I am missing the CONNECT permission.";
-        if (!msg.member.voice.channel.speakable) throw "I can connect... but not speak. Please turn on this permission so I can emit music.";
-
         const { music } = msg.guild;
         music.textChannel = msg.channel;
+
+        if (!msg.member.voice.channel) throw "I'm sorry but you need to be in a voice channel to play music!";
+        if (!msg.member.voice.channel.joinable) throw "I do not have enough permissions to connect to your voice channel. I am missing the CONNECT permission.";
+        if (!msg.member.voice.channel.speakable) throw "I can connect... but not speak. Please turn on this permission so I can emit music.";
 
         return this.handle(msg, songs);
     }
@@ -34,8 +33,7 @@ module.exports = class extends MusicCommand {
         try {
             if (!musicInterface.playing) await this.handleSongs(msg, songs);
             else return this.handleSongs(msg, songs);
-
-            await musicInterface.join(msg.member.voice.channel.id);
+            await msg.guild.music.join(msg.member.voice.channel.id);
             return this.play(musicInterface);
         } catch (error) {
             this.client.emit("error", error);
@@ -84,7 +82,7 @@ module.exports = class extends MusicCommand {
             if (!musicInterface.looping) await musicInterface.skip(false);
             await this.play(musicInterface);
         }).once("error", async event => {
-            await musicInterface.textChannel.send(`I am very sorry but was an error, please try again or contact us at https://discord.gg/kWMcUNe | Error: ${event.error}`);
+            await musicInterface.textChannel.send(`I am very sorry but was an error, please try again or contact us at https://discord.gg/kWMcUNe | Error: ${event.reason || event.error}`);
             await musicInterface.destroy();
         });
     }
