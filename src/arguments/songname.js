@@ -1,4 +1,5 @@
 const { Argument, Song, util: { showSeconds }, config } = require("../index");
+const { Rest } = require("lavacord");
 
 const wildcard = /(?:scsearch:|ytsearch:).*/i;
 const paste = /https:\/\/paste.pengubot.com\/(.*)/i;
@@ -133,7 +134,7 @@ ${msg.author}, Please select a track by replying from range \`1-5\` to add it to
     }
 
     async fetchTracks(search) {
-        const result = await this.client.lavalink.resolveTracks(search);
+        const result = await Rest.load(this.client.lavalink.idealNodes[0], search);
 
         if (result.loadType === "LOAD_FAILED") throw "There was an error trying to search for that song";
         return { tracks: result.tracks, playlist: "name" in result.playlistInfo ? result.playlistInfo.name : null };

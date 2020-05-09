@@ -1,4 +1,5 @@
 const { Client } = require("klasa");
+const { Manager: LavalinkManager } = require("@lavacord/discord.js");
 const config = require("../../../config.js");
 const { StatsD } = require("hot-shots");
 
@@ -25,7 +26,7 @@ class PenguClient extends Client {
     constructor(options) {
         super({ ...options, permissionLevels, defaultGuildSchema, defaultClientSchema, defaultUserSchema, defaultMemberSchema });
 
-        this.lavalink = null;
+        this.lavalink = new LavalinkManager(this, config.nodes, { user: config.dashboard.id });
         this.music = new MusicManager();
         this.topCache = [];
         this.health = Object.seal({
@@ -45,6 +46,11 @@ class PenguClient extends Client {
 
         this.version = "2.0.0";
         this.userAgent = `PenguBot/${this.version}/${this.options.production ? "Production" : "Development"}`;
+    }
+
+    async login(token) {
+        await this.lavalink.connect();
+        return super.login(token);
     }
 
 }

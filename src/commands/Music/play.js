@@ -33,7 +33,9 @@ module.exports = class extends MusicCommand {
         try {
             if (!musicInterface.playing) await this.handleSongs(msg, songs);
             else return this.handleSongs(msg, songs);
-            await msg.guild.music.join(msg.member.voice.channel.id);
+
+            await musicInterface.join(msg.member.voice.channel.id);
+            await sleep(500);
             return this.play(musicInterface);
         } catch (error) {
             this.client.emit("error", error);
@@ -72,7 +74,7 @@ module.exports = class extends MusicCommand {
             return musicInterface.destroy();
         }
 
-        await sleep(300);
+        await sleep(450);
 
         const player = await musicInterface.play(song.track);
         if (!musicInterface.looping) await musicInterface.textChannel.send(this.playEmbed(song, musicInterface.queue));

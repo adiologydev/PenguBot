@@ -14,18 +14,6 @@ const sharder = new ShardingManager(join(__dirname, "PenguBot"), {
         disableEveryone: true,
         regexPrefix: /^((?:Hey |Ok )?Pengu(?:,|!| ))/i,
         typing: false,
-        disabledEvents: [
-            "GUILD_SYNC",
-            "CHANNEL_PINS_UPDATE",
-            "USER_NOTE_UPDATE",
-            "RELATIONSHIP_ADD",
-            "RELATIONSHIP_REMOVE",
-            "USER_SETTINGS_UPDATE",
-            "VOICE_STATE_UPDATE",
-            "VOICE_SERVER_UPDATE",
-            "TYPING_START",
-            "PRESENCE_UPDATE"
-        ],
         pieceDefaults: {
             commands: { deletable: true, quotedStringSupport: true, bucket: 2 },
             rawEvents: { enabled: true }
