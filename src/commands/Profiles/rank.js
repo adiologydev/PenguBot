@@ -49,7 +49,7 @@ module.exports = class extends Command {
         const bgImg = await fs.readFile(`../assets/profiles/backgrounds/${bgName}.png`);
         const template = await fs.readFile(`../assets/profiles/backgrounds/template.png`);
         const pbar = await fs.readFile(`../assets/profiles/backgrounds/progressbar.png`);
-        const avatar = await this.fetchURL(member.user.displayAvatarURL({ format: "png", sze: 256 }), "buffer");
+        const avatar = await this.fetchURL(member.user.displayAvatarURL({ format: "png", sze: 256 }), { type: "buffer" });
 
         const render = await new Canvas(1000, 300)
             // Initializing and Text
