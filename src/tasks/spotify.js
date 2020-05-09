@@ -14,7 +14,6 @@ module.exports = class extends Task {
             }
         });
 
-        if (res.status !== 200) return;
         config.apis.spotify.token = res.access_token;
     }
 
