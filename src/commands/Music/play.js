@@ -86,7 +86,7 @@ module.exports = class extends MusicCommand {
             await this.play(musicInterface);
         }).once("error", async event => {
             this.client.console.error(event);
-            await musicInterface.textChannel.send(`I am very sorry but was an error, please try again or contact us at https://discord.gg/kWMcUNe | Error: ${event.reason}`);
+            await musicInterface.textChannel.send(`I am very sorry but was an error, please try again or contact us at https://discord.gg/kWMcUNe | Error: ${event.reason || event.error}`);
         });
     }
 

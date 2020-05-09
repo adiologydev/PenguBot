@@ -27,39 +27,39 @@ module.exports = class MemorySweeper extends Task {
         let presences = 0, guildMembers = 0, voiceStates = 0, emojis = 0, lastMessages = 0, users = 0;
 
         // Per-Guild sweeper
-        for (const guild of this.client.guilds.cache.values()) {
+        for (const guild of this.client.guilds.values()) {
             // Clear presences
-            presences += guild.presences.cache.size;
-            guild.presences.cache.clear();
+            presences += guild.presences.size;
+            guild.presences.clear();
 
             // Clear members that haven't send a message in the last 30 minutes
             const { me } = guild;
-            for (const [id, member] of guild.members.cache) {
+            for (const [id, member] of guild.members) {
                 if (member === me) continue;
                 if (member.voice.channelID) continue;
                 if (member.lastMessageID && member.lastMessageID > OLD_SNOWFLAKE) continue;
                 guildMembers++;
                 voiceStates++;
-                guild.voiceStates.cache.delete(id);
-                guild.members.cache.delete(id);
+                guild.voiceStates.delete(id);
+                guild.members.delete(id);
             }
 
             // Clear emojis
-            emojis += guild.emojis.cache.size;
-            guild.emojis.cache.clear();
+            emojis += guild.emojis.size;
+            guild.emojis.clear();
         }
 
         // Per-Channel sweeper
-        for (const channel of this.client.channels.cache.values()) {
+        for (const channel of this.client.channels.values()) {
             if (!channel.lastMessageID) continue;
             channel.lastMessageID = null;
             lastMessages++;
         }
 
         // Per-User sweeper
-        for (const user of this.client.users.cache.values()) {
+        for (const user of this.client.users.values()) {
             if (user.lastMessageID && user.lastMessageID > OLD_SNOWFLAKE) continue;
-            this.client.users.cache.delete(user.id);
+            this.client.users.delete(user.id);
             users++;
         }
 

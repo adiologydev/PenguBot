@@ -10,7 +10,7 @@ module.exports = class extends Event {
     }
 
     async run(data) {
-        const guild = this.client.guilds.cache.get(data.guild_id);
+        const guild = this.client.guilds.get(data.guild_id);
         if (!guild) return;
 
         await guild.members.fetch(data.user_id).catch(() => null);
