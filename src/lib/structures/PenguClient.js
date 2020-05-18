@@ -1,15 +1,14 @@
 const { Client } = require("klasa");
-const { Manager: LavalinkManager } = require("@lavacord/discord.js");
 const config = require("../../../config.js");
 const { StatsD } = require("hot-shots");
 
 // Custom
 const permissionLevels = require(`./permissionLevels`);
-const MusicManager = require("./MusicManager");
 
 // Plugins
 Client.use(require("@kcp/functions").Client);
 Client.use(require("klasa-member-gateway"));
+Client.use(require("music"));
 if (!config.patreon) Client.use(require("klasa-api"));
 
 // Schemas
@@ -18,16 +17,10 @@ const defaultClientSchema = require(`./schemas/defaultClientSchema`);
 const defaultUserSchema = require(`./schemas/defaultUserSchema`);
 const defaultMemberSchema = require(`./schemas/defaultMemberSchema`);
 
-// Extensions
-require("../extensions/PenguGuild");
-
 class PenguClient extends Client {
 
     constructor(options) {
         super({ ...options, permissionLevels, defaultGuildSchema, defaultClientSchema, defaultUserSchema, defaultMemberSchema });
-
-        this.lavalink = new LavalinkManager(this, config.nodes, { user: config.dashboard.id });
-        this.music = new MusicManager();
         this.topCache = [];
         this.health = Object.seal({
             commands: {
@@ -46,11 +39,6 @@ class PenguClient extends Client {
 
         this.version = "2.0.0";
         this.userAgent = `PenguBot/${this.version}/${this.options.production ? "Production" : "Development"}`;
-    }
-
-    async login(token) {
-        await this.lavalink.connect();
-        return super.login(token);
     }
 
 }

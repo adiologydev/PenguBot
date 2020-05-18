@@ -33,6 +33,9 @@ module.exports = class extends Event {
             await this.client.schedule.create("cleanGuilds", "*/15 * * * *");
         }
 
+        // Lavalink Connect
+        await this.client.lavalink.connect();
+
         this.client.console.log(`[${this.client.shard.id}]: Online`);
     }
 

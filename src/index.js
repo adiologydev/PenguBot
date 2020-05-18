@@ -20,8 +20,6 @@ module.exports = {
     klasaConstants: klasa.constants,
     discordConstants: discord.Constants,
     Command: require("./lib/structures/KlasaCommand"),
-    MusicCommand: require("./lib/structures/MusicCommand"),
     ModLog: require("./lib/structures/ModLog"),
-    ServerLog: require("./lib/structures/ServerLog"),
-    Song: require("./lib/structures/Song")
+    ServerLog: require("./lib/structures/ServerLog")
 };

@@ -29,7 +29,7 @@
   "dependencies": {
     "@k3rn31p4nic/google-translate-api": "^1.1.0",
     "@kcp/functions": "^1.0.0",
-    "@lavacord/discord.js": "^0.0.6",
+    "@lavacord/discord.js": "^0.0.7",
     "breadtags": "github:PenguBot/bread-tags",
     "bufferutil": "^4.0.1",
     "canvas": "^2.6.1",
@@ -41,6 +41,7 @@
     "klasa-api": "github:PenguBot/klasa-api#v1-alpha",
     "klasa-member-gateway": "github:PenguBot/klasa-member-gateway#e423ee142ca158c4bcad45d7108ba5c995b95a36",
     "kurasuta": "^2.0.0",
+    "music": "pengubot/music",
     "node-fetch": "^2.6.0",
     "raven": "^2.6.4",
     "rethinkdbdash": "^2.3.31",

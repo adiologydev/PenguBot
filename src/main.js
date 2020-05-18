@@ -47,11 +47,12 @@ const sharder = new ShardingManager(join(__dirname, "PenguBot"), {
         messageSweepInterval: 480,
         messageCacheLifetime: 120,
         commandMessageLifetime: 120,
-        owners: ["136549806079344640", "152386257568137216"]
+        owners: ["136549806079344640", "152386257568137216"],
+        music: { nodes: config.nodes, lyrics: config.apis.lyrics }
     },
     shardCount: config.shards,
     ipcSocket: config.patreon ? 9545 : 9454,
     timeout: 60000
 });
 
-sharder.spawn();
+sharder.spawn().catch(e => console.error(e));
