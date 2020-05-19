@@ -32,7 +32,7 @@
     "@lavacord/discord.js": "^0.0.7",
     "breadtags": "github:PenguBot/bread-tags",
     "bufferutil": "^4.0.1",
-    "canvas": "^2.6.1",
+    "canvas": "^2.6.0",
     "canvas-constructor": "github:kyranet/canvasConstructor",
     "cheerio": "^1.0.0-rc.3",
     "discord.js": "github:discordjs/discord.js#fe7df708e44e0280dfaf0f8e457b154781bb5140",
