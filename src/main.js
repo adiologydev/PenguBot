@@ -55,4 +55,5 @@ const sharder = new ShardingManager(join(__dirname, "PenguBot"), {
     timeout: 60000
 });
 
-sharder.spawn().catch(e => console.error(e));
+sharder.spawn()
+    .catch(console.error);
