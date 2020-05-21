@@ -28,7 +28,7 @@ module.exports = class extends Command {
             .addField("❯ Server Join Date", user.joinedTimestamp ? this.timestamp.display(user.joinedTimestamp) : "Unknown", true)
             .addField("❯ Nickname", user.nickname || "None", true)
             .addField("❯ Bot?", user.bot ? "Yes" : "No", true)
-            .addField(`❯ Roles [${user.roles.size}]`, user.roles.size ? `<@&${user.roles.map(r => r.id).filter(r => r !== msg.guild.defaultRole.id).join(">, <@&")}>` : "None"));
+            .addField(`❯ Roles [${user.roles.size}]`, user.roles.size ? `<@&${user.roles.map(r => r.id).filter(r => r !== msg.guild.roles.everyone.id).join(">, <@&")}>` : "None"));
     }
 
 };
