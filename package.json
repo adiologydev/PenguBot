@@ -39,7 +39,7 @@
     "hot-shots": "^7.4.2",
     "klasa": "github:dirigeants/klasa#be581f178e829b628f38f00d6397a98d27181600",
     "klasa-api": "github:PenguBot/klasa-api#v1-alpha",
-    "klasa-member-gateway": "github:PenguBot/klasa-member-gateway#e423ee142ca158c4bcad45d7108ba5c995b95a36",
+    "klasa-member-gateway": "github:PenguBot/klasa-member-gateway",
     "kurasuta": "^2.0.0",
     "music": "pengubot/music",
     "node-fetch": "^2.6.0",
