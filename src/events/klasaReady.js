@@ -8,11 +8,6 @@ module.exports = class extends Event {
             await this.client.schedule.create("memorySweeper", "*/10 * * * *");
         }
 
-        // Spotify task
-        if (!this.client.settings.schedules.some(task => task.taskName === "spotify")) {
-            await this.client.schedule.create("spotify", "*/30 * * * *");
-        }
-
         // Health task
         if (!this.client.settings.schedules.some(task => task.taskName === "health")) {
             await this.client.schedule.create("health", "* * * * *");
