@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-expressions */
-const { Command, ModLog, Duration } = require("../../index");
+const { Command, ModLog, Duration, Permissions: { FLAGS } } = require("../../index");
 
 module.exports = class extends Command {
 
@@ -74,7 +74,7 @@ module.exports = class extends Command {
         const newRole = await msg.guild.roles.create({
             data: {
                 name: "PENGUMUTED",
-                permissions: ["READ_MESSAGES"]
+                permissions: [FLAGS.VIEW_CHANNEL]
             }
         }).catch(e => msg.reply(`There was an error: ${e}`));
 

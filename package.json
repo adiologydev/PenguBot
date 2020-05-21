@@ -27,19 +27,19 @@
   },
   "homepage": "https://github.com/AdityaTD/PenguBot#readme",
   "dependencies": {
-    "@k3rn31p4nic/google-translate-api": "^1.1.0",
+    "@k3rn31p4nic/google-translate-api": "^1.1.1",
     "@kcp/functions": "^1.0.0",
     "@lavacord/discord.js": "^0.0.7",
     "breadtags": "github:PenguBot/bread-tags",
     "bufferutil": "^4.0.1",
-    "canvas": "^2.6.1",
+    "canvas": "^2.6.0",
     "canvas-constructor": "github:kyranet/canvasConstructor",
     "cheerio": "^1.0.0-rc.3",
     "discord.js": "github:discordjs/discord.js#fe7df708e44e0280dfaf0f8e457b154781bb5140",
-    "hot-shots": "^7.4.0",
+    "hot-shots": "^7.4.2",
     "klasa": "github:dirigeants/klasa#be581f178e829b628f38f00d6397a98d27181600",
     "klasa-api": "github:PenguBot/klasa-api#v1-alpha",
-    "klasa-member-gateway": "github:PenguBot/klasa-member-gateway#e423ee142ca158c4bcad45d7108ba5c995b95a36",
+    "klasa-member-gateway": "github:PenguBot/klasa-member-gateway",
     "kurasuta": "^2.0.0",
     "music": "pengubot/music",
     "node-fetch": "^2.6.0",
@@ -49,7 +49,7 @@
     "zlib-sync": "^0.1.6"
   },
   "devDependencies": {
-    "eslint": "6.8.0",
+    "eslint": "7.0.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1"
   }
