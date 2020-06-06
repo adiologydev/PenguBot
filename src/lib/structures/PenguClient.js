@@ -8,7 +8,7 @@ const permissionLevels = require(`./permissionLevels`);
 // Plugins
 Client.use(require("@kcp/functions").Client);
 Client.use(require("klasa-member-gateway"));
-Client.use(require("music"));
+Client.use(require("@pengubot/music"));
 if (!config.patreon) Client.use(require("klasa-api"));
 
 // Schemas

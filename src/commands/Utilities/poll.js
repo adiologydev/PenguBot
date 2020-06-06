@@ -19,16 +19,16 @@ module.exports = class extends Command {
             const data = await this.fetchURL("https://www.strawpoll.me/api/v2/polls", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: {
+                body: JSON.stringify({
                     title,
                     options,
                     multi: "multi" in msg.flagArgs ? msg.flagArgs.multi : true,
                     captcha: "captcha" in msg.flagArgs ? msg.flagArgs.captcha : true
-                }
+                })
             });
-            return msg.sendMessage(`<:penguSuccess:435712876506775553> ***Here's the poll you requested:*** https://www.strawpoll.me/${data.id}`);
+            return msg.sendMessage(`<:penguCheck1:431440099675209738> ***Here's the poll you requested:*** https://www.strawpoll.me/${data.id}`);
         } catch (e) {
-            return msg.sendMessage("<:penguError:435712890884849664> ***There was an error trying to create this poll, please try again.***");
+            return msg.sendMessage(":penguError: There was an error trying to create this poll, please try again.");
         }
     }
 
