@@ -40,12 +40,12 @@ module.exports = class extends Command {
     async update(key, msg) {
         const serverlogs = msg.guild.settings.get("serverlogs");
         if (serverlogs[key]) {
-            const { errors } = await msg.guild.settings.update(`serverlogs.${key}`, false).catch(() => null);
-            if (errors.length) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error:*** \`${errors[0]}\``);
+            const { errors } = await msg.guild.settings.update(`serverlogs.${key}`, false).catch(e => e);
+            if (errors) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error:*** \`${errors}\``);
             return msg.sendMessage(`${this.client.emotes.cross} ***\`${key}\` ${msg.language.get("CMD_LOG_DISABLED")}***`);
         } else {
-            const { errors } = await msg.guild.settings.update(`serverlogs.${key}`, true).catch(() => null);
-            if (errors.length) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error:*** \`${errors[0]}\``);
+            const { errors } = await msg.guild.settings.update(`serverlogs.${key}`, true).catch(e => e);
+            if (errors) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error:*** \`${errors}\``);
             return msg.sendMessage(`${this.client.emotes.check} ***\`${key}\` ${msg.language.get("CMD_LOG_ENABLED")}***`);
         }
     }
