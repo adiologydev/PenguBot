@@ -18,12 +18,12 @@ module.exports = class extends Command {
 
     async toggle(msg, [filter]) {
         if (!filter) {
-            const mode = !msg.guild.settings.toggles.perspective;
+            const mode = !msg.guild.settings.get("toggles.perspective");
             await msg.guild.settings.update("toggles.perspective", mode);
             return msg.sendMessage(`${mode ? this.client.emotes.check : this.client.emotes.cross} ***${mode ? msg.language.get("MESSAGE_AUTOMOD_ENABLED") : msg.language.get("MESSAGE_AUTOMOD_DISABLED")}***`);
         } else {
             filter = filter.toUpperCase();
-            const { perspective } = msg.guild.settings.automod;
+            const { perspective } = msg.guild.settings.get("automod");
             const keys = Object.keys(perspective);
 
             if (!keys.includes(filter)) return msg.sendMessage(`${this.client.emotes.cross} ***That is an Invalid Filter, please choose from \`${keys.join("`, `")}\`.***`);

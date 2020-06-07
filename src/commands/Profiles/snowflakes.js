@@ -18,7 +18,7 @@ module.exports = class extends Command {
 
     async run(msg, [user, amount]) {
         await msg.author.settings.sync(true);
-        if (!user) return msg.reply(`❄ | **Your account balance is:** ${msg.author.settings.snowflakes.toLocaleString()} Snowflakes.`);
+        if (!user) return msg.reply(`❄ | **Your account balance is:** ${msg.author.settings.get("snowflakes").toLocaleString()} Snowflakes.`);
         if (!amount) return msg.reply("You've not specified the amount of **Snowflake(s)** to send.");
         if (amount <= 0) return msg.reply("Invalid amount of snowflakes, minimum 1 snowflake.");
 

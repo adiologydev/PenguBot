@@ -12,7 +12,7 @@ module.exports = class extends Monitor {
         const patreonBotMember = await msg.guild.members.fetch("438049470094114816").catch(() => null);
         if (!config.patreon && patreonBotMember) return;
 
-        if (msg.author.settings.afk.time) await this.checkAfk(msg);
+        if (msg.author.settings.get("afk.time")) await this.checkAfk(msg);
         if (msg.mentions.users.size) await this.afkMentioned(msg);
     }
 

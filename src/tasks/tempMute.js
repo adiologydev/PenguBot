@@ -8,7 +8,7 @@ module.exports = class extends Task {
         const member = await guild.members.fetch(userID).catch(() => null);
         if (!guild || !member) return;
 
-        const roleID = guild.settings.roles.muted;
+        const roleID = guild.settings.get("roles.muted");
         const role = await guild.roles.get(roleID);
 
         if (!role) return;
@@ -19,7 +19,7 @@ module.exports = class extends Task {
 
         if (!unmute) return;
 
-        if (guild.settings.channels.modlogs) {
+        if (guild.settings.get("channels.modlogs")) {
             await new ModLog(guild)
                 .setType("unmute")
                 .setModerator(this.client.user)

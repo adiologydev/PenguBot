@@ -7,10 +7,10 @@ const timeout = new Set();
 module.exports = class extends Event {
 
     async run(msg, command, prefixLength) {
-        if (!msg.guild || !msg.guildSettings.customcmds.length) return;
+        if (!msg.guild || !msg.guild.settings.get("customcmds.length")) return;
         await msg.guild.settings.sync(true);
         command = command.toLowerCase();
-        const customCommand = msg.guildSettings.customcmds.find(c => c.name.toLowerCase() === command);
+        const customCommand = msg.guild.settings.get("customcmds").find(c => c.name.toLowerCase() === command);
         if (!customCommand) return;
 
         if (timeout.has(`${msg.author.id}-${msg.guild.id}`)) return msg.sendMessage(`${this.client.emotes.cross} **Ooh, Not so quickly. Please wait and try again!**`);

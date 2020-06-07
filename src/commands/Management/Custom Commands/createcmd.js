@@ -19,7 +19,7 @@ module.exports = class extends Command {
     async run(msg, [name, ...content]) {
         name = name.toLowerCase();
         if (this.client.commands.has(name)) return msg.reply(`${this.client.emotes.cross} ***\`${name}\` ${msg.language.get("MESSAGE_CMD_EXISTS")}***`);
-        const cmd = msg.guild.settings.customcmds.find(c => c.name.toLowerCase() === name);
+        const cmd = msg.guild.settings.get("customcmds").find(c => c.name.toLowerCase() === name);
         if (cmd) return msg.reply(`${this.client.emotes.cross} ***\`${name}\` ${msg.language.get("MESSAGE_CMD_EXISTS")}***`);
         await msg.guild.settings.update("customcmds", { content: content.join(" "), name: name });
         return msg.sendMessage(`${this.client.emotes.check} ***\`${name}\` ${msg.language.get("MESSAGE_CMD_ADDED")} ${msg.author.tag}!***`);

@@ -24,7 +24,7 @@ module.exports = class extends Command {
 
     async add(msg, [member, amount]) {
         if (!amount) throw `${this.client.emotes.cross} ***Amount not specified.***`;
-        await member.settings.update("xp", member.settings.xp + amount);
+        await member.settings.update("xp", member.settings.get("xp") + amount);
         return msg.sendMessage(`${this.client.emotes.check} ***\` ${amount}\` XP(s) Added to ${member.user.tag}.***`);
     }
 

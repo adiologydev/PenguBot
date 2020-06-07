@@ -41,7 +41,7 @@ module.exports = class extends Command {
             .run();
         const pos = query.length ? `#${Number(query) + 1}` : "More Than 10,000";
 
-        const bgName = user.settings.profilebg;
+        const bgName = user.settings.get("profilebg");
         const bgImg = await fs.readFile(`../assets/profiles/bg/${bgName}.png`);
         const avatar = await this.fetchURL(user.displayAvatarURL({ format: "png", sze: 256 }), { type: "buffer" });
 

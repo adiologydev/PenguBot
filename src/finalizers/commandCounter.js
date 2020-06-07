@@ -10,14 +10,14 @@ module.exports = class extends Finalizer {
 
         const config = this.client.settings;
         const cmd = msg.command.name;
-        let count = config.counter.commands.find(c => c.name === cmd);
-        let index = config.counter.commands.findIndex(c => c.name === cmd);
+        let count = config.get("counter.commands").find(c => c.name === cmd);
+        let index = config.get("counter.commands").findIndex(c => c.name === cmd);
         if (index === -1) {
             count = { name: cmd, count: 0 };
             index = null;
         }
 
-        await config.update("counter.total", config.counter.total + 1);
+        await config.update("counter.total", config.get("counter.total") + 1);
         await config.update("counter.commands", { name: cmd, count: count.count + 1 }, { arrayPosition: index });
     }
 
