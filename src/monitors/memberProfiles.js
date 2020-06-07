@@ -33,8 +33,8 @@ module.exports = class extends Monitor {
 
         const { settings } = msg.guild;
 
-        if (settings.toggles.levelup && settings.misc.leveluptype === "guild") await this.handleLevelup(msg);
-        if (settings.toggles.levelroles && settings.roles.levelrole.length) await this.leveledroles(msg);
+        if (settings.get("toggles.levelup") && settings.get("misc.leveluptype") === "guild") await this.handleLevelup(msg);
+        if (settings.get("toggles.levelroles") && settings.get("roles.levelrole").length) await this.leveledroles(msg);
     }
 
     async handleLevelup(msg) {
