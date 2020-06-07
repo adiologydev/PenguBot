@@ -41,7 +41,7 @@ const sharder = new ShardingManager(join(__dirname, "PenguBot"), {
         noPrefixDM: true,
         aliasFunctions: { returnMethod: "run", enabled: true, prefix: "funcs" },
         api: {
-            port: 4000,
+            port: 2006,
             prefix: "/"
         },
         messageSweepInterval: 480,
