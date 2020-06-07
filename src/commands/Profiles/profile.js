@@ -31,7 +31,11 @@ module.exports = class extends Command {
     async createImage(user) {
         await user.settings.sync(true);
         const r = this.client.providers.default.db;
-        const { xp, level: lvl, snowflakes, reps, title } = user.settings;
+        const xp = user.settings.get("xp");
+        const lvl = user.settings.get("level");
+        const snowflakes = user.settings.get("snowflakes");
+        const reps = user.settings.get("reps");
+        const title = user.settings.get("title");
 
         const oldLvl = Math.floor((lvl / 0.2) ** 2);
         const nextLvl = Math.floor(((lvl + 1) / 0.2) ** 2);

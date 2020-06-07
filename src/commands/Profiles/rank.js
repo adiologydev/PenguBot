@@ -32,7 +32,8 @@ module.exports = class extends Command {
         await member.settings.sync(true);
         await member.user.settings.sync(true);
         const r = this.client.providers.default.db;
-        const { xp, level: lvl } = member.settings;
+        const xp = member.settings.get("xp");
+        const lvl = member.settings.get("level");
 
         const oldLvl = Math.floor((lvl / 0.2) ** 2);
         const nextLvl = Math.floor(((lvl + 1) / 0.2) ** 2);
