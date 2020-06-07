@@ -17,6 +17,9 @@ jobs:
     steps:
     - name: Checkout Project
       uses: actions/checkout@v1
+    - uses: fregante/setup-git-token@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
     - name: Use Node.js ${{ matrix.node_version }}
       uses: actions/setup-node@v1
       with:
