@@ -1,6 +1,6 @@
 {
   "name": "pengubot",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "PenguBot Rewrite for Performance and Stability.",
   "main": "src/main.js",
   "scripts": {
