@@ -45,7 +45,7 @@ module.exports = class extends Command {
 
         const rank = data.findIndex(i => i.id.split(".")[1] === member.user.id) + 1;
 
-        const bgName = member.user.settings.profilebg;
+        const bgName = member.user.settings.get("profilebg");
         const bgImg = await fs.readFile(`../assets/profiles/backgrounds/${bgName}.png`);
         const template = await fs.readFile(`../assets/profiles/backgrounds/template.png`);
         const pbar = await fs.readFile(`../assets/profiles/backgrounds/progressbar.png`);

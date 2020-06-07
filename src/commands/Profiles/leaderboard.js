@@ -41,11 +41,11 @@ module.exports = class extends Command {
             }));
         for (let i = 0; i < userProfiles.length; i++) {
             const userData = userProfiles[i];
-            leaderboard.push(`- [${((index * 10) + (i + 1))}] | ${userData.username}\n${userData.xp.toLocaleString().padStart(10, " ")} XP\n`);
+            leaderboard.push(`- [${(index * 10) + (i + 1)}] | ${userData.username}\n${userData.xp.toLocaleString().padStart(10, " ")} XP\n`);
         }
 
         const posNum = pos !== -1 ? pos + 1 : 0;
-        leaderboard.push(`\n+ [${posNum}] | ${msg.author.username}\n${msg.member.settings.xp.toLocaleString().padStart(10, " ")} XP`);
+        leaderboard.push(`\n+ [${posNum}] | ${msg.author.username}\n${msg.member.settings.get("xp").toLocaleString().padStart(10, " ")} XP`);
         leaderboard.push("--------------------------------------------------");
 
         load.delete();

@@ -21,8 +21,8 @@ module.exports = class extends Monitor {
         await msg.member.settings.sync(true);
 
         const randomXP = this.client.funcs.randomNumber(1, 5);
-        const oldLevel = msg.member.settings.level;
-        const newXP = msg.member.settings.xp + randomXP;
+        const oldLevel = msg.member.settings.get("level");
+        const newXP = msg.member.settings.get("xp") + randomXP;
         const newLevel = Math.floor(0.2 * Math.sqrt(newXP));
         await msg.member.settings.update([["xp", newXP], ["level", newLevel]]);
 
@@ -40,12 +40,12 @@ module.exports = class extends Monitor {
     async handleLevelup(msg) {
         if (!msg.channel.postable) return;
 
-        const image = await this.generateLevelUpImage(msg.author.settings.profilebg, msg.author.displayAvatarURL({ format: "png", size: 128 }));
-        return msg.sendMessage(`🆙 | **${msg.author.tag}** has leveled up to **Level ${msg.member.settings.level}** in **${msg.guild.name}**`, { files: [{ attachment: image, name: `${msg.author.id}.png` }] });
+        const image = await this.generateLevelUpImage(msg.author.settings.get("profilebg"), msg.author.displayAvatarURL({ format: "png", size: 128 }));
+        return msg.sendMessage(`🆙 | **${msg.author.tag}** has leveled up to **Level ${msg.member.settings.get("level")}** in **${msg.guild.name}**`, { files: [{ attachment: image, name: `${msg.author.id}.png` }] });
     }
 
     async leveledroles(msg) {
-        const levelRoles = msg.guild.settings.roles.levelrole.filter(leveledRole => msg.member.settings.level >= leveledRole.lvl);
+        const levelRoles = msg.guild.settings.get("roles.levelrole").filter(leveledRole => msg.member.settings.get("level") >= leveledRole.lvl);
         if (!levelRoles.length) return;
 
         const promises = [];

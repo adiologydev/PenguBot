@@ -3,7 +3,7 @@ const { Task, config } = require("../index");
 module.exports = class extends Task {
 
     run() {
-        return Promise.all(this.client.guilds.filter(g => !this.client.settings.pGuilds.includes(g.id)).map(g => g.leave()));
+        return Promise.all(this.client.guilds.filter(g => !this.client.settings.get("pGuilds").includes(g.id)).map(g => g.leave()));
     }
 
     init() {

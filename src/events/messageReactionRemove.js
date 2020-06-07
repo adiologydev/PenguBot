@@ -7,9 +7,9 @@ module.exports = class extends Event {
         const msg = reaction.message;
         const { guild } = msg;
         if (!guild || reaction.emoji.name !== "⭐") return;
-        if (!guild.settings.toggles.starboard || !guild.settings.starboard.channel) return;
+        if (!guild.settings.get("toggles.starboard") || !guild.settings.get("starboard.channel")) return;
 
-        const starChannel = msg.guild.channels.get(msg.guild.settings.starboard.channel);
+        const starChannel = msg.guild.channels.get(msg.guild.settings.get("starboard.channel"));
         if (!starChannel || !starChannel.postable || !starChannel.embedable) return;
         if (!starChannel.nsfw && msg.channel.nsfw) return;
 

@@ -14,7 +14,7 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        if (!msg.guild.settings.customcmds.length) return msg.reply(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_NO_CMDS")}***`);
+        if (!msg.guild.settings.get("customcmds").length) return msg.reply(`${this.client.emotes.cross} ***${msg.language.get("MESSAGE_NO_CMDS")}***`);
         const prefix = msg.guild.settings.get("prefix");
         const names = msg.guild.settings.customcmds.map(cmd => cmd.name.toLowerCase());
 

@@ -17,7 +17,7 @@ module.exports = class extends Command {
     }
 
     async toggle(msg) {
-        if (msg.guild.settings.toggles.levelup) {
+        if (msg.guild.settings.get("toggles.levelup")) {
             await msg.guild.settings.update("toggles.levelup", false);
             return msg.sendMessage(`${this.client.emotes.check} ***Level Up announcements have been Disabled!***`);
         } else {
@@ -29,11 +29,11 @@ module.exports = class extends Command {
     async type(msg, [type]) {
         if (!type) throw `${this.client.emotes.cross} ***You must enter a type of Level Up you want to show. Types are: \`guild\` or \`global\`***`;
         if (type.match(/global/i)) {
-            if (msg.guild.settings.misc.leveluptype === "user") throw `${this.client.emotes.check} **Global** type of Level Ups are already set, try **guild** instead.`;
+            if (msg.guild.settings.get("misc.leveluptype") === "user") throw `${this.client.emotes.check} **Global** type of Level Ups are already set, try **guild** instead.`;
             await msg.guild.settings.update("misc.leveluptype", "user");
             return msg.sendMessage(`${this.client.emotes.check} **Global** type Level Up announcements have been Enabled!`);
         } else if (type.match(/guild/i)) {
-            if (msg.guild.settings.misc.leveluptype === "guild") throw `${this.client.emotes.check} **Guild** type of Level Ups are already set, try **global** instead.`;
+            if (msg.guild.settings.get("misc.leveluptype") === "guild") throw `${this.client.emotes.check} **Guild** type of Level Ups are already set, try **global** instead.`;
             await msg.guild.settings.update("misc.leveluptype", "guild");
             return msg.sendMessage(`${this.client.emotes.check} **Guild** type Level Up announcements have been Enabled!`);
         } else {

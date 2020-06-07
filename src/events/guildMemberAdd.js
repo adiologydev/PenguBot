@@ -16,17 +16,17 @@ module.exports = class extends Event {
     }
 
     welcomeMessage(member) {
-        if (!member.guild.settings.toggles.joinmsg) return;
-        const channel = member.guild.channels.get(member.guild.settings.channels.join);
+        if (!member.guild.settings.get("toggles.joinmsg")) return;
+        const channel = member.guild.channels.get(member.guild.settings.get("channels.join"));
         if (!channel) return;
         if (!channel.postable) return;
-        return channel.send(this.replaceText(member.guild.settings.messages.join, member));
+        return channel.send(this.replaceText(member.guild.settings.get("messages.join"), member));
     }
 
     autoroles(member) {
-        if (!member.guild.settings.toggles.autoroles) return;
+        if (!member.guild.settings.get("toggles.autoroles")) return;
         if (!member.guild.me || !member.guild.me.permissions.has("MANAGE_ROLES")) return;
-        return member.roles.add(member.guild.settings.autoroles, "PenguBot - AutoRole Feature").catch(() => null);
+        return member.roles.add(member.guild.settings.get("autoroles"), "PenguBot - AutoRole Feature").catch(() => null);
     }
 
     replaceText(str, member) {

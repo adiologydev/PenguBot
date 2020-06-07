@@ -22,10 +22,10 @@ module.exports = class extends Command {
         if (member.id === msg.author.id) return msg.reply(`${this.client.emotes.cross} ***You can not mute yourself...***`);
         if (member.id === this.client.user.id) return msg.reply(`${this.client.emotes.cross} ***Why would you want to mute Pengu?***`);
 
-        const roleID = msg.guild.settings.roles.muted;
+        const roleID = msg.guild.settings.get("roles.muted");
         if (!roleID || !msg.guild.roles.has(roleID)) await this.createRole(msg);
 
-        const role = await msg.guild.roles.fetch(msg.guild.settings.roles.muted).catch(() => null);
+        const role = await msg.guild.roles.fetch(msg.guild.settings.get("roles.muted")).catch(() => null);
         if (!role) return msg.sendMessage("There was an error, I couldn't find the Muted role! Please try again or contact us at: https://discord.gg/kWMcUNe");
 
         const myRole = msg.guild.me.roles.highest;
@@ -40,7 +40,7 @@ module.exports = class extends Command {
             await member.roles.remove(role)
                 .catch(e => msg.reply(`${this.client.emotes.cross} ***There was an error: ${e}***`));
 
-            if (msg.guild.settings.channels.modlogs) {
+            if (msg.guild.settings.get("channels.modlogs")) {
                 await new ModLog(msg.guild)
                     .setType("unmute")
                     .setModerator(msg.author)
@@ -54,7 +54,7 @@ module.exports = class extends Command {
             await member.roles.add(role)
                 .catch(e => msg.reply(`${this.client.emotes.cross} ***There was an error: ${e}***`));
 
-            if (msg.guild.settings.channels.modlogs) {
+            if (msg.guild.settings.get("channels.modlogs")) {
                 await new ModLog(msg.guild)
                     .setType("mute")
                     .setModerator(msg.author)

@@ -36,7 +36,7 @@ module.exports = class extends Command {
             .addField("❯ Guilds", guilds.toLocaleString(), true)
             .addField("❯ Channels", channels.toLocaleString(), true)
             .addField("❯ Voice Streams", vc.toLocaleString(), true)
-            .addField("❯ Total Commands Ran", this.client.settings.counter.total.toLocaleString(), true)
+            .addField("❯ Total Commands Ran", this.client.settings.get("counter.total").toLocaleString(), true)
             .addField("❯ CPM", cpm, true)
             .addField("❯ Listeners", listeners, true)
             .addField("❯ Sharding", `**Cluster:** ${this.client.shard.id + 1} / ${this.client.shard.clusterCount} | **Shard:** ${shardID} / ${this.client.shard.shardCount}`, true)

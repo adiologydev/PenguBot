@@ -15,7 +15,7 @@ module.exports = class MemorySweeper extends Task {
             cpm += result[4];
         }
 
-        this.client.dogstats.gauge("pengubot.totalcommands", this.client.settings.counter.total);
+        this.client.dogstats.gauge("pengubot.totalcommands", this.client.settings.get("counter.total"));
         this.client.dogstats.gauge("pengubot.users", users);
         this.client.dogstats.gauge("pengubot.cpm", cpm);
         this.client.dogstats.gauge("pengubot.guilds", guilds);

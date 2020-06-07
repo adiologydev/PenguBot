@@ -29,7 +29,7 @@ module.exports = class extends Command {
 
         const embed = new MessageEmbed()
             .setAuthor("PenguBot - Help", this.client.user.displayAvatarURL(), "https://www.pengubot.com")
-            .setDescription([`PenguBot's Prefix ${msg.guild ? `in ${msg.guild.name} is \`${msg.guild.settings.prefix}\`. i.e. \`${msg.guild.settings.prefix}dog\`` : `is \`p!\`. i.e. \`p!dog\``}`,
+            .setDescription([`PenguBot's Prefix ${msg.guild ? `in ${msg.guild.name} is \`${msg.guild.settings.get("prefix")}\`. i.e. \`${msg.guild.settings.get("prefix")}dog\`` : `is \`p!\`. i.e. \`p!dog\``}`,
                 `❯ **All Commands:** [PenguBot.com/commands](https://www.pengubot.com/commands)`,
                 `❯ **PenguBot Discord:** [PenguBot.com/support](https://www.pengubot.com/support)`,
                 `❯ **Invite/Add PenguBot:** [PenguBot.com/invite](https://www.pengubot.com/invite)`,

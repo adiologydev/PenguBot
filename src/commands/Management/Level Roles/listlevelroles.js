@@ -14,7 +14,7 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        const roles = msg.guild.settings.roles.levelrole;
+        const roles = msg.guild.settings.get("roles.levelrole");
         if (!roles.length) return msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("CMD_NO_SELFROLES")}***`);
         const pages = new RichDisplay(new MessageEmbed()
             .setTitle("Use the reactions to change pages, select a page, or stop viewing the roles")

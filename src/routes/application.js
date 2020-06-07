@@ -28,7 +28,7 @@ module.exports = class extends Route {
             latency: this.client.ws.ping.toFixed(0),
             memory: memory,
             voice: vc,
-            cmdstotal: this.client.settings.counter.total,
+            cmdstotal: this.client.settings.get("counter.total"),
             cpm: cpm,
             invite: this.client.invite,
             ...this.client.application

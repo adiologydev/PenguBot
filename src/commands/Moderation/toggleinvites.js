@@ -16,7 +16,7 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        const toggle = !msg.guild.settings.automod.invites;
+        const toggle = !msg.guild.settings.get("automod.invites");
         await msg.guild.settings.update("automod.invites", toggle);
         return msg.sendMessage(`${toggle ? this.client.emotes.check : this.client.emotes.cross} ***Anti-invites have been ${toggle ? "Enabled" : "Disabled"}***`);
     }

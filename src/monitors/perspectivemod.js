@@ -8,9 +8,9 @@ module.exports = class extends Monitor {
 
     async run(msg) {
         if (!msg.guild || !msg.content || msg.command) return;
-        if (!msg.guild.settings.toggles.perspective) return;
+        if (!msg.guild.settings.get("toggles.perspective")) return;
 
-        if (msg.guild.settings.toggles.staffbypass && await msg.hasAtLeastPermissionLevel(3)) return;
+        if (msg.guild.settings.get("toggles.staffbypass") && await msg.hasAtLeastPermissionLevel(3)) return;
 
         const body = await this.fetchURL("https://commentanalyzer.googleapis.com/v1alpha1/comments:analyze", {
             query: { key: config.apis.perspective },
@@ -24,7 +24,7 @@ module.exports = class extends Monitor {
 
         if (!body) return;
 
-        const { perspective } = msg.guild.settings.automod;
+        const { perspective } = msg.guild.settings.get("automod");
 
         for (const key of Object.keys(body.attributeScores)) {
             if (!perspective[key].enabled) continue;

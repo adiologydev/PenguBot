@@ -44,7 +44,7 @@ module.exports = class extends Command {
         await msg.guild.members.unban(target, "PenguBot Softban")
             .catch(e => msg.reply(`${this.client.emotes.cross} ***There was an error: ${e}***`));
 
-        if (msg.guild.settings.channels.modlogs) {
+        if (msg.guild.settings.get("channels.modlogs")) {
             await new ModLog(msg.guild)
                 .setType("softban")
                 .setModerator(msg.author)

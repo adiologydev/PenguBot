@@ -17,7 +17,7 @@ module.exports = class extends Command {
 
     async run(msg, [name]) {
         name = name.toLowerCase();
-        const cmd = msg.guild.settings.customcmds.find(c => c.name.toLowerCase() === name);
+        const cmd = msg.guild.settings.get("customcmds").find(c => c.name.toLowerCase() === name);
         if (!cmd) return msg.reply(`${this.client.emotes.cross} ***\`${name}\` ${msg.language.get("MESSAGE_CMD_NOTFOUND")}***`);
         await msg.guild.settings.update("customcmds", cmd, { action: `remove` });
         return msg.sendMessage(`${this.client.emotes.check} ***\`${name}\` ${msg.language.get("MESSAGE_CMD_REMOVED")} ${msg.author.tag}!***`);

@@ -20,7 +20,7 @@ module.exports = class extends Command {
     async run(msg, [language]) {
         if (!language) return msg.sendMessage(msg.language.get("HELP_SET_LANGUAGE"));
 
-        const currLang = msg.guild.settings.language;
+        const currLang = msg.guild.settings.get("language");
         if (/english|inglese|en|en-us/i.test(language)) {
             if (currLang === "en-US") throw `${this.client.emotes.cross} ***${msg.language.get("ER_CURR_LANG")}***`;
             await this.changeLanguage(msg, "en-US");

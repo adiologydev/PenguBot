@@ -14,7 +14,7 @@ module.exports = class extends KlasaCommand {
     }
 
     async run(msg) {
-        const { prefix } = msg.guildSettings;
+        const prefix = msg.guild.settings.get("prefix");
         const embed = new MessageEmbed()
             .setColor("#91c3d2")
             .setTitle("🎵 | Music Help - PenguBot")

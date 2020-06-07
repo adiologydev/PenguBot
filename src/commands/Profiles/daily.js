@@ -25,9 +25,9 @@ module.exports = class extends Command {
         const upvoter = await this.client.funcs.isUpvoter(msg.author);
         const reward = upvoter ? 300 : 100;
 
-        if (msg.author.settings.daily > 0) {
+        if (msg.author.settings.get("daily") > 0) {
             const now = Date.now();
-            const last = msg.author.settings.daily;
+            const last = msg.author.settings.get("daily");
             const diff = now - last;
             const next = 43200000 - diff;
 
@@ -37,13 +37,13 @@ module.exports = class extends Command {
             const timeLeft = `${hours} hours, ${minutes} minutes and ${Math.round(seconds)} seconds`;
 
             if (diff >= 43200000) {
-                await user.settings.update([["snowflakes", user.settings.snowflakes + reward], ["daily", Date.now()]]);
+                await user.settings.update([["snowflakes", user.settings.get("snowflakes") + reward], ["daily", Date.now()]]);
                 return msg.reply(`❄ | ***You have claimed your ${reward} Snowflakes for today! To gain 300 Snowflakes everyday, make sure to upvote PenguBot at <https://discordbots.org/bot/PenguBot/vote>***`);
             } else {
                 return msg.sendMessage(`❄ | ***You can claim your daily Snowflakes in ${timeLeft}!***`);
             }
         } else {
-            await user.settings.update([["snowflakes", user.settings.snowflakes + reward], ["daily", Date.now()]]);
+            await user.settings.update([["snowflakes", user.settings.get("snowflakes") + reward], ["daily", Date.now()]]);
             return msg.reply(`❄ | ***You have claimed your ${reward} Snowflakes for today! To gain 300 Snowflakes everyday, make sure to upvote PenguBot at <https://discordbots.org/bot/PenguBot/vote>***`);
         }
     }

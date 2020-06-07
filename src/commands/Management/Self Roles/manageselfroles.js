@@ -16,7 +16,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [role]) {
-        const roles = msg.guild.settings.roles.selfrole;
+        const roles = msg.guild.settings.get("roles.selfrole");
         if (!roles) return msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("CMD_NO_SELFROLES")}***`);
         if (!roles.includes(role.id)) {
             await msg.guild.settings.update("roles.selfrole", role, msg.guild);

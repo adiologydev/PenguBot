@@ -24,9 +24,9 @@ module.exports = class extends Command {
     }
 
     async toggle(msg) {
-        const { errors } = await msg.guild.settings.update("toggles.modlogs", !msg.guild.settings.toggles.modlogs);
+        const { errors } = await msg.guild.settings.update("toggles.modlogs", !msg.guild.settings.get("toggles.modlogs"));
         if (errors.length) return msg.reply(`${this.client.emotes.cross} ***There was an error: ${errors[0]}***`);
-        return msg.reply(`${this.client.emotes.check} ***Mod logs have been ${msg.guild.settings.toggles.modlogs ? "Enabled" : "Disabled"}.***`);
+        return msg.reply(`${this.client.emotes.check} ***Mod logs have been ${msg.guild.settings.get("toggles.modlogs") ? "Enabled" : "Disabled"}.***`);
     }
 
 };

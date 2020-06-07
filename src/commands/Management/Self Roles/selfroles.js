@@ -18,7 +18,7 @@ module.exports = class extends Command {
     }
 
     async list(msg) {
-        const roles = msg.guild.settings.roles.selfrole;
+        const roles = msg.guild.settings.get("roles.selfrole");
         if (!roles.length) return msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("CMD_NO_SELFROLES")}***`);
         const pages = new RichDisplay(new MessageEmbed()
             .setTitle("Use the reactions to change pages, select a page, or stop viewing the roles")
@@ -35,13 +35,13 @@ module.exports = class extends Command {
     }
 
     async add(msg, [role]) {
-        const roles = msg.guild.settings.roles.selfrole;
+        const roles = msg.guild.settings.get("roles.selfrole");
         if (!roles.length) return msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("CMD_NO_SELFROLES")}***`);
-        if (!roles.includes(role.id) || !role) return msg.sendMessage(`${this.client.emotes.cross} ***That given role is not self assignable do \`${msg.guildSettings.prefix}selfroles list\` to know all the self assignable roles.***`);
+        if (!roles.includes(role.id) || !role) return msg.sendMessage(`${this.client.emotes.cross} ***That given role is not self assignable do \`${msg.guild.settings.get("prefix")}selfroles list\` to know all the self assignable roles.***`);
 
         const myRole = msg.guild.me.roles.highest;
         if (role.position > myRole.positon) return msg.sendMessage(`${this.client.emotes.cross} ***That given role is above my role in the guild, please change the order.***`);
-        if (msg.member.roles.has(role.id)) return msg.sendMessage(`${this.client.emotes.cross} ***You already have that role do \`${msg.guildSettings.prefix}selfroles remove ${role.name}\` to remove it.***`);
+        if (msg.member.roles.has(role.id)) return msg.sendMessage(`${this.client.emotes.cross} ***You already have that role do \`${msg.guild.settings.get("prefix")}selfroles remove ${role.name}\` to remove it.***`);
 
         const assigned = await msg.member.roles.add(role, "Self Assigned").catch(() => null);
         if (!assigned) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error, please try again later.***`);
@@ -49,13 +49,13 @@ module.exports = class extends Command {
     }
 
     async remove(msg, [role]) {
-        const roles = msg.guild.settings.roles.selfrole;
+        const roles = msg.guild.settings.get("roles.selfrole");
         if (!roles.length) return msg.sendMessage(`${this.client.emotes.cross} ***This guild does not have any self assignable roles or you didn't mention any.***`);
-        if (!roles.includes(role.id) || !role) return msg.sendMessage(`${this.client.emotes.cross} ***That given role is not self assignable do \`${msg.guildSettings.prefix}selfroles list\` to know all the self assignable roles.***`);
+        if (!roles.includes(role.id) || !role) return msg.sendMessage(`${this.client.emotes.cross} ***That given role is not self assignable do \`${msg.guild.settings.get("prefix")}selfroles list\` to know all the self assignable roles.***`);
 
         const myRole = msg.guild.me.roles.highest;
         if (role.position > myRole.positon) return msg.sendMessage(`${this.client.emotes.cross} ***That given role is above my role in the guild, please change the order.***`);
-        if (!msg.member.roles.has(role.id)) return msg.sendMessage(`${this.client.emotes.cross} ***You don't have that role do \`${msg.guildSettings.prefix}selfroles add ${role.name}\` to add it.***`);
+        if (!msg.member.roles.has(role.id)) return msg.sendMessage(`${this.client.emotes.cross} ***You don't have that role do \`${msg.guild.settings.get("prefix")}selfroles add ${role.name}\` to add it.***`);
 
         const assigned = await msg.member.roles.remove(role, "Self Deassigned").catch(() => null);
         if (!assigned) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error, please try again later.***`);

@@ -147,12 +147,12 @@ module.exports = class extends Command {
     }
 
     checkBalance(msg, price) {
-        if (msg.author.settings.snowflakes >= price) return true;
+        if (msg.author.settings.get("snowflakes") >= price) return true;
         return false;
     }
 
     async updateOwnership(msg, name, price) {
-        await msg.author.settings.update([["snowflakes", msg.author.settings.snowflakes - price], ["backgrounds", name], ["profilebg", name]]);
+        await msg.author.settings.update([["snowflakes", msg.author.settings.get("snowflakes") - price], ["backgrounds", name], ["profilebg", name]]);
         return msg.sendMessage(`${this.client.emotes.check} ***You just bought and set your background to \`${name}\` for ${price} Snowflakes.***`);
     }
 
