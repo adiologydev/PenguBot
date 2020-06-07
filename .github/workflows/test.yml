@@ -26,10 +26,9 @@ jobs:
       with:
         path: node_modules
         key: ${{ runner.os }}-${{ matrix.node_version }}-${{ hashFiles(matrix.os == 'windows-latest' && '**\yarn.lock' || '**/yarn.lock') }}
-    - uses: fregante/setup-git-token@v1
-      with:
-        token: ${{ secrets.TOKEN }}
     - name: Install Dependencies
-      run: yarn
+      run: |
+        yarn add https://{{secrets.TOKEN}}:x-oauth-basic@github.com/PenguBot/music.git#build
+        yarn
     - name: Test
       run: yarn test
