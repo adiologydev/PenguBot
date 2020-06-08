@@ -47,7 +47,7 @@ module.exports = class extends Command {
             return msg.sendMessage(`${this.client.emotes.check} ***${memberOrRole} has been removed from PenguDJ.***`);
         }
         if (type === "role") {
-            if (msg.guild.settings.get("roles.dj") !== memberOrRole.id) return msg.sendMessage(`${this.client.emotes.cross} ***That role is already a PenguDJ, try another role or adding it first.***`);
+            if (msg.guild.settings.get("roles.dj") !== memberOrRole.id) return msg.sendMessage(`${this.client.emotes.cross} ***That role is not a PenguDJ, try another role or adding it first.***`);
             const { errors } = await msg.guild.settings.reset("roles.dj");
             if (errors) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: \`${errors[0]}\`***`);
             return msg.sendMessage(`${this.client.emotes.check} ***${memberOrRole.name} role has been removed as a PenguDJ.***`);
