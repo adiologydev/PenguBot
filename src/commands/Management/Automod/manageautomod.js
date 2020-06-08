@@ -32,7 +32,7 @@ module.exports = class extends Command {
             obj.enabled = !obj.enabled;
 
             const { errors } = await msg.guild.settings.update(`automod.perspective.${filter}`, obj, { action: "overwrite" });
-            if (errors.length) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error:*** ${errors[0]}`);
+            if (errors) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error:*** ${errors[0]}`);
             return msg.sendMessage(`${obj.enabled ? this.client.emotes.check : this.client.emotes.cross} \`${filter}\` ***${msg.language.get("MESSAGE_AUTOMOD_TOGGLED")}.***`);
         }
     }
@@ -51,7 +51,7 @@ module.exports = class extends Command {
         obj.threshold = threshold;
 
         const { errors } = await msg.guild.settings.update(`automod.perspective.${filter}`, obj, { action: "overwrite" });
-        if (errors.length) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error:*** ${errors[0]}`);
+        if (errors) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error:*** ${errors[0]}`);
         return msg.sendMessage(`${this.client.emotes.check} \`${filter}\` ***${msg.language.get("MESSAGE_AUTOMOD_TOGGLED")} with \`${threshold}\` threshold.***`);
     }
 

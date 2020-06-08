@@ -25,13 +25,13 @@ module.exports = class extends Command {
         if (type === "member") {
             if (msg.guild.settings.get("users.staff").includes(memberOrRole)) return msg.sendMessage(`${this.client.emotes.cross} ***That user is already a Staff, try another user or removing them first.***`);
             const { errors } = await msg.guild.settings.update("users.staff", memberOrRole.id);
-            if (errors.length) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: \`${errors[0]}\`***`);
+            if (errors) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: \`${errors[0]}\`***`);
             return msg.sendMessage(`${this.client.emotes.check} ***${memberOrRole} has been added as a Staff.***`);
         }
         if (type === "role") {
             if (msg.guild.settings.get("roles.staff") === memberOrRole.id) return msg.sendMessage(`${this.client.emotes.cross} ***That role is already a Staff, try another role or removing it first.***`);
             const { errors } = await msg.guild.settings.update("roles.staff", memberOrRole.id, msg.guild);
-            if (errors.length) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: \`${errors[0]}\`***`);
+            if (errors) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: \`${errors[0]}\`***`);
             return msg.sendMessage(`${this.client.emotes.check} ***${memberOrRole.name} role has been added as a Staff.***`);
         }
     }
@@ -43,13 +43,13 @@ module.exports = class extends Command {
         if (type === "member") {
             if (!msg.guild.settings.get("users.staff").includes(memberOrRole.id)) return msg.sendMessage(`${this.client.emotes.cross} ***That user is not a Staff, try another user or adding them first.***`);
             const { errors } = await msg.guild.settings.update("users.staff", memberOrRole.id);
-            if (errors.length) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: \`${errors[0]}\`***`);
+            if (errors) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: \`${errors[0]}\`***`);
             return msg.sendMessage(`${this.client.emotes.check} ***${memberOrRole} has been removed from Staff.***`);
         }
         if (type === "role") {
             if (msg.guild.settings.get("roles.staff") !== memberOrRole.id) return msg.sendMessage(`${this.client.emotes.cross} ***That role is already a Staff, try another role or adding it first.***`);
             const { errors } = await msg.guild.settings.reset("roles.staff");
-            if (errors.length) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: \`${errors[0]}\`***`);
+            if (errors) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: \`${errors[0]}\`***`);
             return msg.sendMessage(`${this.client.emotes.check} ***${memberOrRole.name} role has been removed as a Staff.***`);
         }
     }

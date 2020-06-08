@@ -103,7 +103,7 @@ module.exports = class ModLog {
         this.case = this.guild.settings.get("modlogs.length");
         this.timestamp = new Date().getTime();
         const { errors } = await this.guild.settings.update("modlogs", this.caseInfo);
-        if (errors.length) throw errors[0];
+        if (errors) throw errors[0];
         return this.case;
     }
 

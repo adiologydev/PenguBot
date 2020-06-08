@@ -25,13 +25,13 @@ module.exports = class extends Command {
         if (type === "member") {
             if (msg.guild.settings.get("users.mod").includes(memberOrRole)) return msg.sendMessage(`${this.client.emotes.cross} ***That user is already a Moderator, try another user or removing them first.***`);
             const { errors } = await msg.guild.settings.update("users.mod", memberOrRole.id);
-            if (errors.length) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: \`${errors[0]}\`***`);
+            if (errors) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: \`${errors[0]}\`***`);
             return msg.sendMessage(`${this.client.emotes.check} ***${memberOrRole} has been added as a Moderator.***`);
         }
         if (type === "role") {
             if (msg.guild.settings.get("roles.mod") === memberOrRole.id) return msg.sendMessage(`${this.client.emotes.cross} ***That role is already a Moderator, try another role or removing it first.***`);
             const { errors } = await msg.guild.settings.update("roles.mod", memberOrRole.id, msg.guild);
-            if (errors.length) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: \`${errors[0]}\`***`);
+            if (errors) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: \`${errors[0]}\`***`);
             return msg.sendMessage(`${this.client.emotes.check} ***${memberOrRole.name} role has been added as a Moderator.***`);
         }
     }
@@ -43,13 +43,13 @@ module.exports = class extends Command {
         if (type === "member") {
             if (!msg.guild.settings.get("users.mod").includes(memberOrRole.id)) return msg.sendMessage(`${this.client.emotes.cross} ***That user is not a Moderator, try another user or adding them first.***`);
             const { errors } = await msg.guild.settings.update("users.mod", memberOrRole.id);
-            if (errors.length) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: \`${errors[0]}\`***`);
+            if (errors) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: \`${errors[0]}\`***`);
             return msg.sendMessage(`${this.client.emotes.check} ***${memberOrRole} has been removed from Moderator.***`);
         }
         if (type === "role") {
             if (msg.guild.settings.get("roles.mod") !== memberOrRole.id) return msg.sendMessage(`${this.client.emotes.cross} ***That role is already a Moderator, try another role or adding it first.***`);
             const { errors } = await msg.guild.settings.reset("roles.mod");
-            if (errors.length) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: \`${errors[0]}\`***`);
+            if (errors) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: \`${errors[0]}\`***`);
             return msg.sendMessage(`${this.client.emotes.check} ***${memberOrRole.name} role has been removed as a Moderator.***`);
         }
     }

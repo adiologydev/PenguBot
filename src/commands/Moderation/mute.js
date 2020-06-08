@@ -79,7 +79,7 @@ module.exports = class extends Command {
         }).catch(e => msg.reply(`There was an error: ${e}`));
 
         const { errors } = await msg.guild.settings.update("roles.muted", newRole.id);
-        if (errors.length) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: ${errors[0]}***`);
+        if (errors) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: ${errors[0]}***`);
 
         const promises = [];
         for (const channel of msg.guild.channels.values()) promises.push(channel.updateOverwrite(newRole, { SEND_MESSAGES: false, ADD_REACTIONS: false, CONNECT: false }, `Mute Command Executed By ${msg.author.tag}`));

@@ -25,13 +25,13 @@ module.exports = class extends Command {
         if (type === "member") {
             if (msg.guild.settings.get("users.dj").includes(memberOrRole)) return msg.sendMessage(`${this.client.emotes.cross} ***That user is already a PenguDJ, try another user or removing them first.***`);
             const { errors } = await msg.guild.settings.update("users.dj", memberOrRole.id);
-            if (errors.length) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: \`${errors[0]}\`***`);
+            if (errors) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: \`${errors[0]}\`***`);
             return msg.sendMessage(`${this.client.emotes.check} ***${memberOrRole} has been added as a PenguDJ.***`);
         }
         if (type === "role") {
             if (msg.guild.settings.get("roles.dj") === memberOrRole.id) return msg.sendMessage(`${this.client.emotes.cross} ***That role is already a PenguDJ, try another role or removing it first.***`);
             const { errors } = await msg.guild.settings.update("roles.dj", memberOrRole.id, msg.guild);
-            if (errors.length) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: \`${errors[0]}\`***`);
+            if (errors) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: \`${errors[0]}\`***`);
             return msg.sendMessage(`${this.client.emotes.check} ***${memberOrRole.name} role has been added as a PenguDJ.***`);
         }
     }
@@ -43,20 +43,20 @@ module.exports = class extends Command {
         if (type === "member") {
             if (!msg.guild.settings.get("users.dj").includes(memberOrRole.id)) return msg.sendMessage(`${this.client.emotes.cross} ***That user is not a PenguDJ, try another user or adding them first.***`);
             const { errors } = await msg.guild.settings.update("users.dj", memberOrRole.id);
-            if (errors.length) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: \`${errors[0]}\`***`);
+            if (errors) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: \`${errors[0]}\`***`);
             return msg.sendMessage(`${this.client.emotes.check} ***${memberOrRole} has been removed from PenguDJ.***`);
         }
         if (type === "role") {
             if (msg.guild.settings.get("roles.dj") !== memberOrRole.id) return msg.sendMessage(`${this.client.emotes.cross} ***That role is already a PenguDJ, try another role or adding it first.***`);
             const { errors } = await msg.guild.settings.reset("roles.dj");
-            if (errors.length) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: \`${errors[0]}\`***`);
+            if (errors) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: \`${errors[0]}\`***`);
             return msg.sendMessage(`${this.client.emotes.check} ***${memberOrRole.name} role has been removed as a PenguDJ.***`);
         }
     }
 
     async list(msg) {
-        const role = msg.guild.settings.get("roles.mod");
-        const users = msg.guild.settings.get("users.mod");
+        const role = msg.guild.settings.get("roles.dj");
+        const users = msg.guild.settings.get("users.dj");
 
         return msg.sendMessage({ embed: new MessageEmbed()
             .setTimestamp()
