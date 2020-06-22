@@ -318,9 +318,9 @@ module.exports = class extends Language {
             MESSAGE_STAR_CHANNEL_SET: "Successfully set the Starboard channel.",
 
             // Custom Messages
-            ER_TRY_AGAIN: "I am very sorry but there was an error, please try again or contact us at https://discord.gg/kWMcUNe",
-            ER_MUSIC_TRIP: "I tripped on a wire! *Ouch!* It hurts but I'll recover, try again later or contact us at https://discord.gg/kWMcUNe",
-            ER_MUSIC_NF: "<:penguError:435712890884849664> I could not find any results for your query, please try again with a different one or contact us at https://discord.gg/kWMcUNe",
+            ER_TRY_AGAIN: "I am very sorry but there was an error, please try again or contact us at https://discord.gg/u8WYw5r",
+            ER_MUSIC_TRIP: "I tripped on a wire! *Ouch!* It hurts but I'll recover, try again later or contact us at https://discord.gg/u8WYw5r",
+            ER_MUSIC_NF: "<:penguError:435712890884849664> I could not find any results for your query, please try again with a different one or contact us at https://discord.gg/u8WYw5r",
             ER_CATS_DOGS: "There was an error, I think a cat has cut the wire off, dogs don't do that.",
             ER_API: "Unfortunately due to the provider of this command's API getting down, this command is temporarily disabled.",
             ER_TINDER: "Can't match you with yourself...",

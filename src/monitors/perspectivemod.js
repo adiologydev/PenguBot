@@ -24,7 +24,7 @@ module.exports = class extends Monitor {
 
         if (!body) return;
 
-        const { perspective } = msg.guild.settings.get("automod");
+        const perspective = msg.guild.settings.get("automod.perspective");
 
         for (const key of Object.keys(body.attributeScores)) {
             if (!perspective[key].enabled) continue;

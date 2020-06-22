@@ -26,7 +26,7 @@ module.exports = class extends Command {
         if (!roleID || !msg.guild.roles.has(roleID)) await this.createRole(msg);
 
         const role = await msg.guild.roles.fetch(msg.guild.settings.get("roles.muted")).catch(() => null);
-        if (!role) return msg.sendMessage("There was an error, I couldn't find the Muted role! Please try again or contact us at: https://discord.gg/kWMcUNe");
+        if (!role) return msg.sendMessage("There was an error, I couldn't find the Muted role! Please try again or contact us at: https://discord.gg/u8WYw5r");
 
         const myRole = msg.guild.me.roles.highest;
         if (role.position > myRole.positon) return msg.sendMessage(`${this.client.emotes.cross} ***The \`PENGUMUTED\` role is above my role in the guild, please change the order.***`);

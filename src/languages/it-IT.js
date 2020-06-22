@@ -319,9 +319,9 @@ module.exports = class extends Language {
             MESSAGE_STAR_CHANNEL_SET: "Canale Starboard impostato correttamente.",
 
             // Custom Messages
-            ER_TRY_AGAIN: "Sono spiacente, ma c'è stato un errore.. Riprova più tardi. Se il problema persiste, contattaci su https://discord.gg/kWMcUNe",
-            ER_MUSIC_TRIP: "Accidenti!!! Ho qualche problema sulla traccia indicata.. Riprova più tardi. Se il problema persiste, contattaci su https://discord.gg/kWMcUNe",
-            ER_MUSIC_NF: "<:penguError:435712890884849664> Non sono riuscito a trovare alcun risultato per la tua richiesta. Riprova più tardi. Se il problema persiste, contattaci su https://discord.gg/kWMcUNe",
+            ER_TRY_AGAIN: "Sono spiacente, ma c'è stato un errore.. Riprova più tardi. Se il problema persiste, contattaci su https://discord.gg/u8WYw5r",
+            ER_MUSIC_TRIP: "Accidenti!!! Ho qualche problema sulla traccia indicata.. Riprova più tardi. Se il problema persiste, contattaci su https://discord.gg/u8WYw5r",
+            ER_MUSIC_NF: "<:penguError:435712890884849664> Non sono riuscito a trovare alcun risultato per la tua richiesta. Riprova più tardi. Se il problema persiste, contattaci su https://discord.gg/u8WYw5r",
             ER_CATS_DOGS: "C'è stato un errore! Penso che un gatto abbia smangiucchiato il cavo.. un cane certe cose non le fa!",
             ER_API: "Sfortunatamente, a causa di una mancanza del provider, questo comando è stato momentaneamente disabilitato.",
             ER_TINDER: "Non trovo corrispondenze per te .. ",

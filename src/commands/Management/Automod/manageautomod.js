@@ -23,7 +23,7 @@ module.exports = class extends Command {
             return msg.sendMessage(`${mode ? this.client.emotes.check : this.client.emotes.cross} ***${mode ? msg.language.get("MESSAGE_AUTOMOD_ENABLED") : msg.language.get("MESSAGE_AUTOMOD_DISABLED")}***`);
         } else {
             filter = filter.toUpperCase();
-            const { perspective } = msg.guild.settings.get("automod");
+            const perspective = msg.guild.settings.get("automod.perspective");
             const keys = Object.keys(perspective);
 
             if (!keys.includes(filter)) return msg.sendMessage(`${this.client.emotes.cross} ***That is an Invalid Filter, please choose from \`${keys.join("`, `")}\`.***`);
@@ -41,7 +41,7 @@ module.exports = class extends Command {
         if (!filter || !threshold) return msg.sendMessage(`${this.client.emotes.cross} ***Filter or Threshold are required arguments.***`);
         filter = filter.toUpperCase();
 
-        const { perspective } = msg.guild.settings.get("automod");
+        const perspective = msg.guild.settings.get("automod.perspective");
         const keys = Object.keys(perspective);
 
         if (!keys.includes(filter)) return msg.sendMessage(`${this.client.emotes.cross} ***That is an Invalid Filter, please choose from \`${keys.join("`, `")}\`.***`);
