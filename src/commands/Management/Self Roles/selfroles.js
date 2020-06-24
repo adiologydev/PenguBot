@@ -35,6 +35,7 @@ module.exports = class extends Command {
     }
 
     async add(msg, [role]) {
+        if (!role) return msg.sendMessage(`${this.client.emotes.cross} ***You must specify a role in order to use this command.***`);
         const roles = msg.guild.settings.get("roles.selfrole");
         if (!roles.length) return msg.sendMessage(`${this.client.emotes.cross} ***${msg.language.get("CMD_NO_SELFROLES")}***`);
         if (!roles.includes(role.id) || !role) return msg.sendMessage(`${this.client.emotes.cross} ***That given role is not self assignable do \`${msg.guild.settings.get("prefix")}selfroles list\` to know all the self assignable roles.***`);
@@ -49,6 +50,7 @@ module.exports = class extends Command {
     }
 
     async remove(msg, [role]) {
+        if (!role) return msg.sendMessage(`${this.client.emotes.cross} ***You must specify a role in order to use this command.***`);
         const roles = msg.guild.settings.get("roles.selfrole");
         if (!roles.length) return msg.sendMessage(`${this.client.emotes.cross} ***This guild does not have any self assignable roles or you didn't mention any.***`);
         if (!roles.includes(role.id) || !role) return msg.sendMessage(`${this.client.emotes.cross} ***That given role is not self assignable do \`${msg.guild.settings.get("prefix")}selfroles list\` to know all the self assignable roles.***`);

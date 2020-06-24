@@ -7,7 +7,7 @@ const timeout = new Set();
 module.exports = class extends Event {
 
     async run(msg, command, prefixLength) {
-        if (!msg.guild || !msg.guild.settings.get("customcmds.length")) return;
+        if (!msg.guild || !msg.guild.settings.get("customcmds").length) return;
         await msg.guild.settings.sync(true);
         command = command.toLowerCase();
         const customCommand = msg.guild.settings.get("customcmds").find(c => c.name.toLowerCase() === command);
