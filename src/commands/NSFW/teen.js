@@ -1,5 +1,5 @@
 const Command = require("../../lib/structures/KlasaCommand");
-const subReddits = ["legalteens", "collegesluts", "adorableporn", "legalteensXXX", "gonewild18", "18_19", "just18"];
+const subReddits = ["legalteens", "collegesluts", "adorableporn", "gonewild18", "18_19", "just18"];
 
 module.exports = class extends Command {
 
@@ -18,11 +18,8 @@ module.exports = class extends Command {
         if (!msg.channel.nsfw) return msg.sendMessage(`<:penguError:435712890884849664> ***This channel is not NSFW so I can't send it here...***`);
 
         try {
-            let img = await this.client.funcs.scrapeSubreddit(subReddits[Math.floor(Math.random() * subReddits.length)]);
+            const img = await this.client.funcs.scrapeSubreddit(subReddits[Math.floor(Math.random() * subReddits.length)]);
             if (!img) return msg.sendMessage(`Too fast, too furious, try again!`);
-            if (img.indexOf(".mp4")) {
-                img = await this.client.funcs.scrapeSubreddit(subReddits[Math.floor(Math.random() * subReddits.length)]);
-            }
             return msg.sendMessage(img);
         } catch (e) {
             return msg.sendMessage(`There was an error, try again!`);

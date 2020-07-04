@@ -1,5 +1,5 @@
 const Command = require("../../lib/structures/KlasaCommand");
-const subReddits = ["GoneWild", "PetiteGoneWild", "gonewildstories", "GoneWildTube", "treesgonewild", "gonewildaudio", "GWNerdy", "gonemild", "altgonewild", "gifsgonewild", "gonewildsmiles", "analgw", "onstageGW", "gwpublic"];
+const subReddits = ["GoneWild", "PetiteGoneWild", "treesgonewild", "GWNerdy", "gonemild", "altgonewild", "gifsgonewild", "gonewildsmiles", "analgw", "onstageGW", "gwpublic"];
 
 module.exports = class extends Command {
 
