@@ -14,9 +14,10 @@ module.exports = class extends Command {
     }
 
     async run(msg, [tag]) {
-        const playerData = await this.fetchURL(`https://api.clashofclans.com/v1/players/${encodeURIComponent(tag.toUpperCase().replace(/O/g, "0"))}`, {
+        const playerData = await this.fetchURL(`https://api.clashofclans.com/v1/players/${encodeURIComponent(tag.toUpperCase())}`, {
             headers: { Accept: "application/json", Authorization: `Bearer ${config.apis.cocapi}` }
-        }).catch(() => {
+        }).catch(e => {
+            console.error(e);
             throw `${this.client.emotes.cross} ***${msg.language.get("CMD_COC_TAG")}***`;
         });
 
