@@ -14,11 +14,11 @@ module.exports = class extends Command {
     }
 
     async run(msg, [user = msg.author]) {
-        const { message } = await this.fetchURL(`https://api.whatdoestrumpthink.com/api/v1/quotes/personalized`, { query: { q: user.username } });
-        if (message) throw msg.language.get("ER_TRY_AGAIN");
+        const data = await this.fetchURL(`https://api.whatdoestrumpthink.com/api/v1/quotes/personalized`, { query: { q: user.username } });
+        if (!data.message) throw msg.language.get("ER_TRY_AGAIN");
 
         return msg.sendEmbed(new MessageEmbed()
-            .setDescription(`**Get Trumped**\n\n${message}`)
+            .setDescription(`**Get Trumped**\n\n${data.message}`)
             .setThumbnail("https://i.imgur.com/lGJbGy6.png")
             .setColor("RANDOM"));
     }

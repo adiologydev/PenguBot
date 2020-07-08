@@ -1,4 +1,5 @@
 const { Command, MessageEmbed } = require("../../index");
+const data = require("../../lib/constants/yomomma");
 
 module.exports = class extends Command {
 
@@ -13,8 +14,7 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        const { joke } = await this.fetchURL("http://api.yomomma.info");
-
+        const joke = data[Math.floor(Math.random() * data.length)];
         return msg.sendEmbed(new MessageEmbed()
             .setDescription(`**Yo Momma Joke**\n\n${joke}`)
             .setThumbnail("https://i.imgur.com/ordRh9e.png")
