@@ -23,7 +23,7 @@ module.exports = class extends Command {
 
     async run(msg, [location]) {
         try {
-            const response = await this.fetchURL("https://maps.googleapis.com/maps/api/geocode/json", { query: { address: location.replace(/ /g, "+"), key: apis.darksky } })
+            const response = await this.fetchURL("https://maps.googleapis.com/maps/api/geocode/json", { query: { address: location.replace(/ /g, "+"), key: apis.google } })
                 .catch(() => { throw "I'm is having some troubles receiving the data for your location. Try again later"; });
             if (!response.results.length) return msg.reply("<:penguError:435712890884849664> I Could not find that location! Please try again with a different one.");
 
