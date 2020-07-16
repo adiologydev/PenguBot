@@ -13,7 +13,6 @@ module.exports = class extends Command {
             usage: "<channel:...string>",
             extendedHelp: "No extended help available."
         });
-
     }
     async run(msg, [channel]) {
         const body = await this.fetchURL(`https://api.twitch.tv/kraken/channels/${channel}`, { query: { client_id: apis.twitch } })
