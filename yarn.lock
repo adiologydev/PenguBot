@@ -97,9 +97,19 @@
   version "0.0.1-dev"
   resolved "https://codeload.github.com/pengubot/kmg/tar.gz/a23e454bf49a8a17703beba96057782caef452e4"
 
+"@pengubot/music@github:PenguBot/music#build":
+  version "0.0.1"
+  resolved "git+ssh://git@github.com/PenguBot/music.git#9347f958f699fa18c8e174a8443be4386bc87e05"
+  dependencies:
+    "@klasa/utils" "^0.0.8"
+    "@lavacord/discord.js" "^0.0.7"
+    cheerio "^1.0.0-rc.3"
+    node-fetch "^2.6.0"
+
 "@pengubot/music@github:pengubot/music#build":
   version "0.0.1"
-  resolved "git+ssh://git@github.com/pengubot/music.git#07779480a75d8fb5aa6992b4eabdb146e19b9635"
+  uid "9347f958f699fa18c8e174a8443be4386bc87e05"
+  resolved "git+ssh://git@github.com/pengubot/music.git#9347f958f699fa18c8e174a8443be4386bc87e05"
   dependencies:
     "@klasa/utils" "^0.0.8"
     "@lavacord/discord.js" "^0.0.7"
