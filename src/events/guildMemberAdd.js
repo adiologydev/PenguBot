@@ -26,7 +26,16 @@ module.exports = class extends Event {
     autoroles(member) {
         if (!member.guild.settings.get("toggles.autoroles")) return;
         if (!member.guild.me || !member.guild.me.permissions.has("MANAGE_ROLES")) return;
-        return member.roles.add(member.guild.settings.get("autoroles"), "PenguBot - AutoRole Feature").catch(() => null);
+
+        const roles = member.guild.settings.get("autoroles");
+        const fetchedRoles = [];
+        for (const role of roles) {
+            if (!member.guild.roles.has(role)) continue;
+            if (role.position >= member.guild.me.roles.highest.position) continue;
+            fetchedRoles.push(member.guild.roles.get(role));
+        }
+
+        return member.roles.add(fetchedRoles, "PenguBot.com - Autorole Feature").catch(() => null);
     }
 
     replaceText(str, member) {
