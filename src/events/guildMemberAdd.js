@@ -27,7 +27,7 @@ module.exports = class extends Event {
         if (!member.guild.settings.get("toggles.autoroles")) return;
         if (!member.guild.me || !member.guild.me.permissions.has("MANAGE_ROLES")) return;
 
-        const roles = member.guild.settings.get("autorole");
+        const roles = member.guild.settings.get("roles.autorole");
         const fetchedRoles = [];
         for (const role of roles) {
             if (!member.guild.roles.has(role)) continue;
