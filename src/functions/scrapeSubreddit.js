@@ -1,18 +1,15 @@
-const { util: { fetch, shuffleArray }, Function } = require("../index");
-const mediaregex = /(http(s?):)([/|.|\w|\s|-])*\.(?:bmp|jpe?g|png|gif|webp|mp4|tiff|gif?v)(?:\?([^#]*))?(?:#(.*))?$/ig;
+const { util: { fetch }, Function } = require("../index");
 
 module.exports = class extends Function {
 
-    async run(subreddit = "puppies") {
-        const data = await fetch(`https://www.reddit.com/r/${subreddit}/top.json?sort=top&t=day&limit=100`)
+    async run(subreddit) {
+        const data = await fetch(`https://www.reddit.com/r/${subreddit}/.json?limit=100`)
             .then(res => res.data)
             .catch(() => null);
         if (!data) throw "There was an issue with the tissue, try again!";
-        const random = shuffleArray(data.children);
-        for (const t of random) {
-            if (mediaregex.test(t.data.url)) return t.data.url;
-            else continue;
-        }
+
+        const random = data.children[Math.floor(Math.random() * data.children.length)];
+        return random.data.url;
     }
 
 };
