@@ -26,7 +26,7 @@ module.exports = class extends Route {
         let amount = this.client.funcs.randomNumber(100, 200);
 
         if (data.isWeekend) amount *= 2;
-        if (user && user.send) user.send(`<:penguSuccess:435712876506775553> ***Thank you for Upvoting PenguBot on DiscordBots.org, you've recieved ❄ \`${amount}\` Snowflakes as a bonus! You can do this again after 12 hours at <https://discordbots.org/bot/PenguBot/vote>. You can use these Snowflakes to play games, give them to other people, buy profile backgrounds or save up for upcoming features!***\n\n**Tip: **\`Voting on Weekends will give you double reward than usual so don't forget to upvote then as well!\``).catch(() => null);
+        if (user && user.send) user.send(`<:penguSuccess:435712876506775553> ***Thank you for Upvoting PenguBot on DiscordBots.org, you've recieved ❄ \`${amount}\` Snowflakes as a bonus! You can do this again after 12 hours at <https://top.gg/bot/PenguBot/vote>. You can use these Snowflakes to play games, give them to other people, buy profile backgrounds or save up for upcoming features!***\n\n**Tip: **\`Voting on Weekends will give you double reward than usual so don't forget to upvote then as well!\``).catch(() => null);
         await user.settings.update([["snowflakes", user.settings.get("snowflakes") + amount], ["lastUpvote", Date.now()]]);
 
         res.statusCode = 200;
