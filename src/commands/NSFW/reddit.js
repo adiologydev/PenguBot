@@ -1,26 +1,5 @@
 const { Command } = require("../../index");
-
-const subReddits = {
-    amateur: ["Amateur", "RealGirls", "randomsexiness", "PetiteGoneWild", "homemadexxx", "AmateurArchives"],
-    anal: ["anal", "buttsex", "AnalPorn", "upherbutt", "CumFromAnal"],
-    asiannsfw: ["AsianHotties", "juicyasians", "AsianNSFW", "AsianPorn", "AsianHottiesGIFS"],
-    bdsm: ["bdsm", "Spanking", "kinkyporn"],
-    blowjob: ["Blowjobs", "OnHerKnees", "deepthroat", "BlowjobGifs", "OralSex", "dreamjobs", "lickingdick"],
-    boobs: ["Boobies", "TittyDrop", "boobbounce", "boobs", "boobgifs", "tits", "BreastEnvy", "PerfectTits"],
-    booty: ["booty", "SpreadEm", "twerking", "ButtsAndBareFeet", "booty_gifs"],
-    ass: ["ass", "TheUnderbun", "HighResASS", "AssOnTheGlass", "datass", "assgifs"],
-    cosplay: ["nsfwcosplay", "starwarsnsfw", "cosplayonoff", "Cosporn", "CosplayBoobs", "PornParody", "Cosplayheels"],
-    fitgirls: ["fitgirls", "AthleticGirls", "Ohlympics", "NSFW_Hardbodies", "LockerRoom", "GymnastGirls", "worldcupgirls"],
-    gifs: ["NSFW_GIF", "nsfw_gifs", "60fpsporn", "NSFW_HTML5", "porn_gifs", "adultgifs", "randomsexygifs", "PornGifs"],
-    gonewild: ["gonewild", "gonewildcurvy", "asstastic", "AsiansGoneWild", "GWCouples", "GoneWildPlus", "GoneWildTube", "ladybonersgw"],
-    hentai: ["hentai", "ecchi", "HENTAI_GIF", "doujinshi", "WesternHentai", "pantsu", "hentaivids", "hentaibondage", "MonsterGirl", "Lolicons"],
-    lesbian: ["lesbians", "StraightGirlsPlaying", "girlskissing", "mmgirls", "scissoring", "dyke", "GirlsCuddling", "amateurlesbians", "Lesbian_gifs"],
-    milfs: ["milf", "MilfsAndHousewives", "maturemilf", "realmilf", "ChocolateMilf", "GroupOfNudeMILFS", "HotAsianMilfs", "MILFS", "realmoms"],
-    nsfw: ["nsfw", "nsfwhardcore", "nsfw2", "HighResNSFW", "BonerMaterial", "porn", "iWantToFuckHer", "Sexy", "nude", "NSFWCute", "HotGirls"],
-    nsfwsnapchat: ["NSFW_Snapchat", "snapcgatgw", "snapchatboobs", "SnapchatImages", "NudeSelfies", "CellShots", "selfshots", "selfpix", "xPosing"],
-    pussy: ["pussy", "rearpussy", "vagaina", "PussyMound", "PerfectPussies", "TheRearPussy", "PussySlip"],
-    teen: ["LegalTeens", "just18", "youngporn", "Barelylegal", "barelylegalteens"]
-};
+const subReddits = require("../../lib/constants/nsfw/subreddits.json");
 
 module.exports = class extends Command {
 
