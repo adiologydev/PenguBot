@@ -9,6 +9,8 @@ module.exports = class extends Function {
         if (!data) throw "There was an issue with the tissue, try again!";
 
         const random = data.children[Math.floor(Math.random() * data.children.length)];
+        if (!random) throw "There was an issue with the tissue, try again!";
+
         return random.data.url;
     }
 

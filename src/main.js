@@ -47,7 +47,7 @@ const sharder = new ShardingManager(join(__dirname, "PenguBot"), {
         messageSweepInterval: 480,
         messageCacheLifetime: 120,
         commandMessageLifetime: 120,
-        owners: ["136549806079344640", "152386257568137216"],
+        owners: ["136549806079344640"],
         music: { nodes: config.nodes, lyrics: config.apis.lyrics, spotify: { buffer: config.apis.spotify, token: "" } }
     },
     shardCount: config.shards,
