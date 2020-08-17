@@ -1,4 +1,4 @@
-const { Command, MessageEmbed } = require("../../index");
+const { Command } = require("../../index");
 const subReddits = ["AdviceAnimals", "MemeEconomy", "ComedyCemetery", "memes", "dankmemes", "PrequelMemes", "terriblefacebookmemes", "PewdiepieSubmissions", "funny", "wholesomememes", "fffffffuuuuuuuuuuuu", "BikiniBottomTwitter", "2meirl4meirl", "DeepFriedMemes", "surrealmemes", "firstworldanarchists"];
 
 module.exports = class extends Command {
@@ -15,10 +15,10 @@ module.exports = class extends Command {
 
     async run(msg) {
         const subReddit = subReddits[Math.floor(Math.random() * subReddits.length)];
-        let img = await this.client.funcs.scrapeSubreddit(subReddit);
-        if (img && img.includes(".mp4")) img = await this.client.funcs.scrapeSubreddit(subReddit);
-        if (!img || img.includes(".mp4")) return msg.sendMessage(`Too fast, too furious, try again!`);
-        return msg.sendEmbed(new MessageEmbed().setImage(img).setFooter(`/r/${subReddit} - PenguBot.com`));
+        const data = await this.client.funcs.scrapeSubreddit(subReddit, { type: "hot" });
+
+        if (data.over_18 && !msg.channel.nsfw) return msg.sendMessage(`${this.client.emotes.cross} ***This channel is not NSFW so I can't send it here...***`);
+        return msg.channel.send(data.url);
     }
 
 };

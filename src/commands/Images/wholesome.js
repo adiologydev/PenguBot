@@ -1,4 +1,4 @@
-const { Command, MessageEmbed } = require("../../index");
+const { Command } = require("../../index");
 
 const SUB_REDDITS = ["wholesome", "aww", "AnimalsBeingBros"];
 module.exports = class extends Command {
@@ -16,13 +16,9 @@ module.exports = class extends Command {
 
     async run(msg) {
         const subReddit = SUB_REDDITS[Math.floor(Math.random() * SUB_REDDITS.length)];
-        let img = await this.client.funcs.scrapeSubreddit(subReddit);
-        if (img && img.includes(".mp4")) img = await this.client.funcs.scrapeSubreddit(subReddit);
-        if (!img || img.includes(".mp4")) return msg.sendMessage(`Too fast, too furious, try again!`);
-        return msg.sendEmbed(new MessageEmbed()
-            .setImage(img)
-            .setFooter(`/r/${subReddit} - PenguBot.com`)
-        );
+        const data = await this.client.funcs.scrapeSubreddit(subReddit, { type: "top" });
+
+        return msg.channel.send(data.url);
     }
 
 };
