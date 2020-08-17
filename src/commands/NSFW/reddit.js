@@ -16,7 +16,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [subreddit]) {
-        if (!msg.channel.nsfw) return msg.sendMessage(`${this.client.emotes.error} ***This channel is not NSFW so I can't send it here...***`);
+        if (!msg.channel.nsfw) return msg.sendMessage(`${this.client.emotes.cross} ***This channel is not NSFW so I can't send it here...***`);
 
         if (!subreddit && msg.command.aliases.includes(msg.commandText)) {
             const aliasSubCat = subReddits[msg.commandText];
