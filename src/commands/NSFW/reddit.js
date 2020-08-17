@@ -1,6 +1,8 @@
 const { Command } = require("../../index");
 const subReddits = require("../../lib/constants/nsfw/subreddits.json");
 
+const types = /top|hot|controversial|new|rising/i;
+
 module.exports = class extends Command {
 
     constructor(...args) {
@@ -16,19 +18,26 @@ module.exports = class extends Command {
     }
 
     async run(msg, [subreddit]) {
-        if (!msg.channel.nsfw) return msg.sendMessage(`${this.client.emotes.cross} ***This channel is not NSFW so I can't send it here...***`);
+        let wcType;
+        if (msg.flagArgs) {
+            const { type } = msg.flagArgs;
+            if (types.test(type)) wcType = type;
+            else return msg.reply("Invalid type, please choose from `top, hot, controversial, new` and `rising`.");
+        }
 
         if (!subreddit && msg.command.aliases.includes(msg.commandText)) {
             const aliasSubCat = subReddits[msg.commandText];
             const aliasSub = aliasSubCat[Math.floor(Math.random() * aliasSubCat.length)];
-            const img = await this.client.funcs.scrapeSubreddit(aliasSub);
-            if (!img) return msg.sendMessage("Too fast, too furious, please try again!");
-            await msg.channel.send(`${img}`);
+            const data = await this.client.funcs.scrapeSubreddit(aliasSub, { type: wcType });
+
+            if (data.over_18 && !msg.channel.nsfw) return msg.sendMessage(`${this.client.emotes.cross} ***This channel is not NSFW so I can't send it here...***`);
+            await msg.channel.send(data.url);
             return msg.channel.send(`**Note:** This command has been deprecated and will be renamed soon, please use \`${msg.guild.settings.get("prefix")}reddit <subreddit>\``);
         } else if (subreddit) {
-            const img = await this.client.funcs.scrapeSubreddit(subreddit);
-            if (!img) return msg.sendMessage("Too fast, too furious, please try again!");
-            return msg.sendMessage(img);
+            const data = await this.client.funcs.scrapeSubreddit(subreddit, { type: wcType });
+
+            if (data.over_18 && !msg.channel.nsfw) return msg.sendMessage(`${this.client.emotes.cross} ***This channel is not NSFW so I can't send it here...***`);
+            return msg.sendMessage(data.url);
         } else {
             return msg.reply("Please specify a sub-reddit you would like to see.");
         }
