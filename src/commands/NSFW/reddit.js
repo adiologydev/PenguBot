@@ -19,10 +19,9 @@ module.exports = class extends Command {
 
     async run(msg, [subreddit]) {
         let wcType;
-        if (msg.flagArgs) {
+        if (msg.flagArgs && msg.flagArgs.type) {
             const { type } = msg.flagArgs;
             if (types.test(type)) wcType = type;
-            else return msg.reply("Invalid type, please choose from `top, hot, controversial, new` and `rising`.");
         }
 
         if (!subreddit && msg.command.aliases.includes(msg.commandText)) {
@@ -37,7 +36,10 @@ module.exports = class extends Command {
             const data = await this.client.funcs.scrapeSubreddit(subreddit, { type: wcType });
 
             if (data.over_18 && !msg.channel.nsfw) return msg.sendMessage(`${this.client.emotes.cross} ***This channel is not NSFW so I can't send it here...***`);
-            return msg.sendMessage(data.url);
+            return msg.sendMessage([
+                `> **Title:** ${data.title}`,
+                `> **Author:** u/${data.author}`,
+                `${data.url}`].join("\n"));
         } else {
             return msg.reply("Please specify a sub-reddit you would like to see.");
         }

@@ -35,7 +35,7 @@
     "breadtags": "github:PenguBot/bread-tags",
     "bufferutil": "^4.0.1",
     "canvas": "^2.6.0",
-    "canvas-constructor": "github:kyranet/canvasConstructor",
+    "canvas-constructor": "3.0.3",
     "discord.js": "github:discordjs/discord.js#fe7df708e44e0280dfaf0f8e457b154781bb5140",
     "hot-shots": "^7.4.2",
     "klasa": "github:dirigeants/klasa#c5b4874bd9f9f22d4dfea6c02390aa6607a0c865",
