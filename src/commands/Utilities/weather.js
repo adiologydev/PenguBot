@@ -38,9 +38,9 @@ module.exports = class extends Command {
             const state = locality && governing ? governing : locality ? country : {};
 
             const params = `${response.results[0].geometry.location.lat},${response.results[0].geometry.location.lng}`;
-            const res = await this.fetchURL(`https://api.darksky.net/forecast/${apis.darksky}/${params}`)
-                .catch(() => { throw "I'm is having some troubles receiving the data for your location. Try again later"; });
-
+            const res = await this.fetchURL(`https://api.darksky.net/forecast/${apis.darksky}/${params}?units=si&exclude=daily,minutely,hourly,flags`)
+                .catch(e => { console.error(e); return null; });
+            if (!res) return msg.reply("I'm is having some troubles receiving the data for your location. Please try again later.");
 
             const condition = res.currently.summary;
             const { icon } = res.currently;
@@ -68,7 +68,7 @@ module.exports = class extends Command {
                 .setTextFont("16px Roboto")
                 .addText(state.long_name ? state.long_name : "", 35, 72.5)
                 .setTextFont("48px Roboto Mono")
-                .addText(`${temperature}°`, 35, 140)
+                .addText(`${temperature}°C`, 35, 140)
                 .addImage(cond, 325, 31, 48, 48)
                 .addImage(hum, 358, 88, 13, 13)
                 .addImage(precip, 358, 108, 13, 13)
