@@ -100,7 +100,7 @@ module.exports = class ModLog {
      * @returns {KlasaMessage}
      */
     async getCase() {
-        this.case = this.guild.settings.get("modlogs.length");
+        this.case = this.guild.settings.get("modlogs").length;
         this.timestamp = new Date().getTime();
         const { errors } = await this.guild.settings.update("modlogs", this.caseInfo);
         if (errors) throw errors[0];
