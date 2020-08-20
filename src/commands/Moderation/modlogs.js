@@ -18,7 +18,7 @@ module.exports = class extends Command {
     }
 
     async channel(msg, [Channel = msg.channel]) {
-        const { errors } = await msg.guild.settings.update("channels.logs", Channel.id);
+        const { errors } = await msg.guild.settings.update("channels.modlogs", Channel.id);
         if (errors) return msg.reply(`${this.client.emotes.cross} ***There was an error: ${errors[0]}***`);
         return msg.sendMessage(`${this.client.emotes.check} ***${msg.language.get("MESSAGE_LOGCHAN_SET")}***`);
     }
