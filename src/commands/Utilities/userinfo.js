@@ -27,7 +27,7 @@ module.exports = class extends Command {
             .addField("❯ Discord Join Date", this.timestamp.display(user.user.createdAt), true)
             .addField("❯ Server Join Date", user.joinedTimestamp ? this.timestamp.display(user.joinedTimestamp) : "Unknown", true)
             .addField("❯ Nickname", user.nickname || "None", true)
-            .addField("❯ Bot?", user.bot ? "Yes" : "No", true)
+            .addField("❯ Bot?", user.user.bot ? "Yes" : "No", true)
             .addField("❯ Roles", user.roles.size - 1, true);
 
         if ((user.roles.size - 1) > 0) embed.setDescription(`<@&${user.roles.map(r => r.id).filter(r => r !== msg.guild.roles.everyone.id).join("> <@&")}>`);
