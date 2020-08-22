@@ -6,7 +6,6 @@ module.exports = class extends KlasaCommand {
     constructor(...args) {
         super(...args, {
             cooldown: 10,
-            aliases: ["np", "currentsong", "song"],
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
             description: language => language.get("COMMAND_MUSIC_DESCRIPTION"),
             extendedHelp: "No extended help available."
