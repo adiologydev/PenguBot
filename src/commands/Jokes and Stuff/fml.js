@@ -1,5 +1,5 @@
 const { Command, MessageEmbed } = require("../../index");
-const { load } = require("cheerio");
+const { parse } = require("node-html-parser");
 
 module.exports = class extends Command {
 
@@ -14,10 +14,12 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        const html = await this.fetchURL("http://www.fmylife.com/random", { type: "text" });
+        const res = await this.fetchURL("http://www.fmylife.com/random", { type: "text" })
+            .catch(() => null);
+        if (!res) throw `${this.client.emotes.cross} ***${msg.language.get("ER_CATS_DOGS")}***`;
 
-        const $ = load(html);
-        const article = $("article").find("a").first().text();
+        const root = parse(res);
+        const article = root.querySelector(".article-link").text;
 
         return msg.sendEmbed(new MessageEmbed()
             .setDescription(`**F*ck My Life**\n${article}`)

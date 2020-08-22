@@ -42,6 +42,7 @@
     "klasa-api": "github:PenguBot/klasa-api#v1-alpha",
     "kurasuta": "^2.0.0",
     "node-fetch": "^2.6.0",
+    "node-html-parser": "^1.2.20",
     "raven": "^2.6.4",
     "rethinkdbdash": "^2.3.31",
     "utf-8-validate": "^5.0.2",
