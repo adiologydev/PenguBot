@@ -1,4 +1,4 @@
-const { Inhibitor, config } = require("../index");
+const { Inhibitor } = require("../index");
 
 module.exports = class extends Inhibitor {
 
@@ -7,7 +7,7 @@ module.exports = class extends Inhibitor {
     }
 
     async run(msg, cmd) {
-        if (!cmd.patronOnly || config.patreon) return;
+        if (!cmd.patronOnly || this.client.funcs.isPatron(msg.guild)) return;
         throw `🔒 ***${msg.language.get("CMD_PATRON_ONLY")}***`;
     }
 
