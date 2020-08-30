@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  pengubot:
+    container_name: pengubot
+    image: pengubot
+    build:
+      context: .
+      args:
+        PAT: ${PAT}
+    network_mode: host
