@@ -7,4 +7,5 @@ services:
       context: .
       args:
         PAT: ${PAT}
+    restart: always
     network_mode: host
