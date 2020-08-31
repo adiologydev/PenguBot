@@ -42,12 +42,12 @@ module.exports = class extends Command {
         filter = filter.toUpperCase();
 
         const perspective = msg.guild.settings.get("automod.perspective");
-        const keys = Object.keys(perspective);
+        const perspectiveObj = Object.fromEntries(perspective);
 
-        if (!keys.includes(filter)) return msg.sendMessage(`${this.client.emotes.cross} ***That is an Invalid Filter, please choose from \`${keys.join("`, `")}\`.***`);
+        if (!perspectiveObj[filter]) return msg.sendMessage(`${this.client.emotes.cross} ***That is an Invalid Filter, please choose from \`${Object.keys(perspectiveObj).join("`, `")}\`.***`);
         if (threshold && (threshold > 1 || threshold <= 0)) return msg.sendMessage(`${this.client.emotes.cross} ***Threshold can't be more than 1 or less than 0. i.e. 0.93***`);
 
-        const obj = perspective[filter];
+        const obj = perspectiveObj[filter];
         obj.threshold = threshold;
 
         const { errors } = await msg.guild.settings.update(`automod.perspective.${filter}`, obj, { action: "overwrite" });

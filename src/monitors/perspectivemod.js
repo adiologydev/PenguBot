@@ -20,11 +20,12 @@ module.exports = class extends Monitor {
                 comment: { text: msg.content },
                 requestedAttributes: { SEVERE_TOXICITY: {}, TOXICITY: {}, OBSCENE: {}, THREAT: {}, SEXUALLY_EXPLICIT: {}, SPAM: {}, PROFANITY: {} }
             })
-        });
+        }).catch(() => null);
 
         if (!body) return;
 
-        const perspective = msg.guild.settings.get("automod.perspective");
+        const perspectiveMap = msg.guild.settings.get("automod.perspective");
+        const perspective = Object.fromEntries(perspectiveMap);
 
         for (const key of Object.keys(body.attributeScores)) {
             if (!perspective[key].enabled) continue;
