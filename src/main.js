@@ -51,7 +51,7 @@ const sharder = new ShardingManager(join(__dirname, "PenguBot"), {
         music: { nodes: config.nodes, lyrics: config.apis.lyrics, spotify: { buffer: config.apis.spotify, token: "" } }
     },
     shardCount: config.shards,
-    ipcSocket: config.patreon ? 43269 : 43268,
+    ipcSocket: config.patreon ? 12168 : 12169,
     timeout: 60000
 });
 
