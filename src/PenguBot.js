@@ -18,3 +18,4 @@ module.exports = class extends BaseCluster {
 };
 
 process.on("uncaughtException", err => Raven.captureException(err));
+process.on("unhandledRejection", err => Raven.captureException(err));
