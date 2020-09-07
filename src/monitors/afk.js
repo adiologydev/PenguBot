@@ -22,11 +22,12 @@ module.exports = class extends Monitor {
 
     async afkMentioned(msg) {
         const mentioned = msg.mentions.users.first();
-        const afk = mentioned.settings.get("afk");
 
-        if (!afk.time) return;
+        const afkTime = mentioned.settings.get("afk.time");
+        if (!afkTime) return;
 
-        return msg.sendLocale("MONITOR_AFK_ISAFK", [mentioned.username, afk.reason, afk.time]);
+        const afkReason = mentioned.settings.get("afk.reason");
+        return msg.sendLocale("MONITOR_AFK_ISAFK", [mentioned.username, afkReason, afkTime]);
     }
 
 };
