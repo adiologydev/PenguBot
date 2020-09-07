@@ -12,6 +12,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [reason = "No reason"]) {
+        await msg.author.settings.sync();
         const afk = await msg.author.settings.get("afk");
 
         if (afk.time) {
