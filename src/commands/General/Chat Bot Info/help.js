@@ -27,20 +27,22 @@ module.exports = class extends Command {
             return msg.sendEmbed(cmdEmbed);
         }
 
+        let prefixHelp;
+        if (msg.guild) prefixHelp = `PenguBot's Prefix ${msg.guild ? `in ${msg.guild.name} is \`${msg.guild.settings.get("prefix")}\`. i.e. \`${msg.guild.settings.get("prefix")}dog\`` : `is \`p!\`. i.e. \`p!dog\``}`;
+
         const embed = new MessageEmbed()
             .setAuthor("PenguBot - Help", this.client.user.displayAvatarURL(), "https://www.pengubot.com")
-            .setDescription([`PenguBot's Prefix ${msg.guild ? `in ${msg.guild.name} is \`${msg.guild.settings.get("prefix")}\`. i.e. \`${msg.guild.settings.get("prefix")}dog\`` : `is \`p!\`. i.e. \`p!dog\``}`,
-                `❯ **All Commands:** [PenguBot.com/commands](https://www.pengubot.com/commands)`,
-                `❯ **PenguBot Discord:** [PenguBot.com/support](https://www.pengubot.com/support)`,
-                `❯ **Invite/Add PenguBot:** [PenguBot.com/invite](https://www.pengubot.com/invite)`,
-                `❯ **Support PenguBot and Premium Access:** [PenguBot.com/donate](https://pengubot.com/donate)`])
+            .setDescription([prefixHelp,
+                "",
+                `❯ **List of Commands:** [PenguBot.com/commands](https://www.pengubot.com/commands)`,
+                `❯ **Official Discord Server:** [PenguBot.com/support](https://www.pengubot.com/support)`,
+                `❯ **Add PenguBot to Your Server:** [PenguBot.com/invite](https://www.pengubot.com/invite)`,
+                `❯ **PenguBot Premium:** [PenguBot.com/premium](https://pengubot.com/premium)`])
             .setTimestamp()
             .setColor("RANDOM")
             .setFooter("PenguBot.com");
 
-        return msg.author.sendEmbed(embed)
-            .then(() => { if (msg.channel.type !== "dm") msg.sendMessage(msg.language.get("COMMAND_HELP_DM")); })
-            .catch(() => { if (msg.channel.type !== "dm") msg.sendMessage(msg.language.get("COMMAND_HELP_NODM")); });
+        return msg.sendEmbed(embed);
     }
 
 };
