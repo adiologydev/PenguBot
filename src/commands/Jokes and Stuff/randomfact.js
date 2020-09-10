@@ -13,7 +13,7 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        const data = await this.fetchURL("https://uselessfacts.jsph.pl/random.json");
+        const data = await this.fetchURL("https://uselessfacts.jsph.pl/random.json?language=en");
 
         return msg.sendEmbed(new MessageEmbed()
             .setDescription(`**Random Fact**\n\n${data.text}`)
