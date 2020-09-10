@@ -9,7 +9,7 @@ const permissionLevels = require(`./permissionLevels`);
 Client.use(require("@kcp/functions").Client);
 Client.use(require("@pengubot/kmg"));
 Client.use(require("@pengubot/music"));
-if (!config.patreon) Client.use(require("klasa-api"));
+if (config.apiEnabled) Client.use(require("klasa-api"));
 
 // Schemas
 const defaultGuildSchema = require(`./schemas/defaultGuildSchema`);

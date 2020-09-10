@@ -1,4 +1,5 @@
 const { Command, MessageEmbed } = require("../../index");
+const facts = require("../../lib/constants/facts.json");
 
 module.exports = class extends Command {
 
@@ -13,10 +14,8 @@ module.exports = class extends Command {
     }
 
     async run(msg) {
-        const data = await this.fetchURL("https://uselessfacts.jsph.pl/random.json?language=en");
-
         return msg.sendEmbed(new MessageEmbed()
-            .setDescription(`**Random Fact**\n\n${data.text}`)
+            .setDescription(`**Random Fact**\n\n${facts[Math.floor(Math.random() * facts.length)]}`)
             .setThumbnail("https://i.imgur.com/fJiD9Jo.png")
             .setColor("RANDOM"));
     }
