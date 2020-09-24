@@ -24,42 +24,40 @@ module.exports = class MemorySweeper extends Task {
 
     async run() {
         const OLD_SNOWFLAKE = SnowflakeUtil.generate(Date.now() - THRESHOLD);
-        let presences = 0, guildMembers = 0, voiceStates = 0, emojis = 0, lastMessages = 0, users = 0;
+        let presences = 0, guildMembers = 0, emojis = 0, lastMessages = 0, users = 0;
 
         // Per-Guild sweeper
-        for (const guild of this.client.guilds.values()) {
+        for (const guild of this.client.guilds.cache.values()) {
             // Clear presences
-            presences += guild.presences.size;
-            guild.presences.clear();
+            presences += guild.presences.cache.size;
+            guild.presences.cache.clear();
 
             // Clear members that haven't send a message in the last 30 minutes
             const { me } = guild;
-            for (const [id, member] of guild.members) {
+            for (const [id, member] of guild.members.cache) {
                 if (member === me) continue;
                 if (member.voice.channelID) continue;
                 if (member.lastMessageID && member.lastMessageID > OLD_SNOWFLAKE) continue;
                 guildMembers++;
-                voiceStates++;
-                guild.voiceStates.delete(id);
-                guild.members.delete(id);
+                guild.members.cache.delete(id);
             }
 
             // Clear emojis
-            emojis += guild.emojis.size;
-            guild.emojis.clear();
+            emojis += guild.emojis.cache.size;
+            guild.emojis.cache.clear();
         }
 
         // Per-Channel sweeper
-        for (const channel of this.client.channels.values()) {
+        for (const channel of this.client.channels.cache.values()) {
             if (!channel.lastMessageID) continue;
             channel.lastMessageID = null;
             lastMessages++;
         }
 
         // Per-User sweeper
-        for (const user of this.client.users.values()) {
+        for (const user of this.client.users.cache.values()) {
             if (user.lastMessageID && user.lastMessageID > OLD_SNOWFLAKE) continue;
-            this.client.users.delete(user.id);
+            this.client.users.cache.delete(user.id);
             users++;
         }
 
@@ -67,7 +65,6 @@ module.exports = class MemorySweeper extends Task {
         this.client.console.verbose(`${this.header} ${
             this.setColor(presences)} [Presence]s | ${
             this.setColor(guildMembers)} [GuildMember]s | ${
-            this.setColor(voiceStates)} [VoiceState]s | ${
             this.setColor(users)} [User]s | ${
             this.setColor(emojis)} [Emoji]s | ${
             this.setColor(lastMessages)} [Last Message]s.`);
