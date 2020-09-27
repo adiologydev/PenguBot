@@ -49,10 +49,42 @@
   resolved "https://registry.yarnpkg.com/@kcp/functions/-/functions-1.0.0.tgz#7f1b60c63bcc66094e1b088cbb97231836819bc4"
   integrity sha512-vj+wy2J+l8RvEygdl4GqmjN5YNASJXSyf3q6fcKnepCcOhrai/vb7PAuGg5ueeBmuI9aZMUQ6sim7aWD7f1MAg==
 
+"@klasa/querybuilder@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@klasa/querybuilder/-/querybuilder-0.0.1.tgz#66d2b99cb919933ec0fdc43f697590d9b57d0c82"
+  integrity sha512-DpMlgu9NHvOisRWbG0l1vHFi3f5SFowjKAIYAjl1hk9bn+N1RdpnH126YDoyeK8TsxZwszlLrPpoIS0Uoy4Q0A==
+  dependencies:
+    "@klasa/utils" "^0.0.1"
+
+"@klasa/request-handler@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@klasa/request-handler/-/request-handler-0.0.3.tgz#ed72de611ece3dd99725cb797fc13e07bb05e618"
+  integrity sha512-Z1O+Aa2kW/I4Uos4EZalByveIuQKRfuRx+JCsgsogDBd95N5Ub47AH+LEd5i+uzjnJ6iDHfodpVlaHojJ4Q+ZQ==
+
+"@klasa/settings-gateway@github:skyra-project/settings-gateway#build":
+  version "1.0.0"
+  resolved "https://codeload.github.com/skyra-project/settings-gateway/tar.gz/55ae6248bc7108ee053a39c5a212d40826228046"
+  dependencies:
+    "@discordjs/collection" "^0.1.6"
+    "@klasa/querybuilder" "^0.0.1"
+    "@klasa/request-handler" "^0.0.3"
+    "@klasa/utils" "^0.1.0"
+    "@sapphire/utilities" "github:sapphire-project/utilities#build-utilities"
+
+"@klasa/utils@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@klasa/utils/-/utils-0.0.1.tgz#af20aa4ea24fdd83c41e9afb07f829194dea6363"
+  integrity sha512-UOGHPXnbitN/fHIGODZYv8IVlpojVmMMyRYLlanN41QP+IC9oZfqihT41cBbaFtMbqF0gcw6/5mr2P6NpCV8Mg==
+
 "@klasa/utils@^0.0.8":
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/@klasa/utils/-/utils-0.0.8.tgz#8b017d8f7a771e5c1894b85f8dafefc219fc9d76"
   integrity sha512-6G/P9/HM8fTanKUFPrODFmmD3ff8Jwr7gG//2BsTeWfGBBulDn/H8ObWRJjIu81nLKX1I4iQ1jNcK5uOfso6ug==
+
+"@klasa/utils@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@klasa/utils/-/utils-0.1.0.tgz#36f07120cecdd7a751d6b3cc57d519a05e0e51cc"
+  integrity sha512-QLWYkPxnMYq0tVTbALSxEWnygX+DewC8+NEjoFdXbVIjGLfK5XhcdrkoWIok4DvQYd/Hm4/LNO9KP01RNDGzKg==
 
 "@lavacord/discord.js@^0.0.7":
   version "0.0.7"
@@ -63,7 +95,7 @@
 
 "@pengubot/kmg@github:pengubot/kmg":
   version "0.0.1-dev"
-  resolved "https://codeload.github.com/pengubot/kmg/tar.gz/62a5991983d180db2e01adab51184ba329772bb4"
+  resolved "https://codeload.github.com/pengubot/kmg/tar.gz/e746de80a9200ed3d413fc8dda70ae6a546cda3d"
 
 "@pengubot/music@github:pengubot/music#build":
   version "0.0.1"
@@ -73,6 +105,10 @@
     "@lavacord/discord.js" "^0.0.7"
     node-fetch "^2.6.0"
     node-html-parser "^1.2.20"
+
+"@sapphire/utilities@github:sapphire-project/utilities#build-utilities":
+  version "1.0.1"
+  resolved "https://codeload.github.com/sapphire-project/utilities/tar.gz/2814b52c2bbccef2ac07115eeb5c07a579a05eb8"
 
 "@sindresorhus/is@^3.1.1":
   version "3.1.2"
@@ -1008,8 +1044,9 @@ keyv@^4.0.0:
 
 "klasa@github:pengubot/klasa#stable":
   version "0.5.0"
-  resolved "https://codeload.github.com/pengubot/klasa/tar.gz/fc826247ace9fd52d72e14a34b73d0f629038557"
+  resolved "https://codeload.github.com/pengubot/klasa/tar.gz/740cfd0e3982d799d73db4cd0c5561b711ad0458"
   dependencies:
+    "@klasa/settings-gateway" "github:skyra-project/settings-gateway#build"
     fs-nextra "^0.4.7"
 
 kurasuta@^2.2.0:
