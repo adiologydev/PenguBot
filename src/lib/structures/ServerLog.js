@@ -75,7 +75,7 @@ module.exports = class ServerLog {
         if (!this.guild.settings.get(`serverlogs.${this.type}`)) return;
         if (!this.guild.settings.get("channels.logs")) return;
 
-        const channel = this.guild.channels.get(this.guild.settings.get("channels.logs"));
+        const channel = this.guild.channels.cache.get(this.guild.settings.get("channels.logs"));
         if (!channel) return;
 
         if (!channel.permissionsFor(this.guild.me).has(requiredPermissions, true)) return;

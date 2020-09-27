@@ -32,7 +32,7 @@ module.exports = class extends Command {
                 .setColor(starEmbed.color)
                 .setAuthor(`${Message.author.tag} in #${Message.channel.name}`, Message.author.displayAvatarURL())
                 .setTimestamp(new Date(Message.createdTimestamp))
-                .setFooter(`⭐ ${Message.reactions.get("⭐").count} | ${msg.id}`);
+                .setFooter(`⭐ ${Message.reactions.cache.get("⭐").count} | ${msg.id}`);
             if (image) embed.setImage(image);
             if (starEmbed.description) embed.setDescription(`${jumpString}${starEmbed.description}`);
             else embed.setDescription(jumpString);
@@ -46,7 +46,7 @@ module.exports = class extends Command {
                 .setColor(15844367)
                 .setAuthor(`${Message.author.tag} in #${Message.channel.name}`, Message.author.displayAvatarURL())
                 .setTimestamp(new Date(Message.createdTimestamp))
-                .setFooter(`⭐ ${Message.reactions.get("⭐").count} | ${Message.id}`);
+                .setFooter(`⭐ ${Message.reactions.cache.get("⭐").count} | ${Message.id}`);
             if (image) embed.setImage(image);
             if (Message.content) embed.setDescription(`${jumpString}${Message.content}`);
             await starChannel.send({ embed });

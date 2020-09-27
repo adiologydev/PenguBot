@@ -30,9 +30,9 @@ module.exports = class extends Argument {
     }
 
     resolveChannel(query, guild) {
-        if (query instanceof Channel) return guild.channels.has(query.id) ? query : null;
+        if (query instanceof Channel) return guild.channels.cache.has(query.id) ? query : null;
         if (query instanceof Message) return query.guild.id === guild.id ? query.channel : null;
-        if (typeof query === "string" && CHANNEL_REGEXP.test(query)) return guild.channels.get(CHANNEL_REGEXP.exec(query)[1]);
+        if (typeof query === "string" && CHANNEL_REGEXP.test(query)) return guild.channels.cache.get(CHANNEL_REGEXP.exec(query)[1]);
         return null;
     }
 

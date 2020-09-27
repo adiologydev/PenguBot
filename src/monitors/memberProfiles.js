@@ -51,9 +51,9 @@ module.exports = class extends Monitor {
         const promises = [];
 
         for (const levelRole of levelRoles) {
-            if (msg.member.roles.has(levelRole.id)) continue;
+            if (msg.member.roles.cache.has(levelRole.id)) continue;
 
-            const role = msg.guild.roles.get(levelRole.id);
+            const role = msg.guild.roles.cache.get(levelRole.id);
             if (!role) continue;
 
             if (role.position >= msg.guild.me.roles.highest.position) continue;

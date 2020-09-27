@@ -17,7 +17,7 @@ module.exports = class extends Event {
 
     async welcomeMessage(member) {
         if (!member.guild.settings.get("toggles.joinmsg")) return;
-        const channel = await member.guild.channels.fetch(member.guild.settings.get("channels.join"));
+        const channel = await member.guild.channels.cache.get(member.guild.settings.get("channels.join"));
         if (!channel) return;
         if (!channel.postable) return;
         return channel.send(this.replaceText(member.guild.settings.get("messages.join"), member));
@@ -30,9 +30,9 @@ module.exports = class extends Event {
         const roles = member.guild.settings.get("roles.autorole");
         const fetchedRoles = [];
         for (const role of roles) {
-            if (!member.guild.roles.has(role)) continue;
+            if (!member.guild.roles.cache.has(role)) continue;
             if (role.position >= member.guild.me.roles.highest.position) continue;
-            fetchedRoles.push(member.guild.roles.get(role));
+            fetchedRoles.push(member.guild.roles.cache.get(role));
         }
 
         return member.roles.add(fetchedRoles, "PenguBot.com - Autorole Feature").catch(() => null);

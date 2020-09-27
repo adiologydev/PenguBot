@@ -8,7 +8,7 @@ module.exports = {
         if (!id || !message) throw "You must provide a valid channel ID and content.";
         let channel;
         if (Argument.regex.channel.test(id)) {
-            channel = ctx.guild.channels.get(id);
+            channel = ctx.guild.channels.cache.get(id);
         } else {
             channel = ctx.guild.channels.find(chan => chan.name === id);
         }

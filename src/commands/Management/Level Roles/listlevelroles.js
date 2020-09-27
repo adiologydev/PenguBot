@@ -22,7 +22,7 @@ module.exports = class extends Command {
             .setDescription("Scroll between pages to see the self assignable roles.")
             .setColor("#428bca")
         );
-        pages.addPage(t => t.setDescription(roles.map(role => `\`-\` ${msg.guild.roles.get(role.id) || "Role Removed"} - Level ${role.lvl}`).join("\n")));
+        pages.addPage(t => t.setDescription(roles.map(role => `\`-\` ${msg.guild.roles.cache.get(role.id) || "Role Removed"} - Level ${role.lvl}`).join("\n")));
 
         pages.run(await msg.sendMessage(`${this.client.emotes.loading} ***Loading Roles...***`), {
             time: 120000,

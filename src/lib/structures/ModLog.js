@@ -69,7 +69,7 @@ module.exports = class ModLog {
      */
     async send() {
         if (!this.guild.settings.get("channels.modlogs")) return;
-        const channel = this.guild.channels.get(this.guild.settings.get("channels.modlogs"));
+        const channel = this.guild.channels.cache.get(this.guild.settings.get("channels.modlogs"));
         if (!channel) return;
 
         await this.getCase();

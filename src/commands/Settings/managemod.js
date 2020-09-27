@@ -63,7 +63,7 @@ module.exports = class extends Command {
             .setFooter("PenguBot.com")
             .setColor("#7cf062")
             .setAuthor("Moderators - PenguBot", this.client.user.displayAvatarURL())
-            .setDescription([`${role ? `**Role:** ${msg.guild.roles.get(role)}\n` : "**Role:** None\n"}`,
+            .setDescription([`${role ? `**Role:** ${msg.guild.roles.cache.get(role)}\n` : "**Role:** None\n"}`,
                 `${users.length ? `**Members:**\n- <@${users.join("\n- <@")}>\n\n` : "**Members:** None"}`].join("\n")) });
     }
 
