@@ -14,9 +14,9 @@ module.exports = class extends Event {
         await this.leaveMessage(member);
     }
 
-    async leaveMessage(member) {
+    leaveMessage(member) {
         if (!member.guild.settings.get("toggles.leavemsg")) return;
-        const channel = await member.guild.channels.cache.get(member.guild.settings.get("channels.leave"));
+        const channel = member.guild.channels.cache.get(member.guild.settings.get("channels.leave"));
         if (!channel || (channel && !channel.postable)) return;
         return channel.send(this.replaceText(member.guild.settings.get("messages.leave"), member));
     }
