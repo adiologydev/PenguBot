@@ -15,9 +15,9 @@ module.exports = class extends Event {
         await this.autoroles(member);
     }
 
-    welcomeMessage(member) {
+    async welcomeMessage(member) {
         if (!member.guild.settings.get("toggles.joinmsg")) return;
-        const channel = member.guild.channels.get(member.guild.settings.get("channels.join"));
+        const channel = await member.guild.channels.fetch(member.guild.settings.get("channels.join"));
         if (!channel) return;
         if (!channel.postable) return;
         return channel.send(this.replaceText(member.guild.settings.get("messages.join"), member));

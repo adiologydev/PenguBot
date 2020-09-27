@@ -95,7 +95,7 @@
 
 "@pengubot/kmg@github:pengubot/kmg":
   version "0.0.1-dev"
-  resolved "https://codeload.github.com/pengubot/kmg/tar.gz/e746de80a9200ed3d413fc8dda70ae6a546cda3d"
+  resolved "https://codeload.github.com/pengubot/kmg/tar.gz/f2d37ac85cd009376870ebaae36d112ccb0f29f5"
 
 "@pengubot/music@github:pengubot/music#build":
   version "0.0.1"
@@ -1044,7 +1044,7 @@ keyv@^4.0.0:
 
 "klasa@github:pengubot/klasa#stable":
   version "0.5.0"
-  resolved "https://codeload.github.com/pengubot/klasa/tar.gz/740cfd0e3982d799d73db4cd0c5561b711ad0458"
+  resolved "https://codeload.github.com/pengubot/klasa/tar.gz/755f312be7e379dd457ee7c83bf616621ccaaffb"
   dependencies:
     "@klasa/settings-gateway" "github:skyra-project/settings-gateway#build"
     fs-nextra "^0.4.7"
