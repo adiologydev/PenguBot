@@ -94,8 +94,8 @@
     lavacord "1.1.9"
 
 "@pengubot/music@github:pengubot/music#build":
-  version "0.0.1"
-  resolved "git+ssh://git@github.com/pengubot/music.git#a7fbbe989afbd8b758e670691ea14219a3322144"
+  version "0.0.2"
+  resolved "git+ssh://git@github.com/pengubot/music.git#c4e20b44ed7001d8b49362ffbb2a0f769defacec"
   dependencies:
     "@klasa/utils" "^0.0.8"
     "@lavacord/discord.js" "^0.0.7"
