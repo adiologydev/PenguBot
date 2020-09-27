@@ -30,7 +30,6 @@
     "@k3rn31p4nic/google-translate-api": "^1.1.1",
     "@kcp/functions": "^1.0.0",
     "@lavacord/discord.js": "^0.0.7",
-    "@pengubot/kmg": "github:pengubot/kmg",
     "@pengubot/music": "github:pengubot/music#build",
     "breadtags": "github:PenguBot/bread-tags",
     "bufferutil": "^4.0.1",

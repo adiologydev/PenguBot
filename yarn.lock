@@ -93,10 +93,6 @@
   dependencies:
     lavacord "1.1.9"
 
-"@pengubot/kmg@github:pengubot/kmg":
-  version "0.0.1-dev"
-  resolved "https://codeload.github.com/pengubot/kmg/tar.gz/f2d37ac85cd009376870ebaae36d112ccb0f29f5"
-
 "@pengubot/music@github:pengubot/music#build":
   version "0.0.1"
   resolved "git+ssh://git@github.com/pengubot/music.git#a7fbbe989afbd8b758e670691ea14219a3322144"

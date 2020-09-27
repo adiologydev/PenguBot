@@ -1,6 +1,6 @@
-const { KlasaClient } = require("klasa");
+const { Schema } = require("klasa");
 
-module.exports = KlasaClient.defaultMemberSchema
+module.exports = new Schema()
 
     // Profiles
     .add("xp", "integer", { default: 0, configurable: false })
