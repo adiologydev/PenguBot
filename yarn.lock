@@ -63,7 +63,7 @@
 
 "@klasa/settings-gateway@github:skyra-project/settings-gateway#build":
   version "1.0.0"
-  resolved "https://codeload.github.com/skyra-project/settings-gateway/tar.gz/55ae6248bc7108ee053a39c5a212d40826228046"
+  resolved "https://codeload.github.com/skyra-project/settings-gateway/tar.gz/1de30154feebee6918e84c6dfdd02a55676012d9"
   dependencies:
     "@discordjs/collection" "^0.1.6"
     "@klasa/querybuilder" "^0.0.1"
@@ -95,7 +95,7 @@
 
 "@pengubot/music@github:pengubot/music#build":
   version "0.0.2"
-  resolved "git+ssh://git@github.com/pengubot/music.git#c4e20b44ed7001d8b49362ffbb2a0f769defacec"
+  resolved "git+ssh://git@github.com/pengubot/music.git#eb10e0257548a33e278bb9a32f51ccb49bb75104"
   dependencies:
     "@klasa/utils" "^0.0.8"
     "@lavacord/discord.js" "^0.0.7"
@@ -104,7 +104,7 @@
 
 "@sapphire/utilities@github:sapphire-project/utilities#build-utilities":
   version "1.0.1"
-  resolved "https://codeload.github.com/sapphire-project/utilities/tar.gz/2814b52c2bbccef2ac07115eeb5c07a579a05eb8"
+  resolved "https://codeload.github.com/sapphire-project/utilities/tar.gz/8b97a376e07bcfcfcd9a87e685c4d8fb6266f388"
 
 "@sindresorhus/is@^3.1.1":
   version "3.1.2"
