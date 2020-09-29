@@ -3,8 +3,6 @@ const { Event, config } = require("../index");
 module.exports = class extends Event {
 
     async run() {
-        await this.client.settings.sync();
-
         // Memory Sweeper task
         if (!this.client.schedule.tasks.some(task => task.taskName === "memorySweeper")) {
             await this.client.schedule.create("memorySweeper", "*/10 * * * *");

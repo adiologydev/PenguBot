@@ -15,15 +15,15 @@ Client.use(require("@pengubot/music"));
 if (config.apiEnabled) Client.use(require("klasa-api"));
 
 // Schemas
+const defaultMemberSchema = require(`./schemas/defaultMemberSchema`);
 const defaultGuildSchema = require(`./schemas/defaultGuildSchema`);
 const defaultClientSchema = require(`./schemas/defaultClientSchema`);
 const defaultUserSchema = require(`./schemas/defaultUserSchema`);
-const defaultMemberSchema = require(`./schemas/defaultMemberSchema`);
 
 class PenguClient extends Client {
 
     constructor(options) {
-        super({ ...options, permissionLevels, defaultGuildSchema, defaultClientSchema, defaultUserSchema, defaultMemberSchema });
+        super({ ...options, permissionLevels, defaultGuildSchema, defaultClientSchema, defaultUserSchema });
         this.topCache = [];
         this.health = Object.seal({
             commands: {
