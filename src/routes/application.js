@@ -9,7 +9,7 @@ module.exports = class extends Route {
     async get(request, response) {
         let [users, guilds, channels, memory, vc, cpm] = [0, 0, 0, 0, 0, 0];
 
-        const results = await this.client.shard.broadcastEval(`[this.guilds.reduce((prev, val) => val.memberCount + prev, 0), this.guilds.size, this.channels.size, (process.memoryUsage().heapUsed / 1024 / 1024), this.lavalink.players.size, this.health.commands.cmdCount[59].count]`); // eslint-disable-line max-len
+        const results = await this.client.shard.broadcastEval(`[this.guilds.cache.reduce((prev, val) => val.memberCount + prev, 0), this.guilds.cache.size, this.channels.cache.size, (process.memoryUsage().heapUsed / 1024 / 1024), this.lavalink.players.size, this.health.commands.cmdCount[59].count]`); // eslint-disable-line max-len
         for (const result of results) {
             users += result[0];
             guilds += result[1];

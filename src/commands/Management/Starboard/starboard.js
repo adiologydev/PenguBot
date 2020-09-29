@@ -16,7 +16,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [Message]) {
-        const starChannel = msg.guild.channels.find(c => c.id === msg.guild.settings.get("starboard.channel"));
+        const starChannel = msg.guild.channels.cache.find(c => c.id === msg.guild.settings.get("starboard.channel"));
         if (!starChannel || !starChannel.postable) return msg.reply("I do not have permissions to send Embeds in Starboard channel or Channel not found.");
         if (!starChannel.nsfw && msg.channel.nsfw) return msg.reply("This message is from an NSFW channel while your Starboard Channel is SFW, I can't send it there sorry!");
         const fetch = await starChannel.messages.fetch({ limit: 100 });

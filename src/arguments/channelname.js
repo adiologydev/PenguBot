@@ -11,7 +11,7 @@ module.exports = class extends Argument {
 
         const results = [];
         const reg = new RegExp(regExpEsc(arg), "i");
-        for (const channel of msg.guild.channels.values()) if (reg.test(channel.name)) results.push(channel);
+        for (const channel of msg.guild.channels.cache.values()) if (reg.test(channel.name)) results.push(channel);
 
         let querySearch;
         if (results.length > 0) {

@@ -11,7 +11,7 @@ module.exports = class extends Argument {
 
         const results = [];
         const reg = new RegExp(regExpEsc(arg), "i");
-        for (const member of msg.guild.members.values()) if (reg.test(member.user.username)) results.push(member.user);
+        for (const member of msg.guild.members.cache.values()) if (reg.test(member.user.username)) results.push(member.user);
 
         let querySearch;
         if (results.length > 0) {
@@ -35,7 +35,7 @@ module.exports = class extends Argument {
         if (typeof query === "string") {
             if (USER_REGEXP.test(query)) return guild.client.users.fetch(USER_REGEXP.exec(query)[1]).catch(() => null);
             if (/\w{1,32}#\d{4}/.test(query)) {
-                const res = guild.members.find(member => member.user.tag === query);
+                const res = guild.members.cache.find(member => member.user.tag === query);
                 return res ? res.user : null;
             }
         }
