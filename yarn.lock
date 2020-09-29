@@ -95,7 +95,7 @@
 
 "@pengubot/music@github:pengubot/music#build":
   version "0.0.2"
-  resolved "git+ssh://git@github.com/pengubot/music.git#eb10e0257548a33e278bb9a32f51ccb49bb75104"
+  resolved "git+ssh://git@github.com/pengubot/music.git#1d43ca1e59d8697eb6e6b18f3307066d2d181d8c"
   dependencies:
     "@klasa/utils" "^0.0.8"
     "@lavacord/discord.js" "^0.0.7"
