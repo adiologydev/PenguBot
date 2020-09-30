@@ -9,9 +9,9 @@ module.exports = class extends Event {
         const { guild } = msg;
         if (!guild || reaction.emoji.name !== "⭐") return;
         if (!guild.settings.get("toggles.starboard") || !guild.settings.get("starboard.channel")) return;
-        if (msg.reactions.get("⭐").count < guild.settings.get("starboard.required")) return;
+        if (msg.reactions.cache.get("⭐").count < guild.settings.get("starboard.required")) return;
 
-        const starChannel = msg.guild.channels.get(msg.guild.settings.get("starboard.channel"));
+        const starChannel = msg.guild.channels.cache.get(msg.guild.settings.get("starboard.channel"));
         if (!starChannel || !starChannel.postable || !starChannel.embedable) return;
         if (!starChannel.nsfw && msg.channel.nsfw) return;
         const fetch = await starChannel.messages.fetch({ limit: 100 });
@@ -27,7 +27,7 @@ module.exports = class extends Event {
                 .setColor(starEmbed.color)
                 .setAuthor(`${msg.author.tag} in #${msg.channel.name}`, msg.author.displayAvatarURL())
                 .setTimestamp(new Date(msg.createdTimestamp))
-                .setFooter(`⭐ ${msg.reactions.get("⭐").count} | ${msg.id}`);
+                .setFooter(`⭐ ${msg.reactions.cache.get("⭐").count} | ${msg.id}`);
             if (image) embed.setImage(image);
             if (msg.content) embed.setDescription(`${jumpString}${msg.content}`);
             else embed.setDescription(jumpString);
@@ -45,7 +45,7 @@ module.exports = class extends Event {
                 .setColor(15844367)
                 .setAuthor(`${msg.author.tag} in #${msg.channel.name}`, msg.author.displayAvatarURL())
                 .setTimestamp(new Date(msg.createdTimestamp))
-                .setFooter(`⭐ ${msg.reactions.get("⭐").count} | ${msg.id}`);
+                .setFooter(`⭐ ${msg.reactions.cache.get("⭐").count} | ${msg.id}`);
             if (image) embed.setImage(image);
             if (msg.content) embed.setDescription(`${jumpString}${msg.content}`);
             else embed.setDescription(jumpString);

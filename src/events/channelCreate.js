@@ -12,7 +12,7 @@ module.exports = class extends Event {
             .setMessage(`📗 **#${channel.name}** (${channel.id}) channel was \`created\``)
             .send();
 
-        const role = channel.guild.roles.filter(r => r.name === "PENGU_MUTED");
+        const role = channel.guild.roles.cache.filter(r => r.name === "PENGU_MUTED");
         if (role) await channel.updateOverwrite(role, { SEND_MESSAGES: false, ADD_REACTIONS: false, CONNECT: false }, `New Channel Created`).catch(() => null);
     }
 

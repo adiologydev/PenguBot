@@ -9,7 +9,7 @@ module.exports = class extends Event {
         if (!guild || reaction.emoji.name !== "⭐") return;
         if (!guild.settings.get("toggles.starboard") || !guild.settings.get("starboard.channel")) return;
 
-        const starChannel = msg.guild.channels.get(msg.guild.settings.get("starboard.channel"));
+        const starChannel = msg.guild.channels.cache.get(msg.guild.settings.get("starboard.channel"));
         if (!starChannel || !starChannel.postable || !starChannel.embedable) return;
         if (!starChannel.nsfw && msg.channel.nsfw) return;
 
@@ -26,7 +26,7 @@ module.exports = class extends Event {
                 .setColor(starEmbed.color)
                 .setAuthor(`${msg.author.tag} in #${msg.channel.name}`, msg.author.displayAvatarURL())
                 .setTimestamp(new Date(msg.createdTimestamp))
-                .setFooter(`⭐ ${msg.reactions.get("⭐") ? msg.reactions.get("⭐").count : 0} | ${msg.id}`);
+                .setFooter(`⭐ ${msg.reactions.cache.get("⭐") ? msg.reactions.cache.get("⭐").count : 0} | ${msg.id}`);
 
             if (image) embed.setImage(image);
             if (msg.content) embed.setDescription(`${jumpString}${msg.content}`);
@@ -35,7 +35,7 @@ module.exports = class extends Event {
             const oldMsg = await starChannel.messages.fetch(starMsg.id).catch(() => null);
             if (!oldMsg) return;
             if (oldMsg.author.id !== this.client.user.id) return;
-            if (!msg.reactions.get("⭐")) return oldMsg.delete();
+            if (!msg.reactions.cache.get("⭐")) return oldMsg.delete();
 
             await oldMsg.edit({ embed });
         }

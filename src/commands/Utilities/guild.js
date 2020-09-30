@@ -31,7 +31,7 @@ module.exports = class extends Command {
             .addField("❯ Owner", `<@${msg.guild.ownerID}>`, true)
             .addField("❯ Members", msg.guild.memberCount, true)
             .addField("❯ Roles", msg.guild.roles.size, true)
-            .addField("❯ Channels", msg.guild.channels.size, true);
+            .addField("❯ Channels", msg.guild.channels.cache.size, true);
 
         return msg.sendEmbed(embed);
     }

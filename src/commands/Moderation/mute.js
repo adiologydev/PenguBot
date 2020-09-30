@@ -23,7 +23,7 @@ module.exports = class extends Command {
         if (member.id === this.client.user.id) return msg.reply(`${this.client.emotes.cross} ***Why would you want to mute Pengu?***`);
 
         const roleID = msg.guild.settings.get("roles.muted");
-        if (!roleID || !msg.guild.roles.has(roleID)) await this.createRole(msg);
+        if (!roleID || !msg.guild.roles.cache.has(roleID)) await this.createRole(msg);
 
         const role = await msg.guild.roles.fetch(msg.guild.settings.get("roles.muted")).catch(() => null);
         if (!role) return msg.sendMessage("There was an error, I couldn't find the Muted role! Please try again or contact us at: https://discord.gg/u8WYw5r");
@@ -36,7 +36,7 @@ module.exports = class extends Command {
         time ? duration = new Duration(time) : null;
         if (time && (duration.offset < 1 || duration.offset > 2592000000)) throw `${this.client.emotes.cross} ***Duration is invalid, try something like 1 hour, 1 day, etc. Maximum 30 days.***`;
 
-        if (member.roles.has(role.id)) {
+        if (member.roles.cache.has(role.id)) {
             await member.roles.remove(role)
                 .catch(e => msg.reply(`${this.client.emotes.cross} ***There was an error: ${e}***`));
 
@@ -82,7 +82,7 @@ module.exports = class extends Command {
         if (errors) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: ${errors[0]}***`);
 
         const promises = [];
-        for (const channel of msg.guild.channels.values()) promises.push(channel.updateOverwrite(newRole, { SEND_MESSAGES: false, ADD_REACTIONS: false, CONNECT: false }, `Mute Command Executed By ${msg.author.tag}`));
+        for (const channel of msg.guild.channels.cache.values()) promises.push(channel.updateOverwrite(newRole, { SEND_MESSAGES: false, ADD_REACTIONS: false, CONNECT: false }, `Mute Command Executed By ${msg.author.tag}`));
         await Promise.all(promises);
     }
 

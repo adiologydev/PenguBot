@@ -14,18 +14,6 @@ const sharder = new ShardingManager(join(__dirname, "PenguBot"), {
         disableEveryone: true,
         regexPrefix: /^((?:Hey |Ok )?Pengu(?:,|!| ))/i,
         typing: false,
-        disabledEvents: [
-            "GUILD_SYNC",
-            "CHANNEL_PINS_UPDATE",
-            "USER_NOTE_UPDATE",
-            "RELATIONSHIP_ADD",
-            "RELATIONSHIP_REMOVE",
-            "USER_SETTINGS_UPDATE",
-            "VOICE_STATE_UPDATE",
-            "VOICE_SERVER_UPDATE",
-            "TYPING_START",
-            "PRESENCE_UPDATE"
-        ],
         pieceDefaults: {
             commands: { deletable: true, quotedStringSupport: true, bucket: 2 },
             rawEvents: { enabled: true }
@@ -48,7 +36,10 @@ const sharder = new ShardingManager(join(__dirname, "PenguBot"), {
         messageCacheLifetime: 120,
         commandMessageLifetime: 120,
         owners: ["136549806079344640"],
-        music: { nodes: config.nodes, lyrics: config.apis.lyrics, spotify: { buffer: config.apis.spotify, token: "" } }
+        music: { nodes: config.nodes, lyrics: config.apis.lyrics, spotify: { buffer: config.apis.spotify, token: "" } },
+        ws: {
+            intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_MEMBERS", "GUILD_BANS", "GUILD_VOICE_STATES", "GUILD_MESSAGE_REACTIONS", "DIRECT_MESSAGES", "DIRECT_MESSAGE_REACTIONS", "GUILD_PRESENCES"]
+        }
     },
     shardCount: config.shards,
     ipcSocket: config.patreon ? 12168 : 12169,
