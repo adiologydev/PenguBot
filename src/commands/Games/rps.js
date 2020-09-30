@@ -20,16 +20,16 @@ module.exports = class extends Command {
         const choice = move.toLowerCase();
         if (choice === "rock") {
             if (outcome === "rock") return msg.reply("***Rock! That's a tie!***");
-            if (outcome === "paper") return msg.reply("***Paper! I win, you loose!***");
+            if (outcome === "paper") return msg.reply("***Paper! I win, you lose!***");
             if (outcome === "scissors") return msg.reply("***Scissors! No! You won...***");
         }
         if (choice === "paper") {
             if (outcome === "rock") return msg.reply("***Rock! No! You won...***");
             if (outcome === "paper") return msg.reply("***Paper! Yeah! That's a tie!***");
-            if (outcome === "scissors") return msg.reply("***Scissors! I win, you loose!***");
+            if (outcome === "scissors") return msg.reply("***Scissors! I win, you lose!***");
         }
         if (choice === "scissors") {
-            if (outcome === "rock") return msg.reply("***Rock! I win, you loose!***");
+            if (outcome === "rock") return msg.reply("***Rock! I win, you lose!***");
             if (outcome === "paper") return msg.reply("***Paper! No! You won...***");
             if (outcome === "scissors") return msg.reply("***Scissors! Yeah! That's a tie!***");
         }
