@@ -44,10 +44,9 @@
   dependencies:
     got "^11.1.1"
 
-"@kcp/functions@^1.0.0":
+"@kcp/functions@github:pengubot/functions#build":
   version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@kcp/functions/-/functions-1.0.0.tgz#7f1b60c63bcc66094e1b088cbb97231836819bc4"
-  integrity sha512-vj+wy2J+l8RvEygdl4GqmjN5YNASJXSyf3q6fcKnepCcOhrai/vb7PAuGg5ueeBmuI9aZMUQ6sim7aWD7f1MAg==
+  resolved "https://codeload.github.com/pengubot/functions/tar.gz/4ec68a9adb89f758e281cbb09a141a27d7a2cbc4"
 
 "@klasa/querybuilder@^0.0.1":
   version "0.0.1"
@@ -1040,7 +1039,7 @@ keyv@^4.0.0:
 
 "klasa@github:pengubot/klasa#stable":
   version "0.5.0"
-  resolved "https://codeload.github.com/pengubot/klasa/tar.gz/e10154d898652735630209fc1e591d1bb8cf1102"
+  resolved "https://codeload.github.com/pengubot/klasa/tar.gz/42dc3f87073ebb6e747ed9e5d625d682c48dab7e"
   dependencies:
     "@klasa/settings-gateway" "github:skyra-project/settings-gateway#build"
     fs-nextra "^0.4.7"
