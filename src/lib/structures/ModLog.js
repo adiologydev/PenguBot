@@ -68,8 +68,10 @@ module.exports = class ModLog {
      * @returns {Promise<KlasaMessage>}
      */
     async send() {
-        if (!this.guild.settings.get("channels.modlogs")) return;
-        const channel = this.guild.channels.cache.get(this.guild.settings.get("channels.modlogs"));
+        const channelId = this.guild.settings.get("channels.modlogs");
+        if (!channelId) return;
+        let channel = this.guild.channels.cache.get(channelId);
+        if (!channel) channel = this.client.channels.fetch(channelId);
         if (!channel) return;
 
         await this.getCase();
@@ -102,8 +104,7 @@ module.exports = class ModLog {
     async getCase() {
         this.case = this.guild.settings.get("modlogs").length;
         this.timestamp = new Date().getTime();
-        const { errors } = await this.guild.settings.update("modlogs", this.caseInfo);
-        if (errors) throw errors[0];
+        await this.guild.settings.update("modlogs", this.caseInfo).catch(e => console.error(`[Modlog] ${e}`));
         return this.case;
     }
 
