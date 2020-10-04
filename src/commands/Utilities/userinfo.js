@@ -28,7 +28,7 @@ module.exports = class extends Command {
             .addField("❯ Server Join Date", user.joinedTimestamp ? this.timestamp.display(user.joinedTimestamp) : "Unknown", true)
             .addField("❯ Nickname", user.nickname || "None", true)
             .addField("❯ Bot?", user.user.bot ? "Yes" : "No", true)
-            .addField("❯ Roles", user.roles.size - 1, true);
+            .addField("❯ Roles", user.roles.cache.size - 1, true);
 
         if ((user.roles.size - 1) > 0) embed.setDescription(`<@&${user.roles.map(r => r.id).filter(r => r !== msg.guild.roles.everyone.id).join("> <@&")}>`);
         return msg.sendEmbed(embed);

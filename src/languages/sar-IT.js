@@ -456,7 +456,8 @@ module.exports = class extends Language {
 
             // Monitors
             MONITOR_AFK_REMOVED: username => `Welcome back **${username}**, I have removed you from AFK.`,
-            MONITOR_AFK_ISAFK: (username, reason, time) => `**${username}** is currently AFK for \`${reason}\` - ${Duration.toNow(time)} ago`
+            MONITOR_AFK_ISAFK: (username, reason, time) => `**${username}** is currently AFK for \`${reason}\` - ${Duration.toNow(time)} ago`,
+            settingGatewayDuplicateValue: "That value already exists, please provide a different one."
         };
     }
 
