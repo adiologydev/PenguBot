@@ -11,7 +11,7 @@ module.exports = class extends Command {
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
             description: language => language.get("COMMAND_MAKE_MOD_DESCRPTION"),
-            usage: "<add|remove|list> [member:membername|role:rolename]",
+            usage: "<add|remove|list> [member:member|role:rolename]",
             usageDelim: " ",
             subcommands: true,
             extendedHelp: "No extended help available."
