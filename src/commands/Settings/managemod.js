@@ -24,7 +24,7 @@ module.exports = class extends Command {
         const type = memberOrRole instanceof Role ? "role" : "member";
         if (type === "member") {
             if (msg.guild.settings.get("users.mod").includes(memberOrRole)) return msg.sendMessage(`${this.client.emotes.cross} ***That user is already a Moderator, try another user or removing them first.***`);
-            await msg.guild.settings.update("users.mod", memberOrRole.id, { guild: msg.guild }).catch(e => {
+            await msg.guild.settings.update("users.mod", memberOrRole, { arrayAction: "add", guild: msg.guild }).catch(e => {
                 console.error(`${this.name} error:\n${e}`);
                 throw `${this.client.emotes.cross} ***There was an error: \`${e}\`***`;
             });
@@ -32,7 +32,7 @@ module.exports = class extends Command {
         }
         if (type === "role") {
             if (msg.guild.settings.get("roles.mod") === memberOrRole.id) return msg.sendMessage(`${this.client.emotes.cross} ***That role is already a Moderator, try another role or removing it first.***`);
-            await msg.guild.settings.update("roles.mod", memberOrRole.id, { guild: msg.guild }).catch(e => {
+            await msg.guild.settings.update("roles.mod", memberOrRole, { guild: msg.guild }).catch(e => {
                 console.error(`${this.name} error:\n${e}`);
                 throw `${this.client.emotes.cross} ***There was an error: \`${e}\`***`;
             });
@@ -46,7 +46,7 @@ module.exports = class extends Command {
         const type = memberOrRole instanceof Role ? "role" : "member";
         if (type === "member") {
             if (!msg.guild.settings.get("users.mod").includes(memberOrRole.id)) return msg.sendMessage(`${this.client.emotes.cross} ***That user is not a Moderator, try another user or adding them first.***`);
-            await msg.guild.settings.update("users.mod", memberOrRole.id, { guild: msg.guild }).catch(e => {
+            await msg.guild.settings.update("users.mod", memberOrRole, { arrayAction: "remove", guild: msg.guild }).catch(e => {
                 console.error(`${this.name} error:\n${e}`);
                 throw `${this.client.emotes.cross} ***There was an error: \`${e}\`***`;
             });

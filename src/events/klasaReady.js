@@ -23,11 +23,6 @@ module.exports = class extends Event {
             await this.client.schedule.create("datadog", "*/1 * * * *");
         }
 
-        // Clean Guilds Task
-        if (!this.client.schedule.tasks.some(task => task.taskName === "cleanGuilds")) {
-            await this.client.schedule.create("cleanGuilds", "*/15 * * * *");
-        }
-
         this.client.console.log(`[${this.client.shard.id}]: Online`);
     }
 

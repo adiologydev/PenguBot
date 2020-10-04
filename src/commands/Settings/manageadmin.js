@@ -11,7 +11,7 @@ module.exports = class extends Command {
             permissionLevel: 6,
             requiredPermissions: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
             description: language => language.get("COMMAND_MAKE_ADMIN_DESCRPTION"),
-            usage: "<add|remove|list> [member:member|role:rolename]",
+            usage: "<add|remove|list> [member:membername|role:rolename]",
             usageDelim: " ",
             subcommands: true,
             extendedHelp: "No extended help available."
@@ -24,7 +24,7 @@ module.exports = class extends Command {
         const type = memberOrRole instanceof Role ? "role" : "member";
         if (type === "member") {
             if (msg.guild.settings.get("users.admin").includes(memberOrRole)) return msg.sendMessage(`${this.client.emotes.cross} ***That user is already a Administrator, try another user or removing them first.***`);
-            await msg.guild.settings.update("users.admin", memberOrRole.id, { guild: msg.guild }).catch(e => {
+            await msg.guild.settings.update("users.admin", memberOrRole, { arrayAction: "add", guild: msg.guild }).catch(e => {
                 console.error(`${this.name} error:\n${e}`);
                 throw `${this.client.emotes.cross} ***There was an error: \`${e}\`***`;
             });
@@ -32,7 +32,7 @@ module.exports = class extends Command {
         }
         if (type === "role") {
             if (msg.guild.settings.get("roles.admin") === memberOrRole.id) return msg.sendMessage(`${this.client.emotes.cross} ***That role is already a Administrator, try another role or removing it first.***`);
-            await msg.guild.settings.update("roles.admin", memberOrRole.id, { guild: msg.guild }).catch(e => {
+            await msg.guild.settings.update("roles.admin", memberOrRole, { guild: msg.guild }).catch(e => {
                 console.error(`${this.name} error:\n${e}`);
                 throw `${this.client.emotes.cross} ***There was an error: \`${e}\`***`;
             });
@@ -46,14 +46,18 @@ module.exports = class extends Command {
         const type = memberOrRole instanceof Role ? "role" : "member";
         if (type === "member") {
             if (!msg.guild.settings.get("users.admin").includes(memberOrRole.id)) return msg.sendMessage(`${this.client.emotes.cross} ***That user is not a Administrator, try another user or adding them first.***`);
-            const { errors } = await msg.guild.settings.update("users.admin", memberOrRole.id);
-            if (errors) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: \`${errors[0]}\`***`);
+            await msg.guild.settings.update("users.admin", memberOrRole, { arrayAction: "remove", guild: msg.guild }).catch(e => {
+                console.error(`${this.name} error:\n${e}`);
+                throw `${this.client.emotes.cross} ***There was an error: \`${e}\`***`;
+            });
             return msg.sendMessage(`${this.client.emotes.check} ***${memberOrRole} has been removed from Administrator.***`);
         }
         if (type === "role") {
             if (msg.guild.settings.get("roles.admin") !== memberOrRole.id) return msg.sendMessage(`${this.client.emotes.cross} ***That role is already a Administrator, try another role or adding it first.***`);
-            const { errors } = await msg.guild.settings.reset("roles.admin");
-            if (errors) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: \`${errors[0]}\`***`);
+            await msg.guild.settings.reset("roles.admin", memberOrRole).catch(e => {
+                console.error(`${this.name} error:\n${e}`);
+                throw `${this.client.emotes.cross} ***There was an error: \`${e}\`***`;
+            });
             return msg.sendMessage(`${this.client.emotes.check} ***${memberOrRole.name} role has been removed as a Administrator.***`);
         }
     }

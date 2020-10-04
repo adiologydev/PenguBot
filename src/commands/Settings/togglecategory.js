@@ -23,7 +23,7 @@ module.exports = class extends Command {
     }
 
     async run(msg, [category]) {
-        await msg.guild.settings.update("disabledCommandsGroup", category);
+        await msg.guild.settings.update("disabledCommandsGroup", category, { guild: msg.guild });
         const exists = msg.guild.settings.get("disabledCommandsGroup").includes(category);
         return msg.sendMessage(`${exists ? this.client.emotes.cross : this.client.emotes.check} ***${category[0].toUpperCase() + category.slice(1)} commands category has been ${exists ? "Disabled" : "Enabled"} by ${msg.author.tag}!***`);
     }

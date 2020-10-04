@@ -24,7 +24,7 @@ module.exports = class extends Command {
         const type = memberOrRole instanceof Role ? "role" : "member";
         if (type === "member") {
             if (msg.guild.settings.get("users.staff").includes(memberOrRole)) return msg.sendMessage(`${this.client.emotes.cross} ***That user is already a Staff, try another user or removing them first.***`);
-            await msg.guild.settings.update("users.staff", memberOrRole.id, { guild: msg.guild }).catch(e => {
+            await msg.guild.settings.update("users.staff", memberOrRole, { arrayAction: "add", guild: msg.guild }).catch(e => {
                 console.error(`${this.name} error:\n${e}`);
                 throw `${this.client.emotes.cross} ***There was an error: \`${e}\`***`;
             });
@@ -32,7 +32,7 @@ module.exports = class extends Command {
         }
         if (type === "role") {
             if (msg.guild.settings.get("roles.staff") === memberOrRole.id) return msg.sendMessage(`${this.client.emotes.cross} ***That role is already a Staff, try another role or removing it first.***`);
-            await msg.guild.settings.update("roles.staff", memberOrRole.id, { guild: msg.guild });
+            await msg.guild.settings.update("roles.staff", memberOrRole, { guild: msg.guild });
             return msg.sendMessage(`${this.client.emotes.check} ***${memberOrRole.name} role has been added as a Staff.***`);
         }
     }
@@ -43,7 +43,7 @@ module.exports = class extends Command {
         const type = memberOrRole instanceof Role ? "role" : "member";
         if (type === "member") {
             if (!msg.guild.settings.get("users.staff").includes(memberOrRole.id)) return msg.sendMessage(`${this.client.emotes.cross} ***That user is not a Staff, try another user or adding them first.***`);
-            await msg.guild.settings.update("users.staff", memberOrRole.id, { guild: msg.guild }).catch(e => {
+            await msg.guild.settings.update("users.staff", memberOrRole.id, { arrayAction: "remove", guild: msg.guild }).catch(e => {
                 console.error(`${this.name} error:\n${e}`);
                 throw `${this.client.emotes.cross} ***There was an error: \`${e}\`***`;
             });
