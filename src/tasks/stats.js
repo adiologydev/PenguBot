@@ -8,7 +8,7 @@ module.exports = class extends Task {
 
         let [guilds, vc, users] = [0, 0, 0];
         const scount = this.client.shard.shardCount;
-        const results = await this.client.shard.broadcastEval(`[this.guilds.reduce((prev, val) => val.memberCount + prev, 0), this.guilds.size, this.music.filter(music => music.playing).size]`);
+        const results = await this.client.shard.broadcastEval(`[this.guilds.cache.reduce((prev, val) => val.memberCount + prev, 0), this.guilds.cache.size, this.music.filter(music => music.playing).size]`);
         for (const result of results) {
             users += result[0];
             guilds += result[1];

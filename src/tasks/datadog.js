@@ -5,7 +5,7 @@ module.exports = class MemorySweeper extends Task {
     async run() {
         if (!this.client.ready) return;
         let [users, guilds, vc, cpm] = [0, 0, 0, 0];
-        const results = await this.client.shard.broadcastEval(`[this.guilds.reduce((prev, val) => val.memberCount + prev, 0), this.guilds.size, this.music.filter(music => music.playing).size, this.health.commands.cmdCount[59].count]`);
+        const results = await this.client.shard.broadcastEval(`[this.guilds.cache.reduce((prev, val) => val.memberCount + prev, 0), this.guilds.cache.size, this.music.filter(music => music.playing).size, this.health.commands.cmdCount[59].count]`);
 
         for (const result of results) {
             users += result[0];
