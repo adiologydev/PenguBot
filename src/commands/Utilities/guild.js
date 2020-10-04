@@ -1,7 +1,19 @@
 const Command = require("../../lib/structures/KlasaCommand");
-const filterLevels = ["Off", "No Role", "Everyone"];
-const verificationLevels = ["None", "Low", "Medium", "(╯°□°）╯︵ ┻━┻", "┻━┻ ﾐヽ(ಠ益ಠ)ノ彡┻━┻"];
 const { MessageEmbed } = require("discord.js");
+
+const filterLevels = {
+    DISABLED: "None",
+    MEMBERS_WITHOUT_ROLES: "Low",
+    ALL_MEMBERS: "High"
+};
+
+const verificationLevels = {
+    NONE: "None",
+    LOW: "Low",
+    MEDIUM: "Medium",
+    HIGH: "(╯°□°）╯︵ ┻━┻",
+    VERY_HIGH: "┻━┻ ミヽ(ಠ 益 ಠ)ﾉ彡 ┻━┻"
+};
 
 module.exports = class extends Command {
 
@@ -30,7 +42,7 @@ module.exports = class extends Command {
             .addField("❯ Verification Level", verificationLevels[msg.guild.verificationLevel], true)
             .addField("❯ Owner", `<@${msg.guild.ownerID}>`, true)
             .addField("❯ Members", msg.guild.memberCount, true)
-            .addField("❯ Roles", msg.guild.roles.size, true)
+            .addField("❯ Roles", msg.guild.roles.cache.size, true)
             .addField("❯ Channels", msg.guild.channels.cache.size, true);
 
         return msg.sendEmbed(embed);
