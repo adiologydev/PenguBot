@@ -38,7 +38,7 @@ const sharder = new ShardingManager(join(__dirname, "PenguBot"), {
         owners: ["136549806079344640"],
         music: { nodes: config.nodes, lyrics: config.apis.lyrics, spotify: { buffer: config.apis.spotify, token: "" } },
         ws: {
-            intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_MEMBERS", "GUILD_BANS", "GUILD_VOICE_STATES", "GUILD_MESSAGE_REACTIONS", "DIRECT_MESSAGES", "DIRECT_MESSAGE_REACTIONS", "GUILD_PRESENCES"]
+            intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_MEMBERS", "GUILD_BANS", "GUILD_VOICE_STATES", "GUILD_MESSAGE_REACTIONS", "DIRECT_MESSAGES", "DIRECT_MESSAGE_REACTIONS"]
         }
     },
     shardCount: config.shards,
