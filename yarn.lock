@@ -1039,9 +1039,10 @@ keyv@^4.0.0:
 
 "klasa@github:pengubot/klasa#stable":
   version "0.5.0"
-  resolved "https://codeload.github.com/pengubot/klasa/tar.gz/42dc3f87073ebb6e747ed9e5d625d682c48dab7e"
+  resolved "https://codeload.github.com/pengubot/klasa/tar.gz/f90ff1a3fc86f867eafc3178b73ad57ec6a2a96d"
   dependencies:
     "@klasa/settings-gateway" "github:skyra-project/settings-gateway#build"
+    discord.js "^12.3.1"
     fs-nextra "^0.4.7"
 
 kurasuta@^2.2.0:
