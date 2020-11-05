@@ -94,7 +94,7 @@
 
 "@pengubot/music@github:pengubot/music#build":
   version "0.0.2"
-  resolved "git+ssh://git@github.com/pengubot/music.git#1d43ca1e59d8697eb6e6b18f3307066d2d181d8c"
+  resolved "git+ssh://git@github.com/pengubot/music.git#1c8e8d531e3f5a51844c1c2e0c18225f36aa9dd4"
   dependencies:
     "@klasa/utils" "^0.0.8"
     "@lavacord/discord.js" "^0.0.7"
@@ -526,6 +526,20 @@ discord.js@^12.3.0, discord.js@^12.3.1:
     "@discordjs/form-data" "^3.0.1"
     abort-controller "^3.0.0"
     node-fetch "^2.6.0"
+    prism-media "^1.2.2"
+    setimmediate "^1.0.5"
+    tweetnacl "^1.0.3"
+    ws "^7.3.1"
+
+discord.js@^12.4.1:
+  version "12.4.1"
+  resolved "https://registry.yarnpkg.com/discord.js/-/discord.js-12.4.1.tgz#be88bb32caa9e41eae67749a4e2387585745ac3b"
+  integrity sha512-KxOB8LOAN3GmrvkD6a6Fr1nlfArIFZ+q7Uqg4T/5duB90GZy9a0/Py2E+Y+eHKP6ZUCR2mbNMLCcHGjahiaNqA==
+  dependencies:
+    "@discordjs/collection" "^0.1.6"
+    "@discordjs/form-data" "^3.0.1"
+    abort-controller "^3.0.0"
+    node-fetch "^2.6.1"
     prism-media "^1.2.2"
     setimmediate "^1.0.5"
     tweetnacl "^1.0.3"
@@ -1042,7 +1056,6 @@ keyv@^4.0.0:
   resolved "https://codeload.github.com/pengubot/klasa/tar.gz/f90ff1a3fc86f867eafc3178b73ad57ec6a2a96d"
   dependencies:
     "@klasa/settings-gateway" "github:skyra-project/settings-gateway#build"
-    discord.js "^12.3.1"
     fs-nextra "^0.4.7"
 
 kurasuta@^2.2.0:
@@ -1184,7 +1197,7 @@ needle@^2.2.1:
     iconv-lite "^0.4.4"
     sax "^1.2.4"
 
-node-fetch@^2.6.0:
+node-fetch@^2.6.0, node-fetch@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
   integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
