@@ -3,7 +3,7 @@ const { join } = require("path");
 const config = require("../config.js");
 const PenguClient = require("./lib/structures/PenguClient");
 
-const status = "🎃 Spooky Scary Skeletons ➖ p!help | PenguBot.com";
+const status = "PenguBot.com/premium - p!help";
 
 const sharder = new ShardingManager(join(__dirname, "PenguBot"), {
     token: config.token,
