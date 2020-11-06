@@ -19,12 +19,36 @@ module.exports = class extends Command {
 
     async run(msg, [cmd]) {
         if (msg.guild.settings.get("disabledCommands").indexOf(cmd.name) === -1) {
-            await msg.guild.settings.update("disabledCommands", cmd.name, { arrayAction: "add" });
+            await this.dbQuery(msg, cmd, "add");
             return msg.sendMessage(`${this.client.emotes.check} ***${cmd.name} command has been Disabled by ${msg.author.tag}!***`);
         } else {
-            await msg.guild.settings.update("disabledCommands", cmd.name, { arrayAction: "remove" });
+            await this.dbQuery(msg, cmd, "remove");
             return msg.sendMessage(`${this.client.emotes.check} ***${cmd.name} command has been Enabled by ${msg.author.tag}!***`);
         }
+    }
+
+    async dbQuery(msg, cmd, action) {
+        const current = msg.guild.settings.get("disabledCommands");
+
+        if (action === "add") {
+            current.push(cmd.name);
+        } else if (action === "remove") {
+            const index = current.indexOf(cmd.name);
+            if (index !== -1) current.splice(index, 1);
+            else throw "The item does not exist in that array.";
+        } else { throw "Invalid operation."; }
+
+        const r = this.client.providers.default.db;
+        const query = await r.table("guilds").get(msg.guild.id)
+            .update(current)
+            .run()
+            .catch(e => {
+                console.error(`${this.name} error:\n${e}`);
+                throw `There was an error, please contact us on our support server: <https://pengubot.com/support>\n${e}`;
+            });
+
+        await msg.guild.settings.sync(true);
+        return query;
     }
 
 };
