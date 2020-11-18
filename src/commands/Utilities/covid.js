@@ -1,4 +1,5 @@
 const { Command, MessageEmbed } = require("../../index");
+const imageRegex = /<meta property="og:image" content="([^<]*)"\/>/;
 
 module.exports = class extends Command {
 
@@ -24,13 +25,20 @@ module.exports = class extends Command {
                 .addField("Recovered", `${res.recovered.toLocaleString()} (${this.formatChange(res.todayRecovered)})`, true)
                 .addField("Active", `${res.active.toLocaleString()}`, true)
                 .addField("Critical", `${res.critical.toLocaleString()}`, true)
-                .addField("Infection Rate", `${(res.cases / res.population).toFixed(4)}%`, true)
-                .setFooter(`Last Updated`)
+                .addField("Tests", `${res.tests.toLocaleString()}`, true)
+                .addField("Population", `${res.population.toLocaleString()}`, true)
+                .addField("Test Rate", `${((res.tests / res.population) * 100).toFixed(3)}%`, true)
+                .addField("Infection Rate", `${((res.cases / res.population) * 100).toFixed(3)}%`, true)
+                .setFooter(`PenguBot.com | Last Updated`)
                 .setTimestamp(res.updated));
         }
 
         country = country.toUpperCase();
         const res = await this.getData(`countries/${country.toUpperCase()}`);
+
+        const imagePrefix = ["United States", "Netherlands"].includes(res.country) ? `the_` : "";
+        const wikiRes = await this.fetchURL(`https://en.wikipedia.org/wiki/2020_coronavirus_pandemic_in_${imagePrefix}${res.country.replace("USA", "United States").replace(/ /g, "_")}`, { type: "text" }).catch(() => "");
+        const imageLink = imageRegex.exec(wikiRes) ? `${imageRegex.exec(wikiRes)[1]}?newest=${res.updated}` : "";
 
         return msg.sendEmbed(new MessageEmbed()
             .setAuthor(`${res.country} - COVID-19 Statistics`, res.countryInfo.flag, "https://pengubot.com")
@@ -40,8 +48,12 @@ module.exports = class extends Command {
             .addField("Recovered", `${res.recovered.toLocaleString()} (${this.formatChange(res.todayRecovered)})`, true)
             .addField("Active", `${res.active.toLocaleString()}`, true)
             .addField("Critical", `${res.critical.toLocaleString()}`, true)
-            .addField("Infection Rate", `${(res.cases / res.population).toFixed(4)}%`, true)
-            .setFooter(`Last Updated`)
+            .addField("Tests", `${res.tests.toLocaleString()}`, true)
+            .addField("Population", `${res.population.toLocaleString()}`, true)
+            .addField("Test Rate", `${((res.tests / res.population) * 100).toFixed(3)}%`, true)
+            .addField("Infection Rate", `${((res.cases / res.population) * 100).toFixed(3)}%`, true)
+            .setFooter(`PenguBot.com | Last Updated`)
+            .setImage(imageLink)
             .setTimestamp(res.updated));
     }
 
