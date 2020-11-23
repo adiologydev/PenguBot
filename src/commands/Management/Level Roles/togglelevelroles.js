@@ -17,7 +17,7 @@ module.exports = class extends Command {
     async run(msg) {
         const toggle = !msg.guild.settings.get("toggles.levelroles");
         await msg.guild.settings.update("toggles.levelroles", toggle);
-        return msg.sendMessage(`${toggle ? this.client.emotes.check : this.client.emotes.cross} ***${toggle ? msg.language.get("MESSAGE_LEVELROLES_ENABLED") : msg.language.get("MESSAGE_LEVELROLES_DISABLED")}`);
+        return msg.sendMessage(`${toggle ? this.client.emotes.check : this.client.emotes.cross} ${toggle ? msg.language.get("MESSAGE_LEVELROLES_ENABLED") : msg.language.get("MESSAGE_LEVELROLES_DISABLED")}`);
     }
 
 };
