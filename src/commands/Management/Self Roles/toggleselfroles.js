@@ -17,7 +17,7 @@ module.exports = class extends Command {
     async run(msg) {
         const toggle = !msg.guild.settings.get("toggles.selfroles");
         await msg.guild.settings.update("toggles.selfroles", toggle);
-        return msg.sendMessage(`${toggle ? this.client.emotes.check : this.client.emotes.cross} ***${toggle ? msg.language.get("MESSAGE_AUTOROLES_ENABLED") : msg.language.get("MESSAGE_AUTOROLES_DISABLED")}`);
+        return msg.sendMessage(`${toggle ? this.client.emotes.check : this.client.emotes.cross} ${toggle ? msg.language.get("MESSAGE_AUTOROLES_ENABLED") : msg.language.get("MESSAGE_AUTOROLES_DISABLED")}`);
     }
 
 };
