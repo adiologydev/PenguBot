@@ -11,7 +11,7 @@ module.exports = class extends Command {
             requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
             description: "Configure PenguBot on your server.",
             extendedHelp: "No extended help available.",
-            usage: "[general|music|autoroles|levelroles|selfroles|automod|logs|moderation|customcommands|greetings] [setting:string] [value:string] [...]",
+            usage: "[general|music|autoroles|levelroles|selfroles|automod|logs|moderation|starboard|customcommands|greetings] [setting:string] [value:string] [...]",
             usageDelim: " ",
             subCommands: true
         });
@@ -31,6 +31,7 @@ module.exports = class extends Command {
             .addField("🤖 Auto and AI Moderation", `${prefix}settings automod`, true)
             .addField("🗨️ Logging", `${prefix}settings logs`, true)
             .addField("⚔️ Moderation", `${prefix}settings moderation`, true)
+            .addField("⭐ Starboard", `${prefix}settings starboard`, true)
             .addField("🛠️ Custom Commands", `${prefix}settings customcommands`, true)
             .addField("💁 Welcome and Leave Messages", `${prefix}settings greetings`, true)
             .setFooter("PenguBot.com")
@@ -292,6 +293,68 @@ module.exports = class extends Command {
             }
             case "modtoggle": {
                 await this.client.commands.get("modlogs").toggle(msg);
+                break;
+            }
+            default: {
+                await msg.reply("That setting is not a valid option, please select a valid setting to update.");
+            }
+        }
+    }
+
+    // --- MODERATION SETTINGS ---
+    async moderation(msg) {
+        const prefix = msg.guild.settings.get("prefix") || "p!";
+        const embed = new MessageEmbed()
+            .setTitle("⚔️ Moderation - Settings")
+            .addField("Add Pengu Admin User/Role", `${prefix}manageadmin add <user|role>`, true)
+            .addField("Remove Pengu Admin User/Role", `${prefix}manageadmin remove <user|role>`, true)
+            .addField("List Pengu Admin Users/Roles", `${prefix}manageadmin list`, true)
+            .addField("Add Pengu Moderator User/Role", `${prefix}managemod add <user|role>`, true)
+            .addField("Remove Pengu Moderator User/Role", `${prefix}managemod remove <user|role>`, true)
+            .addField("List Pengu Moderator Users/Roles", `${prefix}managemod list`, true)
+            .setFooter("PenguBot.com")
+            .setTimestamp();
+
+        return msg.sendEmbed(embed);
+    }
+
+    // --- STARBOARD SETTINGS ---
+    async starboard(msg, [setting, ...value]) {
+        if (!setting) {
+            const prefix = msg.guild.settings.get("prefix") || "p!";
+            const embed = new MessageEmbed()
+                .setTitle("⭐ Starboad - Settings")
+                .addField("Toggle Starboard", `${prefix}settings starboard toggle`)
+                .addField("Stars Requirement", `${prefix}settings starboard required <number>`)
+                .addField("Starboard Channel", `${prefix}settings starboard channel <channel>`)
+                .setFooter("PenguBot.com")
+                .setTimestamp();
+
+            return msg.sendEmbed(embed);
+        }
+
+        setting = setting.toLowerCase();
+        switch (setting) {
+            case "toggle": {
+                await this.client.commands.get("togglestarboard").run(msg);
+                break;
+            }
+            case "required": {
+                if (!value.length) return msg.reply("You must specify a number.");
+                let num;
+                try {
+                    num = Number.parseInt(value[0]);
+                } catch (e) {
+                    return msg.reply("Not a valid number.");
+                }
+                if (!Number.isInteger(num)) return msg.reply("That is not a valid number.");
+                await this.client.commands.get("starsrequired").run(msg, [num]);
+                break;
+            }
+            case "channel": {
+                if (!value.length) return msg.reply("You must provide a channel to use this setting.");
+                const arg = await this.client.arguments.get("channelname").run(value[0], null, msg);
+                await this.client.commands.get("starboardchannel").run(msg, [arg]);
                 break;
             }
             default: {
