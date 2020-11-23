@@ -70,3 +70,7 @@ package-lock.json
 yarn-error.log
 
 dist
+
+.yarn
+.yarnrc
+.yarnrc.yml

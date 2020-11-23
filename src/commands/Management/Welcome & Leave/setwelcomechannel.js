@@ -16,9 +16,23 @@ module.exports = class extends Command {
     }
 
     async run(msg, [channel = msg.channel]) {
-        return msg.guild.settings.update("channels.join", channel.id).then(() => {
+        return this.dbQuery(msg, channel).then(() => {
             msg.sendMessage(`${this.client.emotes.check} ***${msg.language.get("MESSAGE_WELCOME_CHANNEL_SET")}***`);
         });
+    }
+
+    async dbQuery(msg, channel) {
+        const r = this.client.providers.default.db;
+        const query = await r.table("guilds").get(msg.guild.id)
+            .update({ channels: { join: channel.id } })
+            .run()
+            .catch(e => {
+                console.error(`${this.name} error:\n${e}`);
+                throw `There was an error, please contact us on our support server: <https://pengubot.com/support>\n${e}`;
+            });
+
+        await msg.guild.settings.sync(true);
+        return query;
     }
 
 };
