@@ -192,6 +192,114 @@ module.exports = class extends Command {
         }
     }
 
+    // --- SELF ROLES SETTINGS ---
+    async selfroles(msg, [setting]) {
+        if (!setting) {
+            const prefix = msg.guild.settings.get("prefix") || "p!";
+            const embed = new MessageEmbed()
+                .setTitle("🙇 Self Assignable Roles - Settings")
+                .setDescription("**Info:** These roles can be self assigned or removed by a user on themselves.")
+                .addField("Add/Remove Self Role", `${prefix}manageselfrole <role>`)
+                .addField("Toggle Self Roles", `${prefix}settings selfroles toggle`)
+                .addField("List Self Roles", `${prefix}settings selfroles list`)
+                .setFooter("PenguBot.com")
+                .setTimestamp();
+
+            return msg.sendEmbed(embed);
+        }
+
+        setting = setting.toLowerCase();
+        switch (setting) {
+            case "toggle": {
+                await this.client.commands.get("toggleselfroles").run(msg);
+                break;
+            }
+            case "list": {
+                await this.client.commands.get("selfroles").list(msg);
+                break;
+            }
+            default: {
+                await msg.reply("That setting is not a valid option, please select a valid setting to update.");
+            }
+        }
+    }
+
+    // --- AUTO MODERATION SETTINGS ---
+    async automod(msg, [setting]) {
+        if (!setting) {
+            const prefix = msg.guild.settings.get("prefix") || "p!";
+            const embed = new MessageEmbed()
+                .setTitle("🤖 AI and Auto Moderation - Settings")
+                .setDescription([
+                    "**Info:** AI Moderation system reads the message a user has sent and according to the defined threshold it will filter out the messages to keep your server clean.",
+                    "By using AI moderation, you agree to [PenguBot's Privacy Policy](https://pengubot.com/privacy)."
+                ].join("\n"))
+                .addField("Toggle Invites Deletion", `${prefix}settings automod invites`)
+                .addField("Toggle AI Moderation Filter", `${prefix}automod toggle [filter]`)
+                .addField("Change AI Filter Threshold", `${prefix}automod <filter> <value>`)
+                .setFooter("PenguBot.com")
+                .setTimestamp();
+
+            return msg.sendEmbed(embed);
+        }
+
+        setting = setting.toLowerCase();
+        switch (setting) {
+            case "invites": {
+                await this.client.commands.get("toggleinvites").run(msg);
+                break;
+            }
+            default: {
+                await msg.reply("That setting is not a valid option, please select a valid setting to update.");
+            }
+        }
+    }
+
+    // --- LOGGING SETTINGS ---
+    async logs(msg, [setting, ...value]) {
+        if (!setting) {
+            const prefix = msg.guild.settings.get("prefix") || "p!";
+            const embed = new MessageEmbed()
+                .setTitle("🗨️ Logs - Settings")
+                .setDescription("**Info:** Server logs are general user activity based and mod logs are based on moderative actions.")
+                .addField("Server Logs Channel", `${prefix}settings logs serverchannel <channel>`)
+                .addField("Toggle Server Logs", `${prefix}settings logs servertoggle [type]`)
+                .addField("Moderation Logs Channel", `${prefix}settings logs modchannel <channel>`)
+                .addField("Toggle Moderation Logs", `${prefix}settings logs modtoggle`)
+                .setFooter("PenguBot.com")
+                .setTimestamp();
+
+            return msg.sendEmbed(embed);
+        }
+
+        setting = setting.toLowerCase();
+        switch (setting) {
+            case "serverchannel": {
+                if (!value.length) return msg.reply("You must provide a channel to use this setting.");
+                const arg = await this.client.arguments.get("channelname").run(value[0], null, msg);
+                await this.client.commands.get("loggingchannel").run(msg, [arg]);
+                break;
+            }
+            case "servertoggle": {
+                await this.client.commands.get("log").run(msg, [value.length ? value[0] : null]);
+                break;
+            }
+            case "modchannel": {
+                if (!value.length) return msg.reply("You must provide a channel to use this setting.");
+                const arg = await this.client.arguments.get("channelname").run(value[0], null, msg);
+                await this.client.commands.get("modlogs").channel(msg, [arg]);
+                break;
+            }
+            case "modtoggle": {
+                await this.client.commands.get("modlogs").toggle(msg);
+                break;
+            }
+            default: {
+                await msg.reply("That setting is not a valid option, please select a valid setting to update.");
+            }
+        }
+    }
+
     // --- WELCOME AND LEAVE MESSAGE SETTINGS ---
     async greetings(msg, [setting, ...value]) {
         if (!setting) {
@@ -222,7 +330,6 @@ module.exports = class extends Command {
                 break;
             }
             case "welcomemsg": {
-                console.log(value);
                 await this.client.commands.get("setwelcomemsg").run(msg, [value.join(" ")]);
                 break;
             }
