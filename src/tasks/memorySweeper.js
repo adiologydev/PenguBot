@@ -24,14 +24,10 @@ module.exports = class MemorySweeper extends Task {
 
     async run() {
         const OLD_SNOWFLAKE = SnowflakeUtil.generate(Date.now() - THRESHOLD);
-        let presences = 0, guildMembers = 0, emojis = 0, lastMessages = 0, users = 0;
+        let guildMembers = 0, emojis = 0, lastMessages = 0, users = 0;
 
         // Per-Guild sweeper
         for (const guild of this.client.guilds.cache.values()) {
-            // Clear presences
-            presences += guild.presences.cache.size;
-            guild.presences.cache.clear();
-
             // Clear members that haven't send a message in the last 30 minutes
             const { me } = guild;
             for (const [id, member] of guild.members.cache) {
@@ -63,7 +59,6 @@ module.exports = class MemorySweeper extends Task {
 
         // Emit a log
         this.client.console.verbose(`${this.header} ${
-            this.setColor(presences)} [Presence]s | ${
             this.setColor(guildMembers)} [GuildMember]s | ${
             this.setColor(users)} [User]s | ${
             this.setColor(emojis)} [Emoji]s | ${

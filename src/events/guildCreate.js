@@ -1,17 +1,32 @@
-const { Event, config } = require("../index");
+const { Event, MessageEmbed } = require("../index");
 
 module.exports = class extends Event {
 
     async run(guild) {
         this.client.dogstats.increment("pengubot.guildsadded");
-        // Patreon Checker
-        if (config.patreon && this.client.user.id === "438049470094114816") {
-            if (!this.client.settings.get("pGuilds").includes(guild.id)) {
-                const owner = guild.owner ? guild.owner : await guild.members.fetch(guild.ownerID).catch(() => null);
-                if (owner) await guild.owner.send("<:penguError:435712890884849664> ***You may not add the Patreon Only bot to your guild, to become a Patreon visit: https://www.patreon.com/PenguBot. If you think this is a mistake and you already have Patreon, join our support guild and contact a staff member to gain your access: https://discord.gg/u8WYw5r***"); // eslint-disable-line
-                await guild.leave();
-            }
-        }
+
+        const prefix = guild.settings.get("prefix") || "p!";
+        const embed = new MessageEmbed()
+            .setAuthor("Welcome to PenguBot", this.client.user.displayAvatarURL(), "https://pengubot.com")
+            .setDescription([
+                "Hey! Thank you for inviting me to your server. I am Pengu, a highly advanced multi-purpose Discord Bot! I am here to make your server more engaging, fun, and safe.",
+                "",
+                "**Features**: Music, Social Profiles, Leaderboard, Economy, AI Moderation, Starboard, Server and Mod Logs, Join, Self & Level Roles, Custom Commands, Welcome & Leave Messages, Image Manipulation, Reddit, Jokes, Memes, and much more!",
+                "",
+                "➡️ **Official Website:** [PenguBot.com](https://pengubot.com/)",
+                "➡️ **List of Commands:** [PenguBot.com/commands](https://pengubot.com/commands)",
+                "➡️ **Add PenguBot to your server:** [PenguBot.com/invite](https://pengubot.com/invite)",
+                "➡️ **By using PenguBot you agree with:** [Terms of Service](https://pengubot.com/tos) - [Privacy Policy](https://pengubot.com/privacy)"
+            ].join("\n"))
+            .addField("Server Prefix", `${prefix}`, true)
+            .addField("Setup PenguBot", `${prefix}settings`, true)
+            .addField("Need Help?", "[Official Server](https://pengubot.com/support)", true)
+            .setFooter("PenguBot.com")
+            .setTimestamp();
+
+        const channels = guild.channels.cache.filter(c => c.type === "text");
+        const channel = channels.filter(c => c.permissionsFor(guild.me).has(["VIEW_CHANNEL", "SEND_MESSAGES", "EMBED_LINKS"]));
+        channel.first().send({ embed });
     }
 
 };

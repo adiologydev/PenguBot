@@ -24,7 +24,7 @@ module.exports = class extends Command {
         } else {
             filter = filter.toUpperCase();
             const perspective = msg.guild.settings.get("automod.perspective");
-            const keys = Object.keys(perspective);
+            const keys = [...perspective.keys()];
 
             if (!keys.includes(filter)) return msg.sendMessage(`${this.client.emotes.cross} ***That is an Invalid Filter, please choose from \`${keys.join("`, `")}\`.***`);
 
