@@ -8,11 +8,12 @@ module.exports = class extends Command {
             cooldown: 5,
             aliases: ["configure", "setup"],
             permissionLevel: 6,
-            requiredPermissions: ["USE_EXTERNAL_EMOJIS"],
+            requiredPermissions: ["USE_EXTERNAL_EMOJIS", "EMBED_LINKS"],
             description: "Configure PenguBot on your server.",
             extendedHelp: "No extended help available.",
             usage: "[general|music|autoroles|levelroles|selfroles|automod|logs|moderation|starboard|customcommands|greetings] [setting:string] [value:string] [...]",
             usageDelim: " ",
+            guarded: true,
             subCommands: true
         });
     }
@@ -51,6 +52,8 @@ module.exports = class extends Command {
                 .addField("Toggle a Command", `\`\`\`${prefix}settings general togglecmd <command>\`\`\``)
                 .addField("Toggle a Command Category", `\`\`\`${prefix}settings general togglecategory <category>\`\`\``)
                 .addField("Change Language", `\`\`\`${prefix}settings general language <language>\`\`\``)
+                .addField("Toggle Levelup Messages", `\`\`\`${prefix}settings general togglelevelup\`\`\``)
+                .addField("Change Levelup Type", `\`\`\`${prefix}settings general leveluptype <guild or global>\`\`\``)
                 .setFooter("PenguBot.com")
                 .setTimestamp();
 
@@ -64,16 +67,29 @@ module.exports = class extends Command {
                 break;
             }
             case "togglecmd": {
+                if (!value) return msg.reply("You must specify a command to toggle.");
                 const arg = await this.client.arguments.get("command").run(value);
+                if (arg.guarded) return msg.reply("This command can not be disabled as it's required by PenguBot for configuration.");
                 await this.client.commands.get("disablecmd").run(msg, [arg]);
                 break;
             }
             case "togglecategory": {
+                if (!value) return msg.reply("You must specify a command category to toggle.");
                 await this.client.commands.get("togglecategory").run(msg, [value]);
                 break;
             }
             case "language": {
+                if (!value) return msg.reply("You must specify a language to use this command.");
                 await this.client.commands.get("setlanguage").run(msg, [value]);
+                break;
+            }
+            case "togglelevelup": {
+                await this.client.commands.get("levelup").toggle(msg);
+                break;
+            }
+            case "leveluptype": {
+                if (!value) return msg.reply("You must specify a type for level up messages from `guild` or `global`.");
+                await this.client.commands.get("levelup").type(msg, [value]);
                 break;
             }
             default: {

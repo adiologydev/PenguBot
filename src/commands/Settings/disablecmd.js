@@ -40,7 +40,7 @@ module.exports = class extends Command {
 
         const r = this.client.providers.default.db;
         const query = await r.table("guilds").get(msg.guild.id)
-            .update({ disabledCommandsGroup: current })
+            .update({ disabledCommands: current })
             .run()
             .catch(e => {
                 console.error(`${this.name} error:\n${e}`);

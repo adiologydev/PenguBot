@@ -39,7 +39,7 @@ module.exports = class extends Event {
             "> ",
             "> **Features**: Music, Social Profiles, Leaderboard, Economy, AI Moderation, Starboard, Server and Mod Logs, Join, Self & Level Roles, Custom Commands, Welcome & Leave Messages, Image Manipulation, Reddit, Jokes, Memes, and much more!",
             "> ",
-            `> ➡️ **Prefix: ${prefix} | **Setup PenguBot:** ${prefix}settings`,
+            `> ➡️ **Prefix:** ${prefix} | **Setup PenguBot:** ${prefix}settings`,
             "> ",
             "> ➡️ **Official Website:** https://pengubot.com/",
             "> ➡️ **List of Commands:** https://pengubot.com/commands",
