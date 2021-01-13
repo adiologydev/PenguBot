@@ -28,7 +28,7 @@ module.exports = class extends Command {
 
             if (!keys.includes(filter)) return msg.sendMessage(`${this.client.emotes.cross} ***That is an Invalid Filter, please choose from \`${keys.join("`, `")}\`.***`);
 
-            const obj = perspective[filter];
+            const obj = perspective.get(filter);
             obj.enabled = !obj.enabled;
 
             const { errors } = await msg.guild.settings.update(`automod.perspective.${filter}`, obj, { action: "overwrite" });
