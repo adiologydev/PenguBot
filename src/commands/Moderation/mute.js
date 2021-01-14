@@ -32,8 +32,7 @@ module.exports = class extends Command {
         if (role.position > myRole.positon) return msg.sendMessage(`${this.client.emotes.cross} ***The \`PENGUMUTED\` role is above my role in the hierarchy, please change the order and try again.***`);
 
         const highestRole = member.roles.highest;
-        if (role.position < highestRole.positon) return msg.sendMessage(`${this.client.emotes.cross} ***That user has a role above my role in the hierarchy, please change the order and try again.***`);
-
+        if (myRole.position < highestRole.positon) return msg.sendMessage(`${this.client.emotes.cross} ***That user has a role above my role in the hierarchy, please change the order and try again.***`);
 
         const time = msg.flagArgs.time || msg.flagArgs.duration || msg.flagArgs.tempmute;
         let duration = null;
@@ -73,7 +72,7 @@ module.exports = class extends Command {
     }
 
     async createRole(msg) {
-        if (!msg.guild.me.permissions.has("MANAGE_ROLES")) return msg.sendMessage(`${this.client.emotes.cross} ***I do not have \`MANAGE ROLES\` permissions. Please give me it first for this to work.`);
+        if (!msg.guild.me.permissions.has("MANAGE_ROLES")) throw msg.sendMessage(`${this.client.emotes.cross} ***I do not have \`MANAGE ROLES\` permissions. Please give me it first for this to work.`);
 
         const newRole = await msg.guild.roles.create({
             data: {
@@ -83,7 +82,7 @@ module.exports = class extends Command {
         }).catch(e => msg.reply(`There was an error: ${e}`));
 
         const { errors } = await msg.guild.settings.update("roles.muted", newRole.id);
-        if (errors) return msg.sendMessage(`${this.client.emotes.cross} ***There was an error: ${errors[0]}***`);
+        if (errors) throw msg.sendMessage(`${this.client.emotes.cross} ***There was an error: ${errors[0]}***`);
 
         const promises = [];
         for (const channel of msg.guild.channels.cache.values()) promises.push(channel.updateOverwrite(newRole, { SEND_MESSAGES: false, ADD_REACTIONS: false, CONNECT: false }, `Mute Command Executed By ${msg.author.tag}`));
