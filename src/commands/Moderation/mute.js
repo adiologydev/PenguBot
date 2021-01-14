@@ -25,7 +25,7 @@ module.exports = class extends Command {
         const roleID = await this.dbQueryFetch(msg);
         if (!roleID || !msg.guild.roles.cache.has(roleID)) await this.createRole(msg);
 
-        const role = await msg.guild.roles.fetch(msg.guild.settings.get("roles.muted")).catch(() => null);
+        const role = await msg.guild.roles.fetch(await this.dbQueryFetch(msg)).catch(() => null);
         if (!role) return msg.sendMessage("There was an error, I couldn't find the Muted role! Please try again or contact us at: https://discord.gg/u8WYw5r");
 
         const myRole = msg.guild.me.roles.highest;
