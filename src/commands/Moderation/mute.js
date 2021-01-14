@@ -72,7 +72,7 @@ module.exports = class extends Command {
     }
 
     async createRole(msg) {
-        if (!msg.guild.me.permissions.has("MANAGE_ROLES")) throw msg.sendMessage(`${this.client.emotes.cross} ***I do not have \`MANAGE ROLES\` permissions. Please give me it first for this to work.`);
+        if (!msg.guild.me.permissions.has("MANAGE_ROLES")) throw msg.sendMessage(`${this.client.emotes.cross} ***I do not have \`MANAGE ROLES\` permissions. Please assign the permission and try again.***`);
 
         const newRole = await msg.guild.roles.create({
             data: {
@@ -86,7 +86,8 @@ module.exports = class extends Command {
 
         const promises = [];
         for (const channel of msg.guild.channels.cache.values()) promises.push(channel.updateOverwrite(newRole, { SEND_MESSAGES: false, ADD_REACTIONS: false, CONNECT: false }, `Mute Command Executed By ${msg.author.tag}`));
-        await Promise.all(promises);
+        // Catching for channels that don't allow permission
+        await Promise.all(promises).catch(() => null);
     }
 
 };
