@@ -79,9 +79,10 @@ module.exports = class extends Command {
                 name: "PENGUMUTED",
                 permissions: [FLAGS.VIEW_CHANNEL]
             }
-        }).catch(e => msg.reply(`There was an error: ${e}`));
+        }).catch(() => null);
+        if (!newRole) throw msg.reply(`There was an error. Make sure Pengu has appropriate permissions and try again.`);
 
-        await this.dbQuery(newRole.id);
+        await this.dbQuery(msg, newRole.id);
 
         const promises = [];
         for (const channel of msg.guild.channels.cache.values()) promises.push(channel.updateOverwrite(newRole, { SEND_MESSAGES: false, ADD_REACTIONS: false, CONNECT: false }, `Mute Command Executed By ${msg.author.tag}`));
