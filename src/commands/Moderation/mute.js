@@ -81,13 +81,26 @@ module.exports = class extends Command {
             }
         }).catch(e => msg.reply(`There was an error: ${e}`));
 
-        const { errors } = await msg.guild.settings.update("roles.muted", newRole.id);
-        if (errors) throw msg.sendMessage(`${this.client.emotes.cross} ***There was an error: ${errors[0]}***`);
+        await this.dbQuery(newRole.id);
 
         const promises = [];
         for (const channel of msg.guild.channels.cache.values()) promises.push(channel.updateOverwrite(newRole, { SEND_MESSAGES: false, ADD_REACTIONS: false, CONNECT: false }, `Mute Command Executed By ${msg.author.tag}`));
         // Catching for channels that don't allow permission
         await Promise.all(promises).catch(() => null);
+    }
+
+    async dbQuery(msg, roleID) {
+        const r = this.client.providers.default.db;
+        const query = await r.table("guilds").get(msg.guild.id)
+            .update({ roles: { muted: roleID } })
+            .run()
+            .catch(e => {
+                console.error(`${this.name} error:\n${e}`);
+                throw `There was an error, please contact us on our support server: <https://pengubot.com/support>\n${e}`;
+            });
+
+        await msg.guild.settings.sync(true);
+        return query;
     }
 
 };
