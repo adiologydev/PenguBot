@@ -29,7 +29,11 @@ module.exports = class extends Command {
         if (!role) return msg.sendMessage("There was an error, I couldn't find the Muted role! Please try again or contact us at: https://discord.gg/u8WYw5r");
 
         const myRole = msg.guild.me.roles.highest;
-        if (role.position > myRole.positon) return msg.sendMessage(`${this.client.emotes.cross} ***The \`PENGUMUTED\` role is above my role in the guild, please change the order.***`);
+        if (role.position > myRole.positon) return msg.sendMessage(`${this.client.emotes.cross} ***The \`PENGUMUTED\` role is above my role in the hierarchy, please change the order and try again.***`);
+
+        const highestRole = member.roles.highest;
+        if (role.position < highestRole.positon) return msg.sendMessage(`${this.client.emotes.cross} ***That user has a role above my role in the hierarchy, please change the order and try again.***`);
+
 
         const time = msg.flagArgs.time || msg.flagArgs.duration || msg.flagArgs.tempmute;
         let duration = null;
@@ -37,7 +41,7 @@ module.exports = class extends Command {
         if (time && (duration.offset < 1 || duration.offset > 2592000000)) throw `${this.client.emotes.cross} ***Duration is invalid, try something like 1 hour, 1 day, etc. Maximum 30 days.***`;
 
         if (member.roles.cache.has(role.id)) {
-            await member.roles.remove(role)
+            await member.roles.remove(role.id)
                 .catch(e => msg.reply(`${this.client.emotes.cross} ***There was an error: ${e}***`));
 
             if (msg.guild.settings.get("channels.modlogs")) {
@@ -51,7 +55,7 @@ module.exports = class extends Command {
 
             return msg.sendMessage(`${this.client.emotes.check} ***${member.user.tag} ${msg.language.get("MESSAGE_UNMUTED")}***`);
         } else {
-            await member.roles.add(role)
+            await member.roles.add(role.id)
                 .catch(e => msg.reply(`${this.client.emotes.cross} ***There was an error: ${e}***`));
 
             if (msg.guild.settings.get("channels.modlogs")) {
