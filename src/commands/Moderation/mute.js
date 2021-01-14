@@ -22,7 +22,7 @@ module.exports = class extends Command {
         if (member.id === msg.author.id) return msg.reply(`${this.client.emotes.cross} ***You can not mute yourself...***`);
         if (member.id === this.client.user.id) return msg.reply(`${this.client.emotes.cross} ***Why would you want to mute Pengu?***`);
 
-        const roleID = msg.guild.settings.get("roles.muted");
+        const roleID = await this.dbQueryFetch(msg);
         if (!roleID || !msg.guild.roles.cache.has(roleID)) await this.createRole(msg);
 
         const role = await msg.guild.roles.fetch(msg.guild.settings.get("roles.muted")).catch(() => null);
@@ -82,7 +82,7 @@ module.exports = class extends Command {
         }).catch(() => null);
         if (!newRole) throw msg.reply(`There was an error. Make sure Pengu has appropriate permissions and try again.`);
 
-        await this.dbQuery(msg, newRole.id);
+        await this.dbQueryUpdate(msg, newRole.id);
 
         const promises = [];
         for (const channel of msg.guild.channels.cache.values()) promises.push(channel.updateOverwrite(newRole, { SEND_MESSAGES: false, ADD_REACTIONS: false, CONNECT: false }, `Mute Command Executed By ${msg.author.tag}`));
@@ -90,7 +90,7 @@ module.exports = class extends Command {
         await Promise.all(promises).catch(() => null);
     }
 
-    async dbQuery(msg, roleID) {
+    async dbQueryUpdate(msg, roleID) {
         const r = this.client.providers.default.db;
         const query = await r.table("guilds").get(msg.guild.id)
             .update({ roles: { muted: roleID } })
@@ -102,6 +102,20 @@ module.exports = class extends Command {
 
         await msg.guild.settings.sync(true);
         return query;
+    }
+
+    async dbQueryFetch(msg) {
+        const r = this.client.providers.default.db;
+        const query = await r.table("guilds").get(msg.guild.id)
+            .getField("roles")
+            .run()
+            .catch(e => {
+                console.error(`${this.name} error:\n${e}`);
+                throw `There was an error, please contact us on our support server: <https://pengubot.com/support>\n${e}`;
+            });
+
+        if (!query.muted) return null;
+        return query.muted;
     }
 
 };
