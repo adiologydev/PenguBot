@@ -32,7 +32,7 @@
     "@lavacord/discord.js": "^0.0.7",
     "@pengubot/music": "github:pengubot/music#build",
     "breadtags": "github:PenguBot/bread-tags",
-    "bufferutil": "^4.0.1",
+    "bufferutil": "^4.0.3",
     "canvas": "^2.6.0",
     "canvas-constructor": "3.0.3",
     "discord.js": "^12.4.1",
