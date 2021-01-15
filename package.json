@@ -35,7 +35,7 @@
     "bufferutil": "^4.0.3",
     "canvas": "^2.6.0",
     "canvas-constructor": "3.0.3",
-    "discord.js": "^12.4.1",
+    "discord.js": "^12.5.1",
     "hot-shots": "^7.4.2",
     "klasa": "github:pengubot/klasa#stable",
     "klasa-api": "github:PenguBot/klasa-api#v1-alpha",
@@ -44,7 +44,7 @@
     "node-html-parser": "^1.2.20",
     "raven": "^2.6.4",
     "rethinkdbdash": "^2.3.31",
-    "utf-8-validate": "^5.0.2",
+    "utf-8-validate": "^5.0.4",
     "zlib-sync": "^0.1.6"
   },
   "devDependencies": {
