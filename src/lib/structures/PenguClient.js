@@ -11,7 +11,7 @@ const permissionLevels = require(`./permissionLevels`);
 
 // Plugins
 Client.use(require("@kcp/functions").Client);
-Client.use(require("@pengubot/music"));
+if (config.musicEnabled) Client.use(require("@pengubot/music"));
 if (config.apiEnabled) Client.use(require("klasa-api"));
 
 // Schemas
