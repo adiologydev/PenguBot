@@ -76,8 +76,12 @@ module.exports = class ModLog {
 
         await this.getCase();
 
-        if (!channel.permissionsFor(this.guild.me).has(requiredPermissions, true)) return;
-        return channel.sendEmbed(this.embed);
+        try {
+            if (!channel.permissionsFor(this.guild.me).has(requiredPermissions, true)) return;
+            return channel.sendEmbed(this.embed);
+        } catch (e) {
+            console.error(e);
+        }
     }
 
     /**

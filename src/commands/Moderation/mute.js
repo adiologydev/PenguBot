@@ -43,7 +43,7 @@ module.exports = class extends Command {
             await member.roles.remove(role.id)
                 .catch(e => msg.reply(`${this.client.emotes.cross} ***There was an error: ${e}***`));
 
-            if (msg.guild.settings.get("channels.modlogs")) {
+            if (msg.guild.settings.get("toggles.modlogs")) {
                 await new ModLog(msg.guild)
                     .setType("unmute")
                     .setModerator(msg.author)
@@ -57,7 +57,7 @@ module.exports = class extends Command {
             await member.roles.add(role.id)
                 .catch(e => msg.reply(`${this.client.emotes.cross} ***There was an error: ${e}***`));
 
-            if (msg.guild.settings.get("channels.modlogs")) {
+            if (msg.guild.settings.get("toggles.modlogs")) {
                 await new ModLog(msg.guild)
                     .setType("mute")
                     .setModerator(msg.author)
