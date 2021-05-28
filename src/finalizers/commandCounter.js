@@ -21,11 +21,11 @@ module.exports = class extends Finalizer {
 
         const updateEval = [
             `this.settings.update("counter.total", ${config.get("counter.total") + 1});`,
-            `this.settings.update("counter.commands", { name: ${cmd}, count: ${count.count + 1} }, { arrayPosition: ${index} });`]
-            .join(" ");
+            `this.settings.update("counter.commands", { name: ${cmd}, count: ${count.count + 1} }, { arrayPosition: ${index} });`,
+            `this.settings.sync(true);`
+        ].join(" ");
 
         await this.client.shard.broadcastEval(updateEval);
-        await config.sync(true);
     }
 
 };
