@@ -8,6 +8,8 @@ module.exports = class extends Finalizer {
         cmds[msg.command.name] += 1;
         this.client.health.commands.temp.count += 1;
 
+        await config.sync(true);
+
         const config = this.client.settings;
         const cmd = msg.command.name;
         let count = config.get("counter.commands").find(c => c.name === cmd);
@@ -19,6 +21,7 @@ module.exports = class extends Finalizer {
 
         await config.update("counter.total", config.get("counter.total") + 1);
         await config.update("counter.commands", { name: cmd, count: count.count + 1 }, { arrayPosition: index });
+        await config.sync(true);
     }
 
 };
