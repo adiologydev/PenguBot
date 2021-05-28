@@ -2,30 +2,24 @@ const { Finalizer } = require("klasa");
 
 module.exports = class extends Finalizer {
 
-    async run(msg) {
-        const cmds = this.client.health.commands.temp;
-        if (!cmds[msg.command.name]) cmds[msg.command.name] = 0;
-        cmds[msg.command.name] += 1;
-        this.client.health.commands.temp.count += 1;
+    async run() {
+        const r = this.client.providers.default.db;
 
-        await config.sync(true);
+        const query = await r.table("clientStorage")
+            .get(this.client.user.id)
+            .getField("counter")
+            .run();
 
-        const config = this.client.settings;
-        const cmd = msg.command.name;
-        let count = config.get("counter.commands").find(c => c.name === cmd);
-        let index = config.get("counter.commands").findIndex(c => c.name === cmd);
-        if (index === -1) {
-            count = { name: cmd, count: 0 };
-            index = null;
-        }
+        await r.table("clientStorage")
+            .get(this.client.user.id)
+            .update({
+                counter: {
+                    total: query.total + 1
+                }
+            })
+            .run();
 
-        const updateEval = [
-            `this.settings.update("counter.total", ${config.get("counter.total") + 1});`,
-            `this.settings.update("counter.commands", { name: ${cmd}, count: ${count.count + 1} }, { arrayPosition: ${index} });`,
-            `this.settings.sync(true);`
-        ].join(" ");
-
-        await this.client.shard.broadcastEval(updateEval);
+        await this.client.shard.broadcastEval("this.settings.sync(true);");
     }
 
 };
