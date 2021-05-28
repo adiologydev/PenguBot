@@ -19,8 +19,12 @@ module.exports = class extends Finalizer {
             index = null;
         }
 
-        await config.update("counter.total", config.get("counter.total") + 1);
-        await config.update("counter.commands", { name: cmd, count: count.count + 1 }, { arrayPosition: index });
+        const updateEval = [
+            `this.settings.update("counter.total", ${config.get("counter.total") + 1});`,
+            `this.settings.update("counter.commands", { name: ${cmd}, count: ${count.count + 1} }, { arrayPosition: ${index} });`]
+            .join(" ");
+
+        await this.client.shard.broadcastEval(updateEval);
         await config.sync(true);
     }
 
