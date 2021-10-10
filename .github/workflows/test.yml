@@ -12,7 +12,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node_version: [14]
+        node_version: [15]
         os: [ubuntu-latest]
     steps:
     - name: Checkout Project
@@ -28,7 +28,7 @@ jobs:
         key: ${{ runner.os }}-${{ matrix.node_version }}-${{ hashFiles(matrix.os == 'windows-latest' && '**\yarn.lock' || '**/yarn.lock') }}
     - name: Install Dependencies
       run: |
-        yarn add https://{{secrets.TOKEN}}:x-oauth-basic@github.com/PenguBot/music.git#build
+        yarn add https://{{secrets.MUSIC}}:x-oauth-basic@github.com/PenguBot/music.git#build
         yarn
     - name: Test
       run: yarn test
