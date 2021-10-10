@@ -20,13 +20,12 @@ module.exports = class extends Language {
             COMMAND_INFO: [
                 "PenguBot este uno multi-funtzione pro Discord prenu de funtzionalidadese commente: Moderatzione, Divertimentu, Utilidades de sistema et atteru.. Sviluppadu chin NodeJS utilisande diversasa tecnologiasa commente RethinkDB, JavaScript et Linux.",
                 "",
-                "â€¢ **Autore:** [AdityaTD#5346](https://www.AdityaTD.me)",
+                "â€¢ **Autore:** [AdityaTD#5346](https://www.AdityaTripathi.co.in)",
                 `â€¢ **Versione:** ${version}`,
                 "â€¢ **Situ Web:** <https://www.PenguBot.com>",
                 "â€¢ **Patreon:** <https://www.Patreon.com/PenguBot>",
                 "â€¢ **Server Discord:** <https://discord.gg/6KpTfqR>",
-                "â€¢ **GitHub:** <https://www.github.com/AdityaTD/PenguBot>",
-                "â€¢ **Database:** RethinkDB"
+                "â€¢ **GitHub:** <https://www.github.com/AdityaTD/PenguBot>"
             ],
             COMMAND_DONATE: [
                 "PenguBot funtziona in varios servers in su mundu. Custa cosa costata in denaru. Si cherese podes supportare PenguBot chin minuju. Asa a che picare carchi pretziosu poterese:",
@@ -39,7 +38,7 @@ module.exports = class extends Language {
                 "",
                 "â€¢ **Patreon:** https://www.patreon.com/PenguBot",
                 "â€¢ **Crypto Donazioni:** https://1upcoin.com/donate/adityatd",
-                "â€¢ **Paghina de PenguBot pro sas donatzionese:** https://www.PenguBot.com/donate"
+                "â€¢ **Paghina de PenguBot pro sas premium:** https://www.PenguBot.com/premium"
             ],
             COMMAND_HELP_NODM: "ðŸ“ª | Hai disabilitato i messaggi personali. Non posso inviarti i comandi in privato. Questo il link per la lista dei comandi disponibili : <https://www.pengubot.com/commands>",
             COMMAND_UPVOTE: ["Vuoi che PenguBot sia più grande e disponbile su più server che frequenti?",
