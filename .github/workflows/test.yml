@@ -28,7 +28,7 @@ jobs:
         key: ${{ runner.os }}-${{ matrix.node_version }}-${{ hashFiles(matrix.os == 'windows-latest' && '**\yarn.lock' || '**/yarn.lock') }}
     - name: Install Dependencies
       run: |
-        yarn add https://{{secrets.MUSIC}}:x-oauth-basic@github.com/PenguBot/music.git#build
+        yarn add https://{{secrets.MUSIC}}@github.com/PenguBot/music.git#build
         yarn
     - name: Test
       run: yarn test
