@@ -20,13 +20,12 @@ module.exports = class extends Language {
             COMMAND_INFO: [
                 "PenguBot è un bot multi-funzione per Discord ricco di funzionalità quali Moderazione, Divertimento, Utilità di sistema ed altro.. Sviluppato in NodeJS utilizzando diverse tecnologie quali RethinkDB, JavaScript e Linux.",
                 "",
-                "â€¢ **Autore:** [AdityaTD#5346](https://www.AdityaTD.me)",
+                "â€¢ **Autore:** [AdityaTD#5346](https://www.AdityaTripathi.co.in)",
                 `â€¢ **Versione:** ${version}`,
                 "â€¢ **Sito Web:** <https://www.PenguBot.com>",
                 "â€¢ **Patreon:** <https://www.Patreon.com/PenguBot>",
                 "â€¢ **Server Discord:** <https://discord.gg/6KpTfqR>",
-                "â€¢ **GitHub:** <https://www.github.com/AdityaTD/PenguBot>",
-                "â€¢ **Database:** RethinkDB"
+                "â€¢ **GitHub:** <https://www.github.com/AdityaTD/PenguBot>"
             ],
             COMMAND_DONATE: [
                 "PenguBot funziona su vari server attorno al mondo e questo richiede un costo. Se ti andasse di supportare PenguBot in questi costi, verrai ricompensato nei seguenti modi:",
@@ -39,7 +38,7 @@ module.exports = class extends Language {
                 "",
                 "â€¢ **Patreon:** https://www.patreon.com/PenguBot",
                 "â€¢ **Crypto Donazioni:** https://1upcoin.com/donate/adityatd",
-                "â€¢ **Pagina di PenguBot per le donazioni:** https://www.PenguBot.com/donate"
+                "â€¢ **Pagina di PenguBot per le premium:** https://www.PenguBot.com/premium"
             ],
             COMMAND_HELP_NODM: "ðŸ“ª | Hai disabilitato i messaggi personali. Non posso inviarti i comandi in privato. Questo il link per la lista dei comandi disponibili : <https://www.pengubot.com/commands>",
             COMMAND_UPVOTE: ["Vuoi che PenguBot sia più grande e disponbile su più server che frequenti?",
