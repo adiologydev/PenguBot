@@ -20,16 +20,15 @@ module.exports = class extends Language {
             COMMAND_INFO: [
                 "PenguBot est un bot Discord multi-usages rempli de fonctionnalités quels Modération, amusement, utilitaires et plus. Il est développé dans NodeJS en utilisant de nombreuses technologies différentes telles que RethinkDB, JavaScript and Linux.",
                 "",
-                "• **Auteur:** [AdityaTD#5346](https://www.AdityaTD.me)",
+                "• **Auteur:** [AdityaTD#5346](https://www.AdityaTripathi.co.in)",
                 `• **Version:** ${version}`,
                 "• **Site Internet:** <https://www.PenguBot.com>",
                 "• **Patreon:** <https://www.Patreon.com/PenguBot>",
                 "• **Discord Guilde:** <https://discord.gg/6KpTfqR>",
-                "• **GitHub:** <https://www.github.com/AdityaTD/PenguBot>",
-                "• **Database:** RethinkDB"
+                "• **GitHub:** <https://www.github.com/AdityaTD/PenguBot>"
             ],
             COMMAND_DONATE: [
-                "PenguBot fonctionne sur plusieurs serveurs loués dans le monde entier, ce qui nécessite un loyer. Si vous souhaitez soutenir PenguBot et que ses coûts financiers sont en contrepartie des avantages mentionnés ci-dessous, veuillez visiter la page suivante:",
+                "Enjoying Pengu? Then you'll definately love Pengu Premium! Support us and recieve some awesome perks for your contribution!",
                 "",
                 "__Perks__:",
                 "• Accès illimité a la durée de la play, réglage du volume et plus encore!",
@@ -38,8 +37,7 @@ module.exports = class extends Language {
                 "• Rôle spécial dans le serveur officiel de Pengu Squad",
                 "",
                 "• **Patreon:** https://www.patreon.com/PenguBot",
-                "• **Crypto Donations:** https://1upcoin.com/donate/adityatd",
-                "• **PenguBot's Donation Page:** https://www.PenguBot.com/donate"
+                "• **PenguBot's Premium Page:** https://www.PenguBot.com/premium"
             ],
             COMMAND_HELP_NODM: "📪 | Vous avez les DM désactivés, je ne pouvais pas vous envoyer les commandes dans les DM alors voici un lien vers toutes les commandes: <https://www.pengubot.com/commands>",
             COMMAND_UPVOTE: ["Voulez-vous que PenguBot devienne plus grand et soit disponible dans plus de guildes que vous visitez?",
