@@ -7,9 +7,14 @@
 <a href="https://status.pengubot.com"><img src="https://img.shields.io/uptimerobot/status/m781763015-e93639facd06b3a9001144c3.svg?style=for-the-badge"></a>
 <a href="https://github.com/AdityaTD/PenguBot/blob/master/LICENSE"><img src="https://img.shields.io/github/license/mashape/apistatus.svg?style=for-the-badge"></a>
 </p>
-<p align="center">PenguBot is mutli-purpose Discord Bot with over 43,000 guilds and 2,000,000 users.<br>
+<p align="center">PenguBot is mutli-purpose Discord Bot with over 45,500 guilds and 4,000,000 users.<br>
 Join <a href="https://discord.gg/u8WYw5r">Discord</a> for Support and Development Discussions</p>
 </div>
+
+## Hosting
+Get Instant Free €20 Credit on [Hetzner](https://bit.ly/HetznerCloudServers) with No Credit Card! Affordable and High Quality Hosting Services.
+
+[![Hetzner](https://i.imgur.com/YvwLdyZ.png)](https://bit.ly/HetznerCloudServers)
 
 ## Contributors
 [Vlad](https://github.com/KingDGrizzle) - Help with Migration Script for Database
@@ -42,13 +47,7 @@ Join <a href="https://discord.gg/u8WYw5r">Discord</a> for Support and Developmen
 
 [Jacz](https://github.com/MrJacz)
 
-## Hosting
-High Quality Affordable Hosting [GalaxyGate](https://bit.ly/GalaxyGate). Visit the link by clicking the image below to know more!
-
-[![GalaxyGate](https://i.imgur.com/tTbWta8.png)](https://bit.ly/GalaxyGate)
-
 ## Vote on Bot Lists to Support
 [![Discord Bots](https://discordbots.org/api/widget/303181184718995457.svg)](https://discordbots.org/bot/303181184718995457/vote)
-[![Bots for Discord](https://botsfordiscord.com/api/bot/303181184718995457/widget)](https://botsfordiscord.com/bots/303181184718995457)
 [![Discord Bot List](https://discordbotlist.com/bots/303181184718995457/widget)](https://discordbotlist.com/bots/303181184718995457/upvote)
 [![Discord Boats](https://discord.boats/api/widget/303181184718995457)](https://discord.boats/bot/303181184718995457/vote)
