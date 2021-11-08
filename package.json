@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/AdityaTD/PenguBot#readme",
   "dependencies": {
-    "@k3rn31p4nic/google-translate-api": "^1.1.1",
+    "@iamtraction/google-translate": "iamtraction/google-translate",
     "@kcp/functions": "github:pengubot/functions#build",
     "@lavacord/discord.js": "^0.0.7",
     "@pengubot/music": "github:pengubot/music#build",

@@ -1,5 +1,5 @@
 const { Command } = require("../../index");
-const translate = require("@k3rn31p4nic/google-translate-api");
+const translate = require("@iamtraction/google-translate");
 
 module.exports = class extends Command {
 

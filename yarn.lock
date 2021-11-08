@@ -53,6 +53,19 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@iamtraction/google-translate@https://github.com/iamtraction/google-translate.git":
+  version "1.1.3"
+  resolved "https://github.com/iamtraction/google-translate.git#363662416a4f33238c8dcb4e89bba5c4baae9df9"
+  dependencies:
+    got "^11.8.2"
+
+"@iamtraction/google-translate@iamtraction/google-translate":
+  version "1.1.3"
+  uid "363662416a4f33238c8dcb4e89bba5c4baae9df9"
+  resolved "https://codeload.github.com/iamtraction/google-translate/tar.gz/363662416a4f33238c8dcb4e89bba5c4baae9df9"
+  dependencies:
+    got "^11.8.2"
+
 "@k3rn31p4nic/google-translate-api@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@k3rn31p4nic/google-translate-api/-/google-translate-api-1.1.1.tgz#3869854f7540bbb82afc1b61890281f5513e1717"
@@ -831,6 +844,23 @@ got@^11.1.1:
   version "11.8.0"
   resolved "https://registry.yarnpkg.com/got/-/got-11.8.0.tgz#be0920c3586b07fd94add3b5b27cb28f49e6545f"
   integrity sha512-k9noyoIIY9EejuhaBNLyZ31D5328LeqnyPNXJQb2XlJZcKakLqN5m6O/ikhq/0lw56kUYS54fVm+D1x57YC9oQ==
+  dependencies:
+    "@sindresorhus/is" "^4.0.0"
+    "@szmarczak/http-timer" "^4.0.5"
+    "@types/cacheable-request" "^6.0.1"
+    "@types/responselike" "^1.0.0"
+    cacheable-lookup "^5.0.3"
+    cacheable-request "^7.0.1"
+    decompress-response "^6.0.0"
+    http2-wrapper "^1.0.0-beta.5.2"
+    lowercase-keys "^2.0.0"
+    p-cancelable "^2.0.0"
+    responselike "^2.0.0"
+
+got@^11.8.2:
+  version "11.8.2"
+  resolved "https://registry.yarnpkg.com/got/-/got-11.8.2.tgz#7abb3959ea28c31f3576f1576c1effce23f33599"
+  integrity sha512-D0QywKgIe30ODs+fm8wMZiAcZjypcCodPNuMz5H9Mny7RJ+IjJ10BdmGW7OM7fHXP+O7r6ZwapQ/YQmMSvB0UQ==
   dependencies:
     "@sindresorhus/is" "^4.0.0"
     "@szmarczak/http-timer" "^4.0.5"
