@@ -513,7 +513,7 @@ detect-libc@^1.0.2:
   resolved "https://registry.yarnpkg.com/detect-libc/-/detect-libc-1.0.3.tgz#fa137c4bd698edf55cd5cd02ac559f91a4c4ba9b"
   integrity sha1-+hN8S9aY7fVc1c0CrFWfkaTEups=
 
-discord.js@^12.3.0, discord.js@^12.4.1:
+discord.js@^12.4.1:
   version "12.5.0"
   resolved "https://registry.yarnpkg.com/discord.js/-/discord.js-12.5.0.tgz#9e29075116ba0176b52c3b3eaffa932208307d9e"
   integrity sha512-MXZcnBIosHEOX26ipWEcZdUrTyfTbb4sDYYp0Go5N05PyI78LR8Ds7yAfMu0zUDmxFHYLSYX0pCdiO2pd4CP6w==
@@ -1059,13 +1059,13 @@ keyv@^4.0.0:
     discord.js "^12.4.1"
     fs-nextra "^0.4.7"
 
-kurasuta@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/kurasuta/-/kurasuta-2.2.0.tgz#0670fe46e547fd1aa97397e6fc55f608e5372ab9"
-  integrity sha512-PgXmh66tox7wbOrePZ7ZWgXGubkVBY+6EHcpsG8Ih9ilUlvGrxznoeLWuEI43Yf6vvz3nM7MsNk2Au5uz72X1A==
+kurasuta@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/kurasuta/-/kurasuta-2.2.2.tgz#7733e7978d30fb430c138456f1f1c018af270826"
+  integrity sha512-3Nrg0LlDBodFIbqPWeToZk+yP6hm+9v9bx1nkX+UoALSLF7aUdHmC3hOHe7ruDWt/E05x/4NvnBfAsOoZRD2tw==
   dependencies:
-    discord.js "^12.3.0"
-    node-fetch "^2.6.0"
+    discord.js "^12.5.1"
+    node-fetch "^2.6.1"
     veza "^1.1.0"
 
 lavacord@1.1.9:
