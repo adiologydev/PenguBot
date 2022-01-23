@@ -40,7 +40,7 @@
     "klasa": "github:pengubot/klasa#stable",
     "klasa-api": "github:PenguBot/klasa-api#v1-alpha",
     "kurasuta": "^2.2.0",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.7",
     "node-html-parser": "^2.0.2",
     "raven": "^2.6.4",
     "rethinkdbdash": "^2.3.31",
