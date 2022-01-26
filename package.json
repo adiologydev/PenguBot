@@ -35,7 +35,7 @@
     "bufferutil": "^4.0.3",
     "canvas": "^2.6.0",
     "canvas-constructor": "3.0.3",
-    "discord.js": "^12.5.1",
+    "discord.js": "^13.6.0",
     "hot-shots": "^8.3.0",
     "klasa": "github:pengubot/klasa#stable",
     "klasa-api": "github:PenguBot/klasa-api#v1-alpha",
